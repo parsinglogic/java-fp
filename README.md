@@ -127,7 +127,7 @@ For certain methods like `addAll` that simply iterate over the elements in the a
 ## Documentation conventions
 
 In the tables that follow, I am prioritizing brevity and expressivity above definitional completeness. For more details - see the
-[javadocs](javadocs/index.html).
+<a src="javadocs/index.html">
 
 I am showing:
 
