@@ -1,0 +1,186 @@
+version: 2.1
+orbs:
+  slack: circleci/slack@3.4.2
+jobs:
+  test:
+    docker:
+      - image: cimg/openjdk:17.0.5
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+    resource_class: medium
+    working_directory: ~/java-fp
+    steps:
+      - checkout
+      - run: curl -o .jadle.jar https://nkve.github.io/maven-repo/group/jadle/latest/jadle.jar
+      - run:
+          name: test
+          command: |
+            cd jadle.config
+            java -cp ../.jadle.jar org.drum.jadle.JadleRunner test java-fp.project
+      #Circleci doesn't store test results if they all passed :| so we'll make them available as an artifact
+      - run:
+          name: zip up test results
+          when: always
+          command: tar -cvzf all_test_results.tar java-fp.target/testresults
+      - store_artifacts:
+          path: all_test_results.tar
+      - store_test_results:
+          path: java-fp.target/testresults
+      - slack/status:
+          mentions: 'nickve,van'
+
+  mvnbuild:
+    docker:
+      - image: cimg/openjdk:17.0.5
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+    resource_class: medium
+    working_directory: ~/java-fp
+    steps:
+      - checkout
+      - run:
+          name: mvn build
+          command: |
+            mvn clean install
+      - slack/status:
+          mentions: 'nickve,van'
+
+  deploy:
+    docker:
+      - image: cimg/openjdk:17.0.5
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+    resource_class: small
+    working_directory: ~/java-fp
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific trace.pom checksum
+            # when this file is changed, this key will fail
+            - v1-maven-deps-{{ checksum "jadle.config/java-fp.pom" }}-{{ checksum "jadle.config/java-fp.project" }}
+            - v1-maven-deps-{{ checksum "jadle.config/java-fp.pom" }}-
+            # Find the most recently generated cache used (from any branch)
+            - v1-maven-deps-
+      #Download jadle
+      - run:
+          name: Download jadle (hardcoded to 5.4.0 for now)
+          command: |
+            curl -o .jadle.jar https://nkve.github.io/maven-repo/group/jadle/5.4.0/artifacts/jadle.jar
+      #set up git user
+      - run:
+          name: set up circleci git user
+          command: |
+            git config --global user.email "circleci@user.com"
+            git config --global user.name "circleci"
+      ###################### master
+      - run:
+          name: Add current 'open' version of project as an environment variable (https://circleci.com/docs/2.0/env-vars/)
+          command: |
+            echo export OPEN_VERSION=`awk '$1 == "version:" {print $2}' jadle.config/java-fp.pom` >> $BASH_ENV
+      - run:
+          name: Verify OPEN_VERSION
+          command: |
+            echo environment variable 'OPEN_VERSION' is set to: $OPEN_VERSION
+      - run:
+          name: create branch for tagging
+          command: |
+            git branch $OPEN_VERSION
+      - run:
+          name: Bump the minor version of the pom on master
+          command: |
+            awk -f .circleci/incrementminorverison.awk jadle.config/java-fp.pom > jadle.config/tmp.pom
+            cp jadle.config/tmp.pom jadle.config/java-fp.pom
+      - run:
+          name: Commit updated pom on master
+          command: |
+            git status
+            git add jadle.config/java-fp.pom
+            git commit -m "[ci skip] increment minor verison in pom" 
+      ###################### OPEN_VERSION
+      - run:
+          name: Checkout OPEN branch
+          command: |
+            git checkout $OPEN_VERSION
+      - run:
+          name: Remove -SNAPSHOT from pom
+          command: |
+            sed 's/-SNAPSHOT//' jadle.config/java-fp.pom > jadle.config/java-fp.pom.tmp
+            mv jadle.config/java-fp.pom.tmp jadle.config/java-fp.pom
+            cat jadle.config/java-fp.pom
+      - run:
+          name: Add 'closed' version of project as an environment variable (https://circleci.com/docs/2.0/env-vars/)
+          command: |
+            echo export CLOSED_VERSION=`awk '$1 == "version:" {print $2}' jadle.config/java-fp.pom` >> $BASH_ENV 
+      - run:
+          name: Verify CLOSED_VERSION
+          command: |
+            echo environment variable 'CLOSED_VERSION' is set to: $CLOSED_VERSION
+      - run:
+          name: Generate and replace existing pom with one containing resolved versions of any open dependencies
+          command: |
+            java -cp .jadle.jar org.drum.jadle.JadleRunner pom jadle.config/java-fp.project > jadle.config/java-fp.pom.tmp
+            mv jadle.config/java-fp.pom.tmp jadle.config/java-fp.pom
+      - run:
+          name: Verify new pom
+          command: |
+            cat jadle.config/java-fp.pom        
+      - run:
+          name: Compile project (so we can deploy)
+          command: |
+            java -cp .jadle.jar org.drum.jadle.JadleRunner compile jadle.config/java-fp.project
+      #
+      - save_cache:
+          key: v1-maven-deps-{{ checksum "jadle.config/java-fp.pom" }}-{{ checksum "jadle.config/java-fp.project" }}
+          paths:
+            - ../local-repo/
+      - run:
+          name: clone maven-repo into internal-repo
+          command: git clone https://oauth2:$GIT_OAUTH@github.com/nkve/maven-repo.git ../internal-repo
+      - run:
+          name: jadle deploy
+          command: java -cp .jadle.jar org.drum.jadle.JadleRunner deploy jadle.config/java-fp.project
+
+      - run:
+          name: commit and push the maven jar for the main project to maven-repo
+          command: |
+            cd ../internal-repo 
+            git pull
+            git status && git add . 
+            git commit -m "Maven deploy for java-fp. $CLOSED_VERSION compiled from commit $CIRCLE_SHA1" 
+      - run:
+          name: git commit and tag the 'closed' version (don't push yet)
+          command: |
+            git status
+            git add jadle.config/java-fp.pom 
+            git commit -m "[ci skip] Closing off pom for $CLOSED_VERSION"  
+            git tag -a $CLOSED_VERSION -m "git# $CIRCLE_SHA1 circleci# $CIRCLE_BUILD_NUM"
+      ####################### PUSH all changes to git and docker
+      - run:
+          name: Push changes to the OPEN_VERSION branch, push the tag, push to master, push to maven-repo
+          command: |
+            git push origin $OPEN_VERSION
+            git push origin $CLOSED_VERSION
+            git checkout master
+            git push origin master
+            cd ../internal-repo && git push origin gh-pages
+      - slack/status:
+          mentions: 'nickve,van'
+
+workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+      - test
+      - mvnbuild:
+          requires:
+            - test
+      - deploy:
+          requires:
+            - mvnbuild
+          filters:
+            branches:
+              only: master

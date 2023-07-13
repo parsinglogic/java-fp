@@ -77,7 +77,7 @@ The main public collection classes:
 
 The classes are related in a *uses* relationship. For example `ImShelf` uses an `ImTree` to store its elements. This diagram shows these *uses* relationships:
 
-<img src="source/main/java/dev/doc-files/uses.png" width="50%" />
+<img src="source/main/java/dev/doc-files/uses.png" width="75%" />
 
 Let's describe `ImList` in some detail and then mention the other collection classes in ...er... less detail
 
@@ -127,7 +127,7 @@ For certain methods like `addAll` that simply iterate over the elements in the a
 ## Documentation conventions
 
 In the tables that follow, I am prioritizing brevity and expressivity above definitional completeness. For more details - see the
-<a src="javadocs/index.html">
+javadocs.
 
 I am showing:
 
@@ -181,7 +181,7 @@ or
 The list ["a", "b", "c] would look like this:
 
 
-<img src="source/main/java/dev/doc-files/list.png" width="20%" />
+<img src="source/main/java/dev/doc-files/list.png" width="40%" />
 
 This means that you can only *directly* access the first element in the list - although there are methods to let you do more than this  - and often these other methods are heavily optimised.
 
@@ -199,7 +199,7 @@ This means that you can only *directly* access the first element in the list - a
 
 The four methods above are the fundamental methods of `ImList.` All the other methods can be defined in terms of these - although there is a lot of optimisation going on under the hood.
 
-<img src="source/main/java/dev/doc-files/list-head-tail.png" width="50%" />
+<img src="source/main/java/dev/doc-files/list-head-tail.png" width="60%" />
 
 ### More creation
 
@@ -323,8 +323,7 @@ Note that these zip **functions** should not be confused with `Zippers` - which 
 
 Phew!
 
-There are actually many more methods - see the
-[javadocs](javadocs/index.html).
+There are actually many more methods - see the javadocs.
 
 
 
@@ -747,11 +746,11 @@ Consider an example tree with six non nil nodes:
 
 If we show the nil nodes then it looks like this:
 
-<img src="source/main/java/dev/doc-files/tree-abcdef-with-nulls.png"   width="20%" />
+<img src="source/main/java/dev/doc-files/tree-abcdef-with-nulls.png"   width="30%" />
 
 Each node also has a `size` value defined as the sum of the sizes of its children plus one. Nil Nodes are considered to have a size of zero. The size of a node, `n`, represents how many non-nil nodes there are in the tree rooted at `n`.
 
-<img src="source/main/java/dev/doc-files/tree-abcdef-with-sizes.png" width="20%" />
+<img src="source/main/java/dev/doc-files/tree-abcdef-with-sizes.png" width="30%" />
 
 Each node also has a `height` value representing the size of the longest path from that node to a leaf node.
 
@@ -759,7 +758,7 @@ The height of a node is the maximum of the heights of its children. Nil nodes ar
 
 Let's annotate our example with the heights:
 
-<img src="source/main/java/dev/doc-files/tree-abcdef-with-heights.png" width="20%" />
+<img src="source/main/java/dev/doc-files/tree-abcdef-with-heights.png" width="30%" />
 
 Because the tree is balanced, this means that the heights of the children of a node will differ by at most one.
 
@@ -769,7 +768,7 @@ Ranks start at one (exactly as Nature intended!)
 
 Let's annotate our example with the ranks:
 
-<img src="source/main/java/dev/doc-files/tree-abcdef-with-ranks.png" width="20%" />
+<img src="source/main/java/dev/doc-files/tree-abcdef-with-ranks.png" width="30%" />
 
 We don't store the ranks. To calculate the rank of a node or to find a node at a particular rank we can use the size of child nodes to derive the answer.
 

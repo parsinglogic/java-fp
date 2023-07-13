@@ -1,0 +1,62 @@
+name: test-workflow
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+
+      - name: List files in the repository
+        run: |
+          echo ${{github.workspace}}/jadle.config/java-fp.project
+          ls -l ${{github.workspace}}/jadle.config/java-fp.project
+
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Show version
+        run: java --version
+
+      - name: Maven settings 
+        run: cat /home/runner/.m2/settings.xml
+
+      - name: Install jadle
+        run: |
+          curl -O https://nkve.github.io/maven-repo/group/jadle/latest/jadle.jar
+
+      - name: compile
+        working-directory: ${{github.workspace}}/jadle.config
+        run: |
+          java -cp ${{github.workspace}}/jadle.jar org.drum.jadle.JadleRunner compile java-fp.project
+
+      - name: deploy
+        working-directory: ${{github.workspace}}/jadle.config
+        run: |
+          java -cp ${{github.workspace}}/jadle.jar org.drum.jadle.JadleRunner deploy-to-github -repo https://maven.pkg.github.com/parsinglogic/java-fp  java-fp.project
+        env:
+          MAVEN_USER_NAME: ${{ env.GITHUB_ACTOR }}
+          MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+#
+#      - name: deploy
+#        working-directory: ${{github.workspace}}
+#        run: |
+#          mvn --batch-mode deploy
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
