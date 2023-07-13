@@ -126,7 +126,8 @@ For certain methods like `addAll` that simply iterate over the elements in the a
 
 ## Documentation conventions
 
-In the tables that follow, I am prioritizing brevity and expressivity above definitional completeness. For more details - see the javadocs.
+In the tables that follow, I am prioritizing brevity and expressivity above definitional completeness. For more details - see the
+[javadocs](javadocs/index.html).
 
 I am showing:
 
@@ -322,7 +323,8 @@ Note that these zip **functions** should not be confused with `Zippers` - which 
 
 Phew!
 
-There are actually many more methods - see the javadocs.
+There are actually many more methods - see the
+[javadocs](javadocs/index.html).
 
 
 
