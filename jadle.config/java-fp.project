@@ -1,0 +1,4 @@
+localRepo:    ../../local-repo
+internalRepo: ../../internal-repo
+modules:
+  - java-fp

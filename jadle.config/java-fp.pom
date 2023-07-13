@@ -1,0 +1,18 @@
+name: java-fp
+version: 4.3.0-SNAPSHOT
+srcDirs:
+  - main/java
+
+tstDirs:
+  - test/java
+
+srcArtifacts:
+  - { g: io.mola.galimatias   , a: galimatias          , v: 0.2.0 }
+
+tstArtifacts:
+  - { g: group                , a: jadle-test-helper   , v: "[7,)" }
+  - { g: junit                , a: junit               , v: 4.12 }
+  - { g: com.sparkjava        , a: spark-core          , v: 2.9.2 }
+  - { g: com.github.sbridges  , a: ephemeralfs         , v: 1.0.1.0 }
+  - { g:  org.jsoup           , a:  jsoup              , v:  1.15.2}
+
