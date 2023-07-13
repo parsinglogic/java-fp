@@ -1,0 +1,21 @@
+.*
+!.gitignore
+!.circleci
+!.github
+
+bin/
+target/
+*.class
+*.target/
+*.ij/
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+source/pre/
+orig/
+orig.save/
+control/
