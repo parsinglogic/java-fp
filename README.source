@@ -32,12 +32,8 @@ Higher order functions are provided on collections like `map,` `fold,` `flatMap,
 
 There are some useful classes like:
 
-* [zippers][zipper]for most collections for navigating and "mutation" (What's that? You were expecting *Van Laarhoven lenses* - sigh - give me a break!)
+* [zippers][zipper] for most collections for navigating and "mutation" (What's that? You were expecting *Van Laarhoven lenses* - sigh - give me a break!)
 * text boxes that let you format fixed width font text into blocks that span lines easily.
-* text utilities on strings - like the Java ones but in an FP style
-* http utilities - GETs, POSTs etc - again in the FP style
-* A poor man's *value object* framework - that let's you write your objects with automated hashcode and equals and diagnostic display
-* A file access utility - which wraps the standard Java classes to make them slightly FP styley. No IO Monad tho.
 
 ## Java already has **some** immutable objects
 
@@ -133,7 +129,7 @@ I am showing:
 
 * The name of the function
 * An example function call
-* Ahe result of running the example
+* The result of running the example
 * A description of what the function does
 
 I am not showing:
@@ -246,13 +242,13 @@ returns the list containing the elements obtained by iterating over `iterable`.
 onIterator
 ImList.onAll([4, 5].iterator)
 [4, 5]
-ImList.onll(iterator)
+ImList.onAll(iterator)
 returns the list containing the elements obtained by iterating over `iterator`.
 
 
 -
 onPrimitiveArray
-char[] chars = {'a', 'b', 'c'}; ImList<Character> cs = ImList.onPrimitiveArray(chars)
+char[] chars = {'a', 'b', 'c'};` <br> `ImList<Character> cs = ImList.onPrimitiveArray(chars)
 [ 'a', 'b', 'c']
 ImList.onPrimitiveArray(array)
 returns a list wrapping `array`. When using `head`, it returns the boxed type of the array component type. When using `push`, you must supply the boxed equivalent of the array component type.
