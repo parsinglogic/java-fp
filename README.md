@@ -415,7 +415,7 @@ Let's describe those classes next.
 
 These classes are simple classes to store tuples - up to five elements long.
 
-## <a name="ImMaybe> ImMaybe - the equivalent of the FP Maybe.
+## <a name="ImMaybe"> ImMaybe - the equivalent of the FP Maybe.
 
 It contains either a value of some type - or `Nothing.`
 
