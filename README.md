@@ -26,9 +26,10 @@ There are:
 * There are lists of primitive types as well.
 * Tuples - pairs, triples quarted, quintets
 * Function objects that let you do partial application and "negation"
-* ImMaybe, ImEither
+* `ImMaybe` (the equivalent of Java's `Optional,` `ImEither` (The standard FP style Either)
 
 Higher order functions are provided on collections like `map,` `fold,` `flatMap,` `filter,` `contains` (and `forEach` for that buzzy side-effect-creation feeling without the shame and guilt of using a for loop)
+
 
 There are some useful classes like:
 
@@ -144,7 +145,7 @@ For `ImList`s we are half using the standard Java `toString` convention:
 
 Lists of Integers look like this: `[2, 4, 6]`, Booleans: `[true, false, false]`. The empty list is `[]`
 
-We can't bring ourselves to use the ambiguous `[ a, b, c]` for `String`s and `Character`s so we use `["a, "b", "c"]` and `['a', 'b']` instead.
+We can't bring ourselves to use the ambiguous `[ a, b, c]` for `String`s and `Character`s so we use `["a", "b", "c"]` and `['a', 'b']` instead.
 
 `ImSet`s look like this: `{1, 2, 3}`
 
@@ -172,7 +173,7 @@ A (mainly) lazy implementation of a standard functional list.
 As I expect you know, a functional list is a recursive data structure. An instance of a list is either
 * the empty list
 or
-* a reference to the first element in the list (the **head**) and a reference to the list that make up the rest of the list (the **tail**).
+* a reference to the first element in the list (the **head**) and a reference to the list that makes up the rest of the list (the **tail**).
 
 The list ["a", "b", "c] would look like this:
 
@@ -206,7 +207,7 @@ The four methods above are the fundamental methods of `ImList.` All the other me
 | **on** | `ImList.on(e1, e2, ... en)` Creates the list `[e1, e2, ... en]`<br><br>`ImList.on("a", "b")`<br>returns<br>`["a", "b"]` |
 | **onAll** | `ImList.onAll(iterable)` returns the list containing the elements obtained by iterating over `iterable`.<br><br>`ImList.onAll([4, 5])`<br>returns<br>`[4, 5]` |
 | **onIterator** | `ImList.onAll(iterator)` returns the list containing the elements obtained by iterating over `iterator`.<br><br>`ImList.onAll([4, 5].iterator)`<br>returns<br>`[4, 5]` |
-| **onPrimitiveArray** | `ImList.onPrimitiveArray(array)` returns a list wrapping `array`. When using `head`, it returns the boxed type of the array component type. When using `push`, you must supply the boxed equivalent of the array component type.<br><br>`char[] chars = {'a', 'b', 'c'};` <br> `ImList<Character> cs = ImList.onPrimitiveArray(chars)`<br>returns<br>`[ 'a', 'b', 'c']` |
+| **onPrimitiveArray** | `ImList.onPrimitiveArray(array)` returns a list that "wraps" `array`. When using `head`, it returns the **boxed** type of the array component type. When using `push`, you must supply the **boxed** equivalent of the array component type.<br><br>`char[] chars = {'a', 'b', 'c'};`<br> `ImList<Character> cs = ImList.onPrimitiveArray(chars)`<br>returns<br>`cs == [ 'a', 'b', 'c']` |
 
 ### map, fold etc
 
@@ -217,8 +218,8 @@ The four methods above are the fundamental methods of `ImList.` All the other me
 | **map** | `xs.map(fn)` returns the list whose elements are created by executing the function `fn` on each element of `xs`<br><br>`[1, 2, 3].map(i -> i + 1)`<br>returns<br>`[2, 3, 4]` |
 | **foldl** | `xs.foldl(start, fn)` returns the value that is the result of executing `fn` on start and `xs.head` and then executing `fn` on that value and the second element of `xs` and repeating this for all elemnts of `xs`<br><br>`[1, 2, 3].foldl(0, (z,i) -> z + i*i)`<br>returns<br>`14` |
 | **scanl** | `xs.scanl(start, fn)` returns the list containing the result of running `foldl` with the same arguments at each iteration over `xs`<br><br>`[1, 2, 3].scanl([], (z, i) -> z.push(i))`<br>returns<br>`[[1], [2, 1], [3, 2, 1]]` |
-| **flatMap** | `xs.flatMap(fn)` This function assumes that (and indeed is typed to make it so) `fn` takes an `A` and returns `ImList<A>` and is equivalent to `ImList.join(xs.map(fn))`<br><br>`[1, 2].flatMap(i -> ImList.repeat(i, 3)`<br>returns<br>`[1, 1, 1, 2, 2, 2, 3, 3, 3]` |
 | **join** | `ImList<ImList<A>> xs = ...; ImList<A> ys = ImList.join(xs)` xs is typed to be lists of lists. The result is a single list containg the elements of each element (which is a list) in the obvious order.<br><br>`ImList.join([ [1, 2], [3, 4], [5, 6, 7] ])`<br>returns<br>`[1, 2, 3, 4, 5, 6, 7]` |
+| **flatMap** | `xs.flatMap(fn)` This function assumes that (and indeed is typed to make it so) `fn` takes an `A` and returns `ImList<A>` and is equivalent to `ImList.join(xs.map(fn))`<br><br>`[1, 2].flatMap(i -> ImList.repeat(i, 3)`<br>returns<br>`[1, 1, 1, 2, 2, 2, 3, 3, 3]` |
 
 ### contains etc
 
@@ -230,14 +231,14 @@ All of these functions are eager rather than lazy
 | :---  | :---        |
 | **contains** | `xs.contains(el)` returns `true` iff `xs` contains an element that is equal-to `el`<br><br>`[7, 8, 9].contains(8)`<br>returns<br>`true` |
 | **contains** | `xs.contains(pred)` returns `true` iff an element of `xs` satisfies `pred`<br><br>`[7, 8, 9].contains(i -> i > 10)`<br>returns<br>`false` |
-| **containsAll** | `returns true iff `xs` contains all the elements of `ys`` <br><br>`[7, 8, 9].contains(i -> i > 10)`<br>returns<br>`xs.containsAll(ys)` |
+| **containsAll** | `xs.containsAll(ys)` returns true iff `xs` contains **all** the elements of `ys`<br><br>`[7, 8, 9].containsAll(i -> i < 10)`<br>returns<br>`true` |
 | **filter** | `xs.filter(pred)` returns the list with all the elements of `xs` that satisfy `pred` - with their order unchanged<br><br>`["to", "be", "or", "not"].filter(s -> s.length > 2)`<br>returns<br>`["not"]` |
 | **isEmpty** | `xs.isEmpty()` returns true iff `xs` is the empty list<br><br>`[7, 8, 9].isEmpty()`<br>returns<br>`false` |
-| **find** | `xs.find(pred)` returns the first element that satisfies `pred` in an `ImMaybe` - or `Nothing` if no such element exists<br><br>`[].find(i -> i == null`<br>returns<br>`Nothing` |
+| **find** | `xs.find(pred)` returns the first element that satisfies `pred` in an `ImMaybe` - or `Nothing` if no such element exists. We describe [ImMaybe](#ImMaybe) below.<br><br>`[].find(i -> i == null`<br>returns<br>`Nothing` |
 | **findIndex** | `xs.findIndex(el)` returns an `ImMaybe` containing the index (starting at 1) of the first element that satisfies `pred` - or `Nothing` if no such element exists<br><br>`[11, 99, 2].findIndex(i -> i%2 == 0)`<br>returns<br>`Just 3` |
 | **findOrElse** | `xs.findOrElse(pred, def)` returns the first element of `xs` that satisfies `pred` or `def`if no such element exists<br><br>`[11, 12, 13].findOrElse(i -> i == 10, 17)`<br>returns<br>`17` |
 | **any** | `xs.any(pred)` returns `true` iff `xs` contains any elements that satisfy `pred`<br><br>`[3, 5, 8].any(i -> i >= 8]`<br>returns<br>`true` |
-| **all** | `xs.all(pred)` returns `true` if **all** the elements of `xs` satisfy `pred`. More acurately it is true iff `xs` does **not contain any** elements that **don't** satisfy `pred`. This means that `all` is `true` trivially for `[]`<br><br>`[3, 5, 8].all(i -> i >= 8]`<br>returns<br>`false` |
+| **all** | `xs.all(pred)` returns `true` if **all** the elements of `xs` satisfy `pred`. More acurately it is true iff `xs` does **not contain any** elements that **don't** satisfy `pred`. This means that, surprisingly, `all` is `true` trivially for `[]`<br><br>`[3, 5, 8].all(i -> i >= 8]`<br>returns<br>`false` |
 
 ### take, drop etc
 
@@ -414,12 +415,15 @@ Let's describe those classes next.
 
 These classes are simple classes to store tuples - up to five elements long.
 
-## ImMaybe - the equivalent of the FP Maybe.
+## <a name="ImMaybe> ImMaybe - the equivalent of the FP Maybe.
 
 It contains either a value of some type - or `Nothing.`
 
 The idea is that it is returned fom functions that can sometimes return an object of a particular type - but they can't guarantee it -
-instead of returning null as is traditional with Java we use `ImMaybe.`
+instead of returning `null` as is traditional with Java we use `ImMaybe.`
+
+
+Just
 
 [The Haskell Maybe documentation](https://hackage.haskell.org/package/base-4.18.0.0/docs/Data-Maybe.html#t:Maybe)
 
