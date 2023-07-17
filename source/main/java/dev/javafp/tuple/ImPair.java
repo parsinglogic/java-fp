@@ -27,7 +27,6 @@ public class ImPair<U, V> extends ImValuesImpl
     {
         this.fst = fst;
         this.snd = snd;
-
     }
 
     public static <U, V> ImPair<U, V> on(U fst, V snd)

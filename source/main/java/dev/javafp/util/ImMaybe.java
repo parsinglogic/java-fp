@@ -106,9 +106,7 @@ public final class ImMaybe<T> extends ImValuesImpl
     {
         Objects.requireNonNull(fn);
 
-        return !isPresent()
-               ? nothing()
-               : Objects.requireNonNull(fn.of(value));
+        return join(this.map(fn));
     }
 
     public T orElse(T other)

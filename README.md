@@ -149,7 +149,11 @@ We can't bring ourselves to use the ambiguous `[ a, b, c]` for `String`s and `Ch
 
 `ImSet`s look like this: `{1, 2, 3}`
 
-`ImPair`s look like this `(1, "b")` `(-45.7, 22.0001)`
+`ImPair`s look like this `(1, "b")` `(-45.7, 22.0001)`  - see [ImPair](#ImPair) for more details.
+
+`ImMaybe`s look like this `Just 77` `Just "abc"` `Nothing` - see [ImMaybe](#ImMaybe) for more details.
+
+
 
 Where the method is `static,` it should be obvious from the example
 
@@ -216,10 +220,10 @@ The four methods above are the fundamental methods of `ImList.` All the other me
 | Name  | Description |
 | :---  | :---        |
 | **map** | `xs.map(fn)` returns the list whose elements are created by executing the function `fn` on each element of `xs`<br><br>`[1, 2, 3].map(i -> i + 1)`<br>returns<br>`[2, 3, 4]` |
+| **join** | `ImList<ImList<A>> xs = ...;`<br>`ImList<A> ys = ImList.join(xs)` xs is typed to be a list of lists. The result is a single list containing the elements of each element (which is a list) in the obvious order.<br><br>`ImList.join([[1, 2], [3, 4], [5, 6, 7]])`<br>returns<br>`[1, 2, 3, 4, 5, 6, 7]` |
+| **flatMap** | `xs.flatMap(fn)` This function assumes that `fn` takes an `A` and returns `ImList<A>` and is equivalent to `ImList.join(xs.map(fn))`<br><br>`[1, 2].flatMap(i -> ImList.repeat(i, 3)`<br>returns<br>`[1, 1, 1, 2, 2, 2, 3, 3, 3]` |
 | **foldl** | `xs.foldl(start, fn)` returns the value that is the result of executing `fn` on start and `xs.head` and then executing `fn` on that value and the second element of `xs` and repeating this for all elemnts of `xs`<br><br>`[1, 2, 3].foldl(0, (z,i) -> z + i*i)`<br>returns<br>`14` |
-| **scanl** | `xs.scanl(start, fn)` returns the list containing the result of running `foldl` with the same arguments at each iteration over `xs`<br><br>`[1, 2, 3].scanl([], (z, i) -> z.push(i))`<br>returns<br>`[[1], [2, 1], [3, 2, 1]]` |
-| **join** | `ImList<ImList<A>> xs = ...; ImList<A> ys = ImList.join(xs)` xs is typed to be lists of lists. The result is a single list containg the elements of each element (which is a list) in the obvious order.<br><br>`ImList.join([ [1, 2], [3, 4], [5, 6, 7] ])`<br>returns<br>`[1, 2, 3, 4, 5, 6, 7]` |
-| **flatMap** | `xs.flatMap(fn)` This function assumes that (and indeed is typed to make it so) `fn` takes an `A` and returns `ImList<A>` and is equivalent to `ImList.join(xs.map(fn))`<br><br>`[1, 2].flatMap(i -> ImList.repeat(i, 3)`<br>returns<br>`[1, 1, 1, 2, 2, 2, 3, 3, 3]` |
+| **scanl** | `xs.scanl(start, fn)` returns the list containing the result of running `foldl` with the same arguments at each "iteration" over `xs`<br><br>`[1, 2, 3].scanl([], (z, i) -> z.push(i))`<br>returns<br>`[[1], [2, 1], [3, 2, 1]]` |
 
 ### contains etc
 
@@ -249,8 +253,8 @@ These methods let you extract a suffix or a prefix of a list.
 | :---  | :---        |
 | **take** | `xs.take(n)` returns the list containing the first `n` elements of xs<br><br>`[1, 2, 3, 4].take(3)`<br>returns<br>`[1, 2, 3]` |
 | **drop** | `xs.drop(n)` The list formed by skipping the first `n` elements. Note that this is not creating a new list - the resulting list simply refers to the `n`th tail of `xs`.<br><br>`[2, 3, 4].drop(3)`<br>returns<br>`[4]` |
-| **takeWhile** | `xs.takeWhile(pred)` The longest prefix (possibly empty) of elements that satisfy `pred`<br><br>`[1, 2, 3, 4].takeWhile(i -> i < 4)`<br>returns<br>`[1, 2, 3]` |
-| **dropwhile** | `xs.dropWhile(pred)` The lomgest prefix of `xs` formed by skipping elements that satisfy `pred`. As with `drop` above, this is not creating a new list - the resulting list simply refers to the `i`th tail of `xs` for some `i`.<br><br>`[2, 3, 4].dropWhile(i -> i < 4)`<br>returns<br>`[4]` |
+| **takeWhile** | `xs.takeWhile(pred)` The longest prefix (possibly empty) of elements that satisfy `pred`<br><br>`[1, 2, 3, 4, 3, 1].takeWhile(i -> i < 4)`<br>returns<br>`[1, 2, 3]` |
+| **dropwhile** | `xs.dropWhile(pred)` The longest prefix of `xs` formed by skipping elements that satisfy `pred`. As with `drop` above, this is not creating a new list - the resulting list simply refers to the `i`th tail of `xs` for some `i`.<br><br>`[2, 3, 4, 3, 1].dropWhile(i -> i < 4)`<br>returns<br>`[4, 3, 1]` |
 
 ### split - take and drop in one go
 
@@ -263,7 +267,7 @@ The split* functions let you do this easily.
 | :---  | :---        |
 | **splitBeforeElement** | `xs.splitBeforeElement(el)` returns an pair of lists - the longest prefix of `xs` that does not contain `b` and the rest of `xs`.<br><br>`["a", "b", "c", "d"].splitBeforeElement("b")`<br>returns<br>`(["a"], ["b", "c", "d"])` |
 | **splitAfterIndex** | `xs.splitAfterIndex(n)` returns a pair of lists - `( xs.take(n), xs.drop(n) )`<br><br>`[0, 1, 1, 2].splitAt(3)`<br>returns<br>`( [0, 1, 1], [2] )` |
-| **splitWhile** | `xs.splitWhile(pred)` returns a pair of lists - `( xs.takeWhile(pred), xs.dropWhile(Fn.not(pred) )`<br><br>`[1, 2, 3].splitWhile(i -> i < 3)`<br>returns<br>`[1, 2], [3])` |
+| **splitWhile** | `xs.splitWhile(pred)` returns a pair of lists - `(xs.takeWhile(pred), xs.dropWhile(Fn.not(pred))`<br><br>`[1, 1, 3, 1, 1].splitWhile(i -> i < 2)`<br>returns<br>`[1, 1], [3, 1, 1])` |
 | **filterIntoTwo** | `xs.filterIntoTwo(pred)` returns a pair of lists - `(xs.filter(pred, xs.filter(Fn.not(pred))`<br><br>`[1, 2, 3, 4].filterIntoTwo(i -> i % 2 == 0)`<br>returns<br>`([2, 4], [1, 3])` |
 
 ### "mutators" and accessors
@@ -410,12 +414,7 @@ Some of the functions on `ImList` use functions and  return objects like `ImPair
 
 Let's describe those classes next.
 
-
-## ImPair, ImTriple, ImQuartet, ImQuintet
-
-These classes are simple classes to store tuples - up to five elements long.
-
-## <a name="ImMaybe"> ImMaybe - the equivalent of the FP Maybe.
+## <a name="ImMaybe"></a> ImMaybe - the equivalent of the FP Maybe.
 
 It contains either a value of some type - or `Nothing.`
 
@@ -423,9 +422,62 @@ The idea is that it is returned fom functions that can sometimes return an objec
 instead of returning `null` as is traditional with Java we use `ImMaybe.`
 
 
-Just
+## Creation
+
+
+| Name  | Description |
+| :---  | :---        |
+| **just** | `ImMaybe.just(value)` returns an ImMaybe containing the value value.<br><br>`ImMaybe.just("ping")`<br>returns<br>`Just "ping"` |
+| **nothing** | `ImMaybe.nothing()` returns the ImMaybe containing no value. This is a singleton - like [] for ImLists.<br><br>`ImMaybe.nothing()`<br>returns<br>`Nothing` |
+| **with** | `ImMaybe.with(value)` returns an `ImMaybe` containing the value `value` or `Nothing` if `value` is `null`.<br><br>`ImMaybe.with(null)`<br>returns<br>`Nothing` |
+
+## Accessing
+
+
+| Name  | Description |
+| :---  | :---        |
+| **get** | `m.get()` returns a iff `m == Just a`. If `m == Nothing` then throw `NothingThereException`<br><br>`(Just 23).get()`<br>returns<br>`23` |
+| **isPresent** | `m.isPresent()` returns `true` iff `m != Nothing`, `false` otherwise<br><br>`Nothing.isPresent()`<br>returns<br>`false` |
+| **ifPresentDo** | `m.ifPresentDo(consumerFn)` `consumerFn` is a `FnConsumer.` Iff `m == Just a` then invoke `consumerFn` with `a` as the argument - otherwise do nothing.<br><br>`(Just true).ifPresentDo(i -> System.out.println("It's true"))`<br>returns<br>`It's true` is written to the std out` |
+| **orElse** | `m.orElse(def)` Iff `m == Just a` then return `a` else return `def`<br><br>`(Nothing).orElse(17)`<br>returns<br>`17` |
+| **ifPresentElse** | `m.ifPresentElse(fn, def)` Iff `m == Just a` then return `fn.of(a)` else return `def`<br><br>`(Just 1).ifPresentElse(i -> i + 3, 0)`<br>returns<br>`4` |
+
+## map etc
+
+ImMabe is a Monad so we can map, join and flatMap on it.
+
+
+| Name  | Description |
+| :---  | :---        |
+| **map** | `m.map(fn)` returns the `ImMaybe` whose value is created by executing the function `fn` on the value in `m`.<br><br>`(Just 4).map(i -> i*i)`<br>returns<br>`Just 16` |
+| **join** | `ImMaybe<ImMaybe<A>> mm = ...;`<br>`ImMaybe<A> m = ImMaybe.join(mm)` mm is typed to be a maybe of a maybe. The result is a single maybe containing the value in the contained maybe - or `Nothing` if the contained maybe is `Nothing`<br><br>`ImMaybe.join(Just (Just "a"))`<br>returns<br>`Just "a"` |
+| **flatMap** | `m.flatMap(fn)` This function assumes that `fn` takes an `A` and returns `ImMaybe<A>` and is equivalent to `ImMaybe.join(m.map(fn))` and is implemented like that.<br><br>`other = ImList.on("a", "b"); [1, 2].findIndex(i -> i > 1].flatMap(j -> other.at(j)`<br>returns<br>`Just "b"` |
 
 [The Haskell Maybe documentation](https://hackage.haskell.org/package/base-4.18.0.0/docs/Data-Maybe.html#t:Maybe)
+
+
+
+
+
+
+## <a name="ImPair"></a> ImPair, ImTriple, ImQuartet, ImQuintet
+
+These classes are simple classes to store tuples - up to five elements long.
+
+    ImPair<Integer, Integer> pair = ImPair.on(1, 1000);
+    int s = pair.fst + pair.snd; // s == 1001
+
+For tuples with size > 2 we use fields e1, e2, etc
+
+    ImQuintet<Integer, Integer, Integer, Integer, Integer> q = ImQuintet.on(1, 2, 3, 4, 5);
+    int s = q.e1 + q.e2 + q.e3 + q.e4 + q.e5; // s == 15
+
+
+
+
+
+
+
 
 ## ImEither - the equivalent of the FP Either.
 
@@ -434,10 +486,25 @@ The `ImEither` object represents values with two possibilities: a value of type 
 The `ImEither` object is sometimes used to represent a value which is either correct or an error;
 by convention, the `Left` "constructor" is used to hold an error value and the `Right` "constructor" is used to hold a correct value (mnemonic: "right" also means "correct").
 
+    ImEither<Integer, Boolean> e = ImEither.Left(3);
+    assertEquals("Left 3", e.toString());
+
+    ImEither<Integer, String> r = ImEither.Right("ok");
+    assertEquals("Right ok", r.toString());
+
+
 
 [The Haskell Either documentation](https://hackage.haskell.org/package/base-4.18.0.0/docs/Data-Either.html#t:Either)
 
 Having discussed `ImList` in some detail, we can go through the other collection classes a bit more ... fasterer
+
+
+
+
+
+
+
+
 
 
 ## ImShelf - the near-ish equivalent of the Java `ArrayList`
@@ -520,7 +587,7 @@ Also, we, like most set implementations in other languages and libraries, only s
 | **replace(final T newElement)** | `xs.minus(ys)` returns the xs minus ys - the largest set such that each element belongs to xs but not to ys<br><br>`{1, 2}.minus({3, 2, 77)}`<br>returns<br>`{1, 2, 3, 77}` |
 | **add(final T elementToAdd)** | `xs.minus(ys)` returns the xs minus ys - the largest set such that each element belongs to xs but not to ys<br><br>`{1, 2}.minus({3, 2, 77)}`<br>returns<br>`{1, 2, 3, 77}` |
 | **map** | `xs.map(fn)` returns the set<br><br>`{1, 2}.map(i -> i - 1}`<br>returns<br>`{0, 1}` |
-| **anyElement()** | `xs.anyElement()` returns an element from xs in an ImMaybe, or Nothing if nosuch element exists<br><br>`{1, 2, 17}.anyElement()`<br>returns<br>`17 or 1 or 2` |
+| **anyElement()** | `xs.anyElement()` returns an element from xs in an `ImMaybe`, or `Nothing` if no such element exists<br><br>`{1, 2, 17}.anyElement()`<br>returns<br>`17 or 1 or 2` |
 
 Methods that find/add/replace elements are **O(log(n))** where `n` is the size of the set and `log` is base `2`.
 
@@ -552,33 +619,34 @@ In summary - on an `ImSortedSet<T>`:
 
 ## Creation
 
-static <T extends Comparable<? super T>> ImSortedSet<T> empty()
-static <T extends Comparable<T>> ImSortedSet<T> on(T element)
-static <T extends Comparable<T>> ImSortedSet<T> onAll(Collection<? extends A> elementsCollection)
-static <T extends Comparable<T>> ImSortedSet<T> onAll(ImList<T> list)
-static <T extends Comparable<T>> ImSortedSet<T> onArray(final A... array)
-static <T extends Comparable<T>> ImSortedSet<T> onIterator(Iterator<T> iterator)
+    static <T extends Comparable<? super T>> ImSortedSet<T> empty()
+    static <T extends Comparable<T>> ImSortedSet<T> on(T element)
+    static <T extends Comparable<T>> ImSortedSet<T> onAll(Collection<? extends A> elementsCollection)
+    static <T extends Comparable<T>> ImSortedSet<T> onAll(ImList<T> list)
+    static <T extends Comparable<T>> ImSortedSet<T> onArray(final A... array)
+    static <T extends Comparable<T>> ImSortedSet<T> onIterator(Iterator<T> iterator)
 
 ## Accessing
 
-static <T extends Comparable<? super T>> ImTree<A> find(ImTree<A> tree, final T elementToFind)
+    static <T extends Comparable<? super T>> ImTree<A> find(ImTree<A> tree, final T elementToFind)
 
 ## "Mutation"
 
-ImSortedSet<T> add(final T elementToAdd)
-ImSortedSet<T> addAll(Iterable<? extends T> elementsToAdd)
-ImSortedSet<T> remove(final T elementToRemove)
+    ImSortedSet<T> add(final T elementToAdd)
+    ImSortedSet<T> addAll(Iterable<? extends T> elementsToAdd)
+    ImSortedSet<T> remove(final T elementToRemove)
 
 ## Map
-<O extends Comparable<O>> ImSortedSet<O> map(Fn<T, O> fn)
+
+    <O extends Comparable<O>> ImSortedSet<O> map(Fn<T, O> fn)
 
 
 
 ## Querying
 
-T find(final T elementToFind)
-boolean contains(Object object)
-int size()
+    T find(final T elementToFind)
+    boolean contains(Object object)
+    int size()
 
 
 
@@ -780,49 +848,49 @@ In summary - on an `ImTree<A>`:
 
 ## Creation
 
-* `static <A> ImTree<A> Nil()`
-* `static <A> ImTree<A> on(A a)`
-* `static <A> ImTree<A> on(Collection<A> elements)`
+    static <A> ImTree<A> Nil()
+    static <A> ImTree<A> on(A a)
+    static <A> ImTree<A> on(Collection<A> elements)
 
 ## Accessing
 
-* `A getElement()`
-* `ImTree<A> getLeft()`
-* `ImTree<A> getNodeAtIndex(int indexStartingAtOne)`
-* `ImTree<A> getRight()`
+    A getElement()
+    ImTree<A> getLeft()
+    ImTree<A> getNodeAtIndex(int indexStartingAtOne)
+    ImTree<A> getRight()
 
-"Mutation"
+## "Mutation"
 
-* `static <A> ImTree<A> replaceAtIndex(ImTree<A> tree, int indexStartingAtOne, A newElement)`
-* `ImTree<A> insert(int indexStartingAtOne, A elementToAdd)`
-* `ImTree<A> remove(int indexStartingAtOne)`
-* `ImTree<A> removeRoot()`
+    static <A> ImTree<A> replaceAtIndex(ImTree<A> tree, int indexStartingAtOne, A newElement)
+    ImTree<A> insert(int indexStartingAtOne, A elementToAdd)
+    ImTree<A> remove(int indexStartingAtOne)
+    ImTree<A> removeRoot()
 
 ## Map
 
-* `<O> ImTree<O> map(Fn<A, O> fn)`
+    <O> ImTree<O> map(Fn<A, O> fn)
 
 ## Tree operations
 
-* `static <A> ImTree<A> merge(ImTree<A> left, ImTree<A> right)`
-* `static <A> ImTree<A> newBalancedTree(A newA, ImTree<A> newLeft, ImTree<A> newRight)`
+    static <A> ImTree<A> merge(ImTree<A> left, ImTree<A> right)
+    static <A> ImTree<A> newBalancedTree(A newA, ImTree<A> newLeft, ImTree<A> newRight)
 
 ## Querying
 
-* `boolean isBalanced()`
-* `int getHeight()`
-* `int getRank()`
-* `int size()`
+    boolean isBalanced()
+    int getHeight()
+    int getRank()
+    int size()
 
 ## Display
 
-* `String elementToString()`
-* `String toBoxString()`
-* `String toString()`
+    String elementToString()
+    String toBoxString()
+    String toString()
 
 ## Conversion
 
-* `ImList<A> toList()`
+    ImList<A> toList()
 
 
 
@@ -878,32 +946,32 @@ In summary - on an `ImRoseTree<A>`:
 
 ### Creation
 
-* `withElements(A, A...)`
-* `withElements(A, ImList)`
-* `withNodes(A, ImRoseTree...)`
-* `withNodes(A, ImList)`
+    withElements(A, A...)
+    withElements(A, ImList)
+    withNodes(A, ImRoseTree...)
+    withNodes(A, ImList)
 
 ## Query
 
-* `contains(A)`
-* `getElement()`
-* `getSubTrees()`
-* `getNodeAtIndex(int)`
-* `size()`
+    contains(A)
+    getElement()
+    getSubTrees()
+    getNodeAtIndex(int)
+    size()
 
 ## "Mutation"
 
-* `replaceElement(A)`
-* `map(Fn)`
-* `Iteration`
-* `iterator()`
-* `getZipper()`
-* `getZipperIterator()`
+    replaceElement(A)
+    map(Fn)
+    Iteration
+    iterator()
+    getZipper()
+    getZipperIterator()
 
 ## Display
 
-* `toString()`
-* `toBoxString()`
+    toString()
+    toBoxString()
 
 
 ## Notes
@@ -949,53 +1017,53 @@ In summary, for an `ImGraph<KEY, DATA, LABEL>`:
 
 ## Creation
 
-* `static <KEY, DATA, LABEL> ImGraph<KEY, DATA, LABEL> empty()`
+    static <KEY, DATA, LABEL> ImGraph<KEY, DATA, LABEL> empty()
 
 ## Accessing
 
-* `ImList<DATA> getValuesFromKeys(ImList<KEY> keys)`
-* `ImList<ImList<KEY>> getPaths(Dir dir, ImSet<LABEL> labels, KEY key)`
-* `ImList<ImPair<LABEL, KEY>> getPairs(Dir dir, KEY key)`
-* `ImList<KEY> getClosure(Dir dir, ImSet<LABEL> labels, KEY key)`
-* `ImList<KEY> getClosure(Dir dir, KEY key)`
-* `ImList<KEY> getClosure(Dir dir, LABEL label, KEY key)`
-* `ImList<KEY> getConnected(Dir dir, ImSet<LABEL> labels, KEY key)`
-* `ImList<KEY> getConnected(Dir dir, KEY key)`
-* `ImList<KEY> getConnected(Dir dir, LABEL label, KEY key)`
-* `ImList<KEY> getInOrderClosure(Dir dir, ImSet<LABEL> labels, ImList<KEY> keys)`
-* `ImList<KEY> getInOrderClosureOnSingleKey(Dir dir, ImSet<LABEL> labels, KEY key)`
-* `ImList<KEY> getInclusiveClosure(Dir dir, LABEL label, ImList<KEY> keys)`
-* `ImList<KEY> keys()`
-* `ImList<KEY> leaves()`
-* `ImList<KEY> roots()`
-* `DATA getValue(KEY key)`
+    ImList<DATA> getValuesFromKeys(ImList<KEY> keys)
+    ImList<ImList<KEY>> getPaths(Dir dir, ImSet<LABEL> labels, KEY key)
+    ImList<ImPair<LABEL, KEY>> getPairs(Dir dir, KEY key)
+    ImList<KEY> getClosure(Dir dir, ImSet<LABEL> labels, KEY key)
+    ImList<KEY> getClosure(Dir dir, KEY key)
+    ImList<KEY> getClosure(Dir dir, LABEL label, KEY key)
+    ImList<KEY> getConnected(Dir dir, ImSet<LABEL> labels, KEY key)
+    ImList<KEY> getConnected(Dir dir, KEY key)
+    ImList<KEY> getConnected(Dir dir, LABEL label, KEY key)
+    ImList<KEY> getInOrderClosure(Dir dir, ImSet<LABEL> labels, ImList<KEY> keys)
+    ImList<KEY> getInOrderClosureOnSingleKey(Dir dir, ImSet<LABEL> labels, KEY key)
+    ImList<KEY> getInclusiveClosure(Dir dir, LABEL label, ImList<KEY> keys)
+    ImList<KEY> keys()
+    ImList<KEY> leaves()
+    ImList<KEY> roots()
+    DATA getValue(KEY key)
 
 ## "Mutation"
 
-* `ImGraph<KEY, DATA, LABEL> addArc(LABEL label, KEY start, KEY end)`
-* `ImGraph<KEY, DATA, LABEL> addArcAfter(LABEL label, KEY start, KEY end, KEY after)`
-* `ImGraph<KEY, DATA, LABEL> addArcAsLast(LABEL label, KEY start, KEY end)`
-* `ImGraph<KEY, DATA, LABEL> addNode(KEY key, DATA value)`
-* `ImGraph<KEY, DATA, LABEL> addNodeIfMissing(KEY key, DATA value)`
-* `ImGraph<KEY, DATA, LABEL> addNodeToParent(LABEL arcLabel, KEY parentKey, KEY childKey, DATA childValue)`
-* `ImGraph<KEY, DATA, LABEL> removeArc(LABEL label, KEY start, KEY end)`
-* `ImGraph<KEY, DATA, LABEL> removeNode(KEY key)`
-* `ImGraph<KEY, DATA, LABEL> shrinkToInclusiveClosureOf(ImSet<LABEL> labels, ImList<KEY> ks)`
+    ImGraph<KEY, DATA, LABEL> addArc(LABEL label, KEY start, KEY end)
+    ImGraph<KEY, DATA, LABEL> addArcAfter(LABEL label, KEY start, KEY end, KEY after)
+    ImGraph<KEY, DATA, LABEL> addArcAsLast(LABEL label, KEY start, KEY end)
+    ImGraph<KEY, DATA, LABEL> addNode(KEY key, DATA value)
+    ImGraph<KEY, DATA, LABEL> addNodeIfMissing(KEY key, DATA value)
+    ImGraph<KEY, DATA, LABEL> addNodeToParent(LABEL arcLabel, KEY parentKey, KEY childKey, DATA childValue)
+    ImGraph<KEY, DATA, LABEL> removeArc(LABEL label, KEY start, KEY end)
+    ImGraph<KEY, DATA, LABEL> removeNode(KEY key)
+    ImGraph<KEY, DATA, LABEL> shrinkToInclusiveClosureOf(ImSet<LABEL> labels, ImList<KEY> ks)
 
 
 ## Map
 
-* `<NEWDATA> ImGraph<KEY, NEWDATA, LABEL> map(Fn<DATA, NEWDATA> fn)`
+    <NEWDATA> ImGraph<KEY, NEWDATA, LABEL> map(Fn<DATA, NEWDATA> fn)
 
 ## Queries
 
-* `boolean containsNodeWithKey(KEY key)`
-* `boolean hasCycle()`
+    boolean containsNodeWithKey(KEY key)
+    boolean hasCycle()
 
 ## Display
 
-* `String getGraphVizGraph()`
-* `AbstractTextBox show()`
+    String getGraphVizGraph()
+    AbstractTextBox show()
 
 
 
@@ -1009,27 +1077,27 @@ In summary, for an `ImGraph<KEY, DATA, LABEL>`:
 
 | Name  | Description |
 | :---  | :---        |
-| **on** | `ImQueue.on()` returns an empty ImQueue - one with no maximum size (strictly the size is limited to Integer.MAX_VALUE)<br><br>`ImQueue.on()`<br>returns<br>`[]` |
-| **ofSize** | `ImQueue.ofSize(n)` returns an empty ImQueue - one with a maximum size of n<br><br>`ImQueue.ofSize(3)`<br>returns<br>`[]` |
+| **on** | `ImQueue.on()` returns an empty `ImQueue` - one with no maximum size (strictly the size is limited to `Integer.MAX_VALUE`)<br><br>`ImQueue.on()`<br>returns<br>`[]` |
+| **ofSize** | `ImQueue.ofSize(n)` returns an empty ImQueue - one with a maximum size of `n`<br><br>`ImQueue.ofSize(3)`<br>returns<br>`[]` |
 
 addLast
 [1, 2, 3].addLast(4)
 [1, 2, 3, 4]
 q.addLast(el)
-returns the queue with el added to the end
+returns the queue with `el` added to the end
 
 
 removeFirst
 [1, 2, 3].removeFirst()
 [2, 3]
 q.removeFirst()
-returns the queue with the first element removed in an IMMaybe - or Nothing if q is empty
+returns the queue with the first element removed in an `ImMaybe` - or `Nothing` if `q` is empty
 
 
 | Name  | Description |
 | :---  | :---        |
-| **first** | `q.first()` returns the first element of q in an IMMaybe - or Nothing if q is empty<br><br>`[1, 2, 3].first()`<br>returns<br>`1` |
-| **split** | `q.split()` returns a pair - (q.first().get(), r.removeFirst().get()) in an ImMaybe - or Nothing if q is empty<br><br>`[1, 2, 3].split()`<br>returns<br>`(1, [2, 3, 4])` |
+| **first** | `q.first()` returns the first element of `q` in an `ImMaybe` - or `Nothing` if `q` is empty<br><br>`[1, 2, 3].first()`<br>returns<br>`1` |
+| **split** | `q.split()` returns a pair - `(q.first().get(), r.removeFirst().get())` in an `ImMaybe` - or `Nothing` if `q` is empty<br><br>`[1, 2, 3].split()`<br>returns<br>`(1, [2, 3, 4])` |
 
 ## Are we nearly there, yet?
 
@@ -1131,3 +1199,4 @@ Currently (jul-2023) it was compiled with Java 11 and uses features from that ve
 [sherman]: http://en.wikipedia.org/wiki/Robert_B._Sherman
 [adams]: http://groups.csail.mit.edu/mac/users/adams/BB/
 [rank-tree]: https://otfried.org/courses/cs206/notes/ranktree.pdf
+#

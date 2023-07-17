@@ -13,4 +13,10 @@ public class ImMaybeTest extends TestCase
         assertEquals(ImMaybe.nothing(), ImMaybe.join(ImMaybe.nothing()));
         assertEquals(just(1), ImMaybe.join(just(just(1))));
     }
+
+    @Test
+    public void testFlatMap()
+    {
+        assertEquals(just(1), ImMaybe.just(1).flatMap(i -> ImMaybe.with(i)));
+    }
 }
