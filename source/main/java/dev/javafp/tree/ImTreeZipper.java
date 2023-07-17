@@ -471,7 +471,7 @@ public class ImTreeZipper<A>
         }
     }
 
-    private boolean isNil()
+    public boolean isNil()
     {
         return ImTree.isNil(getFocus());
     }

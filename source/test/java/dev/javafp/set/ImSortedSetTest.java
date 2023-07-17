@@ -1,6 +1,8 @@
 package dev.javafp.set;
 
 import dev.javafp.lst.ImList;
+import dev.javafp.lst.Range;
+import dev.javafp.rand.Rando;
 import dev.javafp.util.TestUtils;
 import org.junit.Test;
 
@@ -9,33 +11,152 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.concurrent.ScheduledFuture;
 
+import static dev.javafp.util.Say.say;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.fail;
 
 public class ImSortedSetTest
 {
+    int largeSize = 20;
+    int smallSize = largeSize - 3;
+
+    int several = 5;
+
+    int testRuns = 60;
+
+    ImList<Integer> largeList = Range.oneTo(largeSize);
+    ImList<Integer> smallList = Range.oneTo(smallSize).shuffle();
+
+    @Test
+    public void testAgainstTreeSet()
+    {
+        /**
+         * We iterate a number of times:
+         * On each iteration:
+         * We roll a 4 sided die and, depending on the result
+         *
+         * add an element
+         * remove an element
+         * add a few elements
+         * remove all the elements
+         *
+         * Check that the sorted set and the tree set agree with each other
+         */
+
+        // Randomly shuffle some indexes
+
+        say("large list", largeList);
+        say("small list", smallList);
+
+        // Create two empty sets
+        ImSortedSet<Integer> sortedSet = ImSortedSet.empty();
+        TreeSet<Integer> treeSet = new TreeSet();
+
+        // Roll a 4 sided die a few times
+        ImList<Integer> rs = ImList.unfold(0, i -> Rando.nextIntFromZeroToExclusive(4)).take(testRuns);
+
+        say(rs);
+
+        int count = 0;
+
+        for (Integer i : rs)
+        {
+            count++;
+
+            switch (i)
+            {
+            case 0 ->
+            {
+                // Add
+
+                // Choose an element from the small list
+                int elementToAdd = smallList.at(count % 10 + 1);
+
+                //                say("add", elementToAdd);
+
+                // Add to both sets
+                sortedSet = sortedSet.add(elementToAdd);
+
+                treeSet.add(elementToAdd);
+
+                check(sortedSet, treeSet);
+
+            }
+            case 1 ->
+            {
+                // Remove
+
+                // Choose an element from the small list
+                int elementToRemove = smallList.at(count % 10 + 1);
+
+                //                say("remove", elementToRemove);
+
+                // Remove from both sets
+                sortedSet = sortedSet.remove(elementToRemove);
+
+                treeSet.remove(elementToRemove);
+
+                check(sortedSet, treeSet);
+
+            }
+            case 2 ->
+            {
+
+                // Add several
+
+                ImList<Integer> js = smallList.shuffle().take(several);
+                //                say("add several", js);
+
+                sortedSet = sortedSet.addAll(js);
+                treeSet.addAll(js.toList());
+
+                check(sortedSet, treeSet);
+            }
+            case 3 ->
+            {
+                // remove all
+
+                //                say("remove all");
+
+                sortedSet = sortedSet.removeAll(sortedSet);
+                treeSet.removeAll(treeSet);
+
+                check(sortedSet, treeSet);
+            }
+
+            default -> say("default");
+            }
+        }
+
+    }
+
+    private void check(ImSortedSet<Integer> sortedSet, TreeSet<Integer> treeSet)
+    {
+        //        say("sorted set", sortedSet);
+        //        say("tree set", treeSet);
+
+        // the sets should agree about what elements belong to each
+        for (Integer i : largeList)
+        {
+            assertEquals(treeSet.contains(i), sortedSet.contains(i));
+        }
+
+        // they should be the same size
+        assertEquals(treeSet.size(), sortedSet.size());
+    }
 
     @Test
     public void testMapWithDuplicates()
     {
         List<Integer> ints = Arrays.asList(1, 2, 3, 5, 8, 5, 3, 2, 1, 0);
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList();
 
         for (Integer integer : ints)
         {
             check(list);
             list.add(integer);
         }
-    }
-
-    @Test
-    public void testX()
-    {
-        List<ScheduledFuture<String>> futures = new ArrayList<ScheduledFuture<String>>();
-
-        ImSortedSet.onAll(futures);
     }
 
     private void check(List<Integer> list)
