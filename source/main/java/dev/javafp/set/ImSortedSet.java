@@ -7,12 +7,15 @@
 
 package dev.javafp.set;
 
+import dev.javafp.eq.Equals;
 import dev.javafp.func.Fn;
 import dev.javafp.lst.ImList;
 import dev.javafp.tree.ImTree;
 import dev.javafp.tree.ImTreeIterator;
 import dev.javafp.tree.ImTreeZipper;
 import dev.javafp.util.ArrayIterator;
+import dev.javafp.util.Caster;
+import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TextUtils;
 
 import java.io.Serializable;
@@ -162,13 +165,9 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
      * .
      *
      */
-    public T find(T elementToFind)
+    public ImMaybe<T> find(T elementToFind)
     {
-        ImTree<T> found = find(tree, elementToFind);
-
-        return (found == ImTree.nil)
-               ? null
-               : found.getElement();
+        return ImMaybe.with(Caster.cast(ImTree.Nil()), find(tree, elementToFind)).map(i -> i.getElement());
     }
 
     /**
@@ -277,7 +276,7 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
     @SuppressWarnings("unchecked")
     public boolean contains(T object)
     {
-        return find(object) != null;
+        return find(object).isPresent();
     }
 
     /**
@@ -319,29 +318,16 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
     {
         return size() != otherSortedSet.size() || hashCode() != otherSortedSet.hashCode()
                ? false
-               : elementsEq(iterator(), otherSortedSet.iterator());
-    }
-
-    private boolean elementsEq(ImTreeIterator<?> itOne, ImTreeIterator<?> itTwo)
-    {
-        while (itOne.hasNext())
-        {
-            if (!itOne.next().equals(itTwo.next()))
-                return false;
-        }
-
-        return true;
+               : Equals.isEqualIterators(iterator(), otherSortedSet.iterator());
     }
 
     public <O extends Comparable<O>> ImSortedSet<O> map(Fn<T, O> fn)
     {
         ImSortedSet<O> result = ImSortedSet.empty();
 
-        Iterator<T> it = iterator();
-
-        while (it.hasNext())
+        for (T t : this)
         {
-            result = result.add(fn.of(it.next()));
+            result = result.add(fn.of(t));
         }
 
         return result;

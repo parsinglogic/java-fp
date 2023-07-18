@@ -24,10 +24,7 @@ public class ImTestHelper
 
     public static void assertTreesAreEqual(final ImTree<Character> expected, final ImTree<Character> actual)
     {
-        if (!(expected.equals(actual)))
-        {
-            assertEquals("" + expected, "" + actual);
-        }
+        assertEquals(expected, actual);
     }
 
     public static <A> void assertListEqualsTree(final List<A> expected, final ImShelf<A> actual)
@@ -141,7 +138,7 @@ public class ImTestHelper
      */
     public static void checkExample(Object actual, Object expected)
     {
-        assertEquals(("" + expected).replaceAll("^ +", ""), "" + actual);
+        assertEquals(("" + expected).replaceFirst("^ +", ""), "" + actual);
     }
 
     public static List<Integer> makeList(int size, int start)

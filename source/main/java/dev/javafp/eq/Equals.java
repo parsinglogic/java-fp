@@ -11,6 +11,7 @@ import dev.javafp.ex.Throw;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Objects;
 
 public class Equals
@@ -127,6 +128,17 @@ public class Equals
         }
 
         return sb.toString();
+    }
+
+    public static boolean isEqualIterators(Iterator<?> itOne, Iterator<?> itTwo)
+    {
+        while (itOne.hasNext())
+        {
+            if (!isEqual(itOne.next(), itTwo.next()))
+                return false;
+        }
+
+        return !itTwo.hasNext();
     }
 
 }

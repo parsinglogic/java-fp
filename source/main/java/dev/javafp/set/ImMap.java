@@ -12,9 +12,7 @@ import dev.javafp.box.HasTextBox;
 import dev.javafp.box.LeafTextBox;
 import dev.javafp.func.Fn;
 import dev.javafp.lst.ImList;
-import dev.javafp.set.ImSet.Bucket;
 import dev.javafp.set.ImSet.Replace;
-import dev.javafp.tree.ImTreeZipper;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.tuple.Pai;
 import dev.javafp.util.ImMaybe;
@@ -108,11 +106,6 @@ import java.util.Set;
  * }</pre>
  * <p> You can replace entries:
  *
- * <pre>{@code
- * ImMap<String, String> mFour = mTwo.put("b", "Buffalo");
- * mFour.get("b")  =>  "Buffalo"
- * }</pre>
- * <p> If you replace entries with identical ones then no new map is created - the old one is returned:
  *
  * <pre>{@code
  * ImMap<String, String> mSix = mTwo.put("b", "Bear");
@@ -130,13 +123,13 @@ import java.util.Set;
  */
 public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, HasTextBox
 {
-    final public ImSet<Entry<K, V>> set;
-    final private int hashCode;
+
+    final public ImSet<Entry<K, V>> entrySet;
 
     /**
      * <p> The singleton empty map
      */
-    final private static ImMap<?, ?> empty = new ImMap<Object, Object>();
+    final private static ImMap<?, ?> empty = new ImMap();
 
     /**
      * <p> The (singleton) empty map.
@@ -149,8 +142,7 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
 
     public <V2> ImMap<K, V2> map(Fn<V, V2> fn)
     {
-        ImSet<Entry<K, V2>> s = set.map(e -> new Entry<>(e.key, fn.of(e.value)));
-        return new ImMap<>(s, s.hashCode());
+        return ImMap.onSet(entrySet.map(e -> new Entry<>(e.key, fn.of(e.value))));
     }
 
     public static <KEY, VALUE> ImMap<KEY, VALUE> on(KEY key, VALUE value)
@@ -169,7 +161,7 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
         public final KEY key;
         public final VALUE value;
 
-        private Entry(final KEY key, final VALUE value)
+        private Entry(KEY key, VALUE value)
         {
             this.key = key;
             this.value = value;
@@ -192,7 +184,7 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
          *
          */
         @Override
-        public boolean equals(final Object other)
+        public boolean equals(Object other)
         {
             return other instanceof Entry
                    ? key.equals(((Entry<?, ?>) other).key)
@@ -250,14 +242,19 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
      */
     public ImMap()
     {
-        set = ImSet.empty();
-        hashCode = 0;
+        entrySet = ImSet.empty();
     }
 
-    private ImMap(final ImSet<Entry<K, V>> set, int hashCode)
+    private ImMap(ImSet<Entry<K, V>> entrySet)
     {
-        this.set = set;
-        this.hashCode = hashCode;
+        this.entrySet = entrySet;
+    }
+
+    private static <K, V> ImMap<K, V> onSet(ImSet<Entry<K, V>> set)
+    {
+        return set.isEmpty()
+               ? empty()
+               : new ImMap<>(set);
     }
 
     public static <A, B> ImMap<A, B> from(ImList<B> values, Fn<B, A> getKeyFn)
@@ -341,7 +338,7 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
     public Map<K, V> toMap()
     {
         HashMap<K, V> result = new HashMap<>();
-        for (Entry<K, V> entry : set)
+        for (Entry<K, V> entry : entrySet)
         {
             result.put(entry.key, entry.value);
         }
@@ -376,7 +373,7 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
      * {@code value}
      *
      */
-    public ImMap<K, V> put(final K key, final V value)
+    public ImMap<K, V> put(K key, V value)
     {
         NullCheck.check(key);
         NullCheck.check(value);
@@ -386,39 +383,7 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
 
     private ImMap<K, V> putEntry(Entry<K, V> newEntry)
     {
-        // We have to do the put in two steps so that we can calculate the new hash code
-        ImTreeZipper<Bucket<Entry<K, V>>> path = set.getPathOn(newEntry);
-
-        if (keyAndValueAreTheSameAsOld(path.getFocus().getElement(), newEntry))
-            return this;
-
-        ImSet<Entry<K, V>> newSet = set.addAtPath(newEntry, Replace.yes, path);
-
-        Entry<K, V> entryFromBucket = getEntryFromBucket(newEntry, path.getFocus().getElement());
-        return new ImMap<K, V>(newSet, hashCode + getMyHashOf(newEntry) - getMyHashOf(entryFromBucket));
-    }
-
-    private boolean keyAndValueAreTheSameAsOld(Bucket<Entry<K, V>> bucket, Entry<K, V> newEntry)
-    {
-        Entry<K, V> oldEntry = getEntryFromBucket(newEntry, bucket);
-
-        return oldEntry == null
-               ? false
-               : oldEntry.key == newEntry.key && oldEntry.value == newEntry.value;
-    }
-
-    private Entry<K, V> getEntryFromBucket(Entry<K, V> entryToGet, Bucket<Entry<K, V>> bucket)
-    {
-        return bucket == null
-               ? null
-               : bucket.get(entryToGet);
-    }
-
-    public int getMyHashOf(Entry<K, V> oldEntry)
-    {
-        return oldEntry == null
-               ? 0
-               : oldEntry.key.hashCode() ^ oldEntry.value.hashCode();
+        return ImMap.onSet(entrySet.add(newEntry, Replace.yes));
     }
 
     /**
@@ -429,12 +394,9 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
      *  if no such mapping exists).
      *
      */
-    public V get(final K key)
+    public V get(K key)
     {
-        final Entry<K, V> found = set.find(new Entry<K, V>(key, null));
-        return found == null
-               ? null
-               : found.value;
+        return entrySet.find(getEntry(key)).ifPresentElse(i -> i.value, null);
     }
 
     /**
@@ -443,12 +405,9 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
      *  maps to
      *
      */
-    public ImMaybe<V> getMaybe(final K key)
+    public ImMaybe<V> getMaybe(K key)
     {
-        final Entry<K, V> found = set.find(new Entry<K, V>(key, null));
-        return found == null
-               ? ImMaybe.nothing()
-               : ImMaybe.just(found.value);
+        return entrySet.find(getEntry(key)).map(i -> i.value);
     }
 
     /**
@@ -462,21 +421,18 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
      * .
      *
      */
-    public ImMap<K, V> remove(final K key)
+    public ImMap<K, V> remove(K key)
     {
-        Entry<K, V> entry = new Entry<K, V>(key, null);
+        ImSet<Entry<K, V>> newSet = entrySet.remove(getEntry(key));
 
-        // We have to do the remove in two steps so that we can calculate the new hash code
-        Bucket<Entry<K, V>> bucketFound = set.getBucketContaining(entry);
+        return newSet == entrySet
+               ? this
+               : onSet(newSet);
+    }
 
-        Entry<K, V> oldEntry = getEntryFromBucket(entry, bucketFound);
-
-        if (oldEntry == null)
-            return this;
-        else if (this.size() == 1)
-            return ImMap.empty();
-        else
-            return new ImMap<K, V>(set.removeElementFromBucket(entry, bucketFound), hashCode() - getMyHashOf(oldEntry));
+    private Entry<K, V> getEntry(K key)
+    {
+        return new Entry<K, V>(key, null);
     }
 
     /**
@@ -498,7 +454,7 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
      */
     public Iterator<ImMap.Entry<K, V>> iterator()
     {
-        return set.iterator();
+        return entrySet.iterator();
     }
 
     /**
@@ -509,7 +465,7 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
      */
     public int size()
     {
-        return set.size();
+        return entrySet.size();
     }
 
     /**
@@ -599,46 +555,20 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
         return true;
     }
 
-    /**
-     * <p> The hash code value for
-     * {@code this}
-     * .
-     * <p> Because
-     * {@code ImMaps}
-     *  are immutable, the hash code is calculated only once when the map is
-     * created and cached. Also, because each
-     * {@code ImMap}
-     *  is constructed from another
-     * {@code ImMap}
-     * , the
-     * hash code can be calculated efficiently.
-     * <p> The algorithm used is essentially the same as that used for {@link java.util.AbstractMap} so, if an
-     * {@code AbstractMap}
-     *  and an
-     * {@code ImMap}
-     * contain "the same key-value pairs" then they will have the same hash code.
-     *
-     */
-    @Override
-    public int hashCode()
-    {
-        return hashCode;
-    }
-
     @Override
     public AbstractTextBox getTextBox()
     {
-        return set.getTextBox();
+        return entrySet.getTextBox();
     }
 
     public ImList<K> keys()
     {
-        return ImList.onAll(set).map(e -> e.key);
+        return ImList.onAll(entrySet).map(e -> e.key);
     }
 
     public ImList<V> values()
     {
-        return ImList.onAll(set).map(e -> e.value);
+        return ImList.onAll(entrySet).map(e -> e.value);
     }
 
     /**
@@ -646,12 +576,22 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
      */
     public ImList<ImPair<K, V>> pairs()
     {
-        return ImList.onAll(set).map(e -> Pai.r(e.key, e.value));
+        return ImList.onAll(entrySet).map(e -> Pai.r(e.key, e.value));
     }
 
     @Override
     public String toString()
     {
-        return set.toString();
+        return entrySet.toString();
     }
+
+    /**
+     * We use the hashcode of the entry set
+     */
+    @Override
+    public int hashCode()
+    {
+        return entrySet.hashCode();
+    }
+
 }

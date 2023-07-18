@@ -4,6 +4,7 @@ import dev.javafp.lst.ImList;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.tuple.Pai;
 import dev.javafp.util.Caster;
+import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TestUtils;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -101,13 +102,13 @@ public class ImSetTest
         assertEquals(p1, p2);
         assertNotSame(p1, p2);
 
-        ImSet<ImPair<Integer, Integer>> oldSet = ImSet.onArray(p1);
+        ImSet<ImPair<Integer, Integer>> oldSet = ImSet.on(p1);
 
-        assertNotSame(p2, oldSet.find(p1));
+        assertNotSame(p2, oldSet.find(p1).get());
 
         ImSet<ImPair<Integer, Integer>> newSet = oldSet.add(p2, ImSet.Replace.yes);
 
-        assertSame(p2, newSet.find(p1));
+        assertSame(p2, newSet.find(p1).get());
     }
 
     @Test
@@ -187,7 +188,7 @@ public class ImSetTest
 
         for (int i = 1; i <= 4; i++)
         {
-            assertEquals(Integer.valueOf(i), s.find(i));
+            assertEquals(Integer.valueOf(i), s.find(i).get());
         }
     }
 
@@ -198,12 +199,14 @@ public class ImSetTest
 
         for (int j = 1; j <= 4; j++)
         {
+
             ImSet<Integer> sr = s.remove(j);
             for (int i = 1; i <= 4; i++)
             {
-                assertEquals((i == j)
-                             ? null
-                             : i, sr.find(i));
+                assertEquals("" + i, (i == j)
+                                     ? ImMaybe.nothing()
+                                     : ImMaybe.just(i),
+                        sr.find(i));
             }
         }
     }
@@ -314,8 +317,9 @@ public class ImSetTest
             for (int i = 1; i <= count; i++)
             {
                 assertEquals((i == j)
-                             ? null
-                             : dodgyHashCodesArray[i - 1], sr.find(dodgyHashCodesArray[i - 1]));
+                             ? ImMaybe.nothing()
+                             : ImMaybe.just(dodgyHashCodesArray[i - 1]),
+                        sr.find(dodgyHashCodesArray[i - 1]));
             }
         }
     }
@@ -549,13 +553,13 @@ public class ImSetTest
             // Check that we can find all the elements
             for (Fooble fooble : setAfterOp)
             {
-                assertEquals(fooble, imSetAfterOp.find(fooble));
+                assertEquals(fooble, imSetAfterOp.find(fooble).get());
             }
 
             // If the op was a remove, check that we can't find the element we have removed
             if (op.opType == OpType.remove)
             {
-                assertEquals(null, imSetAfterOp.find(op.value));
+                assertEquals(ImMaybe.nothing(), imSetAfterOp.find(op.value));
             }
 
             // Check the set in this new state
@@ -597,7 +601,7 @@ public class ImSetTest
         {
             testCount = 0;
 
-            this.testState(i, new HashSet<>(), ImSet.<Fooble>empty(), empty);
+            this.testState(i, new HashSet<>(), ImSet.empty(), empty);
             System.out.println(i + "   " + testCount);
         }
     }

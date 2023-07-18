@@ -11,6 +11,7 @@ import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
 import dev.javafp.box.LeftRightBox;
 import dev.javafp.box.TopDownBox;
+import dev.javafp.eq.Equals;
 import dev.javafp.ex.ImIndexOutOfBoundsException;
 import dev.javafp.ex.InvalidState;
 import dev.javafp.func.Fn;
@@ -101,7 +102,7 @@ import java.util.Collection;
  *
  */
 
-public class ImTree<A> implements Serializable
+public class ImTree<A> implements Serializable, Iterable<A>
 {
     // TODO replace with getters? Deal with nil?
     final private A element;
@@ -721,4 +722,35 @@ public class ImTree<A> implements Serializable
                ? 0
                : left.size + 1;
     }
+
+    /**
+     * <p> An iterator over the elements in
+     * {@code this}
+     * .
+     * <p> Note that the iterator returned by this method will throw an
+     * {@code UnsupportedOperationException}
+     *  in response to its
+     * {@code remove}
+     *  method.
+     *
+     */
+    public ImTreeIterator<A> iterator()
+    {
+        return new ImTreeIterator(this);
+    }
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public boolean equals(Object other)
+    {
+        return this == other || other instanceof ImTree<?> && eq((ImTree<?>) other);
+    }
+
+    private boolean eq(ImTree<?> otherTree)
+    {
+        return size() != otherTree.size() || hashCode() != otherTree.hashCode()
+               ? false
+               : Equals.isEqualIterators(iterator(), otherTree.iterator());
+    }
+
 }

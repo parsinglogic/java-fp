@@ -3,6 +3,7 @@ package dev.javafp.set;
 import dev.javafp.lst.ImList;
 import dev.javafp.lst.Range;
 import dev.javafp.rand.Rando;
+import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TestUtils;
 import org.junit.Test;
 
@@ -72,7 +73,7 @@ public class ImSortedSetTest
                 // Choose an element from the small list
                 int elementToAdd = smallList.at(count % 10 + 1);
 
-                //                say("add", elementToAdd);
+                say("add", elementToAdd);
 
                 // Add to both sets
                 sortedSet = sortedSet.add(elementToAdd);
@@ -89,7 +90,7 @@ public class ImSortedSetTest
                 // Choose an element from the small list
                 int elementToRemove = smallList.at(count % 10 + 1);
 
-                //                say("remove", elementToRemove);
+                say("remove", elementToRemove);
 
                 // Remove from both sets
                 sortedSet = sortedSet.remove(elementToRemove);
@@ -105,7 +106,7 @@ public class ImSortedSetTest
                 // Add several
 
                 ImList<Integer> js = smallList.shuffle().take(several);
-                //                say("add several", js);
+                say("add several", js);
 
                 sortedSet = sortedSet.addAll(js);
                 treeSet.addAll(js.toList());
@@ -116,7 +117,7 @@ public class ImSortedSetTest
             {
                 // remove all
 
-                //                say("remove all");
+                say("remove all");
 
                 sortedSet = sortedSet.removeAll(sortedSet);
                 treeSet.removeAll(treeSet);
@@ -132,13 +133,13 @@ public class ImSortedSetTest
 
     private void check(ImSortedSet<Integer> sortedSet, TreeSet<Integer> treeSet)
     {
-        //        say("sorted set", sortedSet);
-        //        say("tree set", treeSet);
+        say("sorted set", sortedSet);
+        say("tree set", treeSet);
 
         // the sets should agree about what elements belong to each
         for (Integer i : largeList)
         {
-            assertEquals(treeSet.contains(i), sortedSet.contains(i));
+            assertEquals("" + i, treeSet.contains(i), sortedSet.contains(i));
         }
 
         // they should be the same size
@@ -375,13 +376,13 @@ public class ImSortedSetTest
             // Check that we can find all the elements
             for (Integer i : imSortedSetAfterOp)
             {
-                assertEquals(i, imSortedSetAfterOp.find(i));
+                assertEquals(i, imSortedSetAfterOp.find(i).get());
             }
 
             // If the op was a remove, check that we can't find the element we have removed
             if (op.opType == OpType.remove)
             {
-                assertEquals(null, imSortedSetAfterOp.find(op.value));
+                assertEquals(ImMaybe.nothing(), imSortedSetAfterOp.find(op.value));
             }
 
             // Check the set in this new state

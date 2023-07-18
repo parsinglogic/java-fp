@@ -9,12 +9,14 @@ package dev.javafp.set;
 
 import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.HasTextBox;
+import dev.javafp.eq.Equals;
 import dev.javafp.func.Fn;
 import dev.javafp.lst.ImList;
 import dev.javafp.tree.ImTree;
 import dev.javafp.tree.ImTreeIterator;
 import dev.javafp.tree.ImTreeZipper;
 import dev.javafp.util.ArrayIterator;
+import dev.javafp.util.Hash;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.NullCheck;
 
@@ -161,11 +163,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
 
         public int compareTo(final Bucket<B> other)
         {
-            return hashCode < other.hashCode
-                   ? -1
-                   : (hashCode > other.hashCode
-                      ? 1
-                      : 0);
+            return Integer.compare(hashCode, other.hashCode);
         }
 
         // If an equal element is already in this bucket then it should be
@@ -351,6 +349,13 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         this.size = size;
     }
 
+    private static <A> ImSet<A> onBucketSet(ImSortedSet<Bucket<A>> node, final int size)
+    {
+        return size == 0
+               ? ImSet.empty()
+               : new ImSet(node, size);
+    }
+
     /**
      * <p> Add
      * {@code elementToAdd}
@@ -390,14 +395,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      */
     public ImSet<T> remove(final T elementToRemove)
     {
-        final Bucket<T> b = getBucketContaining(elementToRemove);
-
-        return b == null
-               ? this
-               : size() == 1
-                 ? empty()
-                 : removeElementFromBucket(elementToRemove, b);
-
+        return getBucketContaining(elementToRemove).ifPresentElse(i -> removeElementFromBucket(elementToRemove, i), this);
     }
 
     /**
@@ -509,16 +507,17 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         else
             // If the size of the bucket is now zero then we must remove the
             // bucket
-            // otherwise we must add this new bucket
-            return new ImSet<T>(newBucket.size() == 0
-                                ? sortedSetOfBuckets.remove(bucketWithMatchingHashCode)
-                                : sortedSetOfBuckets.add(newBucket), size - 1);
+            // otherwise we must add the new bucket
+            return ImSet.onBucketSet(newBucket.size() == 0
+                                     ? sortedSetOfBuckets.remove(bucketWithMatchingHashCode)
+                                     : sortedSetOfBuckets.add(newBucket)
+                    , size - 1);
     }
 
-    public Bucket<T> getBucketContaining(final T element)
+    public ImMaybe<Bucket<T>> getBucketContaining(final T element)
     {
         // Find the bucket with the matching hash code
-        return (Bucket<T>) sortedSetOfBuckets.find(bucketWith(element));
+        return sortedSetOfBuckets.find(bucketWith(element));
     }
 
     /**
@@ -530,19 +529,21 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * .
      *
      */
-    public T find(final T elementToFind)
+    public ImMaybe<T> find(final T elementToFind)
     {
         final int hashCode = hashCodeOf(elementToFind);
 
         // Create an entry that we can search for
         final Bucket<T> entry = new Bucket<T>(hashCode);
+        //
+        //        // Find it in the tree
+        //        final Bucket<T> foundOrNull = (Bucket<T>) sortedSetOfBuckets.find(entry);
+        //
+        //        return foundOrNull == null
+        //               ? null
+        //               : foundOrNull.get(elementToFind);
 
-        // Find it in the tree
-        final Bucket<T> foundOrNull = (Bucket<T>) sortedSetOfBuckets.find(entry);
-
-        return foundOrNull == null
-               ? null
-               : foundOrNull.get(elementToFind);
+        return sortedSetOfBuckets.find(entry).flatMap(i -> ImMaybe.with(i.get(elementToFind)));
     }
 
     /**
@@ -804,7 +805,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     @SuppressWarnings("unchecked")
     public boolean contains(Object elementToLookFor)
     {
-        return find((T) elementToLookFor) != null;
+        return find((T) elementToLookFor).isPresent();
     }
 
     /**
@@ -846,18 +847,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     {
         return size() != otherSet.size() || hashCode() != otherSet.hashCode()
                ? false
-               : elementsEq(sortedSetOfBuckets.iterator(), otherSet.sortedSetOfBuckets.iterator());
-    }
-
-    private boolean elementsEq(ImTreeIterator<Bucket<T>> itOne, ImTreeIterator<?> itTwo)
-    {
-        while (itOne.hasNext())
-        {
-            if (!itOne.next().hasEqualElements(itTwo.next()))
-                return false;
-        }
-
-        return true;
+               : Equals.isEqualIterators(iterator(), otherSet.iterator());
     }
 
     public ImSet<T> union(Iterable<? extends T> elementsToAdd)
@@ -1012,13 +1002,23 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     public int hashCode()
     {
         if (cachedHashCode == 0)
-            cachedHashCode = computeHash(10);
+            cachedHashCode = computeHash();
 
         return cachedHashCode;
     }
 
-    public int computeHash(int count)
+    /**
+     * This hash computation can't rely on any ordering in the elements -  so it has to look at all the elements
+     *
+     * It uses the same algorithm to combine the hashCodes of the elements as java.util.AbstractSet
+     */
+    public int computeHash()
     {
-        return ImList.onAll(this).hashCode(count);
+        int h = 0;
+
+        for (T t : this)
+            h += Hash.hashCodeOf(t);
+
+        return h;
     }
 }

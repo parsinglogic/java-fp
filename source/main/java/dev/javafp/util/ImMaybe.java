@@ -9,6 +9,7 @@ package dev.javafp.util;
 
 import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
+import dev.javafp.eq.Equals;
 import dev.javafp.ex.MaybeCannotHaveANullValueException;
 import dev.javafp.ex.NothingThereException;
 import dev.javafp.func.Fn;
@@ -59,9 +60,14 @@ public final class ImMaybe<T> extends ImValuesImpl
 
     public static <T> ImMaybe<T> with(T valueOrNull)
     {
-        return valueOrNull == null
+        return with(null, valueOrNull);
+    }
+
+    public static <T> ImMaybe<T> with(T bad, T valueOrBad)
+    {
+        return Equals.isEqual(bad, valueOrBad)
                ? nothing()
-               : just(valueOrNull);
+               : just(valueOrBad);
     }
 
     public T get()
