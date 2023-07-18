@@ -294,7 +294,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     /**
      * <p> The sorted set that contains the buckets
      */
-    final ImSortedSet<Bucket<T>> sortedSet;
+    final ImSortedSet<Bucket<T>> sortedSetOfBuckets;
 
     /**
      * <p> The number of elements in this set
@@ -308,7 +308,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         int max = 0;
         int maxElements = 0;
 
-        ImTreeIterator<Bucket<T>> it = sortedSet.iterator();
+        ImTreeIterator<Bucket<T>> it = sortedSetOfBuckets.iterator();
 
         while (it.hasNext())
         {
@@ -320,14 +320,14 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         }
 
         return //
-                "# buckets = " + sortedSet.size() + //
+                "# buckets = " + sortedSetOfBuckets.size() + //
                         "\nmax bucket size = " + max + //
                         "\ntotal  = " + total + //
-                        "\nheight  = " + sortedSet.tree.getHeight() + //
-                        "\naverage bucket size = " + total / (float) sortedSet.size() + //
+                        "\nheight  = " + sortedSetOfBuckets.tree.getHeight() + //
+                        "\naverage bucket size = " + total / (float) sortedSetOfBuckets.size() + //
                         "\nmaxElements  = " + maxElements + //
                         "\ntotalElements  = " + totalElements + //
-                        "\naverage elements length = " + totalElements / (float) sortedSet.size();
+                        "\naverage elements length = " + totalElements / (float) sortedSetOfBuckets.size();
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -344,7 +344,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
 
     private ImSet(final ImSortedSet<Bucket<T>> node, final int size)
     {
-        this.sortedSet = node;
+        this.sortedSetOfBuckets = node;
         this.size = size;
     }
 
@@ -451,7 +451,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     ImTreeZipper<Bucket<T>> getPathOn(final T newElement)
     {
         // Try to find the path of a bucket with the correct hash in the tree
-        return ImTreeZipper.find(ImTreeZipper.onRoot(sortedSet.tree), bucketWith(newElement));
+        return ImTreeZipper.find(ImTreeZipper.onRoot(sortedSetOfBuckets.tree), bucketWith(newElement));
     }
 
     ImSet<T> addAtPath(final T newElement, Replace replace, final ImTreeZipper<Bucket<T>> path)
@@ -508,14 +508,14 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
             // bucket
             // otherwise we must add this new bucket
             return new ImSet<T>(newBucket.size() == 0
-                                ? sortedSet.remove(bucketWithMatchingHashCode)
-                                : sortedSet.add(newBucket), size - 1);
+                                ? sortedSetOfBuckets.remove(bucketWithMatchingHashCode)
+                                : sortedSetOfBuckets.add(newBucket), size - 1);
     }
 
     public Bucket<T> getBucketContaining(final T element)
     {
         // Find the bucket with the matching hash code
-        return (Bucket<T>) sortedSet.find(bucketWith(element));
+        return (Bucket<T>) sortedSetOfBuckets.find(bucketWith(element));
     }
 
     /**
@@ -535,7 +535,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         final Bucket<T> entry = new Bucket<T>(hashCode);
 
         // Find it in the tree
-        final Bucket<T> foundOrNull = (Bucket<T>) sortedSet.find(entry);
+        final Bucket<T> foundOrNull = (Bucket<T>) sortedSetOfBuckets.find(entry);
 
         return foundOrNull == null
                ? null
@@ -772,7 +772,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      */
     public Iterator<T> iterator()
     {
-        return new ImSetIterator<T>(sortedSet);
+        return new ImSetIterator<T>(sortedSetOfBuckets);
     }
 
     //
@@ -836,18 +836,14 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     @Override
     public boolean equals(Object other)
     {
-        return this == other
-               ? true
-               : other instanceof ImSet
-                 ? eq((ImSet) other)
-                 : false;
+        return this == other || other instanceof ImSet<?> && eq((ImSet) other);
     }
 
     private boolean eq(ImSet<?> otherSet)
     {
-        return size() == otherSet.size() && hashCode() == otherSet.hashCode()
-               ? elementsEq(sortedSet.iterator(), otherSet.sortedSet.iterator())
-               : false;
+        return size() != otherSet.size() || hashCode() != otherSet.hashCode()
+               ? false
+               : elementsEq(sortedSetOfBuckets.iterator(), otherSet.sortedSetOfBuckets.iterator());
     }
 
     private boolean elementsEq(ImTreeIterator<Bucket<T>> itOne, ImTreeIterator<?> itTwo)
@@ -866,7 +862,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     {
         // TODO - may-2012 - Van - could improve this to account for every object
         // rather than each bucket as it is now
-        return sortedSet.hashCode();
+        return sortedSetOfBuckets.hashCode();
     }
 
     public ImSet<T> union(Iterable<? extends T> elementsToAdd)

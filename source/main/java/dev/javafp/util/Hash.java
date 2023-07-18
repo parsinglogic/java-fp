@@ -10,10 +10,9 @@ package dev.javafp.util;
 import java.util.Arrays;
 
 /**
- * <p> I need hashing to be able to add thisngs to an ImSet
- * <p> I used to calculate the hash when the object was created.
+ * <p> We used to calculate the hash when the object was created.
  * <p> Now we are doing it on demand and then caching the value.
- * 
+ *
  */
 public class Hash
 {
@@ -22,12 +21,6 @@ public class Hash
 
     public static int hash(Object... values)
     {
-        /**
-         * <p> This won't work if there is an array in values because it treats arrays in arrays as special and does not
-         * look at the contents.
-         * <p> I tried using deepHashCode but I couldn't get it to work
-         * 
-         */
         return hashCodeOfArray(values);
     }
 

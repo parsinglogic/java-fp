@@ -16,22 +16,21 @@ import dev.javafp.util.ArrayIterator;
 import dev.javafp.util.TextUtils;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Iterator;
 
 /**
  * <p> An immutable version of
- * {@code java.util.SortedSet}
- * .
- * <h2>Introduction</h2>
+ * {@code java.util.TreeSet}
+ *
  *
  */
 public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serializable
 {
-    final ImTree<T> tree;
+    // The tree where we store the elements
+    ImTree<T> tree;
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    private static final ImSortedSet<?> empty = new ImSortedSet(ImTree.Nil());
+    @SuppressWarnings({ "rawtypes" })
+    private static ImSortedSet empty = new ImSortedSet(ImTree.Nil());
 
     /**
      * <p> The (singleton) empty set.
@@ -42,7 +41,10 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
         return (ImSortedSet<A>) empty;
     }
 
-    protected ImSortedSet(final ImTree<T> tree)
+    /**
+     * A new instance pointing to `tree` - which is used to store the elements.
+     */
+    protected ImSortedSet(ImTree<T> tree)
     {
         this.tree = tree;
     }
@@ -51,7 +53,7 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
      *
      */
     @SafeVarargs
-    public static <A extends Comparable<A>> ImSortedSet<A> onArray(final A... array)
+    public static <A extends Comparable<A>> ImSortedSet<A> on(A... array)
     {
         return onIterator(ArrayIterator.on(array));
     }
@@ -70,10 +72,9 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
 
     public static <A extends Comparable<A>> ImSortedSet<A> onAll(Iterable<A> iterable)
     {
-        if (iterable instanceof ImSortedSet)
-            return (ImSortedSet<A>) iterable;
-        else
-            return onIterator(iterable.iterator());
+        return iterable instanceof ImSortedSet
+               ? (ImSortedSet<A>) iterable
+               : onIterator(iterable.iterator());
     }
 
     public ImSortedSet<T> removeAll(Iterable<T> iterable)
@@ -100,7 +101,7 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
     @SuppressWarnings("unchecked")
     public <X extends Comparable<X>> ImSortedSet<X> upCast()
     {
-        return (ImSortedSet) this;
+        return (ImSortedSet<X>) this;
     }
 
     /**
@@ -119,7 +120,7 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
      *  will be returned.
      *
      */
-    public ImSortedSet<T> add(final T elementToAdd)
+    public ImSortedSet<T> add(T elementToAdd)
     {
         return new ImSortedSet<T>(add(tree, elementToAdd));
     }
@@ -140,7 +141,7 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
      *  will be returned.
      *
      */
-    public ImSortedSet<T> remove(final T elementToRemove)
+    public ImSortedSet<T> remove(T elementToRemove)
     {
         ImTreeZipper<T> zipperOnNode = ImTreeZipper.find(ImTreeZipper.onRoot(tree), elementToRemove);
 
@@ -158,9 +159,9 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
      * .
      *
      */
-    public T find(final T elementToFind)
+    public T find(T elementToFind)
     {
-        final ImTree<T> found = find(tree, elementToFind);
+        ImTree<T> found = find(tree, elementToFind);
 
         return (found == ImTree.nil)
                ? null
@@ -190,21 +191,6 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
         return tree.size();
     }
 
-    // This version of the method is the one I would prefer to use. See the other version below
-    //     public static <A extends Comparable<A>> ImTree<A> find1(final ImTree<A> tree, final A elementToFind)
-    //     {
-    //          if (tree == ImTree.nil)
-    //               return tree;
-    //
-    //          final int order = elementToFind.compareTo(tree.element);
-    //
-    //          return order == 0
-    //                    ? tree
-    //                    : order < 0
-    //                              ? find(tree.left, elementToFind)
-    //                              : find(tree.right, elementToFind);
-    //     }
-
     /**
      * <p> If an element that
      * <em>equals</em>
@@ -214,7 +200,7 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
      * .
      *
      */
-    public static <A extends Comparable<A>> ImTree<A> find(ImTree<A> tree, final A elementToFind)
+    protected static <A extends Comparable<A>> ImTree<A> find(ImTree<A> tree, A elementToFind)
     {
         // I would prefer to have a recursive method here but I can squeeze a tiny bit of extra
         // performance out of this by not recursing so...
@@ -234,12 +220,12 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
         }
     }
 
-    private static <A extends Comparable<A>> ImTree<A> add(final ImTree<A> tree, final A elementToAdd)
+    private static <A extends Comparable<A>> ImTree<A> add(ImTree<A> tree, A elementToAdd)
     {
         if (tree == ImTree.nil)
             return ImTree.on(elementToAdd);
 
-        final int order = elementToAdd.compareTo(tree.getElement());
+        int order = elementToAdd.compareTo(tree.getElement());
 
         return order == 0
                ? ImTree.newBalancedTree(elementToAdd, tree.getLeft(), tree.getRight())
@@ -323,18 +309,14 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
     @Override
     public boolean equals(Object other)
     {
-        return this == other
-               ? true
-               : other instanceof ImSortedSet
-                 ? eq((ImSortedSet) other)
-                 : false;
+        return this == other || other instanceof ImSortedSet && eq((ImSortedSet) other);
     }
 
     private boolean eq(ImSortedSet<?> otherSortedSet)
     {
-        return size() == otherSortedSet.size() && hashCode() == otherSortedSet.hashCode()
-               ? elementsEq(iterator(), otherSortedSet.iterator())
-               : false;
+        return size() != otherSortedSet.size() || hashCode() != otherSortedSet.hashCode()
+               ? false
+               : elementsEq(iterator(), otherSortedSet.iterator());
     }
 
     private boolean elementsEq(ImTreeIterator<?> itOne, ImTreeIterator<?> itTwo)
@@ -382,58 +364,6 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
 
     /**
      * <p> The ImSortedSet formed out of the elements of each collection in
-     * {@code collections}
-     *  in order.
-     * <p> ImCollections can't contain
-     * {@code null}
-     *  so none of the elements can be
-     * {@code null}
-     * <h4>Examples:</h4>
-     *
-     * <pre>{@code
-     * List<Number> threeFive = Arrays.<Number> asList(3, 5);
-     * ImSortedSet<Integer> oneTwo = ImSortedSet.on(1, 2);
-     *
-     * joinArray(oneTwo, threeFive)          =>  [1, 2, 3, 5]");
-     * joinArray(oneTwo, threeFive, oneTwo)  =>  [1, 2, 3, 5, 1, 2]
-     * joinArray(on(), on())                 =>  []
-     * }</pre>
-     * @see #addAll(Iterable)
-     * @see #joinIterator(Iterator)
-     * @see #join(Collection)
-     *
-     */
-    //    @SafeVarargs
-    //    public static <A extends Comparable<A>> ImSortedSet<A> joinArray(Collection<? extends A>... collections)
-    //    {
-    //        return joinIterator(ArrayIterator.on(collections));
-    //    }
-
-    /**
-     * <p> The ImSortedSet formed out of the elements of each collection in
-     * {@code iterator}
-     *  in order.
-     * <p> ImCollections can't contain
-     * {@code null}
-     *  so none of the elements can be
-     * {@code null}
-     * @see #addAll(Iterable)
-     * @see #joinArray(Collection...)
-     * @see #join(Collection)
-     *
-     */
-    //    public static <A extends Comparable<A>> ImSortedSet<A> joinIterator(Iterator<Iterator<? extends A>> iterator)
-    //    {
-    //        ImSortedSet<A> concat = ImSortedSet.empty();
-    //
-    //        while (iterator.hasNext())
-    //            concat = concat.addAll(iterator.next());
-    //
-    //        return concat;
-    //    }
-
-    /**
-     * <p> The ImSortedSet formed out of the elements of each collection in
      * {@code collectionOfCollections}
      *  in order.
      * <p> ImCollections can't contain
@@ -451,6 +381,5 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
             concat = concat.addAll(as);
 
         return concat;
-
     }
 }

@@ -64,7 +64,7 @@ The main public collection classes:
  * **ImList**  - the classic functional list - maybe *slightly* similar to the Java `LinkedList`
  * **ImShelf** - the near-ish equivalent of the Java `ArrayList`
  * **ImSet** - the equivalent of the Java `Set`
- * **ImSortedSet** - the equivalent of the Java `SortedSet`
+ * **ImSortedSet** - the equivalent of the Java `TreeSet`
  * **ImMap** - the equivalent of the Java `Map`
  * **ImTree** - a  balanced binary tree
  * **ImRoseTree** - a tree where each node can have an arbitrary number of sub trees.
@@ -619,33 +619,33 @@ In summary - on an `ImSortedSet<T>`:
 
 ## Creation
 
-    static <T extends Comparable<? super T>> ImSortedSet<T> empty()
-    static <T extends Comparable<T>> ImSortedSet<T> on(T element)
-    static <T extends Comparable<T>> ImSortedSet<T> onAll(Collection<? extends A> elementsCollection)
-    static <T extends Comparable<T>> ImSortedSet<T> onAll(ImList<T> list)
-    static <T extends Comparable<T>> ImSortedSet<T> onArray(final A... array)
-    static <T extends Comparable<T>> ImSortedSet<T> onIterator(Iterator<T> iterator)
+    static <A extends Comparable<A>> ImSortedSet<A> empty()
+    static <A extends Comparable<A>> ImSortedSet<A> join(Iterable<? extends Iterable<? extends A>> iterable)
+    static <A extends Comparable<A>> ImSortedSet<A> on(A... array)
+    static <A extends Comparable<A>> ImSortedSet<A> onAll(Iterable<A> iterable)
+    static <A extends Comparable<A>> ImSortedSet<A> onIterator(Iterator<A> iterator)
+
 
 ## Accessing
 
-    static <T extends Comparable<? super T>> ImTree<A> find(ImTree<A> tree, final T elementToFind)
+   T find(T elementToFind)
+
 
 ## "Mutation"
 
-    ImSortedSet<T> add(final T elementToAdd)
+    ImSortedSet<T> add(T elementToAdd)
     ImSortedSet<T> addAll(Iterable<? extends T> elementsToAdd)
-    ImSortedSet<T> remove(final T elementToRemove)
+    ImSortedSet<T> remove(T elementToRemove)
+    ImSortedSet<T> removeAll(Iterable<T> iterable)
 
 ## Map
 
     <O extends Comparable<O>> ImSortedSet<O> map(Fn<T, O> fn)
 
 
-
 ## Querying
 
-    T find(final T elementToFind)
-    boolean contains(Object object)
+    boolean contains(T object)
     int size()
 
 
@@ -722,7 +722,6 @@ If you remove them when they weren't there:
 
 The new map is the same as the old one:
 
-
     mFive == mTwo  =>  true
 
 You can replace entries:
@@ -771,7 +770,7 @@ You can create an `ImMap` from a list of pairs or keys/values:
 
 This class is the heart of a number of collections.
 
-An `ImTree` is an **AVL tree** (a balanced binary tree) where each node stores some arbitrary data.
+An `ImTree` is an **AVL tree** (a balanced binary tree similar to a **red-black** tree) where each node stores some arbitrary data.
 
 ### An important note about this class - no ordering of elements is required or used
 
@@ -1108,11 +1107,11 @@ Now let's whizz through some other fun classes.
 ## Zippers
 
 
-    The wonderful thing about Tiggers
-    Is Tiggers are wonderful things
-    Their tops are made out of rubber
-    Their bottoms are made out of springs
-    They're bouncy, trouncy, flouncy, pouncy fun, fun, fun, fun, fun
+> The wonderful thing about Tiggers
+> Is Tiggers are wonderful things
+> Their tops are made out of rubber
+> Their bottoms are made out of springs
+> They're bouncy, trouncy, flouncy, pouncy fun, fun, fun, fun, fun
 
 [Robert B. Sherman][sherman]
 
@@ -1140,7 +1139,7 @@ In order to replace the old node with the new node in the rose tree we need to c
 
 Tricky.
 
-This is where zippers save the day. Essentially, when you use a zipper to navigate an ImRoseTree, the zipper does store that path from the current element back to the root and then, when you
+This is where zippers save the day. Essentially, when you use a zipper to navigate an `ImRoseTree,` the zipper does store that path from the current element back to the root and then, when you
 want to mutate a node, you do it via the zipper and it then handles the necessary updating of all the parents for you.
 
 So the wonderful thing about zippers (apart from the fact that zippers are wonderful things)
@@ -1168,7 +1167,7 @@ Having created your box hierarchy, you convert it to a String and, well, probabl
 
 
 
-## Why this library - rather than all the others
+## Why this library? - rather than all the others
 
 This library haas "laziness" built into it - so it is possible to work with infinite collections and, as long as you don't try to visit every element, they are kinda useful.
 
