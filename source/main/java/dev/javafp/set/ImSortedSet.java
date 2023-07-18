@@ -26,6 +26,9 @@ import java.util.Iterator;
  */
 public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serializable
 {
+    // The cached hashCode value
+    private int cachedHashCode = 0;
+
     // The tree where we store the elements
     ImTree<T> tree;
 
@@ -330,12 +333,6 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
         return true;
     }
 
-    @Override
-    public int hashCode()
-    {
-        return tree.hashCode();
-    }
-
     public <O extends Comparable<O>> ImSortedSet<O> map(Fn<T, O> fn)
     {
         ImSortedSet<O> result = ImSortedSet.empty();
@@ -382,4 +379,19 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
 
         return concat;
     }
+
+    @Override
+    public int hashCode()
+    {
+        if (cachedHashCode == 0)
+            cachedHashCode = computeHash(10);
+
+        return cachedHashCode;
+    }
+
+    public int computeHash(int count)
+    {
+        return ImList.onAll(this).hashCode(count);
+    }
+
 }

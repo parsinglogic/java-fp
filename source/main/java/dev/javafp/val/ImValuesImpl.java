@@ -10,7 +10,6 @@ package dev.javafp.val;
 import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
 import dev.javafp.box.LeftRightBox;
-import dev.javafp.util.Hash;
 import dev.javafp.util.TextUtils;
 
 import java.io.Serializable;
@@ -37,7 +36,7 @@ public abstract class ImValuesImpl implements Serializable, Values
 
     protected int computeHash2()
     {
-        return Hash.hash(getValues());
+        return getValues().hashCode();
     }
 
     @Override

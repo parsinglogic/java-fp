@@ -105,6 +105,9 @@ import java.util.NoSuchElementException;
 public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
 {
 
+    // The cached hashCode value
+    private int cachedHashCode = 0;
+
     /**
      * <p> Enumeration containing values
      * {@code yes}
@@ -857,14 +860,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         return true;
     }
 
-    @Override
-    public int hashCode()
-    {
-        // TODO - may-2012 - Van - could improve this to account for every object
-        // rather than each bucket as it is now
-        return sortedSetOfBuckets.hashCode();
-    }
-
     public ImSet<T> union(Iterable<? extends T> elementsToAdd)
     {
         ImSet<T> result = this;
@@ -968,7 +963,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      */
     public ImList<T> toImList()
     {
-        return ImList.onIterator(this.iterator());
+        return ImList.onAll(this);
     }
 
     /**
@@ -1011,5 +1006,19 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         return other.toImList().foldl(ImSet.empty(), (s, e) -> contains(e)
                                                                ? s.add(e)
                                                                : s);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        if (cachedHashCode == 0)
+            cachedHashCode = computeHash(10);
+
+        return cachedHashCode;
+    }
+
+    public int computeHash(int count)
+    {
+        return ImList.onAll(this).hashCode(count);
     }
 }

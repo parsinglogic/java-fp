@@ -32,19 +32,18 @@ public class ImSortedSetTest
     public void testAgainstTreeSet()
     {
         /**
-         * We iterate a number of times:
-         * On each iteration:
-         * We roll a 4 sided die and, depending on the result
+         * We iterate a number of times
          *
-         * add an element
-         * remove an element
-         * add a few elements
-         * remove all the elements
+         * On each iteration,
+         * we roll a 4 sided die and, depending on the result, we:
+         *
+         * 1. add an element
+         * 2. remove an element
+         * 3. add a few elements
+         * 4. remove all the elements
          *
          * Check that the sorted set and the tree set agree with each other
          */
-
-        // Randomly shuffle some indexes
 
         say("large list", largeList);
         say("small list", smallList);
@@ -144,6 +143,13 @@ public class ImSortedSetTest
 
         // they should be the same size
         assertEquals(treeSet.size(), sortedSet.size());
+
+        assertEquals(ImList.onAll(treeSet), ImList.onAll(sortedSet));
+
+        //        say("sortedSet.hashCode()", sortedSet.hashCode());
+        //        say("treeSet.hashCode()", treeSet.hashCode());
+        //        say("treeSet.stream().toList().hashCode()", treeSet.stream().toList().hashCode());
+
     }
 
     @Test
@@ -288,24 +294,20 @@ public class ImSortedSetTest
     }
 
     /**
-     *
-     * The plan is to identify several valid operations we can apply to an ordered set when it contains
-     * n items
-     *
-     * There are n+1 adds, n removes
-     *
-     * Here we are assuming that the find operation cannot change the set.
-     *
-     * We can form scripts of valid operations and apply them to both an ordered set and a sorted set
-     *
-     * So, given the empty ordered set and an empty sorted set we generate all valid scripts up to a length l.
-     *
-     * After applying each operation we check that the ordered set and the sorted set are the same
-     *
-     * To make the logic easier we will generate the operations and test them as we go
-     *
-     * The number of tests for scripts of different length is as follows:
-     *
+     * <p> The plan is to identify several valid operations we can apply to an ordered set when it contains
+     * {@code n}
+     *  items
+     * <p> There are
+     * {@code n+1}
+     *  adds,
+     * {@code n}
+     *  removes
+     * <p> Here we are assuming that the find operation cannot change the set.
+     * <p> We can form scripts of valid operations and apply them to both an ordered set and a sorted set
+     * <p> So, given the empty ordered set and an empty sorted set we generate all valid scripts up to a length l.
+     * <p> After applying each operation we check that the ordered set and the sorted set are the same
+     * <p> To make the logic easier we will generate the operations and test them as we go
+     * <p> The number of tests for scripts of different length is as follows:
      *
      */
     private void testState(int depth, SortedSet<Integer> list, ImSortedSet<Integer> orderedSet, ImList<Op> opList)
@@ -349,8 +351,7 @@ public class ImSortedSetTest
             String expected = sortedSetAfterOp.toString();
             String actual = imSortedSetAfterOp.toString();
 
-            if (!(expected.equals(actual)) || sortedSetAfterOp.size() != imSortedSetAfterOp.size()
-                    || !checkHashCode(imSortedSetAfterOp))
+            if (!(expected.equals(actual)) || sortedSetAfterOp.size() != imSortedSetAfterOp.size())
             {
                 System.err.println("\nFailed on test " + testCount);
                 System.err.println("size " + imSortedSetAfterOp.size());
@@ -389,21 +390,8 @@ public class ImSortedSetTest
         }
     }
 
-    private boolean checkHashCode(ImSortedSet<Integer> shelf)
-    {
-        int h = 0;
-        for (Object i : shelf)
-        {
-            h += i.hashCode();
-        }
-
-        return h == shelf.hashCode();
-    }
-
     /**
      * The max height of the tree is log(size) + 1
-     * @param size
-     * @return
      */
     private int maxHeightOfTree(int size)
     {

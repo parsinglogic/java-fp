@@ -532,7 +532,7 @@ public class ImSetTest
             String expected = expectedSorted.toString();
             String actual = actualSorted.toString();
 
-            if (!(expected.equals(actual)) || setAfterOp.size() != imSetAfterOp.size() || !checkHashCode(imSetAfterOp))
+            if (!(expected.equals(actual)) || setAfterOp.size() != imSetAfterOp.size())
             {
                 System.err.println("\nFailed on test " + testCount);
                 System.err.println("size " + imSetAfterOp.size());
@@ -561,19 +561,6 @@ public class ImSetTest
             // Check the set in this new state
             this.testState(depth - 1, setAfterOp, imSetAfterOp, newOpList);
         }
-    }
-
-    private static boolean checkHashCode(ImSet<?> set)
-    {
-        Set<Integer> s = new HashSet<>();
-        for (Object i : set)
-        {
-            s.add(i.hashCode());
-        }
-
-        //        if (s.hashCode() != set.hashCode())
-        //            System.err.println("calculated hashCode " + s.hashCode());
-        return s.hashCode() == set.hashCode();
     }
 
     private static List<Op> generateOpsFor(Set<Fooble> set, int depth)

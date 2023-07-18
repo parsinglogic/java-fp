@@ -10,8 +10,19 @@ package dev.javafp.util;
 import java.util.Arrays;
 
 /**
+ *
+ * <p> A utility to help with hash calculations.
  * <p> We used to calculate the hash when the object was created.
  * <p> Now we are doing it on demand and then caching the value.
+ *
+ * <p>When we are calculating the hashCode of an array, we are calculating the hashCode of each element and combining them using
+ * the same algorithm as java.util.List
+ *
+ * <p> In particular,
+ * {@code null}
+ * s have a hashCode of
+ * {@code 0}
+ * .
  *
  */
 public class Hash
