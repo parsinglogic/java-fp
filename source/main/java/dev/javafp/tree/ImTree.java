@@ -53,12 +53,12 @@ import java.util.Collection;
  * <p> Note that this definition does not, of itself, specify that the tree is balanced. We enforce that
  * invariant in each method that adds/removes nodes.
  * <p> Consider an example tree with six non nil nodes:
- * <p> <img src="{@docRoot}/com/drum/server/utils/im/doc-files/tree-abcdef.png" alt="tree-abcdef"  width=200/>
+ * <p> <img src="{@docRoot}/dev/doc-files/tree-abcdef.png" alt="tree-abcdef"  width=200/>
  *
  *
  * </p>
  * <p> If we show the nil nodes then it looks like this:
- * <p> <img src="{@docRoot}/com/drum/server/utils/im/doc-files/tree-abcdef-with-nulls.png"   width=200/>
+ * <p> <img src="{@docRoot}/dev/doc-files/tree-abcdef-with-nulls.png"   width=200/>
  * </p>
  * <p> Each
  * {@code Node}
@@ -67,14 +67,14 @@ import java.util.Collection;
  *  value defined as the sum of the sizes of its children plus one.
  * nil Nodes are considered to have a size of zero.
  * The size represents how many non nil nodes there are in the tree rooted at n.
- * <p> <img src="{@docRoot}/com/drum/server/utils/im/doc-files/tree-abcdef-with-sizes.png" alt="tree-abcdef-with-sizes"    width=200/>
+ * <p> <img src="{@docRoot}/dev/doc-files/tree-abcdef-with-sizes.png" alt="tree-abcdef-with-sizes"    width=200/>
  * </p>
  * <p> Each node also has a height value representing the size of the longest path from that node to a leaf
  * node.
  * <p> The height of a node is the maximum of the heights of its children. Nil nodes are considered to
  * have a height of zero.
  * <p> Let's annotate our example with the heights:
- * <p> <img src="{@docRoot}/com/drum/server/utils/im/doc-files/tree-abcdef-with-heights.png" alt="tree-abcdef-with-heights"     width=200/>
+ * <p> <img src="{@docRoot}/dev/doc-files/tree-abcdef-with-heights.png" alt="tree-abcdef-with-heights"     width=200/>
  * </p>
  * <p> Because the tree is balanced, this means that the heights of the children of a node will differ
  * by at most one.
@@ -83,7 +83,7 @@ import java.util.Collection;
  *  that represents its position in the tree in a pre-order scan.
  * <p> Ranks start at one (exactly as Nature intended!)
  * <p> Let's annotate our example with the ranks:
- * <p> <img src="{@docRoot}/com/drum/server/utils/im/doc-files/tree-abcdef-with-ranks.png" alt="tree-abcdef-with-ranks"    width=200/>
+ * <p> <img src="{@docRoot}/dev/doc-files/tree-abcdef-with-ranks.png" alt="tree-abcdef-with-ranks"    width=200/>
  * </p>
  * <p> We don't store the ranks. To calculate the rank of a node or to find a node at a particular rank we can use
  * the size of child nodes to derive the answer.

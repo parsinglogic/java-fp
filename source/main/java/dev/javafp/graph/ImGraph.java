@@ -40,7 +40,7 @@ import dev.javafp.val.ImValuesImpl;
  * <p> This is an example of a graph with arcs labelled art or mod and its ascii-art diagram
  *
  *
- * <p> </p><img src="{@docRoot}/com/drum/server/utils/im/doc-files/graph-diagrams.png"  width=700/>
+ * <p> </p><img src="{@docRoot}/dev/doc-files/graph-diagrams.png"  width=700/>
  *
  *
  *

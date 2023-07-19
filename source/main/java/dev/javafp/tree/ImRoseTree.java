@@ -84,13 +84,10 @@ import java.util.LinkedList;
  * <p> {@link #withElements(A, A...)}
  * </li>
  * <li>
- * <p> {@link #withElements(A, ImList)}
+ * <p> {@link #withElements(A, ImList<A>)}
  * </li>
  * <li>
- * <p> {@link #withNodes(A, ImRoseTree...)}
- * </li>
- * <li>
- * <p> {@link #withNodes(A, ImList)}
+ * <p> {@link #withNodes(A, ImList<ImRoseTree<A>)}
  * </li>
  * </ul>
  * <h2>Query</h2>
