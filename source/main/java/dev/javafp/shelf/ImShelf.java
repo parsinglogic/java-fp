@@ -218,7 +218,7 @@ public class ImShelf<T> implements Iterable<T>
     /**
      * <p> The tree that holds the elements
      */
-    final private ImTree<T> tree;
+    ImTree<T> tree;
 
     /**
      * <p> The constructor for the empty shelf
@@ -393,7 +393,7 @@ public class ImShelf<T> implements Iterable<T>
         ImIndexOutOfBoundsException.check(indexStartingAtOne, 1, size() + 1, "index");
         NullCheck.check(elementToAdd);
 
-        return new ImShelf<T>(getTree().insert(indexStartingAtOne, elementToAdd));
+        return new ImShelf<T>(tree.insert(indexStartingAtOne, elementToAdd));
     }
 
     /**
@@ -440,7 +440,7 @@ public class ImShelf<T> implements Iterable<T>
      */
     public int size()
     {
-        return getTree().size();
+        return tree.size();
     }
 
     public boolean isEmpty()
@@ -450,7 +450,7 @@ public class ImShelf<T> implements Iterable<T>
 
     public ImShelfIterator<T> iterator()
     {
-        return new ImShelfIterator<T>(new ImTreeIterator<T>(getTree()));
+        return new ImShelfIterator<T>(new ImTreeIterator<T>(tree));
     }
 
     public ImList<T> toImList()
@@ -480,7 +480,7 @@ public class ImShelf<T> implements Iterable<T>
         ImIndexOutOfBoundsException.check(indexStartingAtOne, 1, size() + 1, "indexStartingAtOne");
         NullCheck.check(elementToSet);
 
-        ImTreeZipper<T> path = ImTreeZipper.onRoot(getTree()).goToIndex(indexStartingAtOne);
+        ImTreeZipper<T> path = ImTreeZipper.onRoot(tree).goToIndex(indexStartingAtOne);
 
         return new ImShelf<T>(path.replaceElement(elementToSet).close());
     }
@@ -502,7 +502,7 @@ public class ImShelf<T> implements Iterable<T>
      */
     public T get(int indexStartingAtOne)
     {
-        return getTree().getNodeAtIndex(indexStartingAtOne).getElement();
+        return tree.getNodeAtIndex(indexStartingAtOne).getElement();
     }
 
     /**
@@ -636,7 +636,7 @@ public class ImShelf<T> implements Iterable<T>
 
     ImShelfZipper<T> getZipperOnIndex(int indexStartingAtOne)
     {
-        ImMaybe<ImTreeZipper<T>> m = ImTreeZipper.onIndex(getTree(), indexStartingAtOne);
+        ImMaybe<ImTreeZipper<T>> m = ImTreeZipper.onIndex(tree, indexStartingAtOne);
 
         if (m.isPresent())
         {
@@ -670,7 +670,7 @@ public class ImShelf<T> implements Iterable<T>
      */
     public ImShelfZipper<T> getZipper()
     {
-        return new ImShelfZipper<T>(this, ImTreeZipper.onLeftmost(getTree()).before());
+        return new ImShelfZipper<T>(this, ImTreeZipper.onLeftmost(tree).before());
     }
 
     /**
@@ -733,11 +733,6 @@ public class ImShelf<T> implements Iterable<T>
         // This was my first attempt - but it does not run fn on the elements in a predictable order.
         // Hmm - of course this would not matter in a pure functional language...
         // return new ImShelf<O>(getTree().map(fn));
-    }
-
-    ImTree<T> getTree()
-    {
-        return tree;
     }
 
     /**
@@ -826,7 +821,7 @@ public class ImShelf<T> implements Iterable<T>
     public ImShelf<T> addAll(Iterable<? extends T> iterable)
     {
         ImShelf<T> otherShelf = ImShelf.onAll(iterable);
-        return new ImShelf<T>(ImTree.merge(tree, otherShelf.getTree()));
+        return new ImShelf<T>(ImTree.merge(tree, otherShelf.tree));
     }
 
     /**

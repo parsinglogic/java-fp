@@ -51,17 +51,17 @@ public class ImShelfTest
         ImShelf<Integer> one = ImShelf.onAll(first);
 
         System.err.println(one);
-        System.err.println(one.getTree().toBoxString());
+        System.err.println(one.tree.toBoxString());
 
         ImShelf<Integer> four = one.add(1, 0);
 
         System.err.println(four);
-        System.err.println(four.getTree().toBoxString());
+        System.err.println(four.tree.toBoxString());
 
         ImShelf<Integer> five = four.add(11);
 
         System.err.println(five);
-        System.err.println(five.getTree().toBoxString());
+        System.err.println(five.tree.toBoxString());
     }
 
     @Test

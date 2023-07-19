@@ -259,7 +259,7 @@ public class ImShelfZipper<T> implements Iterable<ImShelfZipper<T>>
     {
         ImTree<T> newTree = treeZipper.close();
 
-        return newTree == shelf.getTree()
+        return newTree == shelf.tree
                // If the tree is the same then the shelf must be the same
                ? shelf
                : new ImShelf<T>(newTree);
@@ -341,7 +341,7 @@ public class ImShelfZipper<T> implements Iterable<ImShelfZipper<T>>
      */
     public ImShelfZipper<T> pushAll(ImShelf<T> shelfToInsert)
     {
-        return new ImShelfZipper<T>(shelf, treeZipper.insertAfter(shelfToInsert.getTree()));
+        return new ImShelfZipper<T>(shelf, treeZipper.insertAfter(shelfToInsert.tree));
     }
 
     /**
