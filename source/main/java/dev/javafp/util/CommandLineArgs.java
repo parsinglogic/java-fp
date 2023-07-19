@@ -45,11 +45,11 @@ public class CommandLineArgs
 
     public CommandLineArgs addOption(String name, String value)
     {
-        return new CommandLineArgs(options.updateValue(name, ImShelf.empty(), v -> v.adding(value)), commands);
+        return new CommandLineArgs(options.updateValue(name, ImShelf.empty(), v -> v.add(value)), commands);
     }
 
     public CommandLineArgs addCommand(String commandWord)
     {
-        return new CommandLineArgs(options, commands.adding(commandWord));
+        return new CommandLineArgs(options, commands.add(commandWord));
     }
 }

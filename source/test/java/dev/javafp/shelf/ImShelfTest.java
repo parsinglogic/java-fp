@@ -28,16 +28,16 @@ public class ImShelfTest
     {
         ImShelf<Character> s = ImShelf.empty();
 
-        s = s.adding(1, 'c');
+        s = s.add(1, 'c');
         System.out.println(s);
         assertElementEquals('c', s.get(1));
 
-        s = s.adding(1, 'b');
+        s = s.add(1, 'b');
         System.out.println(s);
         assertElementEquals('b', s.get(1));
         assertElementEquals('c', s.get(2));
 
-        s = s.adding(1, 'a');
+        s = s.add(1, 'a');
         System.out.println(s);
         assertElementEquals('a', s.get(1));
         assertElementEquals('b', s.get(2));
@@ -53,12 +53,12 @@ public class ImShelfTest
         System.err.println(one);
         System.err.println(one.getTree().toBoxString());
 
-        ImShelf<Integer> four = one.adding(1, 0);
+        ImShelf<Integer> four = one.add(1, 0);
 
         System.err.println(four);
         System.err.println(four.getTree().toBoxString());
 
-        ImShelf<Integer> five = four.adding(11);
+        ImShelf<Integer> five = four.add(11);
 
         System.err.println(five);
         System.err.println(five.getTree().toBoxString());
@@ -85,7 +85,7 @@ public class ImShelfTest
         int size = 100;
         Random rand = new Random(1111);
 
-        shelf = shelf.adding(1);
+        shelf = shelf.add(1);
         list.add(1);
 
         int i = 0;
@@ -94,7 +94,7 @@ public class ImShelfTest
             i++;
             int pos = rand.nextInt(list.size());
 
-            shelf = shelf.adding(pos + 1, i);
+            shelf = shelf.add(pos + 1, i);
             list.add(pos, i);
 
             assertEquals(list.toString(), shelf.toString());
@@ -106,16 +106,16 @@ public class ImShelfTest
     {
         ImShelf<Character> s = ImShelf.empty();
 
-        s = s.adding(1, 'a');
+        s = s.add(1, 'a');
         System.out.println(s);
         assertElementEquals('a', s.get(1));
 
-        s = s.adding(2, 'b');
+        s = s.add(2, 'b');
         System.out.println(s);
         assertElementEquals('a', s.get(1));
         assertElementEquals('b', s.get(2));
 
-        s = s.adding(3, 'c');
+        s = s.add(3, 'c');
         System.out.println(s);
         assertElementEquals('a', s.get(1));
         assertElementEquals('b', s.get(2));
@@ -127,9 +127,9 @@ public class ImShelfTest
     {
         ImShelf<Character> s = ImShelf.empty();
 
-        s = s.adding('a');
-        s = s.adding('b');
-        s = s.adding('c');
+        s = s.add('a');
+        s = s.add('b');
+        s = s.add('c');
 
         ImShelf.ImShelfIterator<Character> it = s.iterator();
 
@@ -156,19 +156,19 @@ public class ImShelfTest
 
         ImShelf<Character> sx;
 
-        sx = s.adding(1, 'x');
+        sx = s.add(1, 'x');
         System.out.println(sx);
         assertTreeIs("b1 a2 x3 c2", sx);
 
-        sx = s.adding(2, 'x');
+        sx = s.add(2, 'x');
         System.out.println(sx);
         assertTreeIs("b1 a2 -3 x3 c2", sx);
 
-        sx = s.adding(3, 'x');
+        sx = s.add(3, 'x');
         System.out.println(sx);
         assertTreeIs("b1 a2 c2 x3", sx);
 
-        sx = s.adding(4, 'x');
+        sx = s.add(4, 'x');
         System.out.println(sx);
         assertTreeIs("b1 a2 c2 -3 x3", sx);
     }
@@ -212,7 +212,7 @@ public class ImShelfTest
     {
         ImShelf<Character> s = tt("b1 a2 c2");
 
-        assertTreeIs("b1 a2 c2 -3 x3", s.adding('x'));
+        assertTreeIs("b1 a2 c2 -3 x3", s.add('x'));
     }
 
     @Test
@@ -236,12 +236,12 @@ public class ImShelfTest
     @Test
     public void testExampleAddingAtIndex() throws Exception
     {
-        checkExample(on(1, 2, 3, 5).adding(2, 8), "[1, 8, 2, 3, 5]");
-        checkExample(on(1, 2, 3).adding(4, 8), "[1, 2, 3, 8]");
+        checkExample(on(1, 2, 3, 5).add(2, 8), "[1, 8, 2, 3, 5]");
+        checkExample(on(1, 2, 3).add(4, 8), "[1, 2, 3, 8]");
 
         try
         {
-            on(1, 2, 3).adding(13, 8);
+            on(1, 2, 3).add(13, 8);
             TestUtils.failExpectedException(NullPointerException.class);
         } catch (Exception e)
         {
@@ -318,14 +318,14 @@ public class ImShelfTest
     }
 
     @Test
-    public void testExampleAdding() throws Exception
+    public void testExampleadd() throws Exception
     {
-        checkExample(on(1, 2).adding(3), "[1, 2, 3]");
-        checkExample(on().adding(1), "    [1]");
+        checkExample(on(1, 2).add(3), "[1, 2, 3]");
+        checkExample(on().add(1), "    [1]");
 
         try
         {
-            on(1, 2, 3).adding(null);
+            on(1, 2, 3).add(null);
             TestUtils.failExpectedException(NullPointerException.class);
         } catch (Exception e)
         {
@@ -508,7 +508,7 @@ public class ImShelfTest
         switch (op.opType)
         {
         case add:
-            return shelf.adding(index, value);
+            return shelf.add(index, value);
 
         case remove:
             return shelf.remove(index);

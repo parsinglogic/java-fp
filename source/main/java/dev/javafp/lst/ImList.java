@@ -3294,7 +3294,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         {
             var pair = shelf.partitionAtIndex(Rando.nextInt(1, shelf.size()));
 
-            return shuffle(result.adding(pair.fst), pair.snd);
+            return shuffle(result.add(pair.fst), pair.snd);
         }
     }
 

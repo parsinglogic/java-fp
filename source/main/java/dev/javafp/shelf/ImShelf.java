@@ -101,10 +101,10 @@ import java.util.NoSuchElementException;
  * <h2>Mutation</h2>
  * <ul>
  * <li>
- * <p> {@link #adding(Object)}
+ * <p> {@link #add(Object)}
  * </li>
  * <li>
- * <p> {@link #adding(int, Object)}
+ * <p> {@link #add(int, Object)}
  * </li>
  * <li>
  * <p> {@link #set(int, Object)}
@@ -341,7 +341,7 @@ public class ImShelf<T> implements Iterable<T>
 
         while (iterator.hasNext())
         {
-            result = result.adding(iterator.next());
+            result = result.add(iterator.next());
         }
 
         return result;
@@ -380,14 +380,14 @@ public class ImShelf<T> implements Iterable<T>
      * <h4>Examples:</h4>
      *
      * <pre>{@code
-     * on(1, 2, 3, 5).adding(2, 8)  =>  [1, 8, 2, 3, 5]
-     * on(1, 2, 3).adding(4, 8)     =>  [1, 2, 3, 8]
-     * on(1, 2, 3).adding(13, 8)    =>  java.lang.IndexOutOfBoundsException: index should be in the range [1, 4]  but was 13
+     * on(1, 2, 3, 5).add(2, 8)  =>  [1, 8, 2, 3, 5]
+     * on(1, 2, 3).add(4, 8)     =>  [1, 2, 3, 8]
+     * on(1, 2, 3).add(13, 8)    =>  java.lang.IndexOutOfBoundsException: index should be in the range [1, 4]  but was 13
      * }</pre>
      * <p> @throws IndexOutOfBoundsException
      *
      */
-    public ImShelf<T> adding(int indexStartingAtOne, T elementToAdd)
+    public ImShelf<T> add(int indexStartingAtOne, T elementToAdd)
     {
         ImIndexOutOfBoundsException.check(indexStartingAtOne, 1, size() + 1, "index");
         NullCheck.check(elementToAdd);
@@ -408,16 +408,16 @@ public class ImShelf<T> implements Iterable<T>
      * <h4>Examples:</h4>
      *
      * <pre>{@code
-     * on(1, 2).adding(3)        =>  [1, 2, 3]
-     * on().adding(1)            =>  [1]
-     * on(1, 2, 3).adding(null)  =>  throws java.lang.NullPointerException: ImCollections can't contain nulls
+     * on(1, 2).add(3)        =>  [1, 2, 3]
+     * on().add(1)            =>  [1]
+     * on(1, 2, 3).add(null)  =>  throws java.lang.NullPointerException: ImCollections can't contain nulls
      * }</pre>
      * <p> @throws NullPointerException
      *
      */
-    public ImShelf<T> adding(T elementToAdd)
+    public ImShelf<T> add(T elementToAdd)
     {
-        return adding(size() + 1, elementToAdd);
+        return add(size() + 1, elementToAdd);
     }
 
     /**
@@ -724,7 +724,7 @@ public class ImShelf<T> implements Iterable<T>
 
         while (it.hasNext())
         {
-            mapped = mapped.adding(fn.of(it.next()));
+            mapped = mapped.add(fn.of(it.next()));
         }
 
         return mapped;
