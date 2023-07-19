@@ -32,11 +32,6 @@ public class ImTestHelper
         assertEquals(expected.toString(), actual.toString());
     }
 
-    public static void assertTreeIs(final String expectedTokens, final ImShelf<Character> actual)
-    {
-        assertTreesAreEqual(tt(expectedTokens), actual);
-    }
-
     public static void assertTreeIs(final String expectedTokens, final ImTree<Character> actual)
     {
         assertTreesAreEqual(t(expectedTokens), actual);
@@ -50,11 +45,6 @@ public class ImTestHelper
     public static ImTree<Character> t(final String string)
     {
         return new ImTreeFactory(string).create();
-    }
-
-    public static ImShelf<Character> tt(final String string)
-    {
-        return new ImShelf<Character>(new ImTreeFactory(string).create());
     }
 
     public static <A> List<A> flatten(ImTree<A> tree)

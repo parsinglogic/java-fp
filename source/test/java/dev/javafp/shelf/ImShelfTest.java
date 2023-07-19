@@ -2,6 +2,7 @@ package dev.javafp.shelf;
 
 import dev.javafp.ex.ImIndexOutOfBoundsException;
 import dev.javafp.lst.ImList;
+import dev.javafp.tree.ImTreeFactory;
 import dev.javafp.util.ImTestHelper;
 import dev.javafp.util.TestUtils;
 import org.junit.Test;
@@ -14,9 +15,7 @@ import java.util.Random;
 
 import static dev.javafp.shelf.ImShelf.joinArray;
 import static dev.javafp.shelf.ImShelf.on;
-import static dev.javafp.util.ImTestHelper.assertTreeIs;
 import static dev.javafp.util.ImTestHelper.checkExample;
-import static dev.javafp.util.ImTestHelper.tt;
 import static dev.javafp.util.TestUtils.failExpectedException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -538,39 +537,39 @@ public class ImShelfTest
      *
      * The number of tests for scripts of different length is as follows:
      *
-     * 1   1
-     * 2   5
-     * 3   24
-     * 4   151
-     * 5   1119
-     * 6   11604
-     * 7   132061
-     * 8   1725965
-     * 9   25452540
+     *     1   1
+     *     2   5
+     *     3   24
+     *     4   151
+     *     5   1119
+     *     6   11604
+     *     7   132061
+     *     8   1725965
+     *     9   25452540
      *
      * If we take a short cut that stops the tests if we get to a state where the list is empty:
      *
-     * 1   1
-     * 2   5
-     * 3   23
-     * 4   145
-     * 5   1165
-     * 6   11387
-     * 7   130409
-     * 8   1710973
-     * 9   25291519
+     *     1   1
+     *     2   5
+     *     3   23
+     *     4   145
+     *     5   1165
+     *     6   11387
+     *     7   130409
+     *     8   1710973
+     *     9   25291519
      *
      * If we don't move to the next state after a remove operation:
      *
-     * 1   1
-     * 2   5
-     * 3   23
-     * 4   129
-     * 5   903
-     * 6   7657
-     * 7   76255
-     * 8   871361
-     * 9   11229335
+     *     1   1
+     *     2   5
+     *     3   23
+     *     4   129
+     *     5   903
+     *     6   7657
+     *     7   76255
+     *     8   871361
+     *     9   11229335
      *
      */
     private void testState(final int depth, final List<Integer> list, final ImShelf<Integer> shelf,
@@ -674,6 +673,16 @@ public class ImShelfTest
             testState(i, new ArrayList<Integer>(), ImShelf.<Integer>empty(), empty);
             System.out.println(i + "   " + uniqueValue);
         }
+    }
+
+    public static ImShelf<Character> tt(final String string)
+    {
+        return new ImShelf<Character>(new ImTreeFactory(string).create());
+    }
+
+    public static void assertTreeIs(final String expectedTokens, final ImShelf<Character> actual)
+    {
+        ImTestHelper.assertTreesAreEqual(tt(expectedTokens), actual);
     }
 
 }

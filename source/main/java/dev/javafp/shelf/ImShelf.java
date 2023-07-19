@@ -222,12 +222,12 @@ public class ImShelf<T> implements Iterable<T>
     /**
      * <p> The constructor for the empty shelf
      */
-    ImShelf()
+    private ImShelf()
     {
         this(ImTree.<T>Nil());
     }
 
-    public ImShelf(ImTree<T> tree)
+    ImShelf(ImTree<T> tree)
     {
         this.tree = tree;
     }
