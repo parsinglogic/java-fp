@@ -66,7 +66,7 @@ public class ImSortedSetTest
 
             switch (i)
             {
-            case 0 ->
+            case 0:
             {
                 // Add
 
@@ -81,9 +81,10 @@ public class ImSortedSetTest
                 treeSet.add(elementToAdd);
 
                 check(sortedSet, treeSet);
+                break;
 
             }
-            case 1 ->
+            case 1:
             {
                 // Remove
 
@@ -98,9 +99,10 @@ public class ImSortedSetTest
                 treeSet.remove(elementToRemove);
 
                 check(sortedSet, treeSet);
+                break;
 
             }
-            case 2 ->
+            case 2:
             {
 
                 // Add several
@@ -112,8 +114,9 @@ public class ImSortedSetTest
                 treeSet.addAll(js.toList());
 
                 check(sortedSet, treeSet);
+                break;
             }
-            case 3 ->
+            case 3:
             {
                 // remove all
 
@@ -123,9 +126,11 @@ public class ImSortedSetTest
                 treeSet.removeAll(treeSet);
 
                 check(sortedSet, treeSet);
+                break;
             }
 
-            default -> say("default");
+            default:
+                throw new RuntimeException();
             }
         }
 
