@@ -8,6 +8,7 @@
 package dev.javafp.shelf;
 
 import dev.javafp.eq.Eq;
+import dev.javafp.eq.Equals;
 import dev.javafp.ex.ImIndexOutOfBoundsException;
 import dev.javafp.func.Fn;
 import dev.javafp.lst.ImList;
@@ -63,7 +64,7 @@ import java.util.NoSuchElementException;
  * <p> {@link #join(Iterable)}
  * </li>
  * <li>
- * <p> {@link #addingAll(Iterable)}
+ * <p> {@link #addAll(Iterable)}
  * </li>
  * <li>
  * <p> {@link #upCast()}
@@ -257,7 +258,7 @@ public class ImShelf<T> implements Iterable<T>
      * on(1, 2, 3)                      => [1, 2, 3]
      * on(new Integer[] { 1, 2, 3 })    => [1, 2, 3]
      * on()                             => []
-     * on(null, 2, 3)                   => throws java.lang.NullPointerException: ImCollections can't contain nulls
+     * on(null, 2, 3)                   => throws java.lang.NullPointerException: This collection can't contain nulls
      * }</pre>
      * <p> @throws NullPointerException if any of the elements in
      * {@code array}
@@ -289,7 +290,7 @@ public class ImShelf<T> implements Iterable<T>
      * <pre>{@code
      * on(Arrays.asList(1, 2, 3))    => [1, 2, 3]
      * on(Arrays.asList())           => []
-     * on(Arrays.asList(1, null, 3)) => throws java.lang.NullPointerException: ImCollections can't contain nulls
+     * on(Arrays.asList(1, null, 3)) => throws java.lang.NullPointerException: This collection can't contain nulls
      * }</pre>
      * <p> @throws NullPointerException if any of the elements in
      * {@code elementsCollection}
@@ -323,7 +324,7 @@ public class ImShelf<T> implements Iterable<T>
      * <pre>{@code
      * on(Arrays.asList(1, 2, 3).iterator())    => [1, 2, 3]
      * on(Arrays.asList().iterator())           => []
-     * on(Arrays.asList(1, null, 3).iterator()) => throws java.lang.NullPointerException: ImCollections can't contain nulls
+     * on(Arrays.asList(1, null, 3).iterator()) => throws java.lang.NullPointerException: This collection can't contain nulls
      * }</pre>
      * <p> @throws NullPointerException if any of the elements in
      * {@code iterator}
@@ -370,7 +371,7 @@ public class ImShelf<T> implements Iterable<T>
      * .
      * <p> All elements with
      * {@code index >= indexStartingAtOne}
-     *  are shuffled up.
+     *  are "shuffled right".
      * <p> ImCollections can't contain
      * {@code null}
      *  so
@@ -398,7 +399,7 @@ public class ImShelf<T> implements Iterable<T>
     /**
      * <p> Add
      * {@code elementToAdd}
-     *  at the end.
+     *  at the end of the existing elements.
      * <p> ImCollections can't contain
      * {@code null}
      *  so
@@ -410,9 +411,9 @@ public class ImShelf<T> implements Iterable<T>
      * <pre>{@code
      * on(1, 2).add(3)        =>  [1, 2, 3]
      * on().add(1)            =>  [1]
-     * on(1, 2, 3).add(null)  =>  throws java.lang.NullPointerException: ImCollections can't contain nulls
+     * on(1, 2, 3).add(null)  =>  throws java.lang.NullPointerException: This collection can't contain nulls
      * }</pre>
-     * <p> @throws NullPointerException
+     *
      *
      */
     public ImShelf<T> add(T elementToAdd)
@@ -496,7 +497,7 @@ public class ImShelf<T> implements Iterable<T>
      * on(1, 2).get(3)     =>  java.lang.IndexOutOfBoundsException: the size of the collection is 2 but indexStartingAtOne was 3
      * on().get(1)         =>  java.lang.IndexOutOfBoundsException: The collection is empty but indexStartingAtOne was 1
      * }</pre>
-     * <p> @throws IndexOutOfBoundsException
+     *
      *
      */
     public T get(int indexStartingAtOne)
@@ -582,7 +583,7 @@ public class ImShelf<T> implements Iterable<T>
      *
      * <pre>{@code
      * on(1, 2, 1).contains(1)     =>  true
-     * on(1, 2, 1).contains(null)  =>  throws java.lang.NullPointerException: ImCollections can't contain nulls
+     * on(1, 2, 1).contains(null)  =>  throws java.lang.NullPointerException: This collection can't contain nulls
      * }</pre>
      *
      */
@@ -610,7 +611,7 @@ public class ImShelf<T> implements Iterable<T>
      * <pre>{@code
      * on(1, 2, 3).indexOf(1)      =>  1
      * on(1, 2, 3).indexOf(1.0)    =>  -1
-     * on(1, 2, 1).contains(null)  =>  throws java.lang.NullPointerException: ImCollections can't contain nulls
+     * on(1, 2, 1).contains(null)  =>  throws java.lang.NullPointerException: This collection can't contain nulls
      * }</pre>
      * @see #indexOf(Object)
      *
@@ -753,7 +754,7 @@ public class ImShelf<T> implements Iterable<T>
      * concat(oneTwo, threeFive, oneTwo)  =>  [1, 2, 3, 5, 1, 2]
      * concat(on(), on())                 =>  []
      * }</pre>
-     * @see #addingAll(Iterable)
+     * @see #addAll(Iterable)
      * @see #joinIterator(Iterator)
      * @see #join(Iterable)
      *
@@ -772,7 +773,7 @@ public class ImShelf<T> implements Iterable<T>
      * {@code null}
      *  so none of the elements can be
      * {@code null}
-     * @see #addingAll(Iterable)
+     * @see #addAll(Iterable)
      * @see #joinArray(Iterable...)
      * @see #join(Iterable)
      *
@@ -782,7 +783,7 @@ public class ImShelf<T> implements Iterable<T>
         ImShelf<A> concat = ImShelf.empty();
 
         while (iterator.hasNext())
-            concat = concat.addingAll(ImShelf.onAll(iterator.next()));
+            concat = concat.addAll(ImShelf.onAll(iterator.next()));
 
         return concat;
     }
@@ -795,7 +796,7 @@ public class ImShelf<T> implements Iterable<T>
      * {@code null}
      *  so none of the elements can be
      * {@code null}
-     * @see #addingAll(Iterable)
+     * @see #addAll(Iterable)
      * @see #joinArray(Iterable...)
      * @see #joinIterator(Iterator)
      *
@@ -809,20 +810,22 @@ public class ImShelf<T> implements Iterable<T>
      * <p> The ImShelf formed out of the elements of
      * {@code this}
      *  followed by the elements in
-     * {@code other}
+     * {@code iterable}
      *  in order.
      * <p> ImCollections can't contain
      * {@code null}
-     *  so none of the elements can be
+     *  so none of the elements  in
+     * {@code iterable}
+     * can be
      * {@code null}
      * @see #join(Iterable)
      * @see #joinArray(Iterable...)
      * @see #joinIterator(Iterator)
      *
      */
-    public ImShelf<T> addingAll(Iterable<? extends T> other)
+    public ImShelf<T> addAll(Iterable<? extends T> iterable)
     {
-        ImShelf<T> otherShelf = ImShelf.onAll(other);
+        ImShelf<T> otherShelf = ImShelf.onAll(iterable);
         return new ImShelf<T>(ImTree.merge(tree, otherShelf.getTree()));
     }
 
@@ -849,7 +852,7 @@ public class ImShelf<T> implements Iterable<T>
      *  means
      *
      * <pre>{@code
-     * e1.equals(e2) == true
+     * Equals.isEqual(e1, e2) == true
      * }</pre>
      * <p> In other words, two ImShelfs are defined to be
      * <em>equal</em>
@@ -876,18 +879,8 @@ public class ImShelf<T> implements Iterable<T>
     private boolean eq(ImShelf<?> otherShelf)
     {
         return size() == otherShelf.size() && hashCode() == otherShelf.hashCode()
-               ? elementsEq(iterator(), otherShelf.iterator())
+               ? Equals.isEqualIterators(iterator(), otherShelf.iterator())
                : false;
-    }
-
-    private boolean elementsEq(ImShelfIterator<?> itOne, ImShelfIterator<?> itTwo)
-    {
-        while (itOne.hasNext())
-        {
-            if (!itOne.next().equals(itTwo.next()))
-                return false;
-        }
-        return true;
     }
 
     /**

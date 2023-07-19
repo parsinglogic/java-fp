@@ -422,7 +422,7 @@ public class ImShelfTest
         List<Integer> threeFive = Arrays.<Integer>asList(3, 5);
         ImShelf<Integer> oneTwo = on(1, 2);
 
-        checkExample(oneTwo.addingAll(threeFive), "[1, 2, 3, 5]");
+        checkExample(oneTwo.addAll(threeFive), "[1, 2, 3, 5]");
     }
 
     @SuppressWarnings("unchecked")
