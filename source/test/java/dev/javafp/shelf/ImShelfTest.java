@@ -31,18 +31,18 @@ public class ImShelfTest
 
         s = s.adding(1, 'c');
         System.out.println(s);
-        assertElementEquals('c', s.get1(1));
+        assertElementEquals('c', s.get(1));
 
         s = s.adding(1, 'b');
         System.out.println(s);
-        assertElementEquals('b', s.get1(1));
-        assertElementEquals('c', s.get1(2));
+        assertElementEquals('b', s.get(1));
+        assertElementEquals('c', s.get(2));
 
         s = s.adding(1, 'a');
         System.out.println(s);
-        assertElementEquals('a', s.get1(1));
-        assertElementEquals('b', s.get1(2));
-        assertElementEquals('c', s.get1(3));
+        assertElementEquals('a', s.get(1));
+        assertElementEquals('b', s.get(2));
+        assertElementEquals('c', s.get(3));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ImShelfTest
         ImShelf<Integer> shelf = ImShelf.empty();
         try
         {
-            shelf.get1(1);
+            shelf.get(1);
             failExpectedException(IndexOutOfBoundsException.class);
         } catch (Exception e)
         {
@@ -109,18 +109,18 @@ public class ImShelfTest
 
         s = s.adding(1, 'a');
         System.out.println(s);
-        assertElementEquals('a', s.get1(1));
+        assertElementEquals('a', s.get(1));
 
         s = s.adding(2, 'b');
         System.out.println(s);
-        assertElementEquals('a', s.get1(1));
-        assertElementEquals('b', s.get1(2));
+        assertElementEquals('a', s.get(1));
+        assertElementEquals('b', s.get(2));
 
         s = s.adding(3, 'c');
         System.out.println(s);
-        assertElementEquals('a', s.get1(1));
-        assertElementEquals('b', s.get1(2));
-        assertElementEquals('c', s.get1(3));
+        assertElementEquals('a', s.get(1));
+        assertElementEquals('b', s.get(2));
+        assertElementEquals('c', s.get(3));
     }
 
     @Test
@@ -179,7 +179,7 @@ public class ImShelfTest
     {
         ImShelf<Character> s = tt("a1");
 
-        ImShelf<Character> sr = s.remove1(1);
+        ImShelf<Character> sr = s.remove(1);
         assertTreeIs("", sr);
     }
 
@@ -190,7 +190,7 @@ public class ImShelfTest
 
         try
         {
-            s.remove1(1);
+            s.remove(1);
             failExpectedException(ImIndexOutOfBoundsException.class);
         } catch (ImIndexOutOfBoundsException e)
         {
@@ -203,9 +203,9 @@ public class ImShelfTest
     {
         ImShelf<Character> s = tt("b1 a2 c2");
 
-        assertTreeIs("b1 -2 c2", s.remove1(1));
-        assertTreeIs("c1 a2", s.remove1(2));
-        assertTreeIs("b1 a2", s.remove1(3));
+        assertTreeIs("b1 -2 c2", s.remove(1));
+        assertTreeIs("c1 a2", s.remove(2));
+        assertTreeIs("b1 a2", s.remove(3));
     }
 
     @Test
@@ -221,7 +221,7 @@ public class ImShelfTest
     {
         ImShelf<Character> s = tt("a1");
 
-        assertTreeIs("b1", s.set1(1, 'b'));
+        assertTreeIs("b1", s.set(1, 'b'));
     }
 
     @Test
@@ -229,9 +229,9 @@ public class ImShelfTest
     {
         ImShelf<Character> s = tt("b1 a2 c2");
 
-        assertTreeIs("b1 x2 c2", s.set1(1, 'x'));
-        assertTreeIs("x1 a2 c2", s.set1(2, 'x'));
-        assertTreeIs("b1 a2 x2", s.set1(3, 'x'));
+        assertTreeIs("b1 x2 c2", s.set(1, 'x'));
+        assertTreeIs("x1 a2 c2", s.set(2, 'x'));
+        assertTreeIs("b1 a2 x2", s.set(3, 'x'));
     }
 
     @Test
@@ -254,68 +254,27 @@ public class ImShelfTest
     @Test
     public void testExampleRemove() throws Exception
     {
-        checkExample(on(1, 8, 2, 3, 5).remove(1), "[1, 2, 3, 5]");
+        checkExample(on(1, 8, 2, 3, 5).remove(2), "[1, 2, 3, 5]");
 
         try
         {
-            on(1, 2, 3).remove(-1);
+            on(1, 2, 3).remove(0);
             TestUtils.failExpectedException(NullPointerException.class);
         } catch (Exception e)
         {
             System.err.println(e);
         }
-    }
-
-    @Test
-    public void testExampleRemove1() throws Exception
-    {
-        checkExample(on(1, 8, 2, 3, 5).remove1(2), "[1, 2, 3, 5]");
-
-        try
-        {
-            on(1, 2, 3).remove1(0);
-            TestUtils.failExpectedException(NullPointerException.class);
-        } catch (Exception e)
-        {
-            System.err.println(e);
-        }
-    }
-
-    @Test
-    public void testExampleGet() throws Exception
-    {
-        checkExample(on(1, 2, 3).get(0), "1");
-        checkExample(on(1, 2, 3).get(2), "3");
-
-        try
-        {
-            on().get(0);
-            TestUtils.failExpectedException(NullPointerException.class);
-        } catch (Exception e)
-        {
-            System.err.println(e);
-        }
-
-        try
-        {
-            on(1, 2).get(2);
-            TestUtils.failExpectedException(NullPointerException.class);
-        } catch (Exception e)
-        {
-            System.err.println(e);
-        }
-
     }
 
     @Test
     public void testExampleGet1() throws Exception
     {
-        checkExample(on(1, 2, 3).get1(1), "1");
-        checkExample(on(1, 2, 3).get1(3), "3");
+        checkExample(on(1, 2, 3).get(1), "1");
+        checkExample(on(1, 2, 3).get(3), "3");
 
         try
         {
-            on().get1(1);
+            on().get(1);
             TestUtils.failExpectedException(NullPointerException.class);
         } catch (Exception e)
         {
@@ -324,7 +283,7 @@ public class ImShelfTest
 
         try
         {
-            on(1, 2).get1(3);
+            on(1, 2).get(3);
             TestUtils.failExpectedException(NullPointerException.class);
         } catch (Exception e)
         {
@@ -336,38 +295,12 @@ public class ImShelfTest
     @Test
     public void testExampleSet1() throws Exception
     {
-        checkExample(on(1, 2, 3).set1(1, 5), "[5, 2, 3]");
-        checkExample(on(1, 2, 3).set1(3, 8), "[1, 2, 8]");
+        checkExample(on(1, 2, 3).set(1, 5), "[5, 2, 3]");
+        checkExample(on(1, 2, 3).set(3, 8), "[1, 2, 8]");
 
         try
         {
-            on(1).set1(1, null);
-            TestUtils.failExpectedException(NullPointerException.class);
-        } catch (Exception e)
-        {
-            System.err.println(e);
-        }
-
-        try
-        {
-            on(1, 2).set1(-1, 4);
-            TestUtils.failExpectedException(NullPointerException.class);
-        } catch (Exception e)
-        {
-            System.err.println(e);
-        }
-
-    }
-
-    @Test
-    public void testExampleSet() throws Exception
-    {
-        checkExample(on(1, 2, 3).set(0, 5), "[5, 2, 3]");
-        checkExample(on(1, 2, 3).set(2, 8), "[1, 2, 8]");
-
-        try
-        {
-            on(1).set(0, null);
+            on(1).set(1, null);
             TestUtils.failExpectedException(NullPointerException.class);
         } catch (Exception e)
         {
@@ -420,12 +353,12 @@ public class ImShelfTest
     @Test
     public void testExampleIndexOf() throws Exception
     {
-        checkExample(on(1, 2, 3).indexOf1(1), "1");
-        checkExample(on(1, 2, 3).indexOf1(5), "-1");
+        checkExample(on(1, 2, 3).indexOf(1), "1");
+        checkExample(on(1, 2, 3).indexOf(5), "-1");
 
         try
         {
-            on().indexOf1(null);
+            on().indexOf(null);
             TestUtils.failExpectedException(NullPointerException.class);
         } catch (NullPointerException e)
         {
@@ -579,10 +512,10 @@ public class ImShelfTest
             return shelf.adding(index, value);
 
         case remove:
-            return shelf.remove1(index);
+            return shelf.remove(index);
 
         case replace:
-            return shelf.set1(index, value);
+            return shelf.set(index, value);
         }
         throw new RuntimeException("Unexpected op value");
     }

@@ -92,10 +92,10 @@ import java.util.NoSuchElementException;
  * <h2>Query</h2>
  * <ul>
  * <li>
- * <p> {@link #get1(int)}
+ * <p> {@link #get(int)}
  * </li>
  * <li>
- * <p> {@link #indexOf1(Object)}
+ * <p> {@link #indexOf(Object)}
  * </li>
  * </ul>
  * <h2>Mutation</h2>
@@ -107,10 +107,10 @@ import java.util.NoSuchElementException;
  * <p> {@link #adding(int, Object)}
  * </li>
  * <li>
- * <p> {@link #set1(int, Object)}
+ * <p> {@link #set(int, Object)}
  * </li>
  * <li>
- * <p> {@link #remove1(int)}
+ * <p> {@link #remove(int)}
  * </li>
  * </ul>
  * <h2>Implementation Notes</h2>
@@ -474,7 +474,7 @@ public class ImShelf<T> implements Iterable<T>
      * @throws NullPointerException
      *
      */
-    public ImShelf<T> set1(int indexStartingAtOne, T elementToSet)
+    public ImShelf<T> set(int indexStartingAtOne, T elementToSet)
     {
         ImIndexOutOfBoundsException.check(indexStartingAtOne, 1, size() + 1, "indexStartingAtOne");
         NullCheck.check(elementToSet);
@@ -482,29 +482,6 @@ public class ImShelf<T> implements Iterable<T>
         ImTreeZipper<T> path = ImTreeZipper.onRoot(getTree()).goToIndex(indexStartingAtOne);
 
         return new ImShelf<T>(path.replaceElement(elementToSet).close());
-    }
-
-    /**
-     * <p> Set the element at index
-     * {@code indexStartingAtZero}
-     *  to
-     * {@code elementToSet}
-     * .
-     * <h4>Examples:</h4>
-     *
-     * <pre>{@code
-     * on(1, 2, 3).set(0, 5)  =>  [5, 2, 3]
-     * on(1, 2, 3).set(2, 8)  =>  [1, 2, 8]
-     * on(1, 2).set(-1, 4)    =>  java.lang.IndexOutOfBoundsException: index should be in the range [0, 2]  but was -1
-     * }</pre>
-     * <p> @throws IndexOutOfBoundsException
-     * @throws NullPointerException
-     *
-     */
-    public ImShelf<T> set(int indexStartingAtZero, T elementToSet)
-    {
-        ImIndexOutOfBoundsException.check0(indexStartingAtZero, size(), "indexStartingAtZero");
-        return set1(indexStartingAtZero + 1, elementToSet);
     }
 
     /**
@@ -522,32 +499,9 @@ public class ImShelf<T> implements Iterable<T>
      * <p> @throws IndexOutOfBoundsException
      *
      */
-    public T get1(int indexStartingAtOne)
+    public T get(int indexStartingAtOne)
     {
         return getTree().getNodeAtIndex(indexStartingAtOne).getElement();
-    }
-
-    /**
-     * <p> The element at index
-     * {@code indexStartingAtZero}
-     * .
-     * <h4>Examples:</h4>
-     *
-     * <pre>{@code
-     * onArray(1, 2, 3).get(0)  =>  1
-     * onArray(1, 2, 3).get(2)  =>  3
-     * onArray().get(0)         =>
-     *     im.exceptions.ImIndexOutOfBoundsException: The collection is empty but indexStartingAtZero was 0
-     * onArray(1, 2).get(2)     =>
-     *     im.exceptions.ImIndexOutOfBoundsException: the size of the collection is 2 but indexStartingAtZero was 2
-     * }</pre>
-     * <p> @throws IndexOutOfBoundsException
-     *
-     */
-    public T get(int indexStartingAtZero)
-    {
-        ImIndexOutOfBoundsException.check0(indexStartingAtZero, size(), "indexStartingAtZero");
-        return get1(indexStartingAtZero + 1);
     }
 
     /**
@@ -567,7 +521,7 @@ public class ImShelf<T> implements Iterable<T>
      * @see  #remove(int)
      *
      */
-    public ImShelf<T> remove1(int indexStartingAtOne)
+    public ImShelf<T> remove(int indexStartingAtOne)
     {
         return partitionAtIndex(indexStartingAtOne).snd;
     }
@@ -604,29 +558,6 @@ public class ImShelf<T> implements Iterable<T>
     }
 
     /**
-     * <p> Remove the element at index
-     * {@code indexStartingAtZero}
-     * .
-     * <p> All elements with
-     * {@code index >= indexStartingAtZero}
-     *  are shuffled down.
-     * <h4>Examples:</h4>
-     *
-     * <pre>{@code
-     * on(1, 8, 2, 3, 5).remove(1)  =>  [1, 2, 3, 5]
-     * on(1, 2, 3).remove(-1)       =>  java.lang.IndexOutOfBoundsException: indexStartingAtZero should be >= 0  but was -1
-     * }</pre>
-     * <p> @throws IndexOutOfBoundsException
-     * @see #remove1(int)
-     *
-     */
-    public ImShelf<T> remove(int indexStartingAtZero)
-    {
-        ImIndexOutOfBoundsException.check0(indexStartingAtZero, size(), "indexStartingAtZero");
-        return remove1(indexStartingAtZero + 1);
-    }
-
-    /**
      * <p> {@code true}
      *  if
      * {@code this}
@@ -657,53 +588,11 @@ public class ImShelf<T> implements Iterable<T>
      */
     public boolean contains(Object elementToLookFor)
     {
-        return indexOf1(elementToLookFor) != -1;
+        return indexOf(elementToLookFor) != -1;
     }
 
     /**
      * <p> Returns the index (starting at one) of the first occurrence of
-     * {@code elementToLookFor}
-     * ,
-     * or -1 if no such element exists.
-     * <p> More formally, returns the lowest index
-     * {@code i}
-     *  such that
-     *
-     * <pre>{@code
-     * get1(i).equals(elementToLookFor)
-     * }</pre>
-     * <p> or
-     * {@code -1}
-     *  if there is no such index.
-     *
-     * <pre>{@code
-     * on(1, 2, 3).indexOf(1)      =>  1
-     * on(1, 2, 3).indexOf(1.0)    =>  -1
-     * on(1, 2, 1).contains(null)  =>  throws java.lang.NullPointerException: ImCollections can't contain nulls
-     * }</pre>
-     * @see #indexOf(Object)
-     *
-     */
-    public int indexOf1(Object elementToLookFor)
-    {
-        NullCheck.check(elementToLookFor);
-
-        int index = 0;
-
-        Iterator<T> it = iterator();
-
-        while (it.hasNext())
-        {
-            index++;
-            if (Eq.uals(it.next(), elementToLookFor))
-                return index;
-        }
-
-        return -1;
-    }
-
-    /**
-     * <p> Returns the index (starting at zero) of the first occurrence of
      * {@code elementToLookFor}
      * ,
      * or -1 if no such element exists.
@@ -719,16 +608,29 @@ public class ImShelf<T> implements Iterable<T>
      *  if there is no such index.
      *
      * <pre>{@code
-     * on(1, 2, 3).indexOf(1)      =>  0
+     * on(1, 2, 3).indexOf(1)      =>  1
      * on(1, 2, 3).indexOf(1.0)    =>  -1
-     * on(1, 2, 1).indexOf(null)   =>  throws java.lang.NullPointerException: ImCollections can't contain nulls
+     * on(1, 2, 1).contains(null)  =>  throws java.lang.NullPointerException: ImCollections can't contain nulls
      * }</pre>
-     * @see #indexOf1(Object)
+     * @see #indexOf(Object)
      *
      */
     public int indexOf(Object elementToLookFor)
     {
-        return indexOf1(elementToLookFor) - 1;
+        NullCheck.check(elementToLookFor);
+
+        int index = 0;
+
+        Iterator<T> it = iterator();
+
+        while (it.hasNext())
+        {
+            index++;
+            if (Eq.uals(it.next(), elementToLookFor))
+                return index;
+        }
+
+        return -1;
     }
 
     ImShelfZipper<T> getZipperOnIndex(int indexStartingAtOne)

@@ -48,9 +48,9 @@ public class ImListUtils
         else
         {
             int j = Rando.nextInt(1, second.size());
-            ImPair<Integer, A> p = second.get1(j);
+            ImPair<Integer, A> p = second.get(j);
 
-            return randomSubSeq(first.push(p), second.remove1(j), count - 1);
+            return randomSubSeq(first.push(p), second.remove(j), count - 1);
         }
     }
 

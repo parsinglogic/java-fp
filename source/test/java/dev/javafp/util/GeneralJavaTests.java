@@ -25,6 +25,36 @@ import static org.junit.Assert.assertTrue;
 public class GeneralJavaTests
 {
 
+    public ImList<? super Object> fooo()
+    {
+        return null;
+    }
+
+    public static final void sf()
+    {
+
+    }
+
+    public final static void sf2()
+    {
+    }
+
+    static final public void sf5()
+    {
+    }
+
+    static public final void sf4()
+    {
+    }
+
+    final public static void sf3()
+    {
+    }
+
+    final static public void sf6()
+    {
+    }
+
     @Test
     public void testOne()
     {
