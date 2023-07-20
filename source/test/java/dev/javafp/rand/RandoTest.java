@@ -33,11 +33,19 @@ public class RandoTest
     }
 
     @Test
-    public void testOne()
+    public void testNextInt()
     {
         ImList<Integer> rs = Range.oneTo(100).map(i -> Rando.nextInt(1, 10));
 
-        assertTrue(ImList.and(rs.map(r -> r >= 1 && r <= 10)));
+        assertTrue(ImList.and(rs.map(r -> r >= 1 && r < 10)));
+    }
+
+    @Test
+    public void testNextIntFromZeroToExclusive()
+    {
+        ImList<Integer> rs = Range.oneTo(100).map(i -> Rando.nextIntFromZeroToExclusive(9));
+
+        assertTrue(ImList.and(rs.map(r -> r >= 0 && r < 9)));
     }
 
 }

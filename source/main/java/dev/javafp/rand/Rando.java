@@ -7,6 +7,8 @@
 
 package dev.javafp.rand;
 
+import dev.javafp.ex.Throw;
+
 import java.util.Random;
 
 /**
@@ -21,16 +23,23 @@ public class Rando
         random = new Random(seed);
     }
 
-    public static int nextIntFromZeroToExclusive(int max)
+    public static int nextIntFromZeroToExclusive(int maxExclusive)
     {
-        return random.nextInt(max);
+        Throw.Exception.ifLessThanOrEqualTo("maxExclusve", maxExclusive, 0);
+        return random.nextInt(maxExclusive);
     }
 
-    public static int nextInt(int min, int max)
+    /**
+     * <p> A random int
+     * {@code i}
+     *  where
+     * {@code minInclusive <= i < maxExclusive}
+     *
+     */
+    public static int nextInt(int minInclusive, int maxExclusive)
     {
-        return min == max
-               ? min
-               : random.nextInt(max + 1 - min) + min;
+        Throw.Exception.ifLessThanOrEqualTo("maxExclusve", maxExclusive, minInclusive);
+        return random.nextInt(maxExclusive - minInclusive) + minInclusive;
     }
 
     public static double nextDouble(double min, double max)
