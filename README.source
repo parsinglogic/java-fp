@@ -980,7 +980,7 @@ Having discussed `ImList` in some detail, we can go through the other collection
 
 
 
-## ImShelf - a "Rank Tree" - the near-ish equivalent of `org.apache.commons.collections.list.TreeList`
+## ImShelf - a "Rank Tree" - the near-ish equivalent of [org.apache.commons.collections.list.TreeList][TreeList]
 
 An ordered list of objects with addition, removal and access methods having performance `O(log n)` where `n` is the number of elements
 
@@ -996,9 +996,6 @@ to add/find/replace/remove a book at an arbitrary position.
 
 
 <img src="source/main/java/dev/doc-files/shelf.png" width="30%" />
-
-[TreeList][TreeList]
-
 
 
 ## ImSet - the (immutable) equivalent of the standard Java `Set`
