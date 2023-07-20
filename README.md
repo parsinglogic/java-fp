@@ -62,7 +62,7 @@ We think that having other immutable collections is useful, too.
 The main public collection classes:
 
  * **ImList**  - the classic functional list - maybe *slightly* similar to the Java `LinkedList`
- * **ImShelf** - the near-ish equivalent of the Java `ArrayList`
+ * **ImShelf** - a "Rank Tree" - the near-ish equivalent of `org.apache.commons.collections.list.TreeList`
  * **ImSet** - the equivalent of the Java `Set`
  * **ImSortedSet** - the equivalent of the Java `TreeSet`
  * **ImMap** - the equivalent of the Java `Map`
@@ -507,16 +507,14 @@ Having discussed `ImList` in some detail, we can go through the other collection
 
 
 
-## ImShelf - the near-ish equivalent of the Java `ArrayList`
+## ImShelf - a "Rank Tree" - the near-ish equivalent of `org.apache.commons.collections.list.TreeList`
 
-An ordered list of objects with addition, removal and access methods having performance O(log n) where n is the number of elements
-
-You could also think of this as an immutable version of `org.apache.commons.collections.list.TreeList`
+An ordered list of objects with addition, removal and access methods having performance `O(log n)` where `n` is the number of elements
 
 This is the nearest equivalent to java.util.List in the sense that add/find/remove/replace is relatively fast in all cases.
 
-In fact, when an `ImList` happens to be implemented by the array-list class, these operations are already fast - faster than ImShelf - but as you use lists and map them and push elements etc
-you can't guarantee that the lists returned will be array-lists - and in these other list implementaions, the above functions  may not be so fast.
+In fact, when an `ImList` happens to be implemented by the array-list class, these operations are already fast - faster than `ImShelf` - but as you use lists and map them and push elements etc
+you can't guarantee that the lists returned will be array-lists - and in these other list implementaions, the above functions may not be so fast.
 
 The idea of the name
 is that, if you have a collection of books on a bookshelf, then
@@ -526,7 +524,7 @@ to add/find/replace/remove a book at an arbitrary position.
 
 <img src="source/main/java/dev/doc-files/shelf.png" width="30%" />
 
-
+[TreeList][TreeList]
 
 
 
@@ -1169,7 +1167,7 @@ Having created your box hierarchy, you convert it to a String and, well, probabl
 
 ## Why this library? - rather than all the others
 
-This library haas "laziness" built into it - so it is possible to work with infinite collections and, as long as you don't try to visit every element, they are kinda useful.
+This library haas "laziness" built into it - so it is possible to work with **infinite** collections and, as long as you don't try to visit every element, they are kinda useful.
 
 ## An important disclaimer
 
@@ -1179,7 +1177,7 @@ For all libraries like these, there is a delicate balance between functionality 
 
 ## java version - 11
 
-Currently (jul-2023) it was compiled with Java 11 and uses features from that version
+Currently (jul-2023) it is compiled with Java 11 and uses features from that version
 
 
 
@@ -1193,9 +1191,11 @@ Currently (jul-2023) it was compiled with Java 11 and uses features from that ve
 * ["Functional Pearl: The Zipper"][zipper]
 * [Robert B. Sherman][sherman]
 * [Implementing Sets Efficiently in a Functional Language][adams]
+* [The Rank Tree][rank-tree]
+* [org.apache.commons.collections4.list.TreeList][TreeList]
 
 [zipper]: http://www.st.cs.uni-saarland.de/edu/seminare/2005/advanced-fp/docs/huet-zipper.pdf
 [sherman]: http://en.wikipedia.org/wiki/Robert_B._Sherman
 [adams]: http://groups.csail.mit.edu/mac/users/adams/BB/
 [rank-tree]: https://otfried.org/courses/cs206/notes/ranktree.pdf
-#
+[TreeList]: https://commons.apache.org/proper/commons-collections/apidocs/org/apache/commons/collections4/list/TreeList.html
