@@ -122,6 +122,7 @@ import static java.util.Spliterator.SIZED;
  * <p> {@link ImList#flush} will convert a
  * {@code ImList}
  *  to a {@link dev.javafp.lst.ImListOnArray}  (not {@link dev.javafp.lst.ImListOnPrimitiveArray})
+ *
  * <h2>{@code ImList} the <em>interface</em> is the important type - not the <em>implementations</em></h2>
  * <p> The code that uses
  * {@code ImList}
@@ -1727,26 +1728,17 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * <pre>{@code
      * foldl (*) z [e1, e2, ... en] == [ (...((z * e1) * e2) * ... ) * en ]
      * }</pre>
-     * <p> Note that we are not assuming that
+     * <p> Note that we are <em>not</em> assuming that
      * {@code *}
-     *  is commutative in its arguments
+     *  is commutative
      *
      */
     default <B> B foldl(B z, Fn2<B, A, B> f)
     {
-        ImList<A> l = this;
-        B acc = z;
+        for (A i : this)
+            z = f.of(z, i);
 
-        while (true)
-        {
-            if (l.isEmpty())
-                return acc;
-            else
-            {
-                acc = f.of(acc, l.head());
-                l = l.tail();
-            }
-        }
+        return z;
     }
 
     /**
