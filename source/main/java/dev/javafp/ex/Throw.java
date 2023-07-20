@@ -19,7 +19,7 @@ public class Throw
          * {@code value}
          *  is
          * {@code null}
-         * 
+         *
          */
         public static void ifNull(String name, Object value)
         {
@@ -34,7 +34,7 @@ public class Throw
          * {@code value}
          *  is not
          * {@code null}
-         * 
+         *
          */
         public static void ifNotNull(String name, Object value)
         {
@@ -48,7 +48,7 @@ public class Throw
          * <p> Throws an exception if
          * {@code value}
          *  is the empty string.
-         * 
+         *
          */
         public static void ifEmpty(String name, String value)
         {
@@ -62,7 +62,7 @@ public class Throw
          * <p> Throws an exception if
          * {@code value}
          *  is empty.
-         * 
+         *
          */
         public static void ifEmpty(String name, Collection<?> collectionToCheck)
         {
@@ -76,7 +76,7 @@ public class Throw
          * <p> Thows an exception if
          * {@code value}
          *  is null or empty
-         * 
+         *
          */
         public static void ifNullOrEmpty(String name, Collection<?> value)
         {
@@ -88,7 +88,7 @@ public class Throw
          * <p> Thows an exception if
          * {@code value}
          *  is null or empty
-         * 
+         *
          */
         public static void ifNullOrEmpty(String name, String value)
         {
@@ -134,12 +134,12 @@ public class Throw
         /**
          * <p> Checks if the specified index is within the range of the size
          * of the specified collection. Ie do this check:
-         * 
+         *
          * <pre>{@code
          * (0 <= i) && (i < things.size())
          * }</pre>
          * <p> and throw a runtime exception if this is false.
-         * 
+         *
          */
         public static void ifOutOfRange(String name, int index, Collection<?> things)
         {
@@ -149,12 +149,12 @@ public class Throw
         /**
          * <p> Checks if the specified index is within the range of the size
          * of the specified collection. Ie do this check:
-         * 
+         *
          * <pre>{@code
          * (!things.isEmpty()) && (0 <= i) && (i < things.size())
          * }</pre>
          * <p> and throw a runtime exception if this is false.
-         * 
+         *
          */
         public static void ifIndexNotInCollection(int index, Collection<?> things, String collectionName)
         {
@@ -167,12 +167,12 @@ public class Throw
         /**
          * <p> Checks if the specified index is within the range of the size
          * of the specified collection including -1. Ie do this check:
-         * 
+         *
          * <pre>{@code
          * (-1 <= i) && (i < things.size())
          * }</pre>
          * <p> and throw a runtime exception if this is false.
-         * 
+         *
          */
         public static void ifOutOfRangeIncludingMinusOne(String name, int index, List<?> things)
         {
@@ -186,12 +186,12 @@ public class Throw
         /**
          * <p> Checks if the specified index is within a range
          * Ie do this check:
-         * 
+         *
          * <pre>{@code
          * (min <= i) && (i <= max)
          * }</pre>
          * <p> and throw a runtime exception if this is false.
-         * 
+         *
          */
         public static void ifOutOfRange(String name, int index, int min, int max)
         {
@@ -207,18 +207,36 @@ public class Throw
         /**
          * <p> Checks if the specified index is within a range
          * <p> We do this check:
-         * 
+         *
          * <pre>{@code
          * (min <= i) && (i < max)
          * }</pre>
          * <p> and throw a runtime exception if this is false.
-         * 
+         *
          */
         public static void ifLessThan(String name, int index, int min)
         {
             if (index < min)
             {
                 throw new ArgumentShouldNotBeLessThan(name, index, min);
+            }
+        }
+
+        /**
+         * <p> Checks if the specified index is within a range
+         * <p> We do this check:
+         *
+         * <pre>{@code
+         * (min <= i) && (i < max)
+         * }</pre>
+         * <p> and throw a runtime exception if this is false.
+         *
+         */
+        public static void ifLessThanOrEqualTo(String name, int index, int min)
+        {
+            if (index <= min)
+            {
+                throw new ArgumentShouldBeGreaterThan(name, index, min);
             }
         }
 
@@ -230,14 +248,14 @@ public class Throw
 
     /**
      * <p> A method to let us have an exception throw as one of the branches of a ?: invocation
-     * 
+     *
      * <pre>{@code
      *    return Eq.uals(parent, rootId)
      *    ? p.snd
      *    : Throw.wrap(new DrumException("blah"));
      * }</pre>
      * <p> I can't just throw an exception because ... java
-     * 
+     *
      */
     public static <A> A wrap(DrumException ex)
     {
