@@ -12,6 +12,6 @@ public class ArgumentShouldBeGreaterThan extends RuntimeException
 {
     public ArgumentShouldBeGreaterThan(String name, int value, int min)
     {
-        super("Argument " + name + " with value " + value + " is out of range. It should be >" + min);
+        super("Argument " + name + " with value " + value + " is out of range. It should be > " + min);
     }
 }

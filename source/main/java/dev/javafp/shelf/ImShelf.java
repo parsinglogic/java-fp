@@ -467,6 +467,14 @@ public class ImShelf<T> implements Iterable<T>
         return new ImShelfIterator<T>(new ImTreeIterator<T>(tree));
     }
 
+    /**
+     * <p> An
+     * {@code ImList}
+     *  containing the elements of
+     * {@code this}
+     *  in order
+     *
+     */
     public ImList<T> toImList()
     {
         return ImList.onIterator(iterator());

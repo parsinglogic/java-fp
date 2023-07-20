@@ -27,7 +27,6 @@ import dev.javafp.func.FnPairConsumer;
 import dev.javafp.func.FnProducer;
 import dev.javafp.rand.Rando;
 import dev.javafp.set.ImSet;
-import dev.javafp.shelf.ImShelf;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.tuple.ImTriple;
 import dev.javafp.tuple.Pai;
@@ -40,6 +39,7 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -3275,20 +3275,37 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      */
     default ImList<A> shuffle()
     {
-        return shuffle(ImShelf.empty(), ImShelf.onIterator(iterator()));
+        List<A> list = toList();
+        Collections.shuffle(list, Rando.random);
+
+        return ImList.onAll(list);
     }
 
-    private ImList<A> shuffle(ImShelf<A> result, ImShelf<A> shelf)
-    {
-        if (shelf.isEmpty())
-            return result.toImList();
-        else
-        {
-            var pair = shelf.partitionAtIndex(Rando.nextInt(1, shelf.size()));
-
-            return shuffle(result.add(pair.fst), pair.snd);
-        }
-    }
+    //    /**
+    //     * <p> A
+    //     * {@code ImList}
+    //     *  where the elements are the same as those of
+    //     * {@code this}
+    //     *  but they are "shuffled" (like shuffling a pack of cards) using the
+    //     * global secure random number generator {@link dev.javafp.rand.Rando}
+    //     *
+    //     */
+    //    default ImList<A> shuffle()
+    //    {
+    //        return shuffle(ImShelf.empty(), ImShelf.onIterator(iterator()));
+    //    }
+    //
+    //    private ImList<A> shuffle(ImShelf<A> result, ImShelf<A> shelf)
+    //    {
+    //        if (shelf.isEmpty())
+    //            return result.toImList();
+    //        else
+    //        {
+    //            var pair = shelf.partitionAtIndex(Rando.nextIntInclusive(1, shelf.size()));
+    //
+    //            return shuffle(result.add(pair.fst), pair.snd);
+    //        }
+    //    }
 
     public static ImList<Integer> inclusive(int min, int max)
     {

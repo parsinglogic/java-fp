@@ -1633,4 +1633,28 @@ public class ImListTest implements Constants
         });
     }
 
+    @Test
+    public void testShuffleIsVaguelyRandom()
+    {
+        /**
+         * A very crude test to assert that if we shuffle a list of 6 integers 24 times, then almost all of these shuffles will not have any repeats in them
+         */
+        ImList<Integer> range = Range.oneTo(6);
+
+        int runCount = 40;
+        ImList<Integer> all = unfold(getUniqueListSize(range), i -> getUniqueListSize(range)).take(runCount);
+
+        double average = Util.sumInt(all) / (double) runCount;
+        say("average", average);
+        assertTrue(average > 23);
+
+    }
+
+    private static int getUniqueListSize(ImList<Integer> range)
+    {
+        ImList<ImList<Integer>> subs = ImList.repeat(range, 24).map(r -> r.shuffle());
+
+        return subs.foldl(ImSet.empty(), (z, i) -> z.add(i)).size();
+    }
+
 }

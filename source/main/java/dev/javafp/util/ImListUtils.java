@@ -10,8 +10,6 @@ package dev.javafp.util;
 import dev.javafp.ex.Throw;
 import dev.javafp.lst.ImList;
 import dev.javafp.lst.Range;
-import dev.javafp.rand.Rando;
-import dev.javafp.shelf.ImShelf;
 import dev.javafp.tuple.ImPair;
 
 public class ImListUtils
@@ -22,8 +20,9 @@ public class ImListUtils
      * {@code things}
      *  into two subsequences with the first having size
      * {@code count}
-     * , The elements for the first subsequence are
+     * , The elements for the subsequences are
      * chosen randomly.
+     *
      * <p> An exception is thrown if this is not true:
      *
      * <pre>{@code
@@ -35,23 +34,14 @@ public class ImListUtils
     {
         Throw.Exception.ifOutOfRange("count", count, 0, things.size());
 
-        ImList<ImPair<Integer, A>> zipped = Range.oneTo(things.size()).zip(things);
-        return ImListUtils.randomSubSeq(ImList.on(), ImShelf.onIterator(zipped.iterator()), count);
+        ImList<ImPair<Integer, A>> pairs = Range.oneTo(things.size()).zip(things).shuffle();
+
+        return pairs.splitAfterIndex(count).map(ImListUtils::reorder, ImListUtils::reorder);
+
     }
 
-    private static <A> ImPair<ImList<A>, ImList<A>> randomSubSeq(ImList<ImPair<Integer, A>> first, ImShelf<ImPair<Integer, A>> second, int count)
+    private static <A> ImList<A> reorder(ImList<ImPair<Integer, A>> pairs)
     {
-        if (count == 0)
-        {
-            return ImPair.on(first.sort(p1 -> p1.fst).map(p1 -> p1.snd), second.toImList().map(p -> p.snd));
-        }
-        else
-        {
-            int j = Rando.nextInt(1, second.size());
-            ImPair<Integer, A> p = second.get(j);
-
-            return randomSubSeq(first.push(p), second.remove(j), count - 1);
-        }
+        return pairs.sort(i -> i.fst).map(i -> i.snd);
     }
-
 }

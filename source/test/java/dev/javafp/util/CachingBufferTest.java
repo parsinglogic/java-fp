@@ -11,7 +11,7 @@ public class CachingBufferTest
     @Test
     public void testThrowsIfInvalidSize()
     {
-        TestUtils.assertThrows(() -> new CachingBuffer(0), ArgumentShouldNotBeLessThan.class, "Argument size with value 0 is out of range. It should be >=1");
+        TestUtils.assertThrows(() -> new CachingBuffer(0), ArgumentShouldNotBeLessThan.class, "Argument size with value 0 is out of range. It should be >= 1");
     }
 
     @Test

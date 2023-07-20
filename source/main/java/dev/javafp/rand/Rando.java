@@ -9,18 +9,18 @@ package dev.javafp.rand;
 
 import dev.javafp.ex.Throw;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * <p> Convenience wrapper for SecureRandom
  */
 public class Rando
 {
-    private static Random random = new Random();
+    public final static SecureRandom random = new SecureRandom();
 
     public static void setSeed(long seed)
     {
-        random = new Random(seed);
+        random.setSeed(seed);
     }
 
     public static int nextIntFromZeroToExclusive(int maxExclusive)
@@ -40,6 +40,19 @@ public class Rando
     {
         Throw.Exception.ifLessThanOrEqualTo("maxExclusve", maxExclusive, minInclusive);
         return random.nextInt(maxExclusive - minInclusive) + minInclusive;
+    }
+
+    /**
+     * <p> A random int
+     * {@code i}
+     *  where
+     * {@code minInclusive <= i < maxExclusive}
+     *
+     */
+    public static int nextIntInclusive(int minInclusive, int maxInclusive)
+    {
+        Throw.Exception.ifLessThan("maxInclusive", maxInclusive, minInclusive);
+        return nextInt(minInclusive, maxInclusive + 1);
     }
 
     public static double nextDouble(double min, double max)
