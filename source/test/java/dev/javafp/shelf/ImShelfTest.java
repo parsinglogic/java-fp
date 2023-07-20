@@ -2,7 +2,10 @@ package dev.javafp.shelf;
 
 import dev.javafp.ex.ImIndexOutOfBoundsException;
 import dev.javafp.lst.ImList;
+import dev.javafp.lst.Range;
+import dev.javafp.rand.Rando;
 import dev.javafp.tree.ImTreeFactory;
+import dev.javafp.tuple.ImPair;
 import dev.javafp.util.ImTestHelper;
 import dev.javafp.util.TestUtils;
 import org.junit.Test;
@@ -13,9 +16,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import static dev.javafp.shelf.ImShelf.joinArray;
 import static dev.javafp.shelf.ImShelf.on;
 import static dev.javafp.util.ImTestHelper.checkExample;
+import static dev.javafp.util.Say.say;
 import static dev.javafp.util.TestUtils.failExpectedException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -403,19 +406,6 @@ public class ImShelfTest
         assertEquals(2, ImShelf.<Number>onAll(threeFive).size());
     }
 
-    @SuppressWarnings("unchecked")
-    @Test
-    public void testExampleConcat() throws Exception
-    {
-        List<Number> threeFive = Arrays.<Number>asList(3, 5);
-        ImShelf<Integer> oneTwo = on(1, 2);
-
-        checkExample(joinArray(oneTwo, threeFive), "        [1, 2, 3, 5]");
-        checkExample(joinArray(oneTwo, threeFive, oneTwo), "[1, 2, 3, 5, 1, 2]");
-        checkExample(joinArray(on(), on()), "               []");
-
-    }
-
     @Test
     public void testExampleAddingAll() throws Exception
     {
@@ -673,6 +663,46 @@ public class ImShelfTest
             testState(i, new ArrayList<Integer>(), ImShelf.<Integer>empty(), empty);
             System.out.println(i + "   " + uniqueValue);
         }
+    }
+
+    @Test
+    public void testJoinMatchesImListJoin()
+    {
+        ImList<ImList<Integer>> listOfLists = generateLists(0, 3, 10, Range.step(1, 1));
+
+        // Create a shelf of shelf's from the list of listOfLists
+        ImShelf<ImShelf<Integer>> ss = listOfLists.foldl(ImShelf.empty(), (z, i) -> z.add(ImShelf.onAll(i)));
+
+        // Join should give the same result
+        assertEquals(ImList.join(listOfLists), ImShelf.join(ss).toImList());
+    }
+
+    public <A> ImList<ImList<A>> generateLists(int min, int maxExclusive, int count, ImList<A> thingsToUse)
+    {
+        ImList<Integer> rs = ImList.unfold(0, i -> Rando.nextInt(min, maxExclusive)).take(count);
+
+        return rec(rs, count, thingsToUse);
+    }
+
+    private <A> ImList<ImList<A>> rec(ImList<Integer> sizes, int count, ImList<A> thingsToUse)
+    {
+        if (count == 0)
+            return ImList.on();
+        else
+        {
+            ImPair<ImList<A>, ImList<A>> pair = thingsToUse.splitAfterIndex(sizes.head());
+            return ImList.cons(pair.fst, rec(sizes.tail(), count - 1, pair.snd));
+        }
+    }
+
+    @Test
+    public void testGenerateLists()
+    {
+        ImList<ImList<Integer>> lists = generateLists(2, 5, 5, Range.step(1, 1));
+        say(lists);
+
+        ImList<Integer> joined = ImList.join(lists);
+        assertEquals(Range.step(1, 1).take(joined.size()), joined);
     }
 
     public static ImShelf<Character> tt(final String string)

@@ -11,13 +11,13 @@ import dev.javafp.eq.Eq;
 import dev.javafp.eq.Equals;
 import dev.javafp.ex.ImIndexOutOfBoundsException;
 import dev.javafp.func.Fn;
+import dev.javafp.func.Fn2;
 import dev.javafp.lst.ImList;
 import dev.javafp.tree.ImTree;
 import dev.javafp.tree.ImTreeIterator;
 import dev.javafp.tree.ImTreeZipper;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.util.ArrayIterator;
-import dev.javafp.util.Caster;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.NullCheck;
 import dev.javafp.util.TextUtils;
@@ -443,11 +443,25 @@ public class ImShelf<T> implements Iterable<T>
         return tree.size();
     }
 
+    /**
+     * <p> {@code true}
+     *  iff
+     * {@code this}
+     *  is the empty shelf
+     *
+     */
     public boolean isEmpty()
     {
         return size() == 0;
     }
 
+    /**
+     * <p> An
+     * {@code Iterator}
+     *  on
+     * {@code this}
+     *  that iterates over the elements in the obvious order
+     */
     public ImShelfIterator<T> iterator()
     {
         return new ImShelfIterator<T>(new ImTreeIterator<T>(tree));
@@ -659,8 +673,10 @@ public class ImShelf<T> implements Iterable<T>
      * The efficiency comes from the fact that the changes are made to the zipper rather than to the shelf directly
      * and several changes can be made in a batch. It is only when you close the zipper that you can see the changes.
      * <p> Of course, shelfs are immutable so the underlying shelf does not change. In fact, zippers are also immutable
-     * so as you "change" the zipper you are actually creating a new zipper.
-     * Each time you close a zipper you will create a new shelf (provided you have made changes).
+     * so as you "change" the zipper you are actually creating a new
+     * {@code ImShelfZipper}.
+     * Each time you close a zipper you will create a new
+     * {@code ImShelf}  (provided you have made changes).
      * <p> See the
      * <a href="{@docRoot}/im/package-summary.html">
      * package summary
@@ -750,55 +766,97 @@ public class ImShelf<T> implements Iterable<T>
      * concat(on(), on())                 =>  []
      * }</pre>
      * @see #addAll(Iterable)
-     * @see #joinIterator(Iterator)
-     * @see #join(Iterable)
-     *
      */
     @SafeVarargs
-    public static <A> ImShelf<A> joinArray(Iterable<? extends A>... collections)
+    public static <A> ImShelf<A> concat(Iterable<? extends A>... iterables)
     {
-        return joinIterator(ArrayIterator.on(collections));
+        ImShelf<A> z = ImShelf.empty();
+
+        for (Iterable<? extends A> i : iterables)
+        {
+            z = z.addAll(i);
+        }
+
+        return z;
     }
 
     /**
-     * <p> The ImShelf formed out of the elements of each collection in
-     * {@code iterator}
+     * <p> The ImShelf formed out of the elements of each shelf in
+     * {@code shelf}
      *  in order.
-     * <p> ImCollections can't contain
-     * {@code null}
-     *  so none of the elements can be
-     * {@code null}
+     *
      * @see #addAll(Iterable)
-     * @see #joinArray(Iterable...)
-     * @see #join(Iterable)
+     * @see #concat(Iterable...)
      *
      */
-    public static <A> ImShelf<A> joinIterator(Iterator<Iterable<? extends A>> iterator)
+    public static <A> ImShelf<A> join(ImShelf<? extends ImShelf<? extends A>> shelf)
     {
-        ImShelf<A> concat = ImShelf.empty();
+        if (shelf.isEmpty())
+            return empty();
+        else
+        {
+            ImShelf<ImShelf<A>> tail = shelf.remove(1).upCast();
 
-        while (iterator.hasNext())
-            concat = concat.addAll(ImShelf.onAll(iterator.next()));
+            return tail.foldl(shelf.get(1).upCast(), (z, i) -> z.addAll(i));
 
-        return concat;
+            // I could use a fold here but - just to avoid having to do a remove(1) on shelf
+            //            // To avoid this
+            //            //     ImShelfIterator<? extends ImShelf<? extends A>> iterator = shelf.iterator();
+            //            // I am casting here
+            //            ImShelfIterator<ImShelf<A>> it = Caster.cast(shelf.iterator());
+            //
+            //            // This won't fail because the shelf is not empty
+            //            ImShelf<A> z = it.next();
+            //
+            //            while (it.hasNext())
+            //                z = z.addAll(it.next());
+            //
+            //            return z;
+        }
+
     }
 
     /**
-     * <p> The ImShelf formed out of the elements of each collection in
-     * {@code collectionOfCollections}
-     *  in order.
-     * <p> ImCollections can't contain
-     * {@code null}
-     *  so none of the elements can be
-     * {@code null}
-     * @see #addAll(Iterable)
-     * @see #joinArray(Iterable...)
-     * @see #joinIterator(Iterator)
+     * <p> Start with an accumulator
+     * {@code z}
+     *  and iterate over
+     * {@code this}
+     * , applying
+     * {@code f}
+     *  to the
+     * {@code z}
+     *  and
+     * {@code e}
+     *  to get a new
+     * {@code z}
+     * <p> One way to visualise this is to imagine that the function that we are using is the function that adds two numbers - ie
+     * the infix
+     * {@code +}
+     *  operator
+     * <p> Then
+     *
+     * <pre>{@code
+     * foldl (+) z [e1, e2, ... en] == [ (...((z + e1) + e2) + ... ) + en ]
+     * }</pre>
+     * <p> Note that the accumulator,
+     * {@code z}
+     *  is the first argument to the function.
+     * <p> If we extend this to imagine that the function is called * and can be applied using infix notation then:
+     *
+     * <pre>{@code
+     * foldl (*) z [e1, e2, ... en] == [ (...((z * e1) * e2) * ... ) * en ]
+     * }</pre>
+     * <p> Note that we are <em>not</em> assuming that
+     * {@code *}
+     *  is commutative
      *
      */
-    public static <A> ImShelf<A> join(Iterable<? extends Iterable<? extends A>> collectionOfCollections)
+    <B> B foldl(B z, Fn2<B, T, B> f)
     {
-        return joinIterator(Caster.cast(collectionOfCollections.iterator()));
+        for (T i : this)
+            z = f.of(z, i);
+
+        return z;
     }
 
     /**
@@ -813,9 +871,8 @@ public class ImShelf<T> implements Iterable<T>
      * {@code iterable}
      * can be
      * {@code null}
-     * @see #join(Iterable)
-     * @see #joinArray(Iterable...)
-     * @see #joinIterator(Iterator)
+     * @see #join(ImShelf)
+     * @see #concat(Iterable...)
      *
      */
     public ImShelf<T> addAll(Iterable<? extends T> iterable)
@@ -882,8 +939,7 @@ public class ImShelf<T> implements Iterable<T>
      * <p> The hash code value for
      * {@code this}
      * .
-     * <p> Because a shelf is immutable, the hash code is calculated only once when the shelf is
-     * created and cached.
+     * <p> Because a shelf is immutable, the hash code is calculated only once - when this function is invoked and cached.
      * <p> This implementation uses a different algorithm from that used in {@link ImList}.
      * <p> The hash code for a shelf is the sum of the hash codes of its elements. In this regard it
      * is similar to the algorithm used by
