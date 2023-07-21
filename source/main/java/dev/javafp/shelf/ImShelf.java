@@ -55,13 +55,10 @@ import java.util.NoSuchElementException;
  * <p> {@link #empty()}
  * </li>
  * <li>
- * <p> {@link #joinArray(Iterable...)}
+ * <p> {@link #concat(Iterable...)}
  * </li>
  * <li>
- * <p> {@link #joinIterator(Iterator)}
- * </li>
- * <li>
- * <p> {@link #join(Iterable)}
+ * <p> {@link #join(ImShelf)}
  * </li>
  * <li>
  * <p> {@link #addAll(Iterable)}

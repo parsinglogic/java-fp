@@ -80,15 +80,6 @@ import java.util.LinkedList;
  * <p> This text representation is an example of the what {@link #toBoxString()} produces.
  * <h2>Creation</h2>
  * <ul>
- * <li>
- * <p> {@link #withElements(A, A...)}
- * </li>
- * <li>
- * <p> {@link #withElements(A, ImList<A>)}
- * </li>
- * <li>
- * <p> {@link #withNodes(A, ImList<ImRoseTree<A>)}
- * </li>
  * </ul>
  * <h2>Query</h2>
  * <ul>
@@ -203,7 +194,6 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
      *  and sub-trees that are
      * {@code nodes}
      * .
-     * <p> This method is similar to {@link #withNodes(A, ImRoseTree...)}
      *
      */
     public static <A> ImRoseTree<A> withNodes(A element, ImList<ImRoseTree<A>> nodes)
@@ -245,7 +235,6 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
      *  and sub-trees that are all leaves, with elements
      * {@code elements}
      * .
-     * <p> This method is similar to {@link #withElements(A, A...)}
      *
      */
     public static <A> ImRoseTree<A> withElements(A element, final ImList<A> elements)

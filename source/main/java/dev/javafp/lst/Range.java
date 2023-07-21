@@ -11,10 +11,11 @@ import dev.javafp.ex.InvalidArgument;
 import dev.javafp.func.FnBlock;
 
 /**
- * <p> A range of integers.
- * <p> This class is just a factory that creates
- * {@code RangeList}s
  *
+ * <p> A factory that creates
+ * {@code RangeList}s
+ * (mainly)
+ * which are ranges of integers
  */
 public class Range
 {
