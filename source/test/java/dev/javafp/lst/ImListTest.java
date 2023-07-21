@@ -369,7 +369,7 @@ public class ImListTest implements Constants
     @Test
     public void testSplitIntoCount()
     {
-        ImList<Integer> list = Range.oneTo(6);
+        ImList<Integer> list = ImRange.oneTo(6);
 
         assertEquals("[[1, 2, 3, 4, 5, 6]]", list.splitIntoParts(1).toString());
         assertEquals("[[1, 2, 3], [4, 5, 6]]", list.splitIntoParts(2).toString());
@@ -384,7 +384,7 @@ public class ImListTest implements Constants
     @Test
     public void testSplitIntoCount2()
     {
-        ImList<Integer> list = Range.oneTo(2);
+        ImList<Integer> list = ImRange.oneTo(2);
         assertEquals("[[1, 2]]", list.splitIntoParts(1).toString());
 
     }
@@ -392,7 +392,7 @@ public class ImListTest implements Constants
     @Test
     public void testSplitIntoMaxSize()
     {
-        ImList<Integer> list = Range.oneTo(3);
+        ImList<Integer> list = ImRange.oneTo(3);
 
         TestUtils.assertThrows(() -> list.splitIntoMaxSize(0), ArgumentShouldNotBeLessThan.class);
 
@@ -458,7 +458,7 @@ public class ImListTest implements Constants
     public void testRandomPicks()
     {
         int top = 10;
-        ImList<Integer> list = Range.inclusive(0, top);
+        ImList<Integer> list = ImRange.inclusive(0, top);
 
         int count = 1000;
         ImList<Integer> picks = list.randomPicks().take(count);
@@ -584,7 +584,7 @@ public class ImListTest implements Constants
     public void testSort()
     {
         System.out.println("Making the lists");
-        ImList<Integer> large = Range.oneTo(100);
+        ImList<Integer> large = ImRange.oneTo(100);
         ImList<Integer> large2 = large.reverse().flush();
         List<Integer> before = large2.toList();
 
@@ -754,7 +754,7 @@ public class ImListTest implements Constants
     public void testPermutationsLarge()
     {
         int n = 9;
-        ImList<Integer> list = Range.oneTo(n);
+        ImList<Integer> list = ImRange.oneTo(n);
 
         System.out.println("start");
         ImList<ImList<Integer>> perms = list.permutations();
@@ -767,7 +767,7 @@ public class ImListTest implements Constants
     public void testAllPairsLarge()
     {
         int n = 9;
-        ImList<Integer> list = Range.oneTo(n);
+        ImList<Integer> list = ImRange.oneTo(n);
 
         //        System.out.println("start");
         ImList<ImList<Integer>> perms = list.permutations();
@@ -797,24 +797,24 @@ public class ImListTest implements Constants
     @Test
     public void testTake()
     {
-        assertEquals("[1, 2, 3, 4, 5]", "" + Range.oneTo(9).take(5));
-        assertEquals("[1, 2, 3]", "" + Range.oneTo(3).take(5));
+        assertEquals("[1, 2, 3, 4, 5]", "" + ImRange.oneTo(9).take(5));
+        assertEquals("[1, 2, 3]", "" + ImRange.oneTo(3).take(5));
     }
 
     @Test
     public void testDrop()
     {
-        assertEquals("[6, 7, 8, 9]", "" + Range.oneTo(9).drop(5));
-        assertEquals("[]", "" + Range.oneTo(9).drop(9));
-        assertEquals("[]", "" + Range.oneTo(9).drop(10));
+        assertEquals("[6, 7, 8, 9]", "" + ImRange.oneTo(9).drop(5));
+        assertEquals("[]", "" + ImRange.oneTo(9).drop(9));
+        assertEquals("[]", "" + ImRange.oneTo(9).drop(10));
     }
 
     @Test
     public void testPut()
     {
-        assertEquals("[1, 2, 0, 4]", "" + Range.oneTo(4).put(3, 0));
-        assertEquals("[0, 2, 3, 4]", "" + Range.oneTo(4).put(1, 0));
-        assertEquals("[1, 2, 3, 0]", "" + Range.oneTo(4).put(4, 0));
+        assertEquals("[1, 2, 0, 4]", "" + ImRange.oneTo(4).put(3, 0));
+        assertEquals("[0, 2, 3, 4]", "" + ImRange.oneTo(4).put(1, 0));
+        assertEquals("[1, 2, 3, 0]", "" + ImRange.oneTo(4).put(4, 0));
     }
 
     @Test
@@ -832,7 +832,7 @@ public class ImListTest implements Constants
     @Test
     public void testDropWhile()
     {
-        assertEquals("[6, 7, 8, 9]", "" + Range.oneTo(9).dropWhile(i -> i < 6));
+        assertEquals("[6, 7, 8, 9]", "" + ImRange.oneTo(9).dropWhile(i -> i < 6));
     }
 
     @Test
@@ -861,7 +861,7 @@ public class ImListTest implements Constants
     public void testRemoveAt()
     {
 
-        ImList<Integer> oneTo9 = Range.oneTo(9);
+        ImList<Integer> oneTo9 = ImRange.oneTo(9);
 
         ImList<ImList<Integer>> expected = oneTo9.map(i -> oneTo9.remove(i));
         ImList<ImList<Integer>> actual = oneTo9.map(i -> oneTo9.removeAt(i));
@@ -882,8 +882,8 @@ public class ImListTest implements Constants
     @Test
     public void testArrays()
     {
-        //        say(Range.oneTo(6).toArray(Integer.class).getClass());
-        //        ImList<Integer> flush = Range.oneTo(6).flush();
+        //        say(ImRange.oneTo(6).toArray(Integer.class).getClass());
+        //        ImList<Integer> flush = ImRange.oneTo(6).flush();
         //        say(flush.toArray(Integer.class).getClass());
 
         ImList<Object> on = ImList.on(1, 2, 3);
@@ -909,7 +909,7 @@ public class ImListTest implements Constants
     @Test
     public void testRemoveAtOnInfiniteLists()
     {
-        ImList<Integer> start = Range.step(1, 1);
+        ImList<Integer> start = ImRange.step(1, 1);
 
         ImList<Integer> result = start.removeAt(3);
 
@@ -920,12 +920,12 @@ public class ImListTest implements Constants
     @Test
     public void testSplitAt()
     {
-        ImList<Integer> start = Range.oneTo(5);
+        ImList<Integer> start = ImRange.oneTo(5);
 
         assertEquals(ImPair.on(ImList.on(1, 2, 3), ImList.on(4, 5)), start.splitAfterIndex(3));
 
         // Split the list several times
-        ImList<ImPair<ImList<Integer>, ImList<Integer>>> pairs = Range.inclusive(0, 6).map(i -> start.splitAfterIndex(i));
+        ImList<ImPair<ImList<Integer>, ImList<Integer>>> pairs = ImRange.inclusive(0, 6).map(i -> start.splitAfterIndex(i));
 
         // Adding together the first part and the second part should always give the original list
         assertTrue(ImPair.map(pairs, (i, j) -> i.append(j)).all(s -> s.equalsList(start)));
@@ -933,13 +933,13 @@ public class ImListTest implements Constants
         pairs.foreach(p -> say(p));
 
         // Check the size of the first part
-        pairs.zipWith(Range.inclusive(0, 6), (p, n) -> checkSplitSize(start, p.fst, p.snd, n)).flush();
+        pairs.zipWith(ImRange.inclusive(0, 6), (p, n) -> checkSplitSize(start, p.fst, p.snd, n)).flush();
     }
 
     @Test
     public void testSplitAtOnInfiniteLists()
     {
-        ImList<Integer> start = Range.step(1, 2);
+        ImList<Integer> start = ImRange.step(1, 2);
 
         ImPair<ImList<Integer>, ImList<Integer>> pair = start.splitAfterIndex(2);
 
@@ -966,7 +966,7 @@ public class ImListTest implements Constants
     @Test
     public void testAt()
     {
-        assertEquals(Integer.valueOf(9), Range.oneTo(9).at(9));
+        assertEquals(Integer.valueOf(9), ImRange.oneTo(9).at(9));
     }
 
     @Test
@@ -1203,7 +1203,7 @@ public class ImListTest implements Constants
 
     private ImList<ImList<Integer>> createMatrix(int rows, int cols)
     {
-        ImList<Integer> rowOne = Range.oneTo(cols).map(j -> Integer.valueOf(j));
+        ImList<Integer> rowOne = ImRange.oneTo(cols).map(j -> Integer.valueOf(j));
 
         return unfold(rowOne, r -> r.map(i -> i + cols)).take(rows);
     }
@@ -1221,9 +1221,9 @@ public class ImListTest implements Constants
     @Test
     public void testGroup()
     {
-        Range.oneTo(7).foreach(n ->
+        ImRange.oneTo(7).foreach(n ->
         {
-            ImList<Integer> list = Range.oneTo(n);
+            ImList<Integer> list = ImRange.oneTo(n);
 
             ImList<ImList<Integer>> ls = list.group(3);
 
@@ -1266,7 +1266,7 @@ public class ImListTest implements Constants
     @Test
     public void testToImSet()
     {
-        ImList<Integer> is = Range.oneTo(3);
+        ImList<Integer> is = ImRange.oneTo(3);
         assertEquals(ImSet.onIterator(is.iterator()), is.toImSet());
     }
 
@@ -1280,7 +1280,7 @@ public class ImListTest implements Constants
     @Test
     public void testMapWithIndex()
     {
-        ImList<Integer> is = Range.oneTo(3);
+        ImList<Integer> is = ImRange.oneTo(3);
         ImList<Integer> zeros = is.mapWithIndex((i, j) -> i - j);
         assertTrue(zeros.all(i -> i == 0));
     }
@@ -1289,7 +1289,7 @@ public class ImListTest implements Constants
     public void testAtTiming()
     {
         int TEST_COUNT = 10;
-        ImList<Integer> lst = Range.inclusive(-12, TEST_COUNT);
+        ImList<Integer> lst = ImRange.inclusive(-12, TEST_COUNT);
 
         say("lst", lst);
         Integer[] array = lst.toArray(Integer.class);
@@ -1433,9 +1433,9 @@ public class ImListTest implements Constants
     public void testRevs()
     {
 
-        Range.inclusive(0, 6).foreach(n ->
+        ImRange.inclusive(0, 6).foreach(n ->
                 {
-                    ImList bs = n == 0 ? ImList.on() : ImList.on(Range.oneTo(n).toArray(Integer.class));
+                    ImList bs = n == 0 ? ImList.on() : ImList.on(ImRange.oneTo(n).toArray(Integer.class));
                     ImList r = reverseOld(bs);
 
                     assertEquals(r, bs.reverse());
@@ -1454,8 +1454,8 @@ public class ImListTest implements Constants
     {
         int m = 8;
 
-        //        say("Range");
-        Range.oneTo(m).foreach(n ->
+        //        say("ImRange");
+        ImRange.oneTo(m).foreach(n ->
                 {
                     int count = 4096 << (n);
                     //                    say();
@@ -1472,7 +1472,7 @@ public class ImListTest implements Constants
         //        say("");
         //
         //        say("LstOnArray");
-        Range.oneTo(m).foreach(n ->
+        ImRange.oneTo(m).foreach(n ->
                 {
                     int count = 4096 << (n);
                     //                    say();
@@ -1493,10 +1493,10 @@ public class ImListTest implements Constants
 
         int m = 8;
 
-        Range.oneTo(m).foreach(n ->
+        ImRange.oneTo(m).foreach(n ->
                 {
                     int count = 4096 << (n);
-                    ImList as = Range.oneTo(count);
+                    ImList as = ImRange.oneTo(count);
                     ImList is = ImList.on(as.toArray(Object.class));
                     //                    say();
                     //                    say(count);
@@ -1513,7 +1513,7 @@ public class ImListTest implements Constants
 
     long testRev2(int count, Fn<ImList, ImList> fn)
     {
-        ImList bs = Range.oneTo(count);
+        ImList bs = ImRange.oneTo(count);
 
         ImPair<Timer, ImList> res = Timer.time(() -> {
             ImList<Object> r = fn.of(bs).flush();
@@ -1533,7 +1533,7 @@ public class ImListTest implements Constants
 
     long testRevArray(int count, Fn<ImList, ImList> fn)
     {
-        ImList as = Range.oneTo(count).flush();
+        ImList as = ImRange.oneTo(count).flush();
         ImList bs = ImList.on(as.toArray(Object.class));
 
         ImPair<Timer, ImList> res = Timer.time(() -> {
@@ -1605,7 +1605,7 @@ public class ImListTest implements Constants
     @Test
     public void testCutIntoThree()
     {
-        var is = Range.oneTo(5);
+        var is = ImRange.oneTo(5);
 
         is.foreach(n -> {
 
@@ -1639,7 +1639,7 @@ public class ImListTest implements Constants
         /**
          * A very crude test to assert that if we shuffle a list of 6 integers 24 times, then almost all of these shuffles will not have any repeats in them
          */
-        ImList<Integer> range = Range.oneTo(6);
+        ImList<Integer> range = ImRange.oneTo(6);
 
         int runCount = 40;
         ImList<Integer> all = unfold(getUniqueListSize(range), i -> getUniqueListSize(range)).take(runCount);

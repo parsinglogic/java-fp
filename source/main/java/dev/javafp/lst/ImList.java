@@ -941,7 +941,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     {
         int width = Integer.toString(boxes.size()).length() + 1;
         AbstractTextBox line = dash.indentBy(width);
-        ImList<AbstractTextBox> cells = Range.oneTo(boxes.size()).zipWith(boxes, (i, b) -> LeafTextBox.lefted(i.toString(), width).before(b));
+        ImList<AbstractTextBox> cells = ImRange.oneTo(boxes.size()).zipWith(boxes, (i, b) -> LeafTextBox.lefted(i.toString(), width).before(b));
 
         return TopDownBox.withBoxes(open, LeftRightBox.indent(2, TopDownBox.withAllBoxes(cells.intersperse(line))), close);
     }
@@ -1632,7 +1632,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      */
     default <B> ImList<B> mapWithIndex(Fn2<A, Integer, B> fn)
     {
-        return this.zipWith(Range.step(1, 1), (i, j) -> fn.of(i, j));
+        return this.zipWith(ImRange.step(1, 1), (i, j) -> fn.of(i, j));
     }
 
     /**
@@ -2786,9 +2786,9 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     default ImList<ImList<A>> heads()
     {
         if (getSz() == KNOWN_INFINITE)
-            return Range.step(0, 1).map(n -> take(n));
+            return ImRange.step(0, 1).map(n -> take(n));
         else
-            return Range.inclusive(0, size()).map(n -> take(n));
+            return ImRange.inclusive(0, size()).map(n -> take(n));
     }
 
     /**

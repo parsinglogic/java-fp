@@ -14,7 +14,7 @@ import dev.javafp.box.LeftRightBox;
 import dev.javafp.box.TopDownBox;
 import dev.javafp.ex.Throw;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
 
 import java.util.ArrayList;
@@ -302,7 +302,7 @@ public class TextUtils
 
     public static AbstractTextBox getBoxFromNamesAndValues(ImList<String> names, ImList<?> things)
     {
-        ImList<String> ns = mergeLists(things.size(), names, Range.oneTo(things.size()).map(i -> "" + i));
+        ImList<String> ns = mergeLists(things.size(), names, ImRange.oneTo(things.size()).map(i -> "" + i));
 
         int maxNameLength = ns.isEmpty() ? 0 : Util.maxInt(ns.map(i -> i.length()));
 
@@ -324,7 +324,7 @@ public class TextUtils
 
         ImList<AbstractTextBox> boxes = getTextBoxes(things);
 
-        ImList<String> ints = Range.oneTo(boxes.size()).map(i -> "" + i);
+        ImList<String> ints = ImRange.oneTo(boxes.size()).map(i -> "" + i);
 
         return TopDownBox.withAll(mapGetBoxFromPairOver(ints.zip(boxes), 3));
     }

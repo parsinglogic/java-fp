@@ -1,7 +1,7 @@
 package dev.javafp.util;
 
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +26,7 @@ public class MixerTest
     {
         for (int i = 0; i < 5; i++)
             for (int j = 0; j < 5; j++)
-                testMixIsOk(Range.inclusive(0, i), Range.inclusive(0 + 10, j + 10));
+                testMixIsOk(ImRange.inclusive(0, i), ImRange.inclusive(0 + 10, j + 10));
     }
 
     public <T> void testMixIsOk(ImList<T> one, ImList<T> two)

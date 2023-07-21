@@ -1,7 +1,7 @@
 package dev.javafp.tuple;
 
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -24,11 +24,11 @@ public class ImQuintetTest
     @Test
     public void testZip()
     {
-        ImList<Integer> one = Range.inclusive(1, 3);
-        ImList<Integer> two = Range.inclusive(4, 6);
-        ImList<Integer> three = Range.inclusive(6, 8);
-        ImList<Integer> four = Range.inclusive(9, 11);
-        ImList<Integer> five = Range.inclusive(12, 14);
+        ImList<Integer> one = ImRange.inclusive(1, 3);
+        ImList<Integer> two = ImRange.inclusive(4, 6);
+        ImList<Integer> three = ImRange.inclusive(6, 8);
+        ImList<Integer> four = ImRange.inclusive(9, 11);
+        ImList<Integer> five = ImRange.inclusive(12, 14);
 
         String expected = "[\n" +
                 "  1 ImQuintet: e1: 1\n" +

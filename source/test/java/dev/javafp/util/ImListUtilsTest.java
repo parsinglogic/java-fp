@@ -1,7 +1,7 @@
 package dev.javafp.util;
 
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.set.ImSet;
 import dev.javafp.tuple.ImPair;
 import org.junit.Test;
@@ -16,9 +16,9 @@ public class ImListUtilsTest
     @Test
     public void testRandomSubSeq()
     {
-        ImList<Integer> range = Range.oneTo(10);
+        ImList<Integer> range = ImRange.oneTo(10);
 
-        Range.inclusive(0, range.size()).foreach(i ->
+        ImRange.inclusive(0, range.size()).foreach(i ->
         {
 
             ImPair<ImList<Integer>, ImList<Integer>> pair = ImListUtils.randomSubSeq(range, i);
@@ -41,7 +41,7 @@ public class ImListUtilsTest
     //    @Test
     //    public void testRandomSubSeqIsVaguelyRandom()
     //    {
-    //        ImList<Integer> range = Range.oneTo(10);
+    //        ImList<Integer> range = ImRange.oneTo(10);
     //
     //        ImList<ImList<Integer>> subs = ImList.repeat(range, 30).map(r -> ImListUtils.randomSubSeq(r, 5).fst);
     //
@@ -61,7 +61,7 @@ public class ImListUtilsTest
          * A very crude test to assert that if we partition a list of 12 integers into a random sub-sequence of size 7 24 times, then most of the first
          * sub-sequences will not have any repeats in them
          */
-        ImList<Integer> range = Range.oneTo(12);
+        ImList<Integer> range = ImRange.oneTo(12);
 
         int runCount = 40;
         ImList<Integer> all = unfold(getUniqueRandomSubSeqSize(range), i -> getUniqueRandomSubSeqSize(range)).take(runCount);

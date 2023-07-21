@@ -3,7 +3,7 @@ package dev.javafp.graph;
 import dev.javafp.box.TopDownBox;
 import dev.javafp.ex.AfterKeyMissing;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.set.ImSet;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.util.TestUtils;
@@ -484,9 +484,9 @@ public class ImGraphTest
     {
         ImGraph<Integer, String, String> g = makeMultiplesGraph(30);
 
-        Range.inclusive(2, 30).foreach(n ->
+        ImRange.inclusive(2, 30).foreach(n ->
         {
-            ImList<Integer> multiples = Range.step(2 * n, n).takeWhile(i -> i <= 30);
+            ImList<Integer> multiples = ImRange.step(2 * n, n).takeWhile(i -> i <= 30);
             TestUtils.assertSameElements(multiples, g.getClosure(ImGraph.Out, n));
         });
     }

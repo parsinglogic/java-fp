@@ -10,7 +10,7 @@ package dev.javafp.sql;
 import dev.javafp.eq.Eq;
 import dev.javafp.ex.UnexpectedChecked;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.util.ParseUtils;
 import dev.javafp.util.TextUtils;
@@ -113,7 +113,7 @@ public class FieldDefs
     {
         // ImPair up with the indexes
 
-        ImList<ImPair<FieldDef, Integer>> pairs = defs.zip(Range.step(startIndex, 1));
+        ImList<ImPair<FieldDef, Integer>> pairs = defs.zip(ImRange.step(startIndex, 1));
 
         pairs.foreach(p -> p.fst.setValue(ps, p.snd, thing));
     }

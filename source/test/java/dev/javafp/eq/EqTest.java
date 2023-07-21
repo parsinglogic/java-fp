@@ -1,7 +1,7 @@
 package dev.javafp.eq;
 
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.time.StopWatch;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class EqTest
 {
 
-    private final static ImList<Integer> tenMeeelionIntegers = Range.oneTo(10_000_000).flush();
+    private final static ImList<Integer> tenMeeelionIntegers = ImRange.oneTo(10_000_000).flush();
     private final static Integer[] tenMeeelionIntegers2 = tenMeeelionIntegers.toArray(Integer.class);
     private final static ImList<Integer> tenMeeelionIntegers3 = ImList.on(tenMeeelionIntegers2);
 

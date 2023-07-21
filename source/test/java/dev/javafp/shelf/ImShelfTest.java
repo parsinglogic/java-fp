@@ -2,7 +2,7 @@ package dev.javafp.shelf;
 
 import dev.javafp.ex.ImIndexOutOfBoundsException;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.rand.Rando;
 import dev.javafp.tree.ImTreeFactory;
 import dev.javafp.tuple.ImPair;
@@ -668,7 +668,7 @@ public class ImShelfTest
     @Test
     public void testJoinMatchesImListJoin()
     {
-        ImList<ImList<Integer>> listOfLists = generateLists(0, 3, 10, Range.step(1, 1));
+        ImList<ImList<Integer>> listOfLists = generateLists(0, 3, 10, ImRange.step(1, 1));
 
         // Create a shelf of shelf's from the list of listOfLists
         ImShelf<ImShelf<Integer>> ss = listOfLists.foldl(ImShelf.empty(), (z, i) -> z.add(ImShelf.onAll(i)));
@@ -698,11 +698,11 @@ public class ImShelfTest
     @Test
     public void testGenerateLists()
     {
-        ImList<ImList<Integer>> lists = generateLists(2, 5, 5, Range.step(1, 1));
+        ImList<ImList<Integer>> lists = generateLists(2, 5, 5, ImRange.step(1, 1));
         say(lists);
 
         ImList<Integer> joined = ImList.join(lists);
-        assertEquals(Range.step(1, 1).take(joined.size()), joined);
+        assertEquals(ImRange.step(1, 1).take(joined.size()), joined);
     }
 
     public static ImShelf<Character> tt(final String string)

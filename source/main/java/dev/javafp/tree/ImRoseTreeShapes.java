@@ -11,7 +11,7 @@ import dev.javafp.ex.ImIndexOutOfBoundsException;
 import dev.javafp.func.Fn;
 import dev.javafp.func.Fn2;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 
 public class ImRoseTreeShapes
 {
@@ -120,6 +120,6 @@ public class ImRoseTreeShapes
 
         return n == 0
                ? ImList.on(ImList.on())
-               : Range.oneTo(n).flatMap(i -> ImList.cartesianProduct(allTreesWithSize$(i), allForestsWithSize(n - i), ImList::cons));
+               : ImRange.oneTo(n).flatMap(i -> ImList.cartesianProduct(allTreesWithSize$(i), allForestsWithSize(n - i), ImList::cons));
     }
 }

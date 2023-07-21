@@ -13,7 +13,7 @@ public class ImFilteredListTest
     @Test
     public void testFilteredListCaches()
     {
-        ImList<Integer> one = Range.oneTo(10);
+        ImList<Integer> one = ImRange.oneTo(10);
         ImList<Integer> list1 = one.filter(i -> pred(i));
 
         list1.head();

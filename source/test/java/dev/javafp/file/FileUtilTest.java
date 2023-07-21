@@ -805,7 +805,7 @@ public class FileUtilTest
 
         //                                  0  d800   d868   d8ff
         ImList<Integer> badCodePoints = ImList.on(0, 55296, 55400, 55551);
-        //ImList<String> chars = Range.inclusive(64000, 128000).map(i -> Character.valueOf((char) i.shortValue()).toString());
+        //ImList<String> chars = ImRange.inclusive(64000, 128000).map(i -> Character.valueOf((char) i.shortValue()).toString());
 
         ImList<String> chars = badCodePoints.map(i -> Character.valueOf((char) i.shortValue()).toString());
         ImList<Integer> bad = chars.map(s -> getMinusOneOrCodePointIfError(s)).filter(n -> n >= 0);

@@ -10,7 +10,7 @@ public class DropWhileListTest
     public void testTakeWhileAndDropWhileMatch()
     {
 
-        ImList<Integer> one = Range.oneTo(5);
+        ImList<Integer> one = ImRange.oneTo(5);
 
         for (int i = 0; i <= 5; i++)
         {
@@ -29,6 +29,6 @@ public class DropWhileListTest
 
         ImList<Integer> list = one.dropWhile(n -> n <= 10);
 
-        assertEquals(Range.inclusive(11, 110), list.take(100));
+        assertEquals(ImRange.inclusive(11, 110), list.take(100));
     }
 }

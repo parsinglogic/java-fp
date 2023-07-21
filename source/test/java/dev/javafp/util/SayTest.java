@@ -2,7 +2,7 @@ package dev.javafp.util;
 
 import dev.javafp.ex.IllegalState;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
@@ -19,10 +19,10 @@ public class SayTest
     public void testTable() throws Exception
     {
         String expected = "one                           : one\n"
-                          + "floccinaucinihilipilification : [99, 100, 101, 102, 103, 104, 105]\n"
-                          + "three                         : null\n"
-                          + "four                          : MISSING\n";
-        ImList<Integer> things = Range.inclusive(99, 105);
+                + "floccinaucinihilipilification : [99, 100, 101, 102, 103, 104, 105]\n"
+                + "three                         : null\n"
+                + "four                          : MISSING\n";
+        ImList<Integer> things = ImRange.inclusive(99, 105);
         assertEquals(expected, Say.table("one", "one", "floccinaucinihilipilification", things, "three", null, "four").toString());
         Say.showTable("one", "one", "floccinaucinihilipilification", things, "three", null, "four");
 
@@ -78,22 +78,22 @@ public class SayTest
     public void testFormatColumns()
     {
 
-        ImList<String> col1 = Range.inclusive(0, 5).map(i -> toWord(i));
-        ImList<String> col2 = Range.inclusive(6, 16).map(i -> toWord(i));
-        ImList<String> col3 = Range.inclusive(10, 16).map(i -> toWord(i));
+        ImList<String> col1 = ImRange.inclusive(0, 5).map(i -> toWord(i));
+        ImList<String> col2 = ImRange.inclusive(6, 16).map(i -> toWord(i));
+        ImList<String> col3 = ImRange.inclusive(10, 16).map(i -> toWord(i));
 
         String expected = ""
-                          + "zero  six      ten\n"
-                          + "one   seven    eleven\n"
-                          + "two   eight    twelve\n"
-                          + "three nine     thirteen\n"
-                          + "four  ten      fourteen\n"
-                          + "five  eleven   fifteen\n"
-                          + "      twelve   sixteen\n"
-                          + "      thirteen\n"
-                          + "      fourteen\n"
-                          + "      fifteen\n"
-                          + "      sixteen\n";
+                + "zero  six      ten\n"
+                + "one   seven    eleven\n"
+                + "two   eight    twelve\n"
+                + "three nine     thirteen\n"
+                + "four  ten      fourteen\n"
+                + "five  eleven   fifteen\n"
+                + "      twelve   sixteen\n"
+                + "      thirteen\n"
+                + "      fourteen\n"
+                + "      fifteen\n"
+                + "      sixteen\n";
 
         assertEquals(expected, Say.formatColumns(col1, col2, col3).toString());
     }
@@ -102,20 +102,20 @@ public class SayTest
     public void testFormatColumns2()
     {
 
-        ImList<String> col1 = Range.inclusive(10, 14).map(i -> toWord(i));
-        ImList<String> col2 = Range.inclusive(1, 6).map(i -> toWord(i));
-        ImList<String> col3 = Range.inclusive(7, 9).map(i -> toWord(i));
+        ImList<String> col1 = ImRange.inclusive(10, 14).map(i -> toWord(i));
+        ImList<String> col2 = ImRange.inclusive(1, 6).map(i -> toWord(i));
+        ImList<String> col3 = ImRange.inclusive(7, 9).map(i -> toWord(i));
 
         say("col1", col1);
         say("col2", col2);
         say("col3", col3);
 
         String expected = "ten      one   seven\n"
-                          + "eleven   two   eight\n"
-                          + "twelve   three nine\n"
-                          + "thirteen four\n"
-                          + "fourteen five\n"
-                          + "         six\n";
+                + "eleven   two   eight\n"
+                + "twelve   three nine\n"
+                + "thirteen four\n"
+                + "fourteen five\n"
+                + "         six\n";
 
         assertEquals(expected, Say.formatColumns(col1, col2, col3).toString());
     }
@@ -124,7 +124,7 @@ public class SayTest
     public void testFormatColumnsWithEmptyLists()
     {
 
-        ImList<String> col1 = Range.inclusive(10, 14).map(i -> toWord(i));
+        ImList<String> col1 = ImRange.inclusive(10, 14).map(i -> toWord(i));
         ImList<String> col2 = ImList.on();
 
         say("col1", col1);

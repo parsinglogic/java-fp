@@ -15,7 +15,7 @@ public class ImTakeWhileListTest
     public void testTakeWhileAndDropWhileMatch()
     {
 
-        ImList<Integer> one = Range.oneTo(5);
+        ImList<Integer> one = ImRange.oneTo(5);
 
         for (int i = 0; i <= 5; i++)
         {
@@ -34,13 +34,13 @@ public class ImTakeWhileListTest
 
         ImList<Integer> list = one.takeWhile(i -> i <= 10);
 
-        assertEquals(Range.inclusive(1, 10), list);
+        assertEquals(ImRange.inclusive(1, 10), list);
     }
 
     @Test
     public void testTakeWhileCaches()
     {
-        ImList<Integer> one = Range.oneTo(20);
+        ImList<Integer> one = ImRange.oneTo(20);
 
         ImList<Integer> list1 = one.takeWhile(i -> foo(i));
 

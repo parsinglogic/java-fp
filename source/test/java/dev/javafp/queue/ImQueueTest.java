@@ -1,7 +1,7 @@
 package dev.javafp.queue;
 
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.util.ImMaybe;
 import org.junit.Test;
@@ -32,7 +32,7 @@ public class ImQueueTest
     public void testSplit()
     {
 
-        ImQueue<Integer> q = ImQueue.on(Range.oneTo(5));
+        ImQueue<Integer> q = ImQueue.on(ImRange.oneTo(5));
 
         assertEquals(5, q.size());
 
@@ -45,7 +45,7 @@ public class ImQueueTest
     @Test
     public void testEquals()
     {
-        ImQueue<Integer> q = ImQueue.on(Range.oneTo(3));
+        ImQueue<Integer> q = ImQueue.on(ImRange.oneTo(3));
 
         assertEquals(q.toImList(), ImQueue.on(0, 1, 2).removeFirst().get().addToEnd(3).toImList());
     }

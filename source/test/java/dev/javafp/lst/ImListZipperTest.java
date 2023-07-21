@@ -131,7 +131,7 @@ public class ImListZipperTest
     @Test
     public void testEquals()
     {
-        ImList<Integer> list = Range.oneTo(4);
+        ImList<Integer> list = ImRange.oneTo(4);
 
         ImList<ImListZipper<Integer>> zs1 = ImList.unfold(list.getZipper(), i -> i.next()).take(4);
         ImList<ImListZipper<Integer>> zs2 = ImList.unfold(list.getZipper(), i -> i.next()).take(4);
@@ -144,7 +144,7 @@ public class ImListZipperTest
     @Test
     public void testEqualsOnNull()
     {
-        ImList<Integer> list = Range.oneTo(4);
+        ImList<Integer> list = ImRange.oneTo(4);
 
         assertEquals(list.getZipper().equals(null), false);
     }

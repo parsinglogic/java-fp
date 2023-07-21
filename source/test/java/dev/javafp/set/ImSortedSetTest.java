@@ -1,7 +1,7 @@
 package dev.javafp.set;
 
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.rand.Rando;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TestUtils;
@@ -26,8 +26,8 @@ public class ImSortedSetTest
 
     int testRuns = 60;
 
-    ImList<Integer> largeList = Range.oneTo(largeSize);
-    ImList<Integer> smallList = Range.oneTo(smallSize).shuffle();
+    ImList<Integer> largeList = ImRange.oneTo(largeSize);
+    ImList<Integer> smallList = ImRange.oneTo(smallSize).shuffle();
 
     @Test
     public void testAgainstTreeSet()

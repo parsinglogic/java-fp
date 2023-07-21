@@ -18,8 +18,8 @@ public class ImIteratorListTest
 
         ImList<Integer> list1 = ImList.onAll(list);
 
-        assertEquals(Range.oneTo(5), list1);
-        assertEquals(Range.oneTo(5), list1);
+        assertEquals(ImRange.oneTo(5), list1);
+        assertEquals(ImRange.oneTo(5), list1);
 
         TestUtils.assertSameElements(list1, list1);
 

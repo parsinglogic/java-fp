@@ -2,7 +2,7 @@ package dev.javafp.net;
 
 import dev.javafp.eq.Eq;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.tuple.Pai;
 import junit.framework.TestCase;
@@ -86,7 +86,7 @@ public class ApiRequestTest extends TestCase
 
         say("URI", uri);
 
-        ImList<String> chars = Range.inclusive(32, 126).map(i -> "" + (char) (i.intValue()));
+        ImList<String> chars = ImRange.inclusive(32, 126).map(i -> "" + (char) (i.intValue()));
 
         ImList<String> converted = chars.map(c -> URLEncoder.encode(c, utf8));
         ImList<ImPair<String, String>> unconverted = chars.zip(converted).filter(p -> Eq.uals(p.fst, p.snd));

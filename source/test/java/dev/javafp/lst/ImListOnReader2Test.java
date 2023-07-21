@@ -15,7 +15,7 @@ public class ImListOnReader2Test
     //    @Test
     //    public void testSimple()
     //    {
-    //        ImList<Integer> lines = Range.oneTo(5);
+    //        ImList<Integer> lines = ImRange.oneTo(5);
     //
     //        StringReader reader = new StringReader(lines.toString(""));
     //

@@ -1,7 +1,7 @@
 package dev.javafp.rand;
 
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.set.ImMap;
 import dev.javafp.util.Util;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class RandoTest
     @Test
     public void testNextInt()
     {
-        ImList<Integer> rs = Range.oneTo(100).map(i -> Rando.nextInt(1, 10));
+        ImList<Integer> rs = ImRange.oneTo(100).map(i -> Rando.nextInt(1, 10));
 
         assertTrue(ImList.and(rs.map(r -> r >= 1 && r < 10)));
     }
@@ -43,7 +43,7 @@ public class RandoTest
     @Test
     public void testNextIntFromZeroToExclusive()
     {
-        ImList<Integer> rs = Range.oneTo(100).map(i -> Rando.nextIntFromZeroToExclusive(9));
+        ImList<Integer> rs = ImRange.oneTo(100).map(i -> Rando.nextIntFromZeroToExclusive(9));
 
         assertTrue(ImList.and(rs.map(r -> r >= 0 && r < 9)));
     }

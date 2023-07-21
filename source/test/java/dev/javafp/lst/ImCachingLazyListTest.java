@@ -13,7 +13,7 @@ public class ImCachingLazyListTest
     @Test
     public void testMappedListCaches()
     {
-        ImList<Integer> one = Range.oneTo(5);
+        ImList<Integer> one = ImRange.oneTo(5);
 
         ImList<Integer> list = one.map(i -> step(i));
         TestUtils.assertSameElements(list, list);

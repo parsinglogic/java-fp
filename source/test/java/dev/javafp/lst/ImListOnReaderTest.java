@@ -22,7 +22,7 @@ public class ImListOnReaderTest
     @Test
     public void testSimple()
     {
-        ImList<Integer> lines = Range.oneTo(5);
+        ImList<Integer> lines = ImRange.oneTo(5);
 
         StringReader reader = new StringReader(lines.toString("\n"));
 
@@ -34,7 +34,7 @@ public class ImListOnReaderTest
     @Test
     public void testWithCRLF()
     {
-        ImList<Integer> lines = Range.oneTo(5);
+        ImList<Integer> lines = ImRange.oneTo(5);
 
         StringReader reader = new StringReader(lines.toString("\r\n"));
 

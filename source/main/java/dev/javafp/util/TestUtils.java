@@ -11,7 +11,7 @@ import dev.javafp.eq.Eq;
 import dev.javafp.eq.Equals;
 import dev.javafp.func.Fn2;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImTriple;
 
 import java.util.Collection;
@@ -83,7 +83,7 @@ public class TestUtils
             fail(String.format("Sizes different - expected: %d but was: %d", expected.size(), actual.size()));
 
         ImMaybe<? extends ImTriple<?, ?, Integer>> tripleMaybe =
-                ImTriple.zip(expected, actual, Range.oneTo(expected.size())).find(p -> !cmp.of(p.e1, p.e2));
+                ImTriple.zip(expected, actual, ImRange.oneTo(expected.size())).find(p -> !cmp.of(p.e1, p.e2));
 
         if (tripleMaybe.isPresent())
         {

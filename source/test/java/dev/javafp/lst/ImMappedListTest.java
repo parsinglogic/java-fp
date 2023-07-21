@@ -12,10 +12,10 @@ public class ImMappedListTest
     @Test
     public void testMappedListCaches()
     {
-        ImList<Integer> one = Range.oneTo(5);
+        ImList<Integer> one = ImRange.oneTo(5);
 
         ImList<Integer> list = one.map(i -> i + 1);
-        assertEquals(Range.inclusive(2, 6), list);
+        assertEquals(ImRange.inclusive(2, 6), list);
     }
 
     @Test

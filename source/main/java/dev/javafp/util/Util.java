@@ -127,8 +127,8 @@ public class Util
     //         * <p> Let's restrict our tests to 0 - 0x200C to prevent strangeness
     //         *
     //         */
-    //        ImList<Integer> bad = Range.inclusive(0x0, 0x200C).filter(c -> CsvRow.isBad((char) c.intValue()));
-    //        //        ImList<Integer> bad2 = ImList.on(); //Range.inclusive(0xF8FF + 1, 0xFFFF).filter(c -> CsvRow.isBad((char) c.intValue()));
+    //        ImList<Integer> bad = ImRange.inclusive(0x0, 0x200C).filter(c -> CsvRow.isBad((char) c.intValue()));
+    //        //        ImList<Integer> bad2 = ImList.on(); //ImRange.inclusive(0xF8FF + 1, 0xFFFF).filter(c -> CsvRow.isBad((char) c.intValue()));
     //
     //        //        System.out.println("bad.size() " + bad.size());
     //        //        System.out.println(bad);

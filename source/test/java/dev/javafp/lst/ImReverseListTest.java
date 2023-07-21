@@ -73,7 +73,7 @@ public class ImReverseListTest
         /**
          * So this is not really testing ImReverseList on its own.
          */
-        ImList<Integer> is = Range.oneTo(7);
+        ImList<Integer> is = ImRange.oneTo(7);
 
         ImList<Integer> orig = ImList.on(1, 2, 3);
         ImList<Integer> rev = ImList.on(3, 2, 1);
@@ -94,7 +94,7 @@ public class ImReverseListTest
                 orig.map(i -> i + i - i),                             // map
                 ImList.onIterator(orig.iterator()),                      // iterator
                 ImList.on(orig.toList()) ,                               // ImListOnList
-                Range.inclusive(1, 3),                                // Range (just an array list )
+                ImRange.inclusive(1, 3),                                // ImRange (just an array list )
                 ImList.on(0,1,2,3).drop(1),                              // drop
                 ImList.on(0,1,2,3).dropWhile(i -> i < 1)                 // dropWhile
 

@@ -9,7 +9,7 @@ package dev.javafp.util;
 
 import dev.javafp.ex.Throw;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
 
 public class ImListUtils
@@ -34,7 +34,7 @@ public class ImListUtils
     {
         Throw.Exception.ifOutOfRange("count", count, 0, things.size());
 
-        ImList<ImPair<Integer, A>> pairs = Range.oneTo(things.size()).zip(things).shuffle();
+        ImList<ImPair<Integer, A>> pairs = ImRange.oneTo(things.size()).zip(things).shuffle();
 
         return pairs.splitAfterIndex(count).map(ImListUtils::reorder, ImListUtils::reorder);
 

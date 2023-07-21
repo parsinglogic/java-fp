@@ -17,7 +17,7 @@ import dev.javafp.func.FnBlock;
  * (mainly)
  * which are ranges of integers
  */
-public class Range
+public class ImRange
 {
 
     public static ImList<Integer> inclusive(int min, int max)

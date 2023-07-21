@@ -1,7 +1,7 @@
 package dev.javafp.tree;
 
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
 import org.junit.Test;
 
@@ -47,7 +47,7 @@ public class ImRoseTreeTest
     {
 
         // Get a list of all tree shapes with size <= 5
-        ImList<ImRoseTree<String>> ts = Range.oneTo(6).flatMap(i -> ImRoseTreeShapes.allTreesWithSize(i));
+        ImList<ImRoseTree<String>> ts = ImRange.oneTo(6).flatMap(i -> ImRoseTreeShapes.allTreesWithSize(i));
 
         // Form the cartesian product ts x ts
         ImList<ImPair<ImRoseTree<String>, ImRoseTree<String>>> pairs = ts.cartesianProduct();
@@ -56,7 +56,7 @@ public class ImRoseTreeTest
         ImList.foreachPair(pairs, (i, j) -> assertEquals(i.equals(j), i == j));
 
         // Get another list of tree shapes
-        ImList<ImRoseTree<String>> ts2 = Range.oneTo(6).flatMap(i -> ImRoseTreeShapes.allTreesWithSize(i));
+        ImList<ImRoseTree<String>> ts2 = ImRange.oneTo(6).flatMap(i -> ImRoseTreeShapes.allTreesWithSize(i));
 
         // Form the cartesian product ts x ts2
         ImList<ImPair<ImRoseTree<String>, ImRoseTree<String>>> pairs2 = ts2.cartesianProduct();

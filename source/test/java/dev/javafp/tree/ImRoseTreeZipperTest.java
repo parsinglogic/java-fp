@@ -2,7 +2,7 @@ package dev.javafp.tree;
 
 import dev.javafp.ex.ZipperHasNoFocusException;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.util.ImTestHelper;
 import dev.javafp.util.TestUtils;
@@ -475,7 +475,7 @@ public class ImRoseTreeZipperTest
     public void testEquals() throws Exception
     {
         // Get a list of all tree shapes with size <= 5
-        ImList<ImRoseTree<String>> ts = Range.inclusive(2, 5).flatMap(i -> ImRoseTreeShapes.allTreesWithSize(i));
+        ImList<ImRoseTree<String>> ts = ImRange.inclusive(2, 5).flatMap(i -> ImRoseTreeShapes.allTreesWithSize(i));
 
         ts.foreach(t ->
         {
@@ -515,7 +515,7 @@ public class ImRoseTreeZipperTest
         //        ImList.foreachPair(pairs, (i, j) -> assertEquals(i.equals(j), i == j));
         //
         //        // Get another list of tree shapes
-        //        ImList<ImRoseTree<String>> ts2 = Range.oneTo(6).flatMap(i -> shapes.allTreesWithSize(i));
+        //        ImList<ImRoseTree<String>> ts2 = ImRange.oneTo(6).flatMap(i -> shapes.allTreesWithSize(i));
         //
         //        // Form the cartesian product ts x ts2
         //        ImList<ImPair<ImRoseTree<String>, ImRoseTree<String>>> pairs2 = ImList.cartesianProduct(ts2);
@@ -528,7 +528,7 @@ public class ImRoseTreeZipperTest
     public void testShowPath() throws Exception
     {
         // Get a list of all tree shapes with size <= 5
-        ImList<ImRoseTree<String>> ts = Range.inclusive(5, 5).flatMap(i -> ImRoseTreeShapes.allTreesWithSize(i));
+        ImList<ImRoseTree<String>> ts = ImRange.inclusive(5, 5).flatMap(i -> ImRoseTreeShapes.allTreesWithSize(i));
 
         say(ts.last());
         ImRoseTreeZipper<String> z = ImList.onIterator(ts.last().getZipperIterator()).last();

@@ -1,7 +1,7 @@
 package dev.javafp.util;
 
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.set.ImMap;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ public class ServerTextUtilsTest
     public void testToWord()
     {
         assertEquals("zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen",
-                Range.inclusive(0, 19).map(i -> ServerTextUtils.toWord(i)).toString(" "));
+                ImRange.inclusive(0, 19).map(i -> ServerTextUtils.toWord(i)).toString(" "));
 
         assertEquals("twenty", ServerTextUtils.toWord(20));
         assertEquals("twenty one", ServerTextUtils.toWord(21));
@@ -36,7 +36,7 @@ public class ServerTextUtilsTest
     @Test
     public void testExample()
     {
-        ImList<Integer> is = Range.step(11, 11).take(9);
+        ImList<Integer> is = ImRange.step(11, 11).take(9);
 
         say(is);
         // [11, 22, 33, 44, 55, 66, 77, 88, 99]

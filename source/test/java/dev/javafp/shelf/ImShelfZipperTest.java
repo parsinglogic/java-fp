@@ -81,7 +81,7 @@ public class ImShelfZipperTest
     //    @Test
     //    public void testEqualsOnNull() throws Exception
     //    {
-    //        ImList<Integer> list = Range.oneTo(4);
+    //        ImList<Integer> list = ImRange.oneTo(4);
     //
     //        assertEquals(list.getZipper().equals( null), false);
     //    }

@@ -1,7 +1,7 @@
 package dev.javafp.map;
 
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.Range;
+import dev.javafp.lst.ImRange;
 import dev.javafp.set.ImMap;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.tuple.Pai;
@@ -494,7 +494,7 @@ public class ImMapTest
     @Test
     public void testToAndFromMap()
     {
-        ImList<ImPair<Fooble, String>> pairs = Range.oneTo(30).map(i -> Pai.r(new Fooble(i), "" + i));
+        ImList<ImPair<Fooble, String>> pairs = ImRange.oneTo(30).map(i -> Pai.r(new Fooble(i), "" + i));
 
         ImMap<Fooble, String> start = ImMap.fromPairs(pairs);
 
