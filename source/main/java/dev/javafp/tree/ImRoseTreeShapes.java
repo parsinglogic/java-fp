@@ -44,11 +44,13 @@ public class ImRoseTreeShapes
     public static class LabelFactory
     {
         /**
-         * <h2>the labels at each level a1 |</h2>
-         * <p> b1 b2     b3
-         * |      |
-         * -----  -----
-         * c1 c2  c3 c4
+         * the labels at each level
+         * a1
+         * |
+         * b1 b2     b3
+         *    |      |
+         *    -----  -----
+         *    c1 c2  c3 c4
          *
          */
         private int count = 0;

@@ -28,11 +28,9 @@ import java.util.Objects;
  *  and it is missing, it will throw an exception.
  *
  */
-public final class ImMaybe<T> extends ImValuesImpl
+public class ImMaybe<T> extends ImValuesImpl
 {
-
-    private static final ImMaybe Nothing = new ImMaybe(null);
-
+    
     private final T value;
 
     private static final LeafTextBox justBox = LeafTextBox.with("Just ");
@@ -40,12 +38,12 @@ public final class ImMaybe<T> extends ImValuesImpl
     private static final LeafTextBox nothingBox = LeafTextBox.with("Nothing");
 
     @SuppressWarnings("unchecked")
-    public static <T> ImMaybe<T> nothing()
+    public static <A> ImMaybe<A> nothing()
     {
-        return Nothing;
+        return new ImMaybe(null);
     }
 
-    private ImMaybe(T value)
+    protected ImMaybe(T value)
     {
         this.value = value;
     }

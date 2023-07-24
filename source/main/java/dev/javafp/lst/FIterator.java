@@ -8,8 +8,8 @@
 package dev.javafp.lst;
 
 /**
- * <p> Created by aove215 on 06/08/2016.
- * <p> Note that next() returns an FIterator. Not sure what is going on here.
+ * <p> An iterator on a list of lists
+ *
  *
  */
 public interface FIterator<A>

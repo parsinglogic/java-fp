@@ -3185,7 +3185,8 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      */
     default ImPair<ImList<A>, ImList<A>> cutIntoTwo(Fn<A, Boolean> pred)
     {
-        return cutIntoTwo(ImList.on(), pred, this).map(fst -> fst.reverse(), snd -> snd);
+        return this.splitWhile(pred);
+        //        return cutIntoTwo(ImList.on(), pred, this).map(fst -> fst.reverse(), snd -> snd);
     }
 
     private static <A> ImPair<ImList<A>, ImList<A>> cutIntoTwo(ImList<A> first, Fn<A, Boolean> fn, ImList<A> second)

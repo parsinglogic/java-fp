@@ -12,6 +12,8 @@ import static dev.javafp.lst.ImLazyList.UNKNOWN_FINITE;
 import static dev.javafp.lst.ImLazyList.UNKNOWN_UNKNOWN;
 
 /**
+ * <p> The size of a list - deals with infinite sizes.
+ *
  * <p> I have been trying to fix a 'problem' with lists
  * <p> I don't now think that this is the best solution to the problem but I am leaving it
  * in for now

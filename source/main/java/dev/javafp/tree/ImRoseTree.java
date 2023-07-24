@@ -425,6 +425,12 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
                : LeafTextBox.with("" + element).above(TopDownBox.withAllBoxes(children.map(i -> i.getTextBox())).indentBy(2));
     }
 
+    /**
+     * An ImList containing ImRoseTrees in
+     *
+     *
+     * @return
+     */
     public ImList<ImRoseTree<A>> toImList()
     {
         return getZipper().getList(); //ImFIteratorList.on(getZipper());

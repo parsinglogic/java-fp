@@ -1,5 +1,6 @@
 package dev.javafp.tree;
 
+import dev.javafp.eq.Eq;
 import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
@@ -13,6 +14,7 @@ import static dev.javafp.tree.ImRoseTree.withElements;
 import static dev.javafp.tree.ImRoseTree.withNodes;
 import static dev.javafp.util.ImTestHelper.checkExample;
 import static dev.javafp.util.ImTestHelper.flatten;
+import static dev.javafp.util.Say.say;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
@@ -30,6 +32,8 @@ public class ImRoseTreeTest
             for (ImRoseTree<String> t : trees)
             {
 
+                say(t.toBoxString());
+
                 int i = 1;
                 for (String string : flatten(t))
                 {
@@ -40,6 +44,30 @@ public class ImRoseTreeTest
                 }
             }
         }
+    }
+
+    @Test
+    public void testAllOfSizeSix() throws Exception
+    {
+
+        ImList<ImRoseTree<String>> trees = ImRoseTreeShapes.allTreesWithSize(6);
+
+        say("# of trees", trees.size());
+
+        ImRoseTree<String> t = trees.at(6);
+        say(t.toBoxString());
+        say(t.toString());
+        say(t.toImList().toString("\n"));
+
+        //        int i = 0;
+        //        for (ImRoseTree<String> tt : trees)
+        //        {
+        //            say(i++, tt.toBoxString());
+        //
+        //        }
+
+        //        1 (2 3 (4) 5 6)
+
     }
 
     @Test
@@ -200,4 +228,51 @@ public class ImRoseTreeTest
         }
         return range;
     }
+
+    /**
+     * <p> Get the next token in the list, skipping over spaces.
+     * <p> Return a pair with the token as the first element and the remainder of the list as
+     * the second element.
+     * <p> If there are no tokens in the list
+     * return the empty string in the first position of the pair
+     * <p> A token is
+     * (
+     * )
+     * [^() ]* - ie a sequences of chars that are not (, ) or space
+     *
+     */
+    public static ImPair<String, ImList<Character>> getToken(ImList<Character> cs)
+    {
+        if (cs.isEmpty())
+            return ImPair.on("", cs);
+        else if (Eq.uals('(', cs.head()))
+            return ImPair.on("(", cs.tail());
+        else if (Eq.uals(')', cs.head()))
+            return ImPair.on(")", cs.tail());
+        else if (Eq.uals(' ', cs.head()))
+            return getToken(cs.tail());
+        else
+        {
+            return cs.splitWhile(c -> "() ".indexOf(c) == -1).map(Object::toString, j -> j);
+        }
+    }
+    //
+    //    ImPair<ImRoseTree<Integer>,ImList<Character>>  getRoot(ImList<Character> cs)
+    //    {
+    //
+    //        ImPair<String, ImList<Character>> p1 = getToken(cs);
+    //
+    //        ImPair<String, ImList<Character>> p2 = getToken(p1.snd);
+    //
+    //        ImPair<ImList<ImRoseTree<Integer>>,ImList<Character>>  kidsPair = Equals.isEqual(p2.fst, "(")
+    //                                           ? getKids(p2.snd)
+    //                                           : ImPair.on(ImList.on().upCast(), p2.snd);
+    //
+    //        return ImPair.on(ImRoseTree.withNodes(Integer.valueOf(p1.fst), kidsPair.fst), kidsPair.snd);
+    //    }
+    //
+    //
+    //
+    //
+    //    }
 }

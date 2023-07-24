@@ -14,6 +14,10 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * An iterator over ImLists
+ *
+ */
 public class ImListIterator<T> implements Iterator<T>, Serializable
 {
 
@@ -25,11 +29,13 @@ public class ImListIterator<T> implements Iterator<T>, Serializable
         this.list = list;
     }
 
+    @Override
     public boolean hasNext()
     {
         return !list.isEmpty();
     }
 
+    @Override
     public T next()
     {
         if (hasNext())
@@ -58,6 +64,10 @@ public class ImListIterator<T> implements Iterator<T>, Serializable
         }
     }
 
+    /**
+     * Throws UnsupportedOperationException
+     */
+    @Override
     public void remove()
     {
         throw new UnsupportedOperationException();

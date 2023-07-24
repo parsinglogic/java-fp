@@ -65,10 +65,8 @@ h6 {
 ul {
     list-style-type:disc;
 }
-.block code, tt {
+code, tt {
     font-family:'DejaVu Sans Mono', monospace;
-    color: green;
-    font-weight:bold;
 }
 :not(h1, h2, h3, h4, h5, h6) > code,
 :not(h1, h2, h3, h4, h5, h6) > tt {
