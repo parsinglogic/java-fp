@@ -17,7 +17,7 @@ import java.util.Iterator;
 
 /**
  *
- * <p>A lazy list can, unlike eager lists, be infinite.
+ * <p>A lazy list. This can, unlike eager lists, be infinite.
  *
  * <p> For example, an `ImUnfoldList` starts with a value and the next value is determined by the step function. This list never ends.
  *
@@ -46,22 +46,55 @@ public abstract class ImLazyList<A> implements ImList<A>
      * see Sx::append and Sx::join
      *
      */
+
+    /**
+     * The list size is not known - but it must be finite
+     */
     public static final int UNKNOWN_FINITE = -1;
+
+    /**
+     * The list size is not known - it might be finite or infinite
+     */
     public static final int UNKNOWN_UNKNOWN = -2;
+
+    /**
+     * The list size is known to be infinite
+     */
     public static final int KNOWN_INFINITE = -3;
-    public static final int UU_BOX_LIMIT = 10_000;
 
-    public static LeafTextBox UU_MESSAGE = LeafTextBox.with(String.format(" (showing the first %d elements - list could be larger or infinite)", UU_BOX_LIMIT));
+    /**
+     * The list size is not known - but it must be finite
+     */
+    static final int UU_BOX_LIMIT = 10_000;
 
-    public final int sz;
-    public static final int START_SHOW = 20_000_000;
-    public static final int SHOW_INTERVAL = 10_000_000;
+    /**
+     * The list size is not known - but it must be finite
+     */
+    static LeafTextBox UU_MESSAGE = LeafTextBox.with(String.format(" (showing the first %d elements - list could be larger or infinite)", UU_BOX_LIMIT));
+
+    /**
+     * The size of the list
+     */
+    private final int sz;
+
+    /**
+     * The size of a list before we start warning the user it might be infinite
+     */
+    static final int START_SHOW = 20_000_000;
+
+    /**
+     * The interval between warning the user the list might be infinite
+     */
+    static final int SHOW_INTERVAL = 10_000_000;
 
     public ImLazyList(int size)
     {
         this.sz = size;
     }
 
+    /**
+     * The internal size of the list
+     */
     @Override
     public int getSz()
     {
@@ -69,6 +102,12 @@ public abstract class ImLazyList<A> implements ImList<A>
     }
 
     @Override
+    /**
+     * <p> The size of the list. This is our best guess at the size. Throws
+     * {@code SizeOnInfiniteList}
+     *  if the size is infinite.
+     *
+     */
     public int size()
     {
         if (sz > 0)
@@ -91,18 +130,30 @@ public abstract class ImLazyList<A> implements ImList<A>
         }
     }
 
+    /**
+     * This method should have implementations lower down in the class hierarchy
+     */
     protected int calculateSize()
     {
         throw new IllegalState("This method should not have been called");
     }
 
     @Override
+    /**
+     * The String representation of this object
+     */
     public String toString()
     {
         return toS();
     }
 
     @Override
+    /**
+     * <p> {@code true}
+     *  iff this equals
+     * {@code other}
+     *
+     */
     public boolean equals(Object other)
     {
         return other instanceof ImList
@@ -140,6 +191,11 @@ public abstract class ImLazyList<A> implements ImList<A>
     }
 
     @Override
+    /**
+     * <p> An iterator on the elements of
+     * {@code this}
+     * .
+     */
     public Iterator<A> iterator()
     {
         if (getSz() == KNOWN_INFINITE)
@@ -157,7 +213,7 @@ public abstract class ImLazyList<A> implements ImList<A>
     }
 
     /**
-     * <p> Get the hash of the first few elements
+     * <p> Get the hashcode using the first few elements
      */
     public int hashCode()
     {

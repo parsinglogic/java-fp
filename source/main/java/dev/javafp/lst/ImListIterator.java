@@ -29,12 +29,24 @@ public class ImListIterator<T> implements Iterator<T>, Serializable
         this.list = list;
     }
 
+    /**
+     * <p> {@code true}
+     *  if the iteration has more elements. (In other words, returns
+     * {@code true}
+     *  if
+     * {@code next()}
+     *  would return an element rather than throwing an exception.)
+     *
+     */
     @Override
     public boolean hasNext()
     {
         return !list.isEmpty();
     }
 
+    /**
+     * The next element in the iteration
+     */
     @Override
     public T next()
     {
@@ -65,7 +77,12 @@ public class ImListIterator<T> implements Iterator<T>, Serializable
     }
 
     /**
-     * Throws UnsupportedOperationException
+     * <p> Throws
+     * {@code UnsupportedOperationException}
+     * . You can't modify
+     * {@code ImLists}
+     *  in this way.
+     * @see ImListZipper
      */
     @Override
     public void remove()
