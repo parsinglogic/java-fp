@@ -250,6 +250,11 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
             return "( " + hashCode + ": " + elements + ")";
         }
 
+        /**
+         * <p> The number of elements in
+         * {@code this}
+         *
+         */
         public int size()
         {
             return elements.length;
@@ -727,6 +732,15 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
             }
         }
 
+        /**
+         * <p> {@code true}
+         *  if the iterator has more elements. (In other words, returns
+         * {@code true}
+         *  if
+         * {@code next()}
+         *  would return an element rather than throwing an exception.)
+         *
+         */
         public boolean hasNext()
         {
             return elementsIterator.hasNext()
@@ -734,6 +748,9 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
                    : oTreeIterator.hasNext();
         }
 
+        /**
+         * The next element in the iterator. Throws {@link NoSuchElementException} if no such element exists.
+         */
         public T next()
         {
             if (!hasNext())
@@ -751,12 +768,13 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         }
 
         /**
-         * <p> @deprecated Unsupported operation since all
-         * {@code ImCollections}
-         *  are immutable.
+         * <p> Throws
+         * {@code UnsupportedOperationException}
+         * . You can't modify
+         * {@code ImSet}
+         * s in this way.
          *
          */
-        @Deprecated
         public void remove()
         {
             throw new UnsupportedOperationException();

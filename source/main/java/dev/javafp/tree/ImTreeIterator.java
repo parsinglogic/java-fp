@@ -31,11 +31,23 @@ public class ImTreeIterator<T> implements Iterator<T>
             maybeNextPath = ImMaybe.just(ImTreeZipper.onLeftmost(tree));
     }
 
+    /**
+     * <p> {@code true}
+     *  if the iterator has more elements. (In other words, returns
+     * {@code true}
+     *  if
+     * {@code next()}
+     *  would return an element rather than throwing an exception.)
+     *
+     */
     public boolean hasNext()
     {
         return maybeNextPath.isPresent();
     }
 
+    /**
+     * The next element in the iterator. Throws {@link NoSuchElementException} if no such element exists.
+     */
     public T next()
     {
         if (!hasNext())
@@ -52,6 +64,15 @@ public class ImTreeIterator<T> implements Iterator<T>
         }
     }
 
+    /**
+     * <p> Throws
+     * {@code UnsupportedOperationException}
+     * . You can't modify
+     * {@code ImTree}
+     * s in this way.
+     *
+     * To remove/add/modify elements, see {@link ImTreeZipper}
+     */
     public void remove()
     {
         throw new UnsupportedOperationException();

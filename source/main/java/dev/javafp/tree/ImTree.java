@@ -702,6 +702,11 @@ public class ImTree<A> implements Serializable, Iterable<A>
         return height;
     }
 
+    /**
+     * <p> The number of elements in
+     * {@code this}
+     *
+     */
     public int size()
     {
         return size;

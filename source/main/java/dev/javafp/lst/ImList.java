@@ -243,6 +243,11 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
 
     int getSz();
 
+    /**
+     * <p> The number of elements in
+     * {@code this}
+     *
+     */
     int size();
 
     /**

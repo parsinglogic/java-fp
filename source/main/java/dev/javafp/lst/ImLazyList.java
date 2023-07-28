@@ -87,7 +87,7 @@ public abstract class ImLazyList<A> implements ImList<A>
      */
     static final int SHOW_INTERVAL = 10_000_000;
 
-    public ImLazyList(int size)
+    ImLazyList(int size)
     {
         this.sz = size;
     }
@@ -105,7 +105,7 @@ public abstract class ImLazyList<A> implements ImList<A>
     /**
      * <p> The size of the list. This is our best guess at the size. Throws
      * {@code SizeOnInfiniteList}
-     *  if the size is infinite.
+     * if the size is infinite.
      *
      */
     public int size()

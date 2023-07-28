@@ -10,6 +10,7 @@ package dev.javafp.rand;
 import dev.javafp.ex.Throw;
 
 import java.security.SecureRandom;
+import java.util.NoSuchElementException;
 
 /**
  * <p> Convenience wrapper for SecureRandom
@@ -23,6 +24,9 @@ public class Rando
         random.setSeed(seed);
     }
 
+    /**
+     * The next element in the iterator. Throws {@link NoSuchElementException} if no such element exists.
+     */
     public static int nextIntFromZeroToExclusive(int maxExclusive)
     {
         Throw.Exception.ifLessThanOrEqualTo("maxExclusve", maxExclusive, 0);

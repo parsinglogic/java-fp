@@ -31,6 +31,15 @@ public class ImRoseTreeZipperIterator<T> implements Iterator<ImRoseTreeZipper<T>
         this.zipper = zipper;
     }
 
+    /**
+     * <p> {@code true}
+     *  if the iterator has more elements. (In other words, returns
+     * {@code true}
+     *  if
+     * {@code next()}
+     *  would return an element rather than throwing an exception.)
+     *
+     */
     public boolean hasNext()
     {
         return offLeft
@@ -38,6 +47,9 @@ public class ImRoseTreeZipperIterator<T> implements Iterator<ImRoseTreeZipper<T>
                : zipper.hasNext();
     }
 
+    /**
+     * The next element in the iterator. Throws {@link NoSuchElementException} if no such element exists.
+     */
     public ImRoseTreeZipper<T> next()
     {
         if (offLeft)
@@ -53,6 +65,14 @@ public class ImRoseTreeZipperIterator<T> implements Iterator<ImRoseTreeZipper<T>
         return zipper;
     }
 
+    /**
+     * <p> Throws
+     * {@code UnsupportedOperationException}
+     * . You can't modify
+     * {@code ImRoseTreeZipperIterator}
+     * s in this way.
+     *
+     */
     public void remove()
     {
         throw new UnsupportedOperationException();

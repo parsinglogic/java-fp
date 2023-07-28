@@ -12,11 +12,16 @@ abstract class ImEagerList<A> implements ImList<A>
 
     public final int size;
 
-    public ImEagerList(int size)
+    ImEagerList(int size)
     {
         this.size = size;
     }
 
+    /**
+     * <p> The number of elements in
+     * {@code this}
+     *
+     */
     @Override
     public int size()
     {

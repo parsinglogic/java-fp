@@ -80,6 +80,11 @@ public class ImQueue<A> extends ImValuesImpl
                               : one.head());
     }
 
+    /**
+     * <p> The number of elements in
+     * {@code this}
+     *
+     */
     public int size()
     {
         return one.size() + two.size();

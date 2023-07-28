@@ -10,6 +10,7 @@ package dev.javafp.shelf;
 import dev.javafp.lst.ImListZipper;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * <p> An iterator on an {@link ImListZipper}.
@@ -24,16 +25,37 @@ public class ImShelfZipperIterator<T> implements Iterator<ImShelfZipper<T>>
         this.zipper = zipper;
     }
 
+    /**
+     * <p> {@code true}
+     *  if the iterator has more elements. (In other words, returns
+     * {@code true}
+     *  if
+     * {@code next()}
+     *  would return an element rather than throwing an exception.)
+     *
+     */
     public boolean hasNext()
     {
         return zipper.hasNext();
     }
 
+    /**
+     * The next element in the iterator. Throws {@link NoSuchElementException} if no such element exists.
+     */
     public ImShelfZipper<T> next()
     {
         zipper = zipper.next();
         return zipper;
     }
+
+    /**
+     * <p> Throws
+     * {@code UnsupportedOperationException}
+     * . You can't modify
+     * {@code ImShelfZipper}
+     * s in this way.
+     *
+     */
 
     public void remove()
     {

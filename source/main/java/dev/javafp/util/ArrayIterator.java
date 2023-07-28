@@ -34,12 +34,24 @@ public class ArrayIterator<T> implements Iterator<T>
         return new ArrayIterator<T>(arrayItems);
     }
 
+    /**
+     * <p> {@code true}
+     *  if the iterator has more elements. (In other words, returns
+     * {@code true}
+     *  if
+     * {@code next()}
+     *  would return an element rather than throwing an exception.)
+     *
+     */
     @Override
     public boolean hasNext()
     {
         return index < arrayItems.length;
     }
 
+    /**
+     * The next element in the iterator. Throws {@link NoSuchElementException} if no such element exists.
+     */
     @Override
     public T next()
     {
@@ -50,6 +62,13 @@ public class ArrayIterator<T> implements Iterator<T>
         return arrayItems[index++];
     }
 
+    /**
+     * <p> Throws
+     * {@code UnsupportedOperationException}
+     * . You can't modify
+     * {@code Array}
+     * s in this way.
+     * */
     @Override
     public void remove()
     {

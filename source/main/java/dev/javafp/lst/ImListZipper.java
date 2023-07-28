@@ -835,7 +835,7 @@ public class ImListZipper<T> implements Iterable<ImListZipper<T>>
 
     /**
      * <p> Compares
-     * {@code another}
+     * {@code other}
      *  with
      * {@code this}
      *  for equality.  Returns

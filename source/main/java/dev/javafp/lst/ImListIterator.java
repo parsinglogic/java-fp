@@ -31,7 +31,7 @@ public class ImListIterator<T> implements Iterator<T>, Serializable
 
     /**
      * <p> {@code true}
-     *  if the iteration has more elements. (In other words, returns
+     *  if the iterator has more elements. (In other words, returns
      * {@code true}
      *  if
      * {@code next()}
@@ -45,7 +45,7 @@ public class ImListIterator<T> implements Iterator<T>, Serializable
     }
 
     /**
-     * The next element in the iteration
+     * The next element in the iterator. Throws {@link NoSuchElementException} if no such element exists.
      */
     @Override
     public T next()
@@ -82,7 +82,8 @@ public class ImListIterator<T> implements Iterator<T>, Serializable
      * . You can't modify
      * {@code ImLists}
      *  in this way.
-     * @see ImListZipper
+     *
+     * To remove elements, see {@link ImListZipper}
      */
     @Override
     public void remove()

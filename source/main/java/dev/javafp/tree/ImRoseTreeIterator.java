@@ -8,6 +8,7 @@
 package dev.javafp.tree;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * <p> An iterator on an {@link ImRoseTree}.
@@ -29,16 +30,37 @@ public class ImRoseTreeIterator<T> implements Iterator<T>
         zipperIterator = tree.getZipperIterator();
     }
 
+    /**
+     * <p> {@code true}
+     *  if the iterator has more elements. (In other words, returns
+     * {@code true}
+     *  if
+     * {@code next()}
+     *  would return an element rather than throwing an exception.)
+     *
+     */
     public boolean hasNext()
     {
         return zipperIterator.hasNext();
     }
 
+    /**
+     * The next element in the iterator. Throws {@link NoSuchElementException} if no such element exists.
+     */
     public T next()
     {
         return zipperIterator.next().getElement();
     }
 
+    /**
+     * <p> Throws
+     * {@code UnsupportedOperationException}
+     * . You can't modify
+     * {@code ImRoseTrees}
+     *  in this way.
+     *
+     * To remove/add/modify elements, see {@link ImRoseTreeZipper}
+     */
     public void remove()
     {
         throw new UnsupportedOperationException();

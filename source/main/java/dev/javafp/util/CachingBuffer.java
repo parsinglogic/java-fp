@@ -58,6 +58,11 @@ public class CachingBuffer
         return sb.toString();
     }
 
+    /**
+     * <p> The number of elements in
+     * {@code this}
+     *
+     */
     public int size()
     {
         return queue.size();

@@ -191,15 +191,36 @@ public class ImShelf<T> implements Iterable<T>
             this.treeIterator = treeIterator;
         }
 
+        /**
+         * <p> {@code true}
+         *  if the iterator has more elements. (In other words, returns
+         * {@code true}
+         *  if
+         * {@code next()}
+         *  would return an element rather than throwing an exception.)
+         *
+         */
         public boolean hasNext()
         {
             return treeIterator.hasNext();
         }
 
+        /**
+         * The next element in the iterator. Throws {@link NoSuchElementException} if no such element exists.
+         */
         public T next()
         {
             return treeIterator.next();
         }
+
+        /**
+         * <p> Throws
+         * {@code UnsupportedOperationException}
+         * . You can't modify
+         * {@code ImShelf}
+         * s in this way.
+         *
+         */
 
         public void remove()
         {

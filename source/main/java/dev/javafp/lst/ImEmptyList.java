@@ -67,6 +67,14 @@ class ImEmptyList<A> extends ImLazyList<A>
         return true;
     }
 
+    /**
+     * <p> The number of elements in
+     * {@code this}
+     *
+     * In this case,
+     * {@code 0}
+     *
+     */
     @Override
     public int size()
     {

@@ -8,18 +8,40 @@
 package dev.javafp.lst;
 
 /**
- * <p> An iterator on a list of lists
+ * <p> A functional style "iterator" on a list
  *
  *
  */
 public interface FIterator<A>
 {
+
+    /**
+     * <p> {@code true}
+     *  if the iterator has more elements. (In other words, returns
+     * {@code true}
+     *  if
+     * {@code next()}
+     *  would return an element rather than throwing an exception.)
+     *
+     */
     boolean hasNext();
 
+    /**
+     * The current element in the iterator.
+     */
     A get();
 
+    /**
+     * <p> The
+     * {@code FIterator}
+     *  that is "next".
+     *
+     */
     FIterator<A> next();
 
+    /**
+     * The underlying list
+     */
     default ImList<A> getList()
     {
         return ImFIteratorList.on(this);
