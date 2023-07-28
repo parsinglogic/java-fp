@@ -608,7 +608,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/func/ComposedFunction.html" class="type-name-link" title="class in dev.javafp.func">ComposedFunction</a>&lt;<a href="dev/javafp/func/ComposedFunction.html" title="type parameter in ComposedFunction">I</a>,<wbr><a href="dev/javafp/func/ComposedFunction.html" title="type parameter in ComposedFunction">O</a>,<wbr><a href="dev/javafp/func/ComposedFunction.html" title="type parameter in ComposedFunction">U</a>&gt; - Class in <a href="dev/javafp/func/package-summary.html">dev.javafp.func</a></dt>
 <dd>
-<div class="block"> ComposedFunction implements ...er...</div>
+<div class="block"> ComposedFunction implements function
+ <strong>composition</strong></div>
 </dd>
 <dt><a href="dev/javafp/func/ComposedFunction.html#%3Cinit%3E(dev.javafp.func.Fn,dev.javafp.func.Fn)" class="member-name-link">ComposedFunction(Fn&lt;I, O&gt;, Fn&lt;O, U&gt;)</a> - Constructor for class dev.javafp.func.<a href="dev/javafp/func/ComposedFunction.html" title="class in dev.javafp.func">ComposedFunction</a></dt>
 <dd>
@@ -1383,21 +1384,68 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/ImUtils.html#flush(java.io.Writer)" class="member-name-link">flush(Writer)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ImUtils.html" title="class in dev.javafp.util">ImUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/func/Fn.html" class="type-name-link" title="interface in dev.javafp.func">Fn</a>&lt;<a href="dev/javafp/func/Fn.html" title="type parameter in Fn">I</a>,<wbr><a href="dev/javafp/func/Fn.html" title="type parameter in Fn">O</a>&gt; - Interface in <a href="dev/javafp/func/package-summary.html">dev.javafp.func</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A function that takes an input argument of type
+ <code>I</code>
+  and produces a value of type
+ <code>O</code></div>
+</dd>
 <dt><a href="dev/javafp/func/Fn2.html" class="type-name-link" title="interface in dev.javafp.func">Fn2</a>&lt;<a href="dev/javafp/func/Fn2.html" title="type parameter in Fn2">A</a>,<wbr><a href="dev/javafp/func/Fn2.html" title="type parameter in Fn2">B</a>,<wbr><a href="dev/javafp/func/Fn2.html" title="type parameter in Fn2">C</a>&gt; - Interface in <a href="dev/javafp/func/package-summary.html">dev.javafp.func</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A function that takes two input arguments of type
+ <code>A</code>
+ and
+ <code>B</code>
+  and produces a value of type
+ <code>C</code></div>
+</dd>
 <dt><a href="dev/javafp/func/Fn3.html" class="type-name-link" title="interface in dev.javafp.func">Fn3</a>&lt;<a href="dev/javafp/func/Fn3.html" title="type parameter in Fn3">A</a>,<wbr><a href="dev/javafp/func/Fn3.html" title="type parameter in Fn3">B</a>,<wbr><a href="dev/javafp/func/Fn3.html" title="type parameter in Fn3">C</a>,<wbr><a href="dev/javafp/func/Fn3.html" title="type parameter in Fn3">D</a>&gt; - Interface in <a href="dev/javafp/func/package-summary.html">dev.javafp.func</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A function that takes three input arguments of type
+ <code>A</code>
+ ,
+ <code>B</code>
+ and
+ <code>C</code>
+  and produces a value of type
+ <code>D</code></div>
+</dd>
 <dt><a href="dev/javafp/func/Fn4.html" class="type-name-link" title="interface in dev.javafp.func">Fn4</a>&lt;<a href="dev/javafp/func/Fn4.html" title="type parameter in Fn4">A</a>,<wbr><a href="dev/javafp/func/Fn4.html" title="type parameter in Fn4">B</a>,<wbr><a href="dev/javafp/func/Fn4.html" title="type parameter in Fn4">C</a>,<wbr><a href="dev/javafp/func/Fn4.html" title="type parameter in Fn4">D</a>,<wbr><a href="dev/javafp/func/Fn4.html" title="type parameter in Fn4">E</a>&gt; - Interface in <a href="dev/javafp/func/package-summary.html">dev.javafp.func</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A function that takes four input arguments of type
+ <code>A</code>
+ ,
+ <code>B</code>
+ ,
+ <code>C</code>
+ and
+ <code>D</code>
+  and produces a value of type
+ <code>E</code></div>
+</dd>
 <dt><a href="dev/javafp/func/FnBlock.html" class="type-name-link" title="interface in dev.javafp.func">FnBlock</a> - Interface in <a href="dev/javafp/func/package-summary.html">dev.javafp.func</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A function that is a block of code that takes no arguments and produces no value.</div>
+</dd>
 <dt><a href="dev/javafp/func/FnConsumer.html" class="type-name-link" title="interface in dev.javafp.func">FnConsumer</a>&lt;<a href="dev/javafp/func/FnConsumer.html" title="type parameter in FnConsumer">I</a>&gt; - Interface in <a href="dev/javafp/func/package-summary.html">dev.javafp.func</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A function that takes an input argument of type
+ <code>I</code></div>
+</dd>
 <dt><a href="dev/javafp/func/FnPairConsumer.html" class="type-name-link" title="interface in dev.javafp.func">FnPairConsumer</a>&lt;<a href="dev/javafp/func/FnPairConsumer.html" title="type parameter in FnPairConsumer">A</a>,<wbr><a href="dev/javafp/func/FnPairConsumer.html" title="type parameter in FnPairConsumer">B</a>&gt; - Interface in <a href="dev/javafp/func/package-summary.html">dev.javafp.func</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A function that takes two input arguments of type
+ <code>A</code>
+ and
+ <code>B</code>
+  and produces no value.</div>
+</dd>
 <dt><a href="dev/javafp/func/FnProducer.html" class="type-name-link" title="interface in dev.javafp.func">FnProducer</a>&lt;<a href="dev/javafp/func/FnProducer.html" title="type parameter in FnProducer">A</a>&gt; - Interface in <a href="dev/javafp/func/package-summary.html">dev.javafp.func</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A function that produces a value of type
+ <code>A</code>
+  but has no arguments.</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#foldl(B,dev.javafp.func.Fn2)" class="member-name-link">foldl(B, Fn2&lt;B, A, B&gt;)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> Start with an accumulator
