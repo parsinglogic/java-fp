@@ -54,8 +54,8 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 {
 
     private ImMap<KEY, DATA> valueMap;
-    private ImMap<KEY, ImList<Arc<KEY, LABEL>>> arcsOut;
-    private ImMap<KEY, ImList<Arc<KEY, LABEL>>> arcsIn;
+    private ImMap<KEY, ImList<ImArc<KEY, LABEL>>> arcsOut;
+    private ImMap<KEY, ImList<ImArc<KEY, LABEL>>> arcsIn;
 
     private static ImGraph empty = new ImGraph<>(ImMap.empty(), ImMap.empty(), ImMap.empty());
 
@@ -67,7 +67,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     public static Dir In = Dir.In;
     public static Dir Out = Dir.Out;
 
-    protected ImGraph(ImMap<KEY, DATA> valueMap, ImMap<KEY, ImList<Arc<KEY, LABEL>>> arcsOut, ImMap<KEY, ImList<Arc<KEY, LABEL>>> arcsIn)
+    protected ImGraph(ImMap<KEY, DATA> valueMap, ImMap<KEY, ImList<ImArc<KEY, LABEL>>> arcsOut, ImMap<KEY, ImList<ImArc<KEY, LABEL>>> arcsIn)
     {
         this.valueMap = valueMap;
         this.arcsIn = arcsIn;
@@ -86,7 +86,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         ImList<KEY> otherKeys = otherKeysSet.toImList();
         // System.out.println("otherKeys " + otherKeys);
 
-        ImMap<KEY, ImList<Arc<KEY, LABEL>>> arcsIn = this.arcsIn.removeAll(otherKeys).map(v -> v.filter(a -> !otherKeysSet.contains(a.start)));
+        ImMap<KEY, ImList<ImArc<KEY, LABEL>>> arcsIn = this.arcsIn.removeAll(otherKeys).map(v -> v.filter(a -> !otherKeysSet.contains(a.start)));
 
         return new ImGraph<>(valueMap.removeAll(otherKeys), arcsOut.removeAll(otherKeys), arcsIn);
     }
@@ -143,10 +143,10 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         if (!containsNodeWithKey(end))
             throw new KeyMissing(end);
 
-        Arc<KEY, LABEL> arc = Arc.on(label, start, end);
+        ImArc<KEY, LABEL> arc = ImArc.on(label, start, end);
 
-        ImList<Arc<KEY, LABEL>> out = arcsOut.getOrDefault(start, ImList.empty()).push(arc);
-        ImList<Arc<KEY, LABEL>> in = arcsIn.getOrDefault(end, ImList.empty()).push(arc);
+        ImList<ImArc<KEY, LABEL>> out = arcsOut.getOrDefault(start, ImList.empty()).push(arc);
+        ImList<ImArc<KEY, LABEL>> in = arcsIn.getOrDefault(end, ImList.empty()).push(arc);
 
         return new ImGraph<>(valueMap, arcsOut.put(start, out), arcsIn.put(end, in));
     }
@@ -159,10 +159,10 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         if (!containsNodeWithKey(end))
             throw new KeyMissing(end);
 
-        Arc<KEY, LABEL> arc = Arc.on(label, start, end);
+        ImArc<KEY, LABEL> arc = ImArc.on(label, start, end);
 
-        ImList<Arc<KEY, LABEL>> out = arcsOut.getOrDefault(start, ImList.empty()).appendElement(arc);
-        ImList<Arc<KEY, LABEL>> in = arcsIn.getOrDefault(end, ImList.empty()).appendElement(arc);
+        ImList<ImArc<KEY, LABEL>> out = arcsOut.getOrDefault(start, ImList.empty()).appendElement(arc);
+        ImList<ImArc<KEY, LABEL>> in = arcsIn.getOrDefault(end, ImList.empty()).appendElement(arc);
 
         return new ImGraph<>(valueMap, arcsOut.put(start, out), arcsIn.put(end, in));
     }
@@ -191,14 +191,14 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
             throw new KeyMissing(end);
 
         // The arc that points to key after
-        Arc<KEY, LABEL> arcForAfter = Arc.on(label, start, after);
-        Arc<KEY, LABEL> arc = Arc.on(label, start, end);
+        ImArc<KEY, LABEL> arcForAfter = ImArc.on(label, start, after);
+        ImArc<KEY, LABEL> arc = ImArc.on(label, start, end);
 
         // Get a zipper on the list of arcs from start
-        ImListZipper<Arc<KEY, LABEL>> zipper = arcsOut.getOrDefault(start, ImList.empty()).getZipper();
+        ImListZipper<ImArc<KEY, LABEL>> zipper = arcsOut.getOrDefault(start, ImList.empty()).getZipper();
 
         // Find the arc to after in the list and push the new arc after it
-        ImMaybe<ImList<Arc<KEY, LABEL>>> maybeOut = zipper.find(arcForAfter).map(z -> z.push(arc).close());
+        ImMaybe<ImList<ImArc<KEY, LABEL>>> maybeOut = zipper.find(arcForAfter).map(z -> z.push(arc).close());
 
         if (!maybeOut.isPresent())
         {
@@ -206,7 +206,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         }
         else
         {
-            ImList<Arc<KEY, LABEL>> in = arcsIn.getOrDefault(end, ImList.empty()).push(arc);
+            ImList<ImArc<KEY, LABEL>> in = arcsIn.getOrDefault(end, ImList.empty()).push(arc);
 
             return new ImGraph<>(valueMap, arcsOut.put(start, maybeOut.get()), arcsIn.put(end, in));
         }
@@ -222,8 +222,8 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         if (!containsNodeWithKey(end))
             throw new KeyMissing(end);
 
-        ImList<Arc<KEY, LABEL>> out = arcsOut.get(start).filter(a -> !(a.label.equals(label) && a.end.equals(end)));
-        ImList<Arc<KEY, LABEL>> in = arcsIn.get(end).filter(a -> !(a.label.equals(label) && a.start.equals(start)));
+        ImList<ImArc<KEY, LABEL>> out = arcsOut.get(start).filter(a -> !(a.label.equals(label) && a.end.equals(end)));
+        ImList<ImArc<KEY, LABEL>> in = arcsIn.get(end).filter(a -> !(a.label.equals(label) && a.start.equals(start)));
 
         return new ImGraph<>(valueMap, arcsOut.put(start, out), arcsIn.put(end, in));
     }
@@ -254,7 +254,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     //        return arcsOut.getOrDefault(key, ImList.empty()).map(arc -> arc.end);
     //    }
 
-    private ImMap<KEY, ImList<Arc<KEY, LABEL>>> getMap(Dir dir)
+    private ImMap<KEY, ImList<ImArc<KEY, LABEL>>> getMap(Dir dir)
     {
         return dir == Dir.In
                ? arcsIn
@@ -517,7 +517,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         return getArcsMap(dir).getOrDefault(key, ImList.empty()).map(arc -> ImPair.on(arc.label, arc.getSlot(dir)));
     }
 
-    private ImMap<KEY, ImList<Arc<KEY, LABEL>>> getArcsMap(Dir dir)
+    private ImMap<KEY, ImList<ImArc<KEY, LABEL>>> getArcsMap(Dir dir)
     {
         return dir == Out
                ? arcsOut

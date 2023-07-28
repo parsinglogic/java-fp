@@ -13,14 +13,14 @@ import dev.javafp.val.ImValuesImpl;
 /**
  * <p> A labeled arc between nodes in a graph
  */
-public class Arc<KEY, LABEL> extends ImValuesImpl
+public class ImArc<KEY, LABEL> extends ImValuesImpl
 {
 
     public final LABEL label;
     public final KEY start;
     public final KEY end;
 
-    public Arc(LABEL label, KEY start, KEY end)
+    ImArc(LABEL label, KEY start, KEY end)
     {
         this.label = label;
         this.start = start;
@@ -28,9 +28,9 @@ public class Arc<KEY, LABEL> extends ImValuesImpl
 
     }
 
-    public static <KEY, LABEL> Arc<KEY, LABEL> on(LABEL label, KEY start, KEY end)
+    public static <KEY, LABEL> ImArc<KEY, LABEL> on(LABEL label, KEY start, KEY end)
     {
-        return new Arc<KEY, LABEL>(label, start, end);
+        return new ImArc<KEY, LABEL>(label, start, end);
     }
 
     @Override
