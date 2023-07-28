@@ -134,7 +134,22 @@ class ImListOnArray<A> extends ImEagerList<A>
     }
 
     /**
-     * A version that is optimised for this class
+     * <p> {@code true}
+     *  iff
+     * {@code this}
+     * equals
+     * {@code other}
+     *
+     * <p> Equality for lists means that both lists have the same size and the
+     * {@code i}
+     * th element of
+     * {@code this}
+     *  equals the
+     * {@code i}
+     * th element of
+     * {@code other}
+     *
+     * This version is optimised for this class and uses {@link Objects#deepEquals(Object, Object)}
      */
     @Override
     public boolean equals(Object other)

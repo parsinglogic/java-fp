@@ -48,19 +48,22 @@ import dev.javafp.lst.ImList;
  * </ol>
  * <p> see Link for a simple class that does this
  * <p> The ImValuesImpl::toString implementation basically gets the object as a ImList of its values and displays it indented.
- * <p> This is Org:
- * <p> Org: 1    0
- * 2    dc6c831f-822d-4563-b272-38777652378b
- * 3    Amalgamated Conglomerated
- * 4    1    Room: 1    1
- * 2    05305549-27b9-4d2f-aee5-d345dbe3a3bd
- * 3    Room 1
- * 2    Room: 1    1
- * 2    b36a3a7c-4759-4226-83ab-713029fe2606
- * 3    Room 2
- * 3    Room: 1    1
- * 2    e5c5b571-0e09-4d04-907a-38ae270ea59e
- * 3    Room 3
+ *
+ * <p> This is {@link dev.javafp.net.ApiRequest}:
+ *
+ * <pre>{@code
+ * GetRequest: url:             DrumUrl: scheme:         http
+ *                                       port:           53031
+ *                                       host:           localhost
+ *                                       pathComponents: [hello]
+ *                                       queryElements:  []
+ *                                       fragment:
+ *             method:          GET
+ *             followRedirects: true
+ *             requestHeaders:  []
+ *             queryParameters: [(bish, bash), (foo, bar)]
+ * }</pre>
+ *
  *
  */
 public interface Values extends HasTextBox

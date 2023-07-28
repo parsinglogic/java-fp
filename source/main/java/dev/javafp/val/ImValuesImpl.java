@@ -39,6 +39,14 @@ public abstract class ImValuesImpl implements Serializable, Values
         return getValues().hashCode();
     }
 
+    /**
+     * <p> {@code true}
+     *  iff this equals
+     * {@code other}
+     * <p> This implementation uses
+     * {@code getValues}
+     * and checks that the values are equal pairwise
+     */
     @Override
     public boolean equals(Object obj)
     {

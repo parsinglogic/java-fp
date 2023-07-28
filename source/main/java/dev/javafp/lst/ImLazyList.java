@@ -138,27 +138,38 @@ public abstract class ImLazyList<A> implements ImList<A>
         throw new IllegalState("This method should not have been called");
     }
 
-    @Override
-    /**
-     * The String representation of this object
-     */
-    public String toString()
-    {
-        return toS();
-    }
-
-    @Override
     /**
      * <p> {@code true}
-     *  iff this equals
+     *  iff
+     * {@code this}
+     * equals
+     * {@code other}
+     *
+     * <p> Equality for lists means that both lists have the same size and the
+     * {@code i}
+     * th element of
+     * {@code this}
+     *  equals the
+     * {@code i}
+     * th element of
      * {@code other}
      *
      */
+    @Override
     public boolean equals(Object other)
     {
         return other instanceof ImList
                ? equalsList((ImList<A>) other)
                : false;
+    }
+
+    /**
+     * The String representation of this object
+     */
+    @Override
+    public String toString()
+    {
+        return toS();
     }
 
     /**

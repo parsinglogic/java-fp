@@ -739,7 +739,32 @@ public class ImTree<A> implements Serializable, Iterable<A>
         return new ImTreeIterator(this);
     }
 
-    @SuppressWarnings("rawtypes")
+    /**
+     * <p> Compares
+     * {@code another}
+     *  with
+     * {@code this}
+     *  for equality.  Returns
+     * {@code true}
+     *  if and only if the specified object is also an
+     * {@code ImTree}
+     * , both
+     * trees have the same size, and all corresponding pairs of elements in
+     * the two trees are
+     * <em>equal</em>
+     * .
+     * <p> {@code e1}
+     *  and
+     * {@code e2}
+     *  being
+     * <em>equal</em>
+     *  means
+     *
+     * <pre>{@code
+     * e1.equals(e2) == true
+     * }</pre>
+     *
+     */
     @Override
     public boolean equals(Object other)
     {

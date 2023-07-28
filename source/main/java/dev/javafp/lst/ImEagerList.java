@@ -35,6 +35,23 @@ abstract class ImEagerList<A> implements ImList<A>
         return size;
     }
 
+    /**
+     * <p> {@code true}
+     *  iff
+     * {@code this}
+     * equals
+     * {@code other}
+     *
+     * <p> Equality for lists means that both lists have the same size and the
+     * {@code i}
+     * th element of
+     * {@code this}
+     *  equals the
+     * {@code i}
+     * th element of
+     * {@code other}
+     *
+     */
     @Override
     public boolean equals(Object other)
     {

@@ -245,8 +245,6 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
 
     int size();
 
-    //    boolean equals(Object other);
-
     /**
      * <p> Compares
      * {@code other}
@@ -283,7 +281,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * I can't have a "normal" equals method that overrides equals(Object a)
      * because that is not allowed in Java.
      *
-     * <p>I have put an equals method on the two subclasses of thsi class and they delegate here
+     * <p>I have put an equals method on the two subclasses of this class and they delegate here
      */
     default boolean equalsList(ImList<? extends A> other)
     {
