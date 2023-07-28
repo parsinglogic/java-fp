@@ -128,7 +128,7 @@ import static dev.javafp.lst.ImLazyList.UNKNOWN_UNKNOWN;
  * <p> We would still have size types of KF and UF but we could then arrange it so that all functions would terminate.
  *
  */
-public class Sz
+class Sz
 {
 
     public static int addOne(int sz)
