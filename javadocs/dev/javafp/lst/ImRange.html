@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ImRange</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
 <div class="block"><p> A factory that creates
- <code>RangeList</code>s
+ <code>ImRangeList</code>s
  (mainly)
  which are ranges of integers</div>
 </section>
@@ -111,26 +111,49 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#inclusive(int,int)" class="member-name-link">inclusive</a><wbr>(int&nbsp;min,
  int&nbsp;max)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A list of integers
+ <code>[min, min + 1, min + 2, ... max]</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#inclusive(int,int,int)" class="member-name-link">inclusive</a><wbr>(int&nbsp;min,
  int&nbsp;max,
  int&nbsp;step)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A list of integers
+ <code>[min, min + step, min + 2*step, ... max]</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#nTimesDo(int,dev.javafp.func.FnBlock)" class="member-name-link">nTimesDo</a><wbr>(int&nbsp;count,
  <a href="../func/FnBlock.html" title="interface in dev.javafp.func">FnBlock</a>&nbsp;fn)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Do
+ <code>fn</code>
+ <code>count</code>
+  times</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#oneTo(int)" class="member-name-link">oneTo</a><wbr>(int&nbsp;max)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">The same as
+ inclusive(1, max)}</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#step(int,int)" class="member-name-link">step</a><wbr>(int&nbsp;start,
  int&nbsp;step)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A list of integers (an
+ <strong>infinite</strong>
+  list in fact)
+
+ <code>[start, start + step, start + 2*step, ... ]</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#zeroTo(int)" class="member-name-link">zeroTo</a><wbr>(int&nbsp;maxIndexPlusOne)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A list of integers
+ <code>[0, 1, 2, ... maxIndexPlusOne - 1]</code></div>
+</div>
 </div>
 </div>
 </div>
@@ -167,6 +190,16 @@ loadScripts(document, 'script');</script>
 <h3>inclusive</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">inclusive</span><wbr><span class="parameters">(int&nbsp;min,
  int&nbsp;max)</span></div>
+<div class="block"><p> A list of integers
+ <code>[min, min + 1, min + 2, ... max]</code>
+ <p> If
+ <code>min &gt; max</code>
+  then return
+ <code>[]</code>
+ <p> If
+ <code>min == max</code>
+  then return
+ <code>[min]</code></div>
 </section>
 </li>
 <li>
@@ -175,18 +208,42 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">inclusive</span><wbr><span class="parameters">(int&nbsp;min,
  int&nbsp;max,
  int&nbsp;step)</span></div>
+<div class="block"><p> A list of integers
+ <code>[min, min + step, min + 2*step, ... max]</code>
+ <p> If
+ <code>min &gt; max</code>
+  then return
+ <code>[]</code>
+ <p> If
+ <code>step</code>
+ is not a factor of
+ <code>max - min</code>
+  then throw
+ <a href="../ex/InvalidArgument.html" title="class in dev.javafp.ex"><code>InvalidArgument</code></a></div>
 </section>
 </li>
 <li>
 <section class="detail" id="zeroTo(int)">
 <h3>zeroTo</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">zeroTo</span><wbr><span class="parameters">(int&nbsp;maxIndexPlusOne)</span></div>
+<div class="block"><p> A list of integers
+ <code>[0, 1, 2, ... maxIndexPlusOne - 1]</code>
+ <p> If
+ <code>maxIndexPlusOne &lt;= 0</code>
+  then return
+ <code>[]</code>
+ <p> If
+ <code>maxIndexPlusOne == 1 </code>
+  then return
+ <code>[0]</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="oneTo(int)">
 <h3>oneTo</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">oneTo</span><wbr><span class="parameters">(int&nbsp;max)</span></div>
+<div class="block">The same as
+ inclusive(1, max)}</div>
 </section>
 </li>
 <li>
@@ -194,6 +251,11 @@ loadScripts(document, 'script');</script>
 <h3>step</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">step</span><wbr><span class="parameters">(int&nbsp;start,
  int&nbsp;step)</span></div>
+<div class="block"><p> A list of integers (an
+ <strong>infinite</strong>
+  list in fact)
+
+ <code>[start, start + step, start + 2*step, ... ]</code></div>
 </section>
 </li>
 <li>
@@ -201,6 +263,10 @@ loadScripts(document, 'script');</script>
 <h3>nTimesDo</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">nTimesDo</span><wbr><span class="parameters">(int&nbsp;count,
  <a href="../func/FnBlock.html" title="interface in dev.javafp.func">FnBlock</a>&nbsp;fn)</span></div>
+<div class="block"><p> Do
+ <code>fn</code>
+ <code>count</code>
+  times</div>
 </section>
 </li>
 </ul>
