@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class AfterParentMissing extends DrumException
+public class AfterParentMissing extends ImException
 {
 
     public <KEY> AfterParentMissing(KEY after)

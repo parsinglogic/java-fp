@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class TransposeColsError extends DrumException
+public class TransposeColsError extends ImException
 {
 
     public TransposeColsError(int cols, Object matrix)

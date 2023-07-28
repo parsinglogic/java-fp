@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class FlatMapFunctionReturnedNull extends DrumException
+public class FlatMapFunctionReturnedNull extends ImException
 {
     public <T> FlatMapFunctionReturnedNull(T monad)
     {

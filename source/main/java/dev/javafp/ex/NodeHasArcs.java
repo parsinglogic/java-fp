@@ -9,7 +9,7 @@ package dev.javafp.ex;
 
 import dev.javafp.lst.ImList;
 
-public class NodeHasArcs extends DrumException
+public class NodeHasArcs extends ImException
 {
 
     public <KEY> NodeHasArcs(KEY key, ImList<KEY> connected)

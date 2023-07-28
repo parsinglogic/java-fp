@@ -565,7 +565,7 @@ public class ImUrl extends ImValuesImpl
             return new ImUrl(scheme, host, port, pathComponents, getQueryStringValues(query), fragment);
         } catch (GalimatiasParseException e)
         {
-            throw new DrumUrlParseException(e.getMessage());
+            throw new ImUrlParseException(e.getMessage());
         }
 
     }

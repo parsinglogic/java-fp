@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class SizeOnInfiniteList extends DrumException
+public class SizeOnInfiniteList extends ImException
 {
     private static final long serialVersionUID = 1L;
 

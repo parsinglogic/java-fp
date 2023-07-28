@@ -7,11 +7,11 @@
 
 package dev.javafp.net;
 
-import dev.javafp.ex.DrumException;
+import dev.javafp.ex.ImException;
 
-public class DrumUrlParseException extends DrumException
+public class ImUrlParseException extends ImException
 {
-    public DrumUrlParseException(String message)
+    public ImUrlParseException(String message)
     {
         super(message);
     }

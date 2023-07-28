@@ -9,7 +9,7 @@ package dev.javafp.ex;
 
 import dev.javafp.lst.ImList;
 
-public class MoveAsFirstChildWouldCreateALoop extends DrumException
+public class MoveAsFirstChildWouldCreateALoop extends ImException
 {
 
     public <KEY> MoveAsFirstChildWouldCreateALoop(KEY thingToMove, KEY parent, ImList<KEY> pathToRoot)

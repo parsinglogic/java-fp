@@ -9,7 +9,7 @@ package dev.javafp.ex;
 
 import dev.javafp.lst.ImList;
 
-public class DrumException extends RuntimeException
+public class ImException extends RuntimeException
 {
 
     /**
@@ -17,27 +17,27 @@ public class DrumException extends RuntimeException
      */
     private static final long serialVersionUID = 1L;
 
-    public DrumException()
+    public ImException()
     {
         super();
     }
 
-    public DrumException(String string)
+    public ImException(String string)
     {
         super(string);
     }
 
-    public DrumException(Object... ss)
+    public ImException(Object... ss)
     {
         super(ImList.on(ss).toString(' '));
     }
 
-    public DrumException(Exception e)
+    public ImException(Exception e)
     {
         super(e);
     }
 
-    public DrumException(String message, Exception e)
+    public ImException(String message, Exception e)
     {
         super(message, e);
     }

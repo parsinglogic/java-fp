@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class ConstructorFailed extends DrumException
+public class ConstructorFailed extends ImException
 {
 
     public ConstructorFailed(String message)

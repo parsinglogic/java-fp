@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class TransposeRowsError extends DrumException
+public class TransposeRowsError extends ImException
 {
 
     public TransposeRowsError(int rows, int size)

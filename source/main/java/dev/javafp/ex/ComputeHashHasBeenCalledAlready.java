@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class ComputeHashHasBeenCalledAlready extends DrumException
+public class ComputeHashHasBeenCalledAlready extends ImException
 {
 
     private static final long serialVersionUID = 1L;

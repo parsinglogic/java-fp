@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class AfterKeyMissing extends DrumException
+public class AfterKeyMissing extends ImException
 {
 
     public <KEY, LABEL> AfterKeyMissing(KEY start, LABEL label, KEY after)

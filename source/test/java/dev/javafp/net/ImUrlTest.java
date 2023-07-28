@@ -229,7 +229,7 @@ public class ImUrlTest
     @Test
     public void errorThrows()
     {
-        TestUtils.assertThrows(() -> ImUrl.on("^%**^%*^*^%"), DrumUrlParseException.class, "Invalid host: Domain contains invalid character: %");
+        TestUtils.assertThrows(() -> ImUrl.on("^%**^%*^*^%"), ImUrlParseException.class, "Invalid host: Domain contains invalid character: %");
     }
 
     @Test

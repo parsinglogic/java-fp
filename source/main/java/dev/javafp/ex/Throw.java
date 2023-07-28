@@ -252,12 +252,12 @@ public class Throw
      * <pre>{@code
      *    return Eq.uals(parent, rootId)
      *    ? p.snd
-     *    : Throw.wrap(new DrumException("blah"));
+     *    : Throw.wrap(new ImException("blah"));
      * }</pre>
      * <p> I can't just throw an exception because ... java
      *
      */
-    public static <A> A wrap(DrumException ex)
+    public static <A> A wrap(ImException ex)
     {
         throw ex;
     }
