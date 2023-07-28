@@ -16,9 +16,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 /**
- * <p> @author van
+ * <p>Some utility functions
  */
-public class DrumUtils
+public class ImUtils
 {
 
     /**
@@ -45,7 +45,7 @@ public class DrumUtils
      * </code>
      * @param name the name of the argument (will show up in the exception stack trace)
      * @param value the value to check
-     * 
+     *
      */
     public static void checkArgumentNotNull(String name, Object value)
     {

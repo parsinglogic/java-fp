@@ -2,19 +2,19 @@ package dev.javafp.util;
 
 import junit.framework.TestCase;
 
-public class DrumUtilsTest extends TestCase
+public class ImUtilsTest extends TestCase
 {
     public void testEscapeXmlDoesSimpleRoundTrip() throws Exception
     {
         String s = "abcde<>&'\"fghi\n\r";
-        System.out.println(DrumUtils.escapeXml(s));
-        assertEquals(s, DrumUtils.unescapeXml(DrumUtils.escapeXml(s)));
+        System.out.println(ImUtils.escapeXml(s));
+        assertEquals(s, ImUtils.unescapeXml(ImUtils.escapeXml(s)));
     }
 
     public void testEscapeXmlDoesEntities() throws Exception
     {
         String s = "&apos;'&quot;\"&amp;&&lt;<&gt;>\n\r";
-        assertEquals(s, DrumUtils.unescapeXml(DrumUtils.escapeXml(s)));
+        assertEquals(s, ImUtils.unescapeXml(ImUtils.escapeXml(s)));
     }
 
 }
