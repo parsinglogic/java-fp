@@ -68,16 +68,6 @@ ul {
 code, tt {
     font-family:'DejaVu Sans Mono', monospace;
 }
-
-.block code, tt {
-    font-family:'DejaVu Sans Mono', monospace;
-    color: green;
-    font-weight:bold;
-}
-
-
-
-
 :not(h1, h2, h3, h4, h5, h6) > code,
 :not(h1, h2, h3, h4, h5, h6) > tt {
     font-size:14px;
