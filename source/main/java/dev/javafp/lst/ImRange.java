@@ -13,7 +13,7 @@ import dev.javafp.func.FnBlock;
 /**
  *
  * <p> A factory that creates
- * {@code RangeList}s
+ * {@code ImRangeList}s
  * (mainly)
  * which are ranges of integers
  */
@@ -34,7 +34,7 @@ public class ImRange
         if ((max - min) % step != 0)
             throw new InvalidArgument(String.format("step value must divide max - min but step = %d, min = %d, max = %d", step, min, max));
 
-        return RangeList.inclusive(min, max, step);
+        return ImRangeList.inclusive(min, max, step);
     }
 
     public static ImList<Integer> zeroTo(int maxIndexPlusOne)

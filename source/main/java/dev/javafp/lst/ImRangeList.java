@@ -7,7 +7,7 @@
 
 package dev.javafp.lst;
 
-class RangeList extends ImCachingLazyList<Integer>
+class ImRangeList extends ImCachingLazyList<Integer>
 {
 
     public final int min;
@@ -18,10 +18,10 @@ class RangeList extends ImCachingLazyList<Integer>
     {
         return min > max
                ? ImList.on()
-               : new RangeList(min, max, step);
+               : new ImRangeList(min, max, step);
     }
 
-    public RangeList(int min, int max, int step)
+    public ImRangeList(int min, int max, int step)
     {
         super((max - min) / step + 1);
         this.min = min;

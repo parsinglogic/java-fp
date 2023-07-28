@@ -3325,7 +3325,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         if ((max - min) % step != 0)
             throw new InvalidArgument(String.format("step value must divide max - min but step = %d, min = %d, max = %d", step, min, max));
 
-        return RangeList.inclusive(min, max, step);
+        return ImRangeList.inclusive(min, max, step);
     }
 
     public static ImList<Integer> zeroTo(int maxIndexPlusOne)
