@@ -65,6 +65,11 @@ public class ImUtils
         return result;
     }
 
+    /**
+     * The XML escaped form of
+     * {@code s}
+     *
+     */
     public static String escapeXml(String s)
     {
         String result = s.replaceAll("&", "&amp;");
