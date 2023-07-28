@@ -7,7 +7,6 @@
 
 package dev.javafp.queue;
 
-import dev.javafp.eq.Eq;
 import dev.javafp.lst.ImList;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.util.ImMaybe;
@@ -140,22 +139,6 @@ public class ImQueue<A> extends ImValuesImpl
     public ImList<String> getNames()
     {
         return ImList.on("maxSize", "one", "two");
-    }
-
-    @Override
-    public boolean equals(Object other)
-    {
-        if (this == other)
-            return true;
-        else if (other == null)
-            return false;
-        else if (other instanceof ImQueue<?>)
-        {
-            ImQueue<?> otherQueue = (ImQueue<?>) other;
-            return (maxSize == otherQueue.maxSize) && Eq.uals(toImList(), otherQueue.toImList());
-        }
-        else
-            return false;
     }
 
 }
