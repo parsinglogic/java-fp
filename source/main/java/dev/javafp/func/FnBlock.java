@@ -9,10 +9,13 @@ package dev.javafp.func;
 
 import java.io.Serializable;
 
-@FunctionalInterface
 /**
- * <p> A block of code that takes no parameters and produces no output. It's all about the side effects.
+ * <p> A function that is a block of code that takes no arguments and produces no value. It's all about the
+ * <strong>side effects</strong>
+ * , baby!
+ *
  */
+@FunctionalInterface
 public interface FnBlock extends Serializable
 {
     /**

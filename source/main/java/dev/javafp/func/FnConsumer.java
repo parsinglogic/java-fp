@@ -9,6 +9,12 @@ package dev.javafp.func;
 
 import java.io.Serializable;
 
+/**
+ * <p> A function that takes an input argument of type
+ * {@code I}
+ * <p> and produces no value. It is used for the
+ * <strong>side effects</strong>
+ */
 @FunctionalInterface
 public interface FnConsumer<I> extends Serializable
 {

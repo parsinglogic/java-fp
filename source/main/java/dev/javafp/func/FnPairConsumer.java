@@ -9,6 +9,14 @@ package dev.javafp.func;
 
 import java.io.Serializable;
 
+/**
+ * <p> A function that takes two input arguments of type
+ * {@code A}
+ * and
+ * {@code B}
+ *  and produces no value.
+ *
+ */
 @FunctionalInterface
 public interface FnPairConsumer<A, B> extends Serializable
 {

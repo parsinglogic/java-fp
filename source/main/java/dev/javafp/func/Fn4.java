@@ -9,6 +9,19 @@ package dev.javafp.func;
 
 import java.io.Serializable;
 
+/**
+ * <p> A function that takes four input arguments of type
+ * {@code A}
+ * ,
+ * {@code B}
+ * ,
+ * {@code C}
+ * and
+ * {@code D}
+ *  and produces a value of type
+ * {@code E}
+ *
+ */
 @FunctionalInterface
 public interface Fn4<A, B, C, D, E> extends Serializable
 {

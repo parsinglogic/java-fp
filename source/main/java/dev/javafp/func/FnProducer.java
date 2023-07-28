@@ -9,10 +9,13 @@ package dev.javafp.func;
 
 import java.io.Serializable;
 
-@FunctionalInterface
 /**
- * <p> A block of code that produces some output but has no parameters.
+ * <p> A function that produces a value of type
+ * {@code A}
+ *  but has no arguments.
+ *
  */
+@FunctionalInterface
 public interface FnProducer<A> extends Serializable
 {
     /**

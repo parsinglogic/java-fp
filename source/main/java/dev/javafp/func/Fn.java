@@ -9,6 +9,14 @@ package dev.javafp.func;
 
 import java.io.Serializable;
 
+/**
+ * <p> A function that takes an input argument of type
+ * {@code I}
+ *  and produces a value of type
+ * {@code O}
+ *
+ */
+
 @FunctionalInterface
 public interface Fn<I, O> extends Serializable
 {

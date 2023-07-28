@@ -8,7 +8,9 @@
 package dev.javafp.func;
 
 /**
- * <p> ComposedFunction implements ...er... function composition
+ * <p> ComposedFunction implements function
+ * <strong>composition</strong>
+ *
  */
 public class ComposedFunction<I, O, U> implements Fn<I, U>
 {
@@ -25,7 +27,7 @@ public class ComposedFunction<I, O, U> implements Fn<I, U>
      *  and
      * {@code second}
      * <p> first.then(second).of(in) => second.of(first.of(in))
-     * 
+     *
      */
     public ComposedFunction(Fn<I, O> first, Fn<O, U> second)
     {
