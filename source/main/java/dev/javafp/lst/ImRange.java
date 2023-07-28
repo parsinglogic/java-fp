@@ -20,11 +20,39 @@ import dev.javafp.func.FnBlock;
 public class ImRange
 {
 
+    /**
+     * <p> A list of integers
+     * {@code [min, min + 1, min + 2, ... max]}
+     * <p> If
+     * {@code min > max}
+     *  then return
+     * {@code []}
+     * <p> If
+     * {@code min == max}
+     *  then return
+     * {@code [min]}
+     *
+     */
     public static ImList<Integer> inclusive(int min, int max)
     {
         return inclusive(min, max, 1);
     }
 
+    /**
+     * <p> A list of integers
+     * {@code [min, min + step, min + 2*step, ... max]}
+     * <p> If
+     * {@code min > max}
+     *  then return
+     * {@code []}
+     * <p> If
+     * {@code step}
+     * is not a factor of
+     * {@code max - min}
+     *  then throw
+     * {@link InvalidArgument}
+     *
+     */
     public static ImList<Integer> inclusive(int min, int max, int step)
     {
 
@@ -37,21 +65,54 @@ public class ImRange
         return ImRangeList.inclusive(min, max, step);
     }
 
+    /**
+     * <p> A list of integers
+     * {@code [0, 1, 2, ... maxIndexPlusOne - 1]}
+     * <p> If
+     * {@code maxIndexPlusOne <= 0}
+     *  then return
+     * {@code []}
+     * <p> If
+     * {@code maxIndexPlusOne == 1 }
+     *  then return
+     * {@code [0]}
+     *
+     */
     public static ImList<Integer> zeroTo(int maxIndexPlusOne)
     {
         return inclusive(0, maxIndexPlusOne - 1);
     }
 
+    /**
+     * The same as
+     * {@code }inclusive(1, max)}
+     */
     public static ImList<Integer> oneTo(int max)
     {
         return inclusive(1, max);
     }
 
+    /**
+     * <p> A list of integers (an
+     * <strong>infinite</strong>
+     *  list in fact)
+     *
+     * {@code [start, start + step, start + 2*step, ... ]}
+     *
+     *
+     */
     public static ImList<Integer> step(int start, int step)
     {
         return ImList.unfold(start, i -> i + step);
     }
 
+    /**
+     * <p> Do
+     * {@code fn}
+     * {@code count}
+     *  times
+     *
+     */
     public static void nTimesDo(int count, FnBlock fn)
     {
         for (int i = 0; i < count; i++)
