@@ -51,7 +51,7 @@ public abstract class ApiRequest extends ImValuesImpl
     }
 
     // The url - no query parameters allowed on this
-    public final DrumUrl url;
+    public final ImUrl url;
 
     public final Method method;
     public final boolean followRedirects;
@@ -60,7 +60,7 @@ public abstract class ApiRequest extends ImValuesImpl
 
     private static final Charset utf8 = StandardCharsets.UTF_8;
 
-    protected ApiRequest(DrumUrl url, Method method, boolean followRedirects, ImList<ImPair<String, String>> requestHeaders, ImList<ImPair<String, String>> queryParameters)
+    protected ApiRequest(ImUrl url, Method method, boolean followRedirects, ImList<ImPair<String, String>> requestHeaders, ImList<ImPair<String, String>> queryParameters)
     {
         this.url = url.withNoQueriesOrFragments();
 

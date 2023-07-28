@@ -16,13 +16,13 @@ import dev.javafp.tuple.ImPair;
 public class GetRequest extends ApiRequest
 {
 
-    private GetRequest(DrumUrl url, boolean followRedirects, ImList<ImPair<String, String>> requestHeaders, ImList<ImPair<String, String>> queryParameters)
+    private GetRequest(ImUrl url, boolean followRedirects, ImList<ImPair<String, String>> requestHeaders, ImList<ImPair<String, String>> queryParameters)
     {
         super(url, Method.GET, followRedirects, requestHeaders, queryParameters);
 
     }
 
-    public static GetRequest on(DrumUrl url)
+    public static GetRequest on(ImUrl url)
     {
         return new GetRequest(url, true, ImList.on(), ImList.on());
     }

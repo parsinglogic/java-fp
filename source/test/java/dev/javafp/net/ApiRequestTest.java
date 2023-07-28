@@ -50,7 +50,7 @@ public class ApiRequestTest extends TestCase
         // Start the test api server in a thread on a random port
         int port = ApiServerForTesting.startInAThreadOnARandomPort();
 
-        GetRequest getRequest = GetRequest.on(DrumUrl.on("http://localhost/hello").withPort(port));
+        GetRequest getRequest = GetRequest.on(ImUrl.on("http://localhost/hello").withPort(port));
 
         getRequest = getRequest.addQuery("foo", "bar").addQuery("bish", "bash");
 
@@ -68,7 +68,7 @@ public class ApiRequestTest extends TestCase
     @Test
     public void testUrlWithQuery()
     {
-        GetRequest getRequest = GetRequest.on(DrumUrl.on("http://localhost:80/hello?foo=bar&bing=bong"));
+        GetRequest getRequest = GetRequest.on(ImUrl.on("http://localhost:80/hello?foo=bar&bing=bong"));
 
         getRequest = getRequest.addQuery("bish", "bash").addQuery("bing", "bong");
 
@@ -109,7 +109,7 @@ public class ApiRequestTest extends TestCase
     public void testPostToPostman()
     {
 
-        PostRequest client = PostRequest.on(DrumUrl.on("https://postman-echo.com/post"));
+        PostRequest client = PostRequest.on(ImUrl.on("https://postman-echo.com/post"));
 
         ImList<ImPair<String, String>> kv = ImList.on(
                 Pai.r("grant_type", "authorization_code"),

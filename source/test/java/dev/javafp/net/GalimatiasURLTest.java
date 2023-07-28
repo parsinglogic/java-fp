@@ -147,7 +147,7 @@ public class GalimatiasURLTest
 
         Say.say(boxes);
 
-        ss.foreach(s -> say(s, "default port", DrumUrl.isPortDefault(s)));
+        ss.foreach(s -> say(s, "default port", ImUrl.isPortDefault(s)));
     }
 
     private AbstractTextBox runTest(String s)

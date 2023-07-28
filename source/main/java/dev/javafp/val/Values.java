@@ -52,7 +52,7 @@ import dev.javafp.lst.ImList;
  * <p> This is {@link dev.javafp.net.ApiRequest}:
  *
  * <pre>{@code
- * GetRequest: url:             DrumUrl: scheme:         http
+ * GetRequest: url:             ImUrl: scheme:         http
  *                                       port:           53031
  *                                       host:           localhost
  *                                       pathComponents: [hello]

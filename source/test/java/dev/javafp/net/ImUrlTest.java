@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class DrumUrlTest
+public class ImUrlTest
 {
 
     @Test
@@ -28,7 +28,7 @@ public class DrumUrlTest
                 + "&state=a397e4f6-369e-4131-928d-e2ee5147117d_2"
                 + "#%23foo";
 
-        DrumUrl url = DrumUrl.on(s);
+        ImUrl url = ImUrl.on(s);
 
         assertEquals("http", url.scheme);
         assertEquals("localhost", url.host);
@@ -101,8 +101,8 @@ public class DrumUrlTest
      */
     private void checkRoundTrip(String s)
     {
-        DrumUrl u1 = DrumUrl.on(s);
-        DrumUrl u2 = DrumUrl.on("" + u1);
+        ImUrl u1 = ImUrl.on(s);
+        ImUrl u2 = ImUrl.on("" + u1);
 
         assertEquals(s, "" + u1);
         assertEquals(u1, u2);
@@ -132,12 +132,12 @@ public class DrumUrlTest
 
     private void check(String expected, String urlString)
     {
-        assertEquals(expected, "" + DrumUrl.on(urlString));
+        assertEquals(expected, "" + ImUrl.on(urlString));
     }
 
     private String getParts(String uriString)
     {
-        DrumUrl uri = DrumUrl.on(uriString);
+        ImUrl uri = ImUrl.on(uriString);
 
         return String.format("scheme '%s' host '%s' port '%s' path '%s' query '%s' fragment '%s'",
                 uri.scheme,
@@ -166,38 +166,38 @@ public class DrumUrlTest
         ImMap<String, String> abMap2 = ImMap.on("a", "b").put("c", "");
 
         //"a=b"       a->b
-        assertEquals(ImList.on("a", "b").toPairs(), DrumUrl.on("foo.com?a=b").queryElements);
+        assertEquals(ImList.on("a", "b").toPairs(), ImUrl.on("foo.com?a=b").queryElements);
 
         //""          ignored
-        assertEquals(ImList.on(), DrumUrl.on("foo.com").queryElements);
+        assertEquals(ImList.on(), ImUrl.on("foo.com").queryElements);
 
-        assertEquals(ImList.on(), DrumUrl.on("foo.com?").queryElements);
+        assertEquals(ImList.on(), ImUrl.on("foo.com?").queryElements);
 
-        assertEquals(ImList.on("a", "b").toPairs(), DrumUrl.on("foo.com?a=b&").queryElements);
+        assertEquals(ImList.on("a", "b").toPairs(), ImUrl.on("foo.com?a=b&").queryElements);
 
         //"a"         ignored
-        assertEquals(ImList.on("a", "b", "c", "").toPairs(), DrumUrl.on("foo.com?a=b&c").queryElements);
+        assertEquals(ImList.on("a", "b", "c", "").toPairs(), ImUrl.on("foo.com?a=b&c").queryElements);
 
         //"="         ignored
-        assertEquals(ImList.on("a", "b").toPairs(), DrumUrl.on("foo.com?a=b&=").queryElements);
+        assertEquals(ImList.on("a", "b").toPairs(), ImUrl.on("foo.com?a=b&=").queryElements);
 
         //"a="        ignored
-        assertEquals(ImList.on("a", "b", "c", "").toPairs(), DrumUrl.on("foo.com?a=b&c=").queryElements);
+        assertEquals(ImList.on("a", "b", "c", "").toPairs(), ImUrl.on("foo.com?a=b&c=").queryElements);
 
         //"=a"        ignored
-        assertEquals(ImList.on("a", "b").toPairs(), DrumUrl.on("foo.com?a=b&=c").queryElements);
+        assertEquals(ImList.on("a", "b").toPairs(), ImUrl.on("foo.com?a=b&=c").queryElements);
 
         //"a=b&c=d    a->b, c->d
-        assertEquals(ImList.on("a", "b", "c", "d").toPairs(), DrumUrl.on("foo.com?a=b&c=d").queryElements);
+        assertEquals(ImList.on("a", "b", "c", "d").toPairs(), ImUrl.on("foo.com?a=b&c=d").queryElements);
 
         //"a==b"      a->=b
-        assertEquals(ImList.on("a", "=b").toPairs(), DrumUrl.on("foo.com?a==b").queryElements);
+        assertEquals(ImList.on("a", "=b").toPairs(), ImUrl.on("foo.com?a==b").queryElements);
     }
 
     @Test
     public void getQueryValue()
     {
-        DrumUrl url = DrumUrl.on("foo.com?a=b&c=d");
+        ImUrl url = ImUrl.on("foo.com?a=b&c=d");
 
         assertEquals(ImEither.Right("b"), url.getQueryStringValueDecoded("a"));
         assertEquals(ImEither.Right("d"), url.getQueryStringValueDecoded("c"));
@@ -208,7 +208,7 @@ public class DrumUrlTest
     @Test
     public void withNoQueries()
     {
-        DrumUrl url = DrumUrl.on("http://foo.com?a=b&c=d");
+        ImUrl url = ImUrl.on("http://foo.com?a=b&c=d");
 
         assertEquals("http://foo.com?a=b&c=d", "" + url);
         //        String expected = "foo.com";
@@ -220,28 +220,28 @@ public class DrumUrlTest
     @Test
     public void withPath()
     {
-        DrumUrl url = DrumUrl.on("foo.com?a=b&c=d");
+        ImUrl url = ImUrl.on("foo.com?a=b&c=d");
 
-        DrumUrl urlWithPath = url.withPath(ImList.on("bish", "bash"));
+        ImUrl urlWithPath = url.withPath(ImList.on("bish", "bash"));
         assertEquals("http://foo.com/bish/bash?a=b&c=d", "" + urlWithPath);
     }
 
     @Test
     public void errorThrows()
     {
-        TestUtils.assertThrows(() -> DrumUrl.on("^%**^%*^*^%"), DrumUrlParseException.class, "Invalid host: Domain contains invalid character: %");
+        TestUtils.assertThrows(() -> ImUrl.on("^%**^%*^*^%"), DrumUrlParseException.class, "Invalid host: Domain contains invalid character: %");
     }
 
     @Test
     public void withScheme()
     {
-        DrumUrl url = DrumUrl.on("https://foo.com?a=b&c=d");
+        ImUrl url = ImUrl.on("https://foo.com?a=b&c=d");
         String expected = "http://foo.com?a=b&c=d";
 
         assertEquals(expected, "" + url.withScheme("http"));
         assertEquals(url, url.withScheme("https"));
 
-        assertEquals("http://foo:345", "" + DrumUrl.on("https://foo:345").withScheme("http"));
+        assertEquals("http://foo:345", "" + ImUrl.on("https://foo:345").withScheme("http"));
     }
 
     @Test
@@ -260,14 +260,14 @@ public class DrumUrlTest
 
         pairs.foreach(p -> {
 
-                    DrumUrl u1 = DrumUrl.on(p.fst.toString(""));
-                    DrumUrl u2 = DrumUrl.on(p.snd.toString(""));
+                    ImUrl u1 = ImUrl.on(p.fst.toString(""));
+                    ImUrl u2 = ImUrl.on(p.snd.toString(""));
 
                     ImTriple<String, String, String> t1 = ImTriple.on(u1.scheme, u1.host, u1.port);
                     ImTriple<String, String, String> t2 = ImTriple.on(u2.scheme, u2.host, u2.port);
 
                     // The origins are equal if the scheme, host and port are the same
-                    assertEquals(DrumUrl.sameOrigin(u1, u2), Eq.uals(t1, t2));
+                    assertEquals(ImUrl.sameOrigin(u1, u2), Eq.uals(t1, t2));
                 }
 
         );

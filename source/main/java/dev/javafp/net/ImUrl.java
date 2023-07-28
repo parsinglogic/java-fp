@@ -455,7 +455,7 @@ import java.util.regex.Pattern;
  * This means that the original string will not necessarily be preserved. I can't
  *
  */
-public class DrumUrl extends ImValuesImpl
+public class ImUrl extends ImValuesImpl
 {
 
     private static final Pattern compile = Pattern.compile("^[a-zA-Z]\\w+:\\/\\/");
@@ -475,7 +475,7 @@ public class DrumUrl extends ImValuesImpl
      * If a parameter is the empty string it mean that the component is introduced by its character but has no characters
      *
      */
-    private DrumUrl(String scheme, String host, String port, ImList<String> pathComponents, ImList<ImPair<String, String>> queryElements, String fragment)
+    private ImUrl(String scheme, String host, String port, ImList<String> pathComponents, ImList<ImPair<String, String>> queryElements, String fragment)
     {
 
         Throw.Exception.ifNull("scheme", scheme);
@@ -509,7 +509,7 @@ public class DrumUrl extends ImValuesImpl
      * <p> The empty string will mean that all the fields are null
      *
      */
-    public static DrumUrl on(String urlString)
+    public static ImUrl on(String urlString)
     {
 
         // If the string starts with a / then it must be a file scheme
@@ -532,7 +532,7 @@ public class DrumUrl extends ImValuesImpl
 
     }
 
-    private static DrumUrl on$(String urlString)
+    private static ImUrl on$(String urlString)
     {
 
         try
@@ -562,7 +562,7 @@ public class DrumUrl extends ImValuesImpl
 
             ImList<String> pathComponents = getPathComponents(path);
 
-            return new DrumUrl(scheme, host, port, pathComponents, getQueryStringValues(query), fragment);
+            return new ImUrl(scheme, host, port, pathComponents, getQueryStringValues(query), fragment);
         } catch (GalimatiasParseException e)
         {
             throw new DrumUrlParseException(e.getMessage());
@@ -570,7 +570,7 @@ public class DrumUrl extends ImValuesImpl
 
     }
 
-    //    private static DrumUrl on$(String urlString)
+    //    private static ImUrl on$(String urlString)
     //    {
     //
     //        try
@@ -598,7 +598,7 @@ public class DrumUrl extends ImValuesImpl
     //
     //            ImList<String> pathComponents = getPathComponents(path);
     //
-    //            return new DrumUrl(scheme, host, port, pathComponents, getQueryStringValues(query), fragment);
+    //            return new ImUrl(scheme, host, port, pathComponents, getQueryStringValues(query), fragment);
     //        } catch (URISyntaxException e)
     //        {
     //            throw new UnexpectedChecked(e);
@@ -690,53 +690,53 @@ public class DrumUrl extends ImValuesImpl
                : p;
     }
 
-    public static DrumUrl on(Path path)
+    public static ImUrl on(Path path)
     {
-        return DrumUrl.on("file://" + path.toFile().toString());
+        return ImUrl.on("file://" + path.toFile().toString());
     }
 
-    public static boolean sameOrigin(DrumUrl urlOne, DrumUrl urlTwo)
+    public static boolean sameOrigin(ImUrl urlOne, ImUrl urlTwo)
     {
         return Eq.uals(urlOne.scheme, urlTwo.scheme) &&
                 Eq.uals(urlOne.host, urlTwo.host) &&
                 Eq.uals(urlOne.port, urlTwo.port);
     }
 
-    public DrumUrl withPath(ImList<String> pathComponents)
+    public ImUrl withPath(ImList<String> pathComponents)
     {
-        return new DrumUrl(scheme, host, port, pathComponents, queryElements, fragment);
+        return new ImUrl(scheme, host, port, pathComponents, queryElements, fragment);
     }
 
-    public DrumUrl withPath(String pathString)
+    public ImUrl withPath(String pathString)
     {
         Throw.Exception.ifTrue(pathString.contains("?"), "paths can't contain ?");
         Throw.Exception.ifTrue(pathString.contains("#"), "paths can't contain #");
         return withPath(ParseUtils.split('/', pathString));
     }
 
-    public DrumUrl withPort(int port)
+    public ImUrl withPort(int port)
     {
-        return new DrumUrl(scheme, host, "" + port, pathComponents, queryElements, fragment);
+        return new ImUrl(scheme, host, "" + port, pathComponents, queryElements, fragment);
     }
 
-    public DrumUrl withNoQueriesOrFragments()
+    public ImUrl withNoQueriesOrFragments()
     {
-        return new DrumUrl(scheme, host, port, pathComponents, ImList.on(), "");
+        return new ImUrl(scheme, host, port, pathComponents, ImList.on(), "");
     }
 
-    public DrumUrl withScheme(String scheme)
+    public ImUrl withScheme(String scheme)
     {
-        return new DrumUrl(scheme, host, port, pathComponents, queryElements, fragment);
+        return new ImUrl(scheme, host, port, pathComponents, queryElements, fragment);
     }
 
-    public DrumUrl addQueryElement(String key, String value)
+    public ImUrl addQueryElement(String key, String value)
     {
-        return new DrumUrl(scheme, host, port, pathComponents, queryElements.appendElement(ImPair.on(encode(key), encode(value))), fragment);
+        return new ImUrl(scheme, host, port, pathComponents, queryElements.appendElement(ImPair.on(encode(key), encode(value))), fragment);
     }
 
-    public DrumUrl withQueryElements(ImList<ImPair<String, String>> queryElements)
+    public ImUrl withQueryElements(ImList<ImPair<String, String>> queryElements)
     {
-        return new DrumUrl(scheme, host, port, pathComponents, queryElements, fragment);
+        return new ImUrl(scheme, host, port, pathComponents, queryElements, fragment);
     }
 
     @Override

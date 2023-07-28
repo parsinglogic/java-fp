@@ -4,7 +4,7 @@ import dev.javafp.eq.Eq;
 import dev.javafp.ex.ArgumentShouldNotBeLessThan;
 import dev.javafp.ex.FileProblem;
 import dev.javafp.lst.ImList;
-import dev.javafp.net.DrumUrl;
+import dev.javafp.net.ImUrl;
 import dev.javafp.set.ImMap;
 import dev.javafp.set.ImSet;
 import dev.javafp.tree.ImRoseTree;
@@ -1021,7 +1021,7 @@ public class FileUtilTest
 
         String projectFileName = "/abcd-dir/a/jadle.config/abcd.project";
         Say.say(FileUtil.getPath(projectFileName).toUri().toString());
-        Say.say(DrumUrl.on(FileUtil.getPath(projectFileName).toUri().toString()));
+        Say.say(ImUrl.on(FileUtil.getPath(projectFileName).toUri().toString()));
     }
 
     //    @Test

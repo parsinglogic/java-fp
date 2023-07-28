@@ -25,7 +25,7 @@ public class PostRequest extends ApiRequest
 
     public final String bodyString;
 
-    private PostRequest(DrumUrl url, boolean followRedirects, ImList<ImPair<String, String>> requestHeaders, ImList<ImPair<String, String>> queryParameters, String bodyString)
+    private PostRequest(ImUrl url, boolean followRedirects, ImList<ImPair<String, String>> requestHeaders, ImList<ImPair<String, String>> queryParameters, String bodyString)
     {
         super(url, Method.POST, followRedirects, requestHeaders, queryParameters);
 
@@ -33,7 +33,7 @@ public class PostRequest extends ApiRequest
 
     }
 
-    public static PostRequest on(DrumUrl url)
+    public static PostRequest on(ImUrl url)
     {
         return new PostRequest(url, true, ImList.on(), ImList.on(), "");
     }
