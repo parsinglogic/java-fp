@@ -14,6 +14,7 @@ import dev.javafp.box.LeftRightBox;
 import dev.javafp.box.TopDownBox;
 import dev.javafp.eq.Eq;
 import dev.javafp.eq.Equals;
+import dev.javafp.ex.ImNotAllowedOnEmptyList;
 import dev.javafp.ex.InvalidArgument;
 import dev.javafp.ex.SizeOnInfiniteList;
 import dev.javafp.ex.Throw;
@@ -69,7 +70,9 @@ import static java.util.Spliterator.SIZED;
  * {@code ImList}
  * , it will not do the eager thing of iterating over the items, applying
  * {@code fn}
- *  and returning a new `ImList``.
+ *  and returning a new
+ * {@code ImList}
+ * .
  * <p> Instead, it creates a
  * {@code ImMappedList}
  *  that is a wrapper around the original list. When you invoke
@@ -237,16 +240,38 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     LeafTextBox close = LeafTextBox.with("]");
     LeafTextBox comma = LeafTextBox.with(", ");
 
+    /**
+     * The first element in
+     * {@code this}
+     * .
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     A head();
 
+    /**
+     *
+     * {@code this}
+     * without the first element.
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     ImList<A> tail();
 
+    /**
+     *
+     * @deprecated This method is intended for internal use and should not be called by clients (use {@link #size()} instead).
+     */
+    @Deprecated
     int getSz();
 
     /**
      * <p> The number of elements in
      * {@code this}
-     *
+     * .
+     * Throws
+     * {@code SizeOnInfiniteList}
+     * if the size is infinite.
      */
     int size();
 
@@ -322,6 +347,11 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         }
     }
 
+    /**
+     *
+     * @deprecated This method is intended for internal use and should not be called by clients.
+     */
+    @Deprecated
     int resolveSize();
 
     /**
@@ -430,13 +460,6 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     static <A> ImList<A> on()
     {
         return ImList.empty();
-    }
-
-    // Experiment - remove this
-    @SafeVarargs
-    static <A> ImList<A> lst(A... array)
-    {
-        return ImListOnArray.on(array, 0, array.length);
     }
 
     /**
@@ -573,7 +596,9 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     }
 
     /**
-     * <p> An optimised version that just returns `list` to avoid creating a new list
+     * <p> An optimised version that just returns
+     * {@code list}
+     * to avoid creating a new list
      *
      */
     static <A> ImList<A> onAll(ImList<A> list)
@@ -836,13 +861,25 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * [1, 2, 3 ] toS() == "[1, 2, 3]"
      * }</pre>
      *
-     * We can't name this method `toString` because `ImList` is an interface and Java does not allow default methods in interfaces to override methods.
+     * We can't name this method
+     * {@code toString}
+     * because
+     * {@code ImList}
+     * is an interface and Java does not allow default methods in interfaces to override methods.
      */
     default String toS()
     {
         return getTextBox().toString();
     }
 
+    /**
+     * <p> A String representation of
+     * {@code this}
+     *  using
+     * {@code separator}
+     *  to separate each element
+     *
+     */
     default String toString(String separator)
     {
         return TextUtils.join(this, separator);
@@ -885,21 +922,18 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         return map(i -> i.toString());
     }
 
-    @Override
     /**
-     * <p> The
-     * {@code ImList}
-     *  formed by invoking
-     * {@code toString}
-     *  on each element of
+     * <p> The representation of
      * {@code this}
-     * <p> The implementation is:
-     *
-     * <pre>{@code
-     * return map(i -> i.toString());
-     * }</pre>
+     * as an {@link AbstractTextBox}
+     * <p> If the class extends {@link dev.javafp.val.ImValuesImpl} then the default
+     * {@code toString}
+     *  method will use this method
+     * and then convert the result to a
+     * {@code String}
      *
      */
+    @Override
     default AbstractTextBox getTextBox()
     {
         return getSz() == KNOWN_INFINITE
@@ -916,11 +950,21 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         //                };
     }
 
+    /**
+     *
+     * @deprecated This method is intended for internal use and should not be called by clients.
+     */
+    @Deprecated
     default AbstractTextBox getTextBoxKI(int limit)
     {
         return getTextBox2(getBoxes(limit));
     }
 
+    /**
+     *
+     * @deprecated This method is intended for internal use and should not be called by clients.
+     */
+    @Deprecated
     default AbstractTextBox getTextBoxUU()
     {
         ImList<AbstractTextBox> boxes = getBoxes(UU_BOX_LIMIT);
@@ -947,16 +991,6 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         ImList<AbstractTextBox> cells = ImRange.oneTo(boxes.size()).zipWith(boxes, (i, b) -> LeafTextBox.lefted(i.toString(), width).before(b));
 
         return TopDownBox.withBoxes(open, LeftRightBox.indent(2, TopDownBox.withAllBoxes(cells.intersperse(line))), close);
-    }
-
-    default AbstractTextBox getRow(String sep)
-    {
-        return LeftRightBox.withAll(getBoxes(UU_BOX_LIMIT).intersperse(LeafTextBox.with(sep)));
-    }
-
-    default AbstractTextBox getColumn(String sep)
-    {
-        return TopDownBox.withAll(getBoxes(UU_BOX_LIMIT).intersperse(LeafTextBox.with(sep)));
     }
 
     /**
@@ -999,7 +1033,9 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
 
     /*
      *
-     * The basic `ImList` functions
+     * The basic
+     * {@code ImList}
+     * functions
      *
      */
 
@@ -1151,7 +1187,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
             }
             else
             {
-                // We just have to do the tail `count` times to get the list
+                // We just have to do the tail count times to get the list
                 ImList<A> l = this;
 
                 for (int i = 0; i < count; i++)
@@ -1337,7 +1373,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      */
     default ImList<A> reverse()
     {
-        // We create an array from `this` in revers order and then create a `ImListOnArray` on that
+        // We create an array from this in revers order and then create a ImListOnArray on that
         //
         // Create a new array
         Object[] target = new Object[this.size()];
@@ -1895,7 +1931,6 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
                : ImJoinList.on(lists);
     }
 
-    @SafeVarargs
     /**
      * <p> The
      * {@code ImList}
@@ -1922,10 +1957,10 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      *  where:
      *
      * <pre>{@code
-     * ls.take(n) equals `this`
-     * ls.drop(n) equals `other`
+     * ls.take(n) == this
+     * ls.drop(n) == other
      *
-     * where n = `this.size()`
+     * where n = this.size()
      * }</pre>
      *
      */
@@ -2570,8 +2605,8 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * e
      * {@code where}
      * pred.of(e) = true
-     * {@code is replaced with}
-     * replacement`
+     *  is replaced with
+     * {@code replacement}
      *
      * <pre>{@code
      * [1, 2, 3, 4, 5, 88] replace(isEven, 0) == [1, 0, 3, 0, 5, 0]
@@ -3080,7 +3115,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * , where:
      *
      * <pre>{@code
-     * parts.size() == n`
+     * parts.size() == n
      * ImList.join(parts) == this
      * the elements of parts, which are lists, have sizes that differ by at most 1
      * if some parts are larger than others then the larger parts are at the front
@@ -3241,8 +3276,11 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      *  where:
      *
      * <pre>{@code
-     * a and b are sub-sequences of `this`
-     * pred is true for all elements in a and false for all elements in b
+     * a and b are sub-sequences of
+     * {@code this}
+     *
+     * {@code pred}
+     *  is true for all elements in a and false for all elements in b
      * }</pre>
      * <p> A sub-sequence
      * {@code s}
@@ -3285,37 +3323,39 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         return ImList.onAll(list);
     }
 
-    //    /**
-    //     * <p> A
-    //     * {@code ImList}
-    //     *  where the elements are the same as those of
-    //     * {@code this}
-    //     *  but they are "shuffled" (like shuffling a pack of cards) using the
-    //     * global secure random number generator {@link dev.javafp.rand.Rando}
-    //     *
-    //     */
-    //    default ImList<A> shuffle()
-    //    {
-    //        return shuffle(ImShelf.empty(), ImShelf.onIterator(iterator()));
-    //    }
-    //
-    //    private ImList<A> shuffle(ImShelf<A> result, ImShelf<A> shelf)
-    //    {
-    //        if (shelf.isEmpty())
-    //            return result.toImList();
-    //        else
-    //        {
-    //            var pair = shelf.partitionAtIndex(Rando.nextIntInclusive(1, shelf.size()));
-    //
-    //            return shuffle(result.add(pair.fst), pair.snd);
-    //        }
-    //    }
-
+    /**
+     * <p> A list of integers
+     * {@code [min, min + 1, min + 2, ... max]}
+     * <p> If
+     * {@code min > max}
+     *  then return
+     * {@code []}
+     * <p> If
+     * {@code min == max}
+     *  then return
+     * {@code [min]}
+     *
+     */
     public static ImList<Integer> inclusive(int min, int max)
     {
         return inclusive(min, max, 1);
     }
 
+    /**
+     * <p> A list of integers
+     * {@code [min, min + step, min + 2*step, ... max]}
+     * <p> If
+     * {@code min > max}
+     *  then return
+     * {@code []}
+     * <p> If
+     * {@code step}
+     * is not a factor of
+     * {@code max - min}
+     *  then throw
+     * {@link InvalidArgument}
+     *
+     */
     public static ImList<Integer> inclusive(int min, int max, int step)
     {
 
@@ -3328,27 +3368,84 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         return ImRangeList.inclusive(min, max, step);
     }
 
+    /**
+     * <p> A list of integers
+     * {@code [0, 1, 2, ... maxIndexPlusOne - 1]}
+     * <p> If
+     * {@code maxIndexPlusOne <= 0}
+     *  then return
+     * {@code []}
+     * <p> If
+     * {@code maxIndexPlusOne == 1 }
+     *  then return
+     * {@code [0]}
+     *
+     */
     public static ImList<Integer> zeroTo(int maxIndexPlusOne)
     {
         return inclusive(0, maxIndexPlusOne - 1);
     }
 
+    /**
+     * The same as
+     * {@code inclusive(1, max)}
+     */
     public static ImList<Integer> oneTo(int max)
     {
         return inclusive(1, max);
     }
 
+    /**
+     * <p> A list of integers (an
+     * <strong>infinite</strong>
+     *  list in fact)
+     *
+     * {@code [start, start + step, start + 2*step, ... ]}
+     *
+     *
+     */
     public static ImList<Integer> step(int start, int step)
     {
         return ImList.unfold(start, i -> i + step);
     }
 
+    /**
+     * <p> Do
+     * {@code fn}
+     * {@code count}
+     *  times
+     *
+     */
     public static void nTimesDo(int count, FnBlock fn)
     {
         for (int i = 0; i < count; i++)
         {
             fn.doit();
         }
+    }
+
+    /**
+     * <p> A {@link LeftRightBox} that has the text-box representation each element of the list, separated by
+     * {@code sep}
+     *
+     * <p> Used for building rows of tables to represent lists.
+     *
+     */
+    default AbstractTextBox getRow(String sep)
+    {
+        return LeftRightBox.withAll(getBoxes(UU_BOX_LIMIT).intersperse(LeafTextBox.with(sep)));
+    }
+
+    /**
+     * <p> A {@link TopDownBox} that has the text-box representation each element of the list, separated by
+     * {@code sep}
+     *
+     * <p> Used for building columns of tables to represent lists.
+     *
+     */
+    default AbstractTextBox getColumn(String sep)
+    {
+        return TopDownBox.withAll(getBoxes(UU_BOX_LIMIT).intersperse(LeafTextBox.with(sep)));
     }
 
 }

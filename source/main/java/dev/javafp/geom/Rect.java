@@ -73,6 +73,17 @@ public class Rect extends ImValuesImpl
         return new Rect(pt(r2d.getX(), r2d.getY()), pt(r2d.getWidth(), r2d.getHeight()));
     }
 
+    /**
+     * <p> The representation of
+     * {@code this}
+     * as an {@link AbstractTextBox}
+     * <p> If the class extends {@link dev.javafp.val.ImValuesImpl} then the default
+     * {@code toString}
+     *  method will use this method
+     * and then convert the result to a
+     * {@code String}
+     *
+     */
     @Override
     public AbstractTextBox getTextBox()
     {

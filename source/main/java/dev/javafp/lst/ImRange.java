@@ -85,7 +85,7 @@ public class ImRange
 
     /**
      * The same as
-     * {@code }inclusive(1, max)}
+     * {@code inclusive(1, max)}
      */
     public static ImList<Integer> oneTo(int max)
     {

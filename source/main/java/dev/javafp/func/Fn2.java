@@ -14,13 +14,20 @@ import java.io.Serializable;
  * {@code A}
  * and
  * {@code B}
- *  and produces a value of type
+ * and produces a value of type
  * {@code C}
  *
  */
 @FunctionalInterface
 public interface Fn2<A, B, C> extends Serializable
 {
+    /**
+     * <p> Apply the function to
+     * {@code a}
+     * and
+     * {@code b}
+     *
+     */
     C of(A a, B b);
 
     /**
@@ -40,7 +47,9 @@ public interface Fn2<A, B, C> extends Serializable
     }
 
     /**
-     * <p> The function that is the same as this except that the order of the arguments is flipped
+     * <p> The function that is the same as
+     * {@code this}
+     * except that the order of the arguments is flipped
      */
     default Fn2<B, A, C> flip()
     {

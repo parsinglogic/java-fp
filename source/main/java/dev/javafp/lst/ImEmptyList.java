@@ -23,12 +23,24 @@ class ImEmptyList<A> extends ImLazyList<A>
         super(0);
     }
 
+    /**
+     * <p>The first element in
+     * {@code this}
+     * .
+     *
+     * <p>Throws {@link ImNotAllowedOnEmptyList} because this list is empty.
+     */
     @Override
     public A head()
     {
         throw new ImNotAllowedOnEmptyList();
     }
 
+    /**
+     * `this` without the first element.
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} because this list is empty.
+     */
     @Override
     public ImList<A> tail()
     {
@@ -93,6 +105,17 @@ class ImEmptyList<A> extends ImLazyList<A>
         return ImList.on();
     }
 
+    /**
+     * <p> The representation of
+     * {@code this}
+     * as an {@link AbstractTextBox}
+     * <p> If the class extends {@link dev.javafp.val.ImValuesImpl} then the default
+     * {@code toString}
+     *  method will use this method
+     * and then convert the result to a
+     * {@code String}
+     *
+     */
     @Override
     public AbstractTextBox getTextBox()
     {

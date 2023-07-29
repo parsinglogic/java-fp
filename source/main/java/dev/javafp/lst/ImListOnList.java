@@ -8,6 +8,7 @@
 package dev.javafp.lst;
 
 import dev.javafp.eq.Eq;
+import dev.javafp.ex.ImNotAllowedOnEmptyList;
 import dev.javafp.ex.Throw;
 
 import java.lang.reflect.Array;
@@ -34,12 +35,24 @@ class ImListOnList<A> extends ImEagerList<A> implements Eq
                : new ImListOnList(source, skipCount, size);
     }
 
+    /**
+     * The first element in
+     * {@code this}
+     * .
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     @Override
     public A head()
     {
         return source.get(skipCount);
     }
 
+    /**
+     * `this` without the first element.
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     @Override
     public ImList<A> tail()
     {

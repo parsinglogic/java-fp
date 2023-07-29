@@ -7,6 +7,8 @@
 
 package dev.javafp.lst;
 
+import dev.javafp.ex.ImNotAllowedOnEmptyList;
+
 /**
  * <p> A list formed of two lists, concatenated
  */
@@ -33,12 +35,24 @@ class ImAppendList<A> extends ImLazyList<A>
                  : new ImAppendList(one, two);
     }
 
+    /**
+     * The first element in
+     * {@code this}
+     * .
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     @Override
     public A head()
     {
         return one.head();
     }
 
+    /**
+     * `this` without the first element.
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     @Override
     public ImList<A> tail()
     {

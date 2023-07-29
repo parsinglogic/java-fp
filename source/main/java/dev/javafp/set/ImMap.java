@@ -224,6 +224,17 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
             return value;
         }
 
+        /**
+         * <p> The representation of
+         * {@code this}
+         * as an {@link AbstractTextBox}
+         * <p> If the class extends {@link dev.javafp.val.ImValuesImpl} then the default
+         * {@code toString}
+         *  method will use this method
+         * and then convert the result to a
+         * {@code String}
+         *
+         */
         @Override
         public AbstractTextBox getTextBox()
         {
@@ -555,6 +566,17 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
         return true;
     }
 
+    /**
+     * <p> The representation of
+     * {@code this}
+     * as an {@link AbstractTextBox}
+     * <p> If the class extends {@link dev.javafp.val.ImValuesImpl} then the default
+     * {@code toString}
+     *  method will use this method
+     * and then convert the result to a
+     * {@code String}
+     *
+     */
     @Override
     public AbstractTextBox getTextBox()
     {

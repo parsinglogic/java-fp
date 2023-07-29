@@ -7,6 +7,8 @@
 
 package dev.javafp.lst;
 
+import dev.javafp.ex.ImNotAllowedOnEmptyList;
+
 /**
  * <p> For lists like ImMappedList that calculate their values by running functions we have a problem
  * <p> Consider this:
@@ -75,6 +77,11 @@ abstract class ImCachingLazyList<B> extends ImLazyList<B>
 
     }
 
+    /**
+     * `this` without the first element.
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     @Override
     public final ImList<B> tail()
     {

@@ -38,6 +38,17 @@ public abstract class StringWrapper extends ImValuesImpl
         return ImList.on("value");
     }
 
+    /**
+     * <p> The representation of
+     * {@code this}
+     * as an {@link AbstractTextBox}
+     * <p> If the class extends {@link dev.javafp.val.ImValuesImpl} then the default
+     * {@code toString}
+     *  method will use this method
+     * and then convert the result to a
+     * {@code String}
+     *
+     */
     @Override
     public AbstractTextBox getTextBox()
     {

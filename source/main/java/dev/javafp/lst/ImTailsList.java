@@ -7,6 +7,8 @@
 
 package dev.javafp.lst;
 
+import dev.javafp.ex.ImNotAllowedOnEmptyList;
+
 class ImTailsList<A> extends ImLazyList<ImList<A>>
 {
     private final ImList<A> source;
@@ -30,6 +32,11 @@ class ImTailsList<A> extends ImLazyList<ImList<A>>
         return source;
     }
 
+    /**
+     * `this` without the first element.
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     @Override
     public ImList<ImList<A>> tail()
     {

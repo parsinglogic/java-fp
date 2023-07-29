@@ -8,6 +8,7 @@
 package dev.javafp.lst;
 
 import dev.javafp.eq.Eq;
+import dev.javafp.ex.ImNotAllowedOnEmptyList;
 import dev.javafp.ex.Throw;
 
 class ImListOnString extends ImEagerList<Character> implements Eq
@@ -40,6 +41,11 @@ class ImListOnString extends ImEagerList<Character> implements Eq
         return source.charAt(skipCount);
     }
 
+    /**
+     * `this` without the first element.
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     @Override
     public ImList<Character> tail()
     {

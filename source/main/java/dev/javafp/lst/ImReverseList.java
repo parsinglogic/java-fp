@@ -8,6 +8,7 @@
 package dev.javafp.lst;
 
 import dev.javafp.eq.Eq;
+import dev.javafp.ex.ImNotAllowedOnEmptyList;
 import dev.javafp.ex.Throw;
 
 /**
@@ -43,12 +44,24 @@ class ImReverseList<A> extends ImEagerList<A> implements Eq
         return on(source, 0, source.length);
     }
 
+    /**
+     * The first element in
+     * {@code this}
+     * .
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     @Override
     public A head()
     {
         return at(1);
     }
 
+    /**
+     * `this` without the first element.
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     @Override
     public ImList<A> tail()
     {

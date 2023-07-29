@@ -7,6 +7,8 @@
 
 package dev.javafp.lst;
 
+import dev.javafp.ex.ImNotAllowedOnEmptyList;
+
 class ImJoinList<A> extends ImLazyList<A>
 {
 
@@ -29,12 +31,24 @@ class ImJoinList<A> extends ImLazyList<A>
                  : new ImJoinList<>(l);
     }
 
+    /**
+     * The first element in
+     * {@code this}
+     * .
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     @Override
     public A head()
     {
         return hd.head();
     }
 
+    /**
+     * `this` without the first element.
+     *
+     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     */
     @Override
     public ImList<A> tail()
     {

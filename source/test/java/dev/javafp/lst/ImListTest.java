@@ -43,7 +43,6 @@ import static dev.javafp.lst.ImList.cross;
 import static dev.javafp.lst.ImList.empty;
 import static dev.javafp.lst.ImList.interleave;
 import static dev.javafp.lst.ImList.join;
-import static dev.javafp.lst.ImList.lst;
 import static dev.javafp.lst.ImList.on;
 import static dev.javafp.lst.ImList.randomInts;
 import static dev.javafp.lst.ImList.repeat;
@@ -278,14 +277,14 @@ public class ImListTest implements Constants
     @Test
     public void testPowerSet()
     {
-        assertEquals("[[1, 2, 3], [1, 2], [1, 3], [1], [2, 3], [2], [3], []]", lst(1, 2, 3).powerSet().toString());
+        assertEquals("[[1, 2, 3], [1, 2], [1, 3], [1], [2, 3], [2], [3], []]", ImList.on(1, 2, 3).powerSet().toString());
     }
 
     @Test
     public void testAllPairs()
     {
-        assertSame(lst(), empty());
-        ImList<Integer> oneTwoThree = lst(1, 2, 3);
+        assertSame(ImList.on(), empty());
+        ImList<Integer> oneTwoThree = ImList.on(1, 2, 3);
         String expected = "[(1, 2), (1, 3), (2, 3)]";
         assertEquals(expected, oneTwoThree.allPairs().toString());
         assertEquals(expected, oneTwoThree.cartesianProduct().filter(p -> p.fst < p.snd).toString());
@@ -294,7 +293,7 @@ public class ImListTest implements Constants
     @Test
     public void testTails()
     {
-        ImList<Integer> list = lst(1, 2, 3);
+        ImList<Integer> list = ImList.on(1, 2, 3);
 
         assertEquals("[[1, 2, 3], [2, 3], [3], []]", list.tails().toString());
 
@@ -304,7 +303,7 @@ public class ImListTest implements Constants
     @Test
     public void testSplitWhile()
     {
-        ImList<Integer> list = lst(1, 2, 3);
+        ImList<Integer> list = ImList.on(1, 2, 3);
 
         //        assertEquals("([], [1, 2, 3])", list.splitWhile(i -> i > 2).toString());
         assertEquals("([1, 2], [3])", list.splitWhile(i -> i < 3).toString());
@@ -315,7 +314,7 @@ public class ImListTest implements Constants
     @Test
     public void testSplit$()
     {
-        ImList<Integer> list = lst(1, 2, 3, 1, 1, 1);
+        ImList<Integer> list = ImList.on(1, 2, 3, 1, 1, 1);
 
         assertEquals("[2, 3, 1, 1, 1]", list.dropWhile(i -> i < 2).toString());
         assertEquals("[1]", list.takeWhile(i -> i < 2).toString());
@@ -328,7 +327,7 @@ public class ImListTest implements Constants
     @Test
     public void testGroup$()
     {
-        ImList<Integer> list = lst(1, 2, 3, 1, 1, 1);
+        ImList<Integer> list = ImList.on(1, 2, 3, 1, 1, 1);
 
         assertEquals("[[1, 2], [3], [1, 1, 1]]", list.group$(l -> sum(l) <= 3).toString());
     }
@@ -336,7 +335,7 @@ public class ImListTest implements Constants
     @Test
     public void testGetTextBox()
     {
-        ImList<Integer> list = lst(1, 2, 3, 1, 1, 1);
+        ImList<Integer> list = ImList.on(1, 2, 3, 1, 1, 1);
 
         assertEquals("[[1, 2], [3], [1, 1, 1]]", list.group$(l -> sum(l) <= 3).toString());
     }
@@ -411,7 +410,7 @@ public class ImListTest implements Constants
     @Test
     public void testHeads()
     {
-        ImList<Integer> list = lst(1, 2, 3);
+        ImList<Integer> list = ImList.on(1, 2, 3);
 
         ImList<ImList<Integer>> hs = list.heads();
 

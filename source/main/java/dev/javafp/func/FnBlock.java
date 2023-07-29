@@ -19,7 +19,7 @@ import java.io.Serializable;
 public interface FnBlock extends Serializable
 {
     /**
-     * <p> Run the function
+     * <p> Run the function - no argument and no return value
      */
     public void doit();
 }

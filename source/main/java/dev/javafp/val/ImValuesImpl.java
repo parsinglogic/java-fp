@@ -59,6 +59,17 @@ public abstract class ImValuesImpl implements Serializable, Values
         return getTextBox().toString();
     }
 
+    /**
+     * <p> The representation of
+     * {@code this}
+     * as an {@link AbstractTextBox}
+     * The default
+     * {@code toString}
+     *  method will use this method
+     * and then convert the result to a
+     * {@code String}
+     *
+     */
     @Override
     public AbstractTextBox getTextBox()
     {

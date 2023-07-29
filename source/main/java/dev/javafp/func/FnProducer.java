@@ -19,7 +19,8 @@ import java.io.Serializable;
 public interface FnProducer<A> extends Serializable
 {
     /**
-     * <p> Run the function
+     * <p> Run the function and produce a value of type
+     * {@code A}
      */
     A doit();
 }

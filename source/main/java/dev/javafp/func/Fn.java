@@ -41,8 +41,10 @@ public interface Fn<I, O> extends Serializable
     }
 
     /**
-     * <p> The function:
+     * <p> The negation of the function
+     * {@code f}
      *
+     * <p> The implementation is
      * <pre>{@code
      * i -> !f.of(i);
      * }</pre>

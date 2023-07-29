@@ -23,6 +23,15 @@ import java.io.Serializable;
 @FunctionalInterface
 public interface Fn3<A, B, C, D> extends Serializable
 {
+    /**
+     * <p> Apply the function to
+     * {@code a}
+     * ,
+     * {@code b}
+     * and
+     * {@code c}
+     *
+     */
     D of(A a, B b, C c);
 
     /**

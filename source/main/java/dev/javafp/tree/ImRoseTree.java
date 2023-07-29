@@ -410,6 +410,17 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
         return sb.toString();
     }
 
+    /**
+     * <p> The representation of
+     * {@code this}
+     * as an {@link AbstractTextBox}
+     * <p> If the class extends {@link dev.javafp.val.ImValuesImpl} then the default
+     * {@code toString}
+     *  method will use this method
+     * and then convert the result to a
+     * {@code String}
+     *
+     */
     public AbstractTextBox getTextBox()
     {
         // Get the leaf box for this node
