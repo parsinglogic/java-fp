@@ -70,7 +70,9 @@ loadScripts(document, 'script');</script>
 <div class="inheritance"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Throwable.html" title="class or interface in java.lang" class="external-link">java.lang.Throwable</a>
 <div class="inheritance"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">java.lang.Exception</a>
 <div class="inheritance"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html" title="class or interface in java.lang" class="external-link">java.lang.RuntimeException</a>
+<div class="inheritance"><a href="ImException.html" title="class in dev.javafp.ex">dev.javafp.ex.ImException</a>
 <div class="inheritance">dev.javafp.ex.EmptyCollection</div>
+</div>
 </div>
 </div>
 </div>
@@ -82,7 +84,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">EmptyCollection</span>
-<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html" title="class or interface in java.lang" class="external-link">RuntimeException</a></span></div>
+<span class="extends-implements">extends <a href="ImException.html" title="class in dev.javafp.ex">ImException</a></span></div>
+<div class="block"><p> Thrown when a collection is expected to <strong>not</strong> be empty.
+
+ <p> Thrown (for example) in <a href="Throw.Exception.html#ifEmpty(java.lang.String,java.util.Collection)"><code>Throw.Exception.ifEmpty(String, Collection)</code></a></div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
