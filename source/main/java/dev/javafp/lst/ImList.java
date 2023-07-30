@@ -1281,7 +1281,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * {@code indexStartingAtOne}
      * <p> if
      * {@code this}
-     *  is the empty list, then throw {@link dev.javafp.ex. InvalidState }
+     *  is the empty list, then throw {@link dev.javafp.ex.InvalidState }
      * <p> If no such element exists at that index then throw {@link dev.javafp.ex.ArgumentOutOfRange }
      *
      */
@@ -3195,7 +3195,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * {@code n = this.size}
      * <p> If
      * {@code this.size()}
-     *  is not even then {@link dev.javafp.ex. InvalidState} is thrown.
+     *  is not even then {@link dev.javafp.ex.InvalidState} is thrown.
      *
      */
     default ImList<ImPair<A, A>> toPairs()

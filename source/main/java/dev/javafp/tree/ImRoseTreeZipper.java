@@ -12,7 +12,6 @@ import dev.javafp.ex.ZipperHasNoFocusException;
 import dev.javafp.lst.FIterator;
 import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImListZipper;
-import dev.javafp.shelf.ImShelf;
 import dev.javafp.util.Caster;
 import dev.javafp.util.TextUtils;
 
@@ -96,11 +95,8 @@ import java.util.NoSuchElementException;
  * }</pre>
  * <h2>Navigation</h2>
  * <p> The API to the rose tree zipper is somewhat similar to {@link ImListZipper} but with some differences:
- * <ol>
- * <li>
  * <p> These methods:
- * </li>
- * </ol>
+ *
  * <ul>
  * <li>
  * <p> {@link #next()}
@@ -150,7 +146,7 @@ import java.util.NoSuchElementException;
  * can use  {@link #down()} - which moves to
  * <em>before</em>
  *  the first sub-tree.
- * <p> Just as with {@link ImShelf.ImShelfIterator#next()}, {@link #prevSibling()} will sometimes return a zipper that has no focus.
+ * <p> {@link #prevSibling()} will sometimes return a zipper that has no focus.
  * <p> See the
  * <a href="{@docRoot}/im/package-summary.html">
  * package summary
