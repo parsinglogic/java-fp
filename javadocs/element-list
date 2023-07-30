@@ -12,7 +12,6 @@ dev.javafp.queue
 dev.javafp.rand
 dev.javafp.set
 dev.javafp.shelf
-dev.javafp.sql
 dev.javafp.time
 dev.javafp.tree
 dev.javafp.tuple

@@ -4,7 +4,6 @@
 <title>dev.javafp.ex</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="dc.created" content="2023-07-29">
 <meta name="description" content="declaration: package: dev.javafp.ex">
 <meta name="generator" content="javadoc/PackageWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
@@ -112,7 +111,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color class-summary class-summary-tab5"><a href="IllegalState.html" title="class in dev.javafp.ex">IllegalState</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
 <div class="col-first odd-row-color class-summary class-summary-tab5"><a href="ImException.html" title="class in dev.javafp.ex">ImException</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
+<div class="col-last odd-row-color class-summary class-summary-tab5">
+<div class="block"> A <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html" title="class or interface in java.lang" class="external-link"><code>RuntimeException</code></a> with some extra features.</div>
+</div>
 <div class="col-first even-row-color class-summary class-summary-tab5"><a href="ImIndexOutOfBoundsException.html" title="class in dev.javafp.ex">ImIndexOutOfBoundsException</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab5">
 <div class="block"> Thrown when you attempt to access an indexed
@@ -145,36 +146,38 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab5"><a href="MethodNotImplemented.html" title="class in dev.javafp.ex">MethodNotImplemented</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="MoveAsFirstChildWouldCreateALoop.html" title="class in dev.javafp.ex">MoveAsFirstChildWouldCreateALoop</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first even-row-color class-summary class-summary-tab5"><a href="NodeHasArcs.html" title="class in dev.javafp.ex">NodeHasArcs</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="NothingThereException.html" title="class in dev.javafp.ex">NothingThereException</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first even-row-color class-summary class-summary-tab5"><a href="NotNull.html" title="class in dev.javafp.ex">NotNull</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="NotNullArgument.html" title="class in dev.javafp.ex">NotNullArgument</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first even-row-color class-summary class-summary-tab5"><a href="NullArgument.html" title="class in dev.javafp.ex">NullArgument</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="SizeOnInfiniteList.html" title="class in dev.javafp.ex">SizeOnInfiniteList</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first even-row-color class-summary class-summary-tab5"><a href="ThreadInterrupted.html" title="class in dev.javafp.ex">ThreadInterrupted</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="Throw.html" title="class in dev.javafp.ex">Throw</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">&nbsp;</div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="Throw.Exception.html" title="class in dev.javafp.ex">Throw.Exception</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">&nbsp;</div>
-<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="TransposeColsError.html" title="class in dev.javafp.ex">TransposeColsError</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first even-row-color class-summary class-summary-tab5"><a href="TransposeRowsError.html" title="class in dev.javafp.ex">TransposeRowsError</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="UnexpectedChecked.html" title="class in dev.javafp.ex">UnexpectedChecked</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first even-row-color class-summary class-summary-tab5"><a href="UserCode.html" title="class in dev.javafp.ex">UserCode</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
-<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="ZipperHasNoFocusException.html" title="class in dev.javafp.ex">ZipperHasNoFocusException</a></div>
+<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="NodeHasArcs.html" title="class in dev.javafp.ex">NodeHasArcs</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab5">
+<div class="block"> Thrown when you try to remove an arc from a graph,  but it has arcs connecting it to other nodes.</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab5"><a href="NothingThereException.html" title="class in dev.javafp.ex">NothingThereException</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
+<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="NotNull.html" title="class in dev.javafp.ex">NotNull</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
+<div class="col-first even-row-color class-summary class-summary-tab5"><a href="NotNullArgument.html" title="class in dev.javafp.ex">NotNullArgument</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
+<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="NullArgument.html" title="class in dev.javafp.ex">NullArgument</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
+<div class="col-first even-row-color class-summary class-summary-tab5"><a href="SizeOnInfiniteList.html" title="class in dev.javafp.ex">SizeOnInfiniteList</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
+<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="ThreadInterrupted.html" title="class in dev.javafp.ex">ThreadInterrupted</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="Throw.html" title="class in dev.javafp.ex">Throw</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab2">
+<div class="block">Utility for throwing exceptions - mainly useful when checking arguments to functions.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="Throw.Exception.html" title="class in dev.javafp.ex">Throw.Exception</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">&nbsp;</div>
+<div class="col-first even-row-color class-summary class-summary-tab5"><a href="TransposeColsError.html" title="class in dev.javafp.ex">TransposeColsError</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
+<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="TransposeRowsError.html" title="class in dev.javafp.ex">TransposeRowsError</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
+<div class="col-first even-row-color class-summary class-summary-tab5"><a href="UnexpectedChecked.html" title="class in dev.javafp.ex">UnexpectedChecked</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab5">&nbsp;</div>
+<div class="col-first odd-row-color class-summary class-summary-tab5"><a href="UserCode.html" title="class in dev.javafp.ex">UserCode</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab5">&nbsp;</div>
+<div class="col-first even-row-color class-summary class-summary-tab5"><a href="ZipperHasNoFocusException.html" title="class in dev.javafp.ex">ZipperHasNoFocusException</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab5">
 <div class="block"> Thrown when you try to use
  <code>getFocus()</code>
  ,
