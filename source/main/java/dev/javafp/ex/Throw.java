@@ -10,6 +10,9 @@ package dev.javafp.ex;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * <p>Utility for throwing exceptions - mainly useful when checking arguments to functions.
+ */
 public class Throw
 {
     public static class Exception

@@ -10,6 +10,9 @@ package dev.javafp.util;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * Class to iterate over arrays.
+ */
 public class ArrayIterator<T> implements Iterator<T>
 {
     private static Object[] emptyArray = new Object[0];

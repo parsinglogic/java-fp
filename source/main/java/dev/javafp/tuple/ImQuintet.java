@@ -10,6 +10,10 @@ package dev.javafp.tuple;
 import dev.javafp.lst.ImList;
 import dev.javafp.val.ImValuesImpl;
 
+/**
+ * <p> A tuple of length 5.
+ */
+
 public class ImQuintet<A, B, C, D, E> extends ImValuesImpl
 {
     public final A e1;

@@ -10,6 +10,10 @@ package dev.javafp.util;
 import java.io.Serializable;
 import java.util.UUID;
 
+/**
+ * <p> Utility for generating {@link UUID}s.
+ */
+
 public class UniqueId implements Serializable
 {
     public String string;

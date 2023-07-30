@@ -12,6 +12,9 @@ import dev.javafp.ex.UnexpectedChecked;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+/**
+ * <p> Utility to get a random port for a service.
+ */
 public class Net
 {
 

@@ -9,6 +9,11 @@ package dev.javafp.net;
 
 import dev.javafp.ex.ImException;
 
+/**
+ * <p> Thrown when you try to parse a URL and it is not valid.
+ *
+ * <p> Thrown (for example) in {@link ImUrl#on(String)}
+ */
 public class ImUrlParseException extends ImException
 {
     public ImUrlParseException(String message)

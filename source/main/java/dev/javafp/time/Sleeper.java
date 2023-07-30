@@ -9,6 +9,9 @@ package dev.javafp.time;
 
 import dev.javafp.util.Say;
 
+/**
+ * <p> Utility to "sleep" a thread - used by {@link Clock}.
+ */
 public class Sleeper
 {
 
@@ -18,8 +21,7 @@ public class Sleeper
         try
         {
             sleep_(msToSleep);
-        }
-        finally
+        } finally
         {
             Clock.decSleepCount();
         }

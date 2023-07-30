@@ -14,6 +14,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
 
+/**
+ * Utility for equality calculations.
+ */
 public class Equals
 {
 

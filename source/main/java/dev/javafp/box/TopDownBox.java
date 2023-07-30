@@ -13,6 +13,9 @@ import dev.javafp.util.TextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>A text-box that lays out its children top downt.
+ */
 public class TopDownBox extends AbstractTextBox
 {
 

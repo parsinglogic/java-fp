@@ -15,6 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * <p> Utility for working with {@link Map}s.
+ */
+
 public class MapUtils
 {
     /**

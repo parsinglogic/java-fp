@@ -9,6 +9,12 @@ package dev.javafp.ex;
 
 import dev.javafp.lst.ImList;
 
+/**
+ * <p> Thrown when you try to remove an arc from a graph,  but it has arcs connecting it to other nodes.
+ *
+ * <p> Thrown (for example) in {@link dev.javafp.graph.ImGraph#removeNode(java.lang.Object)}
+ */
+
 public class NodeHasArcs extends ImException
 {
 

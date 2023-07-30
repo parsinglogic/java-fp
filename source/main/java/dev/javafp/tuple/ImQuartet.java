@@ -12,6 +12,9 @@ import dev.javafp.lst.ImList;
 import dev.javafp.lst.TupleListBuilder;
 import dev.javafp.val.ImValuesImpl;
 
+/**
+ * <p> A tuple of length 4.
+ */
 public class ImQuartet<A, B, C, D> extends ImValuesImpl
 {
     public final A e1;

@@ -3,6 +3,9 @@ package dev.javafp.lst;
 import dev.javafp.tuple.ImQuartet;
 import dev.javafp.tuple.ImTriple;
 
+/**
+ * <p> Utility to build lists of tuples from lists of single elements.
+ */
 public class TupleListBuilder
 {
     public static <C, D, A, B> ImList<ImQuartet<A, B, C, D>> on4(ImList<A> as, ImList<B> bs, ImList<C> cs, ImList<D> ds)

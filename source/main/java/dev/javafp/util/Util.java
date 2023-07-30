@@ -11,6 +11,10 @@ import dev.javafp.ex.Throw;
 import dev.javafp.func.Fn;
 import dev.javafp.lst.ImList;
 
+/**
+ * <p> Utilities for various things..
+ */
+
 public class Util
 {
     /**

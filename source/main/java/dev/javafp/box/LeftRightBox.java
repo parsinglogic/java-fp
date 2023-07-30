@@ -13,6 +13,9 @@ import dev.javafp.util.TextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>A text-box that lays out its children left to right.
+ */
 public class LeftRightBox extends AbstractTextBox
 {
     private final ImList<AbstractTextBox> boxes;

@@ -14,6 +14,10 @@ import dev.javafp.box.TopDownBox;
 import dev.javafp.lst.ImList;
 import dev.javafp.val.ImValuesImpl;
 
+/**
+ * <p> A table data structure - containing text-boxes.
+ */
+
 public class Table extends ImValuesImpl
 {
     public final ImList<ImList<AbstractTextBox>> rowsReversed;

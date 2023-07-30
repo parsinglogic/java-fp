@@ -12,6 +12,10 @@ import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
 
+/**
+ * <p> Utility for list operations.
+ */
+
 public class ImListUtils
 {
 

@@ -13,6 +13,9 @@ import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
 
+/**
+ * <p> Read lines of text from a {@link BufferedReader}
+ */
 public class LineReader implements Closeable
 {
 

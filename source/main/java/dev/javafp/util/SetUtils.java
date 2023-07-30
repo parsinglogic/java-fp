@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * <p> Utility for working with {@link Set}s.
+ */
+
 public class SetUtils
 {
     private static Random rand = new Random();
@@ -59,8 +63,8 @@ public class SetUtils
     public static <T> Set<T> remove(Set<T> main, T itemToRemove)
     {
         return main.contains(itemToRemove)
-                ? diff(main, newSet(itemToRemove))
-                : main;
+               ? diff(main, newSet(itemToRemove))
+               : main;
     }
 
     public static <T> Set<T> chooseRandom(List<T> list)
@@ -85,8 +89,8 @@ public class SetUtils
     public static <T> Set<T> intersect(Set<T> s1, Set<T> s2)
     {
         return s1.size() <= s2.size()
-                ? intersect0(s1, s2)
-                : intersect0(s2, s1);
+               ? intersect0(s1, s2)
+               : intersect0(s2, s1);
     }
 
     private static <T> Set<T> intersect0(Set<T> smallerSet, Set<T> largerSet)

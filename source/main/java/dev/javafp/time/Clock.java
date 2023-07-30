@@ -11,6 +11,9 @@ import dev.javafp.util.Say;
 
 import static dev.javafp.util.Say.say;
 
+/**
+ * <p> Utility for diagnostic output.
+ */
 public class Clock
 {
     public static long time = 0;

@@ -12,6 +12,9 @@ import dev.javafp.lst.ImList;
 import dev.javafp.lst.TupleListBuilder;
 import dev.javafp.val.ImValuesImpl;
 
+/**
+ * <p> A tuple of length 3.
+ */
 public class ImTriple<A, B, C> extends ImValuesImpl
 {
     public final A e1;

@@ -10,6 +10,10 @@ package dev.javafp.util;
 import dev.javafp.ex.UnexpectedChecked;
 import dev.javafp.lst.ImList;
 
+/**
+ * <p> Utility for parsing commandline arguments.
+ */
+
 public class CommandLineArgsResult
 {
 

@@ -14,6 +14,10 @@ import java.util.concurrent.ExecutorService;
 
 import static dev.javafp.util.Say.say;
 
+/**
+ * <p> Utility for working with {@link Thread}s.
+ */
+
 public class ThreadUtils
 {
 
@@ -26,7 +30,7 @@ public class ThreadUtils
      * <p> using this tells the user more about what is happening in tests
      * </li>
      * </ul>
-     * 
+     *
      */
     public static void stopThread(String name, ExecutorService executorService)
     {
@@ -45,7 +49,7 @@ public class ThreadUtils
      *  seconds and log the message
      * {@code message}
      *  - using this tells the user more about what is happening in tests
-     * 
+     *
      */
     public static void sleep(int seconds, String message)
     {

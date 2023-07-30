@@ -12,6 +12,9 @@ import dev.javafp.util.TextUtils;
 
 import java.io.Serializable;
 
+/**
+ * <p> The top level class for text-boxes.
+ */
 public abstract class AbstractTextBox implements Serializable
 {
     public static final LeafTextBox empty = LeafTextBox.with("");

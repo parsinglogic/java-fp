@@ -9,6 +9,9 @@ package dev.javafp.ex;
 
 import dev.javafp.lst.ImList;
 
+/**
+ * <p> A {@link RuntimeException} with some extra features.
+ */
 public class ImException extends RuntimeException
 {
 

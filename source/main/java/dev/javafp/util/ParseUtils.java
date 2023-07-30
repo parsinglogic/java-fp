@@ -14,6 +14,10 @@ import dev.javafp.tuple.ImPair;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * <p> Utility for basic parsing of strings.
+ */
+
 public class ParseUtils
 {
 

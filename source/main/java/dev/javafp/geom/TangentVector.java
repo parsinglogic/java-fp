@@ -11,6 +11,9 @@ import dev.javafp.lst.ImList;
 import dev.javafp.tuple.ImTriple;
 import dev.javafp.val.ImValuesImpl;
 
+/**
+ * <p> A 2D tangent vector
+ */
 public class TangentVector extends ImValuesImpl
 {
 

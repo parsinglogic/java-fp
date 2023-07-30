@@ -13,6 +13,9 @@ import static dev.javafp.geom.Orient1.Left;
 import static dev.javafp.geom.Orient1.Right;
 import static dev.javafp.geom.Orient1.Top;
 
+/**
+ * <p> Contains 2d orientation values for gemometric calculations.
+ */
 public enum Orient2
 {
     LeftTop(Left, Top),
