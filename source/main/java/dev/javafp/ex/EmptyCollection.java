@@ -7,10 +7,17 @@
 
 package dev.javafp.ex;
 
-public class EmptyCollection extends RuntimeException
+import java.util.Collection;
+
+/**
+ * <p> Thrown when a collection is expected to <strong>not</strong> be empty.
+ *
+ * <p> Thrown (for example) in {@link Throw.Exception#ifEmpty(String, Collection)}
+ */
+public class EmptyCollection extends ImException
 {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 

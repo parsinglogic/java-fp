@@ -7,11 +7,11 @@
 
 package dev.javafp.ex;
 
-public class MethodNotImplemented extends RuntimeException
+public class MethodNotImplemented extends ImException
 {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 

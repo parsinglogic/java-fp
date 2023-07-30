@@ -7,6 +7,11 @@
 
 package dev.javafp.ex;
 
+import dev.javafp.lst.ImList;
+
+/**
+ * <p> Thrown when {@link ImList#size()} is called on an infinite list.
+ */
 public class SizeOnInfiniteList extends ImException
 {
     private static final long serialVersionUID = 1L;

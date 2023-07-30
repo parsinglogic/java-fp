@@ -7,10 +7,10 @@
 
 package dev.javafp.ex;
 
-public class IllegalState extends RuntimeException
+public class IllegalState extends ImException
 {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 

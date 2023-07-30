@@ -17,7 +17,7 @@ import java.nio.file.Path;
 /**
  * <p> Exceptions relating to problems with files
  */
-public class FileProblem extends RuntimeException
+public class FileProblem extends ImException
 {
     public FileProblem(String message)
     {

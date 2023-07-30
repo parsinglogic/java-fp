@@ -13,7 +13,7 @@ package dev.javafp.ex;
  * <p> Thrown (for example) in {@link Throw.Exception#ifLessThanOrEqualTo(String, int, int)}
  */
 @SuppressWarnings("serial")
-public class ValueShouldBeGreaterThan extends RuntimeException
+public class ValueShouldBeGreaterThan extends ImException
 {
     public ValueShouldBeGreaterThan(String name, int value, int min)
     {

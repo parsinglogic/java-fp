@@ -4,6 +4,7 @@ import dev.javafp.lst.ImList;
 import org.junit.Test;
 
 import static dev.javafp.lst.ImList.on;
+import static dev.javafp.util.Say.say;
 import static org.junit.Assert.assertEquals;
 
 public class TestUtilsTest
@@ -59,18 +60,23 @@ public class TestUtilsTest
             ImList<Integer> one = on(1, 2, 3);
             ImList<Integer> two = on(3, 2, 0);
 
+            say("start");
             TestUtils.assertSetsEqual("", one, two);
 
             TestUtils.failExpectedException(AssertionError.class);
 
         } catch (AssertionError e)
         {
+
+            say("error is", e);
             assertEquals("Differences:\n"
-                         + "present in expected but not in actual\n"
-                         + "1\n"
-                         + "present in actual but not in expected\n"
-                         + "0\n", e.getMessage());
+                    + "present in expected but not in actual\n"
+                    + "1\n"
+                    + "present in actual but not in expected\n"
+                    + "0\n", e.getMessage());
         }
+
+        say("at end");
     }
 
     @Test

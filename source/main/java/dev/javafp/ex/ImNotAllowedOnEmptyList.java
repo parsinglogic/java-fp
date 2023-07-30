@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class ImNotAllowedOnEmptyList extends RuntimeException
+public class ImNotAllowedOnEmptyList extends ImException
 {
     /**
      *

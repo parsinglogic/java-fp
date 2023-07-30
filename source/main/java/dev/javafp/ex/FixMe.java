@@ -11,7 +11,7 @@ package dev.javafp.ex;
  * <p> Thrown to remind you to fix something in your code.
  */
 @SuppressWarnings("serial")
-public class FixMe extends RuntimeException
+public class FixMe extends ImException
 {
 
     public FixMe()

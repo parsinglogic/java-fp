@@ -15,9 +15,9 @@ package dev.javafp.ex;
  *  or
  * {@code pop(}
  * ) on a zipper that has no focus.
- * 
+ *
  */
-public class ZipperHasNoFocusException extends RuntimeException
+public class ZipperHasNoFocusException extends ImException
 {
 
 }

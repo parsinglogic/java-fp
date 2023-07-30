@@ -8,7 +8,7 @@
 package dev.javafp.ex;
 
 @SuppressWarnings("serial")
-public class ArgumentShouldNotBeLessThan extends RuntimeException
+public class ArgumentShouldNotBeLessThan extends ImException
 {
     public ArgumentShouldNotBeLessThan(String name, int value, int min)
     {

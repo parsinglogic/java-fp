@@ -7,10 +7,15 @@
 
 package dev.javafp.ex;
 
-public class EmptyString extends RuntimeException
+/**
+ * <p> Thrown when a string value is expected to <strong>not</strong> be empty.
+ *
+ * <p> Thrown (for example) in {@link Throw.Exception#ifEmpty(String, String)}
+ */
+public class EmptyString extends ImException
 {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 

@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class UserCode extends RuntimeException
+public class UserCode extends ImException
 {
     public UserCode(RuntimeException e)
     {

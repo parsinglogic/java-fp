@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class KeyExists extends RuntimeException
+public class KeyExists extends ImException
 {
     public KeyExists(Object key)
     {

@@ -7,9 +7,15 @@
 
 package dev.javafp.ex;
 
-public class KeyMissing extends RuntimeException
+/**
+ * <p> Thrown when a key is not found in a Graph
+ *
+ *
+ * <p> Thrown (for example) in {@link dev.javafp.graph.ImGraph#addArc(Object, Object, Object)} )}
+ */
+public class KeyMissing extends ImException
 {
-    public KeyMissing( Object key)
+    public KeyMissing(Object key)
     {
         super("key '" + key + "' does not exist in the graph");
     }

@@ -15,7 +15,7 @@ package dev.javafp.ex;
  * <p> Thrown (for example) in {@link Throw.Exception#ifNull(String, Object)}
  */
 @SuppressWarnings("serial")
-public class NullValue extends RuntimeException
+public class NullValue extends ImException
 {
 
     public NullValue(String name)

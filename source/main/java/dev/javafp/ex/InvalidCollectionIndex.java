@@ -17,7 +17,7 @@ import java.util.Collection;
  * <p> Thrown (for example) in {@link Throw.Exception#ifIndexNotInCollection(int, Collection, String)}
  */
 @SuppressWarnings("serial")
-public class InvalidCollectionIndex extends RuntimeException
+public class InvalidCollectionIndex extends ImException
 {
 
     private String message;

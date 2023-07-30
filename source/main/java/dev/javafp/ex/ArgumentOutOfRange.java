@@ -13,7 +13,7 @@ package dev.javafp.ex;
  * <p> Thrown (for example) in {@link dev.javafp.lst.ImList#at(int)}
  */
 @SuppressWarnings("serial")
-public class ArgumentOutOfRange extends RuntimeException
+public class ArgumentOutOfRange extends ImException
 {
 
     public ArgumentOutOfRange(String name, int value, int min, int max)

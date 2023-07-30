@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class NothingThereException extends RuntimeException
+public class NothingThereException extends ImException
 {
     public NothingThereException(String message)
     {

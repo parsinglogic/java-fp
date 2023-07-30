@@ -13,7 +13,7 @@ package dev.javafp.ex;
  *
  */
 @SuppressWarnings("serial")
-public class ImIndexOutOfBoundsException extends RuntimeException
+public class ImIndexOutOfBoundsException extends ImException
 {
     public ImIndexOutOfBoundsException(String message)
     {

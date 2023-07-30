@@ -15,6 +15,6 @@ import dev.javafp.util.ImMaybe;
  * null`.
  *
  */
-public class MaybeCannotHaveANullValueException extends RuntimeException
+public class MaybeCannotHaveANullValueException extends ImException
 {
 }

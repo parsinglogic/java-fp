@@ -7,7 +7,14 @@
 
 package dev.javafp.ex;
 
-public class KeyIsNull extends RuntimeException
+/**
+ * <p> Thrown when a key in a Graph is expected to <strong>not</strong> be
+ * {@code null}
+ * .
+ *
+ * <p> Thrown (for example) in {@link dev.javafp.graph.ImGraph#addNode(Object, Object)}
+ */
+public class KeyIsNull extends ImException
 {
     public KeyIsNull(Object value)
     {

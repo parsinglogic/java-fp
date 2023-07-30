@@ -7,6 +7,8 @@
 
 package dev.javafp.util;
 
+import dev.javafp.ex.ImException;
+
 /**
  * <p> Used to check for
  * {@code null}
@@ -18,7 +20,7 @@ package dev.javafp.util;
  *
  */
 @SuppressWarnings("serial")
-public class NullCheck extends RuntimeException
+public class NullCheck extends ImException
 {
     public NullCheck(String message)
     {

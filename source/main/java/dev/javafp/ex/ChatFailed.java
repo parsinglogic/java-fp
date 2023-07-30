@@ -12,7 +12,7 @@ import dev.javafp.lst.ImList;
 /**
  * <p> The exception when you try to get the right of a Chat but it had failed
  */
-public class ChatFailed extends RuntimeException
+public class ChatFailed extends ImException
 {
     public ChatFailed(ImList<String> left)
     {

@@ -7,6 +7,9 @@
 
 package dev.javafp.ex;
 
+/**
+ * <p> Thrown when an object cannot be constructed for some reason.
+ */
 public class ConstructorFailed extends ImException
 {
 

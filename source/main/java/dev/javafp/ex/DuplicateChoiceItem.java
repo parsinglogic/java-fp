@@ -7,11 +7,11 @@
 
 package dev.javafp.ex;
 
-public class DuplicateChoiceItem extends RuntimeException
+public class DuplicateChoiceItem extends ImException
 {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 

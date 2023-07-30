@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-public class UnexpectedChecked extends RuntimeException
+public class UnexpectedChecked extends ImException
 {
 
     public UnexpectedChecked(Exception e)

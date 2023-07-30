@@ -7,13 +7,11 @@
 
 package dev.javafp.ex;
 
-public class InvalidArgument extends RuntimeException
+/**
+ * <p> Thrown when an invalid argument is detected.
+ */
+public class InvalidArgument extends ImException
 {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
 
     public InvalidArgument(Object thing, String message)
     {

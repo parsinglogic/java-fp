@@ -11,7 +11,7 @@ package dev.javafp.ex;
  * <p> Thrown when various types of internal errors are detected.
  */
 @SuppressWarnings("serial")
-public class InvalidState extends RuntimeException
+public class InvalidState extends ImException
 {
     public InvalidState(final String message)
     {
