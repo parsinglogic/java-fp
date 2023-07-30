@@ -5,7 +5,7 @@ import dev.javafp.box.LeafTextBox;
 import dev.javafp.box.TopDownBox;
 import dev.javafp.eq.Eq;
 import dev.javafp.ex.ArgumentShouldNotBeLessThan;
-import dev.javafp.ex.IllegalState;
+import dev.javafp.ex.InvalidState;
 import dev.javafp.ex.TransposeColsError;
 import dev.javafp.ex.TransposeRowsError;
 import dev.javafp.func.Fn;
@@ -1395,7 +1395,7 @@ public class ImListTest implements Constants
     {
         ImList<Integer> three = ImList.on(1, 2, 3);
 
-        TestUtils.assertThrows((() -> three.toPairs()), IllegalState.class);
+        TestUtils.assertThrows((() -> three.toPairs()), InvalidState.class);
     }
 
     @Test

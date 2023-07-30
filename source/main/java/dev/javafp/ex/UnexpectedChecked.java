@@ -7,6 +7,13 @@
 
 package dev.javafp.ex;
 
+import dev.javafp.file.FileUtil;
+
+/**
+ * <p> Thrown when a checked exception is thrown - but we were not expecting it to be thrown.
+ *
+ * <p> Thrown (for example) in {@link FileUtil#createTempDir()}
+ */
 public class UnexpectedChecked extends ImException
 {
 

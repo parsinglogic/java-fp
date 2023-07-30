@@ -1,6 +1,6 @@
 package dev.javafp.util;
 
-import dev.javafp.ex.IllegalState;
+import dev.javafp.ex.InvalidState;
 import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImRange;
 import org.junit.Test;
@@ -130,7 +130,7 @@ public class SayTest
         say("col1", col1);
         say("col2", col2);
 
-        TestUtils.assertThrows(() -> Say.formatColumns(col1, col2).toString(), IllegalState.class);
+        TestUtils.assertThrows(() -> Say.formatColumns(col1, col2).toString(), InvalidState.class);
     }
 
     @Test

@@ -15,6 +15,10 @@ import java.util.List;
  */
 public class Throw
 {
+    /**
+     * Class that contains the utility functions for checking conditions and throwing exceptions if the conditions are
+     * not met.
+     */
     public static class Exception
     {
         /**
@@ -103,7 +107,7 @@ public class Throw
         {
             if (condition)
             {
-                throw new IllegalState(message);
+                throw new InvalidState(message);
             }
         }
 
@@ -111,19 +115,19 @@ public class Throw
         {
             if (!condition)
             {
-                throw new IllegalState(message);
+                throw new InvalidState(message);
             }
         }
 
         public static <A> A ifYouGetHere()
         {
-            throw new IllegalState("Internal Error");
+            throw new InvalidState("Internal Error");
         }
 
         // TODO should not be an argument exception - Van 13-sep-06
         public static void ifInvoked(String message)
         {
-            throw new IllegalState(message);
+            throw new InvalidState(message);
         }
 
         //        public static void ifNotType(Object thing, Class<?> clazz)
@@ -245,7 +249,7 @@ public class Throw
 
         public static <A> A ifYouGetHere(String message)
         {
-            throw new IllegalState(message);
+            throw new InvalidState(message);
         }
     }
 

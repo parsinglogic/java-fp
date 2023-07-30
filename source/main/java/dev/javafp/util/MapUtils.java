@@ -7,7 +7,7 @@
 
 package dev.javafp.util;
 
-import dev.javafp.ex.IllegalState;
+import dev.javafp.ex.InvalidState;
 import dev.javafp.lst.ImList;
 import dev.javafp.tuple.ImPair;
 
@@ -88,7 +88,7 @@ public class MapUtils
         for (ImPair<K, V> pair : m)
         {
             if (pair.fst == null)
-                throw new IllegalState("Null keys are not allowed in maps. Value was " + pair.snd);
+                throw new InvalidState("Null keys are not allowed in maps. Value was " + pair.snd);
 
             ImList<V> list = map.getOrDefault(pair.fst, ImList.on());
 

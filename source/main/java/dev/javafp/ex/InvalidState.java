@@ -13,12 +13,12 @@ package dev.javafp.ex;
 @SuppressWarnings("serial")
 public class InvalidState extends ImException
 {
-    public InvalidState(final String message)
+    public InvalidState(String message)
     {
         super(message);
     }
 
-    public InvalidState(final String message, final Exception cause)
+    public InvalidState(String message, Exception cause)
     {
         super(message, cause);
     }

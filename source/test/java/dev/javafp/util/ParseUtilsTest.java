@@ -1,6 +1,6 @@
 package dev.javafp.util;
 
-import dev.javafp.ex.IllegalState;
+import dev.javafp.ex.InvalidState;
 import dev.javafp.lst.ImList;
 import dev.javafp.tuple.ImPair;
 import org.junit.Test;
@@ -128,7 +128,7 @@ public class ParseUtilsTest
         {
             ParseUtils.getFieldAtIndex("a/b/c", '/', 0);
             fail();
-        } catch (IllegalState e)
+        } catch (InvalidState e)
         {
 
             assertEquals("indexStartingAtOneOrMinusOne must not be zero", e.getMessage());
@@ -152,7 +152,7 @@ public class ParseUtilsTest
         {
             ParseUtils.removeFieldAtIndex("a/b/c", '/', 0);
             fail();
-        } catch (IllegalState e)
+        } catch (InvalidState e)
         {
 
             assertEquals("indexStartingAtOne must not be zero", e.getMessage());

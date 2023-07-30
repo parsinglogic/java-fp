@@ -13,6 +13,7 @@ import dev.javafp.box.LeftRightBox;
 import dev.javafp.box.TopDownBox;
 import dev.javafp.eq.Eq;
 import dev.javafp.ex.ImIndexOutOfBoundsException;
+import dev.javafp.ex.InvalidState;
 import dev.javafp.func.Fn;
 import dev.javafp.func.Fn2;
 import dev.javafp.lst.ImList;
@@ -575,7 +576,7 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
             count += node.size();
         }
 
-        throw new IllegalStateException("Can't get here");
+        throw new InvalidState("Can't get here");
     }
 
     protected AbstractTextBox toBox()

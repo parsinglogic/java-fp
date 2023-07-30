@@ -59,8 +59,8 @@ public class ThrowArgumentExceptionTest
         try
         {
             Throw.Exception.ifTrue(true, "wibble");
-            failExpectedException(IllegalState.class);
-        } catch (IllegalState e)
+            failExpectedException(InvalidState.class);
+        } catch (InvalidState e)
         {
             assertTrue(e.getMessage().contains("wibble"));
         }
@@ -73,8 +73,8 @@ public class ThrowArgumentExceptionTest
         try
         {
             Throw.Exception.ifFalse(false, "wibble");
-            failExpectedException(IllegalState.class);
-        } catch (IllegalState e)
+            failExpectedException(InvalidState.class);
+        } catch (InvalidState e)
         {
             assertTrue(e.getMessage().contains("wibble"));
         }
@@ -126,7 +126,7 @@ public class ThrowArgumentExceptionTest
         {
             Throw.Exception.ifOutOfRange("foo", 0, 6, 5);
             failExpectedException(UnexpectedChecked.class);
-        } catch (IllegalState e)
+        } catch (InvalidState e)
         {
         }
     }

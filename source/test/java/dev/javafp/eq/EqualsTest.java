@@ -1,6 +1,6 @@
 package dev.javafp.eq;
 
-import dev.javafp.ex.IllegalState;
+import dev.javafp.ex.InvalidState;
 import dev.javafp.lst.ImList;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,8 +17,8 @@ public class EqualsTest
         try
         {
             Equals.isEqualPairwise(1, 2, 3);
-            failExpectedException(IllegalState.class);
-        } catch (IllegalState e)
+            failExpectedException(InvalidState.class);
+        } catch (InvalidState e)
         {
         }
     }

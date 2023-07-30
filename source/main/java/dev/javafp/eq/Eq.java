@@ -7,6 +7,9 @@
 
 package dev.javafp.eq;
 
+/**
+ * A "shortcut" for {@link Equals#isEqual(Object, Object)}
+ */
 public interface Eq
 {
 
@@ -14,10 +17,5 @@ public interface Eq
     {
         return Equals.isEqual(one, two);
     }
-    //
-    //    static boolean uals(String one, String two)
-    //    {
-    //        return Equals.isEqual(one, two);
-    //    }
 
 }

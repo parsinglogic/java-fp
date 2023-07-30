@@ -7,6 +7,11 @@
 
 package dev.javafp.ex;
 
+/**
+ * <p> Thrown when a value is expected to be not less than a value.
+ *
+ * <p> Thrown (for example) in {@link Throw.Exception#ifLessThan(String, int, int)}
+ */
 @SuppressWarnings("serial")
 public class ArgumentShouldNotBeLessThan extends ImException
 {

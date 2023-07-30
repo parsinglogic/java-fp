@@ -7,6 +7,7 @@
 
 package dev.javafp.box;
 
+import dev.javafp.ex.InvalidState;
 import dev.javafp.lst.ImList;
 import dev.javafp.util.TextUtils;
 
@@ -90,6 +91,6 @@ public class TopDownBox extends AbstractTextBox
                 }
             }
         }
-        throw new IllegalStateException("You can't get here");
+        throw new InvalidState("You can't get here");
     }
 }

@@ -137,7 +137,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     }
 
     // All the elements with the same hash code are stored in a bucket
-    public static class Bucket<B> implements Comparable<Bucket<B>>, Serializable
+    static class Bucket<B> implements Comparable<Bucket<B>>, Serializable
     {
         private static final Object[] EMPTY_ARRAY = new Object[] {};
         final int hashCode;

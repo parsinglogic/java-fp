@@ -15,6 +15,8 @@ import dev.javafp.util.TextUtils;
 import java.io.Serializable;
 
 /**
+ * <p> The main class to subclass to get the "value object" functionality.
+ *
  * @see Values
  */
 public abstract class ImValuesImpl implements Serializable, Values

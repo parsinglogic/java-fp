@@ -182,7 +182,7 @@ import java.util.NoSuchElementException;
 public class ImShelf<T> implements Iterable<T>
 {
 
-    public static class ImShelfIterator<T> implements Iterator<T>
+    static class ImShelfIterator<T> implements Iterator<T>
     {
         ImTreeIterator<T> treeIterator;
 

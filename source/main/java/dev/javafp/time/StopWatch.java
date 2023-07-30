@@ -10,7 +10,7 @@ package dev.javafp.time;
 import java.util.concurrent.locks.LockSupport;
 
 /**
- * 
+ * A timer that uses {@link System#nanoTime()}.
  */
 public class StopWatch
 {

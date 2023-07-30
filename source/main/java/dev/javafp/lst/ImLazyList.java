@@ -8,7 +8,7 @@
 package dev.javafp.lst;
 
 import dev.javafp.box.LeafTextBox;
-import dev.javafp.ex.IllegalState;
+import dev.javafp.ex.InvalidState;
 import dev.javafp.ex.SizeOnInfiniteList;
 import dev.javafp.ex.ThreadInterrupted;
 import dev.javafp.util.Say;
@@ -135,7 +135,7 @@ public abstract class ImLazyList<A> implements ImList<A>
      */
     protected int calculateSize()
     {
-        throw new IllegalState("This method should not have been called");
+        throw new InvalidState("This method should not have been called");
     }
 
     /**
