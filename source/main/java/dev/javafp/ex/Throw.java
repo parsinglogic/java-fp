@@ -28,7 +28,7 @@ public class Throw
         {
             if (value == null)
             {
-                throw new NullArgument(name);
+                throw new NullValue(name);
             }
         }
 
@@ -43,7 +43,7 @@ public class Throw
         {
             if (value != null)
             {
-                throw new NotNullArgument(name);
+                throw new NotNullValue(name);
             }
         }
 
@@ -239,7 +239,7 @@ public class Throw
         {
             if (index <= min)
             {
-                throw new ArgumentShouldBeGreaterThan(name, index, min);
+                throw new ValueShouldBeGreaterThan(name, index, min);
             }
         }
 

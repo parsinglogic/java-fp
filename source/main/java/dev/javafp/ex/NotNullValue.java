@@ -7,11 +7,16 @@
 
 package dev.javafp.ex;
 
+/**
+ * <p> Thrown when a value is expected to be null.
+ *
+ * <p> Thrown (for example) in {@link Throw.Exception#ifNotNull(String, Object)}
+ */
 @SuppressWarnings("serial")
-public class NullArgument extends RuntimeException
+public class NotNullValue extends RuntimeException
 {
 
-    public NullArgument(String name)
+    public NotNullValue(String name)
     {
         super(name);
     }

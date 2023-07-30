@@ -7,17 +7,16 @@
 
 package dev.javafp.ex;
 
-public class NotNull extends RuntimeException
+/**
+ * <p> Thrown when a value is expected to be greater than a value.
+ *
+ * <p> Thrown (for example) in {@link Throw.Exception#ifLessThanOrEqualTo(String, int, int)}
+ */
+@SuppressWarnings("serial")
+public class ValueShouldBeGreaterThan extends RuntimeException
 {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-
-    public NotNull(String name)
+    public ValueShouldBeGreaterThan(String name, int value, int min)
     {
-        super(name);
+        super("Argument " + name + " with value " + value + " is out of range. It should be > " + min);
     }
-
 }

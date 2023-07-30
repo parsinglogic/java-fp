@@ -7,6 +7,11 @@
 
 package dev.javafp.ex;
 
+/**
+ * <p> Thrown when an int argument to a function is not within a range.
+ *
+ * <p> Thrown (for example) in {@link dev.javafp.lst.ImList#at(int)}
+ */
 @SuppressWarnings("serial")
 public class ArgumentOutOfRange extends RuntimeException
 {

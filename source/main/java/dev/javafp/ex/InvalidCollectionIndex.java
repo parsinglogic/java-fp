@@ -7,6 +7,15 @@
 
 package dev.javafp.ex;
 
+import java.util.Collection;
+
+/**
+ * <p> Thrown when a value that is expected to be a (1-based) collection index is too small or too large. 
+ * {@code null}
+ * .
+ *
+ * <p> Thrown (for example) in {@link Throw.Exception#ifIndexNotInCollection(int, Collection, String)}
+ */
 @SuppressWarnings("serial")
 public class InvalidCollectionIndex extends RuntimeException
 {

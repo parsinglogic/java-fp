@@ -28,8 +28,8 @@ public class ThrowArgumentExceptionTest
         try
         {
             Throw.Exception.ifNullOrEmpty("wibble", (Collection<?>) null);
-            failExpectedException(NullArgument.class);
-        } catch (NullArgument e)
+            failExpectedException(NullValue.class);
+        } catch (NullValue e)
         {
             assertEquals("wibble", e.getMessage());
         }
@@ -90,8 +90,8 @@ public class ThrowArgumentExceptionTest
         try
         {
             Throw.Exception.ifNull("wibble", null);
-            failExpectedException(NullArgument.class);
-        } catch (NullArgument e)
+            failExpectedException(NullValue.class);
+        } catch (NullValue e)
         {
             assertEquals("wibble", e.getMessage());
         }

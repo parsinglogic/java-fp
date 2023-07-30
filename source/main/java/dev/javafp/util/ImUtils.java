@@ -7,7 +7,7 @@
 
 package dev.javafp.util;
 
-import dev.javafp.ex.NullArgument;
+import dev.javafp.ex.NullValue;
 import dev.javafp.ex.UnexpectedChecked;
 
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class ImUtils
     {
         if (value == null)
         {
-            throw new NullArgument(name);
+            throw new NullValue(name);
         }
     }
 

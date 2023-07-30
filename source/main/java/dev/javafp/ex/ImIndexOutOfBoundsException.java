@@ -8,10 +8,9 @@
 package dev.javafp.ex;
 
 /**
- * <p> Thrown when you attempt to access an indexed
- * {@code ImCollection}
- *  using an index that is not valid for that collection.
- * 
+ * <p> Thrown when you attempt to access an indexed collection
+ * using an index (0-based or 1-based)  that is not valid for that collection.
+ *
  */
 @SuppressWarnings("serial")
 public class ImIndexOutOfBoundsException extends RuntimeException
@@ -36,7 +35,7 @@ public class ImIndexOutOfBoundsException extends RuntimeException
         if (index > size)
         {
             throw new ImIndexOutOfBoundsException("the size of the collection is " + size + " but " + argumentName
-                                                          + " was " + index);
+                    + " was " + index);
         }
     }
 
@@ -55,7 +54,7 @@ public class ImIndexOutOfBoundsException extends RuntimeException
         if (index >= size)
         {
             throw new ImIndexOutOfBoundsException("the size of the collection is " + size + " but " + argumentName
-                                                          + " was " + index);
+                    + " was " + index);
         }
     }
 
@@ -64,7 +63,7 @@ public class ImIndexOutOfBoundsException extends RuntimeException
         if ((index < min) || (index > max))
         {
             throw new ImIndexOutOfBoundsException(argumentName + " should be in the range [" + min + ", " + max
-                                                          + "]  but was " + index);
+                    + "]  but was " + index);
         }
     }
 }
