@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<title>UserCode</title>
+<title>MaybeHasNothing</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="declaration: package: dev.javafp.ex, class: UserCode">
+<meta name="description" content="declaration: package: dev.javafp.ex, class: MaybeHasNothing">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../script-dir/jquery-ui.min.css" title="Style">
@@ -64,14 +64,14 @@ loadScripts(document, 'script');</script>
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">dev.javafp.ex</a></div>
-<h1 title="Class UserCode" class="title">Class UserCode</h1>
+<h1 title="Class MaybeHasNothing" class="title">Class MaybeHasNothing</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Throwable.html" title="class or interface in java.lang" class="external-link">java.lang.Throwable</a>
 <div class="inheritance"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">java.lang.Exception</a>
 <div class="inheritance"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html" title="class or interface in java.lang" class="external-link">java.lang.RuntimeException</a>
 <div class="inheritance"><a href="ImException.html" title="class in dev.javafp.ex">dev.javafp.ex.ImException</a>
-<div class="inheritance">dev.javafp.ex.UserCode</div>
+<div class="inheritance">dev.javafp.ex.MaybeHasNothing</div>
 </div>
 </div>
 </div>
@@ -83,13 +83,18 @@ loadScripts(document, 'script');</script>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">UserCode</span>
+<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">MaybeHasNothing</span>
 <span class="extends-implements">extends <a href="ImException.html" title="class in dev.javafp.ex">ImException</a></span></div>
+<div class="block"><p> Thrown when you try to get the value of an <a href="../util/ImMaybe.html" title="class in dev.javafp.util"><code>ImMaybe</code></a> but it has/is
+ <code>Nothing</code>
+ .
+
+ <p> Thrown (for example) in <a href="../util/ImMaybe.html#get()"><code>ImMaybe.get()</code></a></div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
 <ul class="see-list">
-<li><a href="../../../serialized-form.html#dev.javafp.ex.UserCode">Serialized Form</a></li>
+<li><a href="../../../serialized-form.html#dev.javafp.ex.MaybeHasNothing">Serialized Form</a></li>
 </ul>
 </dd>
 </dl>
@@ -104,7 +109,7 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.RuntimeException)" class="member-name-link">UserCode</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html" title="class or interface in java.lang" class="external-link">RuntimeException</a>&nbsp;e)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String)" class="member-name-link">MaybeHasNothing</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
@@ -131,9 +136,9 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.RuntimeException)">
-<h3>UserCode</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">UserCode</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html" title="class or interface in java.lang" class="external-link">RuntimeException</a>&nbsp;e)</span></div>
+<section class="detail" id="&lt;init&gt;(java.lang.String)">
+<h3>MaybeHasNothing</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">MaybeHasNothing</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message)</span></div>
 </section>
 </li>
 </ul>

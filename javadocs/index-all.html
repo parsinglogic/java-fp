@@ -155,14 +155,6 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/util/ExecutorWithExceptions.html#afterExecute(java.lang.Runnable,java.lang.Throwable)" class="member-name-link">afterExecute(Runnable, Throwable)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ExecutorWithExceptions.html" title="class in dev.javafp.util">ExecutorWithExceptions</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="dev/javafp/ex/AfterKeyMissing.html" class="type-name-link" title="class in dev.javafp.ex">AfterKeyMissing</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/ex/AfterKeyMissing.html#%3Cinit%3E(KEY,LABEL,KEY)" class="member-name-link">AfterKeyMissing(KEY, LABEL, KEY)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/AfterKeyMissing.html" title="class in dev.javafp.ex">AfterKeyMissing</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/ex/AfterParentMissing.html" class="type-name-link" title="class in dev.javafp.ex">AfterParentMissing</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/ex/AfterParentMissing.html#%3Cinit%3E(KEY)" class="member-name-link">AfterParentMissing(KEY)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/AfterParentMissing.html" title="class in dev.javafp.ex">AfterParentMissing</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/lst/ImList.html#all(dev.javafp.func.Fn)" class="member-name-link">all(Fn&lt;A, Boolean&gt;)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> <code>true</code>
@@ -911,10 +903,6 @@ loadScripts(document, 'script');</script>
  <code>pred</code>
   "removed"</div>
 </dd>
-<dt><a href="dev/javafp/ex/DuplicateChoiceItem.html" class="type-name-link" title="class in dev.javafp.ex">DuplicateChoiceItem</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/ex/DuplicateChoiceItem.html#%3Cinit%3E(java.lang.String)" class="member-name-link">DuplicateChoiceItem(String)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/DuplicateChoiceItem.html" title="class in dev.javafp.ex">DuplicateChoiceItem</a></dt>
-<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
@@ -1333,7 +1321,11 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/ImMaybe.html#flatMap(dev.javafp.func.Fn)" class="member-name-link">flatMap(Fn&lt;T, ImMaybe&lt;U&gt;&gt;)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/ex/FlatMapFunctionReturnedNull.html" class="type-name-link" title="class in dev.javafp.ex">FlatMapFunctionReturnedNull</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Thrown when a function used in a flatMap operation returned
+ <code>null</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/ex/FlatMapFunctionReturnedNull.html#%3Cinit%3E(T)" class="member-name-link">FlatMapFunctionReturnedNull(T)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/FlatMapFunctionReturnedNull.html" title="class in dev.javafp.ex">FlatMapFunctionReturnedNull</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Mixer.html#flatMapMixOver(dev.javafp.lst.ImList,dev.javafp.lst.ImList)" class="member-name-link">flatMapMixOver(ImList&lt;T&gt;, ImList&lt;ImList&lt;T&gt;&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Mixer.html" title="class in dev.javafp.util">Mixer</a></dt>
@@ -1520,6 +1512,12 @@ loadScripts(document, 'script');</script>
 <div class="block"> The list created by mapping ImPair::fst ofer
  <code>ps</code></div>
 </dd>
+<dt><a href="dev/javafp/ex/FunctionNotAllowedOnEmptyList.html" class="type-name-link" title="class in dev.javafp.ex">FunctionNotAllowedOnEmptyList</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
+<dd>
+<div class="block"> Thrown when you try to invoke certain "accessor" functions on an empty list.</div>
+</dd>
+<dt><a href="dev/javafp/ex/FunctionNotAllowedOnEmptyList.html#%3Cinit%3E()" class="member-name-link">FunctionNotAllowedOnEmptyList()</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/FunctionNotAllowedOnEmptyList.html" title="class in dev.javafp.ex">FunctionNotAllowedOnEmptyList</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
@@ -2556,10 +2554,6 @@ loadScripts(document, 'script');</script>
 <div class="block"> A
  wrapper around a value that might be missing.</div>
 </dd>
-<dt><a href="dev/javafp/ex/ImNotAllowedOnEmptyList.html" class="type-name-link" title="class in dev.javafp.ex">ImNotAllowedOnEmptyList</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/ex/ImNotAllowedOnEmptyList.html#%3Cinit%3E()" class="member-name-link">ImNotAllowedOnEmptyList()</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ImNotAllowedOnEmptyList.html" title="class in dev.javafp.ex">ImNotAllowedOnEmptyList</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/tuple/ImPair.html" class="type-name-link" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="dev/javafp/tuple/ImPair.html" title="type parameter in ImPair">U</a>,<wbr><a href="dev/javafp/tuple/ImPair.html" title="type parameter in ImPair">V</a>&gt; - Class in <a href="dev/javafp/tuple/package-summary.html">dev.javafp.tuple</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/tuple/ImPair.html#%3Cinit%3E(U,V)" class="member-name-link">ImPair(U, V)</a> - Constructor for class dev.javafp.tuple.<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a></dt>
@@ -3087,7 +3081,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/set/ImMap.Entry.html#key" class="member-name-link">key</a> - Variable in class dev.javafp.set.<a href="dev/javafp/set/ImMap.Entry.html" title="class in dev.javafp.set">ImMap.Entry</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/ex/KeyExists.html" class="type-name-link" title="class in dev.javafp.ex">KeyExists</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Thrown when a key in a Graph is expected to <strong>not</strong> exist - but it does.</div>
+</dd>
 <dt><a href="dev/javafp/ex/KeyExists.html#%3Cinit%3E(java.lang.Object)" class="member-name-link">KeyExists(Object)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/KeyExists.html" title="class in dev.javafp.ex">KeyExists</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/ex/KeyIsNull.html" class="type-name-link" title="class in dev.javafp.ex">KeyIsNull</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
@@ -3103,6 +3099,8 @@ loadScripts(document, 'script');</script>
 <div class="block"> Thrown when a key is not found in a Graph</div>
 </dd>
 <dt><a href="dev/javafp/ex/KeyMissing.html#%3Cinit%3E(java.lang.Object)" class="member-name-link">KeyMissing(Object)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/KeyMissing.html" title="class in dev.javafp.ex">KeyMissing</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="dev/javafp/ex/KeyMissing.html#%3Cinit%3E(KEY,LABEL,KEY)" class="member-name-link">KeyMissing(KEY, LABEL, KEY)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/KeyMissing.html" title="class in dev.javafp.ex">KeyMissing</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#keys()" class="member-name-link">keys()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>&nbsp;</dd>
@@ -3329,12 +3327,22 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/ex/MaybeCannotHaveANullValueException.html#%3Cinit%3E()" class="member-name-link">MaybeCannotHaveANullValueException()</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/MaybeCannotHaveANullValueException.html" title="class in dev.javafp.ex">MaybeCannotHaveANullValueException</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="dev/javafp/ex/MaybeHasNothing.html" class="type-name-link" title="class in dev.javafp.ex">MaybeHasNothing</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
+<dd>
+<div class="block"> Thrown when you try to get the value of an <a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util"><code>ImMaybe</code></a> but it has/is
+ <code>Nothing</code>
+ .</div>
+</dd>
+<dt><a href="dev/javafp/ex/MaybeHasNothing.html#%3Cinit%3E(java.lang.String)" class="member-name-link">MaybeHasNothing(String)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/MaybeHasNothing.html" title="class in dev.javafp.ex">MaybeHasNothing</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/tree/ImTree.html#merge(dev.javafp.tree.ImTree,dev.javafp.tree.ImTree)" class="member-name-link">merge(ImTree&lt;A&gt;, ImTree&lt;A&gt;)</a> - Static method in class dev.javafp.tree.<a href="dev/javafp/tree/ImTree.html" title="class in dev.javafp.tree">ImTree</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/net/ApiRequest.html#method" class="member-name-link">method</a> - Variable in class dev.javafp.net.<a href="dev/javafp/net/ApiRequest.html" title="class in dev.javafp.net">ApiRequest</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/ex/MethodNotImplemented.html" class="type-name-link" title="class in dev.javafp.ex">MethodNotImplemented</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Placeholder exception - thrown when a method/function is invoked that does not have a useful implementation.</div>
+</dd>
 <dt><a href="dev/javafp/ex/MethodNotImplemented.html#%3Cinit%3E()" class="member-name-link">MethodNotImplemented()</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/MethodNotImplemented.html" title="class in dev.javafp.ex">MethodNotImplemented</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Point.html#mid(dev.javafp.geom.Point,dev.javafp.geom.Point)" class="member-name-link">mid(Point, Point)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Point.html" title="class in dev.javafp.geom">Point</a></dt>
@@ -3569,10 +3577,6 @@ loadScripts(document, 'script');</script>
  <code>f</code></div>
 </dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#nothing()" class="member-name-link">nothing()</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/ex/NothingThereException.html" class="type-name-link" title="class in dev.javafp.ex">NothingThereException</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/ex/NothingThereException.html#%3Cinit%3E(java.lang.String)" class="member-name-link">NothingThereException(String)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/NothingThereException.html" title="class in dev.javafp.ex">NothingThereException</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/ex/NotNullValue.html" class="type-name-link" title="class in dev.javafp.ex">NotNullValue</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
 <dd>
@@ -5481,11 +5485,15 @@ loadScripts(document, 'script');</script>
   columns.</div>
 </dd>
 <dt><a href="dev/javafp/ex/TransposeColsError.html" class="type-name-link" title="class in dev.javafp.ex">TransposeColsError</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Thrown when a "matrix" - ie a list of lists has an element (ie a list) that has a different size from the specified number of columns.</div>
+</dd>
 <dt><a href="dev/javafp/ex/TransposeColsError.html#%3Cinit%3E(int,java.lang.Object)" class="member-name-link">TransposeColsError(int, Object)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/TransposeColsError.html" title="class in dev.javafp.ex">TransposeColsError</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/ex/TransposeRowsError.html" class="type-name-link" title="class in dev.javafp.ex">TransposeRowsError</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Thrown when a "matrix" - ie a list of lists has an element (ie a list) that has a different size from the specified number of rows.</div>
+</dd>
 <dt><a href="dev/javafp/ex/TransposeRowsError.html#%3Cinit%3E(int,int)" class="member-name-link">TransposeRowsError(int, int)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/TransposeRowsError.html" title="class in dev.javafp.ex">TransposeRowsError</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/TextUtils.html#trimRight(java.lang.String)" class="member-name-link">trimRight(String)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/TextUtils.html" title="class in dev.javafp.util">TextUtils</a></dt>
@@ -5613,10 +5621,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/rand/RandomString.html#upper" class="member-name-link">upper</a> - Static variable in class dev.javafp.rand.<a href="dev/javafp/rand/RandomString.html" title="class in dev.javafp.rand">RandomString</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/net/ApiRequest.html#url" class="member-name-link">url</a> - Variable in class dev.javafp.net.<a href="dev/javafp/net/ApiRequest.html" title="class in dev.javafp.net">ApiRequest</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/ex/UserCode.html" class="type-name-link" title="class in dev.javafp.ex">UserCode</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/ex/UserCode.html#%3Cinit%3E(java.lang.RuntimeException)" class="member-name-link">UserCode(RuntimeException)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/UserCode.html" title="class in dev.javafp.ex">UserCode</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Util.html" class="type-name-link" title="class in dev.javafp.util">Util</a> - Class in <a href="dev/javafp/util/package-summary.html">dev.javafp.util</a></dt>
 <dd>
