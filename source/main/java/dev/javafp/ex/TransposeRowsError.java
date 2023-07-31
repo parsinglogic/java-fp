@@ -7,6 +7,13 @@
 
 package dev.javafp.ex;
 
+import dev.javafp.lst.ImList;
+
+/**
+ * <p> Thrown when a "matrix" - ie a list of lists has an element (ie a list) that has a different size from the specified number of rows.
+ *
+ * <p> Thrown (for example) in {@link dev.javafp.lst.ImList#transpose(ImList, int, int)}
+ */
 public class TransposeRowsError extends ImException
 {
 

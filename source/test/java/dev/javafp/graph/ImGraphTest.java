@@ -1,7 +1,7 @@
 package dev.javafp.graph;
 
 import dev.javafp.box.TopDownBox;
-import dev.javafp.ex.AfterKeyMissing;
+import dev.javafp.ex.KeyMissing;
 import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImRange;
 import dev.javafp.set.ImSet;
@@ -308,7 +308,7 @@ public class ImGraphTest
 
         var g1 = addNodes(g0, 1, 2, 3, 4, 5);
 
-        TestUtils.assertThrows(() -> g1.addArcAfter("child", 1, 4, 3), AfterKeyMissing.class,
+        TestUtils.assertThrows(() -> g1.addArcAfter("child", 1, 4, 3), KeyMissing.class,
                 "The arcs out from key 1 with label child do not contain key 3");
     }
 

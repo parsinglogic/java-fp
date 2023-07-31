@@ -7,6 +7,11 @@
 
 package dev.javafp.ex;
 
+/**
+ * <p> Thrown when a key in a Graph is expected to <strong>not</strong> exist - but it does.
+ *
+ * <p> Thrown (for example) in {@link dev.javafp.graph.ImGraph#addNode(Object, Object)}
+ */
 public class KeyExists extends ImException
 {
     public KeyExists(Object key)

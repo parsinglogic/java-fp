@@ -11,7 +11,7 @@ import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
 import dev.javafp.eq.Equals;
 import dev.javafp.ex.MaybeCannotHaveANullValueException;
-import dev.javafp.ex.NothingThereException;
+import dev.javafp.ex.MaybeHasNothing;
 import dev.javafp.func.Fn;
 import dev.javafp.func.FnConsumer;
 import dev.javafp.lst.ImList;
@@ -30,7 +30,7 @@ import java.util.Objects;
  */
 public class ImMaybe<T> extends ImValuesImpl
 {
-    
+
     private final T value;
 
     private static final LeafTextBox justBox = LeafTextBox.with("Just ");
@@ -71,7 +71,7 @@ public class ImMaybe<T> extends ImValuesImpl
     public T get()
     {
         if (value == null)
-            throw new NothingThereException("ImMaybe contains nothing");
+            throw new MaybeHasNothing("ImMaybe contains nothing");
         else
             return value;
     }

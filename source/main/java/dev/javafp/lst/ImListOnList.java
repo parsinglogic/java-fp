@@ -8,7 +8,7 @@
 package dev.javafp.lst;
 
 import dev.javafp.eq.Eq;
-import dev.javafp.ex.ImNotAllowedOnEmptyList;
+import dev.javafp.ex.FunctionNotAllowedOnEmptyList;
 import dev.javafp.ex.Throw;
 
 import java.lang.reflect.Array;
@@ -40,7 +40,7 @@ class ImListOnList<A> extends ImEagerList<A> implements Eq
      * {@code this}
      * .
      *
-     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     * Throws {@link FunctionNotAllowedOnEmptyList} if the list is empty.
      */
     @Override
     public A head()
@@ -51,7 +51,7 @@ class ImListOnList<A> extends ImEagerList<A> implements Eq
     /**
      * `this` without the first element.
      *
-     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     * Throws {@link FunctionNotAllowedOnEmptyList} if the list is empty.
      */
     @Override
     public ImList<A> tail()

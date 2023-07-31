@@ -14,7 +14,7 @@ import dev.javafp.box.LeftRightBox;
 import dev.javafp.box.TopDownBox;
 import dev.javafp.eq.Eq;
 import dev.javafp.eq.Equals;
-import dev.javafp.ex.ImNotAllowedOnEmptyList;
+import dev.javafp.ex.FunctionNotAllowedOnEmptyList;
 import dev.javafp.ex.InvalidArgument;
 import dev.javafp.ex.SizeOnInfiniteList;
 import dev.javafp.ex.Throw;
@@ -245,7 +245,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * {@code this}
      * .
      *
-     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     * Throws {@link FunctionNotAllowedOnEmptyList} if the list is empty.
      */
     A head();
 
@@ -254,7 +254,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * {@code this}
      * without the first element.
      *
-     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     * Throws {@link FunctionNotAllowedOnEmptyList} if the list is empty.
      */
     ImList<A> tail();
 

@@ -7,6 +7,9 @@
 
 package dev.javafp.ex;
 
+/**
+ * <p> Placeholder exception - thrown when a method/function is invoked that does not have a useful implementation.
+ */
 public class MethodNotImplemented extends ImException
 {
 

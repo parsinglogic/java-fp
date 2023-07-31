@@ -1,6 +1,6 @@
 package dev.javafp.lst;
 
-import dev.javafp.ex.ImNotAllowedOnEmptyList;
+import dev.javafp.ex.FunctionNotAllowedOnEmptyList;
 import dev.javafp.util.TestUtils;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -43,11 +43,11 @@ public class ImEmptyListTest extends TestCase
     @Test
     public void testNotAllowed()
     {
-        TestUtils.assertThrows(() -> ImList.on().at(1), ImNotAllowedOnEmptyList.class);
-        TestUtils.assertThrows(() -> ImList.on().put(1, 1), ImNotAllowedOnEmptyList.class);
-        TestUtils.assertThrows(() -> ImList.on().head(), ImNotAllowedOnEmptyList.class);
-        TestUtils.assertThrows(() -> ImList.on().tail(), ImNotAllowedOnEmptyList.class);
-        TestUtils.assertThrows(() -> ImList.on().last(), ImNotAllowedOnEmptyList.class);
+        TestUtils.assertThrows(() -> ImList.on().at(1), FunctionNotAllowedOnEmptyList.class);
+        TestUtils.assertThrows(() -> ImList.on().put(1, 1), FunctionNotAllowedOnEmptyList.class);
+        TestUtils.assertThrows(() -> ImList.on().head(), FunctionNotAllowedOnEmptyList.class);
+        TestUtils.assertThrows(() -> ImList.on().tail(), FunctionNotAllowedOnEmptyList.class);
+        TestUtils.assertThrows(() -> ImList.on().last(), FunctionNotAllowedOnEmptyList.class);
     }
 
     @Test

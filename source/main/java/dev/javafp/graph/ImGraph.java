@@ -10,7 +10,6 @@ package dev.javafp.graph;
 import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
 import dev.javafp.box.TopDownBox;
-import dev.javafp.ex.AfterKeyMissing;
 import dev.javafp.ex.KeyExists;
 import dev.javafp.ex.KeyIsNull;
 import dev.javafp.ex.KeyMissing;
@@ -202,7 +201,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
         if (!maybeOut.isPresent())
         {
-            throw new AfterKeyMissing(start, label, after);
+            throw new KeyMissing(start, label, after);
         }
         else
         {

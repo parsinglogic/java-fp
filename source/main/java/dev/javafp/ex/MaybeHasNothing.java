@@ -7,17 +7,19 @@
 
 package dev.javafp.ex;
 
-public class DuplicateChoiceItem extends ImException
+import dev.javafp.util.ImMaybe;
+
+/**
+ * <p> Thrown when you try to get the value of an {@link ImMaybe} but it has/is
+ * {@code Nothing}
+ * .
+ *
+ * <p> Thrown (for example) in {@link ImMaybe#get()}
+ */
+public class MaybeHasNothing extends ImException
 {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
-    public DuplicateChoiceItem(String name)
+    public MaybeHasNothing(String message)
     {
-        super(name);
+        super(message);
     }
-
 }

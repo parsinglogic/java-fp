@@ -8,7 +8,7 @@
 package dev.javafp.lst;
 
 import dev.javafp.eq.Eq;
-import dev.javafp.ex.ImNotAllowedOnEmptyList;
+import dev.javafp.ex.FunctionNotAllowedOnEmptyList;
 
 /**
  * <p> The classic functional list implementation.
@@ -40,7 +40,7 @@ class ImConsList<A> extends ImLazyList<A> implements Eq
      * {@code this}
      * .
      *
-     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     * Throws {@link FunctionNotAllowedOnEmptyList} if the list is empty.
      */
     public A head()
     {
@@ -50,7 +50,7 @@ class ImConsList<A> extends ImLazyList<A> implements Eq
     /**
      * `this` without the first element.
      *
-     * Throws {@link ImNotAllowedOnEmptyList} if the list is empty.
+     * Throws {@link FunctionNotAllowedOnEmptyList} if the list is empty.
      */
     public ImList<A> tail()
     {

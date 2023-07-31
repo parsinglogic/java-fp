@@ -19,4 +19,9 @@ public class KeyMissing extends ImException
     {
         super("key '" + key + "' does not exist in the graph");
     }
+
+    public <KEY, LABEL> KeyMissing(KEY start, LABEL label, KEY after)
+    {
+        super(String.format("The arcs out from key %s with label %s do not contain key %s", start, label, after));
+    }
 }

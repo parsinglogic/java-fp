@@ -9,7 +9,7 @@ package dev.javafp.lst;
 
 import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
-import dev.javafp.ex.ImNotAllowedOnEmptyList;
+import dev.javafp.ex.FunctionNotAllowedOnEmptyList;
 
 import java.util.ArrayList;
 
@@ -28,35 +28,35 @@ class ImEmptyList<A> extends ImLazyList<A>
      * {@code this}
      * .
      *
-     * <p>Throws {@link ImNotAllowedOnEmptyList} because this list is empty.
+     * <p>Throws {@link FunctionNotAllowedOnEmptyList} because this list is empty.
      */
     @Override
     public A head()
     {
-        throw new ImNotAllowedOnEmptyList();
+        throw new FunctionNotAllowedOnEmptyList();
     }
 
     /**
      * `this` without the first element.
      *
-     * Throws {@link ImNotAllowedOnEmptyList} because this list is empty.
+     * Throws {@link FunctionNotAllowedOnEmptyList} because this list is empty.
      */
     @Override
     public ImList<A> tail()
     {
-        throw new ImNotAllowedOnEmptyList();
+        throw new FunctionNotAllowedOnEmptyList();
     }
 
     @Override
     public A last()
     {
-        throw new ImNotAllowedOnEmptyList();
+        throw new FunctionNotAllowedOnEmptyList();
     }
 
     @Override
     public A at(int indexStartingAtOne)
     {
-        throw new ImNotAllowedOnEmptyList();
+        throw new FunctionNotAllowedOnEmptyList();
     }
 
     @Override
@@ -70,7 +70,7 @@ class ImEmptyList<A> extends ImLazyList<A>
      */
     public ImList<A> put(int indexStartingAtOne, A thingToPut)
     {
-        throw new ImNotAllowedOnEmptyList();
+        throw new FunctionNotAllowedOnEmptyList();
     }
 
     @Override

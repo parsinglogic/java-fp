@@ -7,6 +7,15 @@
 
 package dev.javafp.ex;
 
+import dev.javafp.func.Fn;
+
+/**
+ * <p> Thrown when a function used in a flatMap operation returned
+ * {@code null}
+ * .
+ *
+ * <p> Thrown (for example) in {@link dev.javafp.util.Chat#flatMap(Fn)}
+ */
 public class FlatMapFunctionReturnedNull extends ImException
 {
     public <T> FlatMapFunctionReturnedNull(T monad)

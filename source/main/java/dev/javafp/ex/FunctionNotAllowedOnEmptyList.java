@@ -7,10 +7,20 @@
 
 package dev.javafp.ex;
 
-public class UserCode extends ImException
+/**
+ * <p> Thrown when you try to invoke certain "accessor" functions on an empty list.
+ *
+ * <p> Thrown (for example) in {@link dev.javafp.lst.ImList#head()} on an empty list.
+ */
+public class FunctionNotAllowedOnEmptyList extends ImException
 {
-    public UserCode(RuntimeException e)
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    public FunctionNotAllowedOnEmptyList()
     {
-        super(e);
+        super("Function is not allowed on the empty list");
     }
 }
