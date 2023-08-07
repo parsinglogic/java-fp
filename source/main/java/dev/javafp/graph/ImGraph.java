@@ -10,6 +10,7 @@ package dev.javafp.graph;
 import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
 import dev.javafp.box.TopDownBox;
+import dev.javafp.eq.Equals;
 import dev.javafp.ex.KeyExists;
 import dev.javafp.ex.KeyIsNull;
 import dev.javafp.ex.KeyMissing;
@@ -25,6 +26,9 @@ import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TextUtils;
 import dev.javafp.val.ImValuesImpl;
 
+import static dev.javafp.graph.ImGraph.Dir.In;
+import static dev.javafp.graph.ImGraph.Dir.Out;
+
 /**
  * <p> A directed labelled graph. It can have cycles.
  * <p> Not all the nodes need to be connected.
@@ -34,7 +38,7 @@ import dev.javafp.val.ImValuesImpl;
  * <p> If node a is connected to node b via an arc labeled c
  * then we store the arc c in arcsOut and in arcsIn
  * <p> Graphs are immutable - each time you add a node or an arc between two nodes, a new graph is created.
- * <p> The show method returns a text representation of the graph in the form of an ascii art diagram.
+ * <p> The show method<p> Returns a text representation of the graph in the form of an ascii art diagram.
  *
  * <p> This is an example of a graph with arcs labelled art or mod and its ascii-art diagram
  *
@@ -58,13 +62,21 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
     private static ImGraph empty = new ImGraph<>(ImMap.empty(), ImMap.empty(), ImMap.empty());
 
+    /**
+     * The direction of an arc in a graph with respect to a node.
+     */
     public enum Dir
     {
-        In, Out
-    }
+        /**
+         * An arc in a graph has direction <em>in</em> to a node.
+         */
+        In,
 
-    public static Dir In = Dir.In;
-    public static Dir Out = Dir.Out;
+        /**
+         * An arc in a graph has direction <em>out</em> from a node.
+         */
+        Out
+    }
 
     protected ImGraph(ImMap<KEY, DATA> valueMap, ImMap<KEY, ImList<ImArc<KEY, LABEL>>> arcsOut, ImMap<KEY, ImList<ImArc<KEY, LABEL>>> arcsIn)
     {
@@ -90,18 +102,39 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         return new ImGraph<>(valueMap.removeAll(otherKeys), arcsOut.removeAll(otherKeys), arcsIn);
     }
 
+    /**
+     *
+     * The field values for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<Object> getValues()
     {
         return ImList.on(valueMap, arcsOut, arcsIn);
     }
 
+    /**
+     *
+     * The field names for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<String> getNames()
     {
         return ImList.on("valueMap", "arcsOut", "arcsIn");
     }
 
+    /**
+     * <p> Add a node with key
+     * {@code key}
+     *  with data
+     * {@code value}
+     * If a node with key
+     * {@code key}
+     * already exists then throw {@link KeyExists}
+     */
     public ImGraph<KEY, DATA, LABEL> addNode(KEY key, DATA value)
     {
         if (key == null)
@@ -112,11 +145,34 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
             return new ImGraph<>(valueMap.put(key, value), arcsOut, arcsIn);
     }
 
+    /**
+     * <p> Add a node with key
+     * {@code childKey}
+     *  and data
+     * {@code childValue}
+     * and add an arc with label
+     * {@code arcLabel}
+     * from the node with key
+     * {@code parentKey}
+     * to the new node
+     * If a node with key
+     * {@code key}
+     * already exists then return the original graph.
+     */
     public ImGraph<KEY, DATA, LABEL> addNodeToParent(LABEL arcLabel, KEY parentKey, KEY childKey, DATA childValue)
     {
         return addNodeIfMissing(childKey, childValue).addArc(arcLabel, parentKey, childKey);
     }
 
+    /**
+     * <p> Add a node with key
+     * {@code key}
+     *  with data
+     * {@code value}
+     * If a node with key
+     * {@code key}
+     * already exists then return the original graph.
+     */
     public ImGraph<KEY, DATA, LABEL> addNodeIfMissing(KEY key, DATA value)
     {
         return containsNodeWithKey(key)
@@ -124,16 +180,34 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
                : addNode(key, value);
     }
 
+    /**
+     * The singleton empty graph.
+     */
     public static <KEY, DATA, LABEL> ImGraph<KEY, DATA, LABEL> empty()
     {
         return Caster.cast(empty);
     }
 
+    /**
+     * <p> {@code true}
+     *  if the graph contains a node with key
+     * {@code key}
+     *
+     */
     public boolean containsNodeWithKey(KEY key)
     {
         return valueMap.get(key) != null;
     }
 
+    /**
+     * <p> Add an arc with label
+     * {@code label}
+     *  from
+     * {@code start}
+     *  to
+     * {@code end}
+     *
+     */
     public ImGraph<KEY, DATA, LABEL> addArc(LABEL label, KEY start, KEY end)
     {
         if (!containsNodeWithKey(start))
@@ -150,6 +224,16 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         return new ImGraph<>(valueMap, arcsOut.put(start, out), arcsIn.put(end, in));
     }
 
+    /**
+     * <p> Add an arc with label
+     * {@code label}
+     *  from
+     * {@code start}
+     *  to
+     * {@code end}
+     *  - adding it after all the existing arcs on the nodes
+     *
+     */
     public ImGraph<KEY, DATA, LABEL> addArcAsLast(LABEL label, KEY start, KEY end)
     {
         if (!containsNodeWithKey(start))
@@ -211,6 +295,18 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         }
     }
 
+    /**
+     * <p> Remove the arc with label
+     * {@code label}
+     *  from
+     * {@code start}
+     *  to
+     * {@code end}
+     *
+     * If one or more of the nodes do not exist then throw {@link KeyMissing}.
+     *
+     * If no such arc exists then return the original graph,
+     */
     public ImGraph<KEY, DATA, LABEL> removeArc(LABEL label, KEY start, KEY end)
     {
         // System.out.println("removeArc - label " + label + " " + start + " -> " + end);
@@ -227,12 +323,19 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         return new ImGraph<>(valueMap, arcsOut.put(start, out), arcsIn.put(end, in));
     }
 
+    /**
+     * <p> Remove the node with key
+     * {@code key}
+     *
+     * If the node is connected to another node then throw {@link NodeHasArcs}.
+     *
+     */
     public ImGraph<KEY, DATA, LABEL> removeNode(KEY key)
     {
         if (!containsNodeWithKey(key))
             throw new KeyMissing(key);
 
-        var connected = getConnected(Dir.In, key).append(getConnected(Dir.Out, key));
+        var connected = getConnected(In, key).append(getConnected(Out, key));
 
         if (connected.isNotEmpty())
         {
@@ -255,7 +358,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
     private ImMap<KEY, ImList<ImArc<KEY, LABEL>>> getMap(Dir dir)
     {
-        return dir == Dir.In
+        return dir == In
                ? arcsIn
                : arcsOut;
     }
@@ -270,21 +373,43 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     //        return arcsIn.getOrDefault(key, ImList.empty()).map(arc -> arc.start);
     //    }
 
+    /**
+     * The data value associated with the node with key
+     * {@code key}
+     */
     public DATA getValue(KEY key)
     {
         return valueMap.get(key);
     }
 
+    /**
+     * The nodes that have no incoming arcs.
+     *
+     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
+     */
     public ImList<KEY> roots()
     {
         return keys().filter(k -> getConnected(In, k).isEmpty());
     }
 
+    /**
+     * The nodes that have no outgoing arcs.
+     *
+     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
+     */
     public ImList<KEY> leaves()
     {
         return keys().filter(k -> getConnected(Out, k).isEmpty());
     }
 
+    /**
+     * {@code true}
+     * iff any of the nodes in the graph have cycles.
+     *
+     * A cycle is a path from a node to itself that can be traced by following any arc on a node in the
+     * direction
+     * {@code Out}
+     */
     public boolean hasCycle()
     {
         return roots().any(this::hasCycle);
@@ -303,49 +428,14 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
                : getConnected(Out, nodeKey).any(a -> hasCycle(set.add(nodeKey), a));
     }
 
-    //    /**
-    //     * Get the text box for a list of nodes (and the set of already seen nodes)
-    //     */
-    //    public ImPair<ImSet<KEY>, AbstractTextBox> getTree(ImSet<KEY> set, ImList<KEY> nodes)
-    //    {
-    //        // Each time we show a node and all its children we need to update the set of already seen nodes
-    //        ImPair<ImSet<KEY>, ImList<AbstractTextBox>> p = nodes.foldl(ImPair.on(set, ImList.on()), (z, a) -> show2(z, a));
-    //
-    //        return ImPair.on(p.fst, TopDownBox.withAllBoxes(p.snd.reverse()));
-    //    }
-    //
-    //    /**
-    //     * Given a set of already seen nodes and a list of text boxes, get the text box for a node, add it to
-    //     * the list of text boxes (and add to the set of already seen nodes)
-    //     */
-    //    private ImPair<ImSet<KEY>, ImList<AbstractTextBox>> show2(ImPair<ImSet<KEY>, ImList<AbstractTextBox>> z, KEY node)
-    //    {
-    //        return show(z.fst, node).map((i, j) -> ImPair.on(i, z.snd.push(j)));
-    //
-    //        //return ImPair.on(p.fst, z.snd.push(p.snd));
-    //    }
-    //
-    //    /**
-    //     * Get a text  box for node given that we have already displayed the nodes in `set`
-    //     */
-    //    public ImPair<ImSet<KEY>, AbstractTextBox> show(ImSet<KEY> set, ImPair<LABEL, KEY> labelKeyPair)
-    //    {
-    //        if (set.contains(node))
-    //        {
-    //            return ImPair.on(set, LeafTextBox.with("(" + node + ")"));
-    //        }
-    //        else
-    //        {
-    //            ImSet<KEY> set2 = set.adding(node);
-    //            LeafTextBox box = LeafTextBox.with("" + node);
-    //            ImList<KEY> kids = getConnected(Out, node);
-    //
-    //            return kids.isEmpty()
-    //                    ? ImPair.on(set2, box)
-    //                    : getTree(set2, kids).map((s, b) -> ImPair.on(s, box.above(b.indentBy(3))));
-    //        }
-    //    }
-
+    /**
+     * The text-box representation of the graph in an "ascii-art" form
+     *
+     * <p> This is an example of a graph with arcs labelled art or mod and its ascii-art diagram
+     *
+     *
+     * <p> </p><img src="{@docRoot}/dev/doc-files/graph-diagrams.png"  width=700/>
+     */
     public AbstractTextBox show()
     {
         ImList<ImPair<String, KEY>> pairs = roots().map(r -> ImPair.on("", r));
@@ -462,11 +552,21 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         return ImPair.on(setAndBox.fst, z.snd.push(setAndBox.snd));
     }
 
+    /**
+     * The graph that has the same nodes and arcs as the original but with each
+     * data value for each node transformed by
+     * {@code fn}
+     */
     public <NEWDATA> ImGraph<KEY, NEWDATA, LABEL> map(Fn<DATA, NEWDATA> fn)
     {
         return new ImGraph<>(valueMap.map(fn), arcsOut, arcsIn);
     }
 
+    /**
+     * A representation of the graph in <a href="https://graphviz.org/">GraphViz</a> format.
+     *
+     *
+     */
     public String getGraphVizGraph()
     {
 
@@ -483,11 +583,19 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         return TextUtils.join(ImList.join(head, nodes, tail), "\n");
     }
 
+    /**
+     *
+     * A list of all the keys in the graph
+     */
     public ImList<KEY> keys()
     {
         return valueMap.keys();
     }
 
+    /**
+     *
+     * A list of all the data values in the graph
+     */
     public ImList<DATA> values()
     {
         return valueMap.values();
@@ -495,7 +603,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
     private ImList<String> getGraphVizChunk(KEY nodeKey)
     {
-        ImList<ImPair<LABEL, KEY>> out = getPairs(Dir.Out, nodeKey);
+        ImList<ImPair<LABEL, KEY>> out = getPairs(Out, nodeKey);
 
         return out.isEmpty()
                ? ImList.on(TextUtils.quote(nodeKey) + ";")
@@ -523,17 +631,19 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
                : arcsIn;
     }
 
-    //------------------------------------------------------------------------------------
-
     /**
-     * <p> Get the closure of
+     * <p> Get the closure of node with key
      * {@code key}
-     *  not including
-     * {@code key}
-     *  in the direction
+     * in the direction
      * {@code dir}
-     *  chasing the arcs with label
+     * following arcs with label
      * {@code label}
+     *
+     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
+     *
+     * <p> The list will not include the key
+     * {@code key}
+     * unless that node is in a cycle - in which case it will contain it
      *
      */
     public ImList<KEY> getClosure(Dir dir, LABEL label, KEY key)
@@ -574,6 +684,8 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      *  that have the label
      * {@code label}
      *
+     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
+     *
      */
     public ImList<KEY> getConnected(Dir dir, LABEL label, KEY key)
     {
@@ -584,14 +696,18 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     //------------------------------------------------------------------------------------
 
     /**
-     * <p> Get the closure of
+     * <p> Get the closure of node with key
      * {@code key}
-     *  not including
-     * {@code key}
-     *  in the direction
+     * in the direction
      * {@code dir}
-     *  chasing the arcs with labels in the set
+     * following the arcs with labels in the set
      * {@code labels}
+     *
+     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
+     *
+     * <p> The list will not include the key
+     * {@code key}
+     * unless that node is in a cycle - in which case it will contain it
      *
      */
     public ImList<KEY> getClosure(Dir dir, ImSet<LABEL> labels, KEY key)
@@ -616,6 +732,8 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      *  that have a label contained in
      * {@code labels}
      *
+     *
+     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
      */
     public ImList<KEY> getConnected(Dir dir, ImSet<LABEL> labels, KEY key)
     {
@@ -647,13 +765,38 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     //------------------------------------------------------------------------------------
 
     /**
-     * <p> Get the closure of
+     *
+     * <p> Get the closure of node with key
      * {@code key}
-     *  (not including
-     * {@code key}
-     * ) in the direction
+     * in the direction
      * {@code dir}
-     *  chasing the arcs with any label
+     *  following all arcs
+     *
+     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
+     *
+     * <p> The list will not include the key
+     * {@code key}
+     * unless that node is in a cycle - in which case it will contain it
+     *
+     * <pre>{@code
+     * getClosure(Out, "a")
+     * }</pre>
+     * on the graph:
+     * <p> <img src="{@docRoot}/dev/doc-files/no-cycle.png"  width="200" />
+     * <p> will return the set:
+     * <pre>{@code
+     * {b, c}
+     * }</pre>
+     *
+     * <pre>{@code
+     * getClosure(Out, "a")
+     * }</pre>
+     * on the graph:
+     * <p> <img src="{@docRoot}/dev/doc-files/cycle.png"  width="200" />
+     * <p> will return the set:
+     * <pre>{@code
+     * {a, b, c}
+     * }</pre>
      *
      */
     public ImList<KEY> getClosure(Dir dir, KEY key)
@@ -671,12 +814,12 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     }
 
     /**
-     * <p> Get the keys that are connected to
+     * <p> Get the nodes that are connected to the node with key
      * {@code key}
-     *  by arcs in the direction
+     *  by any arcs in the direction
      * {@code dir}
-     *  - whatever labels they have
      *
+     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>..
      */
     public ImList<KEY> getConnected(Dir dir, KEY key)
     {
@@ -724,8 +867,22 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
                : getInOrderClosure(dir, labels, getConnected(dir, labels, key), found).push(key);
     }
 
+    /**
+     * The list of data values associated with the nodes whose keys are in
+     *
+     * {@code key}
+     *
+     * There might be repeated values in the list.
+     */
     public ImList<DATA> getValuesFromKeys(ImList<KEY> keys)
     {
         return keys.map(this::getValue);
+    }
+
+    public boolean eq(ImGraph<KEY, DATA, LABEL> other)
+    {
+        ImList<Boolean> all = keys().map(k -> Equals.isEqual(this.getConnected(Out, k), other.getConnected(Out, k)));
+
+        return ImList.and(all);
     }
 }

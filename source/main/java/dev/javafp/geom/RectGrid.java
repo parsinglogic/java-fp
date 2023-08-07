@@ -89,12 +89,24 @@ public class RectGrid extends ImValuesImpl
                 heights.at(yStartingAtOne));
     }
 
+    /**
+     *
+     * The field values for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<Object> getValues()
     {
         return ImList.on(xSpace, widths, ySpace, heights);
     }
 
+    /**
+     *
+     * The field names for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<String> getNames()
     {

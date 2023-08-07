@@ -37,12 +37,24 @@ public class ImEither<L, R> extends ImValuesImpl
                : f2.of(right);
     }
 
+    /**
+     *
+     * The field values for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<Object> getValues()
     {
         return ImList.on(left, right, isLeft);
     }
 
+    /**
+     *
+     * The field names for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<String> getNames()
     {

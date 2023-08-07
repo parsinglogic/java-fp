@@ -7,6 +7,7 @@ import dev.javafp.lst.ImRange;
 import dev.javafp.set.ImSet;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.util.TestUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static dev.javafp.graph.ImGraph.Dir.In;
@@ -40,8 +41,8 @@ public class ImGraphTest
         ImGraph<String, Integer, String> g4 = g3.addArc("arc1", "0", "1");
         assertConnected(g4, "arc1", "0", "1", 1);
 
-        assertEquals(ImList.on("1"), g4.getConnected(ImGraph.Out, "arc1", "0"));
-        assertEquals(ImList.on("0"), g4.getConnected(ImGraph.In, "arc1", "1"));
+        assertEquals(ImList.on("1"), g4.getConnected(Out, "arc1", "0"));
+        assertEquals(ImList.on("0"), g4.getConnected(In, "arc1", "1"));
 
         ImGraph<String, Integer, String> g5 = g4.addNodeToParent("arc2", "1", "2", 2);
         assertConnected(g5, "arc1", "0", "1", 1);
@@ -60,10 +61,10 @@ public class ImGraphTest
         // |                        |
         // |  -arc3->  3  -arc4->   |
 
-        TestUtils.assertSetsEqual("", ImList.on("1", "3"), g7.getConnected(ImGraph.Out, "0"));
-        TestUtils.assertSetsEqual("", ImList.on("1", "3"), g7.getConnected(ImGraph.In, "2"));
+        TestUtils.assertSetsEqual("", ImList.on("1", "3"), g7.getConnected(Out, "0"));
+        TestUtils.assertSetsEqual("", ImList.on("1", "3"), g7.getConnected(In, "2"));
 
-        //        assertEquals(ImList.on(k1), g4.get(ImGraph.In,k2));
+        //        assertEquals(ImList.on(k1), g4.get(In,k2));
         //
         //        ImGraph<String, String> g5 = g4.mutate(k1, a -> mutate(a));
     }
@@ -94,6 +95,24 @@ public class ImGraphTest
                 .addNodeToParent("art", "C", "z", "")
                 .addNodeToParent("art", "B", "z", "")
                 .addNodeToParent("art", "D", "y", "");
+    }
+
+    /**
+     * Create a graph like this:
+     *
+     *  <p> <img src="{@docRoot}/dev/doc-files/cycle.png" alt="rose-tree-a"  width="200" />
+     *
+     *              a
+     *             / \
+     *            c - b
+     */
+    private ImGraph<String, String, String> makeCycleGraph()
+    {
+        return ImGraph.<String, String, String>empty()
+                .addNode("a", "")
+                .addNodeToParent("-", "a", "b", "")
+                .addNodeToParent("-", "b", "c", "")
+                .addArc("-", "c", "a");
     }
 
     @Test
@@ -170,64 +189,75 @@ public class ImGraphTest
         assertConnected(g1, "art", "D", "y", "");
 
         // Check the outs
-        TestUtils.assertSetsEqual("", ImList.on("x", "C"), g1.getConnected(ImGraph.Out, "A"));
-        TestUtils.assertSetsEqual("", ImList.on("z", "C"), g1.getConnected(ImGraph.Out, "B"));
-        TestUtils.assertSetsEqual("", ImList.on("z", "D"), g1.getConnected(ImGraph.Out, "C"));
+        TestUtils.assertSetsEqual("", ImList.on("x", "C"), g1.getConnected(Out, "A"));
+        TestUtils.assertSetsEqual("", ImList.on("z", "C"), g1.getConnected(Out, "B"));
+        TestUtils.assertSetsEqual("", ImList.on("z", "D"), g1.getConnected(Out, "C"));
 
-        TestUtils.assertSetsEqual("", ImList.on("y"), g1.getConnected(ImGraph.Out, "D"));
+        TestUtils.assertSetsEqual("", ImList.on("y"), g1.getConnected(Out, "D"));
 
-        TestUtils.assertSetsEqual("", ImList.on(), g1.getConnected(ImGraph.Out, "x"));
-        TestUtils.assertSetsEqual("", ImList.on(), g1.getConnected(ImGraph.Out, "y"));
-        TestUtils.assertSetsEqual("", ImList.on(), g1.getConnected(ImGraph.Out, "z"));
+        TestUtils.assertSetsEqual("", ImList.on(), g1.getConnected(Out, "x"));
+        TestUtils.assertSetsEqual("", ImList.on(), g1.getConnected(Out, "y"));
+        TestUtils.assertSetsEqual("", ImList.on(), g1.getConnected(Out, "z"));
 
         // Check the ins
-        TestUtils.assertSetsEqual("", ImList.on(), g1.getConnected(ImGraph.In, "A"));
-        TestUtils.assertSetsEqual("", ImList.on(), g1.getConnected(ImGraph.In, "B"));
-        TestUtils.assertSetsEqual("", ImList.on("A", "B"), g1.getConnected(ImGraph.In, "C"));
-        TestUtils.assertSetsEqual("", ImList.on("C"), g1.getConnected(ImGraph.In, "D"));
+        TestUtils.assertSetsEqual("", ImList.on(), g1.getConnected(In, "A"));
+        TestUtils.assertSetsEqual("", ImList.on(), g1.getConnected(In, "B"));
+        TestUtils.assertSetsEqual("", ImList.on("A", "B"), g1.getConnected(In, "C"));
+        TestUtils.assertSetsEqual("", ImList.on("C"), g1.getConnected(In, "D"));
 
-        TestUtils.assertSetsEqual("", ImList.on("A"), g1.getConnected(ImGraph.In, "x"));
-        TestUtils.assertSetsEqual("", ImList.on("D"), g1.getConnected(ImGraph.In, "y"));
-        TestUtils.assertSetsEqual("", ImList.on("B", "C"), g1.getConnected(ImGraph.In, "z"));
+        TestUtils.assertSetsEqual("", ImList.on("A"), g1.getConnected(In, "x"));
+        TestUtils.assertSetsEqual("", ImList.on("D"), g1.getConnected(In, "y"));
+        TestUtils.assertSetsEqual("", ImList.on("B", "C"), g1.getConnected(In, "z"));
 
         // Check Closures - no labels
-        TestUtils.assertSetsEqual("", ImList.on("C", "D", "x", "y", "z"), g1.getClosure(ImGraph.Out, "A"));
-        TestUtils.assertSetsEqual("", ImList.on("C", "D", "y", "z"), g1.getClosure(ImGraph.Out, "B"));
-        TestUtils.assertSetsEqual("", ImList.on("D", "y", "z"), g1.getClosure(ImGraph.Out, "C"));
-        TestUtils.assertSetsEqual("", ImList.on("y"), g1.getClosure(ImGraph.Out, "D"));
+        TestUtils.assertSetsEqual("", ImList.on("C", "D", "x", "y", "z"), g1.getClosure(Out, "A"));
+        TestUtils.assertSetsEqual("", ImList.on("C", "D", "y", "z"), g1.getClosure(Out, "B"));
+        TestUtils.assertSetsEqual("", ImList.on("D", "y", "z"), g1.getClosure(Out, "C"));
+        TestUtils.assertSetsEqual("", ImList.on("y"), g1.getClosure(Out, "D"));
 
-        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(ImGraph.Out, "x"));
-        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(ImGraph.Out, "y"));
-        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(ImGraph.Out, "z"));
+        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(Out, "x"));
+        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(Out, "y"));
+        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(Out, "z"));
 
         // Check get with single labels
-        TestUtils.assertSetsEqual("", ImList.on("C"), g1.getConnected(ImGraph.Out, "mod", "A"));
-        TestUtils.assertSetsEqual("", ImList.on("x"), g1.getConnected(ImGraph.Out, "art", "A"));
+        TestUtils.assertSetsEqual("", ImList.on("C"), g1.getConnected(Out, "mod", "A"));
+        TestUtils.assertSetsEqual("", ImList.on("x"), g1.getConnected(Out, "art", "A"));
 
         // Check closures with single labels
-        TestUtils.assertSetsEqual("", ImList.on("C", "D"), g1.getClosure(ImGraph.Out, "mod", "A"));
-        TestUtils.assertSetsEqual("", ImList.on("C", "D"), g1.getClosure(ImGraph.Out, "mod", "B"));
-        TestUtils.assertSetsEqual("", ImList.on("D"), g1.getClosure(ImGraph.Out, "mod", "C"));
-        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(ImGraph.Out, "mod", "D"));
+        TestUtils.assertSetsEqual("", ImList.on("C", "D"), g1.getClosure(Out, "mod", "A"));
+        TestUtils.assertSetsEqual("", ImList.on("C", "D"), g1.getClosure(Out, "mod", "B"));
+        TestUtils.assertSetsEqual("", ImList.on("D"), g1.getClosure(Out, "mod", "C"));
+        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(Out, "mod", "D"));
 
         // Check closures with multiple labels
         ImSet<String> modAndArt = ImSet.on("mod", "art");
-        TestUtils.assertSetsEqual("", ImList.on("C", "D", "x", "y", "z"), g1.getClosure(ImGraph.Out, modAndArt, "A"));
-        TestUtils.assertSetsEqual("", ImList.on("C", "D", "y", "z"), g1.getClosure(ImGraph.Out, modAndArt, "B"));
-        TestUtils.assertSetsEqual("", ImList.on("D", "y", "z"), g1.getClosure(ImGraph.Out, modAndArt, "C"));
-        TestUtils.assertSetsEqual("", ImList.on("y"), g1.getClosure(ImGraph.Out, modAndArt, "D"));
+        TestUtils.assertSetsEqual("", ImList.on("C", "D", "x", "y", "z"), g1.getClosure(Out, modAndArt, "A"));
+        TestUtils.assertSetsEqual("", ImList.on("C", "D", "y", "z"), g1.getClosure(Out, modAndArt, "B"));
+        TestUtils.assertSetsEqual("", ImList.on("D", "y", "z"), g1.getClosure(Out, modAndArt, "C"));
+        TestUtils.assertSetsEqual("", ImList.on("y"), g1.getClosure(Out, modAndArt, "D"));
 
-        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(ImGraph.Out, modAndArt, "x"));
-        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(ImGraph.Out, modAndArt, "y"));
-        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(ImGraph.Out, modAndArt, "z"));
+        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(Out, modAndArt, "x"));
+        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(Out, modAndArt, "y"));
+        TestUtils.assertSetsEqual("", ImList.on(), g1.getClosure(Out, modAndArt, "z"));
 
         // Check closures going up
-        assertEquals("", ImList.on("A", "B", "C", "D"), g1.getClosure(ImGraph.In, "y"));
+        assertEquals("", ImList.on("A", "B", "C", "D"), g1.getClosure(In, "y"));
 
         // Check in order
-        assertEquals("", ImList.on("A", "C", "D", "y", "z", "x"), g1.getInOrderClosureOnSingleKey(ImGraph.Out, modAndArt, "A"));
-        assertEquals("", ImList.on("y", "D", "C", "A", "B"), g1.getInOrderClosureOnSingleKey(ImGraph.In, modAndArt, "y"));
-        assertEquals("", ImList.on("B", "A", "C", "D", "y", "z", "x"), g1.getInOrderClosure(ImGraph.Out, modAndArt, ImList.on("A", "B")));
+        assertEquals("", ImList.on("A", "C", "D", "y", "z", "x"), g1.getInOrderClosureOnSingleKey(Out, modAndArt, "A"));
+        assertEquals("", ImList.on("y", "D", "C", "A", "B"), g1.getInOrderClosureOnSingleKey(In, modAndArt, "y"));
+        assertEquals("", ImList.on("B", "A", "C", "D", "y", "z", "x"), g1.getInOrderClosure(Out, modAndArt, ImList.on("A", "B")));
+    }
+
+    @Test
+    public void testCycles()
+    {
+
+        ImGraph<String, String, String> g1 = makeCycleGraph();
+
+        // Check Closures - no labels
+        TestUtils.assertSetsEqual("", ImList.on("b", "c", "a"), g1.getClosure(Out, "a"));
+
     }
 
     @Test
@@ -276,10 +306,10 @@ public class ImGraphTest
 
         // Check in order
         ImSet<String> modAndArt = ImSet.on("mod", "art");
-        assertEquals("", ImList.on("A", "C", "D", "z", "x", "y"), g1.getInOrderClosureOnSingleKey(ImGraph.Out, modAndArt, "A"));
-        assertEquals("", ImList.on("y", "x", "D", "C", "A", "B"), g1.getInOrderClosureOnSingleKey(ImGraph.In, modAndArt, "y"));
-        assertEquals("", ImList.on("B", "A", "C", "D", "z", "x", "y"), g1.getInOrderClosure(ImGraph.Out, modAndArt, ImList.on("A", "B")));
-        assertEquals("", ImList.on("A", "C", "D", "z", "x", "y"), g1.getInOrderClosure(ImGraph.Out, modAndArt, ImList.on("A", "C", "z")));
+        assertEquals("", ImList.on("A", "C", "D", "z", "x", "y"), g1.getInOrderClosureOnSingleKey(Out, modAndArt, "A"));
+        assertEquals("", ImList.on("y", "x", "D", "C", "A", "B"), g1.getInOrderClosureOnSingleKey(In, modAndArt, "y"));
+        assertEquals("", ImList.on("B", "A", "C", "D", "z", "x", "y"), g1.getInOrderClosure(Out, modAndArt, ImList.on("A", "B")));
+        assertEquals("", ImList.on("A", "C", "D", "z", "x", "y"), g1.getInOrderClosure(Out, modAndArt, ImList.on("A", "C", "z")));
     }
 
     @Test
@@ -330,7 +360,7 @@ public class ImGraphTest
     {
         ImGraph<Integer, String, String> g = makeMultiplesGraph(30);
 
-        ImList<ImPair<Integer, ImList<ImPair<String, Integer>>>> pairs = g.keys().map(k -> ImPair.on(k, g.getPairs(ImGraph.Out, k)));
+        ImList<ImPair<Integer, ImList<ImPair<String, Integer>>>> pairs = g.keys().map(k -> ImPair.on(k, g.getPairs(Out, k)));
 
         String expected =
                 "(1, [])\n" +
@@ -373,7 +403,7 @@ public class ImGraphTest
     {
         ImGraph<Integer, String, String> g = makeMultiplesGraph(30);
 
-        ImList<ImPair<Integer, ImList<ImPair<String, Integer>>>> pairs = g.keys().map(k -> ImPair.on(k, g.getPairs(ImGraph.In, k)));
+        ImList<ImPair<Integer, ImList<ImPair<String, Integer>>>> pairs = g.keys().map(k -> ImPair.on(k, g.getPairs(In, k)));
 
         String expected =
                 "(1, [])\n" +
@@ -415,7 +445,7 @@ public class ImGraphTest
     {
         ImGraph<Integer, String, String> g = makeMultiplesGraph(4);
 
-        assertEquals(ImList.on(4), g.getConnected(ImGraph.Out, 2));
+        assertEquals(ImList.on(4), g.getConnected(Out, 2));
     }
 
     @Test
@@ -423,7 +453,7 @@ public class ImGraphTest
     {
         ImGraph<Integer, String, String> g = makeMultiplesGraph(4);
 
-        assertEquals(ImList.on(2), g.getConnected(ImGraph.In, 4));
+        assertEquals(ImList.on(2), g.getConnected(In, 4));
     }
 
     @Test
@@ -431,12 +461,12 @@ public class ImGraphTest
     {
         ImGraph<Integer, String, String> g = makeMultiplesGraph(30);
 
-        ImList<ImPair<Integer, ImList<ImPair<String, Integer>>>> pairs = g.keys().map(k -> ImPair.on(k, g.getPairs(ImGraph.Out, k)));
+        ImList<ImPair<Integer, ImList<ImPair<String, Integer>>>> pairs = g.keys().map(k -> ImPair.on(k, g.getPairs(Out, k)));
 
         ImGraph<Integer, String, String> newGraph = pairs.foldl(g, (gr, p) -> removeAllArcsOutFrom(gr, p));
 
         // assertEquals(expected, TopDownBox.withAll(pairs).toString());
-        ImList<ImPair<Integer, ImList<ImPair<String, Integer>>>> newPairs = newGraph.keys().map(k -> ImPair.on(k, newGraph.getPairs(ImGraph.Out, k)));
+        ImList<ImPair<Integer, ImList<ImPair<String, Integer>>>> newPairs = newGraph.keys().map(k -> ImPair.on(k, newGraph.getPairs(Out, k)));
 
         String expected =
                 "(1, [])\n" +
@@ -487,7 +517,7 @@ public class ImGraphTest
         ImRange.inclusive(2, 30).foreach(n ->
         {
             ImList<Integer> multiples = ImRange.step(2 * n, n).takeWhile(i -> i <= 30);
-            TestUtils.assertSameElements(multiples, g.getClosure(ImGraph.Out, n));
+            TestUtils.assertSameElements(multiples, g.getClosure(Out, n));
         });
     }
 
@@ -521,10 +551,48 @@ public class ImGraphTest
          *    |    |- 2 -> 12
          *    |    |       |- 2 -> (24)
          */
-        ImGraph<Integer, String, String> g2 = g.shrinkToInclusiveClosureOf(ImSet.on("2", "3", "4", "5"), ImList.on(6));
+        ImGraph<Integer, String, String> shrunk = g.shrinkToInclusiveClosureOf(ImSet.on("2", "3", "4", "5"), ImList.on(6));
+        ImGraph<Integer, String, String> g2 = shrunk;
+
+        say(shrunk.show());
 
         assertEquals(ImList.on(6, 12, 18, 24, 30), g2.keys());
         assertEquals(ImList.on(6), g2.roots());
+    }
+
+    @Ignore
+    @Test
+    public void testShrink2()
+    {
+        ImGraph<String, String, String> g = makeV();
+
+        say(g.show());
+
+        assertEquals(g, makeV2());
+
+        ImGraph<String, String, String> shrunk = g.shrinkToInclusiveClosureOf(ImSet.on("-"), ImList.on("a"));
+        ImGraph<String, String, String> g2 = shrunk;
+
+        say(shrunk.show());
+
+        assertEquals(g, shrunk);
+
+    }
+
+    @Ignore
+    @Test
+    public void testEquals()
+    {
+        ImGraph<String, String, String> g = makeV();
+
+        ImGraph<String, String, String> g2 = makeV2();
+
+        say(g.show());
+        say(g2.show());
+
+        assertTrue(g.eq(g));
+        assertTrue(g.eq(g2));
+
     }
 
     private ImGraph<Integer, String, String> makeMultiplesGraph(int n)
@@ -542,6 +610,36 @@ public class ImGraphTest
         return g;
     }
 
+    private ImGraph<String, String, String> makeV()
+    {
+
+        ImGraph<String, String, String> e = ImGraph.empty();
+        return e
+                .addNode("a", "")
+                .addNodeToParent("-", "a", "b", "")
+                .addNodeToParent("-", "a", "c", "")
+                .addNodeToParent("-", "b", "d", "")
+                .addNodeToParent("-", "b", "e", "")
+                .addNodeToParent("-", "c", "f", "")
+                .addArc("-", "c", "e");
+
+    }
+
+    private ImGraph<String, String, String> makeV2()
+    {
+
+        ImGraph<String, String, String> e = ImGraph.empty();
+        return e
+                .addNode("a", "")
+                .addNodeToParent("-", "a", "c", "")
+                .addNodeToParent("-", "a", "b", "")
+                .addNodeToParent("-", "b", "d", "")
+                .addNodeToParent("-", "c", "f", "")
+                .addNodeToParent("-", "c", "e", "")
+                .addArc("-", "b", "e");
+
+    }
+
     private ImGraph<Integer, String, String> addMultiples(ImGraph<Integer, String, String> g, int i, int size)
     {
         return addMultiples(g, i, 2, size);
@@ -557,8 +655,8 @@ public class ImGraphTest
     private <KEY, VALUE, LABEL> void assertConnected(ImGraph<KEY, VALUE, LABEL> graph, LABEL arcLabel, KEY parentKey, KEY childKey,
             VALUE childValue)
     {
-        assertTrue(graph.getConnected(ImGraph.Out, arcLabel, parentKey).contains(childKey));
-        assertTrue(graph.getConnected(ImGraph.In, arcLabel, childKey).contains(parentKey));
+        assertTrue(graph.getConnected(Out, arcLabel, parentKey).contains(childKey));
+        assertTrue(graph.getConnected(In, arcLabel, childKey).contains(parentKey));
         assertEquals(childValue, graph.getValue(childKey));
     }
 }

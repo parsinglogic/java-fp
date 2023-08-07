@@ -42,12 +42,24 @@ public class ImQuintet<A, B, C, D, E> extends ImValuesImpl
         return as.zip(bs).zip(cs).zip(ds).zip(es).map(p -> ImQuintet.on(p.fst.fst.fst.fst, p.fst.fst.fst.snd, p.fst.fst.snd, p.fst.snd, p.snd));
     }
 
+    /**
+     *
+     * The field values for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<Object> getValues()
     {
         return ImList.on(e1, e2, e3, e4, e5);
     }
 
+    /**
+     *
+     * The field names for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<String> getNames()
     {

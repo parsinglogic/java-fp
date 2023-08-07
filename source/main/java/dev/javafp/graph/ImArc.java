@@ -16,8 +16,19 @@ import dev.javafp.val.ImValuesImpl;
 public class ImArc<KEY, LABEL> extends ImValuesImpl
 {
 
+    /**
+     * The label of the arc
+     */
     public final LABEL label;
+
+    /**
+     * The key of the node where the arc starts.
+     */
     public final KEY start;
+
+    /**
+     * The key of the node where the arc starts.
+     */
     public final KEY end;
 
     ImArc(LABEL label, KEY start, KEY end)
@@ -28,17 +39,37 @@ public class ImArc<KEY, LABEL> extends ImValuesImpl
 
     }
 
+    /**
+     * Create an arc with label
+     * {@code label}
+     * , starting at node with key
+     * {@code start}
+     *  and ending at node with key
+     * {@code end}
+     */
     public static <KEY, LABEL> ImArc<KEY, LABEL> on(LABEL label, KEY start, KEY end)
     {
         return new ImArc<KEY, LABEL>(label, start, end);
     }
 
+    /**
+     *
+     * The field values for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<Object> getValues()
     {
         return ImList.on(label, start, end);
     }
 
+    /**
+     *
+     * The field names for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<String> getNames()
     {

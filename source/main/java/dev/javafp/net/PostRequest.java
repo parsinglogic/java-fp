@@ -92,12 +92,24 @@ public class PostRequest extends ApiRequest
         return new PostRequest(url, followRedirects, requestHeaders, queryParameters.push(ImPair.on(urlEncode(key), urlEncode(value))), bodyString);
     }
 
+    /**
+     *
+     * The field values for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<Object> getValues()
     {
         return super.getValues().appendElement(bodyString);
     }
 
+    /**
+     *
+     * The field names for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<String> getNames()
     {

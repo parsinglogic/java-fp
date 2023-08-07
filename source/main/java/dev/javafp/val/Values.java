@@ -68,7 +68,13 @@ import dev.javafp.lst.ImList;
  */
 public interface Values extends HasTextBox
 {
-    // Return the field values for this object including fields from superclasses
+
+    /**
+     *
+     * The field values for this object including fields from superclasses.
+     *
+     * See {@link Values}
+     */
     ImList<Object> getValues();
 
     ImList<String> getNames();

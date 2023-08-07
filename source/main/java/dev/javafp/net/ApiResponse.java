@@ -50,12 +50,24 @@ public class ApiResponse extends ImValuesImpl
         return new ApiResponse(status, statusMessage, ImMap.fromPairs(pairs.filter(p -> p.fst != null)), body);
     }
 
+    /**
+     *
+     * The field values for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<Object> getValues()
     {
         return ImList.on(status, statusMessage, headers, body);
     }
 
+    /**
+     *
+     * The field names for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<String> getNames()
     {

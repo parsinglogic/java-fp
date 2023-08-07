@@ -77,25 +77,56 @@ public class FileUtil
     private static List<PosixFilePermission> WRITES = Arrays.asList(OWNER_WRITE, GROUP_WRITE, OTHERS_WRITE);
     private static List<PosixFilePermission> READS = Arrays.asList(OWNER_READ, GROUP_READ, OTHERS_READ);
 
+    /**
+     * Used as an argument to various file utility functions
+     */
     public enum ExistsEnum
     {
-        Exists, Missing
+        /**
+         * Expect a file to exist
+         */
+        Exists,
+
+        /**
+         * Expect a file to not exist
+         */
+        Missing
     }
 
     public static FileTypeEnum Directory = FileTypeEnum.Directory;
     public static FileTypeEnum File = FileTypeEnum.File;
 
+    /**
+     * Used as an argument to various file utility functions
+     */
     public enum FileTypeEnum
     {
-        Directory, File
+        /**
+         * Expect a file to be a directory
+         */
+        Directory,
+        /**
+         * Expect a file to not be a directory
+         */
+        File
     }
 
     public static FileAccessEnum Readable = FileAccessEnum.Readable;
     public static FileAccessEnum Writable = FileAccessEnum.Writable;
 
+    /**
+     * Used as an argument to various file utility functions
+     */
     public enum FileAccessEnum
     {
-        Readable, Writable
+        /**
+         * Expect a file to be readable
+         */
+        Readable,
+        /**
+         * Expect a file to be writable
+         */
+        Writable
     }
 
     public static Chat<Path> checkPathName(String pathName, ExistsEnum exists, FileAccessEnum fileAccess, FileTypeEnum fileType)

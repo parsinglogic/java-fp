@@ -103,7 +103,14 @@ loadScripts(document, 'script');</script>
   in order.</div>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#addArc(LABEL,KEY,KEY)" class="member-name-link">addArc(LABEL, KEY, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Add an arc with label
+ <code>label</code>
+  from
+ <code>start</code>
+  to
+ <code>end</code></div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#addArcAfter(LABEL,KEY,KEY,KEY)" class="member-name-link">addArcAfter(LABEL, KEY, KEY, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
 <div class="block"> Add an arc with label
@@ -120,7 +127,15 @@ loadScripts(document, 'script');</script>
  <code>label</code></div>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#addArcAsLast(LABEL,KEY,KEY)" class="member-name-link">addArcAsLast(LABEL, KEY, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Add an arc with label
+ <code>label</code>
+  from
+ <code>start</code>
+  to
+ <code>end</code>
+  - adding it after all the existing arcs on the nodes</div>
+</dd>
 <dt><a href="dev/javafp/util/CommandLineArgs.html#addCommand(java.lang.String)" class="member-name-link">addCommand(String)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/CommandLineArgs.html" title="class in dev.javafp.util">CommandLineArgs</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/net/GetRequest.html#addHeader(java.lang.String,java.lang.String)" class="member-name-link">addHeader(String, String)</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/GetRequest.html" title="class in dev.javafp.net">GetRequest</a></dt>
@@ -128,11 +143,40 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/net/PostRequest.html#addHeader(java.lang.String,java.lang.String)" class="member-name-link">addHeader(String, String)</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/PostRequest.html" title="class in dev.javafp.net">PostRequest</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#addNode(KEY,DATA)" class="member-name-link">addNode(KEY, DATA)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Add a node with key
+ <code>key</code>
+  with data
+ <code>value</code>
+ If a node with key
+ <code>key</code>
+ already exists then throw <a href="dev/javafp/ex/KeyExists.html" title="class in dev.javafp.ex"><code>KeyExists</code></a></div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#addNodeIfMissing(KEY,DATA)" class="member-name-link">addNodeIfMissing(KEY, DATA)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Add a node with key
+ <code>key</code>
+  with data
+ <code>value</code>
+ If a node with key
+ <code>key</code>
+ already exists then return the original graph.</div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#addNodeToParent(LABEL,KEY,KEY,DATA)" class="member-name-link">addNodeToParent(LABEL, KEY, KEY, DATA)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Add a node with key
+ <code>childKey</code>
+  and data
+ <code>childValue</code>
+ and add an arc with label
+ <code>arcLabel</code>
+ from the node with key
+ <code>parentKey</code>
+ to the new node
+ If a node with key
+ <code>key</code>
+ already exists then return the original graph.</div>
+</dd>
 <dt><a href="dev/javafp/util/CommandLineArgs.html#addOption(java.lang.String)" class="member-name-link">addOption(String)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/CommandLineArgs.html" title="class in dev.javafp.util">CommandLineArgs</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/CommandLineArgs.html#addOption(java.lang.String,java.lang.String)" class="member-name-link">addOption(String, String)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/CommandLineArgs.html" title="class in dev.javafp.util">CommandLineArgs</a></dt>
@@ -702,7 +746,11 @@ loadScripts(document, 'script');</script>
   otherwise</div>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#containsNodeWithKey(KEY)" class="member-name-link">containsNodeWithKey(KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> <code>true</code>
+  if the graph contains a node with key
+ <code>key</code></div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#copy(java.nio.file.Path,java.nio.file.Path)" class="member-name-link">copy(Path, Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>
 <div class="block"> Copy
@@ -856,7 +904,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/rand/RandomString.html#digits" class="member-name-link">digits</a> - Static variable in class dev.javafp.rand.<a href="dev/javafp/rand/RandomString.html" title="class in dev.javafp.rand">RandomString</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.FileTypeEnum.html#Directory" class="member-name-link">Directory</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Expect a file to be a directory</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#Directory" class="member-name-link">Directory</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/func/FnBlock.html#doit()" class="member-name-link">doit()</a> - Method in interface dev.javafp.func.<a href="dev/javafp/func/FnBlock.html" title="interface in dev.javafp.func">FnBlock</a></dt>
@@ -954,7 +1004,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/lst/ImList.html#empty" class="member-name-link">empty</a> - Static variable in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#empty()" class="member-name-link">empty()</a> - Static method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The singleton empty graph.</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#empty()" class="member-name-link">empty()</a> - Static method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> The singleton <code>ImEmptyList</code></div>
@@ -994,8 +1046,12 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/Base64Util.html#encode64(java.lang.String)" class="member-name-link">encode64(String)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Base64Util.html" title="class in dev.javafp.util">Base64Util</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImArc.html#end" class="member-name-link">end</a> - Variable in class dev.javafp.graph.<a href="dev/javafp/graph/ImArc.html" title="class in dev.javafp.graph">ImArc</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The key of the node where the arc starts.</div>
+</dd>
 <dt><a href="dev/javafp/set/ImMap.html#entrySet" class="member-name-link">entrySet</a> - Variable in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="dev/javafp/graph/ImGraph.html#eq(dev.javafp.graph.ImGraph)" class="member-name-link">eq(ImGraph&lt;KEY, DATA, LABEL&gt;)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/eq/Eq.html" class="type-name-link" title="interface in dev.javafp.eq">Eq</a> - Interface in <a href="dev/javafp/eq/package-summary.html">dev.javafp.eq</a></dt>
 <dd>
@@ -1129,7 +1185,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/file/FileUtil.html#exists(java.nio.file.Path)" class="member-name-link">exists(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.ExistsEnum.html#Exists" class="member-name-link">Exists</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Expect a file to exist</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#Exists" class="member-name-link">Exists</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#expandBy(double)" class="member-name-link">expandBy(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
@@ -1161,7 +1219,9 @@ loadScripts(document, 'script');</script>
  where Foo.bar is the class of the exception specified.</div>
 </dd>
 <dt><a href="dev/javafp/file/FileUtil.FileTypeEnum.html#File" class="member-name-link">File</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Expect a file to not be a directory</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#File" class="member-name-link">File</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/ex/FileProblem.html" class="type-name-link" title="class in dev.javafp.ex">FileProblem</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
@@ -1177,11 +1237,17 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/file/FileUtil.html#%3Cinit%3E()" class="member-name-link">FileUtil()</a> - Constructor for class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.ExistsEnum.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a> - Enum Class in <a href="dev/javafp/file/package-summary.html">dev.javafp.file</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Used as an argument to various file utility functions</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.FileAccessEnum.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a> - Enum Class in <a href="dev/javafp/file/package-summary.html">dev.javafp.file</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Used as an argument to various file utility functions</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.FileTypeEnum.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a> - Enum Class in <a href="dev/javafp/file/package-summary.html">dev.javafp.file</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Used as an argument to various file utility functions</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#filter(dev.javafp.func.Fn)" class="member-name-link">filter(Fn&lt;A, Boolean&gt;)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> the
@@ -1614,34 +1680,28 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getClosure(dev.javafp.graph.ImGraph.Dir,dev.javafp.set.ImSet,KEY)" class="member-name-link">getClosure(ImGraph.Dir, ImSet&lt;LABEL&gt;, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
-<div class="block"> Get the closure of
+<div class="block"> Get the closure of node with key
  <code>key</code>
-  not including
- <code>key</code>
-  in the direction
+ in the direction
  <code>dir</code>
-  chasing the arcs with labels in the set
+ following the arcs with labels in the set
  <code>labels</code></div>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getClosure(dev.javafp.graph.ImGraph.Dir,KEY)" class="member-name-link">getClosure(ImGraph.Dir, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
-<div class="block"> Get the closure of
+<div class="block"> Get the closure of node with key
  <code>key</code>
-  (not including
- <code>key</code>
- ) in the direction
+ in the direction
  <code>dir</code>
-  chasing the arcs with any label</div>
+  following all arcs</div>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getClosure(dev.javafp.graph.ImGraph.Dir,LABEL,KEY)" class="member-name-link">getClosure(ImGraph.Dir, LABEL, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
-<div class="block"> Get the closure of
+<div class="block"> Get the closure of node with key
  <code>key</code>
-  not including
- <code>key</code>
-  in the direction
+ in the direction
  <code>dir</code>
-  chasing the arcs with label
+ following arcs with label
  <code>label</code></div>
 </dd>
 <dt><a href="dev/javafp/lst/ImList.html#getColumn(java.lang.String)" class="member-name-link">getColumn(String)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
@@ -1660,11 +1720,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getConnected(dev.javafp.graph.ImGraph.Dir,KEY)" class="member-name-link">getConnected(ImGraph.Dir, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
-<div class="block"> Get the keys that are connected to
+<div class="block"> Get the nodes that are connected to the node with key
  <code>key</code>
-  by arcs in the direction
- <code>dir</code>
-  - whatever labels they have</div>
+  by any arcs in the direction
+ <code>dir</code></div>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getConnected(dev.javafp.graph.ImGraph.Dir,LABEL,KEY)" class="member-name-link">getConnected(ImGraph.Dir, LABEL, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
@@ -1724,7 +1783,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/tree/ImTreeZipper.html#getFocus()" class="member-name-link">getFocus()</a> - Method in class dev.javafp.tree.<a href="dev/javafp/tree/ImTreeZipper.html" title="class in dev.javafp.tree">ImTreeZipper</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getGraphVizGraph()" class="member-name-link">getGraphVizGraph()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A representation of the graph in <a href="https://graphviz.org/">GraphViz</a> format.</div>
+</dd>
 <dt><a href="dev/javafp/box/AbstractTextBox.html#getHeight()" class="member-name-link">getHeight()</a> - Method in class dev.javafp.box.<a href="dev/javafp/box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#getHeight()" class="member-name-link">getHeight()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
@@ -1809,45 +1870,83 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/MapUtils.html#getMultiMap(dev.javafp.lst.ImList)" class="member-name-link">getMultiMap(ImList&lt;ImPair&lt;K, V&gt;&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/MapUtils.html" title="class in dev.javafp.util">MapUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Point.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Point.html" title="class in dev.javafp.geom">Point</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/geom/RectGrid.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/RectGrid.html" title="class in dev.javafp.geom">RectGrid</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/geom/TangentVector.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/TangentVector.html" title="class in dev.javafp.geom">TangentVector</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImArc.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImArc.html" title="class in dev.javafp.graph">ImArc</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/net/ApiRequest.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/ApiRequest.html" title="class in dev.javafp.net">ApiRequest</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/net/ApiResponse.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/ApiResponse.html" title="class in dev.javafp.net">ApiResponse</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/net/ImUrl.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/ImUrl.html" title="class in dev.javafp.net">ImUrl</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/net/PostRequest.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/PostRequest.html" title="class in dev.javafp.net">PostRequest</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/queue/ImQueue.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.queue.<a href="dev/javafp/queue/ImQueue.html" title="class in dev.javafp.queue">ImQueue</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/tuple/ImPair.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/tuple/ImQuartet.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImQuartet.html" title="class in dev.javafp.tuple">ImQuartet</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/tuple/ImQuintet.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImQuintet.html" title="class in dev.javafp.tuple">ImQuintet</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/tuple/ImTriple.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImTriple.html" title="class in dev.javafp.tuple">ImTriple</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/util/Chat.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/Chat.html" title="class in dev.javafp.util">Chat</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/util/ImEither.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImEither.html" title="class in dev.javafp.util">ImEither</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/util/StringWrapper.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/StringWrapper.html" title="class in dev.javafp.util">StringWrapper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/util/Table.html#getNames()" class="member-name-link">getNames()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/Table.html" title="class in dev.javafp.util">Table</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field names for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/val/Values.html#getNames()" class="member-name-link">getNames()</a> - Method in interface dev.javafp.val.<a href="dev/javafp/val/Values.html" title="interface in dev.javafp.val">Values</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/time/Timer.html#getNanos()" class="member-name-link">getNanos()</a> - Method in class dev.javafp.time.<a href="dev/javafp/time/Timer.html" title="class in dev.javafp.time">Timer</a></dt>
@@ -2090,51 +2189,102 @@ loadScripts(document, 'script');</script>
 <div class="block"> The value of this key-value pair.</div>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getValue(KEY)" class="member-name-link">getValue(KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The data value associated with the node with key
+ <code>key</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Point.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Point.html" title="class in dev.javafp.geom">Point</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/geom/RectGrid.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/RectGrid.html" title="class in dev.javafp.geom">RectGrid</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/geom/TangentVector.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/TangentVector.html" title="class in dev.javafp.geom">TangentVector</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/graph/ImArc.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImArc.html" title="class in dev.javafp.graph">ImArc</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/net/ApiRequest.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/ApiRequest.html" title="class in dev.javafp.net">ApiRequest</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/net/ApiResponse.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/ApiResponse.html" title="class in dev.javafp.net">ApiResponse</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/net/ImUrl.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/ImUrl.html" title="class in dev.javafp.net">ImUrl</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/net/PostRequest.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/PostRequest.html" title="class in dev.javafp.net">PostRequest</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/queue/ImQueue.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.queue.<a href="dev/javafp/queue/ImQueue.html" title="class in dev.javafp.queue">ImQueue</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/tuple/ImPair.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/tuple/ImQuartet.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImQuartet.html" title="class in dev.javafp.tuple">ImQuartet</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/tuple/ImQuintet.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImQuintet.html" title="class in dev.javafp.tuple">ImQuintet</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/tuple/ImTriple.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImTriple.html" title="class in dev.javafp.tuple">ImTriple</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/util/Chat.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/Chat.html" title="class in dev.javafp.util">Chat</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/util/ImEither.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImEither.html" title="class in dev.javafp.util">ImEither</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/util/StringWrapper.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/StringWrapper.html" title="class in dev.javafp.util">StringWrapper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/util/Table.html#getValues()" class="member-name-link">getValues()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/Table.html" title="class in dev.javafp.util">Table</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/val/Values.html#getValues()" class="member-name-link">getValues()</a> - Method in interface dev.javafp.val.<a href="dev/javafp/val/Values.html" title="interface in dev.javafp.val">Values</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The field values for this object including fields from superclasses.</div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getValuesFromKeys(dev.javafp.lst.ImList)" class="member-name-link">getValuesFromKeys(ImList&lt;KEY&gt;)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The list of data values associated with the nodes whose keys are in
+
+ <code>key</code>
+
+ There might be repeated values in the list.</div>
+</dd>
 <dt><a href="dev/javafp/box/AbstractTextBox.html#getWidth()" class="member-name-link">getWidth()</a> - Method in class dev.javafp.box.<a href="dev/javafp/box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#getWidth()" class="member-name-link">getWidth()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
@@ -2209,7 +2359,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/OptionDefinition.html#hasAValue" class="member-name-link">hasAValue</a> - Variable in class dev.javafp.util.<a href="dev/javafp/util/OptionDefinition.html" title="class in dev.javafp.util">OptionDefinition</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#hasCycle()" class="member-name-link">hasCycle()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"><code>true</code>
+ iff any of the nodes in the graph have cycles.</div>
+</dd>
 <dt><a href="dev/javafp/util/Hash.html#hash(java.lang.Object...)" class="member-name-link">hash(Object...)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Hash.html" title="class in dev.javafp.util">Hash</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Hash.html" class="type-name-link" title="class in dev.javafp.util">Hash</a> - Class in <a href="dev/javafp/util/package-summary.html">dev.javafp.util</a></dt>
@@ -2495,7 +2648,9 @@ loadScripts(document, 'script');</script>
 <div class="block"> A directed labelled graph.</div>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.Dir.html" class="type-name-link" title="enum class in dev.javafp.graph">ImGraph.Dir</a> - Enum Class in <a href="dev/javafp/graph/package-summary.html">dev.javafp.graph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The direction of an arc in a graph with respect to a node.</div>
+</dd>
 <dt><a href="dev/javafp/ex/ImIndexOutOfBoundsException.html" class="type-name-link" title="class in dev.javafp.ex">ImIndexOutOfBoundsException</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
 <dd>
 <div class="block"> Thrown when you attempt to access an indexed collection
@@ -2700,9 +2855,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/val/ImValuesImpl.html#%3Cinit%3E()" class="member-name-link">ImValuesImpl()</a> - Constructor for class dev.javafp.val.<a href="dev/javafp/val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.Dir.html#In" class="member-name-link">In</a> - Enum constant in enum class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.Dir.html" title="enum class in dev.javafp.graph">ImGraph.Dir</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/graph/ImGraph.html#In" class="member-name-link">In</a> - Static variable in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">An arc in a graph has direction <em>in</em> to a node.</div>
+</dd>
 <dt><a href="dev/javafp/time/Clock.html#incActiveCount()" class="member-name-link">incActiveCount()</a> - Static method in class dev.javafp.time.<a href="dev/javafp/time/Clock.html" title="class in dev.javafp.time">Clock</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/lst/ImList.html#inclusive(int,int)" class="member-name-link">inclusive(int, int)</a> - Static method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
@@ -3103,7 +3258,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/ex/KeyMissing.html#%3Cinit%3E(KEY,LABEL,KEY)" class="member-name-link">KeyMissing(KEY, LABEL, KEY)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/KeyMissing.html" title="class in dev.javafp.ex">KeyMissing</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#keys()" class="member-name-link">keys()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A list of all the keys in the graph</div>
+</dd>
 <dt><a href="dev/javafp/set/ImMap.html#keys()" class="member-name-link">keys()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/net/ApiResponse.html#keyValuePairs()" class="member-name-link">keyValuePairs()</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/ApiResponse.html" title="class in dev.javafp.net">ApiResponse</a></dt>
@@ -3118,7 +3275,9 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:L">L</h2>
 <dl class="index">
 <dt><a href="dev/javafp/graph/ImArc.html#label" class="member-name-link">label</a> - Variable in class dev.javafp.graph.<a href="dev/javafp/graph/ImArc.html" title="class in dev.javafp.graph">ImArc</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The label of the arc</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#last()" class="member-name-link">last()</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> The last element of
@@ -3157,7 +3316,9 @@ loadScripts(document, 'script');</script>
 <div class="block"> A text box that does not contain any other text boxes</div>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#leaves()" class="member-name-link">leaves()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The nodes that have no outgoing arcs.</div>
+</dd>
 <dt><a href="dev/javafp/util/Chat.html#left" class="member-name-link">left</a> - Variable in class dev.javafp.util.<a href="dev/javafp/util/Chat.html" title="class in dev.javafp.util">Chat</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/ImEither.html#left" class="member-name-link">left</a> - Variable in class dev.javafp.util.<a href="dev/javafp/util/ImEither.html" title="class in dev.javafp.util">ImEither</a></dt>
@@ -3258,7 +3419,11 @@ loadScripts(document, 'script');</script>
  .</div>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#map(dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;DATA, NEWDATA&gt;)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The graph that has the same nodes and arcs as the original but with each
+ data value for each node transformed by
+ <code>fn</code></div>
+</dd>
 <dt><a href="dev/javafp/set/ImSortedSet.html#map(dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;T, O&gt;)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImSortedSet.html" title="class in dev.javafp.set">ImSortedSet</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/shelf/ImShelf.html#map(dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;T, O&gt;)</a> - Method in class dev.javafp.shelf.<a href="dev/javafp/shelf/ImShelf.html" title="class in dev.javafp.shelf">ImShelf</a></dt>
@@ -3365,7 +3530,9 @@ loadScripts(document, 'script');</script>
  <code>iterable</code></div>
 </dd>
 <dt><a href="dev/javafp/file/FileUtil.ExistsEnum.html#Missing" class="member-name-link">Missing</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Expect a file to not exist</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#Missing" class="member-name-link">Missing</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Mixer.html#mix(dev.javafp.lst.ImList,dev.javafp.lst.ImList)" class="member-name-link">mix(ImList&lt;T&gt;, ImList&lt;T&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Mixer.html" title="class in dev.javafp.util">Mixer</a></dt>
@@ -3780,7 +3947,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/set/ImMap.html#on(KEY,VALUE)" class="member-name-link">on(KEY, VALUE)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImArc.html#on(LABEL,KEY,KEY)" class="member-name-link">on(LABEL, KEY, KEY)</a> - Static method in class dev.javafp.graph.<a href="dev/javafp/graph/ImArc.html" title="class in dev.javafp.graph">ImArc</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Create an arc with label
+ <code>label</code>
+ , starting at node with key
+ <code>start</code>
+  and ending at node with key
+ <code>end</code></div>
+</dd>
 <dt><a href="dev/javafp/set/ImSet.html#on(T...)" class="member-name-link">on(T...)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImSet.html" title="class in dev.javafp.set">ImSet</a></dt>
 <dd>
 <div class="block"> The set whose only element is
@@ -3939,9 +4113,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/geom/Rect.html#originCorner(dev.javafp.geom.Point,dev.javafp.geom.Point)" class="member-name-link">originCorner(Point, Point)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.Dir.html#Out" class="member-name-link">Out</a> - Enum constant in enum class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.Dir.html" title="enum class in dev.javafp.graph">ImGraph.Dir</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/graph/ImGraph.html#Out" class="member-name-link">Out</a> - Static variable in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">An arc in a graph has direction <em>out</em> from a node.</div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#outset(double)" class="member-name-link">outset(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Orient2.html#ox" class="member-name-link">ox</a> - Variable in enum class dev.javafp.geom.<a href="dev/javafp/geom/Orient2.html" title="enum class in dev.javafp.geom">Orient2</a></dt>
@@ -4322,7 +4496,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/file/ReaderUtil.html#read(java.io.InputStream)" class="member-name-link">read(InputStream)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/ReaderUtil.html" title="class in dev.javafp.file">ReaderUtil</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.FileAccessEnum.html#Readable" class="member-name-link">Readable</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Expect a file to be readable</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#Readable" class="member-name-link">Readable</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/ReaderUtil.html" class="type-name-link" title="class in dev.javafp.file">ReaderUtil</a> - Class in <a href="dev/javafp/file/package-summary.html">dev.javafp.file</a></dt>
@@ -4472,7 +4648,16 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/set/ImSortedSet.html#removeAll(java.lang.Iterable)" class="member-name-link">removeAll(Iterable&lt;T&gt;)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImSortedSet.html" title="class in dev.javafp.set">ImSortedSet</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#removeArc(LABEL,KEY,KEY)" class="member-name-link">removeArc(LABEL, KEY, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Remove the arc with label
+ <code>label</code>
+  from
+ <code>start</code>
+  to
+ <code>end</code>
+
+ If one or more of the nodes do not exist then throw <a href="dev/javafp/ex/KeyMissing.html" title="class in dev.javafp.ex"><code>KeyMissing</code></a>.</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#removeAt(int)" class="member-name-link">removeAt(int)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> The
@@ -4494,7 +4679,12 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/tree/ImTreeZipper.html#removeNode()" class="member-name-link">removeNode()</a> - Method in class dev.javafp.tree.<a href="dev/javafp/tree/ImTreeZipper.html" title="class in dev.javafp.tree">ImTreeZipper</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#removeNode(KEY)" class="member-name-link">removeNode(KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Remove the node with key
+ <code>key</code>
+
+ If the node is connected to another node then throw <a href="dev/javafp/ex/NodeHasArcs.html" title="class in dev.javafp.ex"><code>NodeHasArcs</code></a>.</div>
+</dd>
 <dt><a href="dev/javafp/tree/MutableTree.html#removeNodeWithElement(T)" class="member-name-link">removeNodeWithElement(T)</a> - Method in class dev.javafp.tree.<a href="dev/javafp/tree/MutableTree.html" title="class in dev.javafp.tree">MutableTree</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#removePrefix(java.nio.file.Path,java.nio.file.Path)" class="member-name-link">removePrefix(Path, Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
@@ -4627,7 +4817,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/geom/Orient2.html#RightTop" class="member-name-link">RightTop</a> - Enum constant in enum class dev.javafp.geom.<a href="dev/javafp/geom/Orient2.html" title="enum class in dev.javafp.geom">Orient2</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#roots()" class="member-name-link">roots()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The nodes that have no incoming arcs.</div>
+</dd>
 <dt><a href="dev/javafp/tree/ImRoseTreeZipper.html#rootToString(dev.javafp.tree.ImRoseTree)" class="member-name-link">rootToString(ImRoseTree&lt;TT&gt;)</a> - Static method in class dev.javafp.tree.<a href="dev/javafp/tree/ImRoseTreeZipper.html" title="class in dev.javafp.tree">ImRoseTreeZipper</a></dt>
 <dd>
 <div class="block"> The method used by <a href="dev/javafp/tree/ImRoseTreeZipper.html#toString()"><code>ImRoseTreeZipper.toString()</code></a> to display tree nodes.</div>
@@ -4770,7 +4962,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/ClassUtils.html#shortClassName(java.lang.Object)" class="member-name-link">shortClassName(Object)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ClassUtils.html" title="class in dev.javafp.util">ClassUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#show()" class="member-name-link">show()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The text-box representation of the graph in an "ascii-art" form</div>
+</dd>
 <dt><a href="dev/javafp/util/TestUtils.html#show(java.lang.String,java.lang.Object)" class="member-name-link">show(String, Object)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/TestUtils.html" title="class in dev.javafp.util">TestUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/TextUtils.html#showCollection(dev.javafp.lst.ImList)" class="member-name-link">showCollection(ImList&lt;?&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/TextUtils.html" title="class in dev.javafp.util">TextUtils</a></dt>
@@ -5098,7 +5292,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/geom/TangentVector.html#start" class="member-name-link">start</a> - Variable in class dev.javafp.geom.<a href="dev/javafp/geom/TangentVector.html" title="class in dev.javafp.geom">TangentVector</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImArc.html#start" class="member-name-link">start</a> - Variable in class dev.javafp.graph.<a href="dev/javafp/graph/ImArc.html" title="class in dev.javafp.graph">ImArc</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The key of the node where the arc starts.</div>
+</dd>
 <dt><a href="dev/javafp/net/ApiResponse.html#status" class="member-name-link">status</a> - Variable in class dev.javafp.net.<a href="dev/javafp/net/ApiResponse.html" title="class in dev.javafp.net">ApiResponse</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/net/ApiResponse.html#statusMessage" class="member-name-link">statusMessage</a> - Variable in class dev.javafp.net.<a href="dev/javafp/net/ApiResponse.html" title="class in dev.javafp.net">ApiResponse</a></dt>
@@ -5710,7 +5906,9 @@ the order they are declared.</div>
 the order they are declared.</div>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#values()" class="member-name-link">values()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A list of all the data values in the graph</div>
+</dd>
 <dt><a href="dev/javafp/net/ApiRequest.Method.html#values()" class="member-name-link">values()</a> - Static method in enum class dev.javafp.net.<a href="dev/javafp/net/ApiRequest.Method.html" title="enum class in dev.javafp.net">ApiRequest.Method</a></dt>
 <dd>
 <div class="block">Returns an array containing the constants of this enum class, in
@@ -5862,7 +6060,9 @@ the order they are declared.</div>
 <div class="block"> A method to let us have an exception throw as one of the branches of a ?: invocation</div>
 </dd>
 <dt><a href="dev/javafp/file/FileUtil.FileAccessEnum.html#Writable" class="member-name-link">Writable</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Expect a file to be writable</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#Writable" class="member-name-link">Writable</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Sink.html#write(java.lang.String)" class="member-name-link">write(String)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/Sink.html" title="class in dev.javafp.util">Sink</a></dt>

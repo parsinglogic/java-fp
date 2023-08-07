@@ -46,12 +46,24 @@ public class ImQuartet<A, B, C, D> extends ImValuesImpl
         return zip(as, bs, cs, ds).map(t -> fn.of(t.e1, t.e2, t.e3, t.e4));
     }
 
+    /**
+     *
+     * The field values for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<Object> getValues()
     {
         return ImList.on(e1, e2, e3, e4);
     }
 
+    /**
+     *
+     * The field names for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     @Override
     public ImList<String> getNames()
     {
