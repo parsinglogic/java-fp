@@ -579,7 +579,6 @@ public class ImGraphTest
 
     }
 
-    @Ignore
     @Test
     public void testEquals()
     {
@@ -592,6 +591,19 @@ public class ImGraphTest
 
         assertTrue(g.eq(g));
         assertTrue(g.eq(g2));
+
+    }
+
+    @Test
+    public void testSelfLoops()
+    {
+        ImGraph<String, String, String> g = ImGraph.<String, String, String>empty()
+                .addNode("a", "")
+                .addNode("b", "")
+                .addArc("-", "a", "a")
+                .addArc("-", "a", "a");
+
+        say(g);
 
     }
 

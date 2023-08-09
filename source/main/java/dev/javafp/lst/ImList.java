@@ -372,7 +372,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     /**
      * <p> This returns
      * {@code false}
-     *  becaouse the only
+     *  because the only
      * {@code ImList}
      *  that is empty is the singleton {@link dev.javafp.lst.ImEmptyList}
      *

@@ -501,7 +501,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         return element.hashCode();
     }
 
-    public ImSet<T> removeElementFromBucket(final T element, final Bucket<T> bucketWithMatchingHashCode)
+    private ImSet<T> removeElementFromBucket(final T element, final Bucket<T> bucketWithMatchingHashCode)
     {
         // Remove the element from the bucket (it might not be in this bucket of course)
         Bucket<T> newBucket = bucketWithMatchingHashCode.remove(element);
@@ -519,7 +519,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
                     , size - 1);
     }
 
-    public ImMaybe<Bucket<T>> getBucketContaining(final T element)
+    private ImMaybe<Bucket<T>> getBucketContaining(final T element)
     {
         // Find the bucket with the matching hash code
         return sortedSetOfBuckets.find(bucketWith(element));
@@ -621,12 +621,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * <p> The set whose elements are obtained by iterating over
      * {@code iterator}
      * .
-     * <p> ImCollections can't contain
-     * {@code null}
-     *  so none of the elements in
-     * {@code iterator}
-     *  can be
-     * {@code null}
      * <h4>Examples:</h4>
      *
      * <pre>{@code
@@ -658,12 +652,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * {@code element}
      * .
      * <p> This is convenient when we want to create a list whose only element is an array.
-     * <p> ImCollections can't contain
-     * {@code null}
-     *  so
-     * {@code element}
-     *  can't be
-     * {@code null}
      * .
      * <p> @throws NullPointerException if element is
      * {@code null}
@@ -682,7 +670,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * <p> The set whose elements are obtained from the list
      * {@code ts}
      * .
-     *
      */
     public static <T> ImSet<T> onAll(ImList<T> ts)
     {
@@ -986,6 +973,9 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
                : ImMaybe.just(elements.head());
     }
 
+    /**
+     * `true` iff this is the empty set
+     */
     public boolean isEmpty()
     {
         return size() == 0;
@@ -1030,7 +1020,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      *
      * It uses the same algorithm to combine the hashCodes of the elements as java.util.AbstractSet
      */
-    public int computeHash()
+    private int computeHash()
     {
         int h = 0;
 

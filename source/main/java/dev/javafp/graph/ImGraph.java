@@ -30,11 +30,188 @@ import static dev.javafp.graph.ImGraph.Dir.In;
 import static dev.javafp.graph.ImGraph.Dir.Out;
 
 /**
- * <p> A directed labelled graph. It can have cycles.
- * <p> Not all the nodes need to be connected.
- * <p> Nodes are identified by keys of type {@code KEY}
- * <p> Each node has an object of type {@code DATA} associated with it
- * <p> Each node can be connected to 1 or more other nodes via labelled arcs
+ * A graph (in the "standard" Computer Science Graph Theory sense) with some extra features.
+ *
+ * We would have liked to just rattle off the properties of the types of graph that this implementation supports - but, on reviewing the literature
+ * we see that:
+ *
+ * 1. there does not seem to be enough standardisation in the Graph theory terms
+ * 2. Not many programmers are aware of any of the formal definitions
+ *
+ * Soooo - I feel I need to chatter for a while to define some terms...
+ *
+ * All disciplines have problems with standardising terminology and Computer Science is no exception.
+ *
+ * In the area of trees and graphs this is certainly true.
+ *
+ * ### directed graph
+ *
+ * Most authors define a graph by starting with a **directed graph** like this:
+ *
+ * > A directed graph or (digraph) is a pair G = (V, A) where
+ * > • V is a set of vertices (or nodes), and
+ * > • A ⊆ V × V is a set of directed edges (or arcs).
+ *
+ * from ["Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Graphs: Definition, Applications, Representation"][cmugraph]
+ *
+ *
+ * ### undirected graph
+ *
+ * And then they describe an **undirected graph** by stating that the edges are not **ordered pairs** as implied by the cartesian product notation and are
+ * **unordered**
+ * so that
+ *
+ *     edge (a, b) = edge (b, a)
+ *
+ * After this they tend to disagree about what the fundamental properties are but here are some common properties:
+ *
+ * ### labeled graph
+ *
+ * A graph where each node has a label - that is simply some data
+ *
+ * ### edge-labeled graph
+ *
+ * A graph where each edge(AKA arc) has a label - that is simply some data
+ *
+ * ### multi-way graph
+ *
+ * A graph that can have more than one arc connecting two nodes
+ *
+ * ### self-loop capable graph
+ *
+ * A graph that can have an arc that connects a node to itself. Often, this property is considered to only be available for directed graphs
+ *
+ * The above properties, we would consider, define categories or types of graphs - in the sense that we might consider implementing them with different data structures.
+ *
+ * A node b is **adjacent** to node b iff:
+ *
+ * there exists an edge (a,b) (in a directed graph)
+ * there exists an edge {a, b} (in an undirected graph - where {a, b} == {b, a})
+ *
+ * The **connected set** of nodes for a node n is defined by a calculation:
+ *
+ * Start with the empty set.
+ *
+ * There are two stages:
+ *
+ * 1. add the adjacent nodes of n to the set
+ *
+ * 2. for each node in the set, add its adjacent nodes to the set
+ *
+ * repeat 2. until the set does not grow any larger.
+ *
+ *
+ * A node b is **reachable** from a iff:
+ *
+ * the connected set for a includes b.
+ *
+ * There are other properties that seem to be properties that a particular instance of a graph can have rather than a category or a type in the sense described above.
+ *
+ *
+ * A path is a list of arcs:
+ *
+ *     [ (a, b), (b, c), (c, d) ... (x, y) ]
+ *
+ * where
+ * each arc is unique
+ * the second element of each pair is the first element of the next pair in the list.
+ *
+ * The nodes in path are the list formed by taking the
+ *
+ * second element of each arc.
+ *
+ * A path in an undirected graph is ...
+ *
+ *
+ * ### Cyclic/acyclic graph
+ *
+ * A cycle is a node that is reachable from itself
+ *
+ *
+ * A cyclic graph is one that contains one or more cycles. An acyclic graph is one that has no cycles.
+ *
+ * ### Connected/unconnected graph
+ *
+ * If the connected set for at least one node is the same set as the nodes for the graph, then the graph is connected - otherwise it is unconnected (AKA a forest)
+ *
+ * For directed graphs we can also define **strongly connected** - which means that all nodes are reachable by all other nodes
+ *
+ * A tree is often defined as an undirected graph that is connected, acyclic and has a node identified (somehow) as the root node.
+ *
+ * This definition now imposes a direction on each arc. You start at the root and then each reachable node can be considered to have
+ * a direction going from the root to its adjacent node. We repeat this for these nodes and so on.
+ *
+ * ## More terminology related to ordered trees
+ *
+ * The nodes that are adjacent to a node p are called the children of p.
+ *
+ * For each child, c of a node p, p is called the parent of c.
+ *
+ * This definition of **tree** would surprise most programmers because **it does not specify that there is any order to the children of a node**.
+ *
+ * We would imagine that almost no programmers would think of a tree as having nodes with unordered children.
+ *
+ * Finally, we do get to an **ordered tree** - which is defined as a tree with each node having arcs (and therefore children) that have an order with
+ * respect to that node.
+ *
+ * ### Another way to define an n-ary tree (ie one that has ordered children)
+ *
+ * This seems a surprising way to define a tree. To start with an undirected graph, pick a root, have that root convert a undirected graph into
+ * a directed graph and then impose an order seems unintuitive (to us at least).
+ *
+ * Another way would be to have considered a connected, directed, acyclic graph and then defined a root as a node that has no in-arcs.
+ *
+ * We also need an order to be imposed on each arc with respect to its in-vertex and out-vertex.
+ *
+ * If there is a single root, then this graph is an n-ary tree.
+ *
+ * We note that we can't find any author who uses quite this characterisation. Hey ho.
+ *
+ * To be fair, Carnegie Mellon University do start with a directed tree:
+ *
+ * > Definition 2.6 (Rooted Tree). A rooted tree is a directed graph such that
+ * > 1. One of the vertices is the root and it has no in edges.
+ * > 2. All other vertices have one in-edge.
+ * > 3. There is a path from the root to all other vertices.
+ * > Terminology. When talking about rooted trees, by convention we use the term node
+ * > instead of vertex. A node is a leaf if it has no out edges, and an internal node otherwise.
+ * > For each directed edge (u, v), u is the parent of v, and v is a child of u. For each path
+ * > from u to v (including the empty path with u = v), u is an ancestor of v, and v is a
+ * > descendant of u. For a vertex v, its depth is the length of the path from the root to v and
+ * > its height is the longest path from v to any leaf. The height of a tree is the height of its
+ * > root. For any node v in a tree, the subtree rooted at v is the rooted tree defined by taking
+ * > the induced subgraph of all vertices reachable from v (i.e. the vertices and the directed
+ * > edges between them), and making v the root. As with graphs, an ordered rooted tree is
+ * > a rooted tree in which the out edges (children) of each node are ordered.
+ *
+ * from ["Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Mathematical Preliminaries"][cmuprelim]
+ *
+ *
+ * That final sentence that defines an ordered rooted tree suggests that the ordering property for out edges might be considered a thing
+ * for graphs too - but I can't find any other reference to it in the document.
+ *
+ * We mention this here because the idea of being able to impose an order on arcs in a directed graph - rather than waiting until we have already defined
+ * a tree before imposing an order is exactly what we have done in this implementation.
+ *
+ * Ok - finally - we can describe this `ImGraph` implementation
+ *
+ * An ImGraph represents a graph that:
+ *
+ * 1. is directed
+ * 2. is labeled
+ * 3. is edge-labeled
+ * 4. can be a multi-graph (two nodes can have many arcs between them)
+ * 5. can have cycles
+ * 6. can be a forest
+ * 7. has arcs with an **order with respect to their nodes** (both in and out nodes)
+ *
+ * ### Property number 7!
+ *
+ * Just to stress this point: No other author that we know about defines an order on arcs in a directed graph.
+ *
+ * That does not mean that they don't exist, of course. We just can't find them.
+ *
+ *
  * <p> If node a is connected to node b via an arc labeled c
  * then we store the arc c in arcsOut and in arcsIn
  * <p> Graphs are immutable - each time you add a node or an arc between two nodes, a new graph is created.
@@ -48,6 +225,17 @@ import static dev.javafp.graph.ImGraph.Dir.Out;
  *
  *
  *
+ *
+ *
+ *
+ * ## References
+ *
+ * ["Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Mathematical Preliminaries"][cmuprelim]
+ *
+ * ["Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Graphs: Definition, Applications, Representation"][cmugraph]
+ *
+ * [cmuprelim]: https://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/preliminaries-notes.pdf
+ * [cmugraph]: https://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/graph-intro.pdf
  *
  *
  *
@@ -881,8 +1069,10 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
     public boolean eq(ImGraph<KEY, DATA, LABEL> other)
     {
-        ImList<Boolean> all = keys().map(k -> Equals.isEqual(this.getConnected(Out, k), other.getConnected(Out, k)));
 
-        return ImList.and(all);
+        return
+                Equals.isEqual(this.keys().toSet(), other.keys().toSet()) &&
+                        ImList.and(keys().map(k -> Equals.isEqual(this.getConnected(Out, k).toSet(), other.getConnected(Out, k).toSet())));
+
     }
 }
