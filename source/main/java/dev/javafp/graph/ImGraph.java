@@ -17,12 +17,10 @@ import dev.javafp.ex.KeyMissing;
 import dev.javafp.ex.NodeHasArcs;
 import dev.javafp.func.Fn;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.ImListZipper;
 import dev.javafp.set.ImMap;
 import dev.javafp.set.ImSet;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.util.Caster;
-import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TextUtils;
 import dev.javafp.val.ImValuesImpl;
 
@@ -30,168 +28,120 @@ import static dev.javafp.graph.ImGraph.Dir.In;
 import static dev.javafp.graph.ImGraph.Dir.Out;
 
 /**
- * A graph (in the "standard" Computer Science Graph Theory sense) with some extra features.
+ * A graph (in the "standard" Computer Science Graph Theory sense).
  *
- * We would have liked to just rattle off the properties of the types of graph that this implementation supports - but, on reviewing the literature
- * we see that:
+ * We would have liked to just rattle-off the properties of the types of graph that this implementation supports - but, on reflection
+ * we feel we should spend some time defining exactly what a graph is and some related terms.
  *
- * 1. there does not seem to be enough standardisation in the Graph theory terms
- * 2. Not many programmers are aware of any of the formal definitions
  *
- * Soooo - I feel I need to chatter for a while to define some terms...
+ * ### Directed graph
  *
- * All disciplines have problems with standardising terminology and Computer Science is no exception.
- *
- * In the area of trees and graphs this is certainly true.
- *
- * ### directed graph
- *
- * Most authors define a graph by starting with a **directed graph** like this:
+ * Many authors define a **graph** by starting with a **directed graph** like this:
  *
  * > A directed graph or (digraph) is a pair G = (V, A) where
- * > • V is a set of vertices (or nodes), and
- * > • A ⊆ V × V is a set of directed edges (or arcs).
+ * > • `v` is a set of vertices (or nodes), and
+ * > • A ⊆ `v` × `v` is a set of directed edges (or arcs).
  *
  * from ["Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Graphs: Definition, Applications, Representation"][cmugraph]
  *
+ * Each arc, a, can be written like this:
  *
- * ### undirected graph
+ *     a = (u, v)
  *
- * And then they describe an **undirected graph** by stating that the edges are not **ordered pairs** as implied by the cartesian product notation and are
- * **unordered**
- * so that
+ * where `u` and `v` are nodes and `a` is a pair - which implies an order to each component.
  *
- *     edge (a, b) = edge (b, a)
+ * `a` is said to be incident on `u` and `v` - also `a` **connects** `a` and `v` and, furthermore, to be **incident from** `u` and **incident to** `v.
  *
- * After this they tend to disagree about what the fundamental properties are but here are some common properties:
+ * Equivalently we say `a` **leaves** `u` and **enters** `v`.
  *
- * ### labeled graph
+ * `u` is called the **in node** for `a` and `v` is the **out node**.
  *
- * A graph where each node has a label - that is simply some data
+ * ### Undirected graph
  *
- * ### edge-labeled graph
+ * They then describe an **undirected graph** by stating that the edges are not **ordered pairs** as implied by the cartesian product notation and are
+ * **unordered**.
  *
- * A graph where each edge(AKA arc) has a label - that is simply some data
+ * To indicate this fact we can write edge `e` like this
  *
- * ### multi-way graph
+ *     e = {u, v}
  *
- * A graph that can have more than one arc connecting two nodes
+ * where
  *
- * ### self-loop capable graph
+ *     {u, v} == {v, u}
  *
- * A graph that can have an arc that connects a node to itself. Often, this property is considered to only be available for directed graphs
+ * `e` is said to be **incident on** `u` and v
  *
- * The above properties, we would consider, define categories or types of graphs - in the sense that we might consider implementing them with different data structures.
+ * **Mathematical** graph definitions (as opposed to Computer Science definitions) tend to specify that a graph is a **non empty** set of nodes.
  *
- * A node b is **adjacent** to node b iff:
+ * After this, authors tend to disagree about what the **fundamental** properties are and what they are called but here are some common properties:
  *
- * there exists an edge (a,b) (in a directed graph)
- * there exists an edge {a, b} (in an undirected graph - where {a, b} == {b, a})
+ * ### Labeled graph
  *
- * The **connected set** of nodes for a node n is defined by a calculation:
+ * A graph where each node has a **label** - that is simply some data
  *
- * Start with the empty set.
+ * ### Edge-labeled graph
  *
- * There are two stages:
+ * A graph where each edge(AKA arc) has a label - Again this is simply some data. The idea here is that the label is
+ * an **enumeration** - to indicate a category/set/type that can be used to identify different types of edges.
  *
- * 1. add the adjacent nodes of n to the set
+ * ### Edge-weighted graph
  *
- * 2. for each node in the set, add its adjacent nodes to the set
+ * A graph where each edge(AKA arc) has some data associated with it. This data tends to be different in purpose from a label - usually
+ * a **value** (rather than an enumeration) that can be used in graph algorithms.
  *
- * repeat 2. until the set does not grow any larger.
+ * ### Self-loop
+ *
+ * A graph that can have an arc that connects a node to itself. This property is considered to only be available for directed graphs.
+ *
+ * ### Adjacency
+ *
+ * A node `b` is **adjacent** to node `b` iff:
+ *
+ * there exists an edge `(a,b)` (in a directed graph)
+ * there exists an edge `{a, b}` (in an undirected graph - recall that {a, b} == {b, a})
+ *
+ * The adjacent nodes of a node are called its **neighbours**.
  *
  *
- * A node b is **reachable** from a iff:
+ * ### Paths
  *
- * the connected set for a includes b.
- *
- * There are other properties that seem to be properties that a particular instance of a graph can have rather than a category or a type in the sense described above.
- *
- *
- * A path is a list of arcs:
+ * A **path** is a non empty list of arcs/edges:
  *
  *     [ (a, b), (b, c), (c, d) ... (x, y) ]
  *
- * where
- * each arc is unique
- * the second element of each pair is the first element of the next pair in the list.
+ * Where the out node of each arc is the in node of the next arc in the list.
  *
- * The nodes in path are the list formed by taking the
+ * If the arcs are not directed then a path is a list of edges where each edge can be written as an ordered pair
+ * such that the second node of each pair is the first node of the next pair in the list.
  *
- * second element of each arc.
+ * For a directed graph that allows self loops we can have a path that just has one edge in it - and one node.
  *
- * A path in an undirected graph is ...
+ * The **length** of a path is the number of edges in it.
  *
+ * A path's arcs will define a list of nodes - by taking the first node in each pair and finally adding the second node of the last pair. We say that
+ * the path **contains** those nodes and each node is **in the path**. We may have nodes repeated in this list.
+ *
+ * A path is **simple** if all its nodes are distinct.
+ *
+ * For an undirected graph, a path must contain at least two nodes.
+ *
+ * ### Reachability
+ *
+ * If there exists a path whose first node is `u` and whose last node is `v` then we say that `v` is **reachable** from `u`.
  *
  * ### Cyclic/acyclic graph
  *
- * A cycle is a node that is reachable from itself
+ * A **cycle** is a path that has the same node as its first and last node
  *
+ * A **cyclic graph** is one that contains one or more cycles. An **acyclic graph** is one that has no cycles.
  *
- * A cyclic graph is one that contains one or more cycles. An acyclic graph is one that has no cycles.
+ * ### Connected
  *
- * ### Connected/unconnected graph
+ * For an undirected graph, if all of the nodes are reachable from each other, the graph is **connected**, otherwise it is **disconnected**.
  *
- * If the connected set for at least one node is the same set as the nodes for the graph, then the graph is connected - otherwise it is unconnected (AKA a forest)
+ * For a directed graph we use the term **strongly connected** for this property
  *
- * For directed graphs we can also define **strongly connected** - which means that all nodes are reachable by all other nodes
- *
- * A tree is often defined as an undirected graph that is connected, acyclic and has a node identified (somehow) as the root node.
- *
- * This definition now imposes a direction on each arc. You start at the root and then each reachable node can be considered to have
- * a direction going from the root to its adjacent node. We repeat this for these nodes and so on.
- *
- * ## More terminology related to ordered trees
- *
- * The nodes that are adjacent to a node p are called the children of p.
- *
- * For each child, c of a node p, p is called the parent of c.
- *
- * This definition of **tree** would surprise most programmers because **it does not specify that there is any order to the children of a node**.
- *
- * We would imagine that almost no programmers would think of a tree as having nodes with unordered children.
- *
- * Finally, we do get to an **ordered tree** - which is defined as a tree with each node having arcs (and therefore children) that have an order with
- * respect to that node.
- *
- * ### Another way to define an n-ary tree (ie one that has ordered children)
- *
- * This seems a surprising way to define a tree. To start with an undirected graph, pick a root, have that root convert a undirected graph into
- * a directed graph and then impose an order seems unintuitive (to us at least).
- *
- * Another way would be to have considered a connected, directed, acyclic graph and then defined a root as a node that has no in-arcs.
- *
- * We also need an order to be imposed on each arc with respect to its in-vertex and out-vertex.
- *
- * If there is a single root, then this graph is an n-ary tree.
- *
- * We note that we can't find any author who uses quite this characterisation. Hey ho.
- *
- * To be fair, Carnegie Mellon University do start with a directed tree:
- *
- * > Definition 2.6 (Rooted Tree). A rooted tree is a directed graph such that
- * > 1. One of the vertices is the root and it has no in edges.
- * > 2. All other vertices have one in-edge.
- * > 3. There is a path from the root to all other vertices.
- * > Terminology. When talking about rooted trees, by convention we use the term node
- * > instead of vertex. A node is a leaf if it has no out edges, and an internal node otherwise.
- * > For each directed edge (u, v), u is the parent of v, and v is a child of u. For each path
- * > from u to v (including the empty path with u = v), u is an ancestor of v, and v is a
- * > descendant of u. For a vertex v, its depth is the length of the path from the root to v and
- * > its height is the longest path from v to any leaf. The height of a tree is the height of its
- * > root. For any node v in a tree, the subtree rooted at v is the rooted tree defined by taking
- * > the induced subgraph of all vertices reachable from v (i.e. the vertices and the directed
- * > edges between them), and making v the root. As with graphs, an ordered rooted tree is
- * > a rooted tree in which the out edges (children) of each node are ordered.
- *
- * from ["Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Mathematical Preliminaries"][cmuprelim]
- *
- *
- * That final sentence that defines an ordered rooted tree suggests that the ordering property for out edges might be considered a thing
- * for graphs too - but I can't find any other reference to it in the document.
- *
- * We mention this here because the idea of being able to impose an order on arcs in a directed graph - rather than waiting until we have already defined
- * a tree before imposing an order is exactly what we have done in this implementation.
+ * ## The ImGraph properties
  *
  * Ok - finally - we can describe this `ImGraph` implementation
  *
@@ -200,24 +150,16 @@ import static dev.javafp.graph.ImGraph.Dir.Out;
  * 1. is directed
  * 2. is labeled
  * 3. is edge-labeled
- * 4. can be a multi-graph (two nodes can have many arcs between them)
  * 5. can have cycles
- * 6. can be a forest
- * 7. has arcs with an **order with respect to their nodes** (both in and out nodes)
+ * 6. can be disconnected
  *
- * ### Property number 7!
- *
- * Just to stress this point: No other author that we know about defines an order on arcs in a directed graph.
- *
- * That does not mean that they don't exist, of course. We just can't find them.
+ * This means that you can't represent an undirected arc ... er .. directly.
  *
  *
- * <p> If node a is connected to node b via an arc labeled c
- * then we store the arc c in arcsOut and in arcsIn
  * <p> Graphs are immutable - each time you add a node or an arc between two nodes, a new graph is created.
- * <p> The show method<p> Returns a text representation of the graph in the form of an ascii art diagram.
+ * <p> The show method returns a text representation of the graph in the form of an ascii art diagram.
  *
- * <p> This is an example of a graph with arcs labelled art or mod and its ascii-art diagram
+ * <p> This is an example of a graph with arcs labelled art or mod (and its ascii-art diagram):
  *
  *
  * <p> </p><img src="{@docRoot}/dev/doc-files/graph-diagrams.png"  width=700/>
@@ -244,9 +186,9 @@ import static dev.javafp.graph.ImGraph.Dir.Out;
 public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 {
 
-    private ImMap<KEY, DATA> valueMap;
-    private ImMap<KEY, ImList<ImArc<KEY, LABEL>>> arcsOut;
-    private ImMap<KEY, ImList<ImArc<KEY, LABEL>>> arcsIn;
+    protected ImMap<KEY, DATA> valueMap;
+    protected ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> arcsOut;
+    protected ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> arcsIn;
 
     private static ImGraph empty = new ImGraph<>(ImMap.empty(), ImMap.empty(), ImMap.empty());
 
@@ -266,7 +208,15 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         Out
     }
 
-    protected ImGraph(ImMap<KEY, DATA> valueMap, ImMap<KEY, ImList<ImArc<KEY, LABEL>>> arcsOut, ImMap<KEY, ImList<ImArc<KEY, LABEL>>> arcsIn)
+    //    /**
+    //     * For convenient subclassing in tests
+    //     */
+    //    protected ImGraph()
+    //    {
+    //        this(ImMap.empty(), ImMap.empty(), ImMap.empty());
+    //    }
+
+    protected ImGraph(ImMap<KEY, DATA> valueMap, ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> arcsOut, ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> arcsIn)
     {
         this.valueMap = valueMap;
         this.arcsIn = arcsIn;
@@ -278,14 +228,12 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     {
         // Get the inclusive closure of ks
         // Get the other nodes
-        ImList<KEY> closure = getInOrderClosure(Out, labels, ks);
-        // System.out.println("closure " + closure);
+        ImList<KEY> closure = topologicalOrder(i -> this.getAdjacents(Out, labels, i), ks);
 
         ImSet<KEY> otherKeysSet = ImSet.onAll(keys()).minus(closure);
-        ImList<KEY> otherKeys = otherKeysSet.toImList();
-        // System.out.println("otherKeys " + otherKeys);
+        ImList<KEY> otherKeys = otherKeysSet.toList();
 
-        ImMap<KEY, ImList<ImArc<KEY, LABEL>>> arcsIn = this.arcsIn.removeAll(otherKeys).map(v -> v.filter(a -> !otherKeysSet.contains(a.start)));
+        ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> arcsIn = this.arcsIn.removeAll(otherKeys).map(v -> v.filter(a -> !otherKeysSet.contains(a.start)));
 
         return new ImGraph<>(valueMap.removeAll(otherKeys), arcsOut.removeAll(otherKeys), arcsIn);
     }
@@ -377,6 +325,14 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     }
 
     /**
+     * The singleton empty graph.
+     */
+    public static <KEY, DATA, LABEL> ImGraph<KEY, DATA, LABEL> on()
+    {
+        return empty();
+    }
+
+    /**
      * <p> {@code true}
      *  if the graph contains a node with key
      * {@code key}
@@ -406,37 +362,37 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
         ImArc<KEY, LABEL> arc = ImArc.on(label, start, end);
 
-        ImList<ImArc<KEY, LABEL>> out = arcsOut.getOrDefault(start, ImList.empty()).push(arc);
-        ImList<ImArc<KEY, LABEL>> in = arcsIn.getOrDefault(end, ImList.empty()).push(arc);
+        ImSet<ImArc<KEY, LABEL>> out = arcsOut.getOrDefault(start, ImSet.empty()).add(arc);
+        ImSet<ImArc<KEY, LABEL>> in = arcsIn.getOrDefault(end, ImSet.empty()).add(arc);
 
         return new ImGraph<>(valueMap, arcsOut.put(start, out), arcsIn.put(end, in));
     }
 
-    /**
-     * <p> Add an arc with label
-     * {@code label}
-     *  from
-     * {@code start}
-     *  to
-     * {@code end}
-     *  - adding it after all the existing arcs on the nodes
-     *
-     */
-    public ImGraph<KEY, DATA, LABEL> addArcAsLast(LABEL label, KEY start, KEY end)
-    {
-        if (!containsNodeWithKey(start))
-            throw new KeyMissing(start);
-
-        if (!containsNodeWithKey(end))
-            throw new KeyMissing(end);
-
-        ImArc<KEY, LABEL> arc = ImArc.on(label, start, end);
-
-        ImList<ImArc<KEY, LABEL>> out = arcsOut.getOrDefault(start, ImList.empty()).appendElement(arc);
-        ImList<ImArc<KEY, LABEL>> in = arcsIn.getOrDefault(end, ImList.empty()).appendElement(arc);
-
-        return new ImGraph<>(valueMap, arcsOut.put(start, out), arcsIn.put(end, in));
-    }
+    //    /**
+    //     * <p> Add an arc with label
+    //     * {@code label}
+    //     *  from
+    //     * {@code start}
+    //     *  to
+    //     * {@code end}
+    //     *  - adding it after all the existing arcs on the nodes
+    //     *
+    //     */
+    //    public ImGraph<KEY, DATA, LABEL> addArcAsLast(LABEL label, KEY start, KEY end)
+    //    {
+    //        if (!containsNodeWithKey(start))
+    //            throw new KeyMissing(start);
+    //
+    //        if (!containsNodeWithKey(end))
+    //            throw new KeyMissing(end);
+    //
+    //        ImArc<KEY, LABEL> arc = ImArc.on(label, start, end);
+    //
+    //        ImSet<ImArc<KEY, LABEL>> out = getArcs(Out, start).add(arc);
+    //        ImSet<ImArc<KEY, LABEL>> in = getArcs(In, end).add(arc);
+    //
+    //        return new ImGraph<>(valueMap, arcsOut.put(start, out), arcsIn.put(end, in));
+    //    }
 
     /**
      * <p> Add an arc with label
@@ -453,35 +409,35 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * {@code label}
      *
      */
-    public ImGraph<KEY, DATA, LABEL> addArcAfter(LABEL label, KEY start, KEY end, KEY after)
-    {
-        if (!containsNodeWithKey(start))
-            throw new KeyMissing(start);
-
-        if (!containsNodeWithKey(end))
-            throw new KeyMissing(end);
-
-        // The arc that points to key after
-        ImArc<KEY, LABEL> arcForAfter = ImArc.on(label, start, after);
-        ImArc<KEY, LABEL> arc = ImArc.on(label, start, end);
-
-        // Get a zipper on the list of arcs from start
-        ImListZipper<ImArc<KEY, LABEL>> zipper = arcsOut.getOrDefault(start, ImList.empty()).getZipper();
-
-        // Find the arc to after in the list and push the new arc after it
-        ImMaybe<ImList<ImArc<KEY, LABEL>>> maybeOut = zipper.find(arcForAfter).map(z -> z.push(arc).close());
-
-        if (!maybeOut.isPresent())
-        {
-            throw new KeyMissing(start, label, after);
-        }
-        else
-        {
-            ImList<ImArc<KEY, LABEL>> in = arcsIn.getOrDefault(end, ImList.empty()).push(arc);
-
-            return new ImGraph<>(valueMap, arcsOut.put(start, maybeOut.get()), arcsIn.put(end, in));
-        }
-    }
+    //    public ImGraph<KEY, DATA, LABEL> addArcAfter(LABEL label, KEY start, KEY end, KEY after)
+    //    {
+    //        if (!containsNodeWithKey(start))
+    //            throw new KeyMissing(start);
+    //
+    //        if (!containsNodeWithKey(end))
+    //            throw new KeyMissing(end);
+    //
+    //        // The arc that points to key after
+    //        ImArc<KEY, LABEL> arcForAfter = ImArc.on(label, start, after);
+    //        ImArc<KEY, LABEL> arc = ImArc.on(label, start, end);
+    //
+    //        // Get a zipper on the list of arcs from start
+    //        ImListZipper<ImArc<KEY, LABEL>> zipper = arcsOut.getOrDefault(start, ImList.empty()).getZipper();
+    //
+    //        // Find the arc to after in the list and push the new arc after it
+    //        ImMaybe<ImList<ImArc<KEY, LABEL>>> maybeOut = zipper.find(arcForAfter).map(z -> z.push(arc).close());
+    //
+    //        if (!maybeOut.isPresent())
+    //        {
+    //            throw new KeyMissing(start, label, after);
+    //        }
+    //        else
+    //        {
+    //            ImList<ImArc<KEY, LABEL>> in = arcsIn.getOrDefault(end, ImList.empty()).push(arc);
+    //
+    //            return new ImGraph<>(valueMap, arcsOut.put(start, maybeOut.get()), arcsIn.put(end, in));
+    //        }
+    //    }
 
     /**
      * <p> Remove the arc with label
@@ -505,8 +461,8 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         if (!containsNodeWithKey(end))
             throw new KeyMissing(end);
 
-        ImList<ImArc<KEY, LABEL>> out = arcsOut.get(start).filter(a -> !(a.label.equals(label) && a.end.equals(end)));
-        ImList<ImArc<KEY, LABEL>> in = arcsIn.get(end).filter(a -> !(a.label.equals(label) && a.start.equals(start)));
+        ImSet<ImArc<KEY, LABEL>> out = arcsOut.get(start).filter(a -> !(a.label.equals(label) && a.end.equals(end)));
+        ImSet<ImArc<KEY, LABEL>> in = arcsIn.get(end).filter(a -> !(a.label.equals(label) && a.start.equals(start)));
 
         return new ImGraph<>(valueMap, arcsOut.put(start, out), arcsIn.put(end, in));
     }
@@ -523,7 +479,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         if (!containsNodeWithKey(key))
             throw new KeyMissing(key);
 
-        var connected = getConnected(In, key).append(getConnected(Out, key));
+        var connected = getAdjacents(In, key).union(getAdjacents(Out, key));
 
         if (connected.isNotEmpty())
         {
@@ -544,7 +500,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     //        return arcsOut.getOrDefault(key, ImList.empty()).map(arc -> arc.end);
     //    }
 
-    private ImMap<KEY, ImList<ImArc<KEY, LABEL>>> getMap(Dir dir)
+    private ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> getMap(Dir dir)
     {
         return dir == In
                ? arcsIn
@@ -577,7 +533,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      */
     public ImList<KEY> roots()
     {
-        return keys().filter(k -> getConnected(In, k).isEmpty());
+        return keys().filter(k -> getAdjacents(In, k).isEmpty());
     }
 
     /**
@@ -587,7 +543,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      */
     public ImList<KEY> leaves()
     {
-        return keys().filter(k -> getConnected(Out, k).isEmpty());
+        return keys().filter(k -> getAdjacents(Out, k).isEmpty());
     }
 
     /**
@@ -613,7 +569,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         //System.out.println(ImList.onAll(set) + " --- " + nodeKey);
         return set.contains(nodeKey)
                ? true
-               : getConnected(Out, nodeKey).any(a -> hasCycle(set.add(nodeKey), a));
+               : getAdjacents(Out, nodeKey).any(a -> hasCycle(set.add(nodeKey), a));
     }
 
     /**
@@ -782,6 +738,15 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
     /**
      *
+     * A list of all the arcs in the graph
+     */
+    public ImList<ImArc<KEY, LABEL>> arcs()
+    {
+        return ImList.join(arcsOut.values().map(i -> i.toList()));
+    }
+
+    /**
+     *
      * A list of all the data values in the graph
      */
     public ImList<DATA> values()
@@ -809,10 +774,12 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      */
     public ImList<ImPair<LABEL, KEY>> getPairs(Dir dir, KEY key)
     {
-        return getArcsMap(dir).getOrDefault(key, ImList.empty()).map(arc -> ImPair.on(arc.label, arc.getSlot(dir)));
+
+        return getArcs(dir, key).toList().map(arc -> ImPair.on(arc.label, arc.getSlot(dir)));
+        //        return getArcsMap(dir).getOrDefault(key, ImList.empty()).map(arc -> ImPair.on(arc.label, arc.getSlot(dir)));
     }
 
-    private ImMap<KEY, ImList<ImArc<KEY, LABEL>>> getArcsMap(Dir dir)
+    private ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> getArcsMap(Dir dir)
     {
         return dir == Out
                ? arcsOut
@@ -834,38 +801,64 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * unless that node is in a cycle - in which case it will contain it
      *
      */
-    public ImList<KEY> getClosure(Dir dir, LABEL label, KEY key)
+    public ImSet<KEY> getClosure(Dir dir, LABEL label, KEY key)
     {
-        return getInclusiveClosure(dir, label, getConnected(dir, label, key));
+        return getInclusiveClosure(k -> getAdjacents(dir, label, k), ImSet.on(key), ImSet.on());
+    }
+
+    //    /**
+    //     * <p> Get the closure of
+    //     * {@code keys}
+    //     *  including each element of
+    //     * {@code keys}
+    //     *  in the direction
+    //     * {@code dir}
+    //     *  chasing the arcs with label
+    //     * {@code label}
+    //     *
+    //     */
+    //    public ImList<KEY> getInclusiveClosure(Dir dir, LABEL label, ImList<KEY> keys)
+    //    {
+    //        return getInclusiveClosure(dir, label, keys, ImSet.empty());
+    //    }
+
+    //    private ImSet<KEY> getInclusiveClosure(Dir dir, LABEL label, ImList<KEY> ks, ImSet<KEY> found)
+    //    {
+    //        return ks.isEmpty()
+    //               ? found
+    //               : found.contains(ks.head())
+    //                 ? getInclusiveClosure(dir, label, ks.tail(), found)
+    //                 : getInclusiveClosure(dir, label, ks.tail().union(getConnected(dir, label, ks.head())), found.add(ks.head()));
+    //    }
+
+    //    private ImSet<KEY> getInclusiveClosure(Dir dir, LABEL label, ImSet<KEY> startSet)
+    //    {
+    //
+    //        // Go thru all the nodes in the start set to generate a new set
+    //        ImSet<KEY> newSet = startSet.flatMap(k -> getConnected(dir, label, k));
+    //
+    //        // If the above resulted in some new nodes being added then continue
+    //        // otherwise stop
+    //        return newSet.size() > startSet.size()
+    //               ? getInclusiveClosure(dir, label, newSet)
+    //               : startSet;
+    //    }
+
+    private ImSet<KEY> getInclusiveClosure(Fn<KEY, ImSet<KEY>> adjacentFn, ImSet<KEY> candidates, ImSet<KEY> visited)
+    {
+        // Go through all the nodes in the start set to generate a new set.
+        // Note that we remove any already in visited since we are not going to chase them
+        ImSet<KEY> newCandidates = candidates.flatMap(adjacentFn).minus(visited);
+
+        // If there are any new candidates then continue
+        // otherwise stop
+        return newCandidates.isNotEmpty()
+               ? getInclusiveClosure(adjacentFn, newCandidates, visited.union(newCandidates))
+               : visited;
     }
 
     /**
-     * <p> Get the closure of
-     * {@code keys}
-     *  including each element of
-     * {@code keys}
-     *  in the direction
-     * {@code dir}
-     *  chasing the arcs with label
-     * {@code label}
-     *
-     */
-    public ImList<KEY> getInclusiveClosure(Dir dir, LABEL label, ImList<KEY> keys)
-    {
-        return getInclusiveClosure(dir, label, keys, ImSet.empty());
-    }
-
-    private ImList<KEY> getInclusiveClosure(Dir dir, LABEL label, ImList<KEY> ks, ImSet<KEY> found)
-    {
-        return ks.isEmpty()
-               ? found.toImList()
-               : found.contains(ks.head())
-                 ? getInclusiveClosure(dir, label, ks.tail(), found)
-                 : getInclusiveClosure(dir, label, ks.tail().append(getConnected(dir, label, ks.head())), found.add(ks.head()));
-    }
-
-    /**
-     * <p> Get the keys that are connected to
+     * <p> Get the keys that are adjacent to
      * {@code key}
      *  by arcs in the direction
      * {@code dir}
@@ -875,12 +868,29 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
      *
      */
-    public ImList<KEY> getConnected(Dir dir, LABEL label, KEY key)
+    public ImSet<KEY> getAdjacents(Dir dir, LABEL label, KEY key)
     {
         // System.out.println("get " + dir + " label " + label + " key " + key);
-        return getMap(dir).getOrDefault(key, ImList.empty()).filter(arc -> arc.label.equals(label)).map(arc -> arc.getSlot(dir));
+        //        return getMap(dir).getOrDefault(key, ImSet.empty()).filter(arc -> arc.label.equals(label)).map(arc -> arc.getSlot(dir));
+
+        return getArcs(dir, key).filter(arc -> arc.label.equals(label)).map(arc -> arc.getSlot(dir));
     }
 
+    /**
+     * <p> Get the keys that are connected to
+     * {@code key}
+     *  by arcs in the direction
+     * {@code dir}
+     *  that have a label contained in
+     * {@code labels}
+     *
+     *
+     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
+     */
+    public ImSet<KEY> getAdjacents(Dir dir, ImSet<LABEL> labels, KEY key)
+    {
+        return getArcs(dir, key).filter(arc -> labels.contains(arc.label)).map(arc -> arc.getSlot(dir));
+    }
     //------------------------------------------------------------------------------------
 
     /**
@@ -898,35 +908,14 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * unless that node is in a cycle - in which case it will contain it
      *
      */
-    public ImList<KEY> getClosure(Dir dir, ImSet<LABEL> labels, KEY key)
+    public ImSet<KEY> getClosure(Dir dir, ImSet<LABEL> labels, KEY key)
     {
-        return getInclusiveClosure(dir, labels, getConnected(dir, labels, key), ImSet.empty());
+        return getInclusiveClosure(k -> getAdjacents(dir, labels, k), ImSet.on(key), ImSet.on());
     }
 
-    private ImList<KEY> getInclusiveClosure(Dir dir, ImSet<LABEL> labels, ImList<KEY> ks, ImSet<KEY> found)
+    private ImSet<ImArc<KEY, LABEL>> getArcs(Dir dir, KEY key)
     {
-        return ks.isEmpty()
-               ? found.toImList()
-               : found.contains(ks.head())
-                 ? getInclusiveClosure(dir, labels, ks.tail(), found)
-                 : getInclusiveClosure(dir, labels, ks.tail().append(getConnected(dir, labels, ks.head())), found.add(ks.head()));
-    }
-
-    /**
-     * <p> Get the keys that are connected to
-     * {@code key}
-     *  by arcs in the direction
-     * {@code dir}
-     *  that have a label contained in
-     * {@code labels}
-     *
-     *
-     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
-     */
-    public ImList<KEY> getConnected(Dir dir, ImSet<LABEL> labels, KEY key)
-    {
-        // System.out.println("getConnected " + dir + " labels " + labels + " key " + key);
-        return getMap(dir).getOrDefault(key, ImList.empty()).filter(arc -> labels.contains(arc.label)).map(arc -> arc.getSlot(dir));
+        return getMap(dir).getOrDefault(key, ImSet.empty());
     }
 
     /**
@@ -941,7 +930,8 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      */
     public ImList<ImList<KEY>> getPaths(Dir dir, ImSet<LABEL> labels, KEY key)
     {
-        ImList<KEY> neighbours = getConnected(dir, labels, key);
+
+        ImList<KEY> neighbours = getAdjacents(dir, labels, key).toList();
 
         ImList<ImList<KEY>> paths = neighbours.isEmpty()
                                     ? ImList.on(ImList.on())
@@ -987,19 +977,19 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * }</pre>
      *
      */
-    public ImList<KEY> getClosure(Dir dir, KEY key)
+    public ImSet<KEY> getClosure(Dir dir, KEY key)
     {
-        return getInclusiveClosure(dir, getConnected(dir, key), ImSet.empty());
+        return getInclusiveClosure(k -> getAdjacents(dir, k), ImSet.on(key), ImSet.on());
     }
 
-    private ImList<KEY> getInclusiveClosure(Dir dir, ImList<KEY> ks, ImSet<KEY> found)
-    {
-        return ks.isEmpty()
-               ? found.toImList()
-               : found.contains(ks.head())
-                 ? getInclusiveClosure(dir, ks.tail(), found)
-                 : getInclusiveClosure(dir, ks.tail().append(getConnected(dir, ks.head())), found.add(ks.head()));
-    }
+    //    private ImList<KEY> getInclusiveClosure(Dir dir, ImList<KEY> ks, ImSet<KEY> found)
+    //    {
+    //        return ks.isEmpty()
+    //               ? found.toList()
+    //               : found.contains(ks.head())
+    //                 ? getInclusiveClosure(dir, ks.tail(), found)
+    //                 : getInclusiveClosure(dir, ks.tail().append(getConnected(dir, ks.head())), found.add(ks.head()));
+    //    }
 
     /**
      * <p> Get the nodes that are connected to the node with key
@@ -1009,51 +999,53 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      *
      * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>..
      */
-    public ImList<KEY> getConnected(Dir dir, KEY key)
+    public ImSet<KEY> getAdjacents(Dir dir, KEY key)
     {
-        return getMap(dir).getOrDefault(key, ImList.empty()).map(arc -> arc.getSlot(dir));
+        return getMap(dir).getOrDefault(key, ImSet.empty()).map(arc -> arc.getSlot(dir));
     }
 
     //------------------------------------------------------------------------------------
-
-    /**
-     * <p> Get the inclusive in-order (AKA depth-last) closure of
-     * {@code key}
-     *  in the direction
-     * {@code dir}
-     *  chasing the arcs with any label
-     * <p> let l =  g.getInOrderClosure(d, k)
-     * <p> in order means this:
-     *
-     * <pre>{@code
-     * for all a, b in list, rank a < rank b => there is no path from b to a in direction `dir`
-     * }</pre>
-     * <p> This function is
-     * {@code O(n^2)}
-     *  I think so ...er... beware
-     *
-     */
-    public ImList<KEY> getInOrderClosure(Dir dir, ImSet<LABEL> labels, ImList<KEY> keys)
-    {
-        return getInOrderClosure(dir, labels, keys, ImList.on());
-    }
-
-    public ImList<KEY> getInOrderClosureOnSingleKey(Dir dir, ImSet<LABEL> labels, KEY key)
-    {
-        return getInOrderClosure(dir, labels, ImList.on(key));
-    }
-
-    private ImList<KEY> getInOrderClosure(Dir dir, ImSet<LABEL> labels, ImList<KEY> keys, ImList<KEY> found)
-    {
-        return keys.foldl(found, (f, n) -> getInOrderClosureOnSingleKey(dir, labels, n, f));
-    }
-
-    private ImList<KEY> getInOrderClosureOnSingleKey(Dir dir, ImSet<LABEL> labels, KEY key, ImList<KEY> found)
-    {
-        return found.contains(key)
-               ? found
-               : getInOrderClosure(dir, labels, getConnected(dir, labels, key), found).push(key);
-    }
+    //
+    //    /**
+    //     * <p> Get the inclusive in-order (AKA depth-last) closure of
+    //     * {@code key}
+    //     *  in the direction
+    //     * {@code dir}
+    //     *  chasing the arcs with any label
+    //     * <p> let l =  g.getInOrderClosure(d, k)
+    //     * <p> in order means this:
+    //     *
+    //     * <pre>{@code
+    //     * for all a, b in list, rank a < rank b => there is no path from b to a in direction `dir`
+    //     * }</pre>
+    //     * <p> This function is
+    //     * {@code O(n^2)}
+    //     *  I think so ...er... beware
+    //     *
+    //     */
+    //    public ImList<KEY> getInOrderClosure(Dir dir, ImSet<LABEL> labels, ImSet<KEY> keys)
+    //    {
+    //        return getInOrderClosure(dir, labels, keys, ImSet.on());
+    //    }
+    //
+    //    public ImList<KEY> getInOrderClosureOnSingleKey(Dir dir, ImSet<LABEL> labels, KEY key)
+    //    {
+    //        return getInOrderClosure(dir, labels, ImSet.on(key));
+    //    }
+    //
+    //    private ImList<KEY> getInOrderClosure(Dir dir, ImSet<LABEL> labels, ImSet<KEY> keys, ImSet<KEY> found)
+    //    {
+    //        throw new MethodNotImplemented();
+    //        //return keys.foldl(found, (f, n) -> getInOrderClosureOnSingleKey(dir, labels, n, f));
+    //    }
+    //
+    //    private ImList<KEY> getInOrderClosureOnSingleKey(Dir dir, ImSet<LABEL> labels, KEY key, ImSet<KEY> found)
+    //    {
+    //        throw new MethodNotImplemented();
+    //        //        return found.contains(key)
+    //        //               ? found
+    //        //               : getInOrderClosure(dir, labels, getAdjacents(dir, labels, key), found).push(key);
+    //    }
 
     /**
      * The list of data values associated with the nodes whose keys are in
@@ -1072,7 +1064,151 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
         return
                 Equals.isEqual(this.keys().toSet(), other.keys().toSet()) &&
-                        ImList.and(keys().map(k -> Equals.isEqual(this.getConnected(Out, k).toSet(), other.getConnected(Out, k).toSet())));
+                        ImList.and(keys().map(k -> Equals.isEqual(this.getAdjacents(Out, k), other.getAdjacents(Out, k))));
 
     }
+    //
+    //    public ImList<KEY> tSort(Fn<KEY, ImSet<KEY>> adjacentFn, ImSet<KEY> candidates, ImSet<KEY> done)
+    //    {
+    //        say("candidates", candidates, "done", done);
+    //
+    //        if (candidates.isEmpty())
+    //            return ImList.on();
+    //        else
+    //        {
+    //            KEY c = candidates.anyElement().get();
+    //            say("candidate", c);
+    //
+    //            if (done.contains(c))
+    //            {
+    //                say("done contains candidate");
+    //                return tSort(adjacentFn, candidates.remove(c), done);
+    //            }
+    //            else
+    //            {
+    //                ImList<KEY> listFromC = tSort(adjacentFn, adjacentFn.of(c), done);
+    //
+    //                ImList<KEY> listFromOthers = tSort(adjacentFn, candidates.remove(c), done.add(c));
+    //                say(c, ":", "listFromCandidate", listFromC, "listFromOthers", listFromOthers);
+    //
+    //                return listFromC.append(listFromOthers).push(c);
+    //            }
+    //        }
+    //    }
+    //
+    //    private ImPair<ImList<KEY>, ImSet<KEY>> tSort2(Fn<KEY, ImSet<KEY>> adjacentFn, ImSet<KEY> candidates, ImSet<KEY> visited)
+    //    {
+    //        say("candidates", candidates, "visited", visited);
+    //
+    //        if (candidates.isEmpty())
+    //            return ImPair.on(ImList.on(), visited);
+    //        else
+    //        {
+    //            KEY c = candidates.anyElement().get();
+    //            say("candidate", c);
+    //
+    //            if (visited.contains(c))
+    //            {
+    //                say("done contains candidate", c);
+    //                return tSort2(adjacentFn, candidates.remove(c), visited);
+    //            }
+    //            else
+    //            {
+    //                say("doing the adjacents of", c);
+    //                ImPair<ImList<KEY>, ImSet<KEY>> one = tSort2(adjacentFn, adjacentFn.of(c), visited.add(c));
+    //
+    //                say("list is", one.fst);
+    //
+    //                say("doing the remaining", candidates.remove(c));
+    //                ImPair<ImList<KEY>, ImSet<KEY>> two = tSort2(adjacentFn, candidates.remove(c), one.snd);
+    //                say("list is", two.fst);
+    //
+    //                say("pushing candidate", c);
+    //                return ImPair.on(one.fst.append(two.fst).push(c), two.snd);
+    //            }
+    //        }
+    //    }
+    //
+    //    public ImList<KEY> topologicalSort2(Fn<KEY, ImSet<KEY>> adjacentFn, KEY startNode)
+    //    {
+    //        ImPair<ImList<KEY>, ImSet<KEY>> f = tSort2(adjacentFn, adjacentFn.of(startNode), ImSet.on());
+    //
+    //        say("pair returned", f);
+    //        return f.fst.reverse();
+    //    }
+
+    /**
+     * A list of keys in **topological order** with respect to `adjacentFn` starting from `startNode`.
+     *
+     * This means:
+     *
+     * If `ks` is the returned list of keys then:
+     *
+     *     for all arcs, (u,v) in this
+     *     `u` appears before `v` in ks
+     */
+    public ImList<KEY> topologicalOrder(Fn<KEY, ImSet<KEY>> adjacentFn, ImList<KEY> startNodes)
+    {
+        return ts(adjacentFn, startNodes);
+    }
+
+    public ImList<KEY> topologicalOrder(Fn<KEY, ImSet<KEY>> adjacentFn, KEY startNode)
+    {
+        return ts(adjacentFn, ImList.on(startNode));
+    }
+
+    private ImList<KEY> ts(Fn<KEY, ImSet<KEY>> adjacentFn, ImList<KEY> candidates)
+    {
+        if (candidates.isEmpty())
+            return ImList.on();
+
+        KEY c = candidates.head();
+        ImList<KEY> cs = candidates.tail();
+
+        ImList<KEY> ks = ts(adjacentFn, cs.append(adjacentFn.of(c).toList()));
+
+        return ks.contains(c)
+               ? ks
+               : ks.push(c);
+    }
+
+    //    ImSet<KEY> visited = ImSet.on();
+    //
+    //    /**
+    //     *  From Data Structures and Algorithms
+    //     *
+    //     *  This one matches the book better
+    //     *  and works
+    //     *
+    //     *  but, of course is a bit side-effect-y
+    //     */
+    //    public void topSort(Fn<KEY, ImSet<KEY>> adjacentFn, KEY candidate)
+    //    {
+    //        visited = visited.add(candidate);
+    //
+    //        adjacentFn.of(candidate).forEach(i -> {
+    //            if (!visited.contains(i))
+    //                topSort(adjacentFn, i);
+    //        });
+    //
+    //        say(candidate);
+    //    }
+    //
+    //    /**
+    //     *  From Data Structures and Algorithms
+    //     *
+    //     *  This one doesn't work
+    //     */
+    //    public void topSort0(Fn<KEY, ImSet<KEY>> adjacentFn, KEY candidate, ImSet<KEY> done)
+    //    {
+    //        ImSet<KEY> newDone = done.add(candidate);
+    //
+    //        adjacentFn.of(candidate).forEach(i -> {
+    //            if (!newDone.contains(i))
+    //                topSort0(adjacentFn, i, newDone);
+    //        });
+    //
+    //        say(candidate);
+    //    }
+
 }
