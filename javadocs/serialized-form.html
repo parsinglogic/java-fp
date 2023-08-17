@@ -154,6 +154,12 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="serialized-class-details" id="dev.javafp.ex.CantRemoveNodes">
+<h3>Exception&nbsp;<a href="dev/javafp/ex/CantRemoveNodes.html" title="class in dev.javafp.ex">dev.javafp.ex.CantRemoveNodes</a></h3>
+<div class="type-signature">class CantRemoveNodes extends <a href="dev/javafp/ex/ImException.html" title="class in dev.javafp.ex">ImException</a> implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
+</section>
+</li>
+<li>
 <section class="serialized-class-details" id="dev.javafp.ex.ChatFailed">
 <h3>Exception&nbsp;<a href="dev/javafp/ex/ChatFailed.html" title="class in dev.javafp.ex">dev.javafp.ex.ChatFailed</a></h3>
 <div class="type-signature">class ChatFailed extends <a href="dev/javafp/ex/ImException.html" title="class in dev.javafp.ex">ImException</a> implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
@@ -565,11 +571,11 @@ loadScripts(document, 'script');</script>
 <ul class="block-list">
 <li class="block-list">
 <h5>arcsIn</h5>
-<pre><a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;<a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="dev/javafp/graph/ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;&gt;&gt; arcsIn</pre>
+<pre><a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;<a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="dev/javafp/set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="dev/javafp/graph/ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;&gt;&gt; arcsIn</pre>
 </li>
 <li class="block-list">
 <h5>arcsOut</h5>
-<pre><a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;<a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="dev/javafp/graph/ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;&gt;&gt; arcsOut</pre>
+<pre><a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;<a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="dev/javafp/set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="dev/javafp/graph/ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;&gt;&gt; arcsOut</pre>
 </li>
 <li class="block-list">
 <h5>valueMap</h5>
@@ -831,6 +837,25 @@ loadScripts(document, 'script');</script>
 <section class="serialized-package-container">
 <h2 title="Package">Package&nbsp;<a href="dev/javafp/set/package-summary.html">dev.javafp.set</a></h2>
 <ul class="block-list">
+<li>
+<section class="serialized-class-details" id="dev.javafp.set.ImBag">
+<h3>Class&nbsp;<a href="dev/javafp/set/ImBag.html" title="class in dev.javafp.set">dev.javafp.set.ImBag</a></h3>
+<div class="type-signature">class ImBag extends <a href="dev/javafp/val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a> implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>Serialized Fields</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>counts</h5>
+<pre><a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;<a href="dev/javafp/set/ImBag.html" title="type parameter in ImBag">A</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt; counts</pre>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <li>
 <section class="serialized-class-details" id="dev.javafp.set.ImMap">
 <h3>Class&nbsp;<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">dev.javafp.set.ImMap</a></h3>

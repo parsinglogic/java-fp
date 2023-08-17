@@ -122,7 +122,7 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 
  <p> You can "add/replace" elements to the set using <a href="#add(T)"><code>add(T)</code></a> <a href="#add(T)"><code>add(T)</code></a> <a href="#replace(T)"><code>replace(T)</code></a> and "remove" them
  using <a href="#remove(T)"><code>remove(T)</code></a>.
- <p> You can test if an element is in the set using <a href="#contains(java.lang.Object)"><code>contains(java.lang.Object)</code></a> or <a href="#find(T)"><code>find(T)</code></a>.
+ <p> You can test if an element is in the set using <a href="#contains(T)"><code>contains(T)</code></a> or <a href="#find(T)"><code>find(T)</code></a>.
  <p> Methods that find/add/replace elements are
  <strong><code>O</code></strong>
  <code>(log(n))</code>
@@ -206,21 +206,32 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <code>elementToAdd</code>
   to the set.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#all(dev.javafp.func.Fn)" class="member-name-link">all</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;pred)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> <code>true</code>
+  if all the elements in
+ <code>this</code>
+  satisfy
+ <code>pred</code></div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#any(dev.javafp.func.Fn)" class="member-name-link">any</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;pred)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> <code>true</code>
+  if any the elements in
+ <code>this</code>
+  satisfy
+ <code>pred</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#anyElement()" class="member-name-link">anyElement</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> An element of the set - or Nothing if the set is empty</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#computeHash()" class="member-name-link">computeHash</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#contains(T)" class="member-name-link">contains</a><wbr>(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;elementToLookFor)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">This hash computation can't rely on any ordering in the elements -  so it has to look at all the elements
-
- It uses the same algorithm to combine the hashCodes of the elements as java.util.AbstractSet</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#contains(java.lang.Object)" class="member-name-link">contains</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;elementToLookFor)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> <code>true</code>
   if
  <code>this</code>
@@ -228,6 +239,9 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <code>elementToLookFor</code>
  .</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#containsAll(dev.javafp.set.ImSet)" class="member-name-link">containsAll</a><wbr>(<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&nbsp;elements)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;TT&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;TT&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#empty()" class="member-name-link">empty</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
@@ -242,9 +256,22 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <code>this</code>
   for equality.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#find(T)" class="member-name-link">find</a><wbr>(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;elementToFind)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#filter(dev.javafp.func.Fn)" class="member-name-link">filter</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;pred)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> the
+ <code>ImSet</code>
+  that is the sub-set of
+ <code>this</code>
+  where
+ <code>pred</code>
+  is
+ <code>true</code>
+  for each element</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#find(T)" class="member-name-link">find</a><wbr>(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;elementToFind)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> If an element that
  <em>equals</em>
  <code>elementToFind</code>
@@ -252,9 +279,36 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <code>null</code>
  .</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;dev.javafp.set.ImSet.Bucket&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getBucketContaining(T)" class="member-name-link">getBucketContaining</a><wbr>(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;element)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;A&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;A&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#flatMap(dev.javafp.func.Fn)" class="member-name-link">flatMap</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;A&gt;&gt;&nbsp;fn)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The
+ <code>ImSet</code>
+  formed by running
+ <code>fn</code>
+  on each element of
+ <code>this</code>
+  in order and then joining the resulting
+ <code>ImSet</code>
+ s</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;B&gt;&nbsp;B</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#foldl(B,dev.javafp.func.Fn2)" class="member-name-link">foldl</a><wbr>(B&nbsp;z,
+ <a href="../func/Fn2.html" title="interface in dev.javafp.func">Fn2</a>&lt;B,<wbr><a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr>B&gt;&nbsp;f)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> Start with an accumulator
+ <code>z</code>
+  and iterate over
+ <code>this</code>
+ , applying
+ <code>f</code>
+  to the
+ <code>z</code>
+  and
+ <code>e</code>
+  to get a new
+ <code>z</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextBox()" class="member-name-link">getTextBox</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -270,58 +324,58 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isEmpty()" class="member-name-link">isEmpty</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#iterator()" class="member-name-link">iterator</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">`true` iff this is the empty set</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isNotEmpty()" class="member-name-link">isNotEmpty</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">`true` iff this is not the empty set</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#iterator()" class="member-name-link">iterator</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> An iterator over the elements in
  <code>this</code>
  .</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#join(java.util.Collection)" class="member-name-link">join</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends T&gt;&gt;&nbsp;collectionOfCollections)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> The ImSet formed out of the elements of each collection in
- <code>collectionOfCollections</code>
-  in order.</div>
-</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#joinArray(java.util.Collection...)" class="member-name-link">joinArray</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends T&gt;...&nbsp;collections)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#join(java.lang.Iterable)" class="member-name-link">join</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;? extends T&gt;&gt;&nbsp;iterable)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> The ImSet formed out of the elements of each collection in
- <code>collections</code>
-  in order.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#joinIterator(java.util.Iterator)" class="member-name-link">joinIterator</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends T&gt;&gt;&nbsp;iterator)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block"> The ImSet formed out of the elements of each collection in
  <code>iterator</code>
   in order.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;U&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;U&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#map(dev.javafp.func.Fn)" class="member-name-link">map</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr>U&gt;&nbsp;fn)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minus(java.lang.Iterable)" class="member-name-link">minus</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&nbsp;iterable)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;U&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;U&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#map(dev.javafp.func.Fn)" class="member-name-link">map</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr>U&gt;&nbsp;fn)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minus(java.lang.Iterable)" class="member-name-link">minus</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&nbsp;iterable)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Form the set
  <code>this</code>
   minus
  <code>iterable</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(T...)" class="member-name-link">on</a><wbr>(T...&nbsp;elements)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(T...)" class="member-name-link">on</a><wbr>(T...&nbsp;elements)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block"> The set whose only element is
  <code>element</code>
  .</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#onAll(dev.javafp.lst.ImList)" class="member-name-link">onAll</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;T&gt;&nbsp;ts)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#onAll(dev.javafp.lst.ImList)" class="member-name-link">onAll</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;T&gt;&nbsp;ts)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block"> The set whose elements are obtained from the list
  <code>ts</code>
+ .</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;U&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;U&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#onAll(dev.javafp.set.ImSet)" class="member-name-link">onAll</a><wbr>(<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;U&gt;&nbsp;xs)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The set whose elements are obtained from the set
+ <code>xs</code>
  .</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</code></div>
@@ -353,37 +407,33 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
   from the set.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeElementFromBucket(T,dev.javafp.set.ImSet.Bucket)" class="member-name-link">removeElementFromBucket</a><wbr>(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;element,
- dev.javafp.set.ImSet.Bucket&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&nbsp;bucketWithMatchingHashCode)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#replace(T)" class="member-name-link">replace</a><wbr>(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;newElement)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#replace(T)" class="member-name-link">replace</a><wbr>(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;newElement)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Add
  <code>newElement</code>
   to the set.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> The number of elements in
  <code>this</code>
  .</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toImList()" class="member-name-link">toImList</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toList()" class="member-name-link">toList</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> A list containing the elements of the set</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#union(java.lang.Iterable)" class="member-name-link">union</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;? extends <a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&nbsp;elementsToAdd)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;U&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;U&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#upCast()" class="member-name-link">upCast</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#union(java.lang.Iterable)" class="member-name-link">union</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;? extends <a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&nbsp;elementsToAdd)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;U&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;U&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#upCast()" class="member-name-link">upCast</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Allows
  <code>ImSet&lt;U&gt;</code>
   to be cast to
@@ -483,19 +533,6 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 </section>
 </li>
 <li>
-<section class="detail" id="removeElementFromBucket(T,dev.javafp.set.ImSet.Bucket)">
-<h3 id="removeElementFromBucket(java.lang.Object,dev.javafp.set.ImSet.Bucket)">removeElementFromBucket</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</span>&nbsp;<span class="element-name">removeElementFromBucket</span><wbr><span class="parameters">(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;element,
- dev.javafp.set.ImSet.Bucket&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&nbsp;bucketWithMatchingHashCode)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getBucketContaining(T)">
-<h3 id="getBucketContaining(java.lang.Object)">getBucketContaining</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;dev.javafp.set.ImSet.Bucket&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&gt;</span>&nbsp;<span class="element-name">getBucketContaining</span><wbr><span class="parameters">(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;element)</span></div>
-</section>
-</li>
-<li>
 <section class="detail" id="find(T)">
 <h3 id="find(java.lang.Object)">find</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</span>&nbsp;<span class="element-name">find</span><wbr><span class="parameters">(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;elementToFind)</span></div>
@@ -538,7 +575,7 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <ul class="see-list">
 <li><a href="#onAll(java.util.Collection)"><code>onAll(Collection)</code></a></li>
 <li><a href="#onIterator(java.util.Iterator)"><code>onIterator(Iterator)</code></a></li>
-<li><a href="#on(T...)"><code>on(T...)</code></a></li>
+<li><code>on()</code></li>
 </ul>
 </dd>
 </dl>
@@ -574,7 +611,7 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <ul class="see-list">
 <li><a href="#onIterator(java.util.Iterator)"><code>onIterator(Iterator)</code></a></li>
 <li><a href="#onArray(T...)"><code>onArray(Object...)</code></a></li>
-<li><a href="#on(T...)"><code>on(T...)</code></a></li>
+<li><code>on()</code></li>
 </ul>
 </dd>
 </dl>
@@ -587,12 +624,6 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <div class="block"><p> The set whose elements are obtained by iterating over
  <code>iterator</code>
  .
- <p> ImCollections can't contain
- <code>null</code>
-  so none of the elements in
- <code>iterator</code>
-  can be
- <code>null</code>
  <h4>Examples:</h4>
 
  <pre><code>
@@ -610,7 +641,7 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <ul class="see-list">
 <li><a href="#onAll(java.util.Collection)"><code>onAll(Collection)</code></a></li>
 <li><a href="#onArray(T...)"><code>onArray(Object...)</code></a></li>
-<li><a href="#on(T...)"><code>on(T...)</code></a></li>
+<li><code>on()</code></li>
 </ul>
 </dd>
 </dl>
@@ -625,12 +656,6 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <code>element</code>
  .
  <p> This is convenient when we want to create a list whose only element is an array.
- <p> ImCollections can't contain
- <code>null</code>
-  so
- <code>element</code>
-  can't be
- <code>null</code>
  .
  <p> @throws NullPointerException if element is
  <code>null</code></div>
@@ -652,6 +677,15 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</span>&nbsp;<span class="element-name">onAll</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;T&gt;&nbsp;ts)</span></div>
 <div class="block"><p> The set whose elements are obtained from the list
  <code>ts</code>
+ .</div>
+</section>
+</li>
+<li>
+<section class="detail" id="onAll(dev.javafp.set.ImSet)">
+<h3>onAll</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;U&gt;</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;U&gt;</span>&nbsp;<span class="element-name">onAll</span><wbr><span class="parameters">(<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;U&gt;&nbsp;xs)</span></div>
+<div class="block"><p> The set whose elements are obtained from the set
+ <code>xs</code>
  .</div>
 </section>
 </li>
@@ -702,9 +736,9 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 </section>
 </li>
 <li>
-<section class="detail" id="contains(java.lang.Object)">
-<h3>contains</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">contains</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;elementToLookFor)</span></div>
+<section class="detail" id="contains(T)">
+<h3 id="contains(java.lang.Object)">contains</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">contains</span><wbr><span class="parameters">(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;elementToLookFor)</span></div>
 <div class="block"><p> <code>true</code>
   if
  <code>this</code>
@@ -723,6 +757,12 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <pre><code>
  e.equals(elementToLookFor)
  </code></pre></div>
+</section>
+</li>
+<li>
+<section class="detail" id="containsAll(dev.javafp.set.ImSet)">
+<h3>containsAll</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">containsAll</span><wbr><span class="parameters">(<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&nbsp;elements)</span></div>
 </section>
 </li>
 <li>
@@ -779,43 +819,9 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 </section>
 </li>
 <li>
-<section class="detail" id="joinArray(java.util.Collection...)">
-<h3>joinArray</h3>
-<div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/SafeVarargs.html" title="class or interface in java.lang" class="external-link">@SafeVarargs</a>
-</span><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</span>&nbsp;<span class="element-name">joinArray</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends T&gt;...&nbsp;collections)</span></div>
-<div class="block"><p> The ImSet formed out of the elements of each collection in
- <code>collections</code>
-  in order.
- <p> ImCollections can't contain
- <code>null</code>
-  so none of the elements can be
- <code>null</code>
- <h4>Examples:</h4>
-
- <pre><code>
- List&lt;Number&gt; threeFive = Arrays.&lt;Number&gt; asList(3, 5);
- ImSet&lt;Integer&gt; oneTwo = ImSet.on(1, 2);
-
- joinArray(oneTwo, threeFive)          =&gt;  [1, 2, 3, 5]");
- joinArray(oneTwo, threeFive, oneTwo)  =&gt;  [1, 2, 3, 5, 1, 2]
- joinArray(on(), on())                 =&gt;  []
- </code></pre></div>
-<dl class="notes">
-<dt>See Also:</dt>
-<dd>
-<ul class="see-list">
-<li><a href="#union(java.lang.Iterable)"><code>union(Iterable)</code></a></li>
-<li><a href="#joinIterator(java.util.Iterator)"><code>joinIterator(Iterator)</code></a></li>
-<li><a href="#join(java.util.Collection)"><code>join(Collection)</code></a></li>
-</ul>
-</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="joinIterator(java.util.Iterator)">
-<h3>joinIterator</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</span>&nbsp;<span class="element-name">joinIterator</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends T&gt;&gt;&nbsp;iterator)</span></div>
+<section class="detail" id="join(java.lang.Iterable)">
+<h3>join</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</span>&nbsp;<span class="element-name">join</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;? extends T&gt;&gt;&nbsp;iterable)</span></div>
 <div class="block"><p> The ImSet formed out of the elements of each collection in
  <code>iterator</code>
   in order.
@@ -828,40 +834,15 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <dd>
 <ul class="see-list">
 <li><a href="#union(java.lang.Iterable)"><code>union(Iterable)</code></a></li>
-<li><a href="#joinArray(java.util.Collection...)"><code>joinArray(Collection...)</code></a></li>
-<li><a href="#join(java.util.Collection)"><code>join(Collection)</code></a></li>
 </ul>
 </dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="join(java.util.Collection)">
-<h3>join</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</span>&nbsp;<span class="element-name">join</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;? extends T&gt;&gt;&nbsp;collectionOfCollections)</span></div>
-<div class="block"><p> The ImSet formed out of the elements of each collection in
- <code>collectionOfCollections</code>
-  in order.
- <p> ImCollections can't contain
- <code>null</code>
-  so none of the elements can be
- <code>null</code></div>
-<dl class="notes">
-<dt>See Also:</dt>
-<dd>
-<ul class="see-list">
-<li><a href="#union(java.lang.Iterable)"><code>union(Iterable)</code></a></li>
-<li><a href="#joinArray(java.util.Collection...)"><code>joinArray(Collection...)</code></a></li>
-<li><a href="#joinIterator(java.util.Iterator)"><code>joinIterator(Iterator)</code></a></li>
-</ul>
-</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="toImList()">
-<h3>toImList</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</span>&nbsp;<span class="element-name">toImList</span>()</div>
+<section class="detail" id="toList()">
+<h3>toList</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</span>&nbsp;<span class="element-name">toList</span>()</div>
 <div class="block"><p> A list containing the elements of the set</div>
 </section>
 </li>
@@ -876,6 +857,14 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <section class="detail" id="isEmpty()">
 <h3>isEmpty</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEmpty</span>()</div>
+<div class="block">`true` iff this is the empty set</div>
+</section>
+</li>
+<li>
+<section class="detail" id="isNotEmpty()">
+<h3>isNotEmpty</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isNotEmpty</span>()</div>
+<div class="block">`true` iff this is not the empty set</div>
 </section>
 </li>
 <li>
@@ -895,6 +884,151 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 </section>
 </li>
 <li>
+<section class="detail" id="foldl(B,dev.javafp.func.Fn2)">
+<h3 id="foldl(java.lang.Object,dev.javafp.func.Fn2)">foldl</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;B&gt;</span>&nbsp;<span class="return-type">B</span>&nbsp;<span class="element-name">foldl</span><wbr><span class="parameters">(B&nbsp;z,
+ <a href="../func/Fn2.html" title="interface in dev.javafp.func">Fn2</a>&lt;B,<wbr><a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr>B&gt;&nbsp;f)</span></div>
+<div class="block"><p> Start with an accumulator
+ <code>z</code>
+  and iterate over
+ <code>this</code>
+ , applying
+ <code>f</code>
+  to the
+ <code>z</code>
+  and
+ <code>e</code>
+  to get a new
+ <code>z</code>
+ <p> One way to visualise this is to imagine that the function that we are using is the function that adds two numbers - ie
+ the infix
+ <code>+</code>
+  operator
+ <p> Then
+
+ <pre><code>
+ foldl (+) z [e1, e2, ... en] == [ (...((z + e1) + e2) + ... ) + en ]
+ </code></pre>
+ <p> Note that the accumulator,
+ <code>z</code>
+  is the first argument to the function.
+ <p> If we extend this to imagine that the function is called * and can be applied using infix notation - like
+ <code>+</code>
+  then
+
+ <pre><code>
+ foldl (*) z [e1, e2, ... en] == [ (...((z * e1) * e2) * ... ) * en ]
+ </code></pre>
+ <p> Note that we are <em>not</em> assuming that
+ <code>*</code>
+  is commutative</div>
+</section>
+</li>
+<li>
+<section class="detail" id="flatMap(dev.javafp.func.Fn)">
+<h3>flatMap</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;A&gt;</span>&nbsp;<span class="element-name">flatMap</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;A&gt;&gt;&nbsp;fn)</span></div>
+<div class="block"><p> The
+ <code>ImSet</code>
+  formed by running
+ <code>fn</code>
+  on each element of
+ <code>this</code>
+  in order and then joining the resulting
+ <code>ImSet</code>
+ s</div>
+</section>
+</li>
+<li>
+<section class="detail" id="filter(dev.javafp.func.Fn)">
+<h3>filter</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</span>&nbsp;<span class="element-name">filter</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;pred)</span></div>
+<div class="block"><p> the
+ <code>ImSet</code>
+  that is the sub-set of
+ <code>this</code>
+  where
+ <code>pred</code>
+  is
+ <code>true</code>
+  for each element</div>
+</section>
+</li>
+<li>
+<section class="detail" id="any(dev.javafp.func.Fn)">
+<h3>any</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">any</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;pred)</span></div>
+<div class="block"><p> <code>true</code>
+  if any the elements in
+ <code>this</code>
+  satisfy
+ <code>pred</code>
+ <p> Another way of thinking about this is that:
+
+ <pre><code>
+ this.any(pred) == ! this.all(not pred)
+ </code></pre>
+ <p> so if we apply
+ <code>any</code>
+  to the empty list it returns
+ <code>false</code>
+  and
+ <code>all</code>
+  returns
+ <code>true</code>
+
+ <pre><code>
+ ImSet.on().all(...) == true
+ ImSet.on().any(...) == false
+ </code></pre></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="#all(dev.javafp.func.Fn)"><code>all(dev.javafp.func.Fn)</code></a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="all(dev.javafp.func.Fn)">
+<h3>all</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">all</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;pred)</span></div>
+<div class="block"><p> <code>true</code>
+  if all the elements in
+ <code>this</code>
+  satisfy
+ <code>pred</code>
+ <p> Another way of thinking about this is that:
+
+ <pre><code>
+ this.all(pred) == ! this.any(not pred)
+ </code></pre>
+ <p> so if we apply
+ <code>all</code>
+  to the empty list it returns
+ <code>true</code>
+  and
+ <code>any</code>
+  returns
+ <code>false</code>
+
+ <pre><code>
+ ImSet.on().all(...) == true
+ ImSet.on().any(...) == false
+ </code></pre></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="#any(dev.javafp.func.Fn)"><code>any(dev.javafp.func.Fn)</code></a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="intersection(dev.javafp.set.ImSet)">
 <h3>intersection</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</span>&nbsp;<span class="element-name">intersection</span><wbr><span class="parameters">(<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&nbsp;other)</span></div>
@@ -908,15 +1042,6 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 </dl>
-</section>
-</li>
-<li>
-<section class="detail" id="computeHash()">
-<h3>computeHash</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">computeHash</span>()</div>
-<div class="block">This hash computation can't rely on any ordering in the elements -  so it has to look at all the elements
-
- It uses the same algorithm to combine the hashCodes of the elements as java.util.AbstractSet</div>
 </section>
 </li>
 </ul>

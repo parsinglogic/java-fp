@@ -143,17 +143,24 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Return either start or end depending on the value of dir</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValues()" class="member-name-link">getValues</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextBox()" class="member-name-link">getTextBox</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The representation of
+ <code>this</code>
+ as an <a href="../box/AbstractTextBox.html" title="class in dev.javafp.box"><code>AbstractTextBox</code></a></div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValues()" class="member-name-link">getValues</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The field values for this object including fields from superclasses.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;KEY,<wbr>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;KEY,<wbr>
 LABEL&gt;<br><a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;KEY,<wbr>LABEL&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(LABEL,KEY,KEY)" class="member-name-link">on</a><wbr>(LABEL&nbsp;label,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(LABEL,KEY,KEY)" class="member-name-link">on</a><wbr>(LABEL&nbsp;label,
  KEY&nbsp;start,
  KEY&nbsp;end)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Create an arc with label
  <code>label</code>
  , starting at node with key
@@ -166,7 +173,7 @@ LABEL&gt;<br><a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-dev.javafp.val.ImValuesImpl">Methods inherited from class&nbsp;dev.javafp.val.<a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></h3>
-<code><a href="../val/ImValuesImpl.html#equals(java.lang.Object)">equals</a>, <a href="../val/ImValuesImpl.html#getTextBox()">getTextBox</a>, <a href="../val/ImValuesImpl.html#hashCode()">hashCode</a>, <a href="../val/ImValuesImpl.html#toString()">toString</a></code></div>
+<code><a href="../val/ImValuesImpl.html#equals(java.lang.Object)">equals</a>, <a href="../val/ImValuesImpl.html#hashCode()">hashCode</a>, <a href="../val/ImValuesImpl.html#toString()">toString</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -251,6 +258,26 @@ LABEL&gt;</span>&nbsp;<span class="return-type"><a href="ImArc.html" title="clas
 <h3>getSlot</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImArc.html" title="type parameter in ImArc">KEY</a></span>&nbsp;<span class="element-name">getSlot</span><wbr><span class="parameters">(<a href="ImGraph.Dir.html" title="enum class in dev.javafp.graph">ImGraph.Dir</a>&nbsp;dir)</span></div>
 <div class="block"><p> Return either start or end depending on the value of dir</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getTextBox()">
+<h3>getTextBox</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span>&nbsp;<span class="element-name">getTextBox</span>()</div>
+<div class="block"><p> The representation of
+ <code>this</code>
+ as an <a href="../box/AbstractTextBox.html" title="class in dev.javafp.box"><code>AbstractTextBox</code></a>
+ <p> If the class extends <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val"><code>ImValuesImpl</code></a> then the default
+ <code>toString</code>
+  method will use this method
+ and then convert the result to a
+ <code>String</code></div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="../box/HasTextBox.html#getTextBox()">getTextBox</a></code>&nbsp;in interface&nbsp;<code><a href="../box/HasTextBox.html" title="interface in dev.javafp.box">HasTextBox</a></code></dd>
+<dt>Overrides:</dt>
+<dd><code><a href="../val/ImValuesImpl.html#getTextBox()">getTextBox</a></code>&nbsp;in class&nbsp;<code><a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></code></dd>
+</dl>
 </section>
 </li>
 </ul>
