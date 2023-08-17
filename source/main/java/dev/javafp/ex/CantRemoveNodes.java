@@ -7,17 +7,21 @@
 
 package dev.javafp.ex;
 
+import dev.javafp.set.ImSet;
+
 /**
- * <p> Thrown when a key in a Graph is expected to <strong>not</strong> be
- * {@code null}
- * .
+ * Thrown when we can't remove a set of Nodes because the neighbours of `nodes`, `neighbours` is such that the following is not true:
  *
- * <p> Thrown (for example) in {@link dev.javafp.graph.ImGraph#addNode(Object, Object)}
+ *     neighbours ⊆ nodes
  */
-public class KeyIsNull extends ImException
+public class CantRemoveNodes extends ImException
 {
-    public KeyIsNull(String name)
+    /**
+     * The exception that indicates that `badNeighbours` are some or all of the nodes that are neighbours to
+     * `nodes` that prevent them from being removed.
+     */
+    public CantRemoveNodes(ImSet<?> nodes, ImSet<?> badNeighbours)
     {
-        super("key '" + name + "' is null");
+        super("Can't remove nodes " + nodes + " because " + badNeighbours + " are connected to some of them");
     }
 }

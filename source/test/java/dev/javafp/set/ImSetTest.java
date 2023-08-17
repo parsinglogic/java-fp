@@ -254,7 +254,7 @@ public class ImSetTest
         ImSet<Integer> s1 = ImSet.onAll(l1);
         ImSet<Integer> s2 = ImSet.onAll(l2);
 
-        TestUtils.assertSetsEqual("", ImSetTest.removeAll(l1, l2), s1.minus(s2).toImList());
+        TestUtils.assertSetsEqual("", ImSetTest.removeAll(l1, l2), s1.minus(s2).toList());
     }
 
     private static ImList<Integer> removeAll(ImList<Integer> l1, ImList<Integer> l2)
@@ -607,10 +607,26 @@ public class ImSetTest
     }
 
     @Test
+    public void testMap()
+    {
+        ImSet<Integer> is = ImSet.on(1, 2, 3);
+
+        assertEquals(ImSet.on(2, 4, 6), is.map(i -> i * 2));
+    }
+
+    @Test
+    public void testFlatMap()
+    {
+        ImSet<Integer> is = ImSet.on(1, 2, 3);
+
+        assertEquals(ImSet.on(2, 4, 6, 3, 9), is.flatMap(i -> ImSet.on(i * 2, i * 3)));
+    }
+
+    @Test
     public void getList()
     {
         ImSet<Integer> s = ImSet.onArray(1, 2, 3, 4, 5);
 
-        assertEquals(s, ImSet.onIterator(s.toImList().iterator()));
+        assertEquals(s, ImSet.onIterator(s.toList().iterator()));
     }
 }

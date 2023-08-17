@@ -11,6 +11,7 @@ import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.HasTextBox;
 import dev.javafp.eq.Equals;
 import dev.javafp.func.Fn;
+import dev.javafp.func.Fn2;
 import dev.javafp.lst.ImList;
 import dev.javafp.tree.ImTree;
 import dev.javafp.tree.ImTreeIterator;
@@ -348,6 +349,14 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         return (ImSet<TT>) empty;
     }
 
+    /**
+     * <p> The singleton empty set
+     */
+    static <A> ImSet<A> on()
+    {
+        return ImSet.empty();
+    }
+
     private ImSet(final ImSortedSet<Bucket<T>> node, final int size)
     {
         this.sortedSetOfBuckets = node;
@@ -677,6 +686,35 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     }
 
     /**
+     * <p> The set whose elements are obtained from the set
+     * {@code xs}
+     * .
+     */
+    public static <U> ImSet<U> onAll(ImSet<U> xs)
+    {
+        return xs;
+    }
+
+    /**
+     * <p> Create a
+     * {@code ImList}
+     *  where each element is taken from
+     * {@code iterable}
+     *  in order.
+     * <p> In fact the implementation is:
+     *
+     * <pre>{@code
+     * return onIterator(iterable.iterator());
+     * }</pre>
+     * @see ImList#onIterator(java.util.Iterator)
+     *
+     */
+    static <A> ImSet<A> onAll(Iterable<A> iterable)
+    {
+        return onIterator(iterable.iterator());
+    }
+
+    /**
      * <p> The number of elements in
      * {@code this}
      * .
@@ -690,7 +728,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     @Override
     public AbstractTextBox getTextBox()
     {
-        return this.toImList().getTextBox();
+        return this.toList().getTextBox();
     }
 
     //
@@ -808,9 +846,24 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      *
      */
     @SuppressWarnings("unchecked")
-    public boolean contains(Object elementToLookFor)
+    public boolean contains(T elementToLookFor)
     {
-        return find((T) elementToLookFor).isPresent();
+        return find(elementToLookFor).isPresent();
+    }
+
+    public boolean containsAll(ImSet<T> elements)
+    {
+        if (size() < elements.size())
+            return false;
+        else
+        {
+            for (T e : this)
+            {
+                if (!this.contains(e))
+                    return false;
+            }
+            return true;
+        }
     }
 
     /**
@@ -882,34 +935,34 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         return (ImSet<U>) this;
     }
 
-    /**
-     * <p> The ImSet formed out of the elements of each collection in
-     * {@code collections}
-     *  in order.
-     * <p> ImCollections can't contain
-     * {@code null}
-     *  so none of the elements can be
-     * {@code null}
-     * <h4>Examples:</h4>
-     *
-     * <pre>{@code
-     * List<Number> threeFive = Arrays.<Number> asList(3, 5);
-     * ImSet<Integer> oneTwo = ImSet.on(1, 2);
-     *
-     * joinArray(oneTwo, threeFive)          =>  [1, 2, 3, 5]");
-     * joinArray(oneTwo, threeFive, oneTwo)  =>  [1, 2, 3, 5, 1, 2]
-     * joinArray(on(), on())                 =>  []
-     * }</pre>
-     * @see #union(Iterable)
-     * @see #joinIterator(Iterator)
-     * @see #join(Collection)
-     *
-     */
-    @SafeVarargs
-    public static <T> ImSet<T> joinArray(Collection<? extends T>... collections)
-    {
-        return joinIterator(ArrayIterator.on(collections));
-    }
+    //    /**
+    //     * <p> The ImSet formed out of the elements of each collection in
+    //     * {@code collections}
+    //     *  in order.
+    //     * <p> ImCollections can't contain
+    //     * {@code null}
+    //     *  so none of the elements can be
+    //     * {@code null}
+    //     * <h4>Examples:</h4>
+    //     *
+    //     * <pre>{@code
+    //     * List<Number> threeFive = Arrays.<Number> asList(3, 5);
+    //     * ImSet<Integer> oneTwo = ImSet.on(1, 2);
+    //     *
+    //     * joinArray(oneTwo, threeFive)          =>  [1, 2, 3, 5]");
+    //     * joinArray(oneTwo, threeFive, oneTwo)  =>  [1, 2, 3, 5, 1, 2]
+    //     * joinArray(on(), on())                 =>  []
+    //     * }</pre>
+    //     * @see #union(Iterable)
+    //     * @see #joinIterator(Iterator)
+    //     * @see #join(Collection)
+    //     *
+    //     */
+    //    @SafeVarargs
+    //    public static <T> ImSet<T> joinArray(Collection<? extends T>... collections)
+    //    {
+    //        return joinIterator(ArrayIterator.on(collections));
+    //    }
 
     /**
      * <p> The ImSet formed out of the elements of each collection in
@@ -920,43 +973,66 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      *  so none of the elements can be
      * {@code null}
      * @see #union(Iterable)
-     * @see #joinArray(Collection...)
-     * @see #join(Collection)
      *
      */
-    public static <T> ImSet<T> joinIterator(Iterator<Collection<? extends T>> iterator)
+    public static <T> ImSet<T> join(Iterable<? extends Iterable<? extends T>> iterable)
     {
         ImSet<T> concat = ImSet.empty();
 
-        while (iterator.hasNext())
-            concat = concat.union(ImSet.onAll(iterator.next()));
+        for (Iterable<? extends T> s : iterable)
+        {
+            concat = concat.union(ImSet.onAll(s));
+        }
 
         return concat;
     }
 
-    /**
-     * <p> The ImSet formed out of the elements of each collection in
-     * {@code collectionOfCollections}
-     *  in order.
-     * <p> ImCollections can't contain
-     * {@code null}
-     *  so none of the elements can be
-     * {@code null}
-     * @see #union(Iterable)
-     * @see #joinArray(Collection...)
-     * @see #joinIterator(Iterator)
-     *
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> ImSet<T> join(Collection<? extends Collection<? extends T>> collectionOfCollections)
-    {
-        return joinIterator((Iterator<Collection<? extends T>>) collectionOfCollections.iterator());
-    }
+    //    /**
+    //     * <p> The ImSet formed out of the elements of each collection in
+    //     * {@code iterator}
+    //     *  in order.
+    //     * <p> ImCollections can't contain
+    //     * {@code null}
+    //     *  so none of the elements can be
+    //     * {@code null}
+    //     * @see #union(Iterable)
+    //     * @see #joinArray(Collection...)
+    //     * @see #join(Collection)
+    //     *
+    //     */
+    //    public static <T> ImSet<T> joinIterator(Iterator<Collection<? extends T>> iterator)
+    //    {
+    //        ImSet<T> concat = ImSet.empty();
+    //
+    //        while (iterator.hasNext())
+    //            concat = concat.union(ImSet.onAll(iterator.next()));
+    //
+    //        return concat;
+    //    }
+
+    //    /**
+    //     * <p> The ImSet formed out of the elements of each collection in
+    //     * {@code collectionOfCollections}
+    //     *  in order.
+    //     * <p> ImCollections can't contain
+    //     * {@code null}
+    //     *  so none of the elements can be
+    //     * {@code null}
+    //     * @see #union(Iterable)
+    //     * @see #joinArray(Collection...)
+    //     * @see #joinIterator(Iterator)
+    //     *
+    //     */
+    //    @SuppressWarnings("unchecked")
+    //    public static <T> ImSet<T> join(Collection<? extends Collection<? extends T>> collectionOfCollections)
+    //    {
+    //        return joinIterator((Iterator<Collection<? extends T>>) collectionOfCollections.iterator());
+    //    }
 
     /**
      * <p> A list containing the elements of the set
      */
-    public ImList<T> toImList()
+    public ImList<T> toList()
     {
         return ImList.onAll(this);
     }
@@ -966,7 +1042,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      */
     public ImMaybe<T> anyElement()
     {
-        ImList<T> elements = toImList();
+        ImList<T> elements = toList();
 
         return elements.isEmpty()
                ? ImMaybe.nothing()
@@ -981,29 +1057,188 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         return size() == 0;
     }
 
+    /**
+     * `true` iff this is not the empty set
+     */
+    public boolean isNotEmpty()
+    {
+        return !isEmpty();
+    }
+
     @Override
     public String toString()
     {
-        return toImList().toString();
+        return toList().toString();
     }
 
     public <U> ImSet<U> map(Fn<T, U> fn)
     {
         ImSet<U> result = ImSet.empty();
 
-        Iterator<T> it = iterator();
-
-        while (it.hasNext())
-            result = result.add(fn.of(it.next()));
+        for (T t : this)
+            result = result.add(fn.of(t));
 
         return result;
     }
 
+    /**
+     * <p> Start with an accumulator
+     * {@code z}
+     *  and iterate over
+     * {@code this}
+     * , applying
+     * {@code f}
+     *  to the
+     * {@code z}
+     *  and
+     * {@code e}
+     *  to get a new
+     * {@code z}
+     * <p> One way to visualise this is to imagine that the function that we are using is the function that adds two numbers - ie
+     * the infix
+     * {@code +}
+     *  operator
+     * <p> Then
+     *
+     * <pre>{@code
+     * foldl (+) z [e1, e2, ... en] == [ (...((z + e1) + e2) + ... ) + en ]
+     * }</pre>
+     * <p> Note that the accumulator,
+     * {@code z}
+     *  is the first argument to the function.
+     * <p> If we extend this to imagine that the function is called * and can be applied using infix notation - like
+     * {@code +}
+     *  then
+     *
+     * <pre>{@code
+     * foldl (*) z [e1, e2, ... en] == [ (...((z * e1) * e2) * ... ) * en ]
+     * }</pre>
+     * <p> Note that we are <em>not</em> assuming that
+     * {@code *}
+     *  is commutative
+     *
+     */
+    public <B> B foldl(B z, Fn2<B, T, B> f)
+    {
+        for (T i : this)
+            z = f.of(z, i);
+
+        return z;
+    }
+
+    /**
+     * <p> The
+     * {@code ImSet}
+     *  formed by running
+     * {@code fn}
+     *  on each element of
+     * {@code this}
+     *  in order and then joining the resulting
+     * {@code ImSet}
+     * s
+     *
+     */
+    public <A> ImSet<A> flatMap(Fn<T, ImSet<A>> fn)
+    {
+        return join(map(fn));
+    }
+
+    /**
+     * <p> the
+     * {@code ImSet}
+     *  that is the sub-set of
+     * {@code this}
+     *  where
+     * {@code pred}
+     *  is
+     * {@code true}
+     *  for each element
+     *
+     */
+    public ImSet<T> filter(Fn<T, Boolean> pred)
+    {
+        ImSet<T> result = ImSet.empty();
+
+        for (T t : this)
+            if (pred.of(t))
+                result = result.add(t);
+
+        return result;
+    }
+
+    /**
+     * <p> {@code true}
+     *  if any the elements in
+     * {@code this}
+     *  satisfy
+     * {@code pred}
+     * <p> Another way of thinking about this is that:
+     *
+     * <pre>{@code
+     * this.any(pred) == ! this.all(not pred)
+     * }</pre>
+     * <p> so if we apply
+     * {@code any}
+     *  to the empty list it returns
+     * {@code false}
+     *  and
+     * {@code all}
+     *  returns
+     * {@code true}
+     *
+     * <pre>{@code
+     * ImSet.on().all(...) == true
+     * ImSet.on().any(...) == false
+     * }</pre>
+     * @see ImSet#all(dev.javafp.func.Fn)
+     *
+     */
+    public boolean any(Fn<T, Boolean> pred)
+    {
+        for (T t : this)
+            if (pred.of(t))
+                return true;
+
+        return false;
+    }
+
+    /**
+     * <p> {@code true}
+     *  if all the elements in
+     * {@code this}
+     *  satisfy
+     * {@code pred}
+     * <p> Another way of thinking about this is that:
+     *
+     * <pre>{@code
+     * this.all(pred) == ! this.any(not pred)
+     * }</pre>
+     * <p> so if we apply
+     * {@code all}
+     *  to the empty list it returns
+     * {@code true}
+     *  and
+     * {@code any}
+     *  returns
+     * {@code false}
+     *
+     * <pre>{@code
+     * ImSet.on().all(...) == true
+     * ImSet.on().any(...) == false
+     * }</pre>
+     * @see ImSet#any(dev.javafp.func.Fn)
+     *
+     */
+    public boolean all(Fn<T, Boolean> pred)
+    {
+        return !any(pred);
+    }
+
     public ImSet<T> intersection(ImSet<T> other)
     {
-        return other.toImList().foldl(ImSet.empty(), (s, e) -> contains(e)
-                                                               ? s.add(e)
-                                                               : s);
+        return other.toList().foldl(ImSet.empty(), (s, e) -> contains(e)
+                                                             ? s.add(e)
+                                                             : s);
     }
 
     @Override

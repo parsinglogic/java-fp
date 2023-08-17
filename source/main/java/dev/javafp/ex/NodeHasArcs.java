@@ -7,7 +7,7 @@
 
 package dev.javafp.ex;
 
-import dev.javafp.lst.ImList;
+import dev.javafp.set.ImSet;
 
 /**
  * <p> Thrown when you try to remove an arc from a graph,  but it has arcs connecting it to other nodes.
@@ -18,7 +18,7 @@ import dev.javafp.lst.ImList;
 public class NodeHasArcs extends ImException
 {
 
-    public <KEY> NodeHasArcs(KEY key, ImList<KEY> connected)
+    public <KEY> NodeHasArcs(KEY key, ImSet<KEY> connected)
     {
         super(String.format("Node with key %s can't be removed because of the arcs %s", key, connected));
 

@@ -18,6 +18,7 @@ import dev.javafp.tuple.Pai;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.NullCheck;
 import dev.javafp.util.TextUtils;
+import dev.javafp.util.Util;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -452,20 +453,9 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
      *  removed.
      *
      */
-    public ImMap<K, V> removeAll(ImList<K> keysToRemove)
+    public ImMap<K, V> removeAll(Iterable<K> keysToRemove)
     {
-        return keysToRemove.foldl(this, (m, k) -> m.remove(k));
-    }
-
-    /**
-     * <p> An iterator on the key-value entries in
-     * {@code this}
-     * .
-     *
-     */
-    public Iterator<ImMap.Entry<K, V>> iterator()
-    {
-        return entrySet.iterator();
+        return Util.foldl(keysToRemove, this, (z, i) -> z.remove(i));
     }
 
     /**
@@ -588,6 +578,11 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
         return ImList.onAll(entrySet).map(e -> e.key);
     }
 
+    public ImSet<K> keysSet()
+    {
+        return entrySet.map(e -> e.key);
+    }
+
     public ImList<V> values()
     {
         return ImList.onAll(entrySet).map(e -> e.value);
@@ -614,6 +609,17 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
     public int hashCode()
     {
         return entrySet.hashCode();
+    }
+
+    /**
+     * <p> An iterator on the key-value entries in
+     * {@code this}
+     * .
+     *
+     */
+    public Iterator<Entry<K, V>> iterator()
+    {
+        return entrySet.iterator();
     }
 
 }

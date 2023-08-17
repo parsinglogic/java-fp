@@ -7,6 +7,8 @@
 
 package dev.javafp.graph;
 
+import dev.javafp.box.AbstractTextBox;
+import dev.javafp.box.LeafTextBox;
 import dev.javafp.lst.ImList;
 import dev.javafp.val.ImValuesImpl;
 
@@ -85,4 +87,22 @@ public class ImArc<KEY, LABEL> extends ImValuesImpl
                ? end
                : start;
     }
+
+    /**
+     * <p> The representation of
+     * {@code this}
+     * as an {@link AbstractTextBox}
+     * <p> If the class extends {@link dev.javafp.val.ImValuesImpl} then the default
+     * {@code toString}
+     *  method will use this method
+     * and then convert the result to a
+     * {@code String}
+     *
+     */
+    @Override
+    public AbstractTextBox getTextBox()
+    {
+        return LeafTextBox.with("(" + start + ", " + end + ") " + label);
+    }
+
 }

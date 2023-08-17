@@ -1447,8 +1447,6 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      *  is
      * {@code true}
      *  for each element
-     * @param pred
-     * @return
      *
      */
     default ImList<A> filter(Fn<A, Boolean> pred)

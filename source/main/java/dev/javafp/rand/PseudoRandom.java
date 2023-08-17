@@ -9,20 +9,20 @@ package dev.javafp.rand;
 
 import dev.javafp.ex.Throw;
 
-import java.security.SecureRandom;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 /**
- * <p> Convenience wrapper for SecureRandom
+ * <p> Convenience wrapper for {@link java.util.Random}
  */
-public class Rando
+public class PseudoRandom
 {
-    public static SecureRandom random = new SecureRandom();
+    public static Random random = new Random();
 
-    //    public static void setSeed(long seed)
-    //    {
-    //        random = new SecureRandom(("" + seed).getBytes());
-    //    }
+    public static void setSeed(long seed)
+    {
+        random = new Random(seed);
+    }
 
     /**
      * The next element in the iterator. Throws {@link NoSuchElementException} if no such element exists.

@@ -56,6 +56,11 @@ public class TestUtils
         assertSetsEqual("", expected, actual);
     }
 
+    public static void assertToStringEquals(String expectedString, Object actual)
+    {
+        assertEq(expectedString, "" + actual);
+    }
+
     public static void assertSetsEqual(String message, Collection<?> expected, Collection<?> actual)
     {
         String s = Equals.getDifferences(expected, actual);

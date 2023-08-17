@@ -259,7 +259,7 @@ public class FileUtilTest
 
                                 // get a list of the paths that we should see
 
-                                ImList<Path> expectedPaths = nodes.minus(unreadable).toImList().map(n -> namesToPaths.get(n));
+                                ImList<Path> expectedPaths = nodes.minus(unreadable).toList().map(n -> namesToPaths.get(n));
 
                                 // Assert that these are the paths that we see
                                 TestUtils.assertSetsEqual("unreadable + " + unreadable, expectedPaths, pathList);
@@ -281,7 +281,6 @@ public class FileUtilTest
     {
         Chat<Path> dir1 = createDir(getPath(parent, tree.getElement()));
 
-        say("chat", dir1);
         Path dir = dir1.right;
 
         // Note that we do a flush here.
