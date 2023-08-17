@@ -9,6 +9,7 @@ package dev.javafp.util;
 
 import dev.javafp.ex.Throw;
 import dev.javafp.func.Fn;
+import dev.javafp.func.Fn2;
 import dev.javafp.lst.ImList;
 
 /**
@@ -98,6 +99,51 @@ public class Util
     {
         Throw.Exception.ifTrue(is.isEmpty(), "list cannot be empty");
         return is.tail().foldl(is.head(), (z, i) -> Math.min(z, i));
+    }
+
+    /**
+     * <p> Start with an accumulator
+     * {@code z}
+     *  and iterate over
+     * {@code iterable}
+     * , applying
+     * {@code f}
+     *  to the
+     * {@code z}
+     *  and
+     * {@code e}
+     *  to get a new
+     * {@code z}
+     * <p> One way to visualise this is to imagine that the function that we are using is the function that adds two numbers - ie
+     * the infix
+     * {@code +}
+     *  operator
+     * <p> Then
+     *
+     * <pre>{@code
+     * foldl (+) z [e1, e2, ... en] == [ (...((z + e1) + e2) + ... ) + en ]
+     * }</pre>
+     * <p> Note that the accumulator,
+     * {@code z}
+     *  is the first argument to the function.
+     * <p> If we extend this to imagine that the function is called * and can be applied using infix notation - like
+     * {@code +}
+     *  then
+     *
+     * <pre>{@code
+     * foldl (*) z [e1, e2, ... en] == [ (...((z * e1) * e2) * ... ) * en ]
+     * }</pre>
+     * <p> Note that we are <em>not</em> assuming that
+     * {@code *}
+     *  is commutative
+     *
+     */
+    public static <A, B> B foldl(Iterable<A> iterable, B z, Fn2<B, A, B> f)
+    {
+        for (A i : iterable)
+            z = f.of(z, i);
+
+        return z;
     }
 
     //    public ImList<Character> getBadChars()
