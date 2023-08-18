@@ -12,9 +12,8 @@ import dev.javafp.box.LeafTextBox;
 import dev.javafp.box.TopDownBox;
 import dev.javafp.ex.CantRemoveNodes;
 import dev.javafp.ex.KeyExists;
-import dev.javafp.ex.KeyIsNull;
 import dev.javafp.ex.KeyMissing;
-import dev.javafp.ex.NodeHasArcs;
+import dev.javafp.ex.NodeHasNeighbours;
 import dev.javafp.ex.Throw;
 import dev.javafp.func.Fn;
 import dev.javafp.lst.ImList;
@@ -400,7 +399,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * .
      * <p> If
      * {@code key}
-     * is null then throw {@link KeyIsNull}.
+     * is null then throw {@link dev.javafp.ex.NullValue}.
      *
      * If a node with key
      * {@code key}
@@ -532,7 +531,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * {@code start}
      * or
      * {@code end}
-     * is null then throw {@link KeyIsNull}.
+     * is null then throw {@link dev.javafp.ex.NullValue}.
      *
      *
      * If one or more of the nodes do not exist then throw {@link KeyMissing}.
@@ -571,7 +570,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * <p> Remove the node with key
      * {@code key}
      *
-     * If the node is connected to another node then throw {@link NodeHasArcs}.
+     * If the node is connected to another node then throw {@link NodeHasNeighbours}.
      *
      */
     public ImGraph<KEY, DATA, LABEL> removeNode(KEY key)
@@ -583,7 +582,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
         if (connected.isNotEmpty())
         {
-            throw new NodeHasArcs(key, connected);
+            throw new NodeHasNeighbours(key, connected);
         }
 
         return new ImGraph<>(valueMap.remove(key), arcsOut.remove(key), arcsIn.remove(key));

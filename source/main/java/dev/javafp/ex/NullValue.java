@@ -17,7 +17,12 @@ package dev.javafp.ex;
 @SuppressWarnings("serial")
 public class NullValue extends ImException
 {
-
+    /**
+     * The argument
+     * {@code name}
+     * should not be null
+     *
+     */
     public NullValue(String name)
     {
         super(name);

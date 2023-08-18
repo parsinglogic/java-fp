@@ -16,6 +16,11 @@ import dev.javafp.lst.ImListIterator;
  */
 public class ThreadInterrupted extends ImException
 {
+
+    /**
+     *
+     * A thread has been interrupted
+     */
     public ThreadInterrupted()
     {
         super();

@@ -14,8 +14,11 @@ import dev.javafp.lst.ImList;
  */
 public class SizeOnInfiniteList extends ImException
 {
-    private static final long serialVersionUID = 1L;
-
+    /**
+     * You can't use
+     * {@code size()}
+     * on an infinite list
+     */
     public SizeOnInfiniteList()
     {
         super("size() on infinite list");

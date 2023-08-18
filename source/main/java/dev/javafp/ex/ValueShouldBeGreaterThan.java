@@ -15,6 +15,7 @@ package dev.javafp.ex;
 @SuppressWarnings("serial")
 public class ValueShouldBeGreaterThan extends ImException
 {
+
     public ValueShouldBeGreaterThan(String name, int value, int min)
     {
         super("Argument " + name + " with value " + value + " is out of range. It should be > " + min);

@@ -10,9 +10,10 @@ package dev.javafp.ex;
 import dev.javafp.util.ImMaybe;
 
 /**
- * <p> Thrown when you try to create an instance of {@link ImMaybe}
- * {@code with a value of}
- * null`.
+ * <p> Thrown when you try to create an instance of
+ * {@link ImMaybe}
+ * with a value of
+ * {@code null}
  *
  */
 public class MaybeCannotHaveANullValueException extends ImException

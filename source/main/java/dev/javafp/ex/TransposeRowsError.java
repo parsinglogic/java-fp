@@ -16,7 +16,12 @@ import dev.javafp.lst.ImList;
  */
 public class TransposeRowsError extends ImException
 {
-
+    /**
+     * The list of lists with value
+     * {@code matrix}
+     * has a list that is not the same size as
+     * {@code rows}
+     */
     public TransposeRowsError(int rows, int size)
     {
         super("rows = " + rows + " but matrix rows = " + size);

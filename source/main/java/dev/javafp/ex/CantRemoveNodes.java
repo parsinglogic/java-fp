@@ -10,15 +10,26 @@ package dev.javafp.ex;
 import dev.javafp.set.ImSet;
 
 /**
- * Thrown when we can't remove a set of Nodes because the neighbours of `nodes`, `neighbours` is such that the following is not true:
+ * <p> Thrown when we can't remove a set of Nodes because the neighbours of
+ * {@code nodes}
+ * ,
+ * {@code neighbours}
+ *  is such that the following is not true:
  *
- *     neighbours ⊆ nodes
+ * <pre>{@code
+ * neighbours ⊆ nodes
+ * }</pre>
+ *
  */
 public class CantRemoveNodes extends ImException
 {
     /**
-     * The set `badNeighbours` are the nodes that are neighbours to
-     * `nodes` that prevent them from being removed.
+     * <p> The set
+     * {@code badNeighbours}
+     *  are the nodes that are neighbours to
+     * {@code nodes}
+     *  that prevent them from being removed.
+     *
      */
     public CantRemoveNodes(ImSet<?> nodes, ImSet<?> badNeighbours)
     {

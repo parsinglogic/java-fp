@@ -16,7 +16,11 @@ import dev.javafp.file.FileUtil;
  */
 public class UnexpectedChecked extends ImException
 {
-
+    /**
+     * A checked exception
+     * {@code e}
+     * has been thrown - but we were not expecting it
+     */
     public UnexpectedChecked(Exception e)
     {
         super(e);

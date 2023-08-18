@@ -18,6 +18,12 @@ import dev.javafp.util.ImMaybe;
  */
 public class MaybeHasNothing extends ImException
 {
+    /**
+     * <p> An
+     * {@code ImMaybe}
+     *  has nothing - custom message
+     * {@code message}
+     */
     public MaybeHasNothing(String message)
     {
         super(message);

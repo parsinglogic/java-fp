@@ -8,7 +8,6 @@
 package dev.javafp.ex;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * <p>Utility for throwing exceptions - mainly useful when checking arguments to functions.
@@ -22,7 +21,10 @@ public class Throw
     public static class Exception
     {
         /**
-         * <p> Throws an exception if
+         * <p> Throw an exception
+         * if the argument with name
+         * {@code name}
+         * and value
          * {@code value}
          *  is
          * {@code null}
@@ -37,7 +39,10 @@ public class Throw
         }
 
         /**
-         * <p> Throws an exception if
+         * <p> Throw an exception if
+         * if the argument with name
+         * {@code name}
+         * and value
          * {@code value}
          *  is not
          * {@code null}
@@ -52,9 +57,12 @@ public class Throw
         }
 
         /**
-         * <p> Throws an exception if
+         * <p> Throw an exception
+         * if the argument with name
+         * {@code name}
+         * and value
          * {@code value}
-         *  is the empty string.
+         * is the empty string.
          *
          */
         public static void ifEmpty(String name, String value)
@@ -66,35 +74,31 @@ public class Throw
         }
 
         /**
-         * <p> Throws an exception if
+         * <p> Throw an exception
+         * if the argument with name
+         * {@code name}
+         * and value
          * {@code value}
-         *  is empty.
-         *
-         */
-        public static void ifEmpty(String name, Collection<?> collectionToCheck)
-        {
-            if (collectionToCheck.isEmpty())
-            {
-                throw new EmptyCollection(name);
-            }
-        }
-
-        /**
-         * <p> Thows an exception if
-         * {@code value}
-         *  is null or empty
+         *  is
+         * {@code null}
+         *  or empty
          *
          */
         public static void ifNullOrEmpty(String name, Collection<?> value)
         {
             Exception.ifNull(name, value);
-            Exception.ifEmpty(name, value);
+            if (value.isEmpty())
+                throw new EmptyCollection(name);
         }
 
         /**
-         * <p> Thows an exception if
-         * {@code value}
-         *  is null or empty
+         * <p> Throw an exception
+         * if the string argument with name
+         * {@code name}
+         * and value
+         *  is
+         * {@code null}
+         *  or empty
          *
          */
         public static void ifNullOrEmpty(String name, String value)
@@ -103,6 +107,13 @@ public class Throw
             Exception.ifEmpty(name, value);
         }
 
+        /**
+         * <p> Throw an exception if
+         * {@code condition}
+         *  is true - with custom message
+         * {@code message}
+         *
+         */
         public static void ifTrue(boolean condition, String message)
         {
             if (condition)
@@ -111,6 +122,13 @@ public class Throw
             }
         }
 
+        /**
+         * <p> Throw an exception if
+         * {@code condition}
+         *  is false - with custom message
+         * {@code message}
+         *
+         */
         public static void ifFalse(boolean condition, String message)
         {
             if (!condition)
@@ -119,44 +137,34 @@ public class Throw
             }
         }
 
+        /**
+         * Throw an
+         * {@code InvalidState}
+         * exception
+         */
         public static <A> A ifYouGetHere()
         {
             throw new InvalidState("Internal Error");
         }
 
-        // TODO should not be an argument exception - Van 13-sep-06
-        public static void ifInvoked(String message)
-        {
-            throw new InvalidState(message);
-        }
-
-        //        public static void ifNotType(Object thing, Class<?> clazz)
-        //        {
-        //            if (!clazz.isAssignableFrom(thing.getClass()))
-        //            {
-        //                throw new IllegalArgumentClass(thing, clazz);
-        //            }
-        //        }
-
         /**
-         * <p> Checks if the specified index is within the range of the size
-         * of the specified collection. Ie do this check:
-         *
-         * <pre>{@code
-         * (0 <= i) && (i < things.size())
-         * }</pre>
-         * <p> and throw a runtime exception if this is false.
-         *
+         * <p> Throw an exception
+         * if the 1-based index with name
+         * {@code name}
+         * and value
+         * {@code value}
+         * is not valid for the collection
+         * {@code collectionName}
+         * with size
+         * {@code size}
          */
-        public static void ifOutOfRange(String name, int index, Collection<?> things)
-        {
-            ifOutOfRange(name, index, 0, things.size() - 1);
-        }
 
         /**
-         * <p> Checks if the specified 1-based index is within the range of the size
+         * <p> Check if the specified 1-based index is within the range of the size
          * of the specified collection.
-         * and throw ImIndexOutOfBounds if this is false.
+         * and throw
+         * {@code ImIndexOutOfBounds}
+         * if this is false.
          *
          */
         public static void ifIndexOutOfBounds(String name, int index, String collectionName, int size)
@@ -165,9 +173,11 @@ public class Throw
         }
 
         /**
-         * <p> Checks if the specified 0-based index is within the range of the size
+         * <p> Check if the specified 0-based index is within the range of the size
          * of the specified collection.
-         * and throw ImIndexOutOfBounds if this is false.
+         * and throw
+         * {@code ImIndexOutOfBounds}
+         * if this is false.
          *
          */
         public static void ifIndexOutOfBounds0(String name, int index, String collectionName, int size)
@@ -176,32 +186,15 @@ public class Throw
         }
 
         /**
-         * <p> Checks if the specified index is within the range of the size
-         * of the specified collection including -1. Ie do this check:
+         * <p> Check if the specified index is within a range.
+         * <p>So - do this check:
          *
          * <pre>{@code
-         * (-1 <= i) && (i < things.size())
+         * (min <= index) && (index <= max)
          * }</pre>
-         * <p> and throw a runtime exception if this is false.
-         *
-         */
-        public static void ifOutOfRangeIncludingMinusOne(String name, int index, List<?> things)
-        {
-            if (things.isEmpty() && index != 1)
-            {
-                throw new ArgumentOutOfRange(name, index);
-            }
-            ifOutOfRange(name, index, -1, things.size() - 1);
-        }
-
-        /**
-         * <p> Checks if the specified index is within a range
-         * Ie do this check:
-         *
-         * <pre>{@code
-         * (min <= i) && (i <= max)
-         * }</pre>
-         * <p> and throw a runtime exception if this is false.
+         * and throw
+         * {@code ArgumentOutOfRange}
+         * if this is false.
          *
          */
         public static void ifOutOfRange(String name, int index, int min, int max)
@@ -220,9 +213,11 @@ public class Throw
          * <p> We do this check:
          *
          * <pre>{@code
-         * (min <= i) && (i < max)
+         * index < max
          * }</pre>
-         * <p> and throw a runtime exception if this is false.
+         * and throw
+         * {@code ArgumentShouldNotBeLessThan}
+         * if this is false.
          *
          */
         public static void ifLessThan(String name, int index, int min)
@@ -234,13 +229,17 @@ public class Throw
         }
 
         /**
-         * <p> Checks if the specified index is within a range
+         * <p> Checks if the specified index
+         * {@code <=}
+         * a value
          * <p> We do this check:
          *
          * <pre>{@code
-         * (min <= i) && (i < max)
+         * index > min
          * }</pre>
-         * <p> and throw a runtime exception if this is false.
+         * and throw
+         * {@code ValueShouldBeGreaterThan}
+         * if this is false.
          *
          */
         public static void ifLessThanOrEqualTo(String name, int index, int min)
@@ -251,10 +250,6 @@ public class Throw
             }
         }
 
-        public static <A> A ifYouGetHere(String message)
-        {
-            throw new InvalidState(message);
-        }
     }
 
     /**

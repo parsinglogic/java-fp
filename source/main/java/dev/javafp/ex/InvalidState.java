@@ -13,11 +13,21 @@ package dev.javafp.ex;
 @SuppressWarnings("serial")
 public class InvalidState extends ImException
 {
+    /**
+     * An invalid state has been detected - custom message
+     * {@code message}
+     */
     public InvalidState(String message)
     {
         super(message);
     }
 
+    /**
+     * An invalid state has been detected - custom message
+     * {@code message}
+     * caused by exception
+     * {@code cause}
+     */
     public InvalidState(String message, Exception cause)
     {
         super(message, cause);

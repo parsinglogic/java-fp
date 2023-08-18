@@ -12,10 +12,15 @@ package dev.javafp.ex;
  *
  * <p> Thrown (for example) in {@link Throw.Exception#ifNotNull(String, Object)}
  */
-@SuppressWarnings("serial")
+
 public class NotNullValue extends ImException
 {
-
+    /**
+     * The argument
+     * {@code name}
+     * should be null
+     *
+     */
     public NotNullValue(String name)
     {
         super(name);

@@ -14,10 +14,8 @@ public class MethodNotImplemented extends ImException
 {
 
     /**
-     *
+     * The method that this was thrown from is not implemented.
      */
-    private static final long serialVersionUID = 1L;
-
     public MethodNotImplemented()
     {
         super();

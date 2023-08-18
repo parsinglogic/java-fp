@@ -7,17 +7,26 @@
 
 package dev.javafp.ex;
 
+import dev.javafp.set.ImSet;
+
 /**
- * <p> Thrown when a key in a Graph is expected to <strong>not</strong> be
- * {@code null}
- * .
+ * <p> Thrown when you try to remove an arc from a graph,  but it has arcs connecting it to other nodes.
  *
- * <p> Thrown (for example) in {@link dev.javafp.graph.ImGraph#addNode(Object, Object)}
+ * <p> Thrown (for example) in {@link dev.javafp.graph.ImGraph#removeNode(java.lang.Object)}
  */
-public class KeyIsNull extends ImException
+
+public class NodeHasNeighbours extends ImException
 {
-    public KeyIsNull(String name)
+    /**
+     * The node in the graph with key
+     * {@code key}
+     * has neighbours
+     * {@code key}
+     *
+     */
+    public <KEY> NodeHasNeighbours(KEY key, ImSet<KEY> neighbours)
     {
-        super("key '" + name + "' is null");
+        super(String.format("Node with key %s can't be removed because it has neighbours %s", key, neighbours));
+
     }
 }

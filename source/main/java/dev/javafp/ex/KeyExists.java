@@ -14,6 +14,11 @@ package dev.javafp.ex;
  */
 public class KeyExists extends ImException
 {
+    /**
+     * A node in the graph with key
+     * {@code key}
+     * exists
+     */
     public KeyExists(Object key)
     {
         super("key '" + key + "' already exists in the graph");

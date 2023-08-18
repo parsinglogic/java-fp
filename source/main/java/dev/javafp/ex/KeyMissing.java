@@ -15,13 +15,14 @@ package dev.javafp.ex;
  */
 public class KeyMissing extends ImException
 {
+    /**
+     * There is no node in the graph with key
+     * {@code key}
+     *
+     */
     public KeyMissing(Object key)
     {
         super("key '" + key + "' does not exist in the graph");
     }
 
-    public <KEY, LABEL> KeyMissing(KEY start, LABEL label, KEY after)
-    {
-        super(String.format("The arcs out from key %s with label %s do not contain key %s", start, label, after));
-    }
 }

@@ -4,9 +4,7 @@ import dev.javafp.lst.ImList;
 import dev.javafp.util.TestUtils;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import static dev.javafp.util.TestUtils.failExpectedException;
 import static org.junit.Assert.assertEquals;
@@ -168,33 +166,6 @@ public class ThrowArgumentExceptionTest
     }
 
     @Test
-    public void testIfOutOfRange2() throws Exception
-    {
-        List<String> list = new ArrayList<String>();
-        list.add("a");
-        list.add("b");
-
-        Throw.Exception.ifOutOfRange("foo", 0, list);
-        Throw.Exception.ifOutOfRange("foo", 1, list);
-
-        try
-        {
-            Throw.Exception.ifOutOfRange("foo", 9, list);
-            failExpectedException(ArgumentOutOfRange.class);
-        } catch (ArgumentOutOfRange e)
-        {
-        }
-
-        try
-        {
-            Throw.Exception.ifOutOfRange("foo", -1, list);
-            failExpectedException(ArgumentOutOfRange.class);
-        } catch (ArgumentOutOfRange e)
-        {
-        }
-    }
-
-    @Test
     public void testLessThan() throws Exception
     {
         Throw.Exception.ifLessThan("foo", 0, 0);
@@ -207,34 +178,6 @@ public class ThrowArgumentExceptionTest
         } catch (ArgumentShouldNotBeLessThan e)
         {
         }
-    }
-
-    @Test
-    public void testIfOutOfRangeIncludingMinusOne() throws Exception
-    {
-        List<String> list = new ArrayList<String>();
-        list.add("a");
-        list.add("b");
-
-        Throw.Exception.ifOutOfRangeIncludingMinusOne("foo", -1, list);
-        Throw.Exception.ifOutOfRangeIncludingMinusOne("foo", 0, list);
-        Throw.Exception.ifOutOfRangeIncludingMinusOne("foo", 0, list);
-        try
-        {
-            Throw.Exception.ifOutOfRangeIncludingMinusOne("foo", -2, list);
-            failExpectedException(ArgumentOutOfRange.class);
-        } catch (ArgumentOutOfRange e)
-        {
-        }
-
-        try
-        {
-            Throw.Exception.ifOutOfRangeIncludingMinusOne("foo", 2, list);
-            failExpectedException(ArgumentOutOfRange.class);
-        } catch (ArgumentOutOfRange e)
-        {
-        }
-
     }
 
     @Test
