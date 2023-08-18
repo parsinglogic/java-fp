@@ -158,18 +158,23 @@ public class Throw
          * with size
          * {@code size}
          */
-
-        /**
-         * <p> Check if the specified 1-based index is within the range of the size
-         * of the specified collection.
-         * and throw
-         * {@code ImIndexOutOfBounds}
-         * if this is false.
-         *
-         */
         public static void ifIndexOutOfBounds(String name, int index, String collectionName, int size)
         {
-            ImIndexOutOfBounds.check(name, index, collectionName, size);
+            if (index < 1)
+            {
+                throw new ImIndexOutOfBounds("Index " + name + " of " + collectionName + " should be >= 1 but was " + index);
+            }
+
+            if (size == 0)
+            {
+                throw new ImIndexOutOfBounds(collectionName + " is empty but index " + name + " was " + index);
+            }
+
+            if (index > size)
+            {
+                throw new ImIndexOutOfBounds("The size of " + collectionName + " is " + size + " but index " + name
+                        + " was " + index);
+            }
         }
 
         /**
@@ -182,7 +187,23 @@ public class Throw
          */
         public static void ifIndexOutOfBounds0(String name, int index, String collectionName, int size)
         {
-            ImIndexOutOfBounds.check0(name, index, collectionName, size);
+
+            if (index < 0)
+            {
+                throw new ImIndexOutOfBounds("Index " + name + " of " + collectionName + " should be >= 0 but was " + index);
+            }
+
+            if (size == 0)
+            {
+                throw new ImIndexOutOfBounds(collectionName + " is empty but index " + name + " was " + index);
+            }
+
+            if (index >= size)
+            {
+                throw new ImIndexOutOfBounds("The size of " + collectionName + " is " + size + " but index " + name
+                        + " was " + index);
+            }
+
         }
 
         /**

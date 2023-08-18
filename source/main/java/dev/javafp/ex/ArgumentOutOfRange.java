@@ -30,19 +30,5 @@ public class ArgumentOutOfRange extends ImException
     {
         super("Argument " + name + " with value " + value + " is out of range. It should be in [" + min + "," + max + "]");
     }
-
-    /**
-     * The argument with name
-     * {@code name}
-     * and value
-     * {@code value}
-     * which is intended to be an index of a collection - but the collection is empty
-     */
-    public ArgumentOutOfRange(String name, int value)
-    {
-        super("Argument " + name + " with value " + value + " is out of range. The only valid value of " + name
-                + " is -1 because the collection that it is an index of is currently empty");
-
-    }
-
+    
 }

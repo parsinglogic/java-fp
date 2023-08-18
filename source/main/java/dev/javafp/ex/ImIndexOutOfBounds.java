@@ -15,79 +15,13 @@ package dev.javafp.ex;
 @SuppressWarnings("serial")
 public class ImIndexOutOfBounds extends ImException
 {
-    private ImIndexOutOfBounds(String message)
+    /**
+     * An index has been found to be out of range - custom message
+     * {@code} message}
+     */
+    public ImIndexOutOfBounds(String message)
     {
         super(message);
     }
 
-    /**
-     * Check that a collection with size
-     * {@code size}
-     * can be accessed with a 1-based index with name
-     * {@code name}
-     * and value
-     * {@code index}
-     * and throw an
-     * {@code ImIndexOutOfBounds}
-     * with an explanatory message if the index is out of bounds
-     */
-    static void check(String name, int index, String collectionName, int size)
-    {
-        if (index < 1)
-        {
-            throw new ImIndexOutOfBounds("Index " + name + " of " + collectionName + " should be >= 1 but was " + index);
-        }
-
-        if (size == 0)
-        {
-            throw new ImIndexOutOfBounds(collectionName + " is empty but index " + name + " was " + index);
-        }
-
-        if (index > size)
-        {
-            throw new ImIndexOutOfBounds("The size of " + collectionName + " is " + size + " but index " + name
-                    + " was " + index);
-        }
-    }
-
-    /**
-     * Check that a collection with size
-     * {@code size}
-     * can be accessed with a 0-based index with name
-     * {@code name}
-     * and value
-     * {@code index}
-     * and throw an
-     * {@code ImIndexOutOfBounds}
-     * with an explanatory message if the index is out of bounds
-     */
-    static void check0(String name, int index, String collectionName, int size)
-    {
-
-        if (index < 0)
-        {
-            throw new ImIndexOutOfBounds("Index " + name + " of " + collectionName + " should be >= 0 but was " + index);
-        }
-
-        if (size == 0)
-        {
-            throw new ImIndexOutOfBounds(collectionName + " is empty but index " + name + " was " + index);
-        }
-
-        if (index >= size)
-        {
-            throw new ImIndexOutOfBounds("The size of " + collectionName + " is " + size + " but index " + name
-                    + " was " + index);
-        }
-
-    }
-
-    public static void check(int index, int min, int max, String argumentName)
-    {
-        if ((index < min) || (index > max))
-        {
-            throw new ImIndexOutOfBounds(argumentName + " should be in the range [" + min + ", " + max
-                    + "]  but was " + index);
-        }
-    }
 }

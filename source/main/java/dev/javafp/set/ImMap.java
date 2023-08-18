@@ -141,6 +141,18 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
         return (ImMap<T, U>) empty;
     }
 
+    /**
+     * <p> The map where each entry at key
+     * {@code k}
+     * is created by applying
+     * {@code fn}
+     *  to the value at
+     * {@code k}
+     *  in
+     * {@code this}
+     * .
+     *
+     */
     public <V2> ImMap<K, V2> map(Fn<V, V2> fn)
     {
         return ImMap.onSet(entrySet.map(e -> new Entry<>(e.key, fn.of(e.value))));
