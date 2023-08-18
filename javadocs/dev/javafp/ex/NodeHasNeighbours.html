@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<title>NodeHasArcs</title>
+<title>NodeHasNeighbours</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="declaration: package: dev.javafp.ex, class: NodeHasArcs">
+<meta name="description" content="declaration: package: dev.javafp.ex, class: NodeHasNeighbours">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../script-dir/jquery-ui.min.css" title="Style">
@@ -64,14 +64,14 @@ loadScripts(document, 'script');</script>
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">dev.javafp.ex</a></div>
-<h1 title="Class NodeHasArcs" class="title">Class NodeHasArcs</h1>
+<h1 title="Class NodeHasNeighbours" class="title">Class NodeHasNeighbours</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Throwable.html" title="class or interface in java.lang" class="external-link">java.lang.Throwable</a>
 <div class="inheritance"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">java.lang.Exception</a>
 <div class="inheritance"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html" title="class or interface in java.lang" class="external-link">java.lang.RuntimeException</a>
 <div class="inheritance"><a href="ImException.html" title="class in dev.javafp.ex">dev.javafp.ex.ImException</a>
-<div class="inheritance">dev.javafp.ex.NodeHasArcs</div>
+<div class="inheritance">dev.javafp.ex.NodeHasNeighbours</div>
 </div>
 </div>
 </div>
@@ -83,7 +83,7 @@ loadScripts(document, 'script');</script>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">NodeHasArcs</span>
+<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">NodeHasNeighbours</span>
 <span class="extends-implements">extends <a href="ImException.html" title="class in dev.javafp.ex">ImException</a></span></div>
 <div class="block"><p> Thrown when you try to remove an arc from a graph,  but it has arcs connecting it to other nodes.
 
@@ -92,7 +92,7 @@ loadScripts(document, 'script');</script>
 <dt>See Also:</dt>
 <dd>
 <ul class="see-list">
-<li><a href="../../../serialized-form.html#dev.javafp.ex.NodeHasArcs">Serialized Form</a></li>
+<li><a href="../../../serialized-form.html#dev.javafp.ex.NodeHasNeighbours">Serialized Form</a></li>
 </ul>
 </dd>
 </dl>
@@ -107,9 +107,14 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(KEY,dev.javafp.set.ImSet)" class="member-name-link">NodeHasArcs</a><wbr>(KEY&nbsp;key,
- <a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;KEY&gt;&nbsp;connected)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(KEY,dev.javafp.set.ImSet)" class="member-name-link">NodeHasNeighbours</a><wbr>(KEY&nbsp;key,
+ <a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;KEY&gt;&nbsp;neighbours)</code></div>
+<div class="col-last even-row-color">
+<div class="block">The node in the graph with key
+ <code>key</code>
+ has neighbours
+ <code>key</code></div>
+</div>
 </div>
 </section>
 </li>
@@ -136,9 +141,13 @@ loadScripts(document, 'script');</script>
 <ul class="member-list">
 <li>
 <section class="detail" id="&lt;init&gt;(KEY,dev.javafp.set.ImSet)">
-<h3 id="&lt;init&gt;(java.lang.Object,dev.javafp.set.ImSet)">NodeHasArcs</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">NodeHasArcs</span><wbr><span class="parameters">(KEY&nbsp;key,
- <a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;KEY&gt;&nbsp;connected)</span></div>
+<h3 id="&lt;init&gt;(java.lang.Object,dev.javafp.set.ImSet)">NodeHasNeighbours</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">NodeHasNeighbours</span><wbr><span class="parameters">(KEY&nbsp;key,
+ <a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;KEY&gt;&nbsp;neighbours)</span></div>
+<div class="block">The node in the graph with key
+ <code>key</code>
+ has neighbours
+ <code>key</code></div>
 </section>
 </li>
 </ul>
