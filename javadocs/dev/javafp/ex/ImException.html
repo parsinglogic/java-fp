@@ -108,16 +108,31 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">ImException</a>()</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">A vanilla exception.</div>
+</div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(java.lang.Exception)" class="member-name-link">ImException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a>&nbsp;e)</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">An exception with nested exception
+ <code>e</code></div>
+</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.Object...)" class="member-name-link">ImException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>...&nbsp;ss)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(java.lang.String)" class="member-name-link">ImException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;string)</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block"> An exception with message created by:</div>
+</div>
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(java.lang.String)" class="member-name-link">ImException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message)</code></div>
+<div class="col-last odd-row-color">
+<div class="block">An exception with message
+ <code>message</code></div>
+</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String,java.lang.Exception)" class="member-name-link">ImException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a>&nbsp;e)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">An exception with message
+ <code>message</code>
+ and nested exception
+ <code>e</code></div>
+</div>
 </div>
 </section>
 </li>
@@ -146,24 +161,34 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;()">
 <h3>ImException</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ImException</span>()</div>
+<div class="block">A vanilla exception. Not intended to be used directly.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="&lt;init&gt;(java.lang.String)">
 <h3>ImException</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ImException</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;string)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ImException</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message)</span></div>
+<div class="block">An exception with message
+ <code>message</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="&lt;init&gt;(java.lang.Object...)">
 <h3>ImException</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ImException</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>...&nbsp;ss)</span></div>
+<div class="block"><p> An exception with message created by:
+
+ <pre><code>
+ ImList.on(ss).toString(' ')
+ </code></pre></div>
 </section>
 </li>
 <li>
 <section class="detail" id="&lt;init&gt;(java.lang.Exception)">
 <h3>ImException</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ImException</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a>&nbsp;e)</span></div>
+<div class="block">An exception with nested exception
+ <code>e</code></div>
 </section>
 </li>
 <li>
@@ -171,6 +196,10 @@ loadScripts(document, 'script');</script>
 <h3>ImException</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ImException</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a>&nbsp;e)</span></div>
+<div class="block">An exception with message
+ <code>message</code>
+ and nested exception
+ <code>e</code></div>
 </section>
 </li>
 </ul>

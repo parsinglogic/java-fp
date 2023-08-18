@@ -300,15 +300,37 @@ loadScripts(document, 'script');</script>
 <div class="block"> Thrown when an int argument to a function is not within a range.</div>
 </dd>
 <dt><a href="dev/javafp/ex/ArgumentOutOfRange.html#%3Cinit%3E(java.lang.String,int)" class="member-name-link">ArgumentOutOfRange(String, int)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ArgumentOutOfRange.html" title="class in dev.javafp.ex">ArgumentOutOfRange</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The argument with name
+ <code>name</code>
+ and value
+ <code>value</code>
+ which is intended to be an index of a collection - but the collection is empty</div>
+</dd>
 <dt><a href="dev/javafp/ex/ArgumentOutOfRange.html#%3Cinit%3E(java.lang.String,int,int,int)" class="member-name-link">ArgumentOutOfRange(String, int, int, int)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ArgumentOutOfRange.html" title="class in dev.javafp.ex">ArgumentOutOfRange</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The argument with name
+ <code>name</code>
+ and value
+ <code>value</code>
+ having
+ <code>value &lt; min</code>
+ or
+ <code>value &gt; max</code></div>
+</dd>
 <dt><a href="dev/javafp/ex/ArgumentShouldNotBeLessThan.html" class="type-name-link" title="class in dev.javafp.ex">ArgumentShouldNotBeLessThan</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
 <dd>
 <div class="block"> Thrown when a value is expected to be not less than a value.</div>
 </dd>
 <dt><a href="dev/javafp/ex/ArgumentShouldNotBeLessThan.html#%3Cinit%3E(java.lang.String,int,int)" class="member-name-link">ArgumentShouldNotBeLessThan(String, int, int)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ArgumentShouldNotBeLessThan.html" title="class in dev.javafp.ex">ArgumentShouldNotBeLessThan</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The argument with name
+ <code>name</code>
+ and value
+ <code>value</code>
+ has
+ <code>value &lt; min</code></div>
+</dd>
 <dt><a href="dev/javafp/util/ArrayIterator.html" class="type-name-link" title="class in dev.javafp.util">ArrayIterator</a>&lt;<a href="dev/javafp/util/ArrayIterator.html" title="type parameter in ArrayIterator">T</a>&gt; - Class in <a href="dev/javafp/util/package-summary.html">dev.javafp.util</a></dt>
 <dd>
 <div class="block">Class to iterate over arrays.</div>
@@ -454,7 +476,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/ex/CantRemoveNodes.html#%3Cinit%3E(dev.javafp.set.ImSet,dev.javafp.set.ImSet)" class="member-name-link">CantRemoveNodes(ImSet&lt;?&gt;, ImSet&lt;?&gt;)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/CantRemoveNodes.html" title="class in dev.javafp.ex">CantRemoveNodes</a></dt>
 <dd>
-<div class="block">The exception that indicates that `badNeighbours` are some or all of the nodes that are neighbours to
+<div class="block">The set `badNeighbours` are the nodes that are neighbours to
  `nodes` that prevent them from being removed.</div>
 </dd>
 <dt><a href="dev/javafp/lst/ImList.html#cartesianProduct()" class="member-name-link">cartesianProduct()</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
@@ -540,7 +562,10 @@ loadScripts(document, 'script');</script>
 <div class="block"> The exception when you try to get the right of a Chat but it had failed</div>
 </dd>
 <dt><a href="dev/javafp/ex/ChatFailed.html#%3Cinit%3E(dev.javafp.lst.ImList)" class="member-name-link">ChatFailed(ImList&lt;String&gt;)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ChatFailed.html" title="class in dev.javafp.ex">ChatFailed</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The Chat that you tried to access had a left value of
+ <code>left</code></div>
+</dd>
 <dt><a href="dev/javafp/ex/ImIndexOutOfBoundsException.html#check(int,int,int,java.lang.String)" class="member-name-link">check(int, int, int, String)</a> - Static method in exception dev.javafp.ex.<a href="dev/javafp/ex/ImIndexOutOfBoundsException.html" title="class in dev.javafp.ex">ImIndexOutOfBoundsException</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/ex/ImIndexOutOfBoundsException.html#check(int,int,java.lang.String)" class="member-name-link">check(int, int, String)</a> - Static method in exception dev.javafp.ex.<a href="dev/javafp/ex/ImIndexOutOfBoundsException.html" title="class in dev.javafp.ex">ImIndexOutOfBoundsException</a></dt>
@@ -683,7 +708,10 @@ loadScripts(document, 'script');</script>
 <div class="block"> Thrown when an object cannot be constructed for some reason.</div>
 </dd>
 <dt><a href="dev/javafp/ex/ConstructorFailed.html#%3Cinit%3E(java.lang.String)" class="member-name-link">ConstructorFailed(String)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ConstructorFailed.html" title="class in dev.javafp.ex">ConstructorFailed</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A constructor has failed - custom message
+ <code>message</code></div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#contains(A)" class="member-name-link">contains(A)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> <code>true</code>
@@ -787,7 +815,12 @@ loadScripts(document, 'script');</script>
  <code>p</code></div>
 </dd>
 <dt><a href="dev/javafp/ex/FileProblem.html#create(java.nio.file.Path,java.lang.String)" class="member-name-link">create(Path, String)</a> - Static method in exception dev.javafp.ex.<a href="dev/javafp/ex/FileProblem.html" title="class in dev.javafp.ex">FileProblem</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A file problem relating to
+ <code>path</code>
+ with  message
+ <code>message</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#createColumns(dev.javafp.lst.ImList)" class="member-name-link">createColumns(ImList&lt;Double&gt;)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>
 <div class="block"> Cut this rectangle into columns - rectangles with the given widths where they are laid out in a row</div>
@@ -1054,7 +1087,11 @@ loadScripts(document, 'script');</script>
 <div class="block"> Thrown when a collection is expected to <strong>not</strong> be empty.</div>
 </dd>
 <dt><a href="dev/javafp/ex/EmptyCollection.html#%3Cinit%3E(java.lang.String)" class="member-name-link">EmptyCollection(String)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/EmptyCollection.html" title="class in dev.javafp.ex">EmptyCollection</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The argument with name
+ <code>name</code>
+ is empty</div>
+</dd>
 <dt><a href="dev/javafp/util/SetUtils.html#emptySet()" class="member-name-link">emptySet()</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/SetUtils.html" title="class in dev.javafp.util">SetUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/ex/EmptyString.html" class="type-name-link" title="class in dev.javafp.ex">EmptyString</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
@@ -1062,7 +1099,11 @@ loadScripts(document, 'script');</script>
 <div class="block"> Thrown when a string value is expected to <strong>not</strong> be empty.</div>
 </dd>
 <dt><a href="dev/javafp/ex/EmptyString.html#%3Cinit%3E(java.lang.String)" class="member-name-link">EmptyString(String)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/EmptyString.html" title="class in dev.javafp.ex">EmptyString</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The argument with name
+ <code>name</code>
+ is the empty string</div>
+</dd>
 <dt><a href="dev/javafp/util/Base64Util.html#encode64(java.lang.String)" class="member-name-link">encode64(String)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Base64Util.html" title="class in dev.javafp.util">Base64Util</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/graph/ImArc.html#end" class="member-name-link">end</a> - Variable in class dev.javafp.graph.<a href="dev/javafp/graph/ImArc.html" title="class in dev.javafp.graph">ImArc</a></dt>
@@ -1397,7 +1438,9 @@ loadScripts(document, 'script');</script>
 <div class="block"> Thrown to remind you to fix something in your code.</div>
 </dd>
 <dt><a href="dev/javafp/ex/FixMe.html#%3Cinit%3E()" class="member-name-link">FixMe()</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/FixMe.html" title="class in dev.javafp.ex">FixMe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">If this is thrown then - well - you'd better fix it!</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#flatMap(dev.javafp.func.Fn)" class="member-name-link">flatMap(Fn&lt;A, ImList&lt;T&gt;&gt;)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> The
@@ -1435,7 +1478,10 @@ loadScripts(document, 'script');</script>
  .</div>
 </dd>
 <dt><a href="dev/javafp/ex/FlatMapFunctionReturnedNull.html#%3Cinit%3E(T)" class="member-name-link">FlatMapFunctionReturnedNull(T)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/FlatMapFunctionReturnedNull.html" title="class in dev.javafp.ex">FlatMapFunctionReturnedNull</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A function used in flatMap returned null when applied to:
+ <code>monad</code></div>
+</dd>
 <dt><a href="dev/javafp/util/Mixer.html#flatMapMixOver(dev.javafp.lst.ImList,dev.javafp.lst.ImList)" class="member-name-link">flatMapMixOver(ImList&lt;T&gt;, ImList&lt;ImList&lt;T&gt;&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Mixer.html" title="class in dev.javafp.util">Mixer</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/func/Fn2.html#flip()" class="member-name-link">flip()</a> - Method in interface dev.javafp.func.<a href="dev/javafp/func/Fn2.html" title="interface in dev.javafp.func">Fn2</a></dt>
@@ -1655,7 +1701,9 @@ loadScripts(document, 'script');</script>
 <div class="block"> Thrown when you try to invoke certain "accessor" functions on an empty list.</div>
 </dd>
 <dt><a href="dev/javafp/ex/FunctionNotAllowedOnEmptyList.html#%3Cinit%3E()" class="member-name-link">FunctionNotAllowedOnEmptyList()</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/FunctionNotAllowedOnEmptyList.html" title="class in dev.javafp.ex">FunctionNotAllowedOnEmptyList</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">You can't invoke this function on the empty list</div>
+</dd>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
@@ -1885,7 +1933,10 @@ loadScripts(document, 'script');</script>
 <div class="block"> The index of the focus - the size of the first list.</div>
 </dd>
 <dt><a href="dev/javafp/ex/FileProblem.html#getInfo(java.nio.file.Path)" class="member-name-link">getInfo(Path)</a> - Static method in exception dev.javafp.ex.<a href="dev/javafp/ex/FileProblem.html" title="class in dev.javafp.ex">FileProblem</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Information about
+ <code>path</code></div>
+</dd>
 <dt><a href="dev/javafp/set/ImMap.Entry.html#getKey()" class="member-name-link">getKey()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.Entry.html" title="class in dev.javafp.set">ImMap.Entry</a></dt>
 <dd>
 <div class="block"> The key of this key-value pair.</div>
@@ -2715,15 +2766,30 @@ loadScripts(document, 'script');</script>
 <div class="block"> A <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/RuntimeException.html" title="class or interface in java.lang" class="external-link"><code>RuntimeException</code></a> with some extra features.</div>
 </dd>
 <dt><a href="dev/javafp/ex/ImException.html#%3Cinit%3E()" class="member-name-link">ImException()</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ImException.html" title="class in dev.javafp.ex">ImException</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A vanilla exception.</div>
+</dd>
 <dt><a href="dev/javafp/ex/ImException.html#%3Cinit%3E(java.lang.Exception)" class="member-name-link">ImException(Exception)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ImException.html" title="class in dev.javafp.ex">ImException</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">An exception with nested exception
+ <code>e</code></div>
+</dd>
 <dt><a href="dev/javafp/ex/ImException.html#%3Cinit%3E(java.lang.Object...)" class="member-name-link">ImException(Object...)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ImException.html" title="class in dev.javafp.ex">ImException</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> An exception with message created by:</div>
+</dd>
 <dt><a href="dev/javafp/ex/ImException.html#%3Cinit%3E(java.lang.String)" class="member-name-link">ImException(String)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ImException.html" title="class in dev.javafp.ex">ImException</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">An exception with message
+ <code>message</code></div>
+</dd>
 <dt><a href="dev/javafp/ex/ImException.html#%3Cinit%3E(java.lang.String,java.lang.Exception)" class="member-name-link">ImException(String, Exception)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ImException.html" title="class in dev.javafp.ex">ImException</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">An exception with message
+ <code>message</code>
+ and nested exception
+ <code>e</code></div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html" class="type-name-link" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr><a href="dev/javafp/graph/ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt; - Class in <a href="dev/javafp/graph/package-summary.html">dev.javafp.graph</a></dt>
 <dd>
 <div class="block"> A graph (in the "standard" Computer Science Graph Theory sense).</div>
@@ -5765,23 +5831,33 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/UniqueId.html#toShortString()" class="member-name-link">toShortString()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/UniqueId.html" title="class in dev.javafp.util">UniqueId</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/box/AbstractTextBox.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.box.<a href="dev/javafp/box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A String representation of this object</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImLazyList.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.lst.<a href="dev/javafp/lst/ImLazyList.html" title="class in dev.javafp.lst">ImLazyList</a></dt>
 <dd>
-<div class="block">The String representation of this object</div>
+<div class="block">A String representation of this object</div>
 </dd>
 <dt><a href="dev/javafp/lst/ImListZipper.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.lst.<a href="dev/javafp/lst/ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a></dt>
 <dd>
 <div class="block"> A string representation of this zipper.</div>
 </dd>
 <dt><a href="dev/javafp/net/ImUrl.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/ImUrl.html" title="class in dev.javafp.net">ImUrl</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A String representation of this object</div>
+</dd>
 <dt><a href="dev/javafp/set/ImMap.Entry.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.Entry.html" title="class in dev.javafp.set">ImMap.Entry</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A String representation of this object</div>
+</dd>
 <dt><a href="dev/javafp/set/ImMap.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A String representation of this object</div>
+</dd>
 <dt><a href="dev/javafp/set/ImSet.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImSet.html" title="class in dev.javafp.set">ImSet</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A String representation of this object</div>
+</dd>
 <dt><a href="dev/javafp/set/ImSortedSet.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImSortedSet.html" title="class in dev.javafp.set">ImSortedSet</a></dt>
 <dd>
 <div class="block"> A string representation of
@@ -5805,17 +5881,29 @@ loadScripts(document, 'script');</script>
 <div class="block"> The string representation of this zipper.</div>
 </dd>
 <dt><a href="dev/javafp/tree/ImTree.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.tree.<a href="dev/javafp/tree/ImTree.html" title="class in dev.javafp.tree">ImTree</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A String representation of this object</div>
+</dd>
 <dt><a href="dev/javafp/tree/ImTreeZipper.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.tree.<a href="dev/javafp/tree/ImTreeZipper.html" title="class in dev.javafp.tree">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A String representation of this object</div>
+</dd>
 <dt><a href="dev/javafp/tree/MutableTree.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.tree.<a href="dev/javafp/tree/MutableTree.html" title="class in dev.javafp.tree">MutableTree</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A String representation of this object</div>
+</dd>
 <dt><a href="dev/javafp/util/ImEither.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImEither.html" title="class in dev.javafp.util">ImEither</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A String representation of this object</div>
+</dd>
 <dt><a href="dev/javafp/util/SvgTransform.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/SvgTransform.html" title="class in dev.javafp.util">SvgTransform</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A String representation of this object</div>
+</dd>
 <dt><a href="dev/javafp/val/ImValuesImpl.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.val.<a href="dev/javafp/val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A String representation of this object</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#toString(char)" class="member-name-link">toString(char)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> A String representation of

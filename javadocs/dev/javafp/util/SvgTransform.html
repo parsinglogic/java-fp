@@ -84,7 +84,7 @@ loadScripts(document, 'script');</script>
 implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></span></div>
 <div class="block"><p> transform="matrix(a,b,c,d,e,f)"
  <p> The matrix is this - using homogeneous coordinates:
- 
+
  <pre><code>
  a c e
  b d f
@@ -93,37 +93,37 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
  <p> <a href="http://www.mat.ucsb.edu/594cm/2010/Week1/homog-coords.pdf"></a>
  <a href="www.cs.iastate.edu/~cs577/handouts/homogeneous-transform.pdf"></a>
  <p> Applying a matrix to a point
- 
+
  <pre><code>
             x
             y
             1
- 
+
  a c e      ax + cy + e
  b d f      bx + dy + f
  0 0 1      1
  </code></pre>
  <p> translation by (e,f)
- 
+
  <pre><code>
  1 0 e      x + e
  0 1 f      y + f
  0 0 1      1
  </code></pre>
  <p> scaling by a in x and d in y
- 
+
  <pre><code>
  a 0 0       ax
  0 d 0       by
  0 0 1       1
  </code></pre>
  <p> Rotation about the origin by alpha anticlockwise:
- 
+
  <pre><code>
               x
               y
               1
- 
+
  cos -sin 0   x*cos - x*sin
  sin  cos 0   x*sin + x*cos
  0    0   1   1
@@ -270,7 +270,9 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">A String representation of this object</div>
+</div>
 </div>
 </div>
 </div>
@@ -375,12 +377,12 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <h3>preMultiplyBy</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="SvgTransform.html" title="class in dev.javafp.util">SvgTransform</a></span>&nbsp;<span class="element-name">preMultiplyBy</span><wbr><span class="parameters">(<a href="SvgTransform.html" title="class in dev.javafp.util">SvgTransform</a>&nbsp;t)</span></div>
 <div class="block"><p> Pre-multiply this transform by t:
- 
+
  <pre><code>
                  a                  c                  e
                  b                  d                  f
                  0                  0                  1
- 
+
  t.a  t.c  t.e   t.a * a + t.c * b  t.a * c + t.c * d  t.a * e + t.c * f + t.e
  t.b  t.d  t.f   t.b * a + t.d * b  t.b * c + t.d * d  t.b * e + t.d * f + t.f
  0    0    1     0                  0                  1
@@ -395,12 +397,12 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
  <code>p</code>
   where
  <code>p = (x, y, z)</code>
- 
+
  <pre><code>
                x
                y
                1
- 
+
  a    c    e   ax + cy + e
  b    d    f   bx + dy + f
  0    0    1   1
@@ -437,6 +439,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="toString()">
 <h3>toString</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">toString</span>()</div>
+<div class="block">A String representation of this object</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
@@ -462,7 +465,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
   and make an
  <code>SVG</code>
   transform like this:
- 
+
  <pre><code>
  a c e
  b d f
