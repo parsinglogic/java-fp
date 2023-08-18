@@ -325,12 +325,18 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isEmpty()" class="member-name-link">isEmpty</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">`true` iff this is the empty set</div>
+<div class="block"><code>true</code>
+ iff
+ <code>this</code>
+ is the empty set</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isNotEmpty()" class="member-name-link">isNotEmpty</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">`true` iff this is not the empty set</div>
+<div class="block"><code>true</code>
+ iff
+ <code>this</code>
+ is not the empty set</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#iterator()" class="member-name-link">iterator</a>()</code></div>
@@ -348,7 +354,13 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;U&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;U&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#map(dev.javafp.func.Fn)" class="member-name-link">map</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr>U&gt;&nbsp;fn)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The set formed by applying
+     <code>fn</code>
+ to each element
+ This may result in a set wth a different size from
+     <code>this</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#minus(java.lang.Iterable)" class="member-name-link">minus</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&nbsp;iterable)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -554,7 +566,7 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <div class="block"><p> The set whose elements are obtained from
  <code>array</code>
  .
- <p> ImCollections can't contain
+ <p> ImSet can't contain
  <code>null</code>
   so none of the elements in
  <code>array</code>
@@ -565,7 +577,7 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <pre><code>
  on(1, 2, 3, 2)  =&gt; [1, 2, 3]
  on()            =&gt; []
- on(1, null)     =&gt; throws java.lang.NullPointerException: ImCollections can't contain nulls
+ on(1, null)     =&gt; throws java.lang.NullPointerException: This collection can't contain nulls
  </code></pre>
  <p> @throws NullPointerException if any of the elements in
  <code>array</code>
@@ -590,7 +602,7 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <div class="block"><p> The set whose elements are obtained from
  <code>elementsCollection</code>
  .
- <p> ImCollections can't contain
+ <p> ImSets can't contain
  <code>null</code>
   so none of the elements in
  <code>elementsCollection</code>
@@ -601,7 +613,7 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <pre><code>
  on(Arrays.asList(1, 2, 1))    =&gt; [1, 2]
  on(Arrays.asList())           =&gt; []
- on(Arrays.asList(1, null, 3)) =&gt; throws java.lang.NullPointerException: ImCollections can't contain nulls
+ on(Arrays.asList(1, null, 3)) =&gt; throws NullPointerException("This collection can't contain nulls");
  </code></pre>
  <p> @throws NullPointerException if any of the elements in
  <code>elementsCollection</code>
@@ -631,7 +643,7 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <pre><code>
  on(Arrays.asList(1, 2, 3).iterator())     =&gt;  [1, 2, 3]
  on(Arrays.asList().iterator())            =&gt;  []
- on(Arrays.asList(1, null, 3).iterator())  =&gt;  throws java.lang.NullPointerException: ImCollections can't contain nulls
+ on(Arrays.asList(1, null, 3).iterator())  =&gt;  throws java.lang.NullPointerException: This collection can't contain nulls
  </code></pre>
  <p> @throws NullPointerException if any of the elements in
  <code>iterator</code>
@@ -827,7 +839,7 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <div class="block"><p> The ImSet formed out of the elements of each collection in
  <code>iterator</code>
   in order.
- <p> ImCollections can't contain
+ <p> ImSet can't contain
  <code>null</code>
   so none of the elements can be
  <code>null</code></div>
@@ -859,14 +871,20 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <section class="detail" id="isEmpty()">
 <h3>isEmpty</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEmpty</span>()</div>
-<div class="block">`true` iff this is the empty set</div>
+<div class="block"><code>true</code>
+ iff
+ <code>this</code>
+ is the empty set</div>
 </section>
 </li>
 <li>
 <section class="detail" id="isNotEmpty()">
 <h3>isNotEmpty</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isNotEmpty</span>()</div>
-<div class="block">`true` iff this is not the empty set</div>
+<div class="block"><code>true</code>
+ iff
+ <code>this</code>
+ is not the empty set</div>
 </section>
 </li>
 <li>
@@ -884,6 +902,11 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
 <section class="detail" id="map(dev.javafp.func.Fn)">
 <h3>map</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;U&gt;</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;U&gt;</span>&nbsp;<span class="element-name">map</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>,<wbr>U&gt;&nbsp;fn)</span></div>
+<div class="block">The set formed by applying
+     <code>fn</code>
+ to each element
+ This may result in a set wth a different size from
+     <code>this</code></div>
 </section>
 </li>
 <li>

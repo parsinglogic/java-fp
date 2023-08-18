@@ -107,7 +107,13 @@ loadScripts(document, 'script');</script>
   at the end of the existing elements.</div>
 </dd>
 <dt><a href="dev/javafp/set/ImSortedSet.html#addAll(java.lang.Iterable)" class="member-name-link">addAll(Iterable&lt;? extends T&gt;)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImSortedSet.html" title="class in dev.javafp.set">ImSortedSet</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The sorted set that is
+ <code>this</code>
+ with
+ <code>elementsToAdd</code>
+ added to it</div>
+</dd>
 <dt><a href="dev/javafp/shelf/ImShelf.html#addAll(java.lang.Iterable)" class="member-name-link">addAll(Iterable&lt;? extends T&gt;)</a> - Method in class dev.javafp.shelf.<a href="dev/javafp/shelf/ImShelf.html" title="class in dev.javafp.shelf">ImShelf</a></dt>
 <dd>
 <div class="block"> The ImShelf formed out of the elements of
@@ -298,14 +304,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/ex/ArgumentOutOfRange.html" class="type-name-link" title="class in dev.javafp.ex">ArgumentOutOfRange</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
 <dd>
 <div class="block"> Thrown when an int argument to a function is not within a range.</div>
-</dd>
-<dt><a href="dev/javafp/ex/ArgumentOutOfRange.html#%3Cinit%3E(java.lang.String,int)" class="member-name-link">ArgumentOutOfRange(String, int)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ArgumentOutOfRange.html" title="class in dev.javafp.ex">ArgumentOutOfRange</a></dt>
-<dd>
-<div class="block">The argument with name
- <code>name</code>
- and value
- <code>value</code>
- which is intended to be an index of a collection - but the collection is empty</div>
 </dd>
 <dt><a href="dev/javafp/ex/ArgumentOutOfRange.html#%3Cinit%3E(java.lang.String,int,int,int)" class="member-name-link">ArgumentOutOfRange(String, int, int, int)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ArgumentOutOfRange.html" title="class in dev.javafp.ex">ArgumentOutOfRange</a></dt>
 <dd>
@@ -571,8 +569,6 @@ loadScripts(document, 'script');</script>
 <div class="block">The Chat that you tried to access had a left value of
  <code>left</code></div>
 </dd>
-<dt><a href="dev/javafp/ex/ImIndexOutOfBounds.html#check(int,int,int,java.lang.String)" class="member-name-link">check(int, int, int, String)</a> - Static method in exception dev.javafp.ex.<a href="dev/javafp/ex/ImIndexOutOfBounds.html" title="class in dev.javafp.ex">ImIndexOutOfBounds</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/NullCheck.html#check(java.lang.Object)" class="member-name-link">check(Object)</a> - Static method in exception dev.javafp.util.<a href="dev/javafp/util/NullCheck.html" title="class in dev.javafp.util">NullCheck</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/ImUtils.html#checkArgumentNotNull(java.lang.String,java.lang.Object)" class="member-name-link">checkArgumentNotNull(String, Object)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ImUtils.html" title="class in dev.javafp.util">ImUtils</a></dt>
@@ -684,8 +680,6 @@ loadScripts(document, 'script');</script>
   and
  <code>second</code></div>
 </dd>
-<dt><a href="dev/javafp/set/ImSortedSet.html#computeHash(int)" class="member-name-link">computeHash(int)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImSortedSet.html" title="class in dev.javafp.set">ImSortedSet</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/shelf/ImShelf.html#concat(java.lang.Iterable...)" class="member-name-link">concat(Iterable&lt;? extends A&gt;...)</a> - Static method in class dev.javafp.shelf.<a href="dev/javafp/shelf/ImShelf.html" title="class in dev.javafp.shelf">ImShelf</a></dt>
 <dd>
 <div class="block"> The ImShelf formed out of the elements of each collection in
@@ -2684,8 +2678,15 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/ex/Throw.Exception.html#ifIndexOutOfBounds(java.lang.String,int,java.lang.String,int)" class="member-name-link">ifIndexOutOfBounds(String, int, String, int)</a> - Static method in class dev.javafp.ex.<a href="dev/javafp/ex/Throw.Exception.html" title="class in dev.javafp.ex">Throw.Exception</a></dt>
 <dd>
-<div class="block"> Check if the specified 1-based index is within the range of the size
- of the specified collection.</div>
+<div class="block"> Throw an exception
+ if the 1-based index with name
+ <code>name</code>
+ and value
+ <code>value</code>
+ is not valid for the collection
+ <code>collectionName</code>
+ with size
+ <code>size</code></div>
 </dd>
 <dt><a href="dev/javafp/ex/Throw.Exception.html#ifIndexOutOfBounds0(java.lang.String,int,java.lang.String,int)" class="member-name-link">ifIndexOutOfBounds0(String, int, String, int)</a> - Static method in class dev.javafp.ex.<a href="dev/javafp/ex/Throw.Exception.html" title="class in dev.javafp.ex">Throw.Exception</a></dt>
 <dd>
@@ -2820,6 +2821,11 @@ loadScripts(document, 'script');</script>
 <div class="block"> Thrown when you attempt to access an indexed collection
  using an index (0-based or 1-based)  that is not valid for that collection.</div>
 </dd>
+<dt><a href="dev/javafp/ex/ImIndexOutOfBounds.html#%3Cinit%3E(java.lang.String)" class="member-name-link">ImIndexOutOfBounds(String)</a> - Constructor for exception dev.javafp.ex.<a href="dev/javafp/ex/ImIndexOutOfBounds.html" title="class in dev.javafp.ex">ImIndexOutOfBounds</a></dt>
+<dd>
+<div class="block">An index has been found to be out of range - custom message
+  message}</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImLazyList.html" class="type-name-link" title="class in dev.javafp.lst">ImLazyList</a>&lt;<a href="dev/javafp/lst/ImLazyList.html" title="type parameter in ImLazyList">A</a>&gt; - Class in <a href="dev/javafp/lst/package-summary.html">dev.javafp.lst</a></dt>
 <dd>
 <div class="block">A lazy list.</div>
@@ -2832,8 +2838,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">An iterator over ImLists</div>
 </dd>
-<dt><a href="dev/javafp/lst/ImListIterator.html#%3Cinit%3E(dev.javafp.lst.ImList)" class="member-name-link">ImListIterator(ImList&lt;T&gt;)</a> - Constructor for class dev.javafp.lst.<a href="dev/javafp/lst/ImListIterator.html" title="class in dev.javafp.lst">ImListIterator</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/ImListUtils.html" class="type-name-link" title="class in dev.javafp.util">ImListUtils</a> - Class in <a href="dev/javafp/util/package-summary.html">dev.javafp.util</a></dt>
 <dd>
 <div class="block"> Utility for list operations.</div>
@@ -2844,8 +2848,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block"> A zipper on an <a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst"><code>ImList</code></a> lets you navigate back and forth in the list and "mutate" it as you go.</div>
 </dd>
-<dt><a href="dev/javafp/lst/ImListZipper.html#%3Cinit%3E(dev.javafp.lst.ImList,dev.javafp.lst.ImList)" class="member-name-link">ImListZipper(ImList&lt;T&gt;, ImList&lt;T&gt;)</a> - Constructor for class dev.javafp.lst.<a href="dev/javafp/lst/ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/lst/ImListZipperIterator.html" class="type-name-link" title="class in dev.javafp.lst">ImListZipperIterator</a>&lt;<a href="dev/javafp/lst/ImListZipperIterator.html" title="type parameter in ImListZipperIterator">T</a>&gt; - Class in <a href="dev/javafp/lst/package-summary.html">dev.javafp.lst</a></dt>
 <dd>
 <div class="block"> An iterator on an <a href="dev/javafp/lst/ImListZipper.html" title="class in dev.javafp.lst"><code>ImListZipper</code></a>.</div>
@@ -3189,7 +3191,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/set/ImSet.html#isEmpty()" class="member-name-link">isEmpty()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImSet.html" title="class in dev.javafp.set">ImSet</a></dt>
 <dd>
-<div class="block">`true` iff this is the empty set</div>
+<div class="block"><code>true</code>
+ iff
+ <code>this</code>
+ is the empty set</div>
 </dd>
 <dt><a href="dev/javafp/shelf/ImShelf.html#isEmpty()" class="member-name-link">isEmpty()</a> - Method in class dev.javafp.shelf.<a href="dev/javafp/shelf/ImShelf.html" title="class in dev.javafp.shelf">ImShelf</a></dt>
 <dd>
@@ -3223,7 +3228,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/set/ImSet.html#isNotEmpty()" class="member-name-link">isNotEmpty()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImSet.html" title="class in dev.javafp.set">ImSet</a></dt>
 <dd>
-<div class="block">`true` iff this is not the empty set</div>
+<div class="block"><code>true</code>
+ iff
+ <code>this</code>
+ is not the empty set</div>
 </dd>
 <dt><a href="dev/javafp/util/Chat.html#isOk" class="member-name-link">isOk</a> - Variable in class dev.javafp.util.<a href="dev/javafp/util/Chat.html" title="class in dev.javafp.util">Chat</a></dt>
 <dd>&nbsp;</dd>
@@ -3599,7 +3607,13 @@ loadScripts(document, 'script');</script>
  <code>fn</code></div>
 </dd>
 <dt><a href="dev/javafp/set/ImSortedSet.html#map(dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;T, O&gt;)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImSortedSet.html" title="class in dev.javafp.set">ImSortedSet</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The sorted set formed by applying
+     <code>fn</code>
+ to each element
+ This may result in a set wth a different size from
+     <code>this</code></div>
+</dd>
 <dt><a href="dev/javafp/shelf/ImShelf.html#map(dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;T, O&gt;)</a> - Method in class dev.javafp.shelf.<a href="dev/javafp/shelf/ImShelf.html" title="class in dev.javafp.shelf">ImShelf</a></dt>
 <dd>
 <div class="block"> The shelf where the i-th element is the result of evaluating the single argument function
@@ -3610,13 +3624,29 @@ loadScripts(document, 'script');</script>
  .</div>
 </dd>
 <dt><a href="dev/javafp/set/ImSet.html#map(dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;T, U&gt;)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImSet.html" title="class in dev.javafp.set">ImSet</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The set formed by applying
+     <code>fn</code>
+ to each element
+ This may result in a set wth a different size from
+     <code>this</code></div>
+</dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#map(dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;T, U&gt;)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/tuple/ImPair.html#map(dev.javafp.func.Fn,dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;U, UU&gt;, Fn&lt;V, VV&gt;)</a> - Method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/set/ImMap.html#map(dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;V, V2&gt;)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The map where each entry at key
+ <code>k</code>
+ is created by applying
+ <code>fn</code>
+  to the value at
+ <code>k</code>
+  in
+ <code>this</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/tuple/ImPair.html#map(dev.javafp.func.Fn2)" class="member-name-link">map(Fn2&lt;U, V, ImPair&lt;UU, VV&gt;&gt;)</a> - Method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/tuple/ImPair.html#map(dev.javafp.lst.ImList,dev.javafp.func.Fn2)" class="member-name-link">map(ImList&lt;ImPair&lt;A, B&gt;&gt;, Fn2&lt;A, B, C&gt;)</a> - Static method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a></dt>
@@ -4229,7 +4259,12 @@ loadScripts(document, 'script');</script>
   in order.</div>
 </dd>
 <dt><a href="dev/javafp/set/ImSortedSet.html#onAll(java.lang.Iterable)" class="member-name-link">onAll(Iterable&lt;A&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImSortedSet.html" title="class in dev.javafp.set">ImSortedSet</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Create a
+ <code>ImSortedSet</code>
+  where each element is taken from
+ <code>iterable</code></div>
+</dd>
 <dt><a href="dev/javafp/set/ImSet.html#onAll(java.util.Collection)" class="member-name-link">onAll(Collection&lt;? extends T&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImSet.html" title="class in dev.javafp.set">ImSet</a></dt>
 <dd>
 <div class="block"> The set whose elements are obtained from
@@ -4277,7 +4312,12 @@ loadScripts(document, 'script');</script>
  .</div>
 </dd>
 <dt><a href="dev/javafp/set/ImSortedSet.html#onIterator(java.util.Iterator)" class="member-name-link">onIterator(Iterator&lt;A&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImSortedSet.html" title="class in dev.javafp.set">ImSortedSet</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Create a
+ <code>ImSortedSet</code>
+  where each element is taken from
+ <code>iterator</code></div>
+</dd>
 <dt><a href="dev/javafp/set/ImBag.html#onIterator(java.util.Iterator)" class="member-name-link">onIterator(Iterator&lt;T&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImBag.html" title="class in dev.javafp.set">ImBag</a></dt>
 <dd>
 <div class="block"> The bag whose elements are obtained by iterating over
@@ -4893,7 +4933,13 @@ loadScripts(document, 'script');</script>
   removed.</div>
 </dd>
 <dt><a href="dev/javafp/set/ImSortedSet.html#removeAll(java.lang.Iterable)" class="member-name-link">removeAll(Iterable&lt;T&gt;)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImSortedSet.html" title="class in dev.javafp.set">ImSortedSet</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The set that is
+ <code>this</code>
+ with all the elements in
+ <code>iterable</code>
+ removed</div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#removeArc(LABEL,KEY,KEY)" class="member-name-link">removeArc(LABEL, KEY, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
 <div class="block"> Remove the arc with label
