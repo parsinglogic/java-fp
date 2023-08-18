@@ -22,6 +22,6 @@ public class ImRangeTest
     @Test
     public void testErrorCases()
     {
-        TestUtils.assertThrows(() -> ImRange.inclusive(1, 4, 4), InvalidArgument.class, "step value must divide max - min but step = 4, min = 1, max = 4");
+        TestUtils.assertThrows(() -> ImRange.inclusive(1, 4, 4), InvalidArgument.class, "Argument step with value 4: value must divide max - min but step = 4, min = 1, max = 4");
     }
 }

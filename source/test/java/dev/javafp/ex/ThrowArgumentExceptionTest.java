@@ -1,5 +1,9 @@
 package dev.javafp.ex;
 
+import dev.javafp.lst.ImList;
+import dev.javafp.util.TestUtils;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -11,6 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class ThrowArgumentExceptionTest
 {
 
+    @Test
     public void testIfNullOrEmptyThrowsWhenEmpty() throws Exception
     {
         try
@@ -23,6 +28,7 @@ public class ThrowArgumentExceptionTest
         }
     }
 
+    @Test
     public void testIfNullOrEmptyThrowsWhenNull() throws Exception
     {
         try
@@ -35,11 +41,13 @@ public class ThrowArgumentExceptionTest
         }
     }
 
+    @Test
     public void testIfNullOrEmptyDoesNotThrowWhenNotNullOrEmpty() throws Exception
     {
         Throw.Exception.ifNullOrEmpty("wibble", "wobble");
     }
 
+    @Test
     public void testIfEmptyThrowsWhenEmpty() throws Exception
     {
         try
@@ -52,6 +60,7 @@ public class ThrowArgumentExceptionTest
         }
     }
 
+    @Test
     public void testIfTrue() throws Exception
     {
 
@@ -66,6 +75,7 @@ public class ThrowArgumentExceptionTest
         }
     }
 
+    @Test
     public void testIfFalse() throws Exception
     {
 
@@ -80,11 +90,13 @@ public class ThrowArgumentExceptionTest
         }
     }
 
+    @Test
     public void testIfEmptyDoesNotThrowWhenNotEmpty() throws Exception
     {
         Throw.Exception.ifEmpty("wibble", "wobble");
     }
 
+    @Test
     public void testIfNullThrowsWhenNull() throws Exception
     {
         try
@@ -97,6 +109,7 @@ public class ThrowArgumentExceptionTest
         }
     }
 
+    @Test
     public void testIfOutOfRange1() throws Exception
     {
         Throw.Exception.ifOutOfRange("foo", 37, 37, 37);
@@ -119,6 +132,7 @@ public class ThrowArgumentExceptionTest
         }
     }
 
+    @Test
     public void testIfOutOfRangeThrowsIfMinIsGreaterThanMax() throws Exception
     {
 
@@ -131,40 +145,29 @@ public class ThrowArgumentExceptionTest
         }
     }
 
+    @Test
     public void testIfIndexNotInCollection() throws Exception
     {
+        final ImList<String> foos = ImList.on();
 
-        List<String> foos = new ArrayList<String>();
+        TestUtils.assertThrows(
+                () -> Throw.Exception.ifIndexOutOfBounds("index", -1, "foos", foos.size()),
+                ImIndexOutOfBounds.class,
+                "Index index of foos should be >= 1 but was -1");
 
-        try
-        {
-            Throw.Exception.ifIndexNotInCollection(-1, foos, "foos");
-            failExpectedException(InvalidCollectionIndex.class);
-        } catch (InvalidCollectionIndex e)
-        {
-            assertEquals("You tried to access index -1 of foos but index should be >= 0", e.getMessage());
-        }
+        TestUtils.assertThrows(
+                () -> Throw.Exception.ifIndexOutOfBounds("index", 1, "foos", foos.size()),
+                ImIndexOutOfBounds.class,
+                "foos is empty but index index was 1");
 
-        try
-        {
-            Throw.Exception.ifIndexNotInCollection(1, foos, "foos");
-            failExpectedException(InvalidCollectionIndex.class);
-        } catch (InvalidCollectionIndex e)
-        {
-            assertEquals("You tried to access index 1 of foos but there are none", e.getMessage());
-        }
-
-        try
-        {
-            foos.add("bar");
-            Throw.Exception.ifIndexNotInCollection(4, foos, "foos");
-            failExpectedException(InvalidCollectionIndex.class);
-        } catch (InvalidCollectionIndex e)
-        {
-            assertEquals("You tried to access index 4 of foos but the largest valid index is 1", e.getMessage());
-        }
+        final ImList<String> foos2 = ImList.on("bar");
+        TestUtils.assertThrows(
+                () -> Throw.Exception.ifIndexOutOfBounds("index", 4, "foos2", foos2.size()),
+                ImIndexOutOfBounds.class,
+                "The size of foos2 is 1 but index index was 4");
     }
 
+    @Test
     public void testIfOutOfRange2() throws Exception
     {
         List<String> list = new ArrayList<String>();
@@ -191,6 +194,7 @@ public class ThrowArgumentExceptionTest
         }
     }
 
+    @Test
     public void testLessThan() throws Exception
     {
         Throw.Exception.ifLessThan("foo", 0, 0);
@@ -205,6 +209,7 @@ public class ThrowArgumentExceptionTest
         }
     }
 
+    @Test
     public void testIfOutOfRangeIncludingMinusOne() throws Exception
     {
         List<String> list = new ArrayList<String>();
@@ -232,12 +237,14 @@ public class ThrowArgumentExceptionTest
 
     }
 
+    @Test
     public void testIfNullDoesNotThrowWhenNotNull() throws Exception
     {
         Throw.Exception.ifNull("wibble", "wobble");
     }
 
-    //    public void testIfNotTypeThrowsWhenWrongType() throws Exception
+    //    @Test
+    //public void testIfNotTypeThrowsWhenWrongType() throws Exception
     //    {
     //        try
     //        {
@@ -252,7 +259,8 @@ public class ThrowArgumentExceptionTest
     //        }
     //    }
 
-    //    public void testIfNotTypeDoesNotThrowWhenRightType() throws Exception
+    //    @Test
+    //public void testIfNotTypeDoesNotThrowWhenRightType() throws Exception
     //    {
     //        ThrowArgument.Exception.ifNotType(new Integer(0), Number.class);
     //    }

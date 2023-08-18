@@ -154,21 +154,25 @@ public class Throw
         }
 
         /**
-         * <p> Checks if the specified index is within the range of the size
-         * of the specified collection. Ie do this check:
-         *
-         * <pre>{@code
-         * (!things.isEmpty()) && (0 <= i) && (i < things.size())
-         * }</pre>
-         * <p> and throw a runtime exception if this is false.
+         * <p> Checks if the specified 1-based index is within the range of the size
+         * of the specified collection.
+         * and throw ImIndexOutOfBounds if this is false.
          *
          */
-        public static void ifIndexNotInCollection(int index, Collection<?> things, String collectionName)
+        public static void ifIndexOutOfBounds(String name, int index, String collectionName, int size)
         {
-            if (things.isEmpty() || index < 0 || index >= things.size())
-            {
-                throw new InvalidCollectionIndex(index, things.size(), collectionName);
-            }
+            ImIndexOutOfBounds.check(name, index, collectionName, size);
+        }
+
+        /**
+         * <p> Checks if the specified 0-based index is within the range of the size
+         * of the specified collection.
+         * and throw ImIndexOutOfBounds if this is false.
+         *
+         */
+        public static void ifIndexOutOfBounds0(String name, int index, String collectionName, int size)
+        {
+            ImIndexOutOfBounds.check0(name, index, collectionName, size);
         }
 
         /**

@@ -10,6 +10,7 @@ package dev.javafp.shelf;
 import dev.javafp.eq.Eq;
 import dev.javafp.eq.Equals;
 import dev.javafp.ex.ImIndexOutOfBounds;
+import dev.javafp.ex.Throw;
 import dev.javafp.func.Fn;
 import dev.javafp.func.Fn2;
 import dev.javafp.lst.ImList;
@@ -592,7 +593,7 @@ public class ImShelf<T> implements Iterable<T>
      */
     public ImPair<T, ImShelf<T>> partitionAtIndex(int indexStartingAtOne)
     {
-        ImIndexOutOfBounds.check(indexStartingAtOne, size(), "indexStartingAtOne");
+        Throw.Exception.ifIndexOutOfBounds("indexStartingAtOne", indexStartingAtOne, "this", size());
         ImTreeZipper<T> path = ImTreeZipper.onRoot(tree).goToIndex(indexStartingAtOne);
 
         return ImPair.on(path.getElement(), new ImShelf(path.removeNode().close()));

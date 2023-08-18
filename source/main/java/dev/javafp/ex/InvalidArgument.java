@@ -13,14 +13,18 @@ package dev.javafp.ex;
 public class InvalidArgument extends ImException
 {
 
-    public InvalidArgument(Object thing, String message)
+    /**
+     * An argument with name
+     * {@code name}
+     * and value
+     * {@code value}
+     * is invalid
+     * with an explanatory message
+     * {@code message}
+     */
+    public InvalidArgument(String name, Object value, String message)
     {
-        super("" + thing + " " + message);
-    }
-
-    public InvalidArgument(String message)
-    {
-        super(message);
+        super("Argument " + name + " with value " + value + ": " + message);
     }
 
 }

@@ -60,7 +60,7 @@ public class ImRange
             return ImList.on();
 
         if ((max - min) % step != 0)
-            throw new InvalidArgument(String.format("step value must divide max - min but step = %d, min = %d, max = %d", step, min, max));
+            throw new InvalidArgument("step", step, String.format("value must divide max - min but step = %d, min = %d, max = %d", step, min, max));
 
         return ImRangeList.inclusive(min, max, step);
     }
