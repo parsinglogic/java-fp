@@ -16,30 +16,50 @@ public class ImException extends RuntimeException
 {
 
     /**
-     *
+     * A vanilla exception. Not intended to be used directly.
      */
-    private static final long serialVersionUID = 1L;
-
     public ImException()
     {
         super();
     }
 
-    public ImException(String string)
+    /**
+     * An exception with message
+     * {@code message}
+     */
+    public ImException(String message)
     {
-        super(string);
+        super(message);
     }
 
+    /**
+     * <p> An exception with message created by:
+     *
+     * <pre>{@code
+     * ImList.on(ss).toString(' ')
+     * }</pre>
+     *
+     */
     public ImException(Object... ss)
     {
         super(ImList.on(ss).toString(' '));
     }
 
+    /**
+     * An exception with nested exception
+     * {@code e}
+     */
     public ImException(Exception e)
     {
         super(e);
     }
 
+    /**
+     * An exception with message
+     * {@code message}
+     * and nested exception
+     * {@code e}
+     */
     public ImException(String message, Exception e)
     {
         super(message, e);

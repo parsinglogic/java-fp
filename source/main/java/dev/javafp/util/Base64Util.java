@@ -13,7 +13,6 @@ import java.util.Base64;
 /**
  * <p> Utility for base64 encoding and decoding.
  */
-
 public class Base64Util
 {
     private static final Base64.Encoder enc = Base64.getEncoder();

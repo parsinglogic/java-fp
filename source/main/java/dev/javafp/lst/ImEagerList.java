@@ -65,6 +65,9 @@ abstract class ImEagerList<A> implements ImList<A>
                : false;
     }
 
+    /**
+     * A String representation of this object
+     */
     @Override
     public String toString()
     {

@@ -242,6 +242,9 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
             return TextUtils.getBoxFrom(key).before(LeafTextBox.with("->")).before(TextUtils.getBoxFrom(value));
         }
 
+        /**
+         * A String representation of this object
+         */
         @Override
         public String toString()
         {
@@ -596,6 +599,9 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
         return ImList.onAll(entrySet).map(e -> Pai.r(e.key, e.value));
     }
 
+    /**
+     * A String representation of this object
+     */
     @Override
     public String toString()
     {

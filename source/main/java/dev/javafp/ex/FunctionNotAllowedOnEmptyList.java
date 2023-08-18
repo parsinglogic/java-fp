@@ -17,8 +17,10 @@ public class FunctionNotAllowedOnEmptyList extends ImException
     /**
      *
      */
-    private static final long serialVersionUID = 1L;
 
+    /**
+     * You can't invoke this function on the empty list
+     */
     public FunctionNotAllowedOnEmptyList()
     {
         super("Function is not allowed on the empty list");

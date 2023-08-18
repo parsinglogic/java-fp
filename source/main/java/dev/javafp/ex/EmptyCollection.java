@@ -16,11 +16,12 @@ import java.util.Collection;
  */
 public class EmptyCollection extends ImException
 {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
 
+    /**
+     * The argument with name
+     * {@code name}
+     * is empty
+     */
     public EmptyCollection(String name)
     {
         super(name);

@@ -478,7 +478,9 @@ public class ImTree<A> implements Serializable, Iterable<A>
 
     // End Shelf
 
-    // Printing
+    /**
+     * A String representation of this object
+     */
     @Override
     public String toString()
     {

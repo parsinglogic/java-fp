@@ -30,6 +30,9 @@ public abstract class AbstractTextBox implements Serializable
 
     public abstract String getLine(int count);
 
+    /**
+     * A String representation of this object
+     */
     @Override
     public String toString()
     {

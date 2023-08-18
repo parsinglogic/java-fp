@@ -18,6 +18,10 @@ import dev.javafp.func.Fn;
  */
 public class FlatMapFunctionReturnedNull extends ImException
 {
+    /**
+     * A function used in flatMap returned null when applied to:
+     * {@code monad}
+     */
     public <T> FlatMapFunctionReturnedNull(T monad)
     {
         super("A function used in flatMap returned null when applied to: " + monad);

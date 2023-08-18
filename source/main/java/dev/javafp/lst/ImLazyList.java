@@ -164,7 +164,7 @@ public abstract class ImLazyList<A> implements ImList<A>
     }
 
     /**
-     * The String representation of this object
+     * A String representation of this object
      */
     @Override
     public String toString()

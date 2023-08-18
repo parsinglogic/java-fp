@@ -55,6 +55,9 @@ public abstract class ImValuesImpl implements Serializable, Values
         return defaultEquals(obj);
     }
 
+    /**
+     * A String representation of this object
+     */
     @Override
     public String toString()
     {

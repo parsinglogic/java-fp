@@ -16,11 +16,28 @@ package dev.javafp.ex;
 public class ArgumentOutOfRange extends ImException
 {
 
+    /**
+     * The argument with name
+     * {@code name}
+     * and value
+     * {@code value}
+     * having
+     * {@code value < min}
+     * or
+     * {@code value > max}
+     */
     public ArgumentOutOfRange(String name, int value, int min, int max)
     {
         super("Argument " + name + " with value " + value + " is out of range. It should be in [" + min + "," + max + "]");
     }
 
+    /**
+     * The argument with name
+     * {@code name}
+     * and value
+     * {@code value}
+     * which is intended to be an index of a collection - but the collection is empty
+     */
     public ArgumentOutOfRange(String name, int value)
     {
         super("Argument " + name + " with value " + value + " is out of range. The only valid value of " + name

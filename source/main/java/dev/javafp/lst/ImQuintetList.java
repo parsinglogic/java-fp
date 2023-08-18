@@ -38,13 +38,13 @@ class ImQuintetList<A, B, C, D, E> extends ImCachingLazyList<ImQuintet<A, B, C, 
     }
 
     @Override
-    public ImQuintet<A, B, C, D, E> hd()
+    protected ImQuintet<A, B, C, D, E> hd()
     {
         return ImQuintet.on(as.head(), bs.head(), cs.head(), ds.head(), es.head());
     }
 
     @Override
-    public ImList<ImQuintet<A, B, C, D, E>> tl()
+    protected ImList<ImQuintet<A, B, C, D, E>> tl()
     {
         return ImQuintetList.on(as.tail(), bs.tail(), cs.tail(), ds.tail(), es.tail());
     }

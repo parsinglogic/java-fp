@@ -37,6 +37,9 @@ public class MutableTree<T>
         return new MutableTree<A>(roseTree.getElement(), kids);
     }
 
+    /**
+     * A String representation of this object
+     */
     @Override
     public String toString()
     {

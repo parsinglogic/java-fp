@@ -241,6 +241,9 @@ public class ImTreeZipper<A>
                : focus.getRight();
     }
 
+    /**
+     * A String representation of this object
+     */
     @Override
     public String toString()
     {

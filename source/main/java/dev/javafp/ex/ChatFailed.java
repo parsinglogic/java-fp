@@ -14,6 +14,10 @@ import dev.javafp.lst.ImList;
  */
 public class ChatFailed extends ImException
 {
+    /**
+     * The Chat that you tried to access had a left value of
+     * {@code left}
+     */
     public ChatFailed(ImList<String> left)
     {
         super(left.toString("\n"));

@@ -14,6 +14,9 @@ package dev.javafp.ex;
 public class FixMe extends ImException
 {
 
+    /**
+     * If this is thrown then - well - you'd better fix it!
+     */
     public FixMe()
     {
         super();

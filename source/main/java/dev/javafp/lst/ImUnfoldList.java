@@ -15,7 +15,7 @@ class ImUnfoldList<A> extends ImCachingLazyList<A>
     private final A start;
     private final Fn<A, A> stepFn;
 
-    public ImUnfoldList(A start, Fn<A, A> stepFn)
+    protected ImUnfoldList(A start, Fn<A, A> stepFn)
     {
         super(KNOWN_INFINITE);
         this.start = start;
@@ -23,13 +23,13 @@ class ImUnfoldList<A> extends ImCachingLazyList<A>
     }
 
     @Override
-    public A hd()
+    protected A hd()
     {
         return start;
     }
 
     @Override
-    public ImList<A> tl()
+    protected ImList<A> tl()
     {
         return new ImUnfoldList(stepFn.of(start), stepFn);
     }

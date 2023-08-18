@@ -14,7 +14,7 @@ import java.io.Serializable;
 /**
  * <p> transform="matrix(a,b,c,d,e,f)"
  * <p> The matrix is this - using homogeneous coordinates:
- * 
+ *
  * <pre>{@code
  * a c e
  * b d f
@@ -23,43 +23,43 @@ import java.io.Serializable;
  * <p> <a href="http://www.mat.ucsb.edu/594cm/2010/Week1/homog-coords.pdf"  ></a>
  * <a href="www.cs.iastate.edu/~cs577/handouts/homogeneous-transform.pdf"  ></a>
  * <p> Applying a matrix to a point
- * 
+ *
  * <pre>{@code
  *            x
  *            y
  *            1
- * 
+ *
  * a c e      ax + cy + e
  * b d f      bx + dy + f
  * 0 0 1      1
  * }</pre>
  * <p> translation by (e,f)
- * 
+ *
  * <pre>{@code
  * 1 0 e      x + e
  * 0 1 f      y + f
  * 0 0 1      1
  * }</pre>
  * <p> scaling by a in x and d in y
- * 
+ *
  * <pre>{@code
  * a 0 0       ax
  * 0 d 0       by
  * 0 0 1       1
  * }</pre>
  * <p> Rotation about the origin by alpha anticlockwise:
- * 
+ *
  * <pre>{@code
  *              x
  *              y
  *              1
- * 
+ *
  * cos -sin 0   x*cos - x*sin
  * sin  cos 0   x*sin + x*cos
  * 0    0   1   1
  * }</pre>
  * <p> where cos = cos(alpha), sin = sin(alpha)
- * 
+ *
  */
 public class SvgTransform implements Serializable
 {
@@ -100,17 +100,17 @@ public class SvgTransform implements Serializable
 
     /**
      * <p> Pre-multiply this transform by t:
-     * 
+     *
      * <pre>{@code
      *                 a                  c                  e
      *                 b                  d                  f
      *                 0                  0                  1
-     * 
+     *
      * t.a  t.c  t.e   t.a * a + t.c * b  t.a * c + t.c * d  t.a * e + t.c * f + t.e
      * t.b  t.d  t.f   t.b * a + t.d * b  t.b * c + t.d * d  t.b * e + t.d * f + t.f
      * 0    0    1     0                  0                  1
      * }</pre>
-     * 
+     *
      */
     public SvgTransform preMultiplyBy(SvgTransform t)
     {
@@ -128,17 +128,17 @@ public class SvgTransform implements Serializable
      * {@code p}
      *  where
      * {@code p = (x, y, z)}
-     * 
+     *
      * <pre>{@code
      *               x
      *               y
      *               1
-     * 
+     *
      * a    c    e   ax + cy + e
      * b    d    f   bx + dy + f
      * 0    0    1   1
      * }</pre>
-     * 
+     *
      */
     public Point applyTo(Point p)
     {
@@ -171,6 +171,9 @@ public class SvgTransform implements Serializable
         return Hash.hash(a, b, c, d, e, f);
     }
 
+    /**
+     * A String representation of this object
+     */
     @Override
     public String toString()
     {
@@ -197,13 +200,13 @@ public class SvgTransform implements Serializable
      *  and make an
      * {@code SVG}
      *  transform like this:
-     * 
+     *
      * <pre>{@code
      * a c e
      * b d f
      * 0 0 1
      * }</pre>
-     * 
+     *
      */
     public static SvgTransform fromSvgString(String svgString)
     {

@@ -17,7 +17,7 @@ import dev.javafp.set.ImSet;
 public class CantRemoveNodes extends ImException
 {
     /**
-     * The exception that indicates that `badNeighbours` are some or all of the nodes that are neighbours to
+     * The set `badNeighbours` are the nodes that are neighbours to
      * `nodes` that prevent them from being removed.
      */
     public CantRemoveNodes(ImSet<?> nodes, ImSet<?> badNeighbours)

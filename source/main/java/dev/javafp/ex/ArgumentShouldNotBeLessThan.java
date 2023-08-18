@@ -15,6 +15,15 @@ package dev.javafp.ex;
 @SuppressWarnings("serial")
 public class ArgumentShouldNotBeLessThan extends ImException
 {
+
+    /**
+     * The argument with name
+     * {@code name}
+     * and value
+     * {@code value}
+     * has
+     * {@code value < min}
+     */
     public ArgumentShouldNotBeLessThan(String name, int value, int min)
     {
         super("Argument " + name + " with value " + value + " is out of range. It should be >= " + min);

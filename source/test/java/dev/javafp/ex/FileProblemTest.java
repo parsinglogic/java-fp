@@ -1,10 +1,11 @@
 package dev.javafp.ex;
 
 import dev.javafp.lst.ImList;
-import org.junit.Ignore;
+import org.junit.Test;
 
 import java.nio.file.Paths;
 
+import static dev.javafp.util.Say.say;
 import static junit.framework.TestCase.assertEquals;
 
 /**
@@ -12,14 +13,16 @@ import static junit.framework.TestCase.assertEquals;
  */
 public class FileProblemTest
 {
-    @Ignore
+    @Test
     public void testOne()
     {
         ImList<String> expected = ImList.on(
-                "Path          = \"abc\"",
-                "Absolute path = \"/Users/aove215/projects/drum/drum/jadle.ij/abc\"",
+                "Path          = \"/abc\"",
+                "Absolute path = \"/abc\"",
                 "Real path     = (path does not exist)");
 
-        assertEquals(expected, FileProblem.getInfo(Paths.get("abc")));
+        assertEquals(expected, FileProblem.getInfo(Paths.get("/abc")));
+
+        say(expected.toString("\n"));
     }
 }

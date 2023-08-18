@@ -245,6 +245,9 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
                    : null;
         }
 
+        /**
+         * A String representation of this object
+         */
         @Override
         public String toString()
         {
@@ -1065,6 +1068,9 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         return !isEmpty();
     }
 
+    /**
+     * A String representation of this object
+     */
     @Override
     public String toString()
     {

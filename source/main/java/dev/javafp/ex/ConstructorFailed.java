@@ -13,6 +13,10 @@ package dev.javafp.ex;
 public class ConstructorFailed extends ImException
 {
 
+    /**
+     * A constructor has failed - custom message
+     * {@code message}
+     */
     public ConstructorFailed(String message)
     {
         super(message);

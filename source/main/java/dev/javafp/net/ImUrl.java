@@ -763,6 +763,9 @@ public class ImUrl extends ImValuesImpl
         return ImList.on("scheme", "port", "host", "pathComponents", "queryElements", "fragment");
     }
 
+    /**
+     * A String representation of this object
+     */
     @Override
     public String toString()
     {

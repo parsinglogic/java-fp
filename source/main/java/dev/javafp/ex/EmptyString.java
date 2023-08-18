@@ -19,6 +19,11 @@ public class EmptyString extends ImException
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The argument with name
+     * {@code name}
+     * is the empty string
+     */
     public EmptyString(String name)
     {
         super(name);

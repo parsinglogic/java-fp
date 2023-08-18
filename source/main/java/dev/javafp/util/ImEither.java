@@ -82,6 +82,9 @@ public class ImEither<L, R> extends ImValuesImpl
                : fn.of(right);
     }
 
+    /**
+     * A String representation of this object
+     */
     @Override
     public String toString()
     {

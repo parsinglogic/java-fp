@@ -19,11 +19,18 @@ import java.nio.file.Path;
  */
 public class FileProblem extends ImException
 {
+
     public FileProblem(String message)
     {
         super(message);
     }
 
+    /**
+     * A file problem relating to
+     * {@code path}
+     * with  message
+     * {@code message}
+     */
     public static FileProblem create(Path path, String message)
     {
         String first = "Expected " + TextUtils.quote(path.toString()) + " " + message;
@@ -31,6 +38,27 @@ public class FileProblem extends ImException
         return new FileProblem(TextUtils.join(getInfo(path).push(first), "\n", "\n", ""));
     }
 
+    /**
+     * <p> Information about
+     * {@code path}
+     * <p> that can be used in error messages. For example this:
+     *
+     * <pre>{@code
+     * FileProblem.getInfo("/abc")
+     * }</pre>
+     * <p> will result in a list of three strings like this:
+     *
+     * <pre>{@code
+     * Path          = "/abc"
+     * Absolute path = "/abc"
+     * Real path     = (path does not exist)
+     * }</pre>
+     * <p> (assuming that file
+     * {@code /abc}
+     *  does not exist)
+     *
+     *
+     */
     public static ImList<String> getInfo(Path path)
     {
         ImMaybe<Path> real = FileUtil.getRealPath(path);
