@@ -700,16 +700,9 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
 
     /**
      * <p> Create a
-     * {@code ImList}
+     * {@code ImSet}
      *  where each element is taken from
      * {@code iterable}
-     *  in order.
-     * <p> In fact the implementation is:
-     *
-     * <pre>{@code
-     * return onIterator(iterable.iterator());
-     * }</pre>
-     * @see ImList#onIterator(java.util.Iterator)
      *
      */
     static <A> ImSet<A> onAll(Iterable<A> iterable)
@@ -1053,7 +1046,10 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     }
 
     /**
-     * `true` iff this is the empty set
+     * {@code true}
+     * iff
+     * {@code this}
+     * is the empty set
      */
     public boolean isEmpty()
     {
@@ -1061,7 +1057,10 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     }
 
     /**
-     * `true` iff this is not the empty set
+     * {@code true}
+     * iff
+     * {@code this}
+     * is not the empty set
      */
     public boolean isNotEmpty()
     {
@@ -1077,6 +1076,13 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         return toList().toString();
     }
 
+    /**
+     * The set formed by applying
+     {@code fn}
+     * to each element
+     * This may result in a set wth a different size from
+     {@code this}
+     */
     public <U> ImSet<U> map(Fn<T, U> fn)
     {
         ImSet<U> result = ImSet.empty();

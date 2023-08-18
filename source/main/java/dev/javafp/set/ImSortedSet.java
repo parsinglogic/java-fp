@@ -64,6 +64,13 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
         return onIterator(ArrayIterator.on(array));
     }
 
+    /**
+     * <p> Create a
+     * {@code ImSortedSet}
+     *  where each element is taken from
+     * {@code iterator}
+     *
+     */
     public static <A extends Comparable<A>> ImSortedSet<A> onIterator(Iterator<A> iterator)
     {
         ImSortedSet<A> s = empty();
@@ -76,6 +83,13 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
         return s;
     }
 
+    /**
+     * <p> Create a
+     * {@code ImSortedSet}
+     *  where each element is taken from
+     * {@code iterable}
+     *
+     */
     public static <A extends Comparable<A>> ImSortedSet<A> onAll(Iterable<A> iterable)
     {
         return iterable instanceof ImSortedSet
@@ -328,6 +342,13 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
                : Equals.isEqualIterators(iterator(), otherSortedSet.iterator());
     }
 
+    /**
+     * The sorted set formed by applying
+     {@code fn}
+     * to each element
+     * This may result in a set wth a different size from
+     {@code this}
+     */
     public <O extends Comparable<O>> ImSortedSet<O> map(Fn<T, O> fn)
     {
         ImSortedSet<O> result = ImSortedSet.empty();
@@ -340,6 +361,13 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
         return result;
     }
 
+    /**
+     * The sorted set that is
+     * {@code this}
+     * with
+     * {@code elementsToAdd}
+     * added to it
+     */
     public ImSortedSet<T> addAll(Iterable<? extends T> elementsToAdd)
     {
         ImSortedSet<T> result = this;
@@ -382,7 +410,7 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
         return cachedHashCode;
     }
 
-    public int computeHash(int count)
+    private int computeHash(int count)
     {
         return ImList.onAll(this).hashCode(count);
     }
