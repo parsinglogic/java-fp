@@ -83,6 +83,13 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
                : onIterator(iterable.iterator());
     }
 
+    /**
+     * The set that is
+     * {@code this}
+     * with all the elements in
+     * {@code iterable}
+     * removed
+     */
     public ImSortedSet<T> removeAll(Iterable<T> iterable)
     {
         ImSortedSet<T> result = this;
@@ -349,7 +356,7 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
      * <p> The ImSortedSet formed out of the elements of each collection in
      * {@code collectionOfCollections}
      *  in order.
-     * <p> ImCollections can't contain
+     * <p> ImSortedSet can't contain
      * {@code null}
      *  so none of the elements can be
      * {@code null}

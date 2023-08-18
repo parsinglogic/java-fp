@@ -27,13 +27,13 @@ class ImFIteratorList<A> extends ImCachingLazyList<A>
     }
 
     @Override
-    public A hd()
+    protected A hd()
     {
         return source.get();
     }
 
     @Override
-    public ImList<A> tl()
+    protected ImList<A> tl()
     {
         return source.hasNext()
                ? new ImFIteratorList<>(source.next())

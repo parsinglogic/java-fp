@@ -29,14 +29,14 @@ class ImMappedList<A, B> extends ImCachingLazyList<B>
     }
 
     @Override
-    public B hd()
+    protected B hd()
     {
         return fn.of(source.head());
 
     }
 
     @Override
-    public ImList<B> tl()
+    protected ImList<B> tl()
     {
         return on(source.tail(), fn);
     }

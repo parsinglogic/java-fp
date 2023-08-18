@@ -29,13 +29,13 @@ class ImScanlList<A, B> extends ImCachingLazyList<A>
     }
 
     @Override
-    public A hd()
+    protected A hd()
     {
         return start;
     }
 
     @Override
-    public ImList<A> tl()
+    protected ImList<A> tl()
     {
         return source.isEmpty()
                ? ImList.on()

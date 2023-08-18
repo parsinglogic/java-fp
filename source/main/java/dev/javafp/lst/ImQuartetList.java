@@ -36,13 +36,13 @@ class ImQuartetList<A, B, C, D> extends ImCachingLazyList<ImQuartet<A, B, C, D>>
     }
 
     @Override
-    public ImQuartet<A, B, C, D> hd()
+    protected ImQuartet<A, B, C, D> hd()
     {
         return ImQuartet.on(as.head(), bs.head(), cs.head(), ds.head());
     }
 
     @Override
-    public ImList<ImQuartet<A, B, C, D>> tl()
+    protected ImList<ImQuartet<A, B, C, D>> tl()
     {
         return ImQuartetList.on(as.tail(), bs.tail(), cs.tail(), ds.tail());
     }

@@ -21,7 +21,7 @@ class ImRangeList extends ImCachingLazyList<Integer>
                : new ImRangeList(min, max, step);
     }
 
-    public ImRangeList(int min, int max, int step)
+    ImRangeList(int min, int max, int step)
     {
         super((max - min) / step + 1);
         this.min = min;
@@ -30,13 +30,13 @@ class ImRangeList extends ImCachingLazyList<Integer>
     }
 
     @Override
-    public Integer hd()
+    protected Integer hd()
     {
         return min;
     }
 
     @Override
-    public ImList<Integer> tl()
+    protected ImList<Integer> tl()
     {
         return inclusive(min + step, max, step);
     }

@@ -23,12 +23,12 @@ class ImListOnString extends ImEagerList<Character> implements Eq
         this.skipCount = skipCount;
     }
 
-    public static ImList<Character> on(String source)
+    static ImList<Character> on(String source)
     {
         return on(source, 0, source.length());
     }
 
-    public static ImList<Character> on(String source, int skipCount, int size)
+    static ImList<Character> on(String source, int skipCount, int size)
     {
         return size == 0
                ? ImList.empty()

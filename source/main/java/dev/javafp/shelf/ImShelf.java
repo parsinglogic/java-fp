@@ -264,7 +264,7 @@ public class ImShelf<T> implements Iterable<T>
      * <p> The shelf whose elements are obtained from
      * {@code array}
      * .
-     * <p> ImCollections can't contain
+     * <p> ImShelf can't contain
      * {@code null}
      *  so none of the elements in
      * {@code array}
@@ -297,7 +297,7 @@ public class ImShelf<T> implements Iterable<T>
      * <p> The shelf whose elements are obtained from
      * {@code elementsCollection}
      * .
-     * <p> ImCollections can't contain
+     * <p> ImShelf can't contain
      * {@code null}
      *  so none of the elements in
      * {@code elementsCollection}
@@ -331,7 +331,7 @@ public class ImShelf<T> implements Iterable<T>
      * <p> The shelf whose elements are obtained by iterating over
      * {@code iterator}
      * .
-     * <p> ImCollections can't contain
+     * <p> ImShelf can't contain
      * {@code null}
      *  so none of the elements in
      * {@code iterator}
@@ -390,7 +390,7 @@ public class ImShelf<T> implements Iterable<T>
      * <p> All elements with
      * {@code index >= indexStartingAtOne}
      *  are "shuffled right".
-     * <p> ImCollections can't contain
+     * <p> ImShelf can't contain
      * {@code null}
      *  so
      * {@code elementToAdd}
@@ -418,7 +418,7 @@ public class ImShelf<T> implements Iterable<T>
      * <p> Add
      * {@code elementToAdd}
      *  at the end of the existing elements.
-     * <p> ImCollections can't contain
+     * <p> ImShelf can't contain
      * {@code null}
      *  so
      * {@code elementToAdd}
@@ -892,7 +892,7 @@ public class ImShelf<T> implements Iterable<T>
      *  followed by the elements in
      * {@code iterable}
      *  in order.
-     * <p> ImCollections can't contain
+     * <p> ImShelf can't contain
      * {@code null}
      *  so none of the elements  in
      * {@code iterable}

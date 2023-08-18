@@ -567,7 +567,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * <p> The set whose elements are obtained from
      * {@code array}
      * .
-     * <p> ImCollections can't contain
+     * <p> ImSet can't contain
      * {@code null}
      *  so none of the elements in
      * {@code array}
@@ -578,7 +578,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * <pre>{@code
      * on(1, 2, 3, 2)  => [1, 2, 3]
      * on()            => []
-     * on(1, null)     => throws java.lang.NullPointerException: ImCollections can't contain nulls
+     * on(1, null)     => throws java.lang.NullPointerException: This collection can't contain nulls
      * }</pre>
      * <p> @throws NullPointerException if any of the elements in
      * {@code array}
@@ -599,7 +599,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * <p> The set whose elements are obtained from
      * {@code elementsCollection}
      * .
-     * <p> ImCollections can't contain
+     * <p> ImSets can't contain
      * {@code null}
      *  so none of the elements in
      * {@code elementsCollection}
@@ -610,7 +610,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * <pre>{@code
      * on(Arrays.asList(1, 2, 1))    => [1, 2]
      * on(Arrays.asList())           => []
-     * on(Arrays.asList(1, null, 3)) => throws java.lang.NullPointerException: ImCollections can't contain nulls
+     * on(Arrays.asList(1, null, 3)) => throws NullPointerException("This collection can't contain nulls");
      * }</pre>
      * <p> @throws NullPointerException if any of the elements in
      * {@code elementsCollection}
@@ -638,7 +638,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * <pre>{@code
      * on(Arrays.asList(1, 2, 3).iterator())     =>  [1, 2, 3]
      * on(Arrays.asList().iterator())            =>  []
-     * on(Arrays.asList(1, null, 3).iterator())  =>  throws java.lang.NullPointerException: ImCollections can't contain nulls
+     * on(Arrays.asList(1, null, 3).iterator())  =>  throws java.lang.NullPointerException: This collection can't contain nulls
      * }</pre>
      * <p> @throws NullPointerException if any of the elements in
      * {@code iterator}
@@ -971,7 +971,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * <p> The ImSet formed out of the elements of each collection in
      * {@code iterator}
      *  in order.
-     * <p> ImCollections can't contain
+     * <p> ImSet can't contain
      * {@code null}
      *  so none of the elements can be
      * {@code null}

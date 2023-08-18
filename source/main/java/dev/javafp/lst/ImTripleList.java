@@ -33,13 +33,13 @@ class ImTripleList<A, B, C> extends ImCachingLazyList<ImTriple<A, B, C>>
     }
 
     @Override
-    public ImTriple<A, B, C> hd()
+    protected ImTriple<A, B, C> hd()
     {
         return ImTriple.on(as.head(), bs.head(), cs.head());
     }
 
     @Override
-    public ImList<ImTriple<A, B, C>> tl()
+    protected ImList<ImTriple<A, B, C>> tl()
     {
         return ImTripleList.on(as.tail(), bs.tail(), cs.tail());
     }

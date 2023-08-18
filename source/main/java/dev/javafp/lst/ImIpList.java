@@ -60,14 +60,14 @@ class ImIpList<A> extends ImCachingLazyList<ImList<A>>
     }
 
     @Override
-    public ImList<A> hd()
+    protected ImList<A> hd()
     {
         //return one.append(thingList.append(two));
         return one.append(two.withHead(thing));
     }
 
     @Override
-    public ImList<ImList<A>> tl()
+    protected ImList<ImList<A>> tl()
     {
         return two.isEmpty()
                ? ImList.on()

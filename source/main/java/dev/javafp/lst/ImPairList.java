@@ -31,13 +31,13 @@ class ImPairList<A, B> extends ImCachingLazyList<ImPair<A, B>>
     }
 
     @Override
-    public ImPair<A, B> hd()
+    protected ImPair<A, B> hd()
     {
         return ImPair.on(as.head(), bs.head());
     }
 
     @Override
-    public ImList<ImPair<A, B>> tl()
+    protected ImList<ImPair<A, B>> tl()
     {
         return ImPairList.on(as.tail(), bs.tail());
     }

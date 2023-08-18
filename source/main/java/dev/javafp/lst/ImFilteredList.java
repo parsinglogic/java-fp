@@ -59,13 +59,13 @@ class ImFilteredList<A> extends ImCachingLazyList<A>
     }
 
     @Override
-    public A hd()
+    protected A hd()
     {
         return source.head();
     }
 
     @Override
-    public ImList<A> tl()
+    protected ImList<A> tl()
     {
         return on(source.tail(), filterFn);
     }

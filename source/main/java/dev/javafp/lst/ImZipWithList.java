@@ -32,13 +32,13 @@ class ImZipWithList<A, B, C> extends ImCachingLazyList<C>
     }
 
     @Override
-    public C hd()
+    protected C hd()
     {
         return fn.of(listOne.head(), listTwo.head());
     }
 
     @Override
-    public ImList<C> tl()
+    protected ImList<C> tl()
     {
         return on(listOne.tail(), listTwo.tail(), fn);
     }
