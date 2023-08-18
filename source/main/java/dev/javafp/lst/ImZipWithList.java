@@ -24,7 +24,7 @@ class ImZipWithList<A, B, C> extends ImCachingLazyList<C>
         this.fn = fn;
     }
 
-    public static <A, B, C> ImList<C> on(ImList<? extends A> listOne, ImList<? extends B> listTwo, Fn2<A, B, C> fn)
+    static <A, B, C> ImList<C> on(ImList<? extends A> listOne, ImList<? extends B> listTwo, Fn2<A, B, C> fn)
     {
         return listOne.isEmpty() || listTwo.isEmpty()
                ? ImList.on()

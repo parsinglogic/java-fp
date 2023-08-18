@@ -24,7 +24,7 @@ public class ImListIterator<T> implements Iterator<T>, Serializable
     private int count = 0;
     public ImList<T> list;
 
-    public ImListIterator(ImList<T> list)
+    protected ImListIterator(ImList<T> list)
     {
         this.list = list;
     }

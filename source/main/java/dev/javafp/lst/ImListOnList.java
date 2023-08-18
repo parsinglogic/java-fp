@@ -28,7 +28,7 @@ class ImListOnList<A> extends ImEagerList<A> implements Eq
         this.skipCount = skipCount;
     }
 
-    public static <A> ImList<A> on(List<A> source, int skipCount, int size)
+    static <A> ImList<A> on(List<A> source, int skipCount, int size)
     {
         return size == 0
                ? ImList.on()

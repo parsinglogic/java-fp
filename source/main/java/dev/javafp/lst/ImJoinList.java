@@ -22,7 +22,7 @@ class ImJoinList<A> extends ImLazyList<A>
         this.tl = nonEmpty.tail();
     }
 
-    public static <A> ImList<A> on(ImList<ImList<A>> l)
+    static <A> ImList<A> on(ImList<ImList<A>> l)
     {
         return l.isEmpty()
                ? ImList.on()

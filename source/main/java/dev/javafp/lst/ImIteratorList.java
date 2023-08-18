@@ -22,7 +22,7 @@ class ImIteratorList<A> extends ImCachingLazyList<A>
         this.source = source;
     }
 
-    public static <A> ImList<A> on(Iterator<? extends A> source)
+    static <A> ImList<A> on(Iterator<? extends A> source)
     {
         if (source.hasNext())
         {

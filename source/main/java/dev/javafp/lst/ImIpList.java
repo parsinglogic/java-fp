@@ -51,7 +51,7 @@ class ImIpList<A> extends ImCachingLazyList<ImList<A>>
     private final A thing;
     private final ImList<A> two;
 
-    public ImIpList(ImList<A> one, A thing, ImList<A> two)
+    protected ImIpList(ImList<A> one, A thing, ImList<A> two)
     {
         super(Sz.addOne(two.getSz()));
         this.one = one;

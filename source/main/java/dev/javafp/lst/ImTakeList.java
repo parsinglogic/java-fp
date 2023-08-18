@@ -22,7 +22,7 @@ class ImTakeList<A> extends ImLazyList<A>
         this.count = countStartingAtOne;
     }
 
-    public static <A> ImList<A> on(ImList<A> source, int count)
+    static <A> ImList<A> on(ImList<A> source, int count)
     {
         return count <= 0 || source.isEmpty()
                ? ImList.on()

@@ -58,7 +58,7 @@ abstract class ImCachingLazyList<B> extends ImLazyList<B>
 
     protected abstract ImList<B> tl();
 
-    public ImCachingLazyList(int size)
+    protected ImCachingLazyList(int size)
     {
         super(size);
     }

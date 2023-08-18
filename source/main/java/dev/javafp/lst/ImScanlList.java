@@ -23,7 +23,7 @@ class ImScanlList<A, B> extends ImCachingLazyList<A>
         this.fn = fn;
     }
 
-    public static <A, B> ImList<A> on(ImList<B> source, A start, Fn2<A, B, A> fn)
+    static <A, B> ImList<A> on(ImList<B> source, A start, Fn2<A, B, A> fn)
     {
         return new ImScanlList<A, B>(source, start, fn);
     }

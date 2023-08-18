@@ -25,7 +25,7 @@ class ImTripleList<A, B, C> extends ImCachingLazyList<ImTriple<A, B, C>>
         this.cs = cs;
     }
 
-    public static <A, C, B> ImList<ImTriple<A, B, C>> on(ImList<A> as, ImList<B> bs, ImList<C> cs)
+    static <A, C, B> ImList<ImTriple<A, B, C>> on(ImList<A> as, ImList<B> bs, ImList<C> cs)
     {
         return as.isEmpty() || bs.isEmpty() || cs.isEmpty()
                ? ImList.on()

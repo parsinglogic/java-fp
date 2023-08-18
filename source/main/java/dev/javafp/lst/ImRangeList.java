@@ -14,7 +14,7 @@ class ImRangeList extends ImCachingLazyList<Integer>
     public final int max;
     public final int step;
 
-    public static ImList<Integer> inclusive(int min, int max, int step)
+    static ImList<Integer> inclusive(int min, int max, int step)
     {
         return min > max
                ? ImList.on()

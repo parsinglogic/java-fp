@@ -26,7 +26,7 @@ class ImReverseList<A> extends ImEagerList<A> implements Eq
         this.skipCount = skipCount;
     }
 
-    public static <A> ImList<A> on(A[] source, int skipCount, int size)
+    static <A> ImList<A> on(A[] source, int skipCount, int size)
     {
         if (size == 0)
             return ImList.empty();
@@ -39,7 +39,7 @@ class ImReverseList<A> extends ImEagerList<A> implements Eq
         }
     }
 
-    public static <A> ImList<A> on(A[] source)
+    static <A> ImList<A> on(A[] source)
     {
         return on(source, 0, source.length);
     }

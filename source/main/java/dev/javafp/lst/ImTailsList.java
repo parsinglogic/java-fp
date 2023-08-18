@@ -19,7 +19,7 @@ class ImTailsList<A> extends ImLazyList<ImList<A>>
         this.source = source;
     }
 
-    public static <A> ImList<ImList<A>> on(ImList<A> source)
+    static <A> ImList<ImList<A>> on(ImList<A> source)
     {
         return source.isEmpty()
                ? ImList.on(ImList.on())

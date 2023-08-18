@@ -30,7 +30,7 @@ class ImQuintetList<A, B, C, D, E> extends ImCachingLazyList<ImQuintet<A, B, C, 
         this.es = es;
     }
 
-    public static <A, B, C, D, E> ImList<ImQuintet<A, B, C, D, E>> on(ImList<A> as, ImList<B> bs, ImList<C> cs, ImList<D> ds, ImList<E> es)
+    static <A, B, C, D, E> ImList<ImQuintet<A, B, C, D, E>> on(ImList<A> as, ImList<B> bs, ImList<C> cs, ImList<D> ds, ImList<E> es)
     {
         return as.isEmpty() || bs.isEmpty() || cs.isEmpty() || ds.isEmpty() || es.isEmpty()
                ? ImList.on()

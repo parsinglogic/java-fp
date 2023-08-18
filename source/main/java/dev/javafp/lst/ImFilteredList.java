@@ -23,7 +23,7 @@ class ImFilteredList<A> extends ImCachingLazyList<A>
         this.source = source;
     }
 
-    public static <A> ImList<A> on(ImList<A> source, Fn<A, Boolean> fn)
+    static <A> ImList<A> on(ImList<A> source, Fn<A, Boolean> fn)
     {
         // I need to eagerly calculate the next list that has a head that passes the filter
         // so that isEmpty will work
@@ -41,7 +41,7 @@ class ImFilteredList<A> extends ImCachingLazyList<A>
      * <p> Note that this method is not recursive
      *
      */
-    public static <A> ImList<A> findNextSubList(ImList<A> s, Fn<A, Boolean> fn)
+    static <A> ImList<A> findNextSubList(ImList<A> s, Fn<A, Boolean> fn)
     {
         ImList<A> ss = s;
         while (true)

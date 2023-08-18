@@ -481,7 +481,7 @@ public class ImListZipper<T> implements Iterable<ImListZipper<T>>
         this(ImList.<T>empty(), list);
     }
 
-    public ImListZipper(ImList<T> before, ImList<T> after)
+    ImListZipper(ImList<T> before, ImList<T> after)
     {
         this.first = before;
         this.second = after;

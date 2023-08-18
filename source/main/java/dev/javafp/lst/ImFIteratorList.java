@@ -21,7 +21,7 @@ class ImFIteratorList<A> extends ImCachingLazyList<A>
         this.source = source;
     }
 
-    public static <A> ImList<A> on(FIterator<A> source)
+    static <A> ImList<A> on(FIterator<A> source)
     {
         return new ImFIteratorList<>(source);
     }

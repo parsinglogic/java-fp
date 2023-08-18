@@ -21,7 +21,7 @@ class ImMappedList<A, B> extends ImCachingLazyList<B>
         this.fn = fn;
     }
 
-    public static <A, B> ImList<B> on(ImList<A> source, Fn<A, B> fn)
+    static <A, B> ImList<B> on(ImList<A> source, Fn<A, B> fn)
     {
         return source.isEmpty()
                ? ImList.on()

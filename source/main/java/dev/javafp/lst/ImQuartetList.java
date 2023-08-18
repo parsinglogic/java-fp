@@ -28,7 +28,7 @@ class ImQuartetList<A, B, C, D> extends ImCachingLazyList<ImQuartet<A, B, C, D>>
         this.ds = ds;
     }
 
-    public static <A, B, C, D> ImList<ImQuartet<A, B, C, D>> on(ImList<A> as, ImList<B> bs, ImList<C> cs, ImList<D> ds)
+    static <A, B, C, D> ImList<ImQuartet<A, B, C, D>> on(ImList<A> as, ImList<B> bs, ImList<C> cs, ImList<D> ds)
     {
         return as.isEmpty() || bs.isEmpty() || cs.isEmpty() || ds.isEmpty()
                ? ImList.on()

@@ -20,7 +20,7 @@ class ImListOnReader2 extends ImCachingLazyList<Character>
     private final BufferedReader reader;
     private final char character;
 
-    public ImListOnReader2(BufferedReader reader, char c)
+    private ImListOnReader2(BufferedReader reader, char c)
     {
         super(UNKNOWN_UNKNOWN);
         this.reader = reader;
@@ -28,7 +28,7 @@ class ImListOnReader2 extends ImCachingLazyList<Character>
         this.character = c;
     }
 
-    public static ImList<Character> on(BufferedReader reader)
+    static ImList<Character> on(BufferedReader reader)
     {
         try
         {

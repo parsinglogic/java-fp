@@ -21,7 +21,7 @@ class ImTakeWhileList<A> extends ImCachingLazyList<A>
         this.pred = pred;
     }
 
-    public static <A> ImList<A> on(ImList<A> source, Fn<A, Boolean> pred)
+    static <A> ImList<A> on(ImList<A> source, Fn<A, Boolean> pred)
     {
         return source.isEmpty()
                ? ImList.on()

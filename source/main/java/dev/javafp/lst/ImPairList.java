@@ -23,7 +23,7 @@ class ImPairList<A, B> extends ImCachingLazyList<ImPair<A, B>>
         this.bs = bs;
     }
 
-    public static <A, B> ImList<ImPair<A, B>> on(ImList<A> as, ImList<B> bs)
+    static <A, B> ImList<ImPair<A, B>> on(ImList<A> as, ImList<B> bs)
     {
         return as.isEmpty() || bs.isEmpty()
                ? ImList.on()

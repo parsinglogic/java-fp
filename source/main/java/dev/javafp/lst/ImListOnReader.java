@@ -38,7 +38,7 @@ class ImListOnReader extends ImCachingLazyList<String>
      * <p> [ "" ]
      *
      */
-    public static ImList<String> on(Reader reader)
+    static ImList<String> on(Reader reader)
     {
 
         BufferedReader br = new BufferedReader(reader);

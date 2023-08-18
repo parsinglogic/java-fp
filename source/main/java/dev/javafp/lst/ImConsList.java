@@ -28,7 +28,7 @@ class ImConsList<A> extends ImLazyList<A> implements Eq
     //                : this;
     //    }
 
-    public ImConsList(A head, ImList<A> tail)
+    protected ImConsList(A head, ImList<A> tail)
     {
         super(Sz.addOne(tail.getSz()));
         this.head = head;

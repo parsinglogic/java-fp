@@ -14,7 +14,7 @@ class ImRepeatList<A> extends ImLazyList<A>
 
     private final A start;
 
-    public ImRepeatList(A start)
+    ImRepeatList(A start)
     {
         super(KNOWN_INFINITE);
         this.start = start;
