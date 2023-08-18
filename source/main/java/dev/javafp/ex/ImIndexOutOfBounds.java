@@ -13,47 +13,69 @@ package dev.javafp.ex;
  *
  */
 @SuppressWarnings("serial")
-public class ImIndexOutOfBoundsException extends ImException
+public class ImIndexOutOfBounds extends ImException
 {
-    public ImIndexOutOfBoundsException(String message)
+    private ImIndexOutOfBounds(String message)
     {
         super(message);
     }
 
-    public static void check(int index, int size, String argumentName)
+    /**
+     * Check that a collection with size
+     * {@code size}
+     * can be accessed with a 1-based index with name
+     * {@code name}
+     * and value
+     * {@code index}
+     * and throw an
+     * {@code ImIndexOutOfBounds}
+     * with an explanatory message if the index is out of bounds
+     */
+    public static void check(int index, int size, String name)
     {
         if (index < 1)
         {
-            throw new ImIndexOutOfBoundsException(argumentName + " should be >= 1  but was " + index);
+            throw new ImIndexOutOfBounds(name + " should be >= 1  but was " + index);
         }
 
         if (size == 0)
         {
-            throw new ImIndexOutOfBoundsException("The collection is empty but " + argumentName + " was " + index);
+            throw new ImIndexOutOfBounds("The collection is empty but " + name + " was " + index);
         }
 
         if (index > size)
         {
-            throw new ImIndexOutOfBoundsException("the size of the collection is " + size + " but " + argumentName
+            throw new ImIndexOutOfBounds("the size of the collection is " + size + " but " + name
                     + " was " + index);
         }
     }
 
+    /**
+     * Check that a collection with size
+     * {@code size}
+     * can be accessed with a 0-based index with name
+     * {@code name}
+     * and value
+     * {@code index}
+     * and throw an
+     * {@code ImIndexOutOfBounds}
+     * with an explanatory message if the index is out of bounds
+     */
     public static void check0(int index, int size, String argumentName)
     {
         if (index < 0)
         {
-            throw new ImIndexOutOfBoundsException(argumentName + " should be >= 0  but was " + index);
+            throw new ImIndexOutOfBounds(argumentName + " should be >= 0  but was " + index);
         }
 
         if (size == 0)
         {
-            throw new ImIndexOutOfBoundsException("The collection is empty but " + argumentName + " was " + index);
+            throw new ImIndexOutOfBounds("The collection is empty but " + argumentName + " was " + index);
         }
 
         if (index >= size)
         {
-            throw new ImIndexOutOfBoundsException("the size of the collection is " + size + " but " + argumentName
+            throw new ImIndexOutOfBounds("the size of the collection is " + size + " but " + argumentName
                     + " was " + index);
         }
     }
@@ -62,7 +84,7 @@ public class ImIndexOutOfBoundsException extends ImException
     {
         if ((index < min) || (index > max))
         {
-            throw new ImIndexOutOfBoundsException(argumentName + " should be in the range [" + min + ", " + max
+            throw new ImIndexOutOfBounds(argumentName + " should be in the range [" + min + ", " + max
                     + "]  but was " + index);
         }
     }

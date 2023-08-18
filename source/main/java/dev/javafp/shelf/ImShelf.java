@@ -9,7 +9,7 @@ package dev.javafp.shelf;
 
 import dev.javafp.eq.Eq;
 import dev.javafp.eq.Equals;
-import dev.javafp.ex.ImIndexOutOfBoundsException;
+import dev.javafp.ex.ImIndexOutOfBounds;
 import dev.javafp.func.Fn;
 import dev.javafp.func.Fn2;
 import dev.javafp.lst.ImList;
@@ -408,7 +408,7 @@ public class ImShelf<T> implements Iterable<T>
      */
     public ImShelf<T> add(int indexStartingAtOne, T elementToAdd)
     {
-        ImIndexOutOfBoundsException.check(indexStartingAtOne, 1, size() + 1, "index");
+        ImIndexOutOfBounds.check(indexStartingAtOne, 1, size() + 1, "index");
         NullCheck.check(elementToAdd);
 
         return new ImShelf<T>(tree.insert(indexStartingAtOne, elementToAdd));
@@ -517,7 +517,7 @@ public class ImShelf<T> implements Iterable<T>
      */
     public ImShelf<T> set(int indexStartingAtOne, T elementToSet)
     {
-        ImIndexOutOfBoundsException.check(indexStartingAtOne, 1, size() + 1, "indexStartingAtOne");
+        ImIndexOutOfBounds.check(indexStartingAtOne, 1, size() + 1, "indexStartingAtOne");
         NullCheck.check(elementToSet);
 
         ImTreeZipper<T> path = ImTreeZipper.onRoot(tree).goToIndex(indexStartingAtOne);
@@ -592,7 +592,7 @@ public class ImShelf<T> implements Iterable<T>
      */
     public ImPair<T, ImShelf<T>> partitionAtIndex(int indexStartingAtOne)
     {
-        ImIndexOutOfBoundsException.check(indexStartingAtOne, size(), "indexStartingAtOne");
+        ImIndexOutOfBounds.check(indexStartingAtOne, size(), "indexStartingAtOne");
         ImTreeZipper<T> path = ImTreeZipper.onRoot(tree).goToIndex(indexStartingAtOne);
 
         return ImPair.on(path.getElement(), new ImShelf(path.removeNode().close()));

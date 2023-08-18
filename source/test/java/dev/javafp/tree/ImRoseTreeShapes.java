@@ -7,7 +7,7 @@
 
 package dev.javafp.tree;
 
-import dev.javafp.ex.ImIndexOutOfBoundsException;
+import dev.javafp.ex.ImIndexOutOfBounds;
 import dev.javafp.func.Fn;
 import dev.javafp.func.Fn2;
 import dev.javafp.lst.ImList;
@@ -74,7 +74,7 @@ public class ImRoseTreeShapes
      */
     public static ImList<ImRoseTree<String>> allTreesWithSize(int treeSize)
     {
-        ImIndexOutOfBoundsException.check(treeSize, 1, Integer.MAX_VALUE, "treeSize");
+        ImIndexOutOfBounds.check(treeSize, 1, Integer.MAX_VALUE, "treeSize");
         return allTreesWithSize$(treeSize).map(ImRoseTreeShapes::relabelTree);
     }
 

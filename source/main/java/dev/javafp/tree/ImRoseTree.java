@@ -12,7 +12,7 @@ import dev.javafp.box.LeafTextBox;
 import dev.javafp.box.LeftRightBox;
 import dev.javafp.box.TopDownBox;
 import dev.javafp.eq.Eq;
-import dev.javafp.ex.ImIndexOutOfBoundsException;
+import dev.javafp.ex.ImIndexOutOfBounds;
 import dev.javafp.ex.InvalidState;
 import dev.javafp.func.Fn;
 import dev.javafp.func.Fn2;
@@ -558,7 +558,7 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
      */
     public ImRoseTree<A> getNodeAtIndex(final int indexStartingAtOne)
     {
-        ImIndexOutOfBoundsException.check(indexStartingAtOne, size, "indexStartingAtOne");
+        ImIndexOutOfBounds.check(indexStartingAtOne, size, "indexStartingAtOne");
 
         if (indexStartingAtOne == 1)
         {

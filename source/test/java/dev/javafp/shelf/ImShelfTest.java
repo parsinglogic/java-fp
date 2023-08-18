@@ -1,6 +1,6 @@
 package dev.javafp.shelf;
 
-import dev.javafp.ex.ImIndexOutOfBoundsException;
+import dev.javafp.ex.ImIndexOutOfBounds;
 import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImRange;
 import dev.javafp.rand.Rando;
@@ -193,8 +193,8 @@ public class ImShelfTest
         try
         {
             s.remove(1);
-            failExpectedException(ImIndexOutOfBoundsException.class);
-        } catch (ImIndexOutOfBoundsException e)
+            failExpectedException(ImIndexOutOfBounds.class);
+        } catch (ImIndexOutOfBounds e)
         {
         }
 

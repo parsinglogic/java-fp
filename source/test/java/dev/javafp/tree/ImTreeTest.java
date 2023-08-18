@@ -1,6 +1,6 @@
 package dev.javafp.tree;
 
-import dev.javafp.ex.ImIndexOutOfBoundsException;
+import dev.javafp.ex.ImIndexOutOfBounds;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,8 +40,8 @@ public class ImTreeTest
         {
             ImTree<Character> e = leaf('e');
             e.getNodeAtIndex(0);
-            failExpectedException(ImIndexOutOfBoundsException.class);
-        } catch (ImIndexOutOfBoundsException e1)
+            failExpectedException(ImIndexOutOfBounds.class);
+        } catch (ImIndexOutOfBounds e1)
         {
 
         }
@@ -54,8 +54,8 @@ public class ImTreeTest
         {
             ImTree<Character> e = leaf('e');
             e.getNodeAtIndex(2);
-            failExpectedException(ImIndexOutOfBoundsException.class);
-        } catch (ImIndexOutOfBoundsException e1)
+            failExpectedException(ImIndexOutOfBounds.class);
+        } catch (ImIndexOutOfBounds e1)
         {
 
         }
