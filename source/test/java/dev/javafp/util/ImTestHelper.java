@@ -1,11 +1,11 @@
 package dev.javafp.util;
 
 import dev.javafp.lst.ImList;
+import dev.javafp.set.ImTree;
+import dev.javafp.set.ImTreeFactory;
+import dev.javafp.set.ImTreeZipper;
 import dev.javafp.shelf.ImShelf;
 import dev.javafp.tree.ImRoseTree;
-import dev.javafp.tree.ImTree;
-import dev.javafp.tree.ImTreeFactory;
-import dev.javafp.tree.ImTreeZipper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +61,7 @@ public class ImTestHelper
 
     public static <A> void flatten(ImTree<A> tree, List<A> acc)
     {
-        if (tree != ImTree.nil)
+        if (tree != ImTree.Nil())
         {
             flatten(tree.getLeft(), acc);
             acc.add(tree.getElement());

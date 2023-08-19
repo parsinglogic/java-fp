@@ -1,4 +1,4 @@
-package dev.javafp.tree;
+package dev.javafp.set;
 
 import dev.javafp.ex.ImIndexOutOfBounds;
 import org.junit.Before;
@@ -170,7 +170,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testConcat3WithManyTrees() throws Exception
+    public void testConcat3WithManyTrees()
     {
 
         // Create all balanced tree shapes up to size 6

@@ -1,4 +1,4 @@
-package dev.javafp.tree;
+package dev.javafp.set;
 
 import dev.javafp.lst.ImList;
 import dev.javafp.util.ImMaybe;

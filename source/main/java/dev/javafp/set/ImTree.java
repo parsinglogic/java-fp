@@ -5,7 +5,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package dev.javafp.tree;
+package dev.javafp.set;
 
 import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
@@ -16,8 +16,6 @@ import dev.javafp.ex.InvalidState;
 import dev.javafp.ex.Throw;
 import dev.javafp.func.Fn;
 import dev.javafp.lst.ImList;
-import dev.javafp.set.ImSortedSet;
-import dev.javafp.util.Caster;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TextUtils;
 
@@ -25,15 +23,18 @@ import java.io.Serializable;
 import java.util.Collection;
 
 /**
- * <p> An immutable binary tree.
+ * <p> An immutable "binary tree".
  * <h2>Introduction</h2>
  * <p> This class is the heart of the Immutable collections library.
  * It is intended to be used only as a component of the other classes.
+ *
  * <p> An
  * {@code ImTree}
  *  is an AVL tree (a balanced binary tree) where each node stores some arbitrary data.
- * <p> Note that, in this class, there is no concept of the data that is being stored being Comparable.
+ * <p> **Note that this is not a traditional sorted binary tree**. There is no concept of the data that is being stored being Comparable.
  * This functionality is added by {@link ImSortedSet}.
+ * <p> Essentially  {@link ImSortedSet} is a traditional sorted binary tree and it uses this class to implement it.
+ * <p> Another class that uses this class is {@link dev.javafp.shelf.ImShelf}.
  * <p> A node in an
  * {@code ImTree}
  *  is either a leaf node
@@ -79,8 +80,8 @@ import java.util.Collection;
  * <p> Because the tree is balanced, this means that the heights of the children of a node will differ
  * by at most one.
  * <p> Each node is considered to have a
- * <em>rank</em>
- *  that represents its position in the tree in a pre-order scan.
+ * <em>rank(AKA index)</em>
+ *  that represents its position in a pre-order scan of the tree.
  * <p> Ranks start at one (exactly as Nature intended!)
  * <p> Let's annotate our example with the ranks:
  * <p> <img src="{@docRoot}/dev/doc-files/tree-abcdef-with-ranks.png" alt="tree-abcdef-with-ranks"    width=200/>
@@ -113,10 +114,12 @@ public class ImTree<A> implements Serializable, Iterable<A>
     final private int size;
     final private int hashCode;
 
-    public static final ImTree<?> nil = new ImTree<Object>();
+    static final ImTree<?> nil = new ImTree<Object>();
     private static final int MAX_SUBTREE_HEIGHT_DIFFERENCE_PLUS_ONE = 2;
 
-    @SuppressWarnings("unchecked")
+    /**
+     * The empty tree
+     */
     public static <A> ImTree<A> Nil()
     {
         return (ImTree<A>) nil;
@@ -127,6 +130,9 @@ public class ImTree<A> implements Serializable, Iterable<A>
         this(null, null, null, 0, 0);
     }
 
+    /**
+     * Ensure that we maintain the empty tree singleton
+     */
     private Object readResolve()
     {
         return getElement() == null
@@ -151,11 +157,20 @@ public class ImTree<A> implements Serializable, Iterable<A>
         this(a, left, right, 1 + Math.max(left.height, right.height), left.size + right.size + 1);
     }
 
+    /**
+     * A tree containing a single element,
+     * {@code a}
+     */
     public static <A> ImTree<A> on(final A a)
     {
         return new ImTree<A>(a, ImTree.<A>Nil(), ImTree.<A>Nil());
     }
 
+    /**
+     *
+     A tree containing the elements
+     * {@code elements}
+     */
     public static <A> ImTree<A> on(Collection<A> elements)
     {
         ImTree<A> result = ImTree.Nil();
@@ -174,6 +189,11 @@ public class ImTree<A> implements Serializable, Iterable<A>
         left, right, balanced, unbalanced, leftUnbalanced, rightUnbalanced
     }
 
+    /**
+     * A new balanced tree formed from element `newA` and the left subtree `newLeft` and the right subtree `newRight`.
+     *
+     *
+     */
     public static <A> ImTree<A> newBalancedTree(final A newA, final ImTree<A> newLeft, final ImTree<A> newRight)
     {
 
@@ -222,30 +242,29 @@ public class ImTree<A> implements Serializable, Iterable<A>
         final ImTree<A> e = b.getRight();
 
         /**
-         * <p> We are a. If our left node (b) is too tall then either d or e is the
+         * We are a. If our left node (b) is too tall then either d or e is the
          * culprit. It can't be both
-         * a
-         * b       c
-         * d   e
+         *
+         *           a
+         *       b       c
+         *     d   e
          *
          */
 
         if (e.height > d.height)
         {
             /**
-             * <p> Ok - so it is e that is too tall
+             * Ok - so it is e that is too tall
              * So - e cannot be nil - so it must have children f and g
-             * <p> What it would        After swizzling
-             * be if we didn't
-             * swizzle
              *
-             * <pre>{@code
-             *     a        1        e'
-             * b       c    2      b'  a'
-             * }</pre>
-             * <p> d   e          3     d f g c
-             * f g         4
+             *     What it would        After swizzling
+             *     be if we didn't
+             *     swizzle
              *
+             *            a        1        e'
+             *        b       c    2      b'  a'
+             *      d   e          3     d f g c
+             *         f g         4
              */
             return new ImTree<A>(e.getElement(), new ImTree<A>(b.getElement(), d, e.getLeft()), new ImTree<A>(element,
                     e.getRight(), c));
@@ -253,20 +272,21 @@ public class ImTree<A> implements Serializable, Iterable<A>
         else
         {
             /**
-             * <p> Ok - so either d and e are the same height. They can't both be nil, otherwise b could not be
+             * Ok - so either d and e are the same height. They can't both be nil, otherwise b could not be
              * or d is taller than e (in which case d is not nil)
-             * <p> d and e might be nil
-             * <p> What it would        After swizzling
-             * be if we didn't
-             * swizzle
              *
-             * <pre>{@code
-             *  a         1       b'
-             * }</pre>
-             * <p> b   c       2     d   a'
-             * d e          3        e c
+             * d and e might be nil
+             *
+             *     What it would        After swizzling
+             *     be if we didn't
+             *     swizzle
+             *
+             *         a         1       b'
+             *       b   c       2     d   a'
+             *      d e          3        e c
              *
              */
+
             return new ImTree<A>(b.getElement(), d, new ImTree<A>(element, e, c));
         }
     }
@@ -278,64 +298,69 @@ public class ImTree<A> implements Serializable, Iterable<A>
         final ImTree<A> e = c.getRight();
 
         /**
-         * <p> We are a. Our right node c is too tall.
+         * We are a. Our right node c is too tall.
          * So either d or e is the
          * culprit. It can't be both
-         * a
-         * /
-         * <br/>
-         * b     c
-         * /
-         * <br/>
-         * d   e
+         *
+         *        a
+         *      /   \
+         *     b     c
+         *          / \
+         *         d   e
          *
          */
 
         if (d.height > e.height)
         {
             /**
-             * <p> Ok - so it is d that is too tall. We need to do a double rotation.
-             * <p> What it would        After swizzling
-             * be if we didn't
-             * swizzle
+             * Ok - so it is d that is too tall. We need to do a double rotation.
              *
-             * <pre>{@code
-             *     a         1       d'
-             *   /   \              /  \
-             *  b     c      2     a'   c'
-             *       / \          / \  / \
-             *      d   e    3    b f g   e
-             *     / \
-             *    f   g      4
-             * }</pre>
+             *     What it would        After swizzling
+             *     be if we didn't
+             *     swizzle
              *
+             *          a         1       d'
+             *        /   \              /  \
+             *       b     c      2     a'   c'
+             *            / \          / \  / \
+             *           d   e    3    b f g   e
+             *          / \
+             *         f   g      4
              */
+
             return new ImTree<A>(d.getElement(), new ImTree<A>(element, b, d.getLeft()), new ImTree<A>(c.getElement(),
                     d.getRight(), e));
         }
         else
         {
             /**
-             * <p> Ok - so it is e that is too tall or d and e have the same height
+             * Ok - so it is e that is too tall or d and e have the same height
              *
-             * <pre>{@code
-             * What it would        After swizzling
-             * be if we didn't
-             * swizzle
+             *     What it would        After swizzling
+             *     be if we didn't
+             *     swizzle
              *
              *
-             *      a         1       c'
-             *    /   \              /  \
-             *   b     c      2     a'   e
-             *        / \          / \
-             *       d   e    3   b   d
-             * }</pre>
+             *          a         1       c'
+             *        /   \              /  \
+             *       b     c      2     a'   e
+             *            / \          / \
+             *           d   e    3   b   d
+             *
              *
              */
             return new ImTree<A>(c.getElement(), new ImTree<A>(element, b, d), e);
         }
     }
 
+    /**
+     * <p> The tree that contains the elements of
+     * {@code left}
+     *  in their original order followed by the elements of
+     * {@code right}
+     * in their original order
+     *
+     */
     public static <A> ImTree<A> merge(final ImTree<A> left, final ImTree<A> right)
     {
         // If the left child is nil then just return the right child (which could, itself be nil)
@@ -347,7 +372,7 @@ public class ImTree<A> implements Serializable, Iterable<A>
             return left;
 
         /**
-         * <p> Uh oh - both children are non nil.
+         *  Uh oh - both children are non nil.
          */
 
         if (left.height >= right.height)
@@ -403,21 +428,26 @@ public class ImTree<A> implements Serializable, Iterable<A>
                : ImTree.newBalancedTree(getElement(), getLeft(), getRight().insert(localIndex, elementToAdd));
     }
 
-    public static <A> ImTree<A> replaceAtIndex(final ImTree<A> tree, final int indexStartingAtOne, final A newElement)
+    /**
+     * The tree that is `this` with the element `indexStartingAtOne` replaced with `newElement`
+     */
+    public ImTree<A> replaceAtIndex(final int indexStartingAtOne, final A newElement)
     {
-        final int localIndex = indexStartingAtOne - (tree.getLeft().size + 1);
+        final int localIndex = indexStartingAtOne - (this.getLeft().size + 1);
 
         return localIndex == 0
-               ? tree.getElement() == newElement
-                 ? tree
-                 : ImTree.newBalancedTree(newElement, tree.getLeft(), tree.getRight())
+               ? this.getElement() == newElement
+                 ? this
+                 : ImTree.newBalancedTree(newElement, this.getLeft(), this.getRight())
                : localIndex < 0
-                 ? ImTree.newBalancedTree(tree.getElement(),
-                replaceAtIndex(tree.getLeft(), indexStartingAtOne, newElement), tree.getRight())
-                 : ImTree.newBalancedTree(tree.getElement(), tree.getLeft(),
-                replaceAtIndex(tree.getRight(), localIndex, newElement));
+                 ? ImTree.newBalancedTree(this.getElement(), this.getLeft().replaceAtIndex(indexStartingAtOne, newElement), this.getRight())
+                 : ImTree.newBalancedTree(this.getElement(), this.getLeft(), this.getRight().replaceAtIndex(localIndex, newElement));
     }
 
+    /**
+     * The node at index
+     * {@code indexStartingAtOne}
+     */
     public ImTree<A> getNodeAtIndex(final int indexStartingAtOne)
     {
         Throw.Exception.ifIndexOutOfBounds("indexStartingAtOne", indexStartingAtOne, "this", size());
@@ -453,23 +483,22 @@ public class ImTree<A> implements Serializable, Iterable<A>
     }
 
     /**
-     * <p> The tree with its root removed.
-     * <p> We are removing a in the following diagrams
+     * The tree with its root removed.
      *
-     * <pre>{@code
-     *    a            =>               c
-     *   / \
-     *  -   c
+     * We are removing a in the following diagrams
      *
-     *    a            =>               b
-     *   / \
-     *  b   -
+     *        a            =>               c
+     *       / \
+     *      -   c
+     *
+     *        a            =>               b
+     *       / \
+     *      b   -
      *
      *
-     *    a            =>            merge(b,c)
-     *   / \
-     *  b   c
-     * }</pre>
+     *        a            =>            merge(b,c)
+     *       / \
+     *      b   c
      *
      */
     public ImTree<A> removeRoot()
@@ -492,6 +521,19 @@ public class ImTree<A> implements Serializable, Iterable<A>
                                       : "");
     }
 
+    /**
+     * <p> An ascii-art diagram of this tree
+     * <p> For eaxample:
+     *
+     * <pre>{@code
+     *      d
+     *    /   \
+     *   b     f
+     *  / \   /
+     * a   c e
+     * }</pre>
+     *
+     */
     public String toBoxString()
     {
         return toBox(this).toString();
@@ -514,16 +556,12 @@ public class ImTree<A> implements Serializable, Iterable<A>
         final int rightWidth = rightChildBox.getWidth();
 
         /**
-         *
-         * <pre>{@code
-         * +--------+
-         * |        |
-         * +--------+
-         * +----+  +--------------+
-         * |    |  |              |
-         * +----+  +--------------+
-         * }</pre>
-         *
+         *     +--------+
+         *     |        |
+         *     +--------+
+         *     +----+  +--------------+
+         *     |    |  |              |
+         *     +----+  +--------------+
          */
         final int width = Math.max(myText.length(), leftWidth + 1 + rightWidth);
 
@@ -538,6 +576,9 @@ public class ImTree<A> implements Serializable, Iterable<A>
 
     // end - Printing
 
+    /**
+     * The string representation of the element at the root of this tree
+     */
     public String elementToString()
     {
         return this == nil
@@ -553,53 +594,47 @@ public class ImTree<A> implements Serializable, Iterable<A>
      * let's denote newBalancedTree() by BT() and concat3 by C3() (roughly)
      *
      * <pre>{@code
-     *   C3(f)
-     *     / \
-     *   b    g
-     * /   \
+     *    C3(f)
+     *      / \
+     *    b    g
+     *  /   \
+     * a     d
+     *      / \
+     *     c   e
      * }</pre>
-     * <p> a     d
-     * /
-     * <br/>
-     * c   e
      * <p> expanding C3:
      *
      * <pre>{@code
-     * BT(b)
-     * /   \
+     *  BT(b)
+     *  /   \
+     * a  C3(f)
+     *      / \
+     *     d   g
+     *    / \
+     *   c   e
      * }</pre>
-     * <p> a  C3(f)
-     * /
-     * <br/>
-     * d   g
-     * /
-     * <br/>
-     * c   e
      * <p> Expanding C3:
      *
      * <pre>{@code
-     * BT(b)
-     * /   \
+     *  BT(b)
+     *  /   \
+     * a     f
+     *      / \
+     *     d   g
+     *    / \
+     *   c   e
      * }</pre>
-     * <p> a     f
-     * /
-     * <br/>
-     * d   g
-     * /
-     * <br/>
-     * c   e
      * <p> Expanding BT:
      *
      * <pre>{@code
-     *     d
-     *   /   \
-     *  b     f
-     * / \   / \
+     *      d
+     *    /   \
+     *   b     f
+     *  / \   / \
+     * a   c e   g
      * }</pre>
-     * <p> a   c e   g
      *
      */
-
     static <A> ImTree<A> concat3(A element, ImTree<A> left, ImTree<A> right)
     {
         Balance b = getBalance(left, right);
@@ -632,13 +667,16 @@ public class ImTree<A> implements Serializable, Iterable<A>
                        && getRight().isBalanced();
     }
 
+    /**
+     * The list that is the pre-order scan of the elements of this tree
+     */
     public ImList<A> toList()
     {
         ImTreeZipper<A> z = ImTreeZipper.onRightmost(this);
 
         if (z.getFocus() == ImTree.nil)
         {
-            return Caster.cast(ImList.empty());
+            return ImList.on();
         }
 
         ImList<A> result = ImList.on(z.getElement());
@@ -673,6 +711,9 @@ public class ImTree<A> implements Serializable, Iterable<A>
                : new ImTree<O>(fn.of(getElement()), getLeft().map(fn), getRight().map(fn));
     }
 
+    /**
+     * The element at the root node of this tree
+     */
     public A getElement()
     {
         return element;

@@ -4,7 +4,7 @@ import dev.javafp.ex.ImIndexOutOfBounds;
 import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImRange;
 import dev.javafp.rand.Rando;
-import dev.javafp.tree.ImTreeFactory;
+import dev.javafp.set.ImTreeFactory;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.util.ImTestHelper;
 import dev.javafp.util.TestUtils;

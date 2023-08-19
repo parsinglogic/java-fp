@@ -10,8 +10,8 @@ package dev.javafp.shelf;
 import dev.javafp.ex.ZipperHasNoFocusException;
 import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImListZipper;
-import dev.javafp.tree.ImTree;
-import dev.javafp.tree.ImTreeZipper;
+import dev.javafp.set.ImTree;
+import dev.javafp.set.ImTreeZipper;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TextUtils;
 
