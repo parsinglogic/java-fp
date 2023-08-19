@@ -4,7 +4,7 @@
 <title>ImTree</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="declaration: package: dev.javafp.tree, class: ImTree">
+<meta name="description" content="declaration: package: dev.javafp.set, class: ImTree">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../script-dir/jquery-ui.min.css" title="Style">
@@ -44,13 +44,13 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -67,11 +67,11 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">dev.javafp.tree</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">dev.javafp.set</a></div>
 <h1 title="Class ImTree" class="title">Class ImTree&lt;A&gt;</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">dev.javafp.tree.ImTree&lt;A&gt;</div>
+<div class="inheritance">dev.javafp.set.ImTree&lt;A&gt;</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
@@ -82,15 +82,18 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ImTree&lt;A&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;A&gt;</span></div>
-<div class="block"><p> An immutable binary tree.
+<div class="block"><p> An immutable "binary tree".
  <h2>Introduction</h2>
  <p> This class is the heart of the Immutable collections library.
  It is intended to be used only as a component of the other classes.
+
  <p> An
  <code>ImTree</code>
   is an AVL tree (a balanced binary tree) where each node stores some arbitrary data.
- <p> Note that, in this class, there is no concept of the data that is being stored being Comparable.
- This functionality is added by <a href="../set/ImSortedSet.html" title="class in dev.javafp.set"><code>ImSortedSet</code></a>.
+ <p> **Note that this is not a traditional sorted binary tree**. There is no concept of the data that is being stored being Comparable.
+ This functionality is added by <a href="ImSortedSet.html" title="class in dev.javafp.set"><code>ImSortedSet</code></a>.
+ <p> Essentially  <a href="ImSortedSet.html" title="class in dev.javafp.set"><code>ImSortedSet</code></a> is a traditional sorted binary tree and it uses this class to implement it.
+ <p> Another class that uses this class is <a href="../shelf/ImShelf.html" title="class in dev.javafp.shelf"><code>ImShelf</code></a>.
  <p> A node in an
  <code>ImTree</code>
   is either a leaf node
@@ -136,8 +139,8 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
  <p> Because the tree is balanced, this means that the heights of the children of a node will differ
  by at most one.
  <p> Each node is considered to have a
- <em>rank</em>
-  that represents its position in the tree in a pre-order scan.
+ <em>rank(AKA index)</em>
+  that represents its position in a pre-order scan of the tree.
  <p> Ranks start at one (exactly as Nature intended!)
  <p> Let's annotate our example with the ranks:
  <p> <img src="../../../dev/doc-files/tree-abcdef-with-ranks.png" alt="tree-abcdef-with-ranks" width=200/>
@@ -160,28 +163,13 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <dt>See Also:</dt>
 <dd>
 <ul class="see-list">
-<li><a href="../../../serialized-form.html#dev.javafp.tree.ImTree">Serialized Form</a></li>
+<li><a href="../../../serialized-form.html#dev.javafp.set.ImTree">Serialized Form</a></li>
 </ul>
 </dd>
 </dl>
 </section>
 <section class="summary">
 <ul class="summary-list">
-<!-- =========== FIELD SUMMARY =========== -->
-<li>
-<section class="field-summary" id="field-summary">
-<h2>Field Summary</h2>
-<div class="caption"><span>Fields</span></div>
-<div class="summary-table three-column-summary">
-<div class="table-header col-first">Modifier and Type</div>
-<div class="table-header col-second">Field</div>
-<div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>static final <a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;?&gt;</code></div>
-<div class="col-second even-row-color"><code><a href="#nil" class="member-name-link">nil</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-</div>
-</section>
-</li>
 <!-- ========== METHOD SUMMARY =========== -->
 <li>
 <section class="method-summary" id="method-summary">
@@ -195,7 +183,9 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#elementToString()" class="member-name-link">elementToString</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The string representation of the element at the root of this tree</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -207,26 +197,33 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="type parameter in ImTree">A</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getElement()" class="member-name-link">getElement</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The element at the root node of this tree</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHeight()" class="member-name-link">getHeight</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The height of the tree</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLeft()" class="member-name-link">getLeft</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> The left sub-tree of
  <code>this</code>
  .</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNodeAtIndex(int)" class="member-name-link">getNodeAtIndex</a><wbr>(int&nbsp;indexStartingAtOne)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The node at index
+ <code>indexStartingAtOne</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRank()" class="member-name-link">getRank</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Get the rank of the root node of this tree in this tree.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getRight()" class="member-name-link">getRight</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> The right sub-tree of
@@ -235,8 +232,10 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The (cached) hashcode for this object.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#insert(int,A)" class="member-name-link">insert</a><wbr>(int&nbsp;indexStartingAtOne,
  <a href="ImTree.html" title="type parameter in ImTree">A</a>&nbsp;elementToAdd)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -247,15 +246,18 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isBalanced()" class="member-name-link">isBalanced</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTreeIterator.html" title="class in dev.javafp.tree">ImTreeIterator</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> <code>true</code>
+ iff the tree is balanced</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTreeIterator.html" title="class in dev.javafp.set">ImTreeIterator</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#iterator()" class="member-name-link">iterator</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> An iterator over the elements in
  <code>this</code>
  .</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;O&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;O&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;O&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;O&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#map(dev.javafp.func.Fn)" class="member-name-link">map</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>,<wbr>O&gt;&nbsp;fn)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> The tree that has the same shape as
@@ -268,25 +270,47 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
  <code>this</code>
  .</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#merge(dev.javafp.tree.ImTree,dev.javafp.tree.ImTree)" class="member-name-link">merge</a><wbr>(<a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;&nbsp;left,
- <a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;&nbsp;right)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#newBalancedTree(A,dev.javafp.tree.ImTree,dev.javafp.tree.ImTree)" class="member-name-link">newBalancedTree</a><wbr>(A&nbsp;newA,
- <a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;&nbsp;newLeft,
- <a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;&nbsp;newRight)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#merge(dev.javafp.set.ImTree,dev.javafp.set.ImTree)" class="member-name-link">merge</a><wbr>(<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;left,
+ <a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;right)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The tree that contains the elements of
+ <code>left</code>
+  in their original order followed by the elements of
+ <code>right</code>
+ in their original order</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#newBalancedTree(A,dev.javafp.set.ImTree,dev.javafp.set.ImTree)" class="member-name-link">newBalancedTree</a><wbr>(A&nbsp;newA,
+ <a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;newLeft,
+ <a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;newRight)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A new balanced tree formed from element
+ <code>newA</code>
+  and the left subtree
+ <code>newLeft</code>
+  and the right subtree
+ <code>newRight</code>
+ .</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Nil()" class="member-name-link">Nil</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">The empty tree</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(A)" class="member-name-link">on</a><wbr>(A&nbsp;a)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">A tree containing a single element,
+ <code>a</code></div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(java.util.Collection)" class="member-name-link">on</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;A&gt;&nbsp;elements)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">A tree containing the elements
+ <code>elements</code></div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#remove(int)" class="member-name-link">remove</a><wbr>(int&nbsp;indexStartingAtOne)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Return a tree that is the same as
@@ -295,16 +319,22 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
  stored at the node with index
  <code>indexStartingAtOne</code></div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeRoot()" class="member-name-link">removeRoot</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block"> The tree with its root removed.</div>
+<div class="block">The tree with its root removed.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#replaceAtIndex(dev.javafp.tree.ImTree,int,A)" class="member-name-link">replaceAtIndex</a><wbr>(<a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;&nbsp;tree,
- int&nbsp;indexStartingAtOne,
- A&nbsp;newElement)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#replaceAtIndex(int,A)" class="member-name-link">replaceAtIndex</a><wbr>(int&nbsp;indexStartingAtOne,
+ <a href="ImTree.html" title="type parameter in ImTree">A</a>&nbsp;newElement)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The tree that is
+ <code>this</code>
+  with the element
+ <code>indexStartingAtOne</code>
+  replaced with
+ <code>newElement</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -313,10 +343,14 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toBoxString()" class="member-name-link">toBoxString</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> An ascii-art diagram of this tree</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toList()" class="member-name-link">toList</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The list that is the pre-order scan of the elements of this tree</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -337,20 +371,6 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </section>
 <section class="details">
 <ul class="details-list">
-<!-- ============ FIELD DETAIL =========== -->
-<li>
-<section class="field-details" id="field-detail">
-<h2>Field Details</h2>
-<ul class="member-list">
-<li>
-<section class="detail" id="nil">
-<h3>nil</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;?&gt;</span>&nbsp;<span class="element-name">nil</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
 <!-- ============ METHOD DETAIL ========== -->
 <li>
 <section class="method-details" id="method-detail">
@@ -359,40 +379,57 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <li>
 <section class="detail" id="Nil()">
 <h3>Nil</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;</span>&nbsp;<span class="element-name">Nil</span>()</div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;</span>&nbsp;<span class="element-name">Nil</span>()</div>
+<div class="block">The empty tree</div>
 </section>
 </li>
 <li>
 <section class="detail" id="on(A)">
 <h3 id="on(java.lang.Object)">on</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;</span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(A&nbsp;a)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;</span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(A&nbsp;a)</span></div>
+<div class="block">A tree containing a single element,
+ <code>a</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="on(java.util.Collection)">
 <h3>on</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;</span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;A&gt;&nbsp;elements)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;</span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;A&gt;&nbsp;elements)</span></div>
+<div class="block">A tree containing the elements
+ <code>elements</code></div>
 </section>
 </li>
 <li>
-<section class="detail" id="newBalancedTree(A,dev.javafp.tree.ImTree,dev.javafp.tree.ImTree)">
-<h3 id="newBalancedTree(java.lang.Object,dev.javafp.tree.ImTree,dev.javafp.tree.ImTree)">newBalancedTree</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;</span>&nbsp;<span class="element-name">newBalancedTree</span><wbr><span class="parameters">(A&nbsp;newA,
- <a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;&nbsp;newLeft,
- <a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;&nbsp;newRight)</span></div>
+<section class="detail" id="newBalancedTree(A,dev.javafp.set.ImTree,dev.javafp.set.ImTree)">
+<h3 id="newBalancedTree(java.lang.Object,dev.javafp.set.ImTree,dev.javafp.set.ImTree)">newBalancedTree</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;</span>&nbsp;<span class="element-name">newBalancedTree</span><wbr><span class="parameters">(A&nbsp;newA,
+ <a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;newLeft,
+ <a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;newRight)</span></div>
+<div class="block"><p> A new balanced tree formed from element
+ <code>newA</code>
+  and the left subtree
+ <code>newLeft</code>
+  and the right subtree
+ <code>newRight</code>
+ .</div>
 </section>
 </li>
 <li>
-<section class="detail" id="merge(dev.javafp.tree.ImTree,dev.javafp.tree.ImTree)">
+<section class="detail" id="merge(dev.javafp.set.ImTree,dev.javafp.set.ImTree)">
 <h3>merge</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;</span>&nbsp;<span class="element-name">merge</span><wbr><span class="parameters">(<a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;&nbsp;left,
- <a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;&nbsp;right)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;</span>&nbsp;<span class="element-name">merge</span><wbr><span class="parameters">(<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;left,
+ <a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;right)</span></div>
+<div class="block"><p> The tree that contains the elements of
+ <code>left</code>
+  in their original order followed by the elements of
+ <code>right</code>
+ in their original order</div>
 </section>
 </li>
 <li>
 <section class="detail" id="insert(int,A)">
 <h3 id="insert(int,java.lang.Object)">insert</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">insert</span><wbr><span class="parameters">(int&nbsp;indexStartingAtOne,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">insert</span><wbr><span class="parameters">(int&nbsp;indexStartingAtOne,
  <a href="ImTree.html" title="type parameter in ImTree">A</a>&nbsp;elementToAdd)</span></div>
 <div class="block"><p> Insert a new node with the value
  <code>elementToAdd</code>
@@ -416,23 +453,30 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </section>
 </li>
 <li>
-<section class="detail" id="replaceAtIndex(dev.javafp.tree.ImTree,int,A)">
-<h3 id="replaceAtIndex(dev.javafp.tree.ImTree,int,java.lang.Object)">replaceAtIndex</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;</span>&nbsp;<span class="element-name">replaceAtIndex</span><wbr><span class="parameters">(<a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;A&gt;&nbsp;tree,
- int&nbsp;indexStartingAtOne,
- A&nbsp;newElement)</span></div>
+<section class="detail" id="replaceAtIndex(int,A)">
+<h3 id="replaceAtIndex(int,java.lang.Object)">replaceAtIndex</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">replaceAtIndex</span><wbr><span class="parameters">(int&nbsp;indexStartingAtOne,
+ <a href="ImTree.html" title="type parameter in ImTree">A</a>&nbsp;newElement)</span></div>
+<div class="block"><p> The tree that is
+ <code>this</code>
+  with the element
+ <code>indexStartingAtOne</code>
+  replaced with
+ <code>newElement</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="getNodeAtIndex(int)">
 <h3>getNodeAtIndex</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">getNodeAtIndex</span><wbr><span class="parameters">(int&nbsp;indexStartingAtOne)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">getNodeAtIndex</span><wbr><span class="parameters">(int&nbsp;indexStartingAtOne)</span></div>
+<div class="block">The node at index
+ <code>indexStartingAtOne</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="remove(int)">
 <h3>remove</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">remove</span><wbr><span class="parameters">(int&nbsp;indexStartingAtOne)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">remove</span><wbr><span class="parameters">(int&nbsp;indexStartingAtOne)</span></div>
 <div class="block"><p> Return a tree that is the same as
  <code>this</code>
   but without the element
@@ -443,24 +487,23 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <li>
 <section class="detail" id="removeRoot()">
 <h3>removeRoot</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">removeRoot</span>()</div>
-<div class="block"><p> The tree with its root removed.
- <p> We are removing a in the following diagrams
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">removeRoot</span>()</div>
+<div class="block">The tree with its root removed.
 
- <pre><code>
-    a            =&gt;               c
-   / \
-  -   c
+ We are removing a in the following diagrams
 
-    a            =&gt;               b
-   / \
-  b   -
+        a            =>               c
+       / \
+      -   c
+
+        a            =>               b
+       / \
+      b   -
 
 
-    a            =&gt;            merge(b,c)
-   / \
-  b   c
- </code></pre></div>
+        a            =>            merge(b,c)
+       / \
+      b   c</div>
 </section>
 </li>
 <li>
@@ -478,30 +521,44 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="toBoxString()">
 <h3>toBoxString</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">toBoxString</span>()</div>
+<div class="block"><p> An ascii-art diagram of this tree
+ <p> For eaxample:
+
+ <pre><code>
+      d
+    /   \
+   b     f
+  / \   /
+ a   c e
+ </code></pre></div>
 </section>
 </li>
 <li>
 <section class="detail" id="elementToString()">
 <h3>elementToString</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">elementToString</span>()</div>
+<div class="block">The string representation of the element at the root of this tree</div>
 </section>
 </li>
 <li>
 <section class="detail" id="isBalanced()">
 <h3>isBalanced</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isBalanced</span>()</div>
+<div class="block"><p> <code>true</code>
+ iff the tree is balanced</div>
 </section>
 </li>
 <li>
 <section class="detail" id="toList()">
 <h3>toList</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">toList</span>()</div>
+<div class="block">The list that is the pre-order scan of the elements of this tree</div>
 </section>
 </li>
 <li>
 <section class="detail" id="map(dev.javafp.func.Fn)">
 <h3>map</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;O&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;O&gt;</span>&nbsp;<span class="element-name">map</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>,<wbr>O&gt;&nbsp;fn)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;O&gt;</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;O&gt;</span>&nbsp;<span class="element-name">map</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>,<wbr>O&gt;&nbsp;fn)</span></div>
 <div class="block"><p> The tree that has the same shape as
  <code>this</code>
   and where each element is the result of evaluating
@@ -517,12 +574,13 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="getElement()">
 <h3>getElement</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="type parameter in ImTree">A</a></span>&nbsp;<span class="element-name">getElement</span>()</div>
+<div class="block">The element at the root node of this tree</div>
 </section>
 </li>
 <li>
 <section class="detail" id="getLeft()">
 <h3>getLeft</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">getLeft</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">getLeft</span>()</div>
 <div class="block"><p> The left sub-tree of
  <code>this</code>
  .</div>
@@ -531,7 +589,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <li>
 <section class="detail" id="getRight()">
 <h3>getRight</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.tree">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">getRight</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">getRight</span>()</div>
 <div class="block"><p> The right sub-tree of
  <code>this</code>
  .</div>
@@ -541,6 +599,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="getHeight()">
 <h3>getHeight</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getHeight</span>()</div>
+<div class="block">The height of the tree</div>
 </section>
 </li>
 <li>
@@ -555,6 +614,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="hashCode()">
 <h3>hashCode</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">hashCode</span>()</div>
+<div class="block">The (cached) hashcode for this object.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
@@ -571,7 +631,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <li>
 <section class="detail" id="iterator()">
 <h3>iterator</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTreeIterator.html" title="class in dev.javafp.tree">ImTreeIterator</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">iterator</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTreeIterator.html" title="class in dev.javafp.set">ImTreeIterator</a>&lt;<a href="ImTree.html" title="type parameter in ImTree">A</a>&gt;</span>&nbsp;<span class="element-name">iterator</span>()</div>
 <div class="block"><p> An iterator over the elements in
  <code>this</code>
  .
