@@ -93,6 +93,9 @@ class ImEmptyList<A> extends ImLazyList<A>
         return 0;
     }
 
+    /**
+     * The (cached) hashcode for this object.
+     */
     @Override
     public int hashCode(int count)
     {

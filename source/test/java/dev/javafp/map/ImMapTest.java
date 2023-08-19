@@ -258,6 +258,9 @@ public class ImMapTest
             this.n = n;
         }
 
+        /**
+         * The (cached) hashcode for this object.
+         */
         @Override
         public int hashCode()
         {

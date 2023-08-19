@@ -165,6 +165,9 @@ public class SvgTransform implements Serializable
         return a == t.a && b == t.b && c == t.c && d == t.d && e == t.e && f == t.f;
     }
 
+    /**
+     * The (cached) hashcode for this object.
+     */
     @Override
     public int hashCode()
     {

@@ -27,6 +27,9 @@ public abstract class ImValuesImpl implements Serializable, Values
 
     private boolean hashed;
 
+    /**
+     * The (cached) hashcode for this object.
+     */
     @Override
     public int hashCode()
     {

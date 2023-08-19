@@ -291,6 +291,9 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
             return true;
         }
 
+        /**
+         * The (cached) hashcode for this object.
+         */
         @Override
         public int hashCode()
         {
@@ -1250,6 +1253,9 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
                                                              : s);
     }
 
+    /**
+     * The (cached) hashcode for this object.
+     */
     @Override
     public int hashCode()
     {

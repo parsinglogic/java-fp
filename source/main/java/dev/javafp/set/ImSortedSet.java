@@ -398,6 +398,9 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
         return concat;
     }
 
+    /**
+     * The (cached) hashcode for this object.
+     */
     @Override
     public int hashCode()
     {

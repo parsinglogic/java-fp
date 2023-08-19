@@ -190,9 +190,13 @@ public class ImTree<A> implements Serializable, Iterable<A>
     }
 
     /**
-     * A new balanced tree formed from element `newA` and the left subtree `newLeft` and the right subtree `newRight`.
-     *
-     *
+     * <p> A new balanced tree formed from element
+     * {@code newA}
+     *  and the left subtree
+     * {@code newLeft}
+     *  and the right subtree
+     * {@code newRight}
+     * .
      */
     public static <A> ImTree<A> newBalancedTree(final A newA, final ImTree<A> newLeft, final ImTree<A> newRight)
     {
@@ -429,7 +433,13 @@ public class ImTree<A> implements Serializable, Iterable<A>
     }
 
     /**
-     * The tree that is `this` with the element `indexStartingAtOne` replaced with `newElement`
+     * <p> The tree that is
+     * {@code this}
+     *  with the element
+     * {@code indexStartingAtOne}
+     *  replaced with
+     * {@code newElement}
+     *
      */
     public ImTree<A> replaceAtIndex(final int indexStartingAtOne, final A newElement)
     {
@@ -657,6 +667,8 @@ public class ImTree<A> implements Serializable, Iterable<A>
     }
 
     /**
+     * <p> {@code true}
+     * iff the tree is balanced
      *
      */
     public boolean isBalanced()
@@ -741,6 +753,9 @@ public class ImTree<A> implements Serializable, Iterable<A>
         return right;
     }
 
+    /**
+     * The height of the tree
+     */
     public int getHeight()
     {
         return height;
@@ -756,6 +771,9 @@ public class ImTree<A> implements Serializable, Iterable<A>
         return size;
     }
 
+    /**
+     * The (cached) hashcode for this object.
+     */
     @Override
     public int hashCode()
     {

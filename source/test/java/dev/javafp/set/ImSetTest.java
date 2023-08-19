@@ -42,6 +42,9 @@ public class ImSetTest
             this.i = i;
         }
 
+        /**
+         * The (cached) hashcode for this object.
+         */
         @Override
         public int hashCode()
         {
@@ -403,6 +406,9 @@ public class ImSetTest
             this.n = n;
         }
 
+        /**
+         * The (cached) hashcode for this object.
+         */
         @Override
         public int hashCode()
         {
