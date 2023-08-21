@@ -68,7 +68,7 @@ public class ImTreeTest
 
         for (ImTree<Character> imTree : shapes)
         {
-            ImTreeIterator<Character> it = new ImTreeIterator<Character>(imTree);
+            ImTreeIterator<Character> it = ImTreeIterator.on(imTree);
 
             System.err.println(imTree.toBoxString());
             int count = 0;

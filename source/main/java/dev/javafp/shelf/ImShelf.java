@@ -482,7 +482,7 @@ public class ImShelf<T> implements Iterable<T>
      */
     public ImShelfIterator<T> iterator()
     {
-        return new ImShelfIterator<T>(new ImTreeIterator<T>(tree));
+        return new ImShelfIterator<T>(ImTreeIterator.on(tree));
     }
 
     /**

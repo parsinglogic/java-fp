@@ -803,7 +803,7 @@ public class ImTree<A> implements Serializable, Iterable<A>
      */
     public ImTreeIterator<A> iterator()
     {
-        return new ImTreeIterator(this);
+        return ImTreeIterator.on(this);
     }
 
     /**

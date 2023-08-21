@@ -23,12 +23,21 @@ public class ImTreeIterator<T> implements Iterator<T>
 {
     private ImMaybe<ImTreeZipper<T>> maybeNextPath;
 
-    public ImTreeIterator(final ImTree<T> tree)
+    private ImTreeIterator(final ImTree<T> tree)
     {
         if (tree == ImTree.Nil())
             maybeNextPath = ImMaybe.nothing();
         else
             maybeNextPath = ImMaybe.just(ImTreeZipper.onLeftmost(tree));
+    }
+
+    /**
+     * A TreeIterator on
+     * {@code tree}
+     */
+    public static <U> ImTreeIterator<U> on(ImTree<U> tree)
+    {
+        return new ImTreeIterator(tree);
     }
 
     /**

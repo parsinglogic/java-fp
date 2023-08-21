@@ -267,7 +267,7 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
      */
     public ImTreeIterator<T> iterator()
     {
-        return new ImTreeIterator<T>(tree);
+        return ImTreeIterator.on(tree);
     }
 
     /**

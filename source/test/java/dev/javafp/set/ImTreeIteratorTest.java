@@ -17,7 +17,7 @@ public class ImTreeIteratorTest
     {
         final ImTree<Character> node = t("");
 
-        ImTreeIterator<Character> it = new ImTreeIterator<Character>(node);
+        ImTreeIterator<Character> it = ImTreeIterator.on(node);
         assertEquals(false, it.hasNext());
     }
 
@@ -38,7 +38,7 @@ public class ImTreeIteratorTest
     {
         List<A> result = new ArrayList<A>();
 
-        ImTreeIterator<A> it = new ImTreeIterator<A>(node);
+        ImTreeIterator<A> it = ImTreeIterator.on(node);
 
         while (it.hasNext())
         {
