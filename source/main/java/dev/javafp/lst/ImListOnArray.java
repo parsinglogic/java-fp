@@ -40,7 +40,7 @@ class ImListOnArray<A> extends ImEagerList<A>
         return source[skipCount];
     }
 
-    public static <A> ImList<A> on(A[] source, int skipCount, int size)
+    static <A> ImList<A> on(A[] source, int skipCount, int size)
     {
         return size == 0
                ? ImList.empty()

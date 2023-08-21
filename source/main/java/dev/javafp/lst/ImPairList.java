@@ -11,9 +11,8 @@ import dev.javafp.tuple.ImPair;
 
 class ImPairList<A, B> extends ImCachingLazyList<ImPair<A, B>>
 {
-
-    public final ImList<A> as;
-    public final ImList<B> bs;
+    final ImList<A> as;
+    final ImList<B> bs;
 
     private ImPairList(ImList<A> as, ImList<B> bs)
     {

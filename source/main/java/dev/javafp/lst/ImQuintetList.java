@@ -12,11 +12,11 @@ import dev.javafp.tuple.ImQuintet;
 class ImQuintetList<A, B, C, D, E> extends ImCachingLazyList<ImQuintet<A, B, C, D, E>>
 {
 
-    public final ImList<A> as;
-    public final ImList<B> bs;
-    public final ImList<C> cs;
-    public final ImList<D> ds;
-    public final ImList<E> es;
+    final ImList<A> as;
+    final ImList<B> bs;
+    final ImList<C> cs;
+    final ImList<D> ds;
+    final ImList<E> es;
 
     private ImQuintetList(ImList<A> as, ImList<B> bs, ImList<C> cs, ImList<D> ds, ImList<E> es)
     {

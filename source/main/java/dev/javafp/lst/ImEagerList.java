@@ -10,7 +10,7 @@ package dev.javafp.lst;
 abstract class ImEagerList<A> implements ImList<A>
 {
 
-    public final int size;
+    final int size;
 
     ImEagerList(int size)
     {

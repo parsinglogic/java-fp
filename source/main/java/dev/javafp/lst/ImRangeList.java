@@ -10,9 +10,9 @@ package dev.javafp.lst;
 class ImRangeList extends ImCachingLazyList<Integer>
 {
 
-    public final int min;
-    public final int max;
-    public final int step;
+    private final int min;
+    private final int max;
+    private final int step;
 
     static ImList<Integer> inclusive(int min, int max, int step)
     {

@@ -12,10 +12,10 @@ import dev.javafp.tuple.ImQuartet;
 class ImQuartetList<A, B, C, D> extends ImCachingLazyList<ImQuartet<A, B, C, D>>
 {
 
-    public final ImList<A> as;
-    public final ImList<B> bs;
-    public final ImList<C> cs;
-    public final ImList<D> ds;
+    final ImList<A> as;
+    final ImList<B> bs;
+    final ImList<C> cs;
+    final ImList<D> ds;
 
     private ImQuartetList(ImList<A> as, ImList<B> bs, ImList<C> cs, ImList<D> ds)
     {

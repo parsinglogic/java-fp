@@ -12,9 +12,9 @@ import dev.javafp.tuple.ImTriple;
 class ImTripleList<A, B, C> extends ImCachingLazyList<ImTriple<A, B, C>>
 {
 
-    public final ImList<A> as;
-    public final ImList<B> bs;
-    public final ImList<C> cs;
+    private final ImList<A> as;
+    private final ImList<B> bs;
+    private final ImList<C> cs;
 
     private ImTripleList(ImList<A> as, ImList<B> bs, ImList<C> cs)
     {

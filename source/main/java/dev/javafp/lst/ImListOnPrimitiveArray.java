@@ -146,7 +146,7 @@ class ImListOnPrimitiveArray<A> extends ImEagerList<A> implements Eq
         return on(source, skipCount + 1, size - 1);
     }
 
-    public A[] toArray()
+    private A[] toArray()
     {
         return copyToObjectArray(size);
     }

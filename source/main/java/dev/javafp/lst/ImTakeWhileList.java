@@ -14,7 +14,7 @@ class ImTakeWhileList<A> extends ImCachingLazyList<A>
     private final ImList<A> source;
     private final Fn<A, Boolean> pred;
 
-    public ImTakeWhileList(ImList<A> source, Fn<A, Boolean> pred)
+    private ImTakeWhileList(ImList<A> source, Fn<A, Boolean> pred)
     {
         super(Sz.takeWhile(source.getSz()));
         this.source = source;
