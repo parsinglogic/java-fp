@@ -17,6 +17,7 @@ import dev.javafp.util.ArrayIterator;
 import dev.javafp.util.Hash;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.NullCheck;
+import dev.javafp.util.Util;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -42,6 +43,7 @@ import java.util.NoSuchElementException;
  * <pre>{@code
  * a.equals(o) == false
  * }</pre>
+ * <p> As with the Java Set implementation, we use the hashCode of each object.
  * <p> We therefore assume that the objects in the set have "reasonable" implementations of
  * {@code hashCode()}
  *  and
@@ -75,7 +77,7 @@ import java.util.NoSuchElementException;
  * <p> Sometimes it is convenient to be able to add an element to a set even though that set already contains an
  * element that is "equal to it".
  *
- * <p> For example {@link ImMap} is implemented as a set of {@link ImMap.Entry} objects where an entry has a key and a value.
+ * <p> For example, in this library {@link ImMap} is implemented as a set of {@link ImMap.Entry} objects where an entry has a key and a value.
  * Two {@link ImMap.Entry} objects are equal
  * iff their keys are equal. So for any pair of entries
  * {@code e1}
@@ -92,6 +94,12 @@ import java.util.NoSuchElementException;
  * {@link #add}  is to
  * <em>not</em>
  *  replace
+ *
+ * <p> However, this is a rather subtle distinction and we anticipate that,
+ * for most uses of
+ * {@code ImSet}
+ * , it is not important.
+ *
  * <h3>Implementation</h3>
  * <p> An ImSet is a sorted set of buckets where
  * elements whose hash codes are the same are stored in the same bucket.
@@ -389,7 +397,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      *  will be returned.
      *
      */
-    public ImSet<T> add(final T elementToAdd)
+    public ImSet<T> add(T elementToAdd)
     {
         return add(elementToAdd, Replace.no);
     }
@@ -847,19 +855,22 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         return find(elementToLookFor).isPresent();
     }
 
-    public boolean containsAll(ImSet<T> elements)
+    /**
+     *
+     * {@code true}
+     *  iff
+     * {@code this}
+     *  contains all of
+     * {@code elements}
+     */
+    public boolean containsAll(Iterable<T> elements)
     {
-        if (size() < elements.size())
-            return false;
-        else
+        for (T e : this)
         {
-            for (T e : this)
-            {
-                if (!this.contains(e))
-                    return false;
-            }
-            return true;
+            if (!this.contains(e))
+                return false;
         }
+        return true;
     }
 
     /**
@@ -904,11 +915,33 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
                : Equals.isEqualIterators(iterator(), otherSet.iterator());
     }
 
-    public ImSet<T> union(Iterable<? extends T> elementsToAdd)
+    /**
+     * The union of
+     * {@code this}
+     * and
+     * {@code elements}.
+     * <p> Note that this is intended to be used with the argument
+     * {@code elements}
+     * being a set. In fact the implementation is such that we have allowed it to be an
+     * {@code Iterable}
+     * with no loss of efficiency (
+     * {@code ImSet}
+     * is an
+     * {@code Iterable}
+     * )
+     *
+     * Be aware that the elements in
+     * {@code elements}
+     * are added to
+     * {@code this}
+     * using {@link ImSet#add(Object)}
+     * rather than {@link ImSet#replace(Object)}
+     */
+    public ImSet<T> union(Iterable<? extends T> elements)
     {
         ImSet<T> result = this;
 
-        for (T a : elementsToAdd)
+        for (T a : elements)
         {
             result = result.add(a);
         }
@@ -1246,11 +1279,53 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         return !any(pred);
     }
 
-    public ImSet<T> intersection(ImSet<T> other)
+    /**
+     * The set that is the intersection of
+     * {@code this}
+     * and
+     * {@code elements}.
+     *
+     * <p> The implementation iterates over
+     * {@code elements}.
+     *
+     * The overloaded version {@link ImSet#intersection(ImSet)}
+     * will use this method
+     * - using the smaller set as the argument.
+     *
+     *
+     * Be aware that the elements in
+     * {@code elements}
+     * are added to
+     * the result
+     * using {@link ImSet#add(Object)}
+     * rather than {@link ImSet#replace(Object)}
+     */
+    public ImSet<T> intersectAll(Iterable<T> elements)
     {
-        return other.toList().foldl(ImSet.empty(), (s, e) -> contains(e)
-                                                             ? s.add(e)
-                                                             : s);
+        return Util.foldl(elements, ImSet.empty(), (s, e) -> contains(e) ? s.add(e) : s);
+    }
+
+    /**
+     * The set that is the intersection of
+     * {@code this}
+     * and the set
+     * {@code elements}.
+     * The implementation uses
+     * {@code intersectAll}
+     * with the argument being the smaller of the two sets.
+     * )
+     *
+     * Be aware that the elements in the smaller set
+     * are added to
+     * the result
+     * using {@link ImSet#add(Object)}
+     * rather than {@link ImSet#replace(Object)}
+     */
+    public ImSet<T> intersection(ImSet<T> elements)
+    {
+        return elements.size() >= this.size()
+               ? this.intersectAll(elements)
+               : elements.intersectAll(this);
     }
 
     /**
