@@ -107,6 +107,21 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
  which returns the new list with the changes made to it.
  <h3>next() and prev() and the "pair of lists" analogy</h3>
  <p> A good way to think of a list zipper is as a pair of lists formed out of the original list.
+
+ <p> So each zipper has:
+ <ol>
+ <li>
+ <p> The
+ <strong>first</strong>
+  list
+ </li>
+ <li>
+ <p> The
+ <strong>second</strong>
+  list
+ </li>
+ </ol>
+
  The
  <em>focus</em>
   element is the last element of the first list (if there is one).
@@ -164,8 +179,8 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
  <code>prev()</code>
   moves the last element of the first list to the start of the second list.
  <p> In fact the current implementation stores the lists as
- <code>Lsts</code>
-  with the first list reversed so
+ <code>ImList</code>
+ s with the first list reversed so
  <code>next()</code>
   and
  <code>prev()</code>
@@ -564,10 +579,18 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a>&lt;<a href="ImListZipper.html" title="type parameter in ImListZipper">T</a>&gt;&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#find(dev.javafp.func.Fn)" class="member-name-link">find</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImListZipper.html" title="type parameter in ImListZipper">T</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;pred)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> Move the focus of this zipper to the next element where
+ <code>pred</code>
+  is true.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a>&lt;<a href="ImListZipper.html" title="type parameter in ImListZipper">T</a>&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#find(T)" class="member-name-link">find</a><wbr>(<a href="ImListZipper.html" title="type parameter in ImListZipper">T</a>&nbsp;thingToFind)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> Move the focus of this zipper to the next element that is equal to
+ <code>thingToFind</code>
+ .</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImListZipper.html" title="type parameter in ImListZipper">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getFirst()" class="member-name-link">getFirst</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -614,7 +637,9 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;TT&gt;&nbsp;<a href="ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a>&lt;TT&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(dev.javafp.lst.ImList)" class="member-name-link">on</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;TT&gt;&nbsp;list)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">An `ImListZipper` on `list` - positioned *before* the first element.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a>&lt;<a href="ImListZipper.html" title="type parameter in ImListZipper">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pop()" class="member-name-link">pop</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -683,6 +708,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="on(dev.javafp.lst.ImList)">
 <h3>on</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;TT&gt;</span>&nbsp;<span class="return-type"><a href="ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a>&lt;TT&gt;</span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;TT&gt;&nbsp;list)</span></div>
+<div class="block">An `ImListZipper` on `list` - positioned *before* the first element.</div>
 </section>
 </li>
 <li>
@@ -711,20 +737,18 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
  1  2  3    prev()    =&gt; 1  2  3
 
  *                       *
- 1  2  3    prev()    =&gt;    1  2  3
+ 1  2  3    prev()    =&gt;   1  2  3
  </code></pre>
  <p> If the first list is empty then
  <code>this</code>
-  is returned.
- <ul>
- <li>
+  is returned:
 
  <pre><code>
-                 *
+ *                     *
+   1  2  3  prev()  =&gt;   1  2  3
  </code></pre>
- <p> 1  2  3  prev()  =>   1  2  3
- </li>
- </ul>
+
+
  <p> If the first list is now empty then you won't be able to set or get the focus or pop it.
  <p> Note that this means that you can always use
  <code>prev()</code>
@@ -987,12 +1011,18 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="find(T)">
 <h3 id="find(java.lang.Object)">find</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a>&lt;<a href="ImListZipper.html" title="type parameter in ImListZipper">T</a>&gt;&gt;</span>&nbsp;<span class="element-name">find</span><wbr><span class="parameters">(<a href="ImListZipper.html" title="type parameter in ImListZipper">T</a>&nbsp;thingToFind)</span></div>
+<div class="block"><p> Move the focus of this zipper to the next element that is equal to
+ <code>thingToFind</code>
+ .</div>
 </section>
 </li>
 <li>
 <section class="detail" id="find(dev.javafp.func.Fn)">
 <h3>find</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a>&lt;<a href="ImListZipper.html" title="type parameter in ImListZipper">T</a>&gt;&gt;</span>&nbsp;<span class="element-name">find</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImListZipper.html" title="type parameter in ImListZipper">T</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;pred)</span></div>
+<div class="block"><p> Move the focus of this zipper to the next element where
+ <code>pred</code>
+  is true.</div>
 </section>
 </li>
 </ul>
