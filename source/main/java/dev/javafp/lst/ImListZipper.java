@@ -42,6 +42,21 @@ import java.util.NoSuchElementException;
  * which returns the new list with the changes made to it.
  * <h3>next() and prev() and the "pair of lists" analogy</h3>
  * <p> A good way to think of a list zipper is as a pair of lists formed out of the original list.
+ *
+ * <p> So each zipper has:
+ * <ol>
+ * <li>
+ * <p> The
+ * <strong>first</strong>
+ *  list
+ * </li>
+ * <li>
+ * <p> The
+ * <strong>second</strong>
+ *  list
+ * </li>
+ * </ol>
+ *
  * The
  * <em>focus</em>
  *  element is the last element of the first list (if there is one).
@@ -99,8 +114,8 @@ import java.util.NoSuchElementException;
  * {@code prev()}
  *  moves the last element of the first list to the start of the second list.
  * <p> In fact the current implementation stores the lists as
- * {@code Lsts}
- *  with the first list reversed so
+ * {@code ImList}
+ * s with the first list reversed so
  * {@code next()}
  *  and
  * {@code prev()}
@@ -487,6 +502,9 @@ public class ImListZipper<T> implements Iterable<ImListZipper<T>>
         this.second = after;
     }
 
+    /**
+     * An `ImListZipper` on `list` - positioned *before* the first element.
+     */
     public static <TT> ImListZipper<TT> on(ImList<TT> list)
     {
         return new ImListZipper<TT>(list);
@@ -525,20 +543,18 @@ public class ImListZipper<T> implements Iterable<ImListZipper<T>>
      * 1  2  3    prev()    => 1  2  3
      *
      * *                       *
-     * 1  2  3    prev()    =>    1  2  3
+     * 1  2  3    prev()    =>   1  2  3
      * }</pre>
      * <p> If the first list is empty then
      * {@code this}
-     *  is returned.
-     * <ul>
-     * <li>
+     *  is returned:
      *
      * <pre>{@code
-     *                 *
+     * *                     *
+     *   1  2  3  prev()  =>   1  2  3
      * }</pre>
-     * <p> 1  2  3  prev()  =>   1  2  3
-     * </li>
-     * </ul>
+     *
+     *
      * <p> If the first list is now empty then you won't be able to set or get the focus or pop it.
      * <p> Note that this means that you can always use
      * {@code prev()}
@@ -872,11 +888,23 @@ public class ImListZipper<T> implements Iterable<ImListZipper<T>>
                    : false;
     }
 
+    /**
+     * <p> Move the focus of this zipper to the next element that is equal to
+     * {@code thingToFind}
+     * .
+     *
+     */
     public ImMaybe<ImListZipper<T>> find(T thingToFind)
     {
         return find(i -> Eq.uals(thingToFind, i));
     }
 
+    /**
+     * <p> Move the focus of this zipper to the next element where
+     * {@code pred}
+     *  is true.
+     *
+     */
     public ImMaybe<ImListZipper<T>> find(Fn<T, Boolean> pred)
     {
         ImListZipper<T> z = this;

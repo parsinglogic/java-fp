@@ -115,7 +115,7 @@ import static dev.javafp.lst.ImLazyList.UNKNOWN_UNKNOWN;
  * -Xss1024k
  * }</pre>
  * <p> to allow recursion to a depth of about 30 million
- * <p> If you run LstTest::testPermutationsLarge
+ * <p> If you run ImListTest::testPermutationsLarge
  * <p> You will see that I can lazily create a large list and get its size using no recursion (or very little)
  * <h2>Lazy lists</h2>
  * <p> These also reduce recursion in that they act as trampolines

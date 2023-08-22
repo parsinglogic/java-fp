@@ -299,7 +299,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * <pre>{@code
      * e1.equals(e2) == true
      * }</pre>
-     * <p> In other words, two Lsts are defined to be
+     * <p> In other words, two ImLists are defined to be
      * equal if they contain
      * <em>equal</em>
      *  elements in the same order.
@@ -2257,8 +2257,8 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * <p> But, in
      * {@code java_fp}
      * , since
-     * {@code Lsts}
-     *  are
+     * {@code ImList}
+     * s are
      * <em>immutable</em>
      * , it is always safe to (implicitly) cast them in this way. You can't add a
      * {@code Cuckoo}

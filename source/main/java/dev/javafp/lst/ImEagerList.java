@@ -75,7 +75,7 @@ abstract class ImEagerList<A> implements ImList<A>
     }
 
     /**
-     * <p> When serialising, we turn every ImList into a LstOnArray
+     * <p> When serialising, we turn every ImList into a ImListOnArray
      */
     protected Object writeReplace()
     {

@@ -54,7 +54,7 @@ public class ImReverseListTest
      * todo
      *
      * tails
-     * LstOnZipper
+     * ImListOnZipper
      * zipwith
      * ImTripleList
      * ImQuintetList
