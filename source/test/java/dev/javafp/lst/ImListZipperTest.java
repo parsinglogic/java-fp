@@ -21,49 +21,25 @@ public class ImListZipperTest
     @Test
     public void testGetNextThrows()
     {
-        try
-        {
-            ImList.on().getZipper().next();
-            TestUtils.failExpectedException(NoSuchElementException.class);
-        } catch (NoSuchElementException e)
-        {
-        }
+        TestUtils.assertThrows(() -> ImList.on().getZipper().next(), NoSuchElementException.class);
     }
 
     @Test
     public void testSetFocusThrows()
     {
-        try
-        {
-            ImList.on().getZipper().setFocus(1);
-            TestUtils.failExpectedException(ZipperHasNoFocusException.class);
-        } catch (ZipperHasNoFocusException e)
-        {
-        }
+        TestUtils.assertThrows(() -> ImList.on().getZipper().setFocus(1), ZipperHasNoFocusException.class);
     }
 
     @Test
     public void testGetFocusThrows()
     {
-        try
-        {
-            ImList.on().getZipper().getFocus();
-            TestUtils.failExpectedException(ZipperHasNoFocusException.class);
-        } catch (ZipperHasNoFocusException e)
-        {
-        }
+        TestUtils.assertThrows(() -> ImList.on().getZipper().getFocus(), ZipperHasNoFocusException.class);
     }
 
     @Test
     public void testPopThrows()
     {
-        try
-        {
-            ImList.on().getZipper().pop();
-            TestUtils.failExpectedException(ZipperHasNoFocusException.class);
-        } catch (ZipperHasNoFocusException e)
-        {
-        }
+        TestUtils.assertThrows(() -> ImList.on().getZipper().pop(), ZipperHasNoFocusException.class);
     }
 
     @Test
@@ -277,39 +253,6 @@ public class ImListZipperTest
 
         return p;
     }
-
-    //    public <T> ImList<ImList<T>> perms3(ImList<T> list)
-    //    {
-    //        if (list.isEmpty())
-    //            return ImList.on(ImList.<T> empty());
-    //
-    //        ImList<ImList<T>> p = ImList.on();
-    //
-    //        for (ImListZipper<T> z : list.getZipper())
-    //        {
-    //            p = p.addingAll(perms2(z.pop().close()).map(ImListZipperTest.<ImList<T>> consFn().invoke(z.getFocus())));
-    //        }
-    //
-    //        return p;
-    //    }
-    //
-    //    public <T> ImList<ImList<T>> perms2(ImList<T> list)
-    //    {
-    //        if (list.isEmpty())
-    //            return ImList.on(ImList.<T> empty());
-    //
-    //        Function2<ImList<T>> consFn = FnFactory.on(ImList.class).getFnStatic( //
-    //                ImList.class, "cons", Object.class, ImList.class);
-    //
-    //        ImList<ImList<T>> p = ImList.on();
-    //
-    //        for (ImListZipper<T> z : list.getZipper())
-    //        {
-    //            p = p.addingAll(perms2(z.pop().close()).map(consFn.invoke(z.getFocus())));
-    //        }
-    //
-    //        return p;
-    //    }
 
     @Test
     public void exampleWhileLoop()
