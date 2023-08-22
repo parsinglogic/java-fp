@@ -142,28 +142,6 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
     }
 
     /**
-     * <p> The map where each entry at key
-     * {@code k}
-     * is created by applying
-     * {@code fn}
-     *  to the value at
-     * {@code k}
-     *  in
-     * {@code this}
-     * .
-     *
-     */
-    public <V2> ImMap<K, V2> map(Fn<V, V2> fn)
-    {
-        return ImMap.onSet(entrySet.map(e -> new Entry<>(e.key, fn.of(e.value))));
-    }
-
-    public static <KEY, VALUE> ImMap<KEY, VALUE> on(KEY key, VALUE value)
-    {
-        return ImMap.<KEY, VALUE>empty().put(key, value);
-    }
-
-    /**
      * <p> An
      * {@code ImMap}
      *  entry (key-value pair).
@@ -277,6 +255,36 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
         this.entrySet = entrySet;
     }
 
+    /**
+     * <p> The map where each entry at key
+     * {@code k}
+     * is created by applying
+     * {@code fn}
+     *  to the value at
+     * {@code k}
+     *  in
+     * {@code this}
+     * .
+     *
+     */
+    public <V2> ImMap<K, V2> map(Fn<V, V2> fn)
+    {
+        return ImMap.onSet(entrySet.map(e -> new Entry<>(e.key, fn.of(e.value))));
+    }
+
+    /**
+     * <p> A map containing a single entry -
+     * {@code key}
+     *  pointing to
+     * {@code value}
+     * .
+     *
+     */
+    public static <KEY, VALUE> ImMap<KEY, VALUE> on(KEY key, VALUE value)
+    {
+        return ImMap.<KEY, VALUE>empty().put(key, value);
+    }
+
     private static <K, V> ImMap<K, V> onSet(ImSet<Entry<K, V>> set)
     {
         return set.isEmpty()
@@ -284,6 +292,33 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
                : new ImMap<>(set);
     }
 
+    /**
+     *
+     * <p> A map where, for all values,
+     * {@code v}
+     * , in
+     * {@code values}
+     * , each key is obtained by applying
+     * {@code getKeyFn}
+     *  to
+     * {@code v}
+     *  and each value is
+     * {@code v}
+     * .
+     * <p> In other words:
+     *
+     *
+     * <p> A map,
+     * {@code m}
+     * , from
+     * {@code A -> ImList<B>}
+     *  where
+     *
+     * <pre>{@code
+     * foreach v in values, m.get(getKeyFn.of(v)) == v
+     * }</pre>
+     *
+     */
     public static <A, B> ImMap<A, B> from(ImList<B> values, Fn<B, A> getKeyFn)
     {
         ImList<Entry<A, B>> es = values.map(v -> new Entry<>(getKeyFn.of(v), v));
@@ -293,20 +328,30 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
         return es.foldl(empty(), (entries, newEntry) -> entries.putEntry(newEntry));
     }
 
+    /**
+     * <p> A map where, for all pairs
+     * {@code (k, v)}
+     * in
+     * {@code pairs}
+     *  each key is
+     * {@code k}
+     *  and each value is
+     * {@code v}
+     */
     public static <A, B> ImMap<A, B> fromPairs(ImList<ImPair<A, B>> pairs)
     {
         return pairs.foldl(empty(), (m, p) -> m.put(p.fst, p.snd));
     }
 
     /**
-     * <p> A map from
+     * <p> A map, m, from
      * {@code A -> ImList<B>}
      *  where
      *
      * <pre>{@code
      * foreach v in values, m.get(getKeyFn.of(v)).contains(v)
      * }</pre>
-     * <p> We preserve the order of the values in the pairs in the map
+     * <p> We preserve the order of the values in the lists of values in the map
      *
      */
     public static <A, B> ImMap<A, ImList<B>> fromMulti(ImList<B> values, Fn<B, A> getKeyFn)
@@ -353,6 +398,13 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
         return result;
     }
 
+    /**
+     * The value at key
+     * {@code key}
+     * or
+     * {@code def}
+     * if no such key exists
+     */
     public V getOrDefault(K key, V def)
     {
         V v = get(key);
@@ -362,6 +414,11 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
                : v;
     }
 
+    /**
+     * The {@link Map}
+     * that contains the same keys and values as
+     * {@code this}
+     */
     public Map<K, V> toMap()
     {
         HashMap<K, V> result = new HashMap<>();
@@ -588,23 +645,32 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
         return entrySet.getTextBox();
     }
 
+    /**
+     * The keys in this map as a list.
+     */
     public ImList<K> keys()
     {
         return ImList.onAll(entrySet).map(e -> e.key);
     }
 
+    /**
+     * The keys in this map as a set
+     */
     public ImSet<K> keysSet()
     {
         return entrySet.map(e -> e.key);
     }
 
+    /**
+     * The values in this map as a list.
+     */
     public ImList<V> values()
     {
         return ImList.onAll(entrySet).map(e -> e.value);
     }
 
     /**
-     * <p> The key/value pairs
+     * <p> The key/value pairs in this map.
      */
     public ImList<ImPair<K, V>> pairs()
     {

@@ -26,7 +26,7 @@ class ImAppendList<A> extends ImLazyList<A>
 
     }
 
-    public static <A> ImList<A> on(ImList<A> one, ImList<A> two)
+    static <A> ImList<A> on(ImList<A> one, ImList<A> two)
     {
         return one.isEmpty()
                ? two

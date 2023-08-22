@@ -503,7 +503,14 @@ public class ImListZipper<T> implements Iterable<ImListZipper<T>>
     }
 
     /**
-     * An `ImListZipper` on `list` - positioned *before* the first element.
+     * <p> An
+     * {@code ImListZipper}
+     *  on
+     * {@code list}
+     *  - positioned
+     * <em>before</em>
+     *  the first element.
+     *
      */
     public static <TT> ImListZipper<TT> on(ImList<TT> list)
     {
