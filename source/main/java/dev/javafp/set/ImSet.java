@@ -560,13 +560,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
 
         // Create an entry that we can search for
         final Bucket<T> entry = new Bucket<T>(hashCode);
-        //
-        //        // Find it in the tree
-        //        final Bucket<T> foundOrNull = (Bucket<T>) sortedSetOfBuckets.find(entry);
-        //
-        //        return foundOrNull == null
-        //               ? null
-        //               : foundOrNull.get(elementToFind);
 
         return sortedSetOfBuckets.find(entry).flatMap(i -> ImMaybe.with(i.get(elementToFind)));
     }
@@ -964,35 +957,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         return (ImSet<U>) this;
     }
 
-    //    /**
-    //     * <p> The ImSet formed out of the elements of each collection in
-    //     * {@code collections}
-    //     *  in order.
-    //     * <p> ImCollections can't contain
-    //     * {@code null}
-    //     *  so none of the elements can be
-    //     * {@code null}
-    //     * <h4>Examples:</h4>
-    //     *
-    //     * <pre>{@code
-    //     * List<Number> threeFive = Arrays.<Number> asList(3, 5);
-    //     * ImSet<Integer> oneTwo = ImSet.on(1, 2);
-    //     *
-    //     * joinArray(oneTwo, threeFive)          =>  [1, 2, 3, 5]");
-    //     * joinArray(oneTwo, threeFive, oneTwo)  =>  [1, 2, 3, 5, 1, 2]
-    //     * joinArray(on(), on())                 =>  []
-    //     * }</pre>
-    //     * @see #union(Iterable)
-    //     * @see #joinIterator(Iterator)
-    //     * @see #join(Collection)
-    //     *
-    //     */
-    //    @SafeVarargs
-    //    public static <T> ImSet<T> joinArray(Collection<? extends T>... collections)
-    //    {
-    //        return joinIterator(ArrayIterator.on(collections));
-    //    }
-
     /**
      * <p> The ImSet formed out of the elements of each collection in
      * {@code iterator}
@@ -1015,48 +979,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
 
         return concat;
     }
-
-    //    /**
-    //     * <p> The ImSet formed out of the elements of each collection in
-    //     * {@code iterator}
-    //     *  in order.
-    //     * <p> ImCollections can't contain
-    //     * {@code null}
-    //     *  so none of the elements can be
-    //     * {@code null}
-    //     * @see #union(Iterable)
-    //     * @see #joinArray(Collection...)
-    //     * @see #join(Collection)
-    //     *
-    //     */
-    //    public static <T> ImSet<T> joinIterator(Iterator<Collection<? extends T>> iterator)
-    //    {
-    //        ImSet<T> concat = ImSet.empty();
-    //
-    //        while (iterator.hasNext())
-    //            concat = concat.union(ImSet.onAll(iterator.next()));
-    //
-    //        return concat;
-    //    }
-
-    //    /**
-    //     * <p> The ImSet formed out of the elements of each collection in
-    //     * {@code collectionOfCollections}
-    //     *  in order.
-    //     * <p> ImCollections can't contain
-    //     * {@code null}
-    //     *  so none of the elements can be
-    //     * {@code null}
-    //     * @see #union(Iterable)
-    //     * @see #joinArray(Collection...)
-    //     * @see #joinIterator(Iterator)
-    //     *
-    //     */
-    //    @SuppressWarnings("unchecked")
-    //    public static <T> ImSet<T> join(Collection<? extends Collection<? extends T>> collectionOfCollections)
-    //    {
-    //        return joinIterator((Iterator<Collection<? extends T>>) collectionOfCollections.iterator());
-    //    }
 
     /**
      * <p> A list containing the elements of the set
