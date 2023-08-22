@@ -1659,7 +1659,19 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/net/ImUrl.html#fragment" class="member-name-link">fragment</a> - Variable in class dev.javafp.net.<a href="dev/javafp/net/ImUrl.html" title="class in dev.javafp.net">ImUrl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/set/ImMap.html#from(dev.javafp.lst.ImList,dev.javafp.func.Fn)" class="member-name-link">from(ImList&lt;B&gt;, Fn&lt;B, A&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A map where, for all values,
+ <code>v</code>
+ , in
+ <code>values</code>
+ , each key is obtained by applying
+ <code>getKeyFn</code>
+  to
+ <code>v</code>
+  and each value is
+ <code>v</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/tree/MutableTree.html#from(dev.javafp.tree.ImRoseTree)" class="member-name-link">from(ImRoseTree&lt;A&gt;)</a> - Static method in class dev.javafp.tree.<a href="dev/javafp/tree/MutableTree.html" title="class in dev.javafp.tree">MutableTree</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#from(java.awt.geom.Rectangle2D)" class="member-name-link">from(Rectangle2D)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
@@ -1672,7 +1684,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/set/ImMap.html#fromMulti(dev.javafp.lst.ImList,dev.javafp.func.Fn)" class="member-name-link">fromMulti(ImList&lt;B&gt;, Fn&lt;B, A&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
 <dd>
-<div class="block"> A map from
+<div class="block"> A map, m, from
  <code>A -&gt; ImList&lt;B&gt;</code>
   where</div>
 </dd>
@@ -1681,7 +1693,16 @@ loadScripts(document, 'script');</script>
 <div class="block"> Create a map of keys to lists of values from a list of pairs.</div>
 </dd>
 <dt><a href="dev/javafp/set/ImMap.html#fromPairs(dev.javafp.lst.ImList)" class="member-name-link">fromPairs(ImList&lt;ImPair&lt;A, B&gt;&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A map where, for all pairs
+ <code>(k, v)</code>
+ in
+ <code>pairs</code>
+  each key is
+ <code>k</code>
+  and each value is
+ <code>v</code></div>
+</dd>
 <dt><a href="dev/javafp/util/SvgTransform.html#fromSvgString(java.lang.String)" class="member-name-link">fromSvgString(String)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/SvgTransform.html" title="class in dev.javafp.util">SvgTransform</a></dt>
 <dd>
 <div class="block"> Take the
@@ -2092,7 +2113,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/CommandLineArgsResult.html#getOption(java.lang.String)" class="member-name-link">getOption(String)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/CommandLineArgsResult.html" title="class in dev.javafp.util">CommandLineArgsResult</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/set/ImMap.html#getOrDefault(K,V)" class="member-name-link">getOrDefault(K, V)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The value at key
+ <code>key</code>
+ or
+ <code>def</code>
+ if no such key exists</div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getPairs(dev.javafp.graph.ImGraph.Dir,KEY)" class="member-name-link">getPairs(ImGraph.Dir, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
 <div class="block"> Get the arcs in the direction
@@ -3474,13 +3501,17 @@ loadScripts(document, 'script');</script>
 <div class="block">A list of all the keys in the graph</div>
 </dd>
 <dt><a href="dev/javafp/set/ImMap.html#keys()" class="member-name-link">keys()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The keys in this map as a list.</div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#keysSet()" class="member-name-link">keysSet()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
 <div class="block">A set of all the keys in the graph</div>
 </dd>
 <dt><a href="dev/javafp/set/ImMap.html#keysSet()" class="member-name-link">keysSet()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The keys in this map as a set</div>
+</dd>
 <dt><a href="dev/javafp/net/ApiResponse.html#keyValuePairs()" class="member-name-link">keyValuePairs()</a> - Method in class dev.javafp.net.<a href="dev/javafp/net/ApiResponse.html" title="class in dev.javafp.net">ApiResponse</a></dt>
 <dd>
 <div class="block"> Get a list of key/value pairs from the body - assuming form-URL encoding</div>
@@ -4207,7 +4238,13 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/lst/ImListZipper.html#on(dev.javafp.lst.ImList)" class="member-name-link">on(ImList&lt;TT&gt;)</a> - Static method in class dev.javafp.lst.<a href="dev/javafp/lst/ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a></dt>
 <dd>
-<div class="block">An `ImListZipper` on `list` - positioned *before* the first element.</div>
+<div class="block"> An
+ <code>ImListZipper</code>
+  on
+ <code>list</code>
+  - positioned
+ <em>before</em>
+  the first element.</div>
 </dd>
 <dt><a href="dev/javafp/net/GetRequest.html#on(dev.javafp.net.ImUrl)" class="member-name-link">on(ImUrl)</a> - Static method in class dev.javafp.net.<a href="dev/javafp/net/GetRequest.html" title="class in dev.javafp.net">GetRequest</a></dt>
 <dd>&nbsp;</dd>
@@ -4259,7 +4296,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/tuple/ImPair.html#on(java.util.Map.Entry)" class="member-name-link">on(Map.Entry&lt;U, V&gt;)</a> - Static method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/set/ImMap.html#on(KEY,VALUE)" class="member-name-link">on(KEY, VALUE)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A map containing a single entry -
+ <code>key</code>
+  pointing to
+ <code>value</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/graph/ImArc.html#on(LABEL,KEY,KEY)" class="member-name-link">on(LABEL, KEY, KEY)</a> - Static method in class dev.javafp.graph.<a href="dev/javafp/graph/ImArc.html" title="class in dev.javafp.graph">ImArc</a></dt>
 <dd>
 <div class="block">Create an arc with label
@@ -4485,7 +4528,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/set/ImMap.html#pairs()" class="member-name-link">pairs()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
 <dd>
-<div class="block"> The key/value pairs</div>
+<div class="block"> The key/value pairs in this map.</div>
 </dd>
 <dt><a href="dev/javafp/util/CommandLineArgsParser.html#parse0(dev.javafp.lst.ImList)" class="member-name-link">parse0(ImList&lt;String&gt;)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/CommandLineArgsParser.html" title="class in dev.javafp.util">CommandLineArgsParser</a></dt>
 <dd>&nbsp;</dd>
@@ -5940,7 +5983,11 @@ loadScripts(document, 'script');</script>
 <div class="block">The list that is the pre-order scan of the elements of this tree</div>
 </dd>
 <dt><a href="dev/javafp/set/ImMap.html#toMap()" class="member-name-link">toMap()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link"><code>Map</code></a>
+ that contains the same keys and values as
+ <code>this</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Orient1.html#Top" class="member-name-link">Top</a> - Enum constant in enum class dev.javafp.geom.<a href="dev/javafp/geom/Orient1.html" title="enum class in dev.javafp.geom">Orient1</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Point.html#toPair()" class="member-name-link">toPair()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Point.html" title="class in dev.javafp.geom">Point</a></dt>
@@ -6376,7 +6423,9 @@ the order they are declared.</div>
 the order they are declared.</div>
 </dd>
 <dt><a href="dev/javafp/set/ImMap.html#values()" class="member-name-link">values()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The values in this map as a list.</div>
+</dd>
 <dt><a href="dev/javafp/set/ImSet.Replace.html#values()" class="member-name-link">values()</a> - Static method in enum class dev.javafp.set.<a href="dev/javafp/set/ImSet.Replace.html" title="enum class in dev.javafp.set">ImSet.Replace</a></dt>
 <dd>
 <div class="block">Returns an array containing the constants of this enum class, in

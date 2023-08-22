@@ -270,7 +270,19 @@ U&gt;&nbsp;<a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;T,<
 B&gt;&nbsp;<a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;A,<wbr>B&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#from(dev.javafp.lst.ImList,dev.javafp.func.Fn)" class="member-name-link">from</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;&nbsp;values,
  <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;B,<wbr>A&gt;&nbsp;getKeyFn)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A map where, for all values,
+ <code>v</code>
+ , in
+ <code>values</code>
+ , each key is obtained by applying
+ <code>getKeyFn</code>
+  to
+ <code>v</code>
+  and each value is
+ <code>v</code>
+ .</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A,<wbr>
 B&gt;&nbsp;<a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;A,<wbr>B&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#fromMap(java.util.Map)" class="member-name-link">fromMap</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;A,<wbr>B&gt;&nbsp;sourceMap)</code></div>
@@ -282,7 +294,7 @@ B&gt;&nbsp;<a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;A,<
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#fromMulti(dev.javafp.lst.ImList,dev.javafp.func.Fn)" class="member-name-link">fromMulti</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;&nbsp;values,
  <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;B,<wbr>A&gt;&nbsp;getKeyFn)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> A map from
+<div class="block"> A map, m, from
  <code>A -&gt; ImList&lt;B&gt;</code>
   where</div>
 </div>
@@ -295,7 +307,16 @@ B&gt;&nbsp;<a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;A,<
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A,<wbr>
 B&gt;&nbsp;<a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;A,<wbr>B&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#fromPairs(dev.javafp.lst.ImList)" class="member-name-link">fromPairs</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;A,<wbr>B&gt;&gt;&nbsp;pairs)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A map where, for all pairs
+ <code>(k, v)</code>
+ in
+ <code>pairs</code>
+  each key is
+ <code>k</code>
+  and each value is
+ <code>v</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImMap.html" title="type parameter in ImMap">V</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get(K)" class="member-name-link">get</a><wbr>(<a href="ImMap.html" title="type parameter in ImMap">K</a>&nbsp;key)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -315,7 +336,13 @@ B&gt;&nbsp;<a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;A,<
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImMap.html" title="type parameter in ImMap">V</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getOrDefault(K,V)" class="member-name-link">getOrDefault</a><wbr>(<a href="ImMap.html" title="type parameter in ImMap">K</a>&nbsp;key,
  <a href="ImMap.html" title="type parameter in ImMap">V</a>&nbsp;def)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The value at key
+ <code>key</code>
+ or
+ <code>def</code>
+ if no such key exists</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getTextBox()" class="member-name-link">getTextBox</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -345,10 +372,14 @@ B&gt;&nbsp;<a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;A,<
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">K</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#keys()" class="member-name-link">keys</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The keys in this map as a list.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">K</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#keysSet()" class="member-name-link">keysSet</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The keys in this map as a set</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;V2&gt;&nbsp;<a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">K</a>,<wbr>V2&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#map(dev.javafp.func.Fn)" class="member-name-link">map</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">V</a>,<wbr>V2&gt;&nbsp;fn)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -366,11 +397,17 @@ B&gt;&nbsp;<a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;A,<
 VALUE&gt;<br><a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;KEY,<wbr>VALUE&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(KEY,VALUE)" class="member-name-link">on</a><wbr>(KEY&nbsp;key,
  VALUE&nbsp;value)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A map containing a single entry -
+ <code>key</code>
+  pointing to
+ <code>value</code>
+ .</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">K</a>,<wbr><a href="ImMap.html" title="type parameter in ImMap">V</a>&gt;&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pairs()" class="member-name-link">pairs</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block"> The key/value pairs</div>
+<div class="block"> The key/value pairs in this map.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">K</a>,<wbr><a href="ImMap.html" title="type parameter in ImMap">V</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#put(K,V)" class="member-name-link">put</a><wbr>(<a href="ImMap.html" title="type parameter in ImMap">K</a>&nbsp;key,
@@ -412,7 +449,11 @@ VALUE&gt;<br><a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;K
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">K</a>,<wbr><a href="ImMap.html" title="type parameter in ImMap">V</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toMap()" class="member-name-link">toMap</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link"><code>Map</code></a>
+ that contains the same keys and values as
+ <code>this</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -431,7 +472,9 @@ VALUE&gt;<br><a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;K
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">V</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#values()" class="member-name-link">values</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The values in this map as a list.</div>
+</div>
 </div>
 </div>
 </div>
@@ -510,6 +553,11 @@ U&gt;</span>&nbsp;<span class="return-type"><a href="ImMap.html" title="class in
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;KEY,<wbr>
 VALUE&gt;</span>&nbsp;<span class="return-type"><a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;KEY,<wbr>VALUE&gt;</span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(KEY&nbsp;key,
  VALUE&nbsp;value)</span></div>
+<div class="block"><p> A map containing a single entry -
+ <code>key</code>
+  pointing to
+ <code>value</code>
+ .</div>
 </section>
 </li>
 <li>
@@ -518,6 +566,29 @@ VALUE&gt;</span>&nbsp;<span class="return-type"><a href="ImMap.html" title="clas
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A,<wbr>
 B&gt;</span>&nbsp;<span class="return-type"><a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;A,<wbr>B&gt;</span>&nbsp;<span class="element-name">from</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;&nbsp;values,
  <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;B,<wbr>A&gt;&nbsp;getKeyFn)</span></div>
+<div class="block"><p> A map where, for all values,
+ <code>v</code>
+ , in
+ <code>values</code>
+ , each key is obtained by applying
+ <code>getKeyFn</code>
+  to
+ <code>v</code>
+  and each value is
+ <code>v</code>
+ .
+ <p> In other words:
+
+
+ <p> A map,
+ <code>m</code>
+ , from
+ <code>A -&gt; ImList&lt;B&gt;</code>
+  where
+
+ <pre><code>
+ foreach v in values, m.get(getKeyFn.of(v)) == v
+ </code></pre></div>
 </section>
 </li>
 <li>
@@ -525,6 +596,14 @@ B&gt;</span>&nbsp;<span class="return-type"><a href="ImMap.html" title="class in
 <h3>fromPairs</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A,<wbr>
 B&gt;</span>&nbsp;<span class="return-type"><a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;A,<wbr>B&gt;</span>&nbsp;<span class="element-name">fromPairs</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;A,<wbr>B&gt;&gt;&nbsp;pairs)</span></div>
+<div class="block"><p> A map where, for all pairs
+ <code>(k, v)</code>
+ in
+ <code>pairs</code>
+  each key is
+ <code>k</code>
+  and each value is
+ <code>v</code></div>
 </section>
 </li>
 <li>
@@ -533,14 +612,14 @@ B&gt;</span>&nbsp;<span class="return-type"><a href="ImMap.html" title="class in
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A,<wbr>
 B&gt;</span>&nbsp;<span class="return-type"><a href="ImMap.html" title="class in dev.javafp.set">ImMap</a>&lt;A,<wbr><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;&gt;</span>&nbsp;<span class="element-name">fromMulti</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;&nbsp;values,
  <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;B,<wbr>A&gt;&nbsp;getKeyFn)</span></div>
-<div class="block"><p> A map from
+<div class="block"><p> A map, m, from
  <code>A -&gt; ImList&lt;B&gt;</code>
   where
 
  <pre><code>
  foreach v in values, m.get(getKeyFn.of(v)).contains(v)
  </code></pre>
- <p> We preserve the order of the values in the pairs in the map</div>
+ <p> We preserve the order of the values in the lists of values in the map</div>
 </section>
 </li>
 <li>
@@ -574,12 +653,20 @@ B&gt;</span>&nbsp;<span class="return-type"><a href="ImMap.html" title="class in
 <h3 id="getOrDefault(java.lang.Object,java.lang.Object)">getOrDefault</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImMap.html" title="type parameter in ImMap">V</a></span>&nbsp;<span class="element-name">getOrDefault</span><wbr><span class="parameters">(<a href="ImMap.html" title="type parameter in ImMap">K</a>&nbsp;key,
  <a href="ImMap.html" title="type parameter in ImMap">V</a>&nbsp;def)</span></div>
+<div class="block">The value at key
+ <code>key</code>
+ or
+ <code>def</code>
+ if no such key exists</div>
 </section>
 </li>
 <li>
 <section class="detail" id="toMap()">
 <h3>toMap</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">K</a>,<wbr><a href="ImMap.html" title="type parameter in ImMap">V</a>&gt;</span>&nbsp;<span class="element-name">toMap</span>()</div>
+<div class="block">The <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link"><code>Map</code></a>
+ that contains the same keys and values as
+ <code>this</code></div>
 </section>
 </li>
 <li>
@@ -751,25 +838,28 @@ B&gt;</span>&nbsp;<span class="return-type"><a href="ImMap.html" title="class in
 <section class="detail" id="keys()">
 <h3>keys</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">K</a>&gt;</span>&nbsp;<span class="element-name">keys</span>()</div>
+<div class="block">The keys in this map as a list.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="keysSet()">
 <h3>keysSet</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">K</a>&gt;</span>&nbsp;<span class="element-name">keysSet</span>()</div>
+<div class="block">The keys in this map as a set</div>
 </section>
 </li>
 <li>
 <section class="detail" id="values()">
 <h3>values</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">V</a>&gt;</span>&nbsp;<span class="element-name">values</span>()</div>
+<div class="block">The values in this map as a list.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="pairs()">
 <h3>pairs</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="ImMap.html" title="type parameter in ImMap">K</a>,<wbr><a href="ImMap.html" title="type parameter in ImMap">V</a>&gt;&gt;</span>&nbsp;<span class="element-name">pairs</span>()</div>
-<div class="block"><p> The key/value pairs</div>
+<div class="block"><p> The key/value pairs in this map.</div>
 </section>
 </li>
 <li>
