@@ -21,7 +21,7 @@ public class TangentVectorTest
     @Test
     public void testRepeat() throws Exception
     {
-        ImList<TangentVector> actual = new TangentVector(1, 2, 3, 4).repeat(new Point(3, 4), 3);
+        ImList<TangentVector> actual = new TangentVector(1, 2, 3, 4).repeat(Point.on(3, 4), 3);
 
         ImList<TangentVector> ex = ImList.on(new TangentVector(1, 2, 3, 4), new TangentVector(4, 6, 3, 4), new TangentVector(7, 10, 3, 4));
 
@@ -76,9 +76,9 @@ public class TangentVectorTest
     @Test
     public void testLineCoords2() throws Exception
     {
-        check(TangentVector.fromTo(Point.zero, new Point(1, 1)));
-        check(TangentVector.fromTo(Point.zero, new Point(0, 1)));
-        check(TangentVector.fromTo(Point.zero, new Point(1, 0)));
+        check(TangentVector.fromTo(Point.zero, Point.on(1, 1)));
+        check(TangentVector.fromTo(Point.zero, Point.on(0, 1)));
+        check(TangentVector.fromTo(Point.zero, Point.on(1, 0)));
     }
 
     private void check(TangentVector tv)
@@ -102,7 +102,7 @@ public class TangentVectorTest
 
         ImTriple<Double, Double, Double> intersection = tv1.intersection(tv2);
 
-        Point in = new Point(intersection.e1 / intersection.e3, intersection.e2 / intersection.e3);
+        Point in = Point.on(intersection.e1 / intersection.e3, intersection.e2 / intersection.e3);
         System.out.println(in);
 
         assertClose(0, tv1.lineEquation().applyTo(in));
@@ -117,7 +117,7 @@ public class TangentVectorTest
 
         ImTriple<Double, Double, Double> intersection = tv1.intersection(tv2);
 
-        Point in = new Point(intersection.e1 / intersection.e3, intersection.e2 / intersection.e3);
+        Point in = Point.on(intersection.e1 / intersection.e3, intersection.e2 / intersection.e3);
         System.out.println(in);
 
         assertClose(0, tv1.lineEquation().applyTo(in));

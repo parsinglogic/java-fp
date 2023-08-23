@@ -49,7 +49,7 @@ public class SvgTransformTest
     @Test
     public void testTranAndScale() throws Exception
     {
-        assertEquals(new Point(8, 16), new Point(1, 1).preMultiply(scale(2).postMultiplyBy(move(3, 7))));
+        assertEquals(Point.on(8, 16), Point.on(1, 1).preMultiply(scale(2).postMultiplyBy(move(3, 7))));
         Say.println("\n" + scale(2).postMultiplyBy(move(3, 7)));
     }
 
@@ -84,10 +84,10 @@ public class SvgTransformTest
             List<Integer> l = p.toList();
             SvgTransform t1 = new SvgTransform(l.get(0), l.get(1), l.get(2), l.get(3), l.get(4), l.get(5));
             SvgTransform t2 = new SvgTransform(l.get(5), l.get(4), l.get(3), l.get(2), l.get(1), l.get(0));
-            Point a1 = new Point(1, 1).preMultiply(t2.postMultiplyBy(t1));
-            //Point a2 = t2.apply(t1.apply(new Point(1, 1)));
+            Point a1 = Point.on(1, 1).preMultiply(t2.postMultiplyBy(t1));
+            //Point a2 = t2.apply(t1.apply(Point.on(1, 1)));
 
-            Point a2 = new Point(1, 1).preMultiply(t1).preMultiply(t2);
+            Point a2 = Point.on(1, 1).preMultiply(t1).preMultiply(t2);
             assertEquals(a2, a1);
         }
     }

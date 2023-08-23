@@ -40,7 +40,7 @@ public class Rect extends ImValuesImpl
 
     public Rect(double x, double y, double width, double height)
     {
-        this(new Point(x, y), new Point(width, height));
+        this(Point.on(x, y), Point.on(width, height));
     }
 
     public static Rect originCorner(Point origin, Point corner)
@@ -376,7 +376,10 @@ public class Rect extends ImValuesImpl
     /**
      * <p> A rectangle representing this after it has been justified in
      * {@code container}
-     * according to the x and y justifications
+     * based on orientation
+     * {@code orient}
+     * and then offset by
+     * {@code offset}
      *
      * <pre>{@code
      *     left  bottom                         centre bottom                       right bottom
@@ -428,22 +431,44 @@ public class Rect extends ImValuesImpl
      * }</pre>
      *
      */
-    //    public Rect justify(Rect container, XJustification xj, YJustification yj)
-    //    {
-    //        double x = xj == left
-    //                   ? 0
-    //                   : xj == XJustification.centre
-    //                     ? (container.size.x - size.x) * 0.5
-    //                     : container.size.x - size.x;
-    //
-    //        double y = yj == YJustification.top
-    //                   ? 0.0
-    //                   : yj == YJustification.centre
-    //                     ? (container.size.y - size.y) * 0.5
-    //                     : container.size.y - size.y;
-    //
-    //        return new Rect(Point.on ( x, y) box.x, box.y);
-    //    }
+    public Rect justifyIn(Orient2 orient, Point offset)
+    {
+
+        double xOff = xOff(this.getWidth(), offset.x, orient.ox);
+        double yOff = yOff(this.getHeight(), offset.x, orient.oy);
+
+        return this.setWidth(offset.x).setHeight(offset.y).moveBy(xOff, yOff);
+    }
+
+    private static double xOff(double containerWidth, double myWidth, Orient1 ox)
+    {
+        switch (ox)
+        {
+        case Right:
+            return containerWidth - myWidth;
+
+        case Centre:
+            return (containerWidth - myWidth) * 0.5;
+
+        default:
+            return 0;
+        }
+    }
+
+    private static double yOff(double containerHeight, double myHeight, Orient1 oy)
+    {
+        switch (oy)
+        {
+        case Bottom:
+            return containerHeight - myHeight;
+
+        case Centre:
+            return (containerHeight - myHeight) * 0.5;
+
+        default:
+            return 0;
+        }
+    }
 
     /**
      * <p> Expand by a border of borderWidth, keeping the origin the same

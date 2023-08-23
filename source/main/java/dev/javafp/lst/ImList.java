@@ -3104,6 +3104,14 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     }
 
     /**
+     * <p> Split
+     * {@code this}
+     * into
+     * {@code n}
+     * lists.
+     *
+     * <p> In other words:
+     *
      * <p> A
      * {@code ImList}
      *  of

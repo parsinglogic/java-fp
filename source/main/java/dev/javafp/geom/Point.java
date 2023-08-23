@@ -18,54 +18,112 @@ import dev.javafp.val.ImValuesImpl;
 import static java.lang.Math.abs;
 import static java.lang.Math.min;
 
-@SuppressWarnings("serial")
+/**
+ * A 2D point
+ * {@code (x, y)}
+ * .
+ *
+ * <p> The x-axis goes to the right and the y-axis goes down.
+ *
+ * <p> We use the terms east, west etc in some of the functions. These are indicated below.
+ *
+ * <pre>{@code
+ *
+ *              (north)
+ *
+ *
+ *                 x
+ *              ┌───────>
+ *              │
+ *  (west)    y │            (east)
+ *              │
+ *              ∨
+ *
+ *
+ *             (south)
+ * }</pre>
+ *
+ *
+ */
 public class Point extends ImValuesImpl
 {
+
+    /**
+     * <p> The point
+     * {@code (0, 0)}
+     *
+     */
     public static final Point zero = Point.on(0, 0);
 
+    /**
+     * The x coordinate
+     */
     public final double x;
+
+    /**
+     * The y coordinate
+     */
     public final double y;
 
-    public Point(double x, double y)
+    /**
+     * <p> The point
+     * {@code (x, y)}
+     *
+     */
+    private Point(double x, double y)
     {
         this.x = x;
         this.y = y;
-
     }
 
+    /**
+     * <p> The point
+     * {@code (x, 0)}
+     *
+     */
     public static Point xOffset(double x)
     {
-        return new Point(x, 0);
+        return Point.on(x, 0);
     }
 
+    /**
+     * <p> The point
+     * {@code (0, y)}
+     *
+     */
     public static Point yOffset(double y)
     {
-        return new Point(0, y);
+        return Point.on(0, y);
     }
 
+    /**
+     * <p> The point
+     * {@code (x, y)}
+     *
+     */
     public static Point on(double x, double y)
     {
         return new Point(x, y);
     }
 
+    /**
+     * <p> The point
+     * {@code (x, y)}
+     *
+     */
     public static Point pt(double x, double y)
     {
-        return new Point(x, y);
+        return Point.on(x, y);
     }
 
-    public static Point Point(double x, double y)
-    {
-        return new Point(x, y);
-    }
-
+    /**
+     * <p> The point
+     * {@code (side, side)}
+     *
+     */
     public static Point square(double side)
     {
         return Point.on(side, side);
-    }
-
-    public static Point fromAwt(java.awt.Point point)
-    {
-        return Point.on(point.getX(), point.getY());
     }
 
     /**
@@ -85,17 +143,35 @@ public class Point extends ImValuesImpl
         return LeafTextBox.with("(" + TextUtils.prettyPrint(x) + ", " + TextUtils.prettyPrint(y) + ")");
     }
 
+    /**
+     * <p> The point
+     * {@code (x + other.x, y + other.y)}
+     *
+     */
     public Point plus(Point other)
     {
-        return new Point(x + other.x, y + other.y);
-    }
-
-    public Point minus(Point other)
-    {
-        return new Point(x - other.x, y - other.y);
+        return Point.on(x + other.x, y + other.y);
     }
 
     /**
+     * <p> The point
+     * {@code (x - other.x, y - other.y)}
+     *
+     */
+    public Point minus(Point other)
+    {
+        return Point.on(x - other.x, y - other.y);
+    }
+
+    /**
+     * <p> The point obtained by
+     * <strong>pre-multiplying</strong>
+     *
+     * {@code this}
+     * by SvgTransform
+     * {@code t}
+     *
+     * <p> In other words, do this multiplication (using homogeneous coordinates):
      *
      * <pre>{@code
      *             x
@@ -107,57 +183,119 @@ public class Point extends ImValuesImpl
      *  0 0 1      1
      * }</pre>
      *
+     * to get
+     * {@code (ax + cy + e, bx + dy + f)}
      */
     public Point preMultiply(SvgTransform t)
     {
-        return new Point(t.a * x + t.c * y + t.e, t.b * x + t.d * y + t.f);
+        return Point.on(t.a * x + t.c * y + t.e, t.b * x + t.d * y + t.f);
     }
 
+    /**
+     * <p> The point
+     * {@code (x * factor, y * factor)}
+     *
+     */
     public Point times(double factor)
     {
         return Point.on(x * factor, y * factor);
     }
 
+    /**
+     * <p> The point
+     * {@code (x * xFactor, y * yFactor)}
+     *
+     */
     public Point times(double xFactor, double yFactor)
     {
         return Point.on(x * xFactor, y * yFactor);
     }
 
+    /**
+     * The "length" of this point, ie its distance from teh origin
+     * {@code Math.sqrt(x * x + y * y)}
+     *
+     */
     public double length()
     {
         return Math.sqrt(x * x + y * y);
     }
 
+    /**
+     * <p> The mid-point between
+     * {@code this}
+     *  and
+     * {@code other}
+     * .
+     *
+     * <pre>{@code
+     * this.plus(other.minus(this).times(0.5))
+     * }</pre>
+     *
+     */
     public Point midPoint(Point other)
     {
         return this.plus(other.minus(this).times(0.5));
     }
 
+    /**
+     * <p> The mid-point between
+     * {@code p1}
+     *  and
+     * {@code p2}
+     * .
+     *
+     * <pre>{@code
+     * p1.midPoint(p2)
+     * }</pre>
+     *
+     */
     public static Point mid(Point p1, Point p2)
     {
         return p1.midPoint(p2);
     }
 
+    /**
+     * <p> The mid-point between
+     * {@code (0, 0)}
+     *  and
+     * {@code this}
+     *
+     * <pre>{@code
+     * times(0.5)
+     * }</pre>
+     *
+     */
     public Point centre()
     {
         return times(0.5);
     }
 
+    /**
+     * <p> The point
+     * {@code (x, yValue)}
+     *
+     */
     public Point y(double yValue)
     {
         return Point.on(x, yValue);
     }
 
+    /**
+     * <p> The point
+     * {@code (xValue, y)}
+     *
+     */
     public Point x(double xValue)
     {
         return Point.on(xValue, y);
     }
 
     /**
+     * <p> {@code true}
+     *  iff
+     * {@code x >= p.x && y >= p.y}
      *
-     * <pre>{@code
-     * true iff x >= p.x && y >= p.y
-     * }</pre>
      *
      */
     public boolean ge(Point p)
@@ -166,10 +304,10 @@ public class Point extends ImValuesImpl
     }
 
     /**
-     *
-     * <pre>{@code
-     * true iff p.ge(this)
-     * }</pre>
+     * <p>
+     * {@code true}
+     * iff
+     * {@code p.ge(this)}
      *
      */
     public boolean le(Point p)
@@ -178,10 +316,16 @@ public class Point extends ImValuesImpl
     }
 
     /**
+     * <p> {@code true}
+     *  iff
+     * {@code this}
+     *  is to the left of and above
+     * {@code p}
+     * .
      *
-     * <pre>{@code
-     * true iff this is to the left of and above p
-     * }</pre>
+     *
+     * <p> ie
+     * {@code x < p.x && y < p.y}
      *
      */
     public boolean lt(Point p)
@@ -191,7 +335,7 @@ public class Point extends ImValuesImpl
 
     /**
      * <p> A
-     * {@code Rect}
+     * {@link Rect}
      *  with corners
      * {@code this}
      *  and
@@ -205,14 +349,16 @@ public class Point extends ImValuesImpl
 
     /**
      * <p> A
-     * {@code Rect}
+     *  {@link Rect}
      *  with
      * {@code NW}
      *  =
      * {@code this}
      *  and size
      * {@code size}
-     * <p> NW                NE
+     *
+     * <pre>{@code
+     * NW/this           NE
      * +----------------+
      * |                |
      * |                |
@@ -221,6 +367,8 @@ public class Point extends ImValuesImpl
      * |                |
      * +----------------+
      * SW                SE
+     * }</pre>
+     *
      *
      */
     public Rect NW(Point size)
@@ -230,14 +378,15 @@ public class Point extends ImValuesImpl
 
     /**
      * <p> A
-     * {@code Rect}
-     *  with
+     * {@link Rect}
+     * with
      * {@code NE}
      *  =
      * {@code this}
      *  and size
      * {@code size}
-     * <p> NW                NE
+     * <pre>{@code
+     * NW                NE/this
      * +----------------+
      * |                |
      * |                |
@@ -246,6 +395,7 @@ public class Point extends ImValuesImpl
      * |                |
      * +----------------+
      * SW                SE
+     * }</pre>
      *
      */
     public Rect NE(Point size)
@@ -254,13 +404,16 @@ public class Point extends ImValuesImpl
     }
 
     /**
-     * <p> A Rect with
+     * <p> A
+     * {@link Rect}
+     * with
      * {@code SE}
      *  =
      * {@code this}
      *  and size
      * {@code size}
-     * <p> NW                NE
+     * <pre>{@code
+     * NW                NE
      * +----------------+
      * |                |
      * |                |
@@ -268,7 +421,8 @@ public class Point extends ImValuesImpl
      * |                |
      * |                |
      * +----------------+
-     * SW                SE
+     * SW                SE/this
+     * }</pre>
      *
      */
     public Rect SE(Point size)
@@ -277,9 +431,16 @@ public class Point extends ImValuesImpl
     }
 
     /**
-     * <p> A Rect with SW = this and size
+     * <p> A
+     * {@link Rect}
+     * with
+     * {@code SE}
+     *  =
+     * {@code this}
+     * and size
      * {@code size}
-     * <p> NW                NE
+     * <pre>{@code
+     * NW                NE
      * +----------------+
      * |                |
      * |                |
@@ -287,7 +448,8 @@ public class Point extends ImValuesImpl
      * |                |
      * |                |
      * +----------------+
-     * SW                SE
+     * SW/this           SE
+     * }</pre>
      *
      */
     public Rect SW(Point size)
@@ -295,104 +457,134 @@ public class Point extends ImValuesImpl
         return new Rect(x, y - size.y, size.x, size.y);
     }
 
+    /**
+     * The point whose x is the same as
+     * {@code this}
+     * but is a distance
+     * {@code delta}
+     * "to the north" of this.
+     *
+     * <p>ie
+     * {@code (x, y - delta)}
+     */
     public Point north(double delta)
     {
         return Point.on(x, y - delta);
     }
 
+    /**
+     * The point whose x is the same as
+     * {@code this}
+     * but is a distance
+     * {@code delta}
+     * "to the south" of this.
+     *
+     * <p>ie
+     * {@code (x, y - delta)}
+     */
     public Point south(double delta)
     {
         return Point.on(x, y + delta);
     }
 
+    /**
+     * The point whose y is the same as
+     * {@code this}
+     * but is a distance
+     * {@code delta}
+     * "to the east" of this.
+     *
+     * <p>ie
+     * {@code (x + delta, y)}
+     */
     public Point east(double delta)
     {
         return Point.on(x + delta, y);
     }
 
+    /**
+     * The point whose y is the same as
+     * {@code this}
+     * but is a distance
+     * {@code delta}
+     * "to the west" of this.
+     *
+     * <p>ie
+     * {@code (x - delta, y)}
+     */
     public Point west(double delta)
     {
         return Point.on(x - delta, y);
     }
 
+    /**
+     * The point that is this scaled to have length 1
+     * <p>ie
+     * {@code this.times(1 / this.length())}
+     */
     public Point normalise()
     {
         return this.times(1 / this.length());
     }
 
+    /**
+     * <p> The
+     * <strong>dot product</strong>
+     *  of
+     * {@code this}
+     *  and
+     * {@code other}
+     * <p>ie
+     * {@code this.x * other.x + this.y * other.y)}
+     */
     public double dot(Point other)
     {
         return this.x * other.x + this.y * other.y;
     }
 
+    /**
+     * The
+     *  {@link Rect}
+     * that has NW corner
+     * {@code (0, 0)}
+     * and size
+     * {@code this}
+     *
+     * <p>ie:
+     * {@code Rect.size(this)}
+     */
     public Rect toRect()
     {
         return Rect.size(this);
     }
 
+    /**
+     * <p> The pair
+     * {@code (x, y)}
+     */
     public ImPair<Double, Double> toPair()
     {
         return ImPair.on(x, y);
     }
 
+    /**
+     * The point
+     *
+     * {@code (x + xOff, y)}
+     */
     public Point plusX(double xOff)
     {
         return Point.on(x + xOff, y);
     }
 
+    /**
+     * The point
+     *
+     * {@code (x, y + yOff)}
+     */
     public Point plusY(double yOff)
     {
         return Point.on(x, y + yOff);
-    }
-
-    /**
-     * <p> Justify
-     * {@code this}
-     *  in
-     * {@code rectangle}
-     *  based on orientation
-     * {@code orient}
-     *
-     */
-    public Rect justifyIn(Rect rectangle, Orient2 orient)
-    {
-        //        double width = (orient.ox != Fill ? x : rectangle.getWidth());
-        //        double height = (orient.oy != Fill ? y : rectangle.getHeight());
-
-        double xOff = xOff(rectangle.getWidth(), x, orient.ox);
-        double yOff = yOff(rectangle.getHeight(), y, orient.oy);
-
-        return rectangle.setWidth(x).setHeight(y).moveBy(xOff, yOff);
-    }
-
-    private double xOff(double containerWidth, double myWidth, Orient1 ox)
-    {
-        switch (ox)
-        {
-        case Right:
-            return containerWidth - myWidth;
-
-        case Centre:
-            return (containerWidth - myWidth) * 0.5;
-
-        default:
-            return 0;
-        }
-    }
-
-    private double yOff(double containerHeight, double myHeight, Orient1 oy)
-    {
-        switch (oy)
-        {
-        case Bottom:
-            return containerHeight - myHeight;
-
-        case Centre:
-            return (containerHeight - myHeight) * 0.5;
-
-        default:
-            return 0;
-        }
     }
 
     /**

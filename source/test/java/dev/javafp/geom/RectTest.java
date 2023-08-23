@@ -153,11 +153,16 @@ public class RectTest
 
         Point pt = pt(1, 1);
         Rect container = Rect.on(1, 1, 3, 3);
-        assertEquals(Rect.on(1, 1, 1, 1), pt.justifyIn(container, Orient2.LeftTop));
-        assertEquals(Rect.on(2, 2, 1, 1), pt.justifyIn(container, Orient2.CentreCentre));
-        assertEquals(Rect.on(3, 3, 1, 1), pt.justifyIn(container, Orient2.RightBottom));
+        //        assertEquals(Rect.on(1, 1, 1, 1), pt.justifyIn(container, Orient2.LeftTop));
+        //        assertEquals(Rect.on(2, 2, 1, 1), pt.justifyIn(container, Orient2.CentreCentre));
+        //        assertEquals(Rect.on(3, 3, 1, 1), pt.justifyIn(container, Orient2.RightBottom));
+        //
+        //        assertEquals(Rect.on(1, 2, 1, 1), pt.justifyIn(container, Orient2.LeftCentre));
 
-        assertEquals(Rect.on(1, 2, 1, 1), pt.justifyIn(container, Orient2.LeftCentre));
+        assertEquals(Rect.on(1, 1, 1, 1), container.justifyIn(Orient2.LeftTop, pt));
+        assertEquals(Rect.on(2, 2, 1, 1), container.justifyIn(Orient2.CentreCentre, pt));
+        assertEquals(Rect.on(3, 3, 1, 1), container.justifyIn(Orient2.RightBottom, pt));
+        assertEquals(Rect.on(1, 2, 1, 1), container.justifyIn(Orient2.LeftCentre, pt));
 
     }
 

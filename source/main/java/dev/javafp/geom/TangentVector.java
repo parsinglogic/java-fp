@@ -29,7 +29,7 @@ public class TangentVector extends ImValuesImpl
 
     public TangentVector(double x, double y, double ox, double oy)
     {
-        this(new Point(x, y), new Point(ox, oy));
+        this(Point.on(x, y), Point.on(ox, oy));
     }
 
     public static TangentVector fromTo(Point p1, Point p2)
@@ -65,8 +65,8 @@ public class TangentVector extends ImValuesImpl
      */
     public static ImList<TangentVector> grid(double width, double height, int countX, int countY)
     {
-        return new TangentVector(0, 0, width * countX, 0).repeat(new Point(0, height), countY + 1)
-                .append(new TangentVector(0, 0, 0, height * countY).repeat(new Point(width, 0), countX + 1));
+        return new TangentVector(0, 0, width * countX, 0).repeat(Point.on(0, height), countY + 1)
+                .append(new TangentVector(0, 0, 0, height * countY).repeat(Point.on(width, 0), countX + 1));
     }
 
     public TangentVector move(Point move)
@@ -102,7 +102,7 @@ public class TangentVector extends ImValuesImpl
         // Get the vector from the mid point that is perpendicular ( a, b )
         // Get the line equation from that
 
-        return new TangentVector(start.midPoint(getCorner()), new Point(eq.a, eq.b)).lineEquation();
+        return new TangentVector(start.midPoint(getCorner()), Point.on(eq.a, eq.b)).lineEquation();
 
     }
 

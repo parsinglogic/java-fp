@@ -255,6 +255,6 @@ public class SvgTransform implements Serializable
 
     public Point getMove()
     {
-        return new Point(e, f);
+        return Point.on(e, f);
     }
 }
