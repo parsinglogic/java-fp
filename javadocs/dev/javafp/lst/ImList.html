@@ -1380,13 +1380,11 @@ B&gt;&nbsp;void</code></div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#splitIntoParts(int)" class="member-name-link">splitIntoParts</a><wbr>(int&nbsp;n)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
-<div class="block"> A
- <code>ImList</code>
-  of
- <code>ImList</code>
- s,
- <code>parts</code>
- , where:</div>
+<div class="block"> Split
+ <code>this</code>
+ into
+ <code>n</code>
+ lists.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;,<wbr><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#splitWhile(dev.javafp.func.Fn)" class="member-name-link">splitWhile</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;pred)</code></div>
@@ -4067,7 +4065,15 @@ B&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="elemen
 <section class="detail" id="splitIntoParts(int)">
 <h3>splitIntoParts</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&gt;</span>&nbsp;<span class="element-name">splitIntoParts</span><wbr><span class="parameters">(int&nbsp;n)</span></div>
-<div class="block"><p> A
+<div class="block"><p> Split
+ <code>this</code>
+ into
+ <code>n</code>
+ lists.
+
+ <p> In other words:
+
+ <p> A
  <code>ImList</code>
   of
  <code>ImList</code>
