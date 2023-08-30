@@ -164,34 +164,6 @@ public class Point extends ImValuesImpl
     }
 
     /**
-     * <p> The point obtained by
-     * <strong>pre-multiplying</strong>
-     *
-     * {@code this}
-     * by SvgTransform
-     * {@code t}
-     *
-     * <p> In other words, do this multiplication (using homogeneous coordinates):
-     *
-     * <pre>{@code
-     *             x
-     *             y
-     *             1
-     *
-     *  a c e      ax + cy + e
-     *  b d f      bx + dy + f
-     *  0 0 1      1
-     * }</pre>
-     *
-     * to get
-     * {@code (ax + cy + e, bx + dy + f)}
-     */
-    public Point preMultiply(SvgTransform t)
-    {
-        return Point.on(t.a * x + t.c * y + t.e, t.b * x + t.d * y + t.f);
-    }
-
-    /**
      * <p> The point
      * {@code (x * factor, y * factor)}
      *
@@ -304,7 +276,6 @@ public class Point extends ImValuesImpl
     }
 
     /**
-     * <p>
      * {@code true}
      * iff
      * {@code p.ge(this)}
@@ -358,15 +329,13 @@ public class Point extends ImValuesImpl
      * {@code size}
      *
      * <pre>{@code
-     * NW/this           NE
-     * +----------------+
-     * |                |
-     * |                |
-     * |                |
-     * |                |
-     * |                |
-     * +----------------+
-     * SW                SE
+     * NW/this      NE
+     * +------------+
+     * |            |
+     * |            |
+     * |            |
+     * +------------+
+     * SW           SE
      * }</pre>
      *
      *
@@ -386,15 +355,13 @@ public class Point extends ImValuesImpl
      *  and size
      * {@code size}
      * <pre>{@code
-     * NW                NE/this
-     * +----------------+
-     * |                |
-     * |                |
-     * |                |
-     * |                |
-     * |                |
-     * +----------------+
-     * SW                SE
+     * NW           NE/this
+     * +------------+
+     * |            |
+     * |            |
+     * |            |
+     * +------------+
+     * SW           SE
      * }</pre>
      *
      */
@@ -413,15 +380,13 @@ public class Point extends ImValuesImpl
      *  and size
      * {@code size}
      * <pre>{@code
-     * NW                NE
-     * +----------------+
-     * |                |
-     * |                |
-     * |                |
-     * |                |
-     * |                |
-     * +----------------+
-     * SW                SE/this
+     * NW           NE
+     * +------------+
+     * |            |
+     * |            |
+     * |            |
+     * +------------+
+     * SW           SE/this
      * }</pre>
      *
      */
@@ -440,15 +405,15 @@ public class Point extends ImValuesImpl
      * and size
      * {@code size}
      * <pre>{@code
-     * NW                NE
-     * +----------------+
-     * |                |
-     * |                |
-     * |                |
-     * |                |
-     * |                |
-     * +----------------+
-     * SW/this           SE
+     * NW           NE
+     * +------------+
+     * |            |
+     * |            |
+     * |            |
+     * |            |
+     * |            |
+     * +------------+
+     * SW/this      SE
      * }</pre>
      *
      */
@@ -609,5 +574,33 @@ public class Point extends ImValuesImpl
     public ImList<String> getNames()
     {
         return ImList.on("x", "y");
+    }
+
+    /**
+     * <p> The point obtained by
+     * <strong>pre-multiplying</strong>
+     *
+     * {@code this}
+     * by SvgTransform
+     * {@code t}
+     *
+     * <p> In other words, do this multiplication (using homogeneous coordinates):
+     *
+     * <pre>{@code
+     *             x
+     *             y
+     *             1
+     *
+     *  a c e      ax + cy + e
+     *  b d f      bx + dy + f
+     *  0 0 1      1
+     * }</pre>
+     *
+     * to get
+     * {@code (ax + cy + e, bx + dy + f)}
+     */
+    public Point preMultiply(SvgTransform t)
+    {
+        return Point.on(t.a * x + t.c * y + t.e, t.b * x + t.d * y + t.f);
     }
 }
