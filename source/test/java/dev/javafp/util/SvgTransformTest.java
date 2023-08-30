@@ -49,7 +49,7 @@ public class SvgTransformTest
     @Test
     public void testTranAndScale() throws Exception
     {
-        assertEquals(Point.on(8, 16), Point.on(1, 1).preMultiply(scale(2).postMultiplyBy(move(3, 7))));
+        TestUtils.assertToStringEquals("(8, 16)", Point.on(1, 1).preMultiply(scale(2).postMultiplyBy(move(3, 7))));
         Say.println("\n" + scale(2).postMultiplyBy(move(3, 7)));
     }
 

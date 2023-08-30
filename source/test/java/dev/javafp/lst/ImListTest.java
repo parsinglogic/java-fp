@@ -184,6 +184,24 @@ public class ImListTest implements Constants
     }
 
     @Test
+    public void testEqualsStandard()
+    {
+        // A list of lists that are all different
+        ImList<Object> thingOnes = on(
+                ImRange.oneTo(2),
+                ImRange.oneTo(3),
+                "a string");
+
+        // The same lists as in thingOnes
+        ImList<Object> thingTwos = on(
+                ImRange.oneTo(2),
+                ImRange.oneTo(3),
+                "a string");
+
+        TestUtils.checkThings(thingOnes, thingTwos);
+    }
+
+    @Test
     public void testEquals()
     {
         ImList<Integer> zero = on();

@@ -17,6 +17,9 @@ import dev.javafp.tuple.ImTriple;
 import java.util.Collection;
 
 import static java.lang.Math.abs;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * <p> Because we can't remove this class easily, we have renamed it.
@@ -195,5 +198,30 @@ public class TestUtils
     public static void assertStringEquals(String message, Object s, Object gt)
     {
         assertEq(message, "" + s, "" + gt);
+    }
+
+    public static void checkThings(ImList<Object> thingOnes, ImList<Object> thingTwos)
+    {
+        // Null test
+        for (int i : ImRange.oneTo(thingOnes.size()))
+        {
+            assertFalse("" + thingOnes.at(i), thingOnes.at(i).equals(null));
+        }
+
+        // Identical things should be equal
+        for (int i : ImRange.oneTo(thingOnes.size()))
+        {
+            assertTrue("" + thingOnes.at(i), thingOnes.at(i).equals(thingOnes.at(i)));
+        }
+
+        // The only things that are equal are the ones at the same index
+        for (int i : ImRange.oneTo(thingOnes.size()))
+        {
+            for (int j : ImRange.oneTo(thingOnes.size()))
+            {
+                assertEquals(thingOnes.at(i) + " vs " + thingTwos.at(i), i == j, thingOnes.at(i).equals(thingTwos.at(j)));
+                assertEquals(thingTwos.at(j) + " vs " + thingOnes.at(i), i == j, thingTwos.at(j).equals(thingOnes.at(i)));
+            }
+        }
     }
 }
