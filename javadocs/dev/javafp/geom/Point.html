@@ -220,8 +220,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#le(dev.javafp.geom.Point)" class="member-name-link">le</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">
- <code>true</code>
+<div class="block"><code>true</code>
  iff
  <code>p.ge(this)</code></div>
 </div>
@@ -581,33 +580,6 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="preMultiply(dev.javafp.util.SvgTransform)">
-<h3>preMultiply</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">preMultiply</span><wbr><span class="parameters">(<a href="../util/SvgTransform.html" title="class in dev.javafp.util">SvgTransform</a>&nbsp;t)</span></div>
-<div class="block"><p> The point obtained by
- <strong>pre-multiplying</strong>
-
- <code>this</code>
- by SvgTransform
- <code>t</code>
-
- <p> In other words, do this multiplication (using homogeneous coordinates):
-
- <pre><code>
-             x
-             y
-             1
-
-  a c e      ax + cy + e
-  b d f      bx + dy + f
-  0 0 1      1
- </code></pre>
-
- to get
- <code>(ax + cy + e, bx + dy + f)</code></div>
-</section>
-</li>
-<li>
 <section class="detail" id="times(double)">
 <h3>times</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">times</span><wbr><span class="parameters">(double&nbsp;factor)</span></div>
@@ -706,8 +678,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="le(dev.javafp.geom.Point)">
 <h3>le</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">le</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</span></div>
-<div class="block"><p>
- <code>true</code>
+<div class="block"><code>true</code>
  iff
  <code>p.ge(this)</code></div>
 </section>
@@ -754,15 +725,13 @@ loadScripts(document, 'script');</script>
  <code>size</code>
 
  <pre><code>
- NW/this           NE
- +----------------+
- |                |
- |                |
- |                |
- |                |
- |                |
- +----------------+
- SW                SE
+ NW/this      NE
+ +------------+
+ |            |
+ |            |
+ |            |
+ +------------+
+ SW           SE
  </code></pre></div>
 </section>
 </li>
@@ -779,15 +748,13 @@ loadScripts(document, 'script');</script>
   and size
  <code>size</code>
  <pre><code>
- NW                NE/this
- +----------------+
- |                |
- |                |
- |                |
- |                |
- |                |
- +----------------+
- SW                SE
+ NW           NE/this
+ +------------+
+ |            |
+ |            |
+ |            |
+ +------------+
+ SW           SE
  </code></pre></div>
 </section>
 </li>
@@ -804,15 +771,13 @@ loadScripts(document, 'script');</script>
   and size
  <code>size</code>
  <pre><code>
- NW                NE
- +----------------+
- |                |
- |                |
- |                |
- |                |
- |                |
- +----------------+
- SW                SE/this
+ NW           NE
+ +------------+
+ |            |
+ |            |
+ |            |
+ +------------+
+ SW           SE/this
  </code></pre></div>
 </section>
 </li>
@@ -829,15 +794,15 @@ loadScripts(document, 'script');</script>
  and size
  <code>size</code>
  <pre><code>
- NW                NE
- +----------------+
- |                |
- |                |
- |                |
- |                |
- |                |
- +----------------+
- SW/this           SE
+ NW           NE
+ +------------+
+ |            |
+ |            |
+ |            |
+ |            |
+ |            |
+ +------------+
+ SW/this      SE
  </code></pre></div>
 </section>
 </li>
@@ -977,6 +942,33 @@ loadScripts(document, 'script');</script>
 <div class="block">The field names for this object including fields from superclasses.
 
  See <a href="../val/Values.html" title="interface in dev.javafp.val"><code>Values</code></a> and <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val"><code>ImValuesImpl</code></a></div>
+</section>
+</li>
+<li>
+<section class="detail" id="preMultiply(dev.javafp.util.SvgTransform)">
+<h3>preMultiply</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">preMultiply</span><wbr><span class="parameters">(<a href="../util/SvgTransform.html" title="class in dev.javafp.util">SvgTransform</a>&nbsp;t)</span></div>
+<div class="block"><p> The point obtained by
+ <strong>pre-multiplying</strong>
+
+ <code>this</code>
+ by SvgTransform
+ <code>t</code>
+
+ <p> In other words, do this multiplication (using homogeneous coordinates):
+
+ <pre><code>
+             x
+             y
+             1
+
+  a c e      ax + cy + e
+  b d f      bx + dy + f
+  0 0 1      1
+ </code></pre>
+
+ to get
+ <code>(ax + cy + e, bx + dy + f)</code></div>
 </section>
 </li>
 </ul>
