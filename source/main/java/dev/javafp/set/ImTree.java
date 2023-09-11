@@ -31,9 +31,16 @@ import java.util.Collection;
  * <p> An
  * {@code ImTree}
  *  is an AVL tree (a balanced binary tree) where each node stores some arbitrary data.
- * <p> **Note that this is not a traditional sorted binary tree**. There is no concept of the data that is being stored being Comparable.
- * This functionality is added by {@link ImSortedSet}.
- * <p> Essentially  {@link ImSortedSet} is a traditional sorted binary tree and it uses this class to implement it.
+ *
+ * <p> <strong>Note that this is not a traditional sorted binary tree</strong>
+ * .
+ * <p> It is
+ * <em>balanced</em>
+ *  but there is no concept of the data that is being stored being
+ * {@link Comparable}
+ * - this functionality is added by {@link ImSortedSet}.
+ * <p> Essentially  {@link ImSortedSet} <strong>is</strong> a traditional sorted binary tree and it uses this
+ * class as part of its implementation.
  * <p> Another class that uses this class is {@link dev.javafp.shelf.ImShelf}.
  * <p> A node in an
  * {@code ImTree}
@@ -50,16 +57,17 @@ import java.util.Collection;
  *  can contain a value of an arbitrary type and two Integers
  * representing the height and size of the tree rooted at that node. A
  * {@code Nil}
- *  has no data.
- * <p> Note that this definition does not, of itself, specify that the tree is balanced. We enforce that
+ * node has no data and no left or right child - these are set to
+ * {@code null}
+ * <p> Note that this definition does not, of itself, specify that the tree is <em>balanced</em>. We enforce that
  * invariant in each method that adds/removes nodes.
- * <p> Consider an example tree with six non nil nodes:
+ * <p> Consider an example tree with six non Nil nodes:
  * <p> <img src="{@docRoot}/dev/doc-files/tree-abcdef.png" alt="tree-abcdef"  width=200/>
  *
  *
  * </p>
  * <p> If we show the nil nodes then it looks like this:
- * <p> <img src="{@docRoot}/dev/doc-files/tree-abcdef-with-nulls.png"   width=200/>
+ * <p> <img src="{@docRoot}/dev/doc-files/tree-abcdef-with-nils.png"   width=200/>
  * </p>
  * <p> Each
  * {@code Node}

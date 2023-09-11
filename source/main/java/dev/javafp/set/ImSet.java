@@ -487,7 +487,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         if (bucketFound == null)
         {
             // There wasn't even a bucket with the right hash
-            ImTree<Bucket<T>> tree = path.replaceEmptyNode(ImTree.on(bucketWith(newElement))).close();
+            ImTree<Bucket<T>> tree = path.replaceNil(ImTree.on(bucketWith(newElement))).close();
             return new ImSet<T>(new ImSortedSet<Bucket<T>>(tree), size + 1);
         }
         else

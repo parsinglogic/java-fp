@@ -713,7 +713,7 @@ public class ImShelf<T> implements Iterable<T>
      */
     public ImShelfZipper<T> getZipper()
     {
-        return new ImShelfZipper<T>(this, ImTreeZipper.onLeftmost(tree).before());
+        return new ImShelfZipper<T>(this, ImTreeZipper.onLeftmost(tree).goToIndex(0));
     }
 
     /**

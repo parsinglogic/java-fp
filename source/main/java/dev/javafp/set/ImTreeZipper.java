@@ -7,6 +7,7 @@
 
 package dev.javafp.set;
 
+import dev.javafp.ex.Throw;
 import dev.javafp.ex.ZipperHasNoFocusException;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TextUtils;
@@ -32,36 +33,66 @@ import java.util.List;
  * of the whole collection - this allows us to easily create a new collection with just that part of it modified.
  * <p> Another other way to think about zippers is that they are a breadcrumb trail from a part of a data structure up to the
  * root of that data structure.
- * <p> Zippers were first mentioned in a paper by Gerard Huet in 1997
- * (Huet, Gerard (September 1997). "Functional Pearl: The Zipper". Journal of Functional Programming 7 (5): 549554.)
- * and have become an important concept in functional programming.
+ * Zippers were first mentioned in a paper by Gerard Huet in 1997
+ *
+ * <p> <a href="http://www.st.cs.uni-saarland.de/edu/seminare/2005/advanced-fp/docs/huet-zipper.pdf"  >Functional Pearl: The Zipper, Gerard Huet(September 1997)</a>
+ * <p> and have become an important concept in functional programming - although
+ *
+ * <p> <a href="https://www.fpcomplete.com/haskell/tutorial/lens/" > lenses </a>
+ *
+ * <p> have now superseded them in FP languages with advanced type systems.
+ *
  * <p> Consider this tree:
- * a
- * /
- * <br/>
- * b   c
- * /
- * <br/>
- * d   e
- * /
- * f
- * <p> a, b, c etc are the elements at each node. Let's denote the tree with the root element of a as A etc so that
- * we can distinguish between elements and trees.
- * <p> Then lets look at the zipper that is focussed on F
  *
  * <pre>{@code
- * (focus, side, parent)
- *
- *              a     zA = (A, null, null)
- *             / \
- *            b   c   zB = (B, left, zA)
- *           / \
- *          d   e     zE = (E, right, zB)
- *             /
- *            f       zF = (F, left, zE)
+ *     a
+ *    / \
+ *   b   c
+ *  / \
+ * d   e
+ *    /
+ *   f
  * }</pre>
- * <p> In the example above, lets 'modify' our focus node F and set the element to g
- * <p> We get a new zipper, It points to the same parent but its focus element is different
+ *
+ *
+ * <p> {@code a}
+ * ,
+ * {@code b}
+ * ,
+ * {@code c}
+ *  etc are the elements at each node. Let's denote the tree with the root element of
+ * {@code a}
+ *  as
+ * {@code A}
+ *  and
+ * {@code b}
+ *  as
+ * {@code B}
+ *  etc so that
+ * we can distinguish between elements and trees.
+ * <p> Then lets look at the zipper that is focussed on the tree
+ * {@code F}
+ * :
+ *
+ *
+ * <pre>{@code
+ *                         (focus, side,    parent)
+ *
+ *              a     zA = (A,     null,    null)
+ *             / \
+ *            b   c   zB = (B,     left,    zA)
+ *           / \
+ *          d   e     zE = (E,     right,   zB)
+ *             /
+ *            f       zF = (F,     left,    zE)
+ * }</pre>
+ *
+ * <p> In the example above, lets 'modify' our focus node
+ * {@code F}
+ *  and set the element to
+ * {@code g}
+ * We get a new zipper, It points to the same parent but its focus element is different
+ *
  *
  * <pre>{@code
  *            g      zG = ( G, left, zE)
@@ -73,8 +104,17 @@ import java.util.List;
  *           /
  *          g
  * }</pre>
- * <p> We have created a new tree, E', containing e at the root and with a left child of g and a right child of Nil
- * <p> Now let's go up again:
+ *
+ * <p> We have created a new tree,
+ * {@code E'}
+ * , containing
+ * {@code e}
+ *  at the root and with a left child of
+ * {@code g}
+ *  and a right child of
+ * {@code Nil}
+ * Now let's go up again:
+ *
  *
  * <pre>{@code
  *            b        zB' = (B', left, zA)
@@ -83,8 +123,17 @@ import java.util.List;
  *             /
  *            g
  * }</pre>
- * <p> Again we have created a new tree, B' containing b at the root with a left child of d and a right child of E'
- * <p> Finally, we go up again:
+ *
+ * <p> Again we have created a new tree,
+ * {@code B'}
+ *  containing
+ * {@code b}
+ *  at the root with a left child of
+ * {@code d}
+ *  and a right child of
+ * {@code E'}
+ * Finally, we go up again:
+ *
  *
  * <pre>{@code
  *              a     zA' = (A', null, null)
@@ -95,8 +144,13 @@ import java.util.List;
  *             /
  *            g
  * }</pre>
- * <p> We have now created a new tree that is the same as the old one except that it has the element g where element f used to be.
- * <p> ImTreeZippers work on trees that are being rebalanced
+ * <p> We have now created a new tree that is the same as the old one except that it has the element
+ * {@code g}
+ *  where element
+ * {@code f}
+ *  used to be.
+ * {@code ImTreeZippers}
+ *  work on trees that are being rebalanced
  *
  */
 public class ImTreeZipper<A>
@@ -122,46 +176,43 @@ public class ImTreeZipper<A>
     // The side that 'we came down from our parent on'
     final private Side side;
 
-    public ImTreeZipper(ImTree<A> focus, Side side, ImTreeZipper<A> parent)
+    private ImTreeZipper(ImTree<A> focus, Side side, ImTreeZipper<A> parent)
     {
         this.focus = focus;
         this.side = side;
         this.parent = parent;
     }
 
+    /**
+     * An `ImTreeZipper` on the tree `root`.
+     */
     public static <A> ImTreeZipper<A> onRoot(ImTree<A> root)
     {
         return new ImTreeZipper<A>(root, null, null);
     }
 
+    /**
+     * A zipper on the leftmost descendant of the tree `root`.
+     */
     public static <A> ImTreeZipper<A> onLeftmost(ImTree<A> root)
     {
         return ImTreeZipper.onRoot(root).leftmost();
     }
 
+    /**
+     * An `ImTreeZipper` on the rightmost descendant of the tree `root`.
+     */
     public static <A> ImTreeZipper<A> onRightmost(ImTree<A> root)
     {
         return ImTreeZipper.onRoot(root).rightmost();
     }
 
     /**
-     * <p> Get the next node along from my node
+     * Is this zipper looking at the root of a tree.
      */
-    public ImMaybe<ImTreeZipper<A>> next()
-    {
-        return goToLocalRank(focus.getRank() + 1);
-    }
-
     public boolean isRoot()
     {
         return parent == null;
-    }
-
-    public ImMaybe<ImTreeZipper<A>> previous()
-    {
-        return goToLocalRank(ImTree.isNil(focus)
-                             ? 0
-                             : focus.getRank() - 1);
     }
 
     private Side getSide()
@@ -171,12 +222,12 @@ public class ImTreeZipper<A>
 
     private ImMaybe<ImTreeZipper<A>> nothing()
     {
-        return ImMaybe.<ImTreeZipper<A>>nothing();
+        return ImMaybe.nothing();
     }
 
     private ImMaybe<ImTreeZipper<A>> just(ImTreeZipper<A> z)
     {
-        return ImMaybe.<ImTreeZipper<A>>just(z);
+        return ImMaybe.just(z);
     }
 
     private ImTreeZipper<A> leftmost()
@@ -206,7 +257,7 @@ public class ImTreeZipper<A>
     /**
      * <p> Go up to the parent zipper, rebalancing the focus if required.
      * <p> Our focus  is a tree that might have been replaced.
-     * <p> This means that it might be out of balance with the parents other child.
+     * <p> This means that it might be out of balance with the parent's other child.
      * <p> We need to create a balanced tree and make a new parent from that and return it.
      *
      */
@@ -266,11 +317,17 @@ public class ImTreeZipper<A>
         return TextUtils.join(things, ", ");
     }
 
+    /**
+     * The node that this zipper is focused on.
+     */
     public ImTree<A> getFocus()
     {
         return focus;
     }
 
+    /**
+     * <p> The tree that this zipper represents, with all modifications made.
+     */
     public ImTree<A> close()
     {
         return isRoot()
@@ -278,6 +335,9 @@ public class ImTreeZipper<A>
                : goUp().close();
     }
 
+    /**
+     * The zipper whose focus is `elementToFind`.
+     */
     public static <A extends Comparable<? super A>> ImTreeZipper<A> find(ImTreeZipper<A> z, final A elementToFind)
     {
         if (z.focus == ImTree.<A>Nil())
@@ -294,7 +354,10 @@ public class ImTreeZipper<A>
                  : find(z.goRight(), elementToFind);
     }
 
-    public ImTreeZipper<A> replaceEmptyNode(ImTree<A> newNode)
+    /**
+     * Replace the Nil tree with `newNode`
+     */
+    public ImTreeZipper<A> replaceNil(ImTree<A> newNode)
     {
         if (ImTree.isNil(newNode))
             return this;
@@ -315,9 +378,9 @@ public class ImTreeZipper<A>
     {
         return ImTree.isNil(treeToInsert)
                ? this
-               : isNil()
-                 ? replaceEmptyNode(treeToInsert).goToLocalRank(treeToInsert.size()).get()
-                 : after().replaceEmptyNode(treeToInsert).goToLocalRank(treeToInsert.size()).get();
+               : this.isNil()
+                 ? replaceNil(treeToInsert).goToLocalRank(treeToInsert.size()).get()
+                 : after().replaceNil(treeToInsert).goToLocalRank(treeToInsert.size()).get();
     }
 
     /**
@@ -337,18 +400,31 @@ public class ImTreeZipper<A>
                : new ImTreeZipper<A>(new ImTree<A>(newElement, focus.getLeft(), focus.getRight()), side, parent);
     }
 
+    /**
+     * Get the element that this zipper is focused on.
+     */
     public A getElement()
     {
         return focus.getElement();
     }
 
-    public ImTreeZipper<A> before()
+    ImTreeZipper<A> before()
     {
         return focus == ImTree.Nil() || focus.getLeft() == null
                ? this
                : focus.getLeft() == ImTree.Nil()
                  ? goLeft()
                  : goLeft().rightmost().goRight();
+    }
+
+    /**
+     * The zipper whose focus is the node that is the previous one to the current focus
+     */
+    public ImMaybe<ImTreeZipper<A>> previous()
+    {
+        return goToLocalRank(ImTree.isNil(focus)
+                             ? 0
+                             : focus.getRank() - 1);
     }
 
     ImTreeZipper<A> after()
@@ -360,6 +436,32 @@ public class ImTreeZipper<A>
                  : goRight().leftmost().goLeft();
     }
 
+    /**
+     * <p> Get the next node along from my node
+     */
+    public ImMaybe<ImTreeZipper<A>> next()
+    {
+        return goToLocalRank(focus.getRank() + 1);
+    }
+
+    /**
+     * <p> An
+     * {@code ImMaybe}
+     *  containing tree zipper on
+     * {@code tree}
+     *  pointing to the node at index
+     * {@code indexStartingAtOne}
+     *  or
+     * {@code Nothing}
+     *  if
+     * {@code indexStartingAtOne > tree.size()}
+     * <p> Note that if
+     * {@code indexStartingAtOne}
+     *  is zero then the zipper is positioned
+     * <em>before</em>
+     *  the first element.
+     *
+     */
     public static <A> ImMaybe<ImTreeZipper<A>> onIndex(ImTree<A> tree, int indexStartingAtOne)
     {
         if (indexStartingAtOne > tree.size())
@@ -368,6 +470,11 @@ public class ImTreeZipper<A>
             return ImMaybe.just(onRoot(tree).goToIndex(indexStartingAtOne));
     }
 
+    /**
+     * <p> The zipper on the underlying tree whose focus has rank
+     * {@code indexStartingAtOne}
+     *
+     */
     public ImTreeZipper<A> goToIndex(int indexStartingAtOne)
     {
         final int rightIndex = indexStartingAtOne - (focus.getRank());
@@ -380,15 +487,22 @@ public class ImTreeZipper<A>
     }
 
     /**
-     * <p> In order to maintain zippers when the three they are looking at gets balanced, we have to be a little careful
-     * <p> Essentially, the tree can change shape when the zipper goes up
+     * <p> Return the zipper that is focused on the node that is currently at local rank
+     * {@code indexStartingAtOne}
+     * .
+     *
+     * <p> In order to maintain zippers when the tree they are looking at gets balanced, we have to be a little careful
+     * <p> Essentially, the tree that the zipper is looking at can change shape when the zipper goes up - if the tree has been modified.
+     * <p> Do be clear, we mean that, when we ask a zipper to go up, we will get a new zipper - but we will also get a new tree (or the parts of
+     * a new tree) if the tree has been modified.
+     *
      * <p> If we do an insertBefore() of the ab tree into the cd tree at index 1
      *
      * <pre>{@code
-     * -> d       b
-     *   ...     ...
+     * ->  d       b
+     *    ...     ...
+     * -> c -     a -
      * }</pre>
-     * <p> -> c -     a -
      * <p> then we get this - showing the zipper
      *
      * <pre>{@code
@@ -399,8 +513,9 @@ public class ImTreeZipper<A>
      * |-> b -               a c                 c -
      *    ...
      *    a -
+     *
+     * diagram 1         diagram 2          diagram 3
      * }</pre>
-     * <p> diagram 1         diagram 2          diagram 3
      * <p> When the zipper goes up from b, it rebalances to get (2).
      * And when it goes up again to from d it rebalances again to get(3)
      * <p> So we have a problem with implementing next() and previous(). The naive approach (that assumes that
@@ -433,9 +548,6 @@ public class ImTreeZipper<A>
      * <p> Another way of thinking about it is to observe that when you go up and rebalance the parent node you will not
      * change the order of any of the nodes. If we go up to the right then we just get some extra nodes to our right
      * and going up to the left means that we will get some new nodes to our left - z.parent.left.size + 1 of them.
-     * <p> Return the zipper that is focused on the node that is currently at local rank
-     * {@code indexStartingAtOne}
-     * .
      *
      */
     protected ImMaybe<ImTreeZipper<A>> goToLocalRank(int indexStartingAtOne)
@@ -453,12 +565,12 @@ public class ImTreeZipper<A>
                : just(goToIndex(indexStartingAtOne));
     }
 
+    /**
+     * Remove the current focus from the underlying tree
+     */
     public ImTreeZipper<A> removeNode()
     {
-        if (isNil())
-        {
-            throw new RuntimeException(); // fix
-        }
+        Throw.Exception.ifTrue(isNil(), "You can't remove nil nodes");
 
         if (isRoot() && (getFocus().size() == 1))
         {
@@ -474,6 +586,12 @@ public class ImTreeZipper<A>
         }
     }
 
+    /**
+     * <p> {@code true}
+     *  if the focus is
+     * {@code nil}
+     * .
+     */
     public boolean isNil()
     {
         return ImTree.isNil(getFocus());
@@ -528,6 +646,9 @@ public class ImTreeZipper<A>
         }
     }
 
+    /**
+     * Thn number of nodes after the current focus
+     */
     public int getAfterSize()
     {
         return isRoot()

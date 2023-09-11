@@ -18,7 +18,7 @@ import static org.junit.Assert.assertSame;
 public class ImTreeZipperTest
 {
     @Test
-    public void testZipperOnTrees() throws Exception
+    public void testZipperOnTrees()
     {
         assertEquals("-", "" + ImTreeZipper.onLeftmost(t("")));
         assertEquals("d", "" + ImTreeZipper.onLeftmost(t("d1")));
@@ -27,7 +27,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testNextSimple() throws Exception
+    public void testNextSimple()
     {
         /**
          *                   d
@@ -69,7 +69,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testRemoveSimple() throws Exception
+    public void testRemoveSimple()
     {
         /**
          *      a                      a  
@@ -89,7 +89,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testPopOnMany() throws Exception
+    public void testPopOnMany()
     {
         for (ImTree<Character> tree : new ImTreeShapes().allUpToSize(6, true, 'a'))
         {
@@ -104,7 +104,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testPopOnMany2() throws Exception
+    public void testPopOnMany2()
     {
         for (ImTree<Character> tree : new ImTreeShapes().allNonNilUpToSize(6, true, 'a'))
         {
@@ -126,7 +126,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testGetRankOnMany() throws Exception
+    public void testGetRankOnMany()
     {
         for (ImTree<Character> tree : new ImTreeShapes().allUpToSize(6, true, 'a'))
         {
@@ -141,7 +141,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testGetAfterSizeOnMany() throws Exception
+    public void testGetAfterSizeOnMany()
     {
         for (ImTree<Character> tree : new ImTreeShapes().allUpToSize(6, true, 'a'))
         {
@@ -158,7 +158,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testAfterSizeMatchesRankOnMany() throws Exception
+    public void testAfterSizeMatchesRankOnMany()
     {
         for (ImTree<Character> tree : new ImTreeShapes().allUpToSize(6, true, 'a'))
         {
@@ -175,7 +175,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testGoToLocalRankOnMany() throws Exception
+    public void testGoToLocalRankOnMany()
     {
         for (ImTree<Character> tree : new ImTreeShapes().allUpToSize(6, true, 'a'))
         {
@@ -204,27 +204,27 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testReplaceEmptyNodeWithEmpty() throws Exception
+    public void testReplaceEmptyNodeWithEmpty()
     {
         for (ImTree<Character> tree : new ImTreeShapes().allUpToSize(1, true, 'a'))
         {
             ImTreeZipper<Character> z = ImTreeZipper.onLeftmost(tree).after();
-            assertSame(z, z.replaceEmptyNode(ImTree.<Character>Nil()));
+            assertSame(z, z.replaceNil(ImTree.Nil()));
         }
     }
 
     @Test
-    public void testInsertEmptyNodeWithEmpty() throws Exception
+    public void testInsertEmptyNodeWithEmpty()
     {
         for (ImTree<Character> tree : new ImTreeShapes().allUpToSize(1, true, 'a'))
         {
             ImTreeZipper<Character> z = ImTreeZipper.onLeftmost(tree);
-            assertSame(z, z.insertAfter(ImTree.<Character>Nil()));
+            assertSame(z, z.insertAfter(ImTree.Nil()));
         }
     }
 
     @Test
-    public void testCloseOnMany() throws Exception
+    public void testCloseOnMany()
     {
         for (ImTree<Character> tree : new ImTreeShapes().allUpToSize(6, true, 'a'))
         {
@@ -240,7 +240,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testReplaceElementOnMany() throws Exception
+    public void testReplaceElementOnMany()
     {
         for (ImTree<Character> tree : new ImTreeShapes().allUpToSize(6, true, 'a'))
         {
@@ -255,7 +255,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testInsertAfterOnMany() throws Exception
+    public void testInsertAfterOnMany()
     {
         List<ImTree<Character>> trees = new ImTreeShapes().allUpToSize(6, true, 'a');
         List<ImTree<Character>> treesToInsert = new ImTreeShapes().allUpToSize(6, true, 'l');
@@ -298,7 +298,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testOnLeftmost() throws Exception
+    public void testOnLeftmost()
     {
         assertEquals(ImTree.Nil(), ImTreeZipper.onLeftmost(t("")).getFocus());
 
@@ -312,7 +312,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testOnRightmost() throws Exception
+    public void testOnRightmost()
     {
         assertEquals(ImTree.Nil(), ImTreeZipper.onRightmost(t("")).getFocus());
 
@@ -327,7 +327,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testNext() throws Exception
+    public void testNext()
     {
         for (ImTree<Character> tree : new ImTreeShapes().allUpToSize(6, true, 'a'))
         {
@@ -358,7 +358,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testOnIndex() throws Exception
+    public void testOnIndex()
     {
         for (ImTree<Character> tree : new ImTreeShapes().withSize(12, true, 'a'))
         {
@@ -371,7 +371,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testPreviousOnEmpty() throws Exception
+    public void testPreviousOnEmpty()
     {
         ImTreeZipper<Character> z = ImTreeZipper.onRightmost(ImTree.<Character>Nil());
 
@@ -379,7 +379,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testNextOnEmpty() throws Exception
+    public void testNextOnEmpty()
     {
         ImTreeZipper<Character> z = ImTreeZipper.onRightmost(ImTree.<Character>Nil());
 
@@ -387,7 +387,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testPrevious() throws Exception
+    public void testPrevious()
     {
         for (ImTree<Character> tree : new ImTreeShapes().allNonNilUpToSize(6, true, 'a'))
         {
@@ -417,7 +417,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testBefore() throws Exception
+    public void testBefore()
     {
         for (ImTree<Character> node : new ImTreeShapes().withSize(6, true, 'a'))
         {
@@ -444,8 +444,24 @@ public class ImTreeZipperTest
         }
     }
 
+    @Test
+    public void testBefore1()
+    {
+
+        ImTree<Character> t = new ImTreeShapes().withSize(6, true, 'a').get(1);
+
+        System.err.println(t.toBoxString());
+
+        ImTreeZipper<Character> z = ImTreeZipper.onLeftmost(t);
+
+        say(z.getFocus());
+        say(z.next().get().getFocus());
+        say(z.after().getFocus());
+
+    }
+
     @Ignore
-    public void testAfter() throws Exception
+    public void testAfter()
     {
         for (ImTree<Character> node : new ImTreeShapes().withSize(6, true, 'a'))
         {
@@ -471,7 +487,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testFind() throws Exception
+    public void testFind()
     {
         List<ImTree<Character>> ones = new ImTreeShapes().allUpToSize(7, true, 'a');
 
@@ -502,7 +518,7 @@ public class ImTreeZipperTest
     }
 
     @Test
-    public void testCreateFromList() throws Exception
+    public void testCreateFromList()
     {
         //		/**
         //		 *      d  
@@ -525,7 +541,7 @@ public class ImTreeZipperTest
     //	}
 
     @Test
-    public void testFindOnEmpty() throws Exception
+    public void testFindOnEmpty()
     {
         //		final ImTree<Character> node = ImTree.Nil();
         //		assertSame(ImTreeZipper.getNil(), ImTreeZipper.find(ImTreeZipper.onRoot(node), 'z'));
