@@ -388,8 +388,6 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/util/Base64Util.html#%3Cinit%3E()" class="member-name-link">Base64Util()</a> - Constructor for class dev.javafp.util.<a href="dev/javafp/util/Base64Util.html" title="class in dev.javafp.util">Base64Util</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="dev/javafp/set/ImTreeZipper.html#before()" class="member-name-link">before()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/box/AbstractTextBox.html#before(dev.javafp.box.AbstractTextBox)" class="member-name-link">before(AbstractTextBox)</a> - Method in class dev.javafp.box.<a href="dev/javafp/box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/time/Clock.html#beReal(boolean)" class="member-name-link">beReal(boolean)</a> - Static method in class dev.javafp.time.<a href="dev/javafp/time/Clock.html" title="class in dev.javafp.time">Clock</a></dt>
@@ -590,7 +588,9 @@ loadScripts(document, 'script');</script>
 <div class="block"> The list that the zipper represents, with all modifications made.</div>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#close()" class="member-name-link">close()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The tree that this zipper represents, with all modifications made.</div>
+</dd>
 <dt><a href="dev/javafp/shelf/ImShelfZipper.html#close()" class="member-name-link">close()</a> - Method in class dev.javafp.shelf.<a href="dev/javafp/shelf/ImShelfZipper.html" title="class in dev.javafp.shelf">ImShelfZipper</a></dt>
 <dd>
 <div class="block"> Return the shelf that the zipper represents, with all modifications made.</div>
@@ -1331,7 +1331,9 @@ loadScripts(document, 'script');</script>
   is true.</div>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#find(dev.javafp.set.ImTreeZipper,A)" class="member-name-link">find(ImTreeZipper&lt;A&gt;, A)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The zipper whose focus is `elementToFind`.</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImListZipper.html#find(T)" class="member-name-link">find(T)</a> - Method in class dev.javafp.lst.<a href="dev/javafp/lst/ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a></dt>
 <dd>
 <div class="block"> Move the focus of this zipper to the next element that is equal to
@@ -1788,7 +1790,9 @@ loadScripts(document, 'script');</script>
  <code>label</code></div>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#getAfterSize()" class="member-name-link">getAfterSize()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Thn number of nodes after the current focus</div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getArcs(dev.javafp.graph.ImGraph.Dir,KEY)" class="member-name-link">getArcs(ImGraph.Dir, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
 <div class="block"> The arcs in the direction
@@ -1883,7 +1887,9 @@ loadScripts(document, 'script');</script>
 <div class="block">The element at the root node of this tree</div>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#getElement()" class="member-name-link">getElement()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Get the element that this zipper is focused on.</div>
+</dd>
 <dt><a href="dev/javafp/tree/ImRoseTree.html#getElement()" class="member-name-link">getElement()</a> - Method in class dev.javafp.tree.<a href="dev/javafp/tree/ImRoseTree.html" title="class in dev.javafp.tree">ImRoseTree</a></dt>
 <dd>
 <div class="block"> The element at this node.</div>
@@ -1903,7 +1909,9 @@ loadScripts(document, 'script');</script>
 <div class="block"> The focus of the zipper.</div>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#getFocus()" class="member-name-link">getFocus()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The node that this zipper is focused on.</div>
+</dd>
 <dt><a href="dev/javafp/shelf/ImShelfZipper.html#getFocus()" class="member-name-link">getFocus()</a> - Method in class dev.javafp.shelf.<a href="dev/javafp/shelf/ImShelfZipper.html" title="class in dev.javafp.shelf">ImShelfZipper</a></dt>
 <dd>
 <div class="block"> Return the focus.</div>
@@ -2457,7 +2465,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/tree/ImRoseTreeZipper.html#getZippers()" class="member-name-link">getZippers()</a> - Method in class dev.javafp.tree.<a href="dev/javafp/tree/ImRoseTreeZipper.html" title="class in dev.javafp.tree">ImRoseTreeZipper</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#goToIndex(int)" class="member-name-link">goToIndex(int)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The zipper on the underlying tree whose focus has rank
+ <code>indexStartingAtOne</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/TangentVector.html#grid(double,double,int,int)" class="member-name-link">grid(double, double, int, int)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/TangentVector.html" title="class in dev.javafp.geom">TangentVector</a></dt>
 <dd>
 <div class="block"> Draw a grid with
@@ -3004,8 +3015,6 @@ loadScripts(document, 'script');</script>
  <code>ImTree</code>
  .</div>
 </dd>
-<dt><a href="dev/javafp/set/ImTreeZipper.html#%3Cinit%3E(dev.javafp.set.ImTree,dev.javafp.set.ImTreeZipper.Side,dev.javafp.set.ImTreeZipper)" class="member-name-link">ImTreeZipper(ImTree&lt;A&gt;, ImTreeZipper.Side, ImTreeZipper&lt;A&gt;)</a> - Constructor for class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/tuple/ImTriple.html" class="type-name-link" title="class in dev.javafp.tuple">ImTriple</a>&lt;<a href="dev/javafp/tuple/ImTriple.html" title="type parameter in ImTriple">A</a>,<wbr><a href="dev/javafp/tuple/ImTriple.html" title="type parameter in ImTriple">B</a>,<wbr><a href="dev/javafp/tuple/ImTriple.html" title="type parameter in ImTriple">C</a>&gt; - Class in <a href="dev/javafp/tuple/package-summary.html">dev.javafp.tuple</a></dt>
 <dd>
 <div class="block"> A tuple of length 3.</div>
@@ -3248,7 +3257,12 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/ImEither.html#isLeft" class="member-name-link">isLeft</a> - Variable in class dev.javafp.util.<a href="dev/javafp/util/ImEither.html" title="class in dev.javafp.util">ImEither</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#isNil()" class="member-name-link">isNil()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> <code>true</code>
+  if the focus is
+ <code>nil</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#isNotEmpty()" class="member-name-link">isNotEmpty()</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> This returns !<a href="dev/javafp/lst/ImList.html#isEmpty()"><code>ImList.isEmpty()</code></a></div>
@@ -3276,7 +3290,9 @@ loadScripts(document, 'script');</script>
   if owner, group and other have read permissions</div>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#isRoot()" class="member-name-link">isRoot()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Is this zipper looking at the root of a tree.</div>
+</dd>
 <dt><a href="dev/javafp/tree/ImRoseTreeZipper.html#isRoot()" class="member-name-link">isRoot()</a> - Method in class dev.javafp.tree.<a href="dev/javafp/tree/ImRoseTreeZipper.html" title="class in dev.javafp.tree">ImRoseTreeZipper</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/OptionDefinition.html#isSingle" class="member-name-link">isSingle</a> - Variable in class dev.javafp.util.<a href="dev/javafp/util/OptionDefinition.html" title="class in dev.javafp.util">OptionDefinition</a></dt>
@@ -4394,7 +4410,18 @@ loadScripts(document, 'script');</script>
  <code>inclusive(1, max)</code></div>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#onIndex(dev.javafp.set.ImTree,int)" class="member-name-link">onIndex(ImTree&lt;A&gt;, int)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> An
+ <code>ImMaybe</code>
+  containing tree zipper on
+ <code>tree</code>
+  pointing to the node at index
+ <code>indexStartingAtOne</code>
+  or
+ <code>Nothing</code>
+  if
+ <code>indexStartingAtOne &gt; tree.size()</code></div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#onIterator(java.util.Iterator)" class="member-name-link">onIterator(Iterator&lt;? extends A&gt;)</a> - Static method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> Create a
@@ -4429,7 +4456,9 @@ loadScripts(document, 'script');</script>
  .</div>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#onLeftmost(dev.javafp.set.ImTree)" class="member-name-link">onLeftmost(ImTree&lt;A&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">A zipper on the leftmost descendant of the tree `root`.</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#onOne(A)" class="member-name-link">onOne(A)</a> - Static method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> Create a
@@ -4444,9 +4473,13 @@ loadScripts(document, 'script');</script>
   in order.</div>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#onRightmost(dev.javafp.set.ImTree)" class="member-name-link">onRightmost(ImTree&lt;A&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">An `ImTreeZipper` on the rightmost descendant of the tree `root`.</div>
+</dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#onRoot(dev.javafp.set.ImTree)" class="member-name-link">onRoot(ImTree&lt;A&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">An `ImTreeZipper` on the tree `root`.</div>
+</dd>
 <dt><a href="dev/javafp/queue/ImQueue.html#onSize(int,A...)" class="member-name-link">onSize(int, A...)</a> - Static method in class dev.javafp.queue.<a href="dev/javafp/queue/ImQueue.html" title="class in dev.javafp.queue">ImQueue</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/lst/ImList.html#onString(java.lang.String)" class="member-name-link">onString(String)</a> - Static method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
@@ -4692,7 +4725,9 @@ loadScripts(document, 'script');</script>
 <div class="block"> The zipper whose focus is the previous node in the tree.</div>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#previous()" class="member-name-link">previous()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The zipper whose focus is the node that is the previous one to the current focus</div>
+</dd>
 <dt><a href="dev/javafp/tree/ImRoseTreeZipper.html#prevSibling()" class="member-name-link">prevSibling()</a> - Method in class dev.javafp.tree.<a href="dev/javafp/tree/ImRoseTreeZipper.html" title="class in dev.javafp.tree">ImRoseTreeZipper</a></dt>
 <dd>
 <div class="block"> The previous sibling node, if there is one.</div>
@@ -5081,7 +5116,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/queue/ImQueue.html#removeFirst()" class="member-name-link">removeFirst()</a> - Method in class dev.javafp.queue.<a href="dev/javafp/queue/ImQueue.html" title="class in dev.javafp.queue">ImQueue</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#removeNode()" class="member-name-link">removeNode()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Remove the current focus from the underlying tree</div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#removeNode(KEY)" class="member-name-link">removeNode(KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
 <div class="block"> Remove the node with key
@@ -5168,8 +5205,10 @@ loadScripts(document, 'script');</script>
  <code>newElement</code>
   as its element.</div>
 </dd>
-<dt><a href="dev/javafp/set/ImTreeZipper.html#replaceEmptyNode(dev.javafp.set.ImTree)" class="member-name-link">replaceEmptyNode(ImTree&lt;A&gt;)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="dev/javafp/set/ImTreeZipper.html#replaceNil(dev.javafp.set.ImTree)" class="member-name-link">replaceNil(ImTree&lt;A&gt;)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
+<dd>
+<div class="block">Replace the Nil tree with `newNode`</div>
+</dd>
 <dt><a href="dev/javafp/net/ApiRequest.html#requestHeaders" class="member-name-link">requestHeaders</a> - Variable in class dev.javafp.net.<a href="dev/javafp/net/ApiRequest.html" title="class in dev.javafp.net">ApiRequest</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/time/StopWatch.html#reset()" class="member-name-link">reset()</a> - Method in class dev.javafp.time.<a href="dev/javafp/time/StopWatch.html" title="class in dev.javafp.time">StopWatch</a></dt>
