@@ -17,8 +17,16 @@ import java.util.Random;
  */
 public class PseudoRandom
 {
-    public static Random random = new Random();
+    /**
+     * The underlying random
+     */
+    private static Random random = new Random();
 
+    /**
+     *
+     * Set the seed of the underlying random to
+     * {@code seed}
+     */
     public static void setSeed(long seed)
     {
         random = new Random(seed);
@@ -59,11 +67,24 @@ public class PseudoRandom
         return nextInt(minInclusive, maxInclusive + 1);
     }
 
+    /**
+     * <p> A random double
+     * {@code d}
+     *  where
+     * {@code min <= i < max}
+     *
+     */
     public static double nextDouble(double min, double max)
     {
         return random.nextDouble() * (max - min) + min;
     }
 
+    /**
+     * <p> An array of bytes containing
+     * {@code count}
+     * random bytes
+     *
+     */
     public static byte[] nextBytes(int count)
     {
         byte[] bs = new byte[count];

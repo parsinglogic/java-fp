@@ -112,7 +112,7 @@ import java.util.List;
  *  at the root and with a left child of
  * {@code g}
  *  and a right child of
- * {@code Nil}
+ * {@code nil}
  * Now let's go up again:
  *
  *
@@ -184,7 +184,12 @@ public class ImTreeZipper<A>
     }
 
     /**
-     * An `ImTreeZipper` on the tree `root`.
+     * <p> An
+     * {@code ImTreeZipper}
+     *  on the tree
+     * {@code root}
+     * .
+     *
      */
     public static <A> ImTreeZipper<A> onRoot(ImTree<A> root)
     {
@@ -192,7 +197,10 @@ public class ImTreeZipper<A>
     }
 
     /**
-     * A zipper on the leftmost descendant of the tree `root`.
+     * <p> A zipper on the leftmost descendant of the tree
+     * {@code root}
+     * .
+     *
      */
     public static <A> ImTreeZipper<A> onLeftmost(ImTree<A> root)
     {
@@ -200,7 +208,12 @@ public class ImTreeZipper<A>
     }
 
     /**
-     * An `ImTreeZipper` on the rightmost descendant of the tree `root`.
+     * <p> An
+     * {@code ImTreeZipper}
+     *  on the rightmost descendant of the tree
+     * {@code root}
+     * .
+     *
      */
     public static <A> ImTreeZipper<A> onRightmost(ImTree<A> root)
     {
@@ -293,7 +306,10 @@ public class ImTreeZipper<A>
     }
 
     /**
-     * A String representation of this object
+     * <p> A
+     * {@code String}
+     *  representation of this object
+     *
      */
     @Override
     public String toString()
@@ -336,7 +352,13 @@ public class ImTreeZipper<A>
     }
 
     /**
-     * The zipper whose focus is `elementToFind`.
+     * <p> The zipper based on
+     * {@code z}
+     *  whose focus is
+     *
+     * {@code elementToFind}
+     * .
+     *
      */
     public static <A extends Comparable<? super A>> ImTreeZipper<A> find(ImTreeZipper<A> z, final A elementToFind)
     {
@@ -355,7 +377,12 @@ public class ImTreeZipper<A>
     }
 
     /**
-     * Replace the Nil tree with `newNode`
+     * <p> Replace the
+     * {@code nil}
+     *  tree with
+     *
+     * {@code newNode}
+     *
      */
     public ImTreeZipper<A> replaceNil(ImTree<A> newNode)
     {
@@ -437,7 +464,7 @@ public class ImTreeZipper<A>
     }
 
     /**
-     * <p> Get the next node along from my node
+     * <p> Get the next node along from the focus node
      */
     public ImMaybe<ImTreeZipper<A>> next()
     {
@@ -647,7 +674,7 @@ public class ImTreeZipper<A>
     }
 
     /**
-     * Thn number of nodes after the current focus
+     * The number of nodes after the current focus
      */
     public int getAfterSize()
     {

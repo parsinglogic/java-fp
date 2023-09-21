@@ -19,11 +19,6 @@ public class Rando
 {
     public static SecureRandom random = new SecureRandom();
 
-    //    public static void setSeed(long seed)
-    //    {
-    //        random = new SecureRandom(("" + seed).getBytes());
-    //    }
-
     /**
      * The next element in the iterator. Throws {@link NoSuchElementException} if no such element exists.
      */
@@ -59,11 +54,24 @@ public class Rando
         return nextInt(minInclusive, maxInclusive + 1);
     }
 
+    /**
+     * <p> A random double
+     * {@code d}
+     *  where
+     * {@code min <= i < max}
+     *
+     */
     public static double nextDouble(double min, double max)
     {
         return random.nextDouble() * (max - min) + min;
     }
 
+    /**
+     * <p> An array of bytes containing
+     * {@code count}
+     * random bytes
+     *
+     */
     public static byte[] nextBytes(int count)
     {
         byte[] bs = new byte[count];
