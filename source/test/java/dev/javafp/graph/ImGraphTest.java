@@ -95,13 +95,14 @@ public class ImGraphTest
     }
 
     /**
-     * Create a graph like this:
+     * <p> Create a graph like this:
      *
-     *  <p> <img src="{@docRoot}/dev/doc-files/cycle.png" alt="rose-tree-a"  width="200" />
+     * <pre>{@code
+     *          a
+     *         / \
+     *        c - b
+     * }</pre>
      *
-     *              a
-     *             / \
-     *            c - b
      */
     private ImGraph<String, String, String> makeCycleGraph()
     {

@@ -692,10 +692,8 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     /**
      * The text-box representation of the graph in an "ascii-art" form
      *
-     * <p> This is an example of a graph with arcs labelled art or mod and its ascii-art diagram
+     * <p> <img src="{@docRoot}/dev/doc-files/graph-diagrams.png"  width=1000/>
      *
-     *
-     * <p> </p><img src="{@docRoot}/dev/doc-files/graph-diagrams.png"  width=700/>
      */
     public AbstractTextBox show()
     {
@@ -706,43 +704,14 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
     /**
      * <p> Showing the text boxes:
+     * <p> This is an example of a graph with arcs labeled "-", its ascii-art diagram and an illustration of how each box
+     * relates to the graph content.
      *
-     * <pre>{@code
-     *        label   key
-     * +------/------/--+
-     * | |- www -> Bong | <- first line                  getBoxForPairs(...)
-     * +----------------+                               /
-     * +---------++------------------------------------+
-     * | |       || +---------------+                  |
-     * | |       || | |- xxx -> Foo |               getBoxForChildren("Foo")
-     * | |       || +---------------+              /   |
-     * | |       || +---------++------------------+    |
-     * | |       || | |       || |- yyy -...      |    |
-     * | |       || | |       || |                |    |
-     * | |       || | |       || |                |    |
-     * | |       || | |       || |                |    |
-     * | |       || +---------++------------------+    |
-     * | |       || +------------------+               |
-     * | |       || | |- yyyyyy -> Bar |               getBoxForChildren("Bar")
-     * | |       || +------------------+              /
-     * | |       || +------------++------------------+ |
-     * | |       || | |          || |- zzz -...      | |
-     * | |       || | |          || |                | |
-     * | |       || | |          || |                | |
-     * | |       || | |          || |                | |
-     * | |       || +------------++------------------+ |
-     * | |       || +--------------+                   |
-     * | |       || | |- x -> Bing |              getBoxForChildren("Bing")
-     * | |       || +--------------+             /     |
-     * | |       || +-------++------------------+      |
-     * | |       || | |     || |- aaa -...      |      |
-     * | |       || | |     || |                |      |
-     * | |       || | |     || |                |      |
-     * | |       || | |     || |                |      |
-     * | |       || +-------++------------------+      |
-     * +---------++------------------------------------+
-     * }</pre>
+     * <p> <img src="{@docRoot}/dev/doc-files/graph-getboxfor.png"  width=400/>
      *
+     * <p> Note that, where a node has been displayed already (assuming we are processing top-down), it is not displayed in full.
+     * Instead, just its label is shown in brackets to indicate that it has been shown already - somewhere above the current line.
+
      */
     ImPair<ImSet<KEY>, AbstractTextBox> getBoxFor(ImSet<KEY> seen, ImPair<String, KEY> labelAndKey)
     {
