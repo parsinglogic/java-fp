@@ -45,13 +45,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
 <li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
 </div>
@@ -84,11 +84,23 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Rect</span>
 <span class="extends-implements">extends <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></span></div>
 <div class="block"><p> A Rectangle.
- <p> This is to be used to layout widgets.</div>
+
+ <p> A rectangle
+ with its north-west point
+ <code>origin</code>
+ and its south-east point
+ <code>corner</code>
+  so its size is
+ <code>corner - origin</code>
+
+ <p> <img src="../../../dev/doc-files/rectangle-origin-corner.png" width=300/>
+
+ <p> This is used to layout widgets (and other things).</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
 <ul class="see-list">
+<li><a href="Point.html" title="class in dev.javafp.geom"><code>Point</code></a></li>
 <li><a href="../../../serialized-form.html#dev.javafp.geom.Rect">Serialized Form</a></li>
 </ul>
 </dd>
@@ -107,32 +119,20 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>final <a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
 <div class="col-second even-row-color"><code><a href="#corner" class="member-name-link">corner</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">The south-east point</div>
+</div>
 <div class="col-first odd-row-color"><code>final <a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#origin" class="member-name-link">origin</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">The north-west point</div>
+</div>
 <div class="col-first even-row-color"><code>final <a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
 <div class="col-second even-row-color"><code><a href="#size" class="member-name-link">size</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">The size -
+ <code>corner - origin</code></div>
 </div>
-</section>
-</li>
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<li>
-<section class="constructor-summary" id="constructor-summary">
-<h2>Constructor Summary</h2>
-<div class="caption"><span>Constructors</span></div>
-<div class="summary-table two-column-summary">
-<div class="table-header col-first">Constructor</div>
-<div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(double,double,double,double)" class="member-name-link">Rect</a><wbr>(double&nbsp;x,
- double&nbsp;y,
- double&nbsp;width,
- double&nbsp;height)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(dev.javafp.geom.Point,dev.javafp.geom.Point)" class="member-name-link">Rect</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;origin,
- <a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;size)</code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -150,71 +150,107 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#centre()" class="member-name-link">centre</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block"><code>
- NW       N       NE
-  +-------+-------+
-  |               |
-  |               |
- </code></div>
+<div class="block"> The centre point of the rectangle.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#centreIn(dev.javafp.geom.Rect)" class="member-name-link">centreIn</a><wbr>(<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&nbsp;container)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#centre(dev.javafp.geom.Point)" class="member-name-link">centre</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose centre point is
+ <code>p</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#centreOn(dev.javafp.geom.Point)" class="member-name-link">centreOn</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;centre)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#centreX(dev.javafp.geom.Point)" class="member-name-link">centreX</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;centre)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#centreY(dev.javafp.geom.Point)" class="member-name-link">centreY</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;centre)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#contains(dev.javafp.geom.Point)" class="member-name-link">contains</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createColumns(dev.javafp.lst.ImList)" class="member-name-link">createColumns</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;&nbsp;widths)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#centreIn(dev.javafp.geom.Rect)" class="member-name-link">centreIn</a><wbr>(<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&nbsp;container)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block"> Cut this rectangle into columns - rectangles with the given widths where they are laid out in a row</div>
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>container.center()</code>
+ .</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#centreOn(dev.javafp.geom.Point)" class="member-name-link">centreOn</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;centre)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>centre</code>
+ .</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#contains(dev.javafp.geom.Point)" class="member-name-link">contains</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> <code>true</code>
+  if
+ <code>p</code>
+  lies inside (or on the boundary of)
+ <code>this</code>
+ .</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createColumns(java.lang.Double...)" class="member-name-link">createColumns</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>...&nbsp;widths)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#cutInto(int)" class="member-name-link">cutInto</a><wbr>(int&nbsp;i)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#east()" class="member-name-link">east</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#east(dev.javafp.geom.Point)" class="member-name-link">east</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#expandBy(double)" class="member-name-link">expandBy</a><wbr>(double&nbsp;borderWidth)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createColumns(dev.javafp.lst.ImList)" class="member-name-link">createColumns</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;&nbsp;widths)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> Cut this rectangle into columns - Return
+ <code>n</code>
+  rectangles with same height as
+ <code>this</code>
+  with each
+ <br/>
+ width taken from
+ <code>widths</code>
+  where
+ <code>n</code>
+  is the size of
+ <code>widths</code>
+ .</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#east()" class="member-name-link">east</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The east point of the rectangle.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#east(dev.javafp.geom.Point)" class="member-name-link">east</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose east point is
+ <code>p</code></div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#expandBy(double)" class="member-name-link">expandBy</a><wbr>(double&nbsp;borderWidth)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Expand by a border of borderWidth, keeping the origin the same</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#expandBy(double,double)" class="member-name-link">expandBy</a><wbr>(double&nbsp;x,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#expandBy(double,double)" class="member-name-link">expandBy</a><wbr>(double&nbsp;x,
  double&nbsp;y)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Expand by a border of x, y, keeping the origin the same</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#extent(dev.javafp.lst.ImList)" class="member-name-link">extent</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;&nbsp;rs)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> Get the rectangle that minimally contains
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#extent(dev.javafp.lst.ImList)" class="member-name-link">extent</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;&nbsp;rs)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The rectangle that minimally contains
  <code>rs</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#from(java.awt.geom.Rectangle2D)" class="member-name-link">from</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/java/awt/geom/Rectangle2D.html" title="class or interface in java.awt.geom" class="external-link">Rectangle2D</a>&nbsp;r2d)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCentre()" class="member-name-link">getCentre</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#from(java.awt.geom.Rectangle2D)" class="member-name-link">from</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/java/awt/geom/Rectangle2D.html" title="class or interface in java.awt.geom" class="external-link">Rectangle2D</a>&nbsp;r2d)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The rectangle with the same origin and size as
+ <code>r2d</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHeight()" class="member-name-link">getHeight</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The height of
+ <code>this</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNames()" class="member-name-link">getNames</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -234,15 +270,28 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getWidth()" class="member-name-link">getWidth</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The width of
+ <code>this</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#inset(double)" class="member-name-link">inset</a><wbr>(double&nbsp;inset)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#inset(double)" class="member-name-link">inset</a><wbr>(double&nbsp;delta)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle with the same
+ <code>centre</code>
+  as
+ <code>this</code>
+  but with size
+ <code>size - 2*(delta, delta)</code>
+ .</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#justifyIn(dev.javafp.geom.Orient2,dev.javafp.geom.Point)" class="member-name-link">justifyIn</a><wbr>(<a href="Orient2.html" title="enum class in dev.javafp.geom">Orient2</a>&nbsp;orient,
  <a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;offset)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block"> A rectangle representing this after it has been justified in
+<div class="block"> A rectangle representing
+ <code>this</code>
+ after it has been justified in
  <code>container</code>
  based on orientation
  <code>orient</code>
@@ -250,136 +299,303 @@ loadScripts(document, 'script');</script>
  <code>offset</code></div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#layoutHorizontally(double,dev.javafp.geom.Point...)" class="member-name-link">layoutHorizontally</a><wbr>(double&nbsp;spaceBetween,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#layoutHorizontally(double,dev.javafp.geom.Point...)" class="member-name-link">layoutHorizontally</a><wbr>(double&nbsp;gap,
  <a href="Point.html" title="class in dev.javafp.geom">Point</a>...&nbsp;sizes)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A shortcut for:
+
+ <code>layoutHorizontally(gap, ImList.on(sizes)</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#layoutHorizontally(double,dev.javafp.lst.ImList)" class="member-name-link">layoutHorizontally</a><wbr>(double&nbsp;spaceBetween,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#layoutHorizontally(double,dev.javafp.lst.ImList)" class="member-name-link">layoutHorizontally</a><wbr>(double&nbsp;gap,
  <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Point.html" title="class in dev.javafp.geom">Point</a>&gt;&nbsp;sizes)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> <code>sizes.size</code>
+  rectangles
+ laid out left to right with the first one having
+ <code>origin=(0,0)</code>
+  with
+ a horizontal gap between them of
+ <code>gap</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#layoutVertically(double,dev.javafp.geom.Point...)" class="member-name-link">layoutVertically</a><wbr>(double&nbsp;spaceBetween,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#layoutVertically(double,dev.javafp.geom.Point...)" class="member-name-link">layoutVertically</a><wbr>(double&nbsp;gap,
  <a href="Point.html" title="class in dev.javafp.geom">Point</a>...&nbsp;sizes)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A shortcut for:
+
+ <code>layoutVertically(gap, ImList.on(sizes)</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#layoutVertically(double,dev.javafp.lst.ImList)" class="member-name-link">layoutVertically</a><wbr>(double&nbsp;spaceBetween,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#layoutVertically(double,dev.javafp.lst.ImList)" class="member-name-link">layoutVertically</a><wbr>(double&nbsp;gap,
  <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Point.html" title="class in dev.javafp.geom">Point</a>&gt;&nbsp;sizes)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveBelow(dev.javafp.geom.Rect,double)" class="member-name-link">moveBelow</a><wbr>(<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&nbsp;other,
- double&nbsp;verticalOffset)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveBy(double,double)" class="member-name-link">moveBy</a><wbr>(double&nbsp;x,
- double&nbsp;y)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> <code>sizes.size</code>
+  rectangles
+ laid out top down with the first one having
+ <code>origin=(0,0)</code>
+  with
+ a vertical gap between them of
+ <code>gap</code>
+ .</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveBy(dev.javafp.geom.Point)" class="member-name-link">moveBy</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;point)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>origin + point</code>
+ .</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveDown(double)" class="member-name-link">moveDown</a><wbr>(double&nbsp;amountToMoveDown)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveByX(double)" class="member-name-link">moveByX</a><wbr>(double&nbsp;dx)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>origin + (dx, 0)</code>
+ .</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveLeft(double)" class="member-name-link">moveLeft</a><wbr>(double&nbsp;amountToMoveLeft)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveByY(double)" class="member-name-link">moveByY</a><wbr>(double&nbsp;dy)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>origin + (0, dy)</code>
+ .</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveRight(double)" class="member-name-link">moveRight</a><wbr>(double&nbsp;amountToMoveRight)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveTo(dev.javafp.geom.Point)" class="member-name-link">moveTo</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;newOrigin)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>newOrigin</code>
+ .</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveTo(dev.javafp.geom.Point)" class="member-name-link">moveTo</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;newOrigin)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveToX(double)" class="member-name-link">moveToX</a><wbr>(double&nbsp;x)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>(x, origin.y)</code>
+ .</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveUp(double)" class="member-name-link">moveUp</a><wbr>(double&nbsp;amountToMoveUp)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveXTo(double)" class="member-name-link">moveXTo</a><wbr>(double&nbsp;x)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveYTo(double)" class="member-name-link">moveYTo</a><wbr>(double&nbsp;y)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#moveToY(double)" class="member-name-link">moveToY</a><wbr>(double&nbsp;y)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>(origin.x, y)</code>
+ .</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#north()" class="member-name-link">north</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The north point of the rectangle.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#north(dev.javafp.geom.Point)" class="member-name-link">north</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose north point is
+ <code>p</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#northEast()" class="member-name-link">northEast</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The north-east point of the rectangle.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#northEast(dev.javafp.geom.Point)" class="member-name-link">northEast</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose north-east point is
+ <code>p</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#northWest()" class="member-name-link">northWest</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The north-west point of the rectangle.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#northWest(dev.javafp.geom.Point)" class="member-name-link">northWest</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose north-west point is
+ <code>p</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(double,double,double,double)" class="member-name-link">on</a><wbr>(double&nbsp;x,
  double&nbsp;y,
  double&nbsp;width,
  double&nbsp;height)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The rectangle with origin
+ <code>(x, y)</code>
+  and size
+ <code>(width, height)</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(double,double,dev.javafp.geom.Point)" class="member-name-link">on</a><wbr>(double&nbsp;x,
  double&nbsp;y,
  <a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;size)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The rectangle with origin
+ <code>(x, y)</code>
+  and size
+ <code>size</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#originCorner(dev.javafp.geom.Point,dev.javafp.geom.Point)" class="member-name-link">originCorner</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;origin,
  <a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;corner)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#outset(double)" class="member-name-link">outset</a><wbr>(double&nbsp;outset)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#repeat(dev.javafp.geom.Point,int)" class="member-name-link">repeat</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;offset,
- int&nbsp;count)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setHeight(double)" class="member-name-link">setHeight</a><wbr>(double&nbsp;h)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setWidth(double)" class="member-name-link">setWidth</a><wbr>(double&nbsp;w)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The rectangle with origin
+ <code>origin</code>
+  and corner
+ <code>corner</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#size(double,double)" class="member-name-link">size</a><wbr>(double&nbsp;x,
- double&nbsp;y)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#size(dev.javafp.geom.Point)" class="member-name-link">size</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;size)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#originSize(dev.javafp.geom.Point,dev.javafp.geom.Point)" class="member-name-link">originSize</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;origin,
+ <a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;size)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The rectangle with origin
+ <code>origin</code>
+  and size
+ <code>size</code></div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#outset(double)" class="member-name-link">outset</a><wbr>(double&nbsp;delta)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle
+ <code>this.inset(-delta)</code></div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#repeat(dev.javafp.geom.Point,int)" class="member-name-link">repeat</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;offset,
+ int&nbsp;count)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> A list with
+ <code>this</code>
+  repeated
+ <code>count</code>
+  times with each element having an offset of
+ <code>offset</code>
+  from the previous element.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setHeight(double)" class="member-name-link">setHeight</a><wbr>(double&nbsp;h)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle with the same
+ <code>origin</code>
+  and
+ <code>width</code>
+  as
+ <code>this</code>
+  but with height
+ <code>height</code>
+ .</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#sizeRect()" class="member-name-link">sizeRect</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setWidth(double)" class="member-name-link">setWidth</a><wbr>(double&nbsp;w)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle with the same
+ <code>origin</code>
+  and
+ <code>height</code>
+  as
+ <code>this</code>
+  but with width
+ <code>width</code>
+ .</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#size(double,double)" class="member-name-link">size</a><wbr>(double&nbsp;x,
+ double&nbsp;y)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The rectangle with origin
+ <code>(0, 0)</code>
+  and size
+ <code>(x, y)</code></div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#size(dev.javafp.geom.Point)" class="member-name-link">size</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;size)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The rectangle with origin
+ <code>(0, 0)</code>
+  and size
+ <code>size</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#south()" class="member-name-link">south</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The south point of the rectangle.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#south(dev.javafp.geom.Point)" class="member-name-link">south</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose south point is
+ <code>p</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#southEast()" class="member-name-link">southEast</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The south-east point of the rectangle.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#southEast(dev.javafp.geom.Point)" class="member-name-link">southEast</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose south-east point is
+ <code>p</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#southWest()" class="member-name-link">southWest</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The south-west point of the rectangle.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#southWest(dev.javafp.geom.Point)" class="member-name-link">southWest</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/java/awt/Shape.html" title="class or interface in java.awt" class="external-link">Shape</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toRectangle2D()" class="member-name-link">toRectangle2D</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#west()" class="member-name-link">west</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#west(dev.javafp.geom.Point)" class="member-name-link">west</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose south-west point is
+ <code>p</code></div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Point.html" title="class in dev.javafp.geom">Point</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#west()" class="member-name-link">west</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The west point of the rectangle.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#west(dev.javafp.geom.Point)" class="member-name-link">west</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose west point is
+ <code>p</code></div>
+</div>
 </div>
 </div>
 </div>
@@ -407,42 +623,22 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="origin">
 <h3>origin</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">origin</span></div>
+<div class="block">The north-west point</div>
 </section>
 </li>
 <li>
 <section class="detail" id="size">
 <h3>size</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">size</span></div>
+<div class="block">The size -
+ <code>corner - origin</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="corner">
 <h3>corner</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">corner</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<li>
-<section class="constructor-details" id="constructor-detail">
-<h2>Constructor Details</h2>
-<ul class="member-list">
-<li>
-<section class="detail" id="&lt;init&gt;(dev.javafp.geom.Point,dev.javafp.geom.Point)">
-<h3>Rect</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Rect</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;origin,
- <a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;size)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="&lt;init&gt;(double,double,double,double)">
-<h3>Rect</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Rect</span><wbr><span class="parameters">(double&nbsp;x,
- double&nbsp;y,
- double&nbsp;width,
- double&nbsp;height)</span></div>
+<div class="block">The south-east point</div>
 </section>
 </li>
 </ul>
@@ -458,12 +654,40 @@ loadScripts(document, 'script');</script>
 <h3>originCorner</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">originCorner</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;origin,
  <a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;corner)</span></div>
+<div class="block"><p> The rectangle with origin
+ <code>origin</code>
+  and corner
+ <code>corner</code>
+
+ <p> If it is not the case that
+ <code>origin.le(corner)</code>
+  then
+ <code>origin</code>
+  and
+ <code>corner</code>
+  are
+ <code>swapped</code></div>
+</section>
+</li>
+<li>
+<section class="detail" id="originSize(dev.javafp.geom.Point,dev.javafp.geom.Point)">
+<h3>originSize</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">originSize</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;origin,
+ <a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;size)</span></div>
+<div class="block"><p> The rectangle with origin
+ <code>origin</code>
+  and size
+ <code>size</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="size(dev.javafp.geom.Point)">
 <h3>size</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">size</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;size)</span></div>
+<div class="block"><p> The rectangle with origin
+ <code>(0, 0)</code>
+  and size
+ <code>size</code></div>
 </section>
 </li>
 <li>
@@ -471,6 +695,10 @@ loadScripts(document, 'script');</script>
 <h3>size</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">size</span><wbr><span class="parameters">(double&nbsp;x,
  double&nbsp;y)</span></div>
+<div class="block"><p> The rectangle with origin
+ <code>(0, 0)</code>
+  and size
+ <code>(x, y)</code></div>
 </section>
 </li>
 <li>
@@ -479,6 +707,10 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(double&nbsp;x,
  double&nbsp;y,
  <a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;size)</span></div>
+<div class="block"><p> The rectangle with origin
+ <code>(x, y)</code>
+  and size
+ <code>size</code></div>
 </section>
 </li>
 <li>
@@ -488,12 +720,18 @@ loadScripts(document, 'script');</script>
  double&nbsp;y,
  double&nbsp;width,
  double&nbsp;height)</span></div>
+<div class="block"><p> The rectangle with origin
+ <code>(x, y)</code>
+  and size
+ <code>(width, height)</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="from(java.awt.geom.Rectangle2D)">
 <h3>from</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">from</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/java/awt/geom/Rectangle2D.html" title="class or interface in java.awt.geom" class="external-link">Rectangle2D</a>&nbsp;r2d)</span></div>
+<div class="block"><p> The rectangle with the same origin and size as
+ <code>r2d</code></div>
 </section>
 </li>
 <li>
@@ -538,180 +776,268 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="centre()">
 <h3>centre</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">centre</span>()</div>
-<div class="block"><pre><code>
- NW       N       NE
-  +-------+-------+
-  |               |
-  |               |
- </code></pre>
- <p> W +       +       + E
- |       C       |
- |               |
- +-------+-------+
- SW       S       SE</div>
+<div class="block"><p> The centre point of the rectangle.
+
+ <p> <img src="../../../dev/doc-files/rectangle-points.png" width=300/></div>
+</section>
+</li>
+<li>
+<section class="detail" id="centre(dev.javafp.geom.Point)">
+<h3>centre</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">centre</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</span></div>
+<div class="block"><p> The rectangle that has the same size as
+ <code>this</code>
+  and whose centre point is
+ <code>p</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="north()">
 <h3>north</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">north</span>()</div>
+<div class="block"><p> The north point of the rectangle.
+
+ <p> <img src="../../../dev/doc-files/rectangle-points.png" width=300/></div>
 </section>
 </li>
 <li>
 <section class="detail" id="north(dev.javafp.geom.Point)">
 <h3>north</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">north</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</span></div>
+<div class="block"><p> The rectangle that has the same size as
+ <code>this</code>
+  and whose north point is
+ <code>p</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="south()">
 <h3>south</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">south</span>()</div>
+<div class="block"><p> The south point of the rectangle.
+
+ <p> <img src="../../../dev/doc-files/rectangle-points.png" width=300/></div>
 </section>
 </li>
 <li>
 <section class="detail" id="south(dev.javafp.geom.Point)">
 <h3>south</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">south</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</span></div>
+<div class="block"><p> The rectangle that has the same size as
+ <code>this</code>
+  and whose south point is
+ <code>p</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="east()">
 <h3>east</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">east</span>()</div>
+<div class="block"><p> The east point of the rectangle.
+
+ <p> <img src="../../../dev/doc-files/rectangle-points.png" width=300/></div>
 </section>
 </li>
 <li>
 <section class="detail" id="east(dev.javafp.geom.Point)">
 <h3>east</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">east</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</span></div>
+<div class="block"><p> The rectangle that has the same size as
+ <code>this</code>
+  and whose east point is
+ <code>p</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="west()">
 <h3>west</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">west</span>()</div>
+<div class="block"><p> The west point of the rectangle.
+
+ <p> <img src="../../../dev/doc-files/rectangle-points.png" width=300/></div>
 </section>
 </li>
 <li>
 <section class="detail" id="west(dev.javafp.geom.Point)">
 <h3>west</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">west</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</span></div>
+<div class="block"><p> The rectangle that has the same size as
+ <code>this</code>
+  and whose west point is
+ <code>p</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="northWest()">
 <h3>northWest</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">northWest</span>()</div>
+<div class="block"><p> The north-west point of the rectangle.
+
+ <p> <img src="../../../dev/doc-files/rectangle-points.png" width=300/></div>
 </section>
 </li>
 <li>
 <section class="detail" id="northWest(dev.javafp.geom.Point)">
 <h3>northWest</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">northWest</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</span></div>
+<div class="block"><p> The rectangle that has the same size as
+ <code>this</code>
+  and whose north-west point is
+ <code>p</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="northEast()">
 <h3>northEast</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">northEast</span>()</div>
+<div class="block"><p> The north-east point of the rectangle.
+
+ <p> <img src="../../../dev/doc-files/rectangle-points.png" width=300/></div>
 </section>
 </li>
 <li>
 <section class="detail" id="northEast(dev.javafp.geom.Point)">
 <h3>northEast</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">northEast</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</span></div>
+<div class="block"><p> The rectangle that has the same size as
+ <code>this</code>
+  and whose north-east point is
+ <code>p</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="southWest()">
 <h3>southWest</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">southWest</span>()</div>
+<div class="block"><p> The south-west point of the rectangle.
+
+ <p> <img src="../../../dev/doc-files/rectangle-points.png" width=300/></div>
 </section>
 </li>
 <li>
 <section class="detail" id="southWest(dev.javafp.geom.Point)">
 <h3>southWest</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">southWest</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</span></div>
+<div class="block"><p> The rectangle that has the same size as
+ <code>this</code>
+  and whose south-west point is
+ <code>p</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="southEast()">
 <h3>southEast</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">southEast</span>()</div>
+<div class="block"><p> The south-east point of the rectangle.
+
+ <p> <img src="../../../dev/doc-files/rectangle-points.png" width=300/></div>
 </section>
 </li>
 <li>
 <section class="detail" id="southEast(dev.javafp.geom.Point)">
 <h3>southEast</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">southEast</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</span></div>
+<div class="block"><p> The rectangle that has the same size as
+ <code>this</code>
+  and whose south-east point is
+ <code>p</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="contains(dev.javafp.geom.Point)">
 <h3>contains</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">contains</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</span></div>
+<div class="block"><p> <code>true</code>
+  if
+ <code>p</code>
+  lies inside (or on the boundary of)
+ <code>this</code>
+ .</div>
 </section>
 </li>
 <li>
 <section class="detail" id="moveTo(dev.javafp.geom.Point)">
 <h3>moveTo</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveTo</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;newOrigin)</span></div>
+<div class="block"><p> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>newOrigin</code>
+ .</div>
 </section>
 </li>
 <li>
-<section class="detail" id="moveRight(double)">
-<h3>moveRight</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveRight</span><wbr><span class="parameters">(double&nbsp;amountToMoveRight)</span></div>
+<section class="detail" id="moveByX(double)">
+<h3>moveByX</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveByX</span><wbr><span class="parameters">(double&nbsp;dx)</span></div>
+<div class="block"><p> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>origin + (dx, 0)</code>
+ .</div>
 </section>
 </li>
 <li>
-<section class="detail" id="moveLeft(double)">
-<h3>moveLeft</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveLeft</span><wbr><span class="parameters">(double&nbsp;amountToMoveLeft)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="moveDown(double)">
-<h3>moveDown</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveDown</span><wbr><span class="parameters">(double&nbsp;amountToMoveDown)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="moveUp(double)">
-<h3>moveUp</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveUp</span><wbr><span class="parameters">(double&nbsp;amountToMoveUp)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="moveBelow(dev.javafp.geom.Rect,double)">
-<h3>moveBelow</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveBelow</span><wbr><span class="parameters">(<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&nbsp;other,
- double&nbsp;verticalOffset)</span></div>
+<section class="detail" id="moveByY(double)">
+<h3>moveByY</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveByY</span><wbr><span class="parameters">(double&nbsp;dy)</span></div>
+<div class="block"><p> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>origin + (0, dy)</code>
+ .</div>
 </section>
 </li>
 <li>
 <section class="detail" id="getWidth()">
 <h3>getWidth</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getWidth</span>()</div>
+<div class="block"><p> The width of
+ <code>this</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="getHeight()">
 <h3>getHeight</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">getHeight</span>()</div>
+<div class="block"><p> The height of
+ <code>this</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="setWidth(double)">
 <h3>setWidth</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">setWidth</span><wbr><span class="parameters">(double&nbsp;w)</span></div>
+<div class="block"><p> The rectangle with the same
+ <code>origin</code>
+  and
+ <code>height</code>
+  as
+ <code>this</code>
+  but with width
+ <code>width</code>
+ .</div>
 </section>
 </li>
 <li>
 <section class="detail" id="setHeight(double)">
 <h3>setHeight</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">setHeight</span><wbr><span class="parameters">(double&nbsp;h)</span></div>
+<div class="block"><p> The rectangle with the same
+ <code>origin</code>
+  and
+ <code>width</code>
+  as
+ <code>this</code>
+  but with height
+ <code>height</code>
+ .</div>
 </section>
 </li>
 <li>
@@ -719,117 +1045,196 @@ loadScripts(document, 'script');</script>
 <h3>repeat</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</span>&nbsp;<span class="element-name">repeat</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;offset,
  int&nbsp;count)</span></div>
+<div class="block"><p> A list with
+ <code>this</code>
+  repeated
+ <code>count</code>
+  times with each element having an offset of
+ <code>offset</code>
+  from the previous element.
+
+ <p> The list of rectangles:
+
+ <pre><code>
+ [this, this.moveBy(offset), this.moveBy(offset*2).., this.moveBy(offset*count) ]
+ </code></pre>
+
+ or
+ <code>[]' if </code>
+ count== 0`
+ <p> If
+ <code>count &lt; 0</code>
+  the
+ <code>ArgumentShouldNotBeLessThan</code>
+  is thrown</div>
 </section>
 </li>
 <li>
 <section class="detail" id="layoutVertically(double,dev.javafp.geom.Point...)">
 <h3>layoutVertically</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</span>&nbsp;<span class="element-name">layoutVertically</span><wbr><span class="parameters">(double&nbsp;spaceBetween,
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</span>&nbsp;<span class="element-name">layoutVertically</span><wbr><span class="parameters">(double&nbsp;gap,
  <a href="Point.html" title="class in dev.javafp.geom">Point</a>...&nbsp;sizes)</span></div>
+<div class="block"><p> A shortcut for:
+
+ <code>layoutVertically(gap, ImList.on(sizes)</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="layoutVertically(double,dev.javafp.lst.ImList)">
 <h3>layoutVertically</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</span>&nbsp;<span class="element-name">layoutVertically</span><wbr><span class="parameters">(double&nbsp;spaceBetween,
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</span>&nbsp;<span class="element-name">layoutVertically</span><wbr><span class="parameters">(double&nbsp;gap,
  <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Point.html" title="class in dev.javafp.geom">Point</a>&gt;&nbsp;sizes)</span></div>
+<div class="block"><p> <code>sizes.size</code>
+  rectangles
+ laid out top down with the first one having
+ <code>origin=(0,0)</code>
+  with
+ a vertical gap between them of
+ <code>gap</code>
+ .
+ <p> The
+ <code>ith</code>
+  rectangle has
+ <code>size=sizes.at(i)</code>
+
+
+ <p> <img src="../../../dev/doc-files/rectangle-layout-vertically.png" width=300/></div>
 </section>
 </li>
 <li>
 <section class="detail" id="layoutHorizontally(double,dev.javafp.geom.Point...)">
 <h3>layoutHorizontally</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</span>&nbsp;<span class="element-name">layoutHorizontally</span><wbr><span class="parameters">(double&nbsp;spaceBetween,
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</span>&nbsp;<span class="element-name">layoutHorizontally</span><wbr><span class="parameters">(double&nbsp;gap,
  <a href="Point.html" title="class in dev.javafp.geom">Point</a>...&nbsp;sizes)</span></div>
+<div class="block"><p> A shortcut for:
+
+ <code>layoutHorizontally(gap, ImList.on(sizes)</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="layoutHorizontally(double,dev.javafp.lst.ImList)">
 <h3>layoutHorizontally</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</span>&nbsp;<span class="element-name">layoutHorizontally</span><wbr><span class="parameters">(double&nbsp;spaceBetween,
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</span>&nbsp;<span class="element-name">layoutHorizontally</span><wbr><span class="parameters">(double&nbsp;gap,
  <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Point.html" title="class in dev.javafp.geom">Point</a>&gt;&nbsp;sizes)</span></div>
+<div class="block"><p> <code>sizes.size</code>
+  rectangles
+ laid out left to right with the first one having
+ <code>origin=(0,0)</code>
+  with
+ a horizontal gap between them of
+ <code>gap</code>
+
+ <p> The
+ <code>ith</code>
+  rectangle has
+ <code>size=sizes.at(i)</code>
+
+
+ <p> <img src="../../../dev/doc-files/rectangle-layout-horizontally.png" width=300/></div>
 </section>
 </li>
 <li>
 <section class="detail" id="centreIn(dev.javafp.geom.Rect)">
 <h3>centreIn</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">centreIn</span><wbr><span class="parameters">(<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&nbsp;container)</span></div>
+<div class="block"><p> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>container.center()</code>
+ .</div>
 </section>
 </li>
 <li>
 <section class="detail" id="centreOn(dev.javafp.geom.Point)">
 <h3>centreOn</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">centreOn</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;centre)</span></div>
+<div class="block"><p> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>centre</code>
+ .</div>
 </section>
 </li>
 <li>
-<section class="detail" id="centreY(dev.javafp.geom.Point)">
-<h3>centreY</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">centreY</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;centre)</span></div>
+<section class="detail" id="moveToY(double)">
+<h3>moveToY</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveToY</span><wbr><span class="parameters">(double&nbsp;y)</span></div>
+<div class="block"><p> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>(origin.x, y)</code>
+ .</div>
 </section>
 </li>
 <li>
-<section class="detail" id="moveYTo(double)">
-<h3>moveYTo</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveYTo</span><wbr><span class="parameters">(double&nbsp;y)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="centreX(dev.javafp.geom.Point)">
-<h3>centreX</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">centreX</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;centre)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="moveXTo(double)">
-<h3>moveXTo</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveXTo</span><wbr><span class="parameters">(double&nbsp;x)</span></div>
+<section class="detail" id="moveToX(double)">
+<h3>moveToX</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveToX</span><wbr><span class="parameters">(double&nbsp;x)</span></div>
+<div class="block"><p> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>(x, origin.y)</code>
+ .</div>
 </section>
 </li>
 <li>
 <section class="detail" id="inset(double)">
 <h3>inset</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">inset</span><wbr><span class="parameters">(double&nbsp;inset)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">inset</span><wbr><span class="parameters">(double&nbsp;delta)</span></div>
+<div class="block"><p> The rectangle with the same
+ <code>centre</code>
+  as
+ <code>this</code>
+  but with size
+ <code>size - 2*(delta, delta)</code>
+ .
+
+  <p> <img src="../../../dev/doc-files/rectangle-inset.png" width=300/></div>
 </section>
 </li>
 <li>
 <section class="detail" id="outset(double)">
 <h3>outset</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">outset</span><wbr><span class="parameters">(double&nbsp;outset)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getCentre()">
-<h3>getCentre</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Point.html" title="class in dev.javafp.geom">Point</a></span>&nbsp;<span class="element-name">getCentre</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="createColumns(java.lang.Double...)">
-<h3>createColumns</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</span>&nbsp;<span class="element-name">createColumns</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>...&nbsp;widths)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="cutInto(int)">
-<h3>cutInto</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</span>&nbsp;<span class="element-name">cutInto</span><wbr><span class="parameters">(int&nbsp;i)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">outset</span><wbr><span class="parameters">(double&nbsp;delta)</span></div>
+<div class="block"><p> The rectangle
+ <code>this.inset(-delta)</code>
+
+  <p> <img src="../../../dev/doc-files/rectangle-outset.png" width=300/></div>
 </section>
 </li>
 <li>
 <section class="detail" id="createColumns(dev.javafp.lst.ImList)">
 <h3>createColumns</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;</span>&nbsp;<span class="element-name">createColumns</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;&nbsp;widths)</span></div>
-<div class="block"><p> Cut this rectangle into columns - rectangles with the given widths where they are laid out in a row
- <p> +--------------------------------------------+
- |                                            |
- +--------------------------------------------+
+<div class="block"><p> Cut this rectangle into columns - Return
+ <code>n</code>
+  rectangles with same height as
+ <code>this</code>
+  with each
+ <br/>
+ width taken from
+ <code>widths</code>
+  where
+ <code>n</code>
+  is the size of
+ <code>widths</code>
+ .
+ <p> They are laid left to right with the first rectangle having the same origin as
+ <code>this</code>
+ .
+ The sum of the widths of the rectangles will not necessarily be the width of
+ <code>this</code>
+ .
 
- <pre><code>
-  w1         w2         w3       w4
- </code></pre>
- <p> +-------+-------------+--------+-------+
- |       |             |        |       |
- +-------+-------------+--------+-------+</div>
+ <p> <img src="../../../dev/doc-files/rectangle-create-columns.png" width=300/></div>
 </section>
 </li>
 <li>
@@ -837,61 +1242,16 @@ loadScripts(document, 'script');</script>
 <h3>justifyIn</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">justifyIn</span><wbr><span class="parameters">(<a href="Orient2.html" title="enum class in dev.javafp.geom">Orient2</a>&nbsp;orient,
  <a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;offset)</span></div>
-<div class="block"><p> A rectangle representing this after it has been justified in
+<div class="block"><p> A rectangle representing
+ <code>this</code>
+ after it has been justified in
  <code>container</code>
  based on orientation
  <code>orient</code>
  and then offset by
  <code>offset</code>
 
- <pre><code>
-     left  bottom                         centre bottom                       right bottom
- </code></pre>
- <p> +--------------------------+        +--------------------------+    +--------------------------+
- |                          |        |                          |    |                          |
- |                          |        |                          |    |                          |
- |                          |        | +----------------------+ |    |                          |
- +----------------------+   |        | |                      | |    |   +----------------------+
- |                      |   |        | |                      | |    |   |                      |
- |                      |   |        | |                      | |    |   |                      |
- |                      |   |        | |                      | |    |   |                      |
- |                      |   |        | |                      | |    |   |                      |
- |                      |   |        | |                      | |    |   |                      |
- +----------------------+---+        +-+----------------------+-+    +---+----------------------+
-
- <pre><code>
-    left  top                         centre top                       right top
-
-
-  +---------------------+----+      +-+----------------------+-+      +---+----------------------+
-  |                     |    |      | |                      | |      |   |                      |
-  |                     |    |      | |                      | |      |   |                      |
-  |                     |    |      | |                      | |      |   |                      |
-  +---------------------+    |      | |                      | |      |   |                      |
-  |                          |      | |                      | |      |   |                      |
-  |                          |      | |                      | |      |   +----------------------+
-  +--------------------------+      | +----------------------+ |      |                          |
-                                    |                          |      |                          |
-                                    |                          |      |                          |
-                                    +--------------------------+      +--------------------------+
-
-
-
-
-    left centre                        centre centre                      right centre
-
-  +--------------------------+         +--------------------------+    +--------------------------+
-  |                          |         |                          |    |                          |
-  +---------------------+    |         |   +-------------------+  |    |   +----------------------+
-  |                     |    |         |   |                   |  |    |   |                      |
-  |                     |    |         |   |                   |  |    |   |                      |
-  |                     |    |         |   |                   |  |    |   |                      |
-  +---------------------+    |         |   |                   |  |    |   |                      |
-  |                          |         |   |                   |  |    |   |                      |
-  +--------------------------+         |   +-------------------+  |    |   +----------------------+
-                                       |                          |    |                          |
-                                       +--------------------------+    +--------------------------+
- </code></pre></div>
+ <p> <img src="../../../dev/doc-files/rectangle-orientations.png" width=600/></div>
 </section>
 </li>
 <li>
@@ -913,33 +1273,21 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="extent(dev.javafp.lst.ImList)">
 <h3>extent</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">extent</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="Rect.html" title="class in dev.javafp.geom">Rect</a>&gt;&nbsp;rs)</span></div>
-<div class="block"><p> Get the rectangle that minimally contains
+<div class="block"><p> The rectangle that minimally contains
  <code>rs</code></div>
-</section>
-</li>
-<li>
-<section class="detail" id="toRectangle2D()">
-<h3>toRectangle2D</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/java/awt/Shape.html" title="class or interface in java.awt" class="external-link">Shape</a></span>&nbsp;<span class="element-name">toRectangle2D</span>()</div>
 </section>
 </li>
 <li>
 <section class="detail" id="moveBy(dev.javafp.geom.Point)">
 <h3>moveBy</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveBy</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;point)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="moveBy(double,double)">
-<h3>moveBy</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">moveBy</span><wbr><span class="parameters">(double&nbsp;x,
- double&nbsp;y)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="sizeRect()">
-<h3>sizeRect</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Rect.html" title="class in dev.javafp.geom">Rect</a></span>&nbsp;<span class="element-name">sizeRect</span>()</div>
+<div class="block"><p> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>origin + point</code>
+ .</div>
 </section>
 </li>
 </ul>

@@ -488,12 +488,14 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#centre()" class="member-name-link">centre()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>
-<div class="block"><code>
- NW       N       NE
-  +-------+-------+
-  |               |
-  |               |
- </code></div>
+<div class="block"> The centre point of the rectangle.</div>
+</dd>
+<dt><a href="dev/javafp/geom/Rect.html#centre(dev.javafp.geom.Point)" class="member-name-link">centre(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
+<dd>
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose centre point is
+ <code>p</code></div>
 </dd>
 <dt><a href="dev/javafp/geom/Orient1.html#Centre" class="member-name-link">Centre</a> - Enum constant in enum class dev.javafp.geom.<a href="dev/javafp/geom/Orient1.html" title="enum class in dev.javafp.geom">Orient1</a></dt>
 <dd>&nbsp;</dd>
@@ -504,16 +506,28 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/box/LeafTextBox.html#centred(java.lang.String,int)" class="member-name-link">centred(String, int)</a> - Static method in class dev.javafp.box.<a href="dev/javafp/box/LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#centreIn(dev.javafp.geom.Rect)" class="member-name-link">centreIn(Rect)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>container.center()</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/util/TextUtils.html#centreInWidth(java.lang.String,int)" class="member-name-link">centreInWidth(String, int)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/TextUtils.html" title="class in dev.javafp.util">TextUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#centreOn(dev.javafp.geom.Point)" class="member-name-link">centreOn(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>centre</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/geom/Orient2.html#CentreTop" class="member-name-link">CentreTop</a> - Enum constant in enum class dev.javafp.geom.<a href="dev/javafp/geom/Orient2.html" title="enum class in dev.javafp.geom">Orient2</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#centreX(dev.javafp.geom.Point)" class="member-name-link">centreX(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#centreY(dev.javafp.geom.Point)" class="member-name-link">centreY(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/TextUtils.html#charAtFromEnd(java.lang.String,int)" class="member-name-link">charAtFromEnd(String, int)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/TextUtils.html" title="class in dev.javafp.util">TextUtils</a></dt>
 <dd>&nbsp;</dd>
@@ -704,7 +718,14 @@ loadScripts(document, 'script');</script>
  .</div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#contains(dev.javafp.geom.Point)" class="member-name-link">contains(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> <code>true</code>
+  if
+ <code>p</code>
+  lies inside (or on the boundary of)
+ <code>this</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/shelf/ImShelf.html#contains(java.lang.Object)" class="member-name-link">contains(Object)</a> - Method in class dev.javafp.shelf.<a href="dev/javafp/shelf/ImShelf.html" title="class in dev.javafp.shelf">ImShelf</a></dt>
 <dd>
 <div class="block"> <code>true</code>
@@ -768,7 +789,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/MapUtils.html#copy(java.util.Map)" class="member-name-link">copy(Map&lt;K, V&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/MapUtils.html" title="class in dev.javafp.util">MapUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#corner" class="member-name-link">corner</a> - Variable in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The south-east point</div>
+</dd>
 <dt><a href="dev/javafp/geom/Point.html#corner(dev.javafp.geom.Point)" class="member-name-link">corner(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Point.html" title="class in dev.javafp.geom">Point</a></dt>
 <dd>
 <div class="block"> A
@@ -787,10 +810,20 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#createColumns(dev.javafp.lst.ImList)" class="member-name-link">createColumns(ImList&lt;Double&gt;)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>
-<div class="block"> Cut this rectangle into columns - rectangles with the given widths where they are laid out in a row</div>
+<div class="block"> Cut this rectangle into columns - Return
+ <code>n</code>
+  rectangles with same height as
+ <code>this</code>
+  with each
+ <br/>
+ width taken from
+ <code>widths</code>
+  where
+ <code>n</code>
+  is the size of
+ <code>widths</code>
+ .</div>
 </dd>
-<dt><a href="dev/javafp/geom/Rect.html#createColumns(java.lang.Double...)" class="member-name-link">createColumns(Double...)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#createDir(java.nio.file.Path)" class="member-name-link">createDir(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>
 <div class="block"> Create a directory with the path
@@ -815,8 +848,6 @@ loadScripts(document, 'script');</script>
 <div class="block"> The cartesian product of each element (a list) of l with each other element</div>
 </dd>
 <dt><a href="dev/javafp/time/Clock.html#currentTimeMillis()" class="member-name-link">currentTimeMillis()</a> - Static method in class dev.javafp.time.<a href="dev/javafp/time/Clock.html" title="class in dev.javafp.time">Clock</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#cutInto(int)" class="member-name-link">cutInto(int)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/lst/ImList.html#cutIntoThree(dev.javafp.func.Fn)" class="member-name-link">cutIntoThree(Fn&lt;A, Boolean&gt;)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
@@ -1003,7 +1034,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/tuple/ImQuintet.html#e5" class="member-name-link">e5</a> - Variable in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImQuintet.html" title="class in dev.javafp.tuple">ImQuintet</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#east()" class="member-name-link">east()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The east point of the rectangle.</div>
+</dd>
 <dt><a href="dev/javafp/geom/Point.html#east(double)" class="member-name-link">east(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Point.html" title="class in dev.javafp.geom">Point</a></dt>
 <dd>
 <div class="block">The point whose y is the same as
@@ -1013,7 +1046,12 @@ loadScripts(document, 'script');</script>
  "to the east" of this.</div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#east(dev.javafp.geom.Point)" class="member-name-link">east(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose east point is
+ <code>p</code></div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#elementsEq(java.util.Iterator,java.util.Iterator)" class="member-name-link">elementsEq(Iterator&lt;?&gt;, Iterator&lt;?&gt;)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> <code>true</code>
@@ -1238,7 +1276,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#extent(dev.javafp.lst.ImList)" class="member-name-link">extent(ImList&lt;Rect&gt;)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>
-<div class="block"> Get the rectangle that minimally contains
+<div class="block"> The rectangle that minimally contains
  <code>rs</code></div>
 </dd>
 </dl>
@@ -1332,7 +1370,12 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#find(dev.javafp.set.ImTreeZipper,A)" class="member-name-link">find(ImTreeZipper&lt;A&gt;, A)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
 <dd>
-<div class="block">The zipper whose focus is `elementToFind`.</div>
+<div class="block"> The zipper based on
+ <code>z</code>
+  whose focus is
+
+ <code>elementToFind</code>
+ .</div>
 </dd>
 <dt><a href="dev/javafp/lst/ImListZipper.html#find(T)" class="member-name-link">find(T)</a> - Method in class dev.javafp.lst.<a href="dev/javafp/lst/ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a></dt>
 <dd>
@@ -1647,7 +1690,10 @@ loadScripts(document, 'script');</script>
  .</div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#from(java.awt.geom.Rectangle2D)" class="member-name-link">from(Rectangle2D)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with the same origin and size as
+ <code>r2d</code></div>
+</dd>
 <dt><a href="dev/javafp/set/ImMap.html#fromMap(java.util.Map)" class="member-name-link">fromMap(Map&lt;A, B&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
 <dd>
 <div class="block"> Create a map from a standard map</div>
@@ -1791,7 +1837,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#getAfterSize()" class="member-name-link">getAfterSize()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
 <dd>
-<div class="block">Thn number of nodes after the current focus</div>
+<div class="block">The number of nodes after the current focus</div>
 </dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getArcs(dev.javafp.graph.ImGraph.Dir,KEY)" class="member-name-link">getArcs(ImGraph.Dir, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
@@ -1823,8 +1869,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/TextUtils.html#getBoxFromNamesAndValues(dev.javafp.lst.ImList,dev.javafp.lst.ImList)" class="member-name-link">getBoxFromNamesAndValues(ImList&lt;String&gt;, ImList&lt;?&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/TextUtils.html" title="class in dev.javafp.util">TextUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Say.html#getBuffer()" class="member-name-link">getBuffer()</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Say.html" title="class in dev.javafp.util">Say</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#getCentre()" class="member-name-link">getCentre()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Chat.html#getChatString()" class="member-name-link">getChatString()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/Chat.html" title="class in dev.javafp.util">Chat</a></dt>
 <dd>&nbsp;</dd>
@@ -1927,7 +1971,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/box/AbstractTextBox.html#getHeight()" class="member-name-link">getHeight()</a> - Method in class dev.javafp.box.<a href="dev/javafp/box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#getHeight()" class="member-name-link">getHeight()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The height of
+ <code>this</code></div>
+</dd>
 <dt><a href="dev/javafp/set/ImTree.html#getHeight()" class="member-name-link">getHeight()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTree.html" title="class in dev.javafp.set">ImTree</a></dt>
 <dd>
 <div class="block">The height of the tree</div>
@@ -2431,7 +2478,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/box/AbstractTextBox.html#getWidth()" class="member-name-link">getWidth()</a> - Method in class dev.javafp.box.<a href="dev/javafp/box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#getWidth()" class="member-name-link">getWidth()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The width of
+ <code>this</code></div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#getZipper()" class="member-name-link">getZipper()</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> A <a href="dev/javafp/lst/ImListZipper.html" title="class in dev.javafp.lst"><code>ImListZipper</code></a> on
@@ -3101,7 +3151,15 @@ loadScripts(document, 'script');</script>
  <code>treeToInsert</code></div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#inset(double)" class="member-name-link">inset(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with the same
+ <code>centre</code>
+  as
+ <code>this</code>
+  but with size
+ <code>size - 2*(delta, delta)</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#interleave(dev.javafp.lst.ImList,dev.javafp.lst.ImList)" class="member-name-link">interleave(ImList&lt;? extends B&gt;, ImList&lt;? extends B&gt;)</a> - Static method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> Given lists
@@ -3445,7 +3503,9 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#justifyIn(dev.javafp.geom.Orient2,dev.javafp.geom.Point)" class="member-name-link">justifyIn(Orient2, Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>
-<div class="block"> A rectangle representing this after it has been justified in
+<div class="block"> A rectangle representing
+ <code>this</code>
+ after it has been justified in
  <code>container</code>
  based on orientation
  <code>orient</code>
@@ -3521,13 +3581,38 @@ loadScripts(document, 'script');</script>
 <div class="block">The last element in the queue in a `ImMaybe` or `Nothing` if no such element exists</div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#layoutHorizontally(double,dev.javafp.geom.Point...)" class="member-name-link">layoutHorizontally(double, Point...)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A shortcut for:
+
+ <code>layoutHorizontally(gap, ImList.on(sizes)</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#layoutHorizontally(double,dev.javafp.lst.ImList)" class="member-name-link">layoutHorizontally(double, ImList&lt;Point&gt;)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> <code>sizes.size</code>
+  rectangles
+ laid out left to right with the first one having
+ <code>origin=(0,0)</code>
+  with
+ a horizontal gap between them of
+ <code>gap</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#layoutVertically(double,dev.javafp.geom.Point...)" class="member-name-link">layoutVertically(double, Point...)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A shortcut for:
+
+ <code>layoutVertically(gap, ImList.on(sizes)</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#layoutVertically(double,dev.javafp.lst.ImList)" class="member-name-link">layoutVertically(double, ImList&lt;Point&gt;)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> <code>sizes.size</code>
+  rectangles
+ laid out top down with the first one having
+ <code>origin=(0,0)</code>
+  with
+ a vertical gap between them of
+ <code>gap</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/geom/Point.html#le(dev.javafp.geom.Point)" class="member-name-link">le(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Point.html" title="class in dev.javafp.geom">Point</a></dt>
 <dd>
 <div class="block"><code>true</code>
@@ -3842,26 +3927,66 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/SvgTransform.html#move(dev.javafp.geom.Point)" class="member-name-link">move(Point)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/SvgTransform.html" title="class in dev.javafp.util">SvgTransform</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#moveBelow(dev.javafp.geom.Rect,double)" class="member-name-link">moveBelow(Rect, double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#moveBy(double,double)" class="member-name-link">moveBy(double, double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#moveBy(dev.javafp.geom.Point)" class="member-name-link">moveBy(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#moveDown(double)" class="member-name-link">moveDown(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#moveLeft(double)" class="member-name-link">moveLeft(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#moveRight(double)" class="member-name-link">moveRight(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>origin + point</code>
+ .</div>
+</dd>
+<dt><a href="dev/javafp/geom/Rect.html#moveByX(double)" class="member-name-link">moveByX(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
+<dd>
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>origin + (dx, 0)</code>
+ .</div>
+</dd>
+<dt><a href="dev/javafp/geom/Rect.html#moveByY(double)" class="member-name-link">moveByY(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
+<dd>
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>origin + (0, dy)</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#moveTo(dev.javafp.geom.Point)" class="member-name-link">moveTo(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#moveUp(double)" class="member-name-link">moveUp(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#moveXTo(double)" class="member-name-link">moveXTo(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#moveYTo(double)" class="member-name-link">moveYTo(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>newOrigin</code>
+ .</div>
+</dd>
+<dt><a href="dev/javafp/geom/Rect.html#moveToX(double)" class="member-name-link">moveToX(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
+<dd>
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>(x, origin.y)</code>
+ .</div>
+</dd>
+<dt><a href="dev/javafp/geom/Rect.html#moveToY(double)" class="member-name-link">moveToY(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
+<dd>
+<div class="block"> The rectangle with the same
+ <code>size</code>
+  as
+ <code>this</code>
+  but with origin
+ <code>(origin.x, y)</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/util/SvgTransform.html#multiply(dev.javafp.util.SvgTransform)" class="member-name-link">multiply(SvgTransform)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/SvgTransform.html" title="class in dev.javafp.util">SvgTransform</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -3930,7 +4055,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#next()" class="member-name-link">next()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
 <dd>
-<div class="block"> Get the next node along from my node</div>
+<div class="block"> Get the next node along from the focus node</div>
 </dd>
 <dt><a href="dev/javafp/shelf/ImShelfZipper.html#next()" class="member-name-link">next()</a> - Method in class dev.javafp.shelf.<a href="dev/javafp/shelf/ImShelfZipper.html" title="class in dev.javafp.shelf">ImShelfZipper</a></dt>
 <dd>
@@ -3961,13 +4086,31 @@ loadScripts(document, 'script');</script>
 <div class="block"> Generate a random string.</div>
 </dd>
 <dt><a href="dev/javafp/rand/PseudoRandom.html#nextBytes(int)" class="member-name-link">nextBytes(int)</a> - Static method in class dev.javafp.rand.<a href="dev/javafp/rand/PseudoRandom.html" title="class in dev.javafp.rand">PseudoRandom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> An array of bytes containing
+ <code>count</code>
+ random bytes</div>
+</dd>
 <dt><a href="dev/javafp/rand/Rando.html#nextBytes(int)" class="member-name-link">nextBytes(int)</a> - Static method in class dev.javafp.rand.<a href="dev/javafp/rand/Rando.html" title="class in dev.javafp.rand">Rando</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> An array of bytes containing
+ <code>count</code>
+ random bytes</div>
+</dd>
 <dt><a href="dev/javafp/rand/PseudoRandom.html#nextDouble(double,double)" class="member-name-link">nextDouble(double, double)</a> - Static method in class dev.javafp.rand.<a href="dev/javafp/rand/PseudoRandom.html" title="class in dev.javafp.rand">PseudoRandom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A random double
+ <code>d</code>
+  where
+ <code>min &lt;= i &lt; max</code></div>
+</dd>
 <dt><a href="dev/javafp/rand/Rando.html#nextDouble(double,double)" class="member-name-link">nextDouble(double, double)</a> - Static method in class dev.javafp.rand.<a href="dev/javafp/rand/Rando.html" title="class in dev.javafp.rand">Rando</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A random double
+ <code>d</code>
+  where
+ <code>min &lt;= i &lt; max</code></div>
+</dd>
 <dt><a href="dev/javafp/rand/PseudoRandom.html#nextInt(int,int)" class="member-name-link">nextInt(int, int)</a> - Static method in class dev.javafp.rand.<a href="dev/javafp/rand/PseudoRandom.html" title="class in dev.javafp.rand">PseudoRandom</a></dt>
 <dd>
 <div class="block"> A random int
@@ -4042,7 +4185,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/file/FileUtil.html#normalize(java.nio.file.Path)" class="member-name-link">normalize(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#north()" class="member-name-link">north()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The north point of the rectangle.</div>
+</dd>
 <dt><a href="dev/javafp/geom/Point.html#north(double)" class="member-name-link">north(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Point.html" title="class in dev.javafp.geom">Point</a></dt>
 <dd>
 <div class="block">The point whose x is the same as
@@ -4052,15 +4197,34 @@ loadScripts(document, 'script');</script>
  "to the north" of this.</div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#north(dev.javafp.geom.Point)" class="member-name-link">north(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose north point is
+ <code>p</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#northEast()" class="member-name-link">northEast()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The north-east point of the rectangle.</div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#northEast(dev.javafp.geom.Point)" class="member-name-link">northEast(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose north-east point is
+ <code>p</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#northWest()" class="member-name-link">northWest()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The north-west point of the rectangle.</div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#northWest(dev.javafp.geom.Point)" class="member-name-link">northWest(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose north-west point is
+ <code>p</code></div>
+</dd>
 <dt><a href="dev/javafp/func/Fn.html#not(dev.javafp.func.Fn)" class="member-name-link">not(Fn&lt;IN, Boolean&gt;)</a> - Static method in interface dev.javafp.func.<a href="dev/javafp/func/Fn.html" title="interface in dev.javafp.func">Fn</a></dt>
 <dd>
 <div class="block"> The negation of the function
@@ -4204,9 +4368,19 @@ loadScripts(document, 'script');</script>
  <code>(x, y)</code></div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#on(double,double,double,double)" class="member-name-link">on(double, double, double, double)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with origin
+ <code>(x, y)</code>
+  and size
+ <code>(width, height)</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#on(double,double,dev.javafp.geom.Point)" class="member-name-link">on(double, double, Point)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with origin
+ <code>(x, y)</code>
+  and size
+ <code>size</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/RectGrid.html#on(double,dev.javafp.lst.ImList,double,dev.javafp.lst.ImList)" class="member-name-link">on(double, ImList&lt;Double&gt;, double, ImList&lt;Double&gt;)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/RectGrid.html" title="class in dev.javafp.geom">RectGrid</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/net/ApiResponse.html#on(int,java.lang.String,java.util.Map,java.lang.String)" class="member-name-link">on(int, String, Map&lt;String, List&lt;String&gt;&gt;, String)</a> - Static method in class dev.javafp.net.<a href="dev/javafp/net/ApiResponse.html" title="class in dev.javafp.net">ApiResponse</a></dt>
@@ -4457,7 +4631,9 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#onLeftmost(dev.javafp.set.ImTree)" class="member-name-link">onLeftmost(ImTree&lt;A&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
 <dd>
-<div class="block">A zipper on the leftmost descendant of the tree `root`.</div>
+<div class="block"> A zipper on the leftmost descendant of the tree
+ <code>root</code>
+ .</div>
 </dd>
 <dt><a href="dev/javafp/lst/ImList.html#onOne(A)" class="member-name-link">onOne(A)</a> - Static method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
@@ -4474,11 +4650,19 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#onRightmost(dev.javafp.set.ImTree)" class="member-name-link">onRightmost(ImTree&lt;A&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
 <dd>
-<div class="block">An `ImTreeZipper` on the rightmost descendant of the tree `root`.</div>
+<div class="block"> An
+ <code>ImTreeZipper</code>
+  on the rightmost descendant of the tree
+ <code>root</code>
+ .</div>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#onRoot(dev.javafp.set.ImTree)" class="member-name-link">onRoot(ImTree&lt;A&gt;)</a> - Static method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
 <dd>
-<div class="block">An `ImTreeZipper` on the tree `root`.</div>
+<div class="block"> An
+ <code>ImTreeZipper</code>
+  on the tree
+ <code>root</code>
+ .</div>
 </dd>
 <dt><a href="dev/javafp/queue/ImQueue.html#onSize(int,A...)" class="member-name-link">onSize(int, A...)</a> - Static method in class dev.javafp.queue.<a href="dev/javafp/queue/ImQueue.html" title="class in dev.javafp.queue">ImQueue</a></dt>
 <dd>&nbsp;</dd>
@@ -4525,15 +4709,32 @@ loadScripts(document, 'script');</script>
 <div class="block"> Contains 2d orientation values for gemometric calculations.</div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#origin" class="member-name-link">origin</a> - Variable in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The north-west point</div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#originCorner(dev.javafp.geom.Point,dev.javafp.geom.Point)" class="member-name-link">originCorner(Point, Point)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with origin
+ <code>origin</code>
+  and corner
+ <code>corner</code></div>
+</dd>
+<dt><a href="dev/javafp/geom/Rect.html#originSize(dev.javafp.geom.Point,dev.javafp.geom.Point)" class="member-name-link">originSize(Point, Point)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
+<dd>
+<div class="block"> The rectangle with origin
+ <code>origin</code>
+  and size
+ <code>size</code></div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.Dir.html#Out" class="member-name-link">Out</a> - Enum constant in enum class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.Dir.html" title="enum class in dev.javafp.graph">ImGraph.Dir</a></dt>
 <dd>
 <div class="block">An arc in a graph has direction <em>out</em> from a node.</div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#outset(double)" class="member-name-link">outset(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle
+ <code>this.inset(-delta)</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Orient2.html#ox" class="member-name-link">ox</a> - Variable in enum class dev.javafp.geom.<a href="dev/javafp/geom/Orient2.html" title="enum class in dev.javafp.geom">Orient2</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Orient2.html#oy" class="member-name-link">oy</a> - Variable in enum class dev.javafp.geom.<a href="dev/javafp/geom/Orient2.html" title="enum class in dev.javafp.geom">Orient2</a></dt>
@@ -4862,8 +5063,6 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/rand/Rando.html#%3Cinit%3E()" class="member-name-link">Rando()</a> - Constructor for class dev.javafp.rand.<a href="dev/javafp/rand/Rando.html" title="class in dev.javafp.rand">Rando</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="dev/javafp/rand/PseudoRandom.html#random" class="member-name-link">random</a> - Static variable in class dev.javafp.rand.<a href="dev/javafp/rand/PseudoRandom.html" title="class in dev.javafp.rand">PseudoRandom</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/rand/Rando.html#random" class="member-name-link">random</a> - Static variable in class dev.javafp.rand.<a href="dev/javafp/rand/Rando.html" title="class in dev.javafp.rand">Rando</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/lst/ImList.html#randomDoubles(java.util.Random)" class="member-name-link">randomDoubles(Random)</a> - Static method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
@@ -4961,10 +5160,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block"> A Rectangle.</div>
 </dd>
-<dt><a href="dev/javafp/geom/Rect.html#%3Cinit%3E(double,double,double,double)" class="member-name-link">Rect(double, double, double, double)</a> - Constructor for class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/geom/Rect.html#%3Cinit%3E(dev.javafp.geom.Point,dev.javafp.geom.Point)" class="member-name-link">Rect(Point, Point)</a> - Constructor for class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/RectGrid.html" class="type-name-link" title="class in dev.javafp.geom">RectGrid</a> - Class in <a href="dev/javafp/geom/package-summary.html">dev.javafp.geom</a></dt>
 <dd>
 <div class="block"> A rectangular grid of rectangles</div>
@@ -5159,7 +5354,15 @@ loadScripts(document, 'script');</script>
  .</div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#repeat(dev.javafp.geom.Point,int)" class="member-name-link">repeat(Point, int)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A list with
+ <code>this</code>
+  repeated
+ <code>count</code>
+  times with each element having an offset of
+ <code>offset</code>
+  from the previous element.</div>
+</dd>
 <dt><a href="dev/javafp/geom/TangentVector.html#repeat(dev.javafp.geom.Point,int)" class="member-name-link">repeat(Point, int)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/TangentVector.html" title="class in dev.javafp.geom">TangentVector</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/TextUtils.html#repeat(java.lang.String,int)" class="member-name-link">repeat(String, int)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/TextUtils.html" title="class in dev.javafp.util">TextUtils</a></dt>
@@ -5207,7 +5410,11 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#replaceNil(dev.javafp.set.ImTree)" class="member-name-link">replaceNil(ImTree&lt;A&gt;)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
 <dd>
-<div class="block">Replace the Nil tree with `newNode`</div>
+<div class="block"> Replace the
+ <code>nil</code>
+  tree with
+
+ <code>newNode</code></div>
 </dd>
 <dt><a href="dev/javafp/net/ApiRequest.html#requestHeaders" class="member-name-link">requestHeaders</a> - Variable in class dev.javafp.net.<a href="dev/javafp/net/ApiRequest.html" title="class in dev.javafp.net">ApiRequest</a></dt>
 <dd>&nbsp;</dd>
@@ -5388,7 +5595,17 @@ loadScripts(document, 'script');</script>
  .</div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#setHeight(double)" class="member-name-link">setHeight(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with the same
+ <code>origin</code>
+  and
+ <code>width</code>
+  as
+ <code>this</code>
+  but with height
+ <code>height</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/util/Say.html#setQuiet(boolean)" class="member-name-link">setQuiet(boolean)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Say.html" title="class in dev.javafp.util">Say</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#setReadable(java.nio.file.Path,boolean)" class="member-name-link">setReadable(Path, boolean)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
@@ -5396,7 +5613,10 @@ loadScripts(document, 'script');</script>
 <div class="block"> Set owner, group and other to have read permissions.</div>
 </dd>
 <dt><a href="dev/javafp/rand/PseudoRandom.html#setSeed(long)" class="member-name-link">setSeed(long)</a> - Static method in class dev.javafp.rand.<a href="dev/javafp/rand/PseudoRandom.html" title="class in dev.javafp.rand">PseudoRandom</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Set the seed of the underlying random to
+ <code>seed</code></div>
+</dd>
 <dt><a href="dev/javafp/util/Say.html#setStart(long)" class="member-name-link">setStart(long)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Say.html" title="class in dev.javafp.util">Say</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Source.html#setTimeout(long)" class="member-name-link">setTimeout(long)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/Source.html" title="class in dev.javafp.util">Source</a></dt>
@@ -5410,7 +5630,17 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/SetUtils.html#%3Cinit%3E()" class="member-name-link">SetUtils()</a> - Constructor for class dev.javafp.util.<a href="dev/javafp/util/SetUtils.html" title="class in dev.javafp.util">SetUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#setWidth(double)" class="member-name-link">setWidth(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with the same
+ <code>origin</code>
+  and
+ <code>height</code>
+  as
+ <code>this</code>
+  but with width
+ <code>width</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#setWritable(java.nio.file.Path,boolean)" class="member-name-link">setWritable(Path, boolean)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>
 <div class="block"> Set owner, group and other to have write permissions.</div>
@@ -5483,7 +5713,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/Sink.html#%3Cinit%3E(java.lang.StringBuffer)" class="member-name-link">Sink(StringBuffer)</a> - Constructor for class dev.javafp.util.<a href="dev/javafp/util/Sink.html" title="class in dev.javafp.util">Sink</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#size" class="member-name-link">size</a> - Variable in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">The size -
+ <code>corner - origin</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/RectGrid.html#size" class="member-name-link">size</a> - Variable in class dev.javafp.geom.<a href="dev/javafp/geom/RectGrid.html" title="class in dev.javafp.geom">RectGrid</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/lst/ImLazyList.html#size()" class="member-name-link">size()</a> - Method in class dev.javafp.lst.<a href="dev/javafp/lst/ImLazyList.html" title="class in dev.javafp.lst">ImLazyList</a></dt>
@@ -5546,9 +5779,19 @@ loadScripts(document, 'script');</script>
  <code>this</code></div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#size(double,double)" class="member-name-link">size(double, double)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with origin
+ <code>(0, 0)</code>
+  and size
+ <code>(x, y)</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#size(dev.javafp.geom.Point)" class="member-name-link">size(Point)</a> - Static method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle with origin
+ <code>(0, 0)</code>
+  and size
+ <code>size</code></div>
+</dd>
 <dt><a href="dev/javafp/ex/SizeOnInfiniteList.html" class="type-name-link" title="class in dev.javafp.ex">SizeOnInfiniteList</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
 <dd>
 <div class="block"> Thrown when <a href="dev/javafp/lst/ImList.html#size()"><code>ImList.size()</code></a> is called on an infinite list.</div>
@@ -5559,8 +5802,6 @@ loadScripts(document, 'script');</script>
  <code>size()</code>
  on an infinite list</div>
 </dd>
-<dt><a href="dev/javafp/geom/Rect.html#sizeRect()" class="member-name-link">sizeRect()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/ParseUtils.html#skipOverAny(char,java.lang.String)" class="member-name-link">skipOverAny(char, String)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ParseUtils.html" title="class in dev.javafp.util">ParseUtils</a></dt>
 <dd>
 <div class="block"> Skip over any characters at the start of
@@ -5634,7 +5875,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/Source.html#%3Cinit%3E(java.lang.StringBuffer)" class="member-name-link">Source(StringBuffer)</a> - Constructor for class dev.javafp.util.<a href="dev/javafp/util/Source.html" title="class in dev.javafp.util">Source</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#south()" class="member-name-link">south()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The south point of the rectangle.</div>
+</dd>
 <dt><a href="dev/javafp/geom/Point.html#south(double)" class="member-name-link">south(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Point.html" title="class in dev.javafp.geom">Point</a></dt>
 <dd>
 <div class="block">The point whose x is the same as
@@ -5644,15 +5887,34 @@ loadScripts(document, 'script');</script>
  "to the south" of this.</div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#south(dev.javafp.geom.Point)" class="member-name-link">south(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose south point is
+ <code>p</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#southEast()" class="member-name-link">southEast()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The south-east point of the rectangle.</div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#southEast(dev.javafp.geom.Point)" class="member-name-link">southEast(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose south-east point is
+ <code>p</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#southWest()" class="member-name-link">southWest()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The south-west point of the rectangle.</div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#southWest(dev.javafp.geom.Point)" class="member-name-link">southWest(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose south-west point is
+ <code>p</code></div>
+</dd>
 <dt><a href="dev/javafp/queue/ImQueue.html#split()" class="member-name-link">split()</a> - Method in class dev.javafp.queue.<a href="dev/javafp/queue/ImQueue.html" title="class in dev.javafp.queue">ImQueue</a></dt>
 <dd>
 <div class="block">A pair of the first element and the queue with the first element removed in a `ImMaybe` or `Nothing` if the queue is empty</div>
@@ -6091,8 +6353,6 @@ loadScripts(document, 'script');</script>
  and size
  <code>this</code></div>
 </dd>
-<dt><a href="dev/javafp/geom/Rect.html#toRectangle2D()" class="member-name-link">toRectangle2D()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/lst/ImList.html#toS()" class="member-name-link">toS()</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> A String representation of
@@ -6153,7 +6413,9 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
 <dd>
-<div class="block">A String representation of this object</div>
+<div class="block"> A
+ <code>String</code>
+  representation of this object</div>
 </dd>
 <dt><a href="dev/javafp/shelf/ImShelf.html#toString()" class="member-name-link">toString()</a> - Method in class dev.javafp.shelf.<a href="dev/javafp/shelf/ImShelf.html" title="class in dev.javafp.shelf">ImShelf</a></dt>
 <dd>
@@ -6515,7 +6777,9 @@ the order they are declared.</div>
 <h2 class="title" id="I:W">W</h2>
 <dl class="index">
 <dt><a href="dev/javafp/geom/Rect.html#west()" class="member-name-link">west()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The west point of the rectangle.</div>
+</dd>
 <dt><a href="dev/javafp/geom/Point.html#west(double)" class="member-name-link">west(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Point.html" title="class in dev.javafp.geom">Point</a></dt>
 <dd>
 <div class="block">The point whose y is the same as
@@ -6525,7 +6789,12 @@ the order they are declared.</div>
  "to the west" of this.</div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#west(dev.javafp.geom.Point)" class="member-name-link">west(Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The rectangle that has the same size as
+ <code>this</code>
+  and whose west point is
+ <code>p</code></div>
+</dd>
 <dt><a href="dev/javafp/box/AbstractTextBox.html#width" class="member-name-link">width</a> - Variable in class dev.javafp.box.<a href="dev/javafp/box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/RectGrid.html#widths" class="member-name-link">widths</a> - Variable in class dev.javafp.geom.<a href="dev/javafp/geom/RectGrid.html" title="class in dev.javafp.geom">RectGrid</a></dt>

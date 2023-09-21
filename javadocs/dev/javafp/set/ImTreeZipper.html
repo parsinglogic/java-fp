@@ -173,7 +173,7 @@ loadScripts(document, 'script');</script>
   at the root and with a left child of
  <code>g</code>
   and a right child of
- <code>Nil</code>
+ <code>nil</code>
  Now let's go up again:
 
 
@@ -235,12 +235,17 @@ loadScripts(document, 'script');</script>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#find(dev.javafp.set.ImTreeZipper,A)" class="member-name-link">find</a><wbr>(<a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;A&gt;&nbsp;z,
  A&nbsp;elementToFind)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">The zipper whose focus is `elementToFind`.</div>
+<div class="block"> The zipper based on
+ <code>z</code>
+  whose focus is
+
+ <code>elementToFind</code>
+ .</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAfterSize()" class="member-name-link">getAfterSize</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Thn number of nodes after the current focus</div>
+<div class="block">The number of nodes after the current focus</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTreeZipper.html" title="type parameter in ImTreeZipper">A</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getElement()" class="member-name-link">getElement</a>()</code></div>
@@ -297,7 +302,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;<a href="ImTreeZipper.html" title="type parameter in ImTreeZipper">A</a>&gt;&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#next()" class="member-name-link">next</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block"> Get the next node along from my node</div>
+<div class="block"> Get the next node along from the focus node</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;A&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#onIndex(dev.javafp.set.ImTree,int)" class="member-name-link">onIndex</a><wbr>(<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;tree,
@@ -317,17 +322,27 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;A&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#onLeftmost(dev.javafp.set.ImTree)" class="member-name-link">onLeftmost</a><wbr>(<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;root)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">A zipper on the leftmost descendant of the tree `root`.</div>
+<div class="block"> A zipper on the leftmost descendant of the tree
+ <code>root</code>
+ .</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;A&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#onRightmost(dev.javafp.set.ImTree)" class="member-name-link">onRightmost</a><wbr>(<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;root)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">An `ImTreeZipper` on the rightmost descendant of the tree `root`.</div>
+<div class="block"> An
+ <code>ImTreeZipper</code>
+  on the rightmost descendant of the tree
+ <code>root</code>
+ .</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;A&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#onRoot(dev.javafp.set.ImTree)" class="member-name-link">onRoot</a><wbr>(<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;root)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">An `ImTreeZipper` on the tree `root`.</div>
+<div class="block"> An
+ <code>ImTreeZipper</code>
+  on the tree
+ <code>root</code>
+ .</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;<a href="ImTreeZipper.html" title="type parameter in ImTreeZipper">A</a>&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#previous()" class="member-name-link">previous</a>()</code></div>
@@ -349,12 +364,18 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;<a href="ImTreeZipper.html" title="type parameter in ImTreeZipper">A</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#replaceNil(dev.javafp.set.ImTree)" class="member-name-link">replaceNil</a><wbr>(<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTreeZipper.html" title="type parameter in ImTreeZipper">A</a>&gt;&nbsp;newNode)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Replace the Nil tree with `newNode`</div>
+<div class="block"> Replace the
+ <code>nil</code>
+  tree with
+
+ <code>newNode</code></div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A String representation of this object</div>
+<div class="block"> A
+ <code>String</code>
+  representation of this object</div>
 </div>
 </div>
 </div>
@@ -377,21 +398,31 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="onRoot(dev.javafp.set.ImTree)">
 <h3>onRoot</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;A&gt;</span>&nbsp;<span class="element-name">onRoot</span><wbr><span class="parameters">(<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;root)</span></div>
-<div class="block">An `ImTreeZipper` on the tree `root`.</div>
+<div class="block"><p> An
+ <code>ImTreeZipper</code>
+  on the tree
+ <code>root</code>
+ .</div>
 </section>
 </li>
 <li>
 <section class="detail" id="onLeftmost(dev.javafp.set.ImTree)">
 <h3>onLeftmost</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;A&gt;</span>&nbsp;<span class="element-name">onLeftmost</span><wbr><span class="parameters">(<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;root)</span></div>
-<div class="block">A zipper on the leftmost descendant of the tree `root`.</div>
+<div class="block"><p> A zipper on the leftmost descendant of the tree
+ <code>root</code>
+ .</div>
 </section>
 </li>
 <li>
 <section class="detail" id="onRightmost(dev.javafp.set.ImTree)">
 <h3>onRightmost</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;A&gt;</span>&nbsp;<span class="element-name">onRightmost</span><wbr><span class="parameters">(<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;A&gt;&nbsp;root)</span></div>
-<div class="block">An `ImTreeZipper` on the rightmost descendant of the tree `root`.</div>
+<div class="block"><p> An
+ <code>ImTreeZipper</code>
+  on the rightmost descendant of the tree
+ <code>root</code>
+ .</div>
 </section>
 </li>
 <li>
@@ -405,7 +436,9 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="toString()">
 <h3>toString</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">toString</span>()</div>
-<div class="block">A String representation of this object</div>
+<div class="block"><p> A
+ <code>String</code>
+  representation of this object</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
@@ -432,14 +465,23 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Comparable.html" title="class or interface in java.lang" class="external-link">Comparable</a>&lt;? super A&gt;&gt;</span>
 <span class="return-type"><a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;A&gt;</span>&nbsp;<span class="element-name">find</span><wbr><span class="parameters">(<a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;A&gt;&nbsp;z,
  A&nbsp;elementToFind)</span></div>
-<div class="block">The zipper whose focus is `elementToFind`.</div>
+<div class="block"><p> The zipper based on
+ <code>z</code>
+  whose focus is
+
+ <code>elementToFind</code>
+ .</div>
 </section>
 </li>
 <li>
 <section class="detail" id="replaceNil(dev.javafp.set.ImTree)">
 <h3>replaceNil</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;<a href="ImTreeZipper.html" title="type parameter in ImTreeZipper">A</a>&gt;</span>&nbsp;<span class="element-name">replaceNil</span><wbr><span class="parameters">(<a href="ImTree.html" title="class in dev.javafp.set">ImTree</a>&lt;<a href="ImTreeZipper.html" title="type parameter in ImTreeZipper">A</a>&gt;&nbsp;newNode)</span></div>
-<div class="block">Replace the Nil tree with `newNode`</div>
+<div class="block"><p> Replace the
+ <code>nil</code>
+  tree with
+
+ <code>newNode</code></div>
 </section>
 </li>
 <li>
@@ -480,7 +522,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="next()">
 <h3>next</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a>&lt;<a href="ImTreeZipper.html" title="type parameter in ImTreeZipper">A</a>&gt;&gt;</span>&nbsp;<span class="element-name">next</span>()</div>
-<div class="block"><p> Get the next node along from my node</div>
+<div class="block"><p> Get the next node along from the focus node</div>
 </section>
 </li>
 <li>
@@ -555,7 +597,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getAfterSize()">
 <h3>getAfterSize</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getAfterSize</span>()</div>
-<div class="block">Thn number of nodes after the current focus</div>
+<div class="block">The number of nodes after the current focus</div>
 </section>
 </li>
 </ul>
