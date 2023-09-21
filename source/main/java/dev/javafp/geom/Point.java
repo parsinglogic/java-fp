@@ -43,7 +43,7 @@ import static java.lang.Math.min;
  *             (south)
  * }</pre>
  *
- *
+ * @see Rect
  */
 public class Point extends ImValuesImpl
 {
@@ -315,7 +315,7 @@ public class Point extends ImValuesImpl
      */
     public Rect corner(Point p)
     {
-        return new Rect(min(x, p.x), min(y, p.y), abs(p.x - x), abs(p.y - y));
+        return Rect.on(min(x, p.x), min(y, p.y), abs(p.x - x), abs(p.y - y));
     }
 
     /**
@@ -342,7 +342,7 @@ public class Point extends ImValuesImpl
      */
     public Rect NW(Point size)
     {
-        return new Rect(this, size);
+        return Rect.originSize(this, size);
     }
 
     /**
@@ -367,7 +367,7 @@ public class Point extends ImValuesImpl
      */
     public Rect NE(Point size)
     {
-        return new Rect(x - size.x, y, size.x, size.y);
+        return Rect.on(x - size.x, y, size.x, size.y);
     }
 
     /**
@@ -392,7 +392,7 @@ public class Point extends ImValuesImpl
      */
     public Rect SE(Point size)
     {
-        return new Rect(x - size.x, y - size.y, size.x, size.y);
+        return Rect.on(x - size.x, y - size.y, size.x, size.y);
     }
 
     /**
@@ -419,7 +419,7 @@ public class Point extends ImValuesImpl
      */
     public Rect SW(Point size)
     {
-        return new Rect(x, y - size.y, size.x, size.y);
+        return Rect.on(x, y - size.y, size.x, size.y);
     }
 
     /**

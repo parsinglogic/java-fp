@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.Random;
 
 import static dev.javafp.geom.Point.pt;
+import static dev.javafp.util.Say.say;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -16,18 +17,18 @@ public class RectTest
     @Test
     public void testGetCentre()
     {
-        Rect r = new Rect(Point.zero, Point.on(4, 3)).moveTo(Point.on(1, 2));
+        Rect r = Rect.originSize(Point.zero, Point.on(4, 3)).moveTo(Point.on(1, 2));
 
         assertEquals(5, r.corner.minus(r.origin).length(), SMALL);
 
-        assertEquals(r.origin.midPoint(r.corner), r.getCentre());
+        assertEquals(r.origin.midPoint(r.corner), r.centre());
     }
 
     @Test
     public void testInset()
     {
         int in = 1;
-        Rect r = new Rect(Point.zero, Point.on(4, 3)).moveTo(Point.on(1, 2));
+        Rect r = Rect.originSize(Point.zero, Point.on(4, 3)).moveTo(Point.on(1, 2));
 
         Rect inset = r.inset(in);
 
@@ -42,7 +43,7 @@ public class RectTest
     @Test
     public void testCentreOn()
     {
-        Rect r = new Rect(Point.zero, Point.on(6, 4));
+        Rect r = Rect.originSize(Point.zero, Point.on(6, 4));
 
         Point centre = Point.on(7, 8);
         Rect centred = r.centreOn(centre);
@@ -55,12 +56,12 @@ public class RectTest
     @Test
     public void testCentreIn()
     {
-        Rect r = new Rect(Point.zero, Point.on(4, 3));
+        Rect r = Rect.originSize(Point.zero, Point.on(4, 3));
 
-        Rect container = new Rect(100, 100, 80, 60);
+        Rect container = Rect.on(100, 100, 80, 60);
         Rect centred = r.centreIn(container);
 
-        assertEquals(container.getCentre(), centred.getCentre());
+        assertEquals(container.centre(), centred.centre());
         assertEquals(r.size, centred.size);
     }
 
@@ -87,13 +88,16 @@ public class RectTest
     @Test
     public void testPositions()
     {
-        Rect one = new Rect(Point.zero, Point.on(6, 4));
-        Rect two = new Rect(Point.on(10, 20), Point.on(30, 40));
+        Rect one = Rect.originSize(Point.zero, Point.on(6, 4));
+        Rect two = Rect.originSize(Point.on(10, 20), Point.on(30, 40));
 
-        assertEquals(one.north(two.south()).north(), two.south());
-        assertEquals(one.south(two.north()).south(), two.north());
-        assertEquals(one.east(two.west()).east(), two.west());
-        assertEquals(one.west(two.east()).west(), two.east());
+        assertEquals(two.south(), one.north(two.south()).north());
+        assertEquals(two.north(), one.south(two.north()).south());
+        assertEquals(two.west(), one.east(two.west()).east());
+        assertEquals(pt(40, 40), two.east());
+
+        say(one.west(two.east()));
+        assertEquals(two.east(), one.west(two.east()).west());
 
         assertEquals(one.northEast(two.southWest()).northEast(), two.southWest());
         assertEquals(one.northWest(two.southEast()).northWest(), two.southEast());
