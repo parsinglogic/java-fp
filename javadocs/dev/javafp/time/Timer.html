@@ -77,7 +77,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Timer</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block"><p> A timer</div>
+<div class="block"><p> A timer that measures elapsed time in nanoseconds.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -94,13 +94,28 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMillis()" class="member-name-link">getMillis</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The number of milliseconds that
+ <code>this</code>
+  represents, rounded to a
+ <code>long</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getMs()" class="member-name-link">getMs</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The number of milliseconds that
+ <code>this</code>
+  represents, as a
+ <code>Double</code>
+ .</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNanos()" class="member-name-link">getNanos</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The number of nanoseconds that
+ <code>this</code>
+  represents.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Timer.html" title="class in dev.javafp.time">Timer</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#time(dev.javafp.func.FnBlock)" class="member-name-link">time</a><wbr>(<a href="../func/FnBlock.html" title="interface in dev.javafp.func">FnBlock</a>&nbsp;block)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
@@ -154,18 +169,30 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getMillis()">
 <h3>getMillis</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getMillis</span>()</div>
+<div class="block"><p> The number of milliseconds that
+ <code>this</code>
+  represents, rounded to a
+ <code>long</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="getMs()">
 <h3>getMs</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a></span>&nbsp;<span class="element-name">getMs</span>()</div>
+<div class="block"><p> The number of milliseconds that
+ <code>this</code>
+  represents, as a
+ <code>Double</code>
+ .</div>
 </section>
 </li>
 <li>
 <section class="detail" id="getNanos()">
 <h3>getNanos</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getNanos</span>()</div>
+<div class="block"><p> The number of nanoseconds that
+ <code>this</code>
+  represents.</div>
 </section>
 </li>
 </ul>
