@@ -13,7 +13,7 @@ import dev.javafp.tuple.ImPair;
 import dev.javafp.tuple.Pai;
 
 /**
- * <p> A timer
+ * <p> A timer that measures elapsed time in nanoseconds.
  */
 public class Timer
 {
@@ -52,16 +52,38 @@ public class Timer
 
     }
 
+    /**
+     *
+     * <p> The number of milliseconds that
+     * {@code this}
+     *  represents, rounded to a
+     * {@code long}
+     *
+     */
     public long getMillis()
     {
         return Math.round(getNanos() * 0.000001);
     }
 
+    /**
+     * <p> The number of milliseconds that
+     * {@code this}
+     *  represents, as a
+     * {@code Double}
+     * .
+     *
+     */
     public Double getMs()
     {
         return getNanos() * 0.000001;
     }
 
+    /**
+     * <p> The number of nanoseconds that
+     * {@code this}
+     *  represents.
+     *
+     */
     public long getNanos()
     {
         return nanos;
