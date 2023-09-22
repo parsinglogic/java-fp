@@ -11,19 +11,47 @@ import dev.javafp.lst.ImList;
 import dev.javafp.val.ImValuesImpl;
 
 /**
- * <p> A rectangular grid of rectangles
+ * <p> A rectangular grid of rectangles with each rectangle being accessed using row/column indices.
+ *
+ * <p> The first rectangle has its
+ * {@code origin}
+ * at
+ * {@code (0,0)}
+ *
+ *
+ * <p> <img src="{@docRoot}/dev/doc-files/rect-grid.png"  width=300/>
+ *
+ *
+ *
+ * @see Rect
+ *
  */
+
 public class RectGrid extends ImValuesImpl
 {
 
-    public double xSpace;
-    public ImList<Double> widths;
-    public double ySpace;
-    public ImList<Double> heights;
+    /**
+     * The horizontal space between columns
+     */
+    public final double xSpace;
+
+    /**
+     * The widths of the columns
+     */
+    public final ImList<Double> widths;
+
+    /**
+     * The vertical space between rows
+     */
+    public final double ySpace;
+
+    /**
+     * The heights of the rows
+     */
+    public final ImList<Double> heights;
 
     private final ImList<Double> xs;
     private final ImList<Double> ys;
-    public final Point size;
 
     /**
      * <p> A class to make RectGrid's
@@ -31,7 +59,7 @@ public class RectGrid extends ImValuesImpl
      * <p> RectGrid g = RectGrid.x(1, 2.0, 3.0).y(4, 5.0, 6.0);
      *
      */
-    public static class RectGridMaker
+    static class RectGridMaker
     {
         private final double xSpace;
         private final ImList<Double> widths;
@@ -48,9 +76,21 @@ public class RectGrid extends ImValuesImpl
         }
     }
 
+    /**
+     * <p> A rectangular grid with horizontal space between rectangles of
+     * {@code xSpace}
+     *  and vertical space
+     * {@code ySpace}
+     * .
+     * <p> The widths for each rectangle in a row are taken from
+     * {@code widths}
+     *  and the heights for each rectangle
+     * in a column are taken from
+     * {@code heights}
+     *
+     */
     public static RectGrid on(double xSpace, ImList<Double> widths, double ySpace, ImList<Double> heights)
     {
-
         return new RectGrid(xSpace, widths, ySpace, heights);
     }
 
@@ -63,12 +103,9 @@ public class RectGrid extends ImValuesImpl
 
         xs = widths.scanl(0.0, (z, x) -> z + x);
         ys = heights.scanl(0.0, (z, y) -> z + y);
-
-        size = Point.on(xs.last() + (widths.size() - 1) * xSpace, ys.last() + (heights.size() - 1) * ySpace);
-
     }
 
-    public static RectGridMaker x(double xSpace, Double... widths)
+    static RectGridMaker x(double xSpace, Double... widths)
     {
         return new RectGridMaker(xSpace, ImList.on(widths));
     }
