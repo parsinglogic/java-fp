@@ -83,7 +83,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ImQueue&lt;A&gt;</span>
 <span class="extends-implements">extends <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></span></div>
-<div class="block"><p> A queue</div>
+<div class="block"><p> A queue that has a maximumm size.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -106,7 +106,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>final int</code></div>
 <div class="col-second even-row-color"><code><a href="#maxSize" class="member-name-link">maxSize</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">The maximum size for this queue</div>
+</div>
 </div>
 </section>
 </li>
@@ -124,7 +126,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addToEnd(A)" class="member-name-link">addToEnd</a><wbr>(<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&nbsp;thing)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Add `thing` to the end of the queue</div>
+<div class="block"> Add
+ <code>thing</code>
+  to the end of the queue</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#first()" class="member-name-link">first</a>()</code></div>
@@ -143,7 +147,12 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isEmpty()" class="member-name-link">isEmpty</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> <code>true</code>
+  if
+ <code>this</code>
+  is empty</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#last()" class="member-name-link">last</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -151,34 +160,70 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;A&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#ofSize(int)" class="member-name-link">ofSize</a><wbr>(int&nbsp;maxSize)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> An empty queue with a maximum size of
+ <code>maxSize</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;A&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(A...)" class="member-name-link">on</a><wbr>(A...&nbsp;as)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A shortcut for
+ <code>on(ImList.on(as)</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;A&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(dev.javafp.lst.ImList)" class="member-name-link">on</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&nbsp;as)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A queue containing the elements of
+ <code>as</code>
+ and a
+ <code>maxSize</code>
+  of
+ <code>Integer.MAX_VALUE</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;A&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#onSize(int,A...)" class="member-name-link">onSize</a><wbr>(int&nbsp;maxSize,
  A...&nbsp;as)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&gt;&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeFirst()" class="member-name-link">removeFirst</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A shortcut for
+ <code>onSize(maxSize, ImList.on(as)</code></div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;A&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#onSize(int,dev.javafp.lst.ImList)" class="member-name-link">onSize</a><wbr>(int&nbsp;maxSize,
+ <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&nbsp;elements)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A queue containing the elements of
+ <code>elements</code></div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeFirst()" class="member-name-link">removeFirst</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> An
+ <a href="../util/ImMaybe.html" title="class in dev.javafp.util"><code>ImMaybe</code></a>
+ containing the queue that is
+ <code>this</code>
+ with the first element removed or
+ <code>Nothing</code>
+  if
+ <code>this</code>
+  is empty.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> The number of elements in
  <code>this</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>,<wbr><a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&gt;&gt;&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>,<wbr><a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&gt;&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#split()" class="member-name-link">split</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">A pair of the first element and the queue with the first element removed in a `ImMaybe` or `Nothing` if the queue is empty</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toImList()" class="member-name-link">toImList</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toImList()" class="member-name-link">toImList</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> A list containing the elements of
+ <code>this</code></div>
+</div>
 </div>
 </div>
 </div>
@@ -206,6 +251,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="maxSize">
 <h3>maxSize</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">maxSize</span></div>
+<div class="block">The maximum size for this queue</div>
 </section>
 </li>
 </ul>
@@ -220,13 +266,17 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="ofSize(int)">
 <h3>ofSize</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;A&gt;</span>&nbsp;<span class="element-name">ofSize</span><wbr><span class="parameters">(int&nbsp;maxSize)</span></div>
+<div class="block"><p> An empty queue with a maximum size of
+ <code>maxSize</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="addToEnd(A)">
 <h3 id="addToEnd(java.lang.Object)">addToEnd</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&gt;</span>&nbsp;<span class="element-name">addToEnd</span><wbr><span class="parameters">(<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&nbsp;thing)</span></div>
-<div class="block">Add `thing` to the end of the queue</div>
+<div class="block"><p> Add
+ <code>thing</code>
+  to the end of the queue</div>
 </section>
 </li>
 <li>
@@ -262,6 +312,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="on(dev.javafp.lst.ImList)">
 <h3>on</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;A&gt;</span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&nbsp;as)</span></div>
+<div class="block"><p> A queue containing the elements of
+ <code>as</code>
+ and a
+ <code>maxSize</code>
+  of
+ <code>Integer.MAX_VALUE</code></div>
 </section>
 </li>
 <li>
@@ -269,6 +325,17 @@ loadScripts(document, 'script');</script>
 <h3 id="on(java.lang.Object[])">on</h3>
 <div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/SafeVarargs.html" title="class or interface in java.lang" class="external-link">@SafeVarargs</a>
 </span><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;A&gt;</span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(A...&nbsp;as)</span></div>
+<div class="block"><p> A shortcut for
+ <code>on(ImList.on(as)</code></div>
+</section>
+</li>
+<li>
+<section class="detail" id="onSize(int,dev.javafp.lst.ImList)">
+<h3>onSize</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;A&gt;</span>&nbsp;<span class="element-name">onSize</span><wbr><span class="parameters">(int&nbsp;maxSize,
+ <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&nbsp;elements)</span></div>
+<div class="block"><p> A queue containing the elements of
+ <code>elements</code></div>
 </section>
 </li>
 <li>
@@ -277,24 +344,41 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/SafeVarargs.html" title="class or interface in java.lang" class="external-link">@SafeVarargs</a>
 </span><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;A&gt;</span>&nbsp;<span class="element-name">onSize</span><wbr><span class="parameters">(int&nbsp;maxSize,
  A...&nbsp;as)</span></div>
+<div class="block"><p> A shortcut for
+ <code>onSize(maxSize, ImList.on(as)</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="isEmpty()">
 <h3>isEmpty</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEmpty</span>()</div>
+<div class="block"><p> <code>true</code>
+  if
+ <code>this</code>
+  is empty</div>
 </section>
 </li>
 <li>
 <section class="detail" id="toImList()">
 <h3>toImList</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&gt;</span>&nbsp;<span class="element-name">toImList</span>()</div>
+<div class="block"><p> A list containing the elements of
+ <code>this</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="removeFirst()">
 <h3>removeFirst</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImQueue.html" title="class in dev.javafp.queue">ImQueue</a>&lt;<a href="ImQueue.html" title="type parameter in ImQueue">A</a>&gt;&gt;</span>&nbsp;<span class="element-name">removeFirst</span>()</div>
+<div class="block"><p> An
+ <a href="../util/ImMaybe.html" title="class in dev.javafp.util"><code>ImMaybe</code></a>
+ containing the queue that is
+ <code>this</code>
+ with the first element removed or
+ <code>Nothing</code>
+  if
+ <code>this</code>
+  is empty.</div>
 </section>
 </li>
 <li>
