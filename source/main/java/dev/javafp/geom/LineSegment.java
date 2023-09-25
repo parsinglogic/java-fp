@@ -8,42 +8,79 @@
 package dev.javafp.geom;
 
 import dev.javafp.lst.ImList;
-import dev.javafp.tuple.ImTriple;
 import dev.javafp.val.ImValuesImpl;
 
 /**
- * <p> A 2D tangent vector
+ * <p> A 2D line segment
+ *
+ *
+ *
  */
-public class TangentVector extends ImValuesImpl
+public class LineSegment extends ImValuesImpl
 {
 
+    /**
+     * The start point
+     */
     public final Point start;
+
+    /**
+     * The point defining the offset relative to the start point
+     */
     public final Point offset;
 
-    public TangentVector(Point start, Point offset)
+    private LineSegment(Point start, Point offset)
     {
         this.start = start;
         this.offset = offset;
 
     }
 
-    public TangentVector(double x, double y, double ox, double oy)
+    private LineSegment(double x, double y, double ox, double oy)
     {
         this(Point.on(x, y), Point.on(ox, oy));
     }
 
-    public static TangentVector fromTo(Point p1, Point p2)
+    /**
+     * <p> A line segment starting at
+     * {@code p1}
+     *  and ending at
+     * {@code p2}
+     *
+     */
+    public static LineSegment fromTo(Point p1, Point p2)
     {
-        return new TangentVector(p1, p2.minus(p1));
-    }
-
-    public ImList<TangentVector> repeat(Point offset, int count)
-    {
-        return ImList.unfold(this, i -> new TangentVector(i.start.plus(offset), i.offset)).take(count);
+        return new LineSegment(p1, p2.minus(p1));
     }
 
     /**
-     * <p> Draw a grid with
+     * <p> A line segment starting at
+     * {@code (x, y)}
+     *  with an offset of
+     * {@code (ox, oy}
+     */
+    public static LineSegment originOffset(double x, double y, double ox, double oy)
+    {
+        return new LineSegment(Point.on(x, y), Point.on(ox, oy));
+    }
+
+    /**
+     * <p> {@code count}
+     *  line segments, each one with a start that is offset from the previous one by
+     * {@code offset}
+     * .
+     * <p> The first one equal to
+     * {@code this}
+     *
+     */
+    public ImList<LineSegment> repeat(Point offset, int count)
+    {
+        return ImList.unfold(this, i -> new LineSegment(i.start.plus(offset), i.offset)).take(count);
+    }
+
+    /**
+     * <p> Draw a grid using fixed line segments
+     * with
      * {@code countX}
      *  columns and
      * {@code countY}
@@ -52,7 +89,7 @@ public class TangentVector extends ImValuesImpl
      *  and
      * {@code height}
      * <p> So grid(1,1, 5, 2)
-     * <p> would produce 9 vectors looking like this:
+     * <p> would produce 9 line segments looking like this:
      *
      * <pre>{@code
      *     ┌───┬───┬───┬───┬───┐
@@ -63,47 +100,29 @@ public class TangentVector extends ImValuesImpl
      * }</pre>
      *
      */
-    public static ImList<TangentVector> grid(double width, double height, int countX, int countY)
+    public static ImList<LineSegment> grid(double width, double height, int countX, int countY)
     {
-        return new TangentVector(0, 0, width * countX, 0).repeat(Point.on(0, height), countY + 1)
-                .append(new TangentVector(0, 0, 0, height * countY).repeat(Point.on(width, 0), countX + 1));
+        return new LineSegment(0, 0, width * countX, 0).repeat(Point.on(0, height), countY + 1)
+                .append(new LineSegment(0, 0, 0, height * countY).repeat(Point.on(width, 0), countX + 1));
     }
 
-    public TangentVector move(Point move)
-    {
-        return new TangentVector(start.plus(move), offset);
-    }
-
+    /**
+     * <p> The point
+     * {@code start + offset}
+     * .
+     *
+     */
     public Point getCorner()
     {
         return start.plus(offset);
     }
 
-    public ImTriple<Double, Double, Double> intersection(TangentVector other)
-    {
-        // get the homegeneous line equations
-        LineEquation one = this.lineEquation();
-        LineEquation two = other.lineEquation();
-
-        return one.intersection(two);
-    }
-
+    /**
+     * The line equation of the infinite line colinear with this line segment
+     */
     public LineEquation lineEquation()
     {
         return new LineEquation(offset.y, -offset.x, start.y * offset.x - start.x * offset.y);
-    }
-
-    public LineEquation perpThruCentre()
-    {
-        // generate the line equation
-
-        LineEquation eq = this.lineEquation();
-
-        // Get the vector from the mid point that is perpendicular ( a, b )
-        // Get the line equation from that
-
-        return new TangentVector(start.midPoint(getCorner()), Point.on(eq.a, eq.b)).lineEquation();
-
     }
 
     /**
@@ -118,7 +137,14 @@ public class TangentVector extends ImValuesImpl
         return ImList.on(start, offset);
     }
 
-    @Override public ImList<String> getNames()
+    /**
+     *
+     * The field names for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
+    @Override
+    public ImList<String> getNames()
     {
         return ImList.on("start", "offset");
     }

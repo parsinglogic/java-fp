@@ -7,12 +7,16 @@
 
 package dev.javafp.geom;
 
+import dev.javafp.lst.ImList;
 import dev.javafp.tuple.ImTriple;
+import dev.javafp.val.ImValuesImpl;
 
 /**
- * <p> Created by aove215 on 14/12/15.
+ * <p> A representation of an infinite straight line in 2 dimensions,
+ * {@code ax + by + c = 0}
+ *
  */
-public class LineEquation
+public class LineEquation extends ImValuesImpl
 {
     public final double a;
     public final double b;
@@ -25,26 +29,82 @@ public class LineEquation
         this.c = c;
     }
 
-    public double applyTo(Point p)
+    /**
+     * A line equation with values `a`, `b`, `c`
+     */
+    public static LineEquation on(double a, double b, double c)
     {
-        return a * p.x + b * p.y + c;
+        return new LineEquation(a, b, c);
     }
 
+    /**
+     *
+     * <p> Plug the
+     * {@code x}
+     *  and
+     * {@code y}
+     *  values of
+     * {@code p}
+     *  into the line equation to get a value that is the
+     * {@code d * sqrt(a*a + b*b)}
+     *  where
+     * {@code d}
+     *  is the distance from the point to the line.
+     *
+     *
+     * @see <a href="https://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html">mathworld.wolfram.com</a>
+     */
+    public double applyTo(Point p)
+    {
+        return Math.abs(a * p.x + b * p.y + c);
+    }
+
+    /**
+     *
+     * <p> Get the intersection point of
+     * {@code this}
+     *  and
+     * {@code other}
+     *
+     * <p> The point returned in a triple,
+     * {@code (x, y, h)}
+     *  is in homogeneous coordinates.
+     * <p> If
+     * {@code h == 0}
+     *  then the lines do not intersect.
+     *
+     *
+     */
     public ImTriple<Double, Double, Double> intersection(LineEquation other)
     {
-        // get the intersection point
-
-        /**
-         * <p> | 1        1        1       |
-         * | this.a   this.b   this.c  |
-         * | other.a  other.b  other.c |
-         *
-         */
-
         double x = this.b * other.c - other.b * this.c;
         double y = other.a * this.c - this.a * other.c;
         double h = this.a * other.b - other.a * this.b;
 
         return ImTriple.on(x, y, h);
+    }
+
+    /**
+     *
+     * The field values for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
+    @Override
+    public ImList<Object> getValues()
+    {
+        return ImList.on(a, b, c);
+    }
+
+    /**
+     *
+     * The field names for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
+    @Override
+    public ImList<String> getNames()
+    {
+        return ImList.on("a", "b", "c");
     }
 }
