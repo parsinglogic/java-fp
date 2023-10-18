@@ -11,28 +11,46 @@ import java.util.concurrent.locks.LockSupport;
 
 /**
  * A timer that uses {@link System#nanoTime()}.
+ *
+ * It is intended to act like a physical stopwatch - in tha it is started, runs until it is paused. On resumeing it
+ *
+ * it will remember the previous total and add that to its elapsed time.
+ *
+ * This is implemented by having two classes tha implement `StopWatch` - `PausedStopWatch` and `RunningStopWatch`
+ *
+ * When a stopwatch is paused:
+ *
+ *    time t1: s = StopWatch().start;
+ *
+ *    time t2: StopWatch p = s.pause();
+ *
+ *    time t2: StopWatch r = p.resume();
+ *
+ *    time t2: s.getElapsedNanos()
+ *
+ * `p` refers to a `PausedStopWatch`.
+ *
+ * `r` refers to a `RunningStopWatch`
+ *
+ * `s` is still a running stopwatch and the elapsed nanoseconds can still be obtained from it.
+ *
+ *
+ *
+ * at any time we can ask it for its
  */
-public class StopWatch
+public abstract class StopWatch
 {
-    // Start time in nanoseconds from System.nanoTime()
-    private long startTime;
 
-    // Elapsed time in nanoseconds
-    private long accruedNanos;
-
-    private boolean paused;
-
-    public StopWatch()
+    public static StopWatch start()
     {
-        startTime = System.nanoTime();
+        return RunningStopWatch.start();
     }
 
-    public long getElapsedNanos()
-    {
-        return paused
-               ? accruedNanos
-               : accruedNanos + System.nanoTime() - startTime;
-    }
+    abstract long getElapsedNanos();
+
+    abstract StopWatch pause();
+
+    abstract StopWatch resume();
 
     public long getElapsedMicroseconds()
     {
@@ -54,27 +72,14 @@ public class StopWatch
         return getElapsedMilliseconds();
     }
 
-    public void reset()
-    {
-        startTime = System.nanoTime();
-        accruedNanos = 0;
-    }
-
-    public void pause()
-    {
-        accruedNanos += System.nanoTime() - startTime;
-        paused = true;
-    }
-
-    public void resume()
-    {
-        paused = false;
-        startTime = System.nanoTime();
-    }
-
     public static void sleep(int millisToSleep)
     {
         LockSupport.parkNanos(millisToSleep * 1000 * 1000);
+    }
+
+    public static void sleepSeconds(int seconds)
+    {
+        sleep(seconds * 1000);
     }
 
 }

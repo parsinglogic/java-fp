@@ -4,7 +4,7 @@ import dev.javafp.eq.Eq;
 import dev.javafp.ex.SizeOnInfiniteList;
 import dev.javafp.ex.ThreadInterrupted;
 import dev.javafp.func.FnBlock;
-import dev.javafp.time.Clock;
+import dev.javafp.time.StopWatch;
 import dev.javafp.util.Say;
 import dev.javafp.util.TestUtils;
 import org.junit.After;
@@ -129,7 +129,7 @@ public class ImLazyListTest
         t.start();
 
         // Wait until there is something in the buffer
-        Clock.sleepSeconds(2);
+        StopWatch.sleepSeconds(2);
 
         t.interrupt();
 
@@ -171,7 +171,7 @@ public class ImLazyListTest
         t.start();
 
         // Wait until there is something in the buffer
-        Clock.sleep(2, "");
+        StopWatch.sleep(2);
 
         t.interrupt();
 
@@ -228,7 +228,7 @@ public class ImLazyListTest
 
         t.start();
 
-        Clock.sleepSeconds(2);
+        StopWatch.sleepSeconds(2);
 
         t.interrupt();
 

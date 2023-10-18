@@ -7,26 +7,21 @@
 
 package dev.javafp.time;
 
-import dev.javafp.func.FnBlock;
-
-import java.util.concurrent.locks.LockSupport;
-
 /**
  * A timer that uses {@link System#nanoTime()}.
  */
 public class PausedStopWatch extends StopWatch
 {
 
+    private final NanoTimeProvider timeProvider;
 
     // Elapsed time in nanoseconds
-    private long accruedNanos;
+    private final long accruedNanos;
 
-
-
-    public static PausedStopWatch paused(long accruedNanos)
+    public PausedStopWatch(NanoTimeProvider timeProvider, long accruedNanos)
     {
-
-
+        this.timeProvider = timeProvider;
+        this.accruedNanos = accruedNanos;
     }
 
     public long getElapsedNanos()
@@ -34,12 +29,15 @@ public class PausedStopWatch extends StopWatch
         return accruedNanos;
     }
 
-
-
-    public static void sleep(int millisToSleep)
+    @Override
+    public StopWatch pause()
     {
-        LockSupport.parkNanos(millisToSleep * 1000 * 1000);
+        return this;
     }
 
+    public StopWatch resume()
+    {
+        return new RunningStopWatch(timeProvider, accruedNanos, timeProvider.nanoTime());
+    }
 
 }

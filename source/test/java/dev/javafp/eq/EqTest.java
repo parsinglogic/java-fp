@@ -29,7 +29,7 @@ public class EqTest
         ImList<Integer> range = tenMeeelionIntegers;
         ImList<Integer> range2 = tenMeeelionIntegers3;
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
         assertTrue(Eq.uals(range, range2));
         say("elapsed", s.getElapsedMs());
     }
@@ -41,7 +41,7 @@ public class EqTest
         ImList<Integer> range = tenMeeelionIntegers;
         ImList<Integer> range2 = tenMeeelionIntegers3;
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
         assertTrue(range.equalsList(range2));
         say("elapsed", s.getElapsedMs());
     }
@@ -53,7 +53,7 @@ public class EqTest
         ImList<Integer> range = tenMeeelionIntegers3.appendElement(1);
         ImList<Integer> range2 = tenMeeelionIntegers3.appendElement(1);
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
         assertTrue(range.equalsList(range2));
         say("elapsed", s.getElapsedMs());
     }
@@ -65,7 +65,7 @@ public class EqTest
         ImList<Integer> range = tenMeeelionIntegers3.appendElement(1);
         ImList<Integer> range2 = tenMeeelionIntegers3.appendElement(1);
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
         assertTrue(Eq.uals(range, (range2)));
         say("elapsed", s.getElapsedMs());
     }
@@ -77,7 +77,7 @@ public class EqTest
         ImList<Integer> range = tenMeeelionIntegers3.appendElement(1).flush();
         ImList<Integer> range2 = tenMeeelionIntegers3.appendElement(1).flush();
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
         assertTrue(Eq.uals(range, range2));
         say("elapsed", s.getElapsedMs());
     }
@@ -89,7 +89,7 @@ public class EqTest
         ImList<Integer> range = tenMeeelionIntegers3.appendElement(1).flush();
         ImList<Integer> range2 = tenMeeelionIntegers3.appendElement(1).flush();
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
         assertTrue(Eq.uals(range, range2));
         say("elapsed", s.getElapsedMs());
     }
@@ -101,7 +101,7 @@ public class EqTest
         ImList<Integer> range = tenMeeelionIntegers3.appendElement(1);
         ImList<Integer> range2 = tenMeeelionIntegers3.appendElement(1);
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
 
         Object[] a1 = range.toArray(Object.class);
         Object[] a2 = range2.toArray(Object.class);
@@ -117,7 +117,7 @@ public class EqTest
 
         say("range", range.getClass());
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
         ImList<Integer> r = range.flush();
 
         say("elapsed flush", s.getElapsedMs());
@@ -130,7 +130,7 @@ public class EqTest
 
         say("range", range.getClass());
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
         ImList<Integer> r = range.flush();
 
         say("elapsed flush2", s.getElapsedMs());
@@ -139,7 +139,7 @@ public class EqTest
     @Test
     public void testFlushTime()
     {
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
 
         ImList<Integer> range = tenMeeelionIntegers3.appendElement(1).flush();
         //        ImList<Integer> range2 = tenMeeelionIntegers3.appendElement(2).flush();
@@ -154,11 +154,11 @@ public class EqTest
         List<Integer> range = tenMeeelionIntegers.append(ImList.on(1)).toList();
         List<Integer> range2 = tenMeeelionIntegers.append(ImList.on(0)).toList();
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
         assertFalse(range.equals(range2));
         say("elapsed", s.getElapsedMs());
 
-        s.reset();
+        s = StopWatch.start();
         assertFalse(Objects.deepEquals(range, range2));
         say("elapsed", s.getElapsedMs());
 
@@ -171,7 +171,7 @@ public class EqTest
         ImList<Integer> range = tenMeeelionIntegers.append(ImList.on(1));
         ImList<Integer> range2 = tenMeeelionIntegers.append(ImList.on(0));
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
 
         List<Integer> list1 = range.toList();
         List<Integer> list2 = range2.toList();
@@ -189,7 +189,7 @@ public class EqTest
         ImList<Integer> range = ints2.append(ImList.on(1));
         ImList<Integer> range2 = ints2.append(ImList.on(0));
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
         assertFalse(range.equalsList(range2));
         say("elapsed", s.getElapsedMs());
 
@@ -244,7 +244,7 @@ public class EqTest
         say("one", tenMeeelionIntegers.getClass());
         say("two", tenMeeelionIntegers3.getClass());
 
-        StopWatch s = new StopWatch();
+        StopWatch s = StopWatch.start();
         assertTrue(tenMeeelionIntegers.equalsList(tenMeeelionIntegers3));
         say("elapsed", s.getElapsedMs());
     }

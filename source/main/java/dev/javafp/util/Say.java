@@ -12,7 +12,6 @@ import dev.javafp.box.LeafTextBox;
 import dev.javafp.box.LeftRightBox;
 import dev.javafp.box.TopDownBox;
 import dev.javafp.lst.ImList;
-import dev.javafp.time.Clock;
 import dev.javafp.tuple.ImPair;
 
 import java.time.Duration;
@@ -60,7 +59,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Say
 {
-    static long start = Clock.currentTimeMillis();
+    static long start = System.currentTimeMillis();
 
     static CachingBuffer buffer = null;
 

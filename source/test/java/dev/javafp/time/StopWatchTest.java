@@ -1,5 +1,6 @@
 package dev.javafp.time;
 
+import dev.javafp.lst.ImList;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -7,14 +8,43 @@ import static org.junit.Assert.assertTrue;
 
 public class StopWatchTest
 {
+
+    @Test
+    public void testBasic()
+    {
+        long startTime = 5;
+        long endTime = 17;
+        long pauseTime = 345;
+        long resumeTime = 324324;
+        long finalTime = 56765757;
+        long lastTime = 878798898;
+
+        FakeNanoTimeProvider tp = new FakeNanoTimeProvider(ImList.on(startTime, endTime, pauseTime, resumeTime, finalTime, lastTime));
+        StopWatch s = RunningStopWatch.start(tp);
+
+        assertEquals(endTime - startTime, s.getElapsedNanos());
+
+        StopWatch p = s.pause();
+
+        assertEquals(pauseTime - startTime, p.getElapsedNanos());
+        assertEquals(pauseTime - startTime, p.getElapsedNanos());
+
+        StopWatch r = p.resume();
+
+        assertEquals(pauseTime - startTime + finalTime - resumeTime, r.getElapsedNanos());
+
+        assertEquals(lastTime - startTime, s.getElapsedNanos());
+
+    }
+
     @Test
     public void testPause()
     {
-        StopWatch pauseTimer = new StopWatch();
-        StopWatch timer1 = new StopWatch();
+        StopWatch timer0 = StopWatch.start();
+        StopWatch timer1 = StopWatch.start();
         StopWatch.sleep(100);
 
-        pauseTimer.pause();
+        StopWatch pauseTimer = timer0.pause();
         long t1 = timer1.getElapsedMilliseconds();
         long pt = pauseTimer.getElapsedMilliseconds();
 
@@ -28,11 +58,14 @@ public class StopWatchTest
 
         StopWatch.sleep(50);
 
-        StopWatch timer2 = new StopWatch();
-        pauseTimer.resume();
+        // Start a new timer
+        StopWatch timer2 = StopWatch.start();
+
+        // resume the paused timer
+        StopWatch resumed = pauseTimer.resume();
         StopWatch.sleep(100);
 
-        long pauseTime = pauseTimer.getElapsedMilliseconds();
+        long pauseTime = resumed.getElapsedMilliseconds();
         long t2 = timer2.getElapsedMilliseconds();
 
         // Pause time should be almost the same as t1 + t2

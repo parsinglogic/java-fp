@@ -8,7 +8,7 @@
 package dev.javafp.util;
 
 import dev.javafp.func.FnProducer;
-import dev.javafp.time.Clock;
+import dev.javafp.time.StopWatch;
 
 import java.util.concurrent.ExecutorService;
 
@@ -54,7 +54,7 @@ public class ThreadUtils
     public static void sleep(int seconds, String message)
     {
         say("sleeping for", seconds, "seconds", message);
-        Clock.realSleep(seconds * 1000);
+        StopWatch.sleep(seconds * 1000);
         say("Finished sleeping for", seconds, "seconds", message);
     }
 

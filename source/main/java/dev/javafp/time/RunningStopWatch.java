@@ -12,24 +12,44 @@ package dev.javafp.time;
  */
 public class RunningStopWatch extends StopWatch
 {
-    // Start time in nanoseconds from System.nanoTime()
-    private long startTime;
+    private final NanoTimeProvider timeProvider;
 
     // Elapsed time in nanoseconds
-    private long accruedNanos;
+    final long accruedNanos;
 
-    private boolean paused;
+    // Start time in nanoseconds from System.nanoTime()
+    final long startTime;
 
-    public RunningStopWatch()
+    public static StopWatch start()
     {
-        startTime = System.nanoTime();
+        return start(new NanoTimeProvider());
     }
 
+    public static StopWatch start(NanoTimeProvider tp)
+    {
+        return new RunningStopWatch(tp, 0, tp.nanoTime());
+    }
+
+    public RunningStopWatch(NanoTimeProvider timeProvider, long accruedNanos, long startTime)
+    {
+        this.timeProvider = timeProvider;
+        this.accruedNanos = accruedNanos;
+        this.startTime = startTime;
+    }
 
     public long getElapsedNanos()
     {
-        return
-               accruedNanos + System.nanoTime() - startTime;
+        return accruedNanos + timeProvider.nanoTime() - startTime;
+    }
+
+    public StopWatch pause()
+    {
+        return new PausedStopWatch(timeProvider, getElapsedNanos());
+    }
+
+    public StopWatch resume()
+    {
+        return this;
     }
 
 }
