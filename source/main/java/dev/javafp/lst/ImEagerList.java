@@ -28,7 +28,6 @@ abstract class ImEagerList<A> implements ImList<A>
         return size;
     }
 
-    @Override
     public int getSz()
     {
         return size;

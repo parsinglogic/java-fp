@@ -18,7 +18,7 @@ class ImZipWithList<A, B, C> extends ImCachingLazyList<C>
 
     private ImZipWithList(ImList<A> listOne, ImList<B> listTwo, Fn2<A, B, C> fn)
     {
-        super(Sz.zipWith(listOne.getSz(), listTwo.getSz()));
+        super(Sz.zipWith(Sz.getSz(listOne), Sz.getSz(listTwo)));
         this.listOne = listOne;
         this.listTwo = listTwo;
         this.fn = fn;
@@ -52,7 +52,7 @@ class ImZipWithList<A, B, C> extends ImCachingLazyList<C>
          * <p> If both are UF we can take a short cut otherwise we resolve
          *
          */
-        return listOne.getSz() == UNKNOWN_FINITE && listTwo.getSz() == UNKNOWN_FINITE
+        return Sz.getSz(listOne) == UNKNOWN_FINITE && Sz.getSz(listTwo) == UNKNOWN_FINITE
                ? Math.min(listOne.size(), listTwo.size())
                : resolveSize();
     }

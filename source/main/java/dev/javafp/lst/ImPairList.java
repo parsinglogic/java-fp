@@ -16,7 +16,7 @@ class ImPairList<A, B> extends ImCachingLazyList<ImPair<A, B>>
 
     private ImPairList(ImList<A> as, ImList<B> bs)
     {
-        super(Sz.zipWith(as.getSz(), bs.getSz()));
+        super(Sz.zipWith(Sz.getSz(as), Sz.getSz(bs)));
 
         this.as = as;
         this.bs = bs;

@@ -20,7 +20,7 @@ class ImQuartetList<A, B, C, D> extends ImCachingLazyList<ImQuartet<A, B, C, D>>
     private ImQuartetList(ImList<A> as, ImList<B> bs, ImList<C> cs, ImList<D> ds)
     {
         // The size of this list will be like a zip
-        super(Sz.zipWith(Sz.zipWith(as.getSz(), bs.getSz()), Sz.zipWith(cs.getSz(), ds.getSz())));
+        super(Sz.zipWith(Sz.zipWith(Sz.getSz(as), Sz.getSz(bs)), Sz.zipWith(Sz.getSz(cs), Sz.getSz(ds))));
 
         this.as = as;
         this.bs = bs;

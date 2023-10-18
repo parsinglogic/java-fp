@@ -7,6 +7,8 @@
 
 package dev.javafp.lst;
 
+import dev.javafp.ex.Throw;
+
 import static dev.javafp.lst.ImLazyList.KNOWN_INFINITE;
 import static dev.javafp.lst.ImLazyList.UNKNOWN_FINITE;
 import static dev.javafp.lst.ImLazyList.UNKNOWN_UNKNOWN;
@@ -205,7 +207,7 @@ class Sz
 
         for (ImList<A> l : tl)
         {
-            sz = append(sz, l.getSz());
+            sz = append(sz, getSz(l));
 
             if (sz < 0)
                 return sz;
@@ -229,5 +231,25 @@ class Sz
         return sz >= 0
                ? UNKNOWN_FINITE
                : sz;
+    }
+
+    /**
+     * I want to getSz to be protected
+     * but it is on an interface and so can't be protected.
+     * This is my frig. I have removed it from ImList and instead of calling i I now call this method
+     */
+    public static int getSz(ImList as)
+    {
+        if (as instanceof ImEagerList<?>)
+        {
+            return ((ImEagerList) as).getSz();
+        }
+
+        if (as instanceof ImLazyList<?>)
+        {
+            return ((ImLazyList) as).getSz();
+        }
+
+        return Throw.Exception.ifYouGetHere();
     }
 }

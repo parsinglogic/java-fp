@@ -17,7 +17,7 @@ class ImFilteredList<A> extends ImCachingLazyList<A>
 
     private ImFilteredList(ImList<A> source, Fn<A, Boolean> filterFn)
     {
-        super(Sz.filter(source.getSz()));
+        super(Sz.filter(Sz.getSz(source)));
 
         this.filterFn = filterFn;
         this.source = source;

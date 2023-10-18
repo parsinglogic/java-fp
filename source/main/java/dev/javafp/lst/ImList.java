@@ -259,13 +259,6 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     ImList<A> tail();
 
     /**
-     *
-     * @deprecated This method is intended for internal use and should not be called by clients (use {@link #size()} instead).
-     */
-    @Deprecated
-    int getSz();
-
-    /**
      * <p> The number of elements in
      * {@code this}
      * .
@@ -936,11 +929,16 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     @Override
     default AbstractTextBox getTextBox()
     {
-        return getSz() == KNOWN_INFINITE
-               ? getTextBoxKI(3).before(LeafTextBox.with(" (showing the first 3 elements - list is infinite)"))
-               : getSz() == UNKNOWN_UNKNOWN
-                 ? getTextBoxUU()
-                 : getTextBoxFinite();
+        if (Sz.getSz(this) == KNOWN_INFINITE)
+        {
+            return getTextBoxKI(3).before(LeafTextBox.with(" (showing the first 3 elements - list is infinite)"));
+        }
+        else
+        {
+            return Sz.getSz(this) == UNKNOWN_UNKNOWN
+                   ? getTextBoxUU()
+                   : getTextBoxFinite();
+        }
 
         //        return switch (getSz())
         //                {
@@ -1181,7 +1179,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         else
         {
             // If size is known finite then we can take a short cut - maybe
-            if (getSz() >= 0 && count >= size())
+            if (Sz.getSz(this) >= 0 && count >= size())
             {
                 return ImList.on();
             }
@@ -2638,7 +2636,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     {
         Throw.Exception.ifLessThan("oneBasedIndexToSplitAfter", oneBasedIndexToSplitAfter, 0);
 
-        return this.getSz() >= 0 && oneBasedIndexToSplitAfter >= this.size()
+        return Sz.getSz(this) >= 0 && oneBasedIndexToSplitAfter >= this.size()
                ? (ImPair.on(this, ImList.on()))
                : heads().zip(tails()).at(oneBasedIndexToSplitAfter + 1);
     }
@@ -2821,7 +2819,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      */
     default ImList<ImList<A>> heads()
     {
-        if (getSz() == KNOWN_INFINITE)
+        if (Sz.getSz(this) == KNOWN_INFINITE)
             return ImRange.step(0, 1).map(n -> take(n));
         else
             return ImRange.inclusive(0, size()).map(n -> take(n));

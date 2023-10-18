@@ -17,7 +17,7 @@ class ImTakeList<A> extends ImLazyList<A>
 
     private ImTakeList(ImList<A> sourceNonEmpty, int countStartingAtOne)
     {
-        super(Sz.take(sourceNonEmpty.getSz(), countStartingAtOne));
+        super(Sz.take(Sz.getSz(sourceNonEmpty), countStartingAtOne));
         this.source = sourceNonEmpty;
         this.count = countStartingAtOne;
     }
@@ -65,7 +65,7 @@ class ImTakeList<A> extends ImLazyList<A>
          * <p> In either case, resolving this will generate a finite list
          *
          */
-        return source.getSz() == UNKNOWN_UNKNOWN
+        return Sz.getSz(source) == UNKNOWN_UNKNOWN
                ? resolveSize()
                : Math.min(count, source.size());
     }

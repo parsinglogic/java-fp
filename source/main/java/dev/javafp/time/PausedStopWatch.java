@@ -5,50 +5,41 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package dev.javafp.lst;
+package dev.javafp.time;
 
-import dev.javafp.ex.FunctionNotAllowedOnEmptyList;
+import dev.javafp.func.FnBlock;
 
-class ImTailsList<A> extends ImLazyList<ImList<A>>
+import java.util.concurrent.locks.LockSupport;
+
+/**
+ * A timer that uses {@link System#nanoTime()}.
+ */
+public class PausedStopWatch extends StopWatch
 {
-    private final ImList<A> source;
 
-    private ImTailsList(ImList<A> source)
+
+    // Elapsed time in nanoseconds
+    private long accruedNanos;
+
+
+
+    public static PausedStopWatch paused(long accruedNanos)
     {
-        super(Sz.addOne(Sz.getSz(source)));
-        this.source = source;
+
+
     }
 
-    static <A> ImList<ImList<A>> on(ImList<A> source)
+    public long getElapsedNanos()
     {
-        return source.isEmpty()
-               ? ImList.on(ImList.on())
-               : new ImTailsList(source);
+        return accruedNanos;
     }
 
-    @Override
-    public ImList<A> head()
+
+
+    public static void sleep(int millisToSleep)
     {
-        return source;
+        LockSupport.parkNanos(millisToSleep * 1000 * 1000);
     }
 
-    /**
-     * `this` without the first element.
-     *
-     * Throws {@link FunctionNotAllowedOnEmptyList} if the list is empty.
-     */
-    @Override
-    public ImList<ImList<A>> tail()
-    {
-        return source.isEmpty()
-               ? ImList.on()
-               : on(source.tail());
-    }
-
-    @Override
-    protected int calculateSize()
-    {
-        return 1 + source.size();
-    }
 
 }

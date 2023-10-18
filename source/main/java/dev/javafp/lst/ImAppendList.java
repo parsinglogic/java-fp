@@ -20,7 +20,7 @@ class ImAppendList<A> extends ImLazyList<A>
 
     private ImAppendList(ImList<A> one, ImList<A> two)
     {
-        super(Sz.append(one.getSz(), two.getSz()));
+        super(Sz.append(Sz.getSz(one), Sz.getSz(two)));
         this.one = one;
         this.two = two;
 

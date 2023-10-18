@@ -17,7 +17,7 @@ class ImScanlList<A, B> extends ImCachingLazyList<A>
 
     private ImScanlList(ImList<B> source, A start, Fn2<A, B, A> fn)
     {
-        super(Sz.addOne(source.getSz()));
+        super(Sz.addOne(Sz.getSz(source)));
         this.source = source;
         this.start = start;
         this.fn = fn;

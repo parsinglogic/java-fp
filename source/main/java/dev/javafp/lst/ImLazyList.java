@@ -95,7 +95,7 @@ public abstract class ImLazyList<A> implements ImList<A>
     /**
      * The internal size of the list
      */
-    @Override
+
     public int getSz()
     {
         return sz;
@@ -179,7 +179,7 @@ public abstract class ImLazyList<A> implements ImList<A>
     @Override
     public int resolveSize()
     {
-        if (getSz() == KNOWN_INFINITE)
+        if (Sz.getSz(this) == KNOWN_INFINITE)
             throw new SizeOnInfiniteList();
 
         ImList<A> l = this;
@@ -209,7 +209,7 @@ public abstract class ImLazyList<A> implements ImList<A>
      */
     public Iterator<A> iterator()
     {
-        if (getSz() == KNOWN_INFINITE)
+        if (Sz.getSz(this) == KNOWN_INFINITE)
             throw new SizeOnInfiniteList();
 
         return ImList.super.iterator();

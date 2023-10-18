@@ -564,9 +564,6 @@ public class ImListTest implements Constants
 
         List<Integer> integerList = new ArrayList<>();
 
-        // The cast does not compile
-        // List<Object> objectList = (List<Object>)integerList;
-
     }
 
     @Test
@@ -931,7 +928,7 @@ public class ImListTest implements Constants
         ImList<Integer> result = start.removeAt(3);
 
         assertEquals(Integer.valueOf(4), result.at(3));
-        assertEquals(ImLazyList.KNOWN_INFINITE, result.getSz());
+        assertEquals(ImLazyList.KNOWN_INFINITE, Sz.getSz(result));
     }
 
     @Test
@@ -961,7 +958,7 @@ public class ImListTest implements Constants
         ImPair<ImList<Integer>, ImList<Integer>> pair = start.splitAfterIndex(2);
 
         assertEquals(on(1, 3), pair.fst);
-        assertEquals(ImLazyList.KNOWN_INFINITE, pair.snd.getSz());
+        assertEquals(ImLazyList.KNOWN_INFINITE, Sz.getSz(pair.snd));
     }
 
     private boolean checkSplitSize(ImList<Integer> orig, ImList<Integer> fst, ImList<Integer> snd, Integer n)

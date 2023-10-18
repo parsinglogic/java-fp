@@ -53,7 +53,7 @@ class ImIpList<A> extends ImCachingLazyList<ImList<A>>
 
     protected ImIpList(ImList<A> one, A thing, ImList<A> two)
     {
-        super(Sz.addOne(two.getSz()));
+        super(Sz.addOne(Sz.getSz(two)));
         this.one = one;
         this.thing = thing;
         this.two = two;

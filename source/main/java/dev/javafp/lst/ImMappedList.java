@@ -16,7 +16,7 @@ class ImMappedList<A, B> extends ImCachingLazyList<B>
 
     private ImMappedList(ImList<A> source, Fn<A, B> fn)
     {
-        super(source.getSz());
+        super(Sz.getSz(source));
         this.source = source;
         this.fn = fn;
     }

@@ -21,7 +21,7 @@ class ImQuintetList<A, B, C, D, E> extends ImCachingLazyList<ImQuintet<A, B, C, 
     private ImQuintetList(ImList<A> as, ImList<B> bs, ImList<C> cs, ImList<D> ds, ImList<E> es)
     {
         // The size of this list will be like a zip
-        super(Sz.zipWith(Sz.zipWith(Sz.zipWith(as.getSz(), bs.getSz()), Sz.zipWith(cs.getSz(), ds.getSz())), es.getSz()));
+        super(Sz.zipWith(Sz.zipWith(Sz.zipWith(Sz.getSz(as), Sz.getSz(bs)), Sz.zipWith(Sz.getSz(cs), Sz.getSz(ds))), Sz.getSz(es)));
 
         this.as = as;
         this.bs = bs;

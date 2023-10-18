@@ -124,7 +124,7 @@ public class SzTest
 
             //TestUtils.show("join " + (++j), join12);
 
-            assertEquals(ImLazyList.UNKNOWN_UNKNOWN, join.getSz());
+            assertEquals(ImLazyList.UNKNOWN_UNKNOWN, Sz.getSz(join));
 
             //            if (join.getSz() == LazyList.KNOWN_INFINITE)
             //            {
@@ -346,31 +346,31 @@ public class SzTest
                    ? list.size() == 0
                    : list.size() > 0);
 
-        assertEquals(list.size(), list.getSz());
+        assertEquals(list.size(), Sz.getSz(list));
         assertEquals(expectedSize, list.size());
     }
 
     private <A> void checkUU(ImList<A> list)
     {
 
-        assertEquals(ImLazyList.UNKNOWN_UNKNOWN, list.getSz());
+        assertEquals(ImLazyList.UNKNOWN_UNKNOWN, Sz.getSz(list));
     }
 
     private <A> void checkUU(ImList<A> list, int expectedSize)
     {
-        assertEquals(ImLazyList.UNKNOWN_UNKNOWN, list.getSz());
+        assertEquals(ImLazyList.UNKNOWN_UNKNOWN, Sz.getSz(list));
         assertEquals(expectedSize, list.size());
     }
 
     private <A> void checkUF(ImList<A> list, int expectedSize)
     {
-        assertEquals(ImLazyList.UNKNOWN_FINITE, list.getSz());
+        assertEquals(ImLazyList.UNKNOWN_FINITE, Sz.getSz(list));
         assertEquals(expectedSize, list.size());
     }
 
     private <A> void checkKI(ImList<A> inf)
     {
-        assertEquals(ImLazyList.KNOWN_INFINITE, inf.getSz());
+        assertEquals(ImLazyList.KNOWN_INFINITE, Sz.getSz(inf));
 
         try
         {

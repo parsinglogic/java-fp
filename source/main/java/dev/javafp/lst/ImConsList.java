@@ -30,7 +30,7 @@ class ImConsList<A> extends ImLazyList<A> implements Eq
 
     protected ImConsList(A head, ImList<A> tail)
     {
-        super(Sz.addOne(tail.getSz()));
+        super(Sz.addOne(Sz.getSz(tail)));
         this.head = head;
         this.tail = tail;
     }

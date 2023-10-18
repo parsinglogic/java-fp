@@ -18,7 +18,7 @@ class ImTripleList<A, B, C> extends ImCachingLazyList<ImTriple<A, B, C>>
 
     private ImTripleList(ImList<A> as, ImList<B> bs, ImList<C> cs)
     {
-        super(Sz.zipWith(Sz.zipWith(as.getSz(), bs.getSz()), cs.getSz()));
+        super(Sz.zipWith(Sz.zipWith(Sz.getSz(as), Sz.getSz(bs)), Sz.getSz(cs)));
 
         this.as = as;
         this.bs = bs;
