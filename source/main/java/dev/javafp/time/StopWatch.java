@@ -12,9 +12,14 @@ import java.util.concurrent.locks.LockSupport;
 /**
  * A timer that uses {@link System#nanoTime()}.
  *
- * It is intended to act like a physical stopwatch - in tha it is started, runs until it is paused. On resumeing it
+ * It is intended to act like a physical stopwatch - in that it has:
  *
- * it will remember the previous total and add that to its elapsed time.
+ * 1. start
+ * 2. resume
+ * 3. pause
+ *
+ * However, the class is immutable so that eaach of the methods above will return a new StopWatch
+ *
  *
  * This is implemented by having two classes tha implement `StopWatch` - `PausedStopWatch` and `RunningStopWatch`
  *
@@ -35,8 +40,7 @@ import java.util.concurrent.locks.LockSupport;
  * `s` is still a running stopwatch and the elapsed nanoseconds can still be obtained from it.
  *
  *
- *
- * at any time we can ask it for its
+ * A running stopwatch created from a paused stopwatch will remember the time taken so far by the paused stopwatch
  */
 public abstract class StopWatch
 {
