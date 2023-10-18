@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<title>StopWatch</title>
+<title>RunningStopWatch</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="declaration: package: dev.javafp.time, class: StopWatch">
+<meta name="description" content="declaration: package: dev.javafp.time, class: RunningStopWatch">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../script-dir/jquery-ui.min.css" title="Style">
@@ -68,54 +68,18 @@ loadScripts(document, 'script');</script>
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">dev.javafp.time</a></div>
-<h1 title="Class StopWatch" class="title">Class StopWatch</h1>
+<h1 title="Class RunningStopWatch" class="title">Class RunningStopWatch</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">dev.javafp.time.StopWatch</div>
+<div class="inheritance"><a href="StopWatch.html" title="class in dev.javafp.time">dev.javafp.time.StopWatch</a>
+<div class="inheritance">dev.javafp.time.RunningStopWatch</div>
+</div>
 </div>
 <section class="class-description" id="class-description">
-<dl class="notes">
-<dt>Direct Known Subclasses:</dt>
-<dd><code><a href="PausedStopWatch.html" title="class in dev.javafp.time">PausedStopWatch</a></code>, <code><a href="RunningStopWatch.html" title="class in dev.javafp.time">RunningStopWatch</a></code></dd>
-</dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">StopWatch</span>
-<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block"><p> A timer that uses <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html#nanoTime()" title="class or interface in java.lang" class="external-link"><code>System.nanoTime()</code></a>.
- <p> It is intended to act like a physical stopwatch - in that it has:
- <ol>
- <li>
- <p> start
- </li>
- <li>
- <p> resume
- </li>
- <li>
- <p> pause
- </li>
- </ol>
- <p> However, the class is immutable so that each of the methods above will return a new stopwatch
- <p> This is implemented by having two classes tha implement
- <code>StopWatch</code>
-  -
- <code>PausedStopWatch</code>
-  and
- <code>RunningStopWatch</code>
- <p> When a stopwatch is paused:
- <p> time t1: s = StopWatch().start;
- <p> time t2: StopWatch p = s.pause();
- <p> time t2: StopWatch r = p.resume();
- <p> time t2: s.getElapsedNanos()
- <p> <code>p</code>
-  refers to a
- <code>PausedStopWatch</code>
- .
- <p> <code>r</code>
-  refers to a
- <code>RunningStopWatch</code>
- <p> <code>s</code>
-  is still a running stopwatch and the elapsed nanoseconds can still be obtained from it.
- <p> A running stopwatch created from a paused stopwatch will remember the time taken so far by the paused stopwatch</div>
+<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">RunningStopWatch</span>
+<span class="extends-implements">extends <a href="StopWatch.html" title="class in dev.javafp.time">StopWatch</a></span></div>
+<div class="block">A timer that uses <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html#nanoTime()" title="class or interface in java.lang" class="external-link"><code>System.nanoTime()</code></a>.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -127,7 +91,9 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">StopWatch</a>()</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(dev.javafp.time.NanoTimeProvider,long,long)" class="member-name-link">RunningStopWatch</a><wbr>(<a href="NanoTimeProvider.html" title="class in dev.javafp.time">NanoTimeProvider</a>&nbsp;timeProvider,
+ long&nbsp;accruedNanos,
+ long&nbsp;startTime)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
@@ -144,42 +110,26 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getElapsedMicroseconds()" class="member-name-link">getElapsedMicroseconds</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">The total elapsed microseconds for this stopwatch</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getElapsedMilliseconds()" class="member-name-link">getElapsedMilliseconds</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">The total elapsed milliseconds for this stopwatch</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getElapsedSeconds()" class="member-name-link">getElapsedSeconds</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">The total elapsed seconds for this stopwatch</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#sleep(int)" class="member-name-link">sleep</a><wbr>(int&nbsp;millisToSleep)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> Sleep the current thread for
- <code>millisToSleep</code>
-  milliseconds</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#sleepSeconds(int)" class="member-name-link">sleepSeconds</a><wbr>(int&nbsp;secondsToSleep)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> Sleep the current thread for
- <code>seconds</code>
-  seconds</div>
-</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getElapsedNanos()" class="member-name-link">getElapsedNanos</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="StopWatch.html" title="class in dev.javafp.time">StopWatch</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#pause()" class="member-name-link">pause</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="StopWatch.html" title="class in dev.javafp.time">StopWatch</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resume()" class="member-name-link">resume</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="StopWatch.html" title="class in dev.javafp.time">StopWatch</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#start()" class="member-name-link">start</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Create a running stopwatch</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="StopWatch.html" title="class in dev.javafp.time">StopWatch</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#start(dev.javafp.time.NanoTimeProvider)" class="member-name-link">start</a><wbr>(<a href="NanoTimeProvider.html" title="class in dev.javafp.time">NanoTimeProvider</a>&nbsp;tp)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
-</div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-dev.javafp.time.StopWatch">Methods inherited from class&nbsp;dev.javafp.time.<a href="StopWatch.html" title="class in dev.javafp.time">StopWatch</a></h3>
+<code><a href="StopWatch.html#getElapsedMicroseconds()">getElapsedMicroseconds</a>, <a href="StopWatch.html#getElapsedMilliseconds()">getElapsedMilliseconds</a>, <a href="StopWatch.html#getElapsedSeconds()">getElapsedSeconds</a>, <a href="StopWatch.html#sleep(int)">sleep</a>, <a href="StopWatch.html#sleepSeconds(int)">sleepSeconds</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -195,9 +145,11 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;()">
-<h3>StopWatch</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">StopWatch</span>()</div>
+<section class="detail" id="&lt;init&gt;(dev.javafp.time.NanoTimeProvider,long,long)">
+<h3>RunningStopWatch</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">RunningStopWatch</span><wbr><span class="parameters">(<a href="NanoTimeProvider.html" title="class in dev.javafp.time">NanoTimeProvider</a>&nbsp;timeProvider,
+ long&nbsp;accruedNanos,
+ long&nbsp;startTime)</span></div>
 </section>
 </li>
 </ul>
@@ -212,46 +164,30 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="start()">
 <h3>start</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="StopWatch.html" title="class in dev.javafp.time">StopWatch</a></span>&nbsp;<span class="element-name">start</span>()</div>
-<div class="block">Create a running stopwatch</div>
 </section>
 </li>
 <li>
-<section class="detail" id="getElapsedMicroseconds()">
-<h3>getElapsedMicroseconds</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getElapsedMicroseconds</span>()</div>
-<div class="block">The total elapsed microseconds for this stopwatch</div>
+<section class="detail" id="start(dev.javafp.time.NanoTimeProvider)">
+<h3>start</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="StopWatch.html" title="class in dev.javafp.time">StopWatch</a></span>&nbsp;<span class="element-name">start</span><wbr><span class="parameters">(<a href="NanoTimeProvider.html" title="class in dev.javafp.time">NanoTimeProvider</a>&nbsp;tp)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="getElapsedMilliseconds()">
-<h3>getElapsedMilliseconds</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getElapsedMilliseconds</span>()</div>
-<div class="block">The total elapsed milliseconds for this stopwatch</div>
+<section class="detail" id="getElapsedNanos()">
+<h3>getElapsedNanos</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getElapsedNanos</span>()</div>
 </section>
 </li>
 <li>
-<section class="detail" id="getElapsedSeconds()">
-<h3>getElapsedSeconds</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getElapsedSeconds</span>()</div>
-<div class="block">The total elapsed seconds for this stopwatch</div>
+<section class="detail" id="pause()">
+<h3>pause</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="StopWatch.html" title="class in dev.javafp.time">StopWatch</a></span>&nbsp;<span class="element-name">pause</span>()</div>
 </section>
 </li>
 <li>
-<section class="detail" id="sleep(int)">
-<h3>sleep</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">sleep</span><wbr><span class="parameters">(int&nbsp;millisToSleep)</span></div>
-<div class="block"><p> Sleep the current thread for
- <code>millisToSleep</code>
-  milliseconds</div>
-</section>
-</li>
-<li>
-<section class="detail" id="sleepSeconds(int)">
-<h3>sleepSeconds</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">sleepSeconds</span><wbr><span class="parameters">(int&nbsp;secondsToSleep)</span></div>
-<div class="block"><p> Sleep the current thread for
- <code>seconds</code>
-  seconds</div>
+<section class="detail" id="resume()">
+<h3>resume</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="StopWatch.html" title="class in dev.javafp.time">StopWatch</a></span>&nbsp;<span class="element-name">resume</span>()</div>
 </section>
 </li>
 </ul>

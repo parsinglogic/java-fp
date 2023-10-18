@@ -71,13 +71,28 @@ loadScripts(document, 'script');</script>
 <h1 title="Class LineEquation" class="title">Class LineEquation</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
+<div class="inheritance"><a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">dev.javafp.val.ImValuesImpl</a>
 <div class="inheritance">dev.javafp.geom.LineEquation</div>
 </div>
+</div>
 <section class="class-description" id="class-description">
+<dl class="notes">
+<dt>All Implemented Interfaces:</dt>
+<dd><code><a href="../box/HasTextBox.html" title="interface in dev.javafp.box">HasTextBox</a></code>, <code><a href="../val/Values.html" title="interface in dev.javafp.val">Values</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code></dd>
+</dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">LineEquation</span>
-<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block"><p> Created by aove215 on 14/12/15.</div>
+<span class="extends-implements">extends <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></span></div>
+<div class="block"><p> A representation of an infinite straight line in 2 dimensions,
+ <code>ax + by + c = 0</code></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../serialized-form.html#dev.javafp.geom.LineEquation">Serialized Form</a></li>
+</ul>
+</dd>
+</dl>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -122,7 +137,7 @@ loadScripts(document, 'script');</script>
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel">
 <div class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">
 <div class="table-header col-first">Modifier and Type</div>
@@ -130,16 +145,56 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#applyTo(dev.javafp.geom.Point)" class="member-name-link">applyTo</a><wbr>(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> Plug the
+ <code>x</code>
+  and
+ <code>y</code>
+  values of
+ <code>p</code>
+  into the line equation to get a value that is the
+ <code>d * sqrt(a*a + b*b)</code>
+  where
+ <code>d</code>
+  is the distance from the point to the line.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNames()" class="member-name-link">getNames</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The field names for this object including fields from superclasses.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValues()" class="member-name-link">getValues</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The field values for this object including fields from superclasses.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../tuple/ImTriple.html" title="class in dev.javafp.tuple">ImTriple</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#intersection(dev.javafp.geom.LineEquation)" class="member-name-link">intersection</a><wbr>(<a href="LineEquation.html" title="class in dev.javafp.geom">LineEquation</a>&nbsp;other)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> Get the intersection point of
+ <code>this</code>
+  and
+ <code>other</code></div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="LineEquation.html" title="class in dev.javafp.geom">LineEquation</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(double,double,double)" class="member-name-link">on</a><wbr>(double&nbsp;a,
+ double&nbsp;b,
+ double&nbsp;c)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">A line equation with values `a`, `b`, `c`</div>
+</div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
+<h3 id="methods-inherited-from-class-dev.javafp.val.ImValuesImpl">Methods inherited from class&nbsp;dev.javafp.val.<a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></h3>
+<code><a href="../val/ImValuesImpl.html#equals(java.lang.Object)">equals</a>, <a href="../val/ImValuesImpl.html#getTextBox()">getTextBox</a>, <a href="../val/ImValuesImpl.html#hashCode()">hashCode</a>, <a href="../val/ImValuesImpl.html#toString()">toString</a></code></div>
+<div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
-<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
+<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-dev.javafp.val.Values">Methods inherited from interface&nbsp;dev.javafp.val.<a href="../val/Values.html" title="interface in dev.javafp.val">Values</a></h3>
+<code><a href="../val/Values.html#defaultEquals(java.lang.Object)">defaultEquals</a></code></div>
 </section>
 </li>
 </ul>
@@ -194,15 +249,72 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
+<section class="detail" id="on(double,double,double)">
+<h3>on</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="LineEquation.html" title="class in dev.javafp.geom">LineEquation</a></span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(double&nbsp;a,
+ double&nbsp;b,
+ double&nbsp;c)</span></div>
+<div class="block">A line equation with values `a`, `b`, `c`</div>
+</section>
+</li>
+<li>
 <section class="detail" id="applyTo(dev.javafp.geom.Point)">
 <h3>applyTo</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">applyTo</span><wbr><span class="parameters">(<a href="Point.html" title="class in dev.javafp.geom">Point</a>&nbsp;p)</span></div>
+<div class="block"><p> Plug the
+ <code>x</code>
+  and
+ <code>y</code>
+  values of
+ <code>p</code>
+  into the line equation to get a value that is the
+ <code>d * sqrt(a*a + b*b)</code>
+  where
+ <code>d</code>
+  is the distance from the point to the line.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="https://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html">mathworld.wolfram.com</a></li>
+</ul>
+</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="intersection(dev.javafp.geom.LineEquation)">
 <h3>intersection</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../tuple/ImTriple.html" title="class in dev.javafp.tuple">ImTriple</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;</span>&nbsp;<span class="element-name">intersection</span><wbr><span class="parameters">(<a href="LineEquation.html" title="class in dev.javafp.geom">LineEquation</a>&nbsp;other)</span></div>
+<div class="block"><p> Get the intersection point of
+ <code>this</code>
+  and
+ <code>other</code>
+
+ <p> The point returned in a triple,
+ <code>(x, y, h)</code>
+  is in homogeneous coordinates.
+ <p> If
+ <code>h == 0</code>
+  then the lines do not intersect.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getValues()">
+<h3>getValues</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</span>&nbsp;<span class="element-name">getValues</span>()</div>
+<div class="block">The field values for this object including fields from superclasses.
+
+ See <a href="../val/Values.html" title="interface in dev.javafp.val"><code>Values</code></a> and <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val"><code>ImValuesImpl</code></a></div>
+</section>
+</li>
+<li>
+<section class="detail" id="getNames()">
+<h3>getNames</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">getNames</span>()</div>
+<div class="block">The field names for this object including fields from superclasses.
+
+ See <a href="../val/Values.html" title="interface in dev.javafp.val"><code>Values</code></a> and <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val"><code>ImValuesImpl</code></a></div>
 </section>
 </li>
 </ul>

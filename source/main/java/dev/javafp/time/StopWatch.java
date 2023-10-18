@@ -10,80 +10,113 @@ package dev.javafp.time;
 import java.util.concurrent.locks.LockSupport;
 
 /**
- * A timer that uses {@link System#nanoTime()}.
+ * <p> A timer that uses {@link System#nanoTime()}.
+ * <p> It is intended to act like a physical stopwatch - in that it has:
+ * <ol>
+ * <li>
+ * <p> start
+ * </li>
+ * <li>
+ * <p> resume
+ * </li>
+ * <li>
+ * <p> pause
+ * </li>
+ * </ol>
+ * <p> However, the class is immutable so that each of the methods above will return a new stopwatch
+ * <p> This is implemented by having two classes tha implement
+ * {@code StopWatch}
+ *  -
+ * {@code PausedStopWatch}
+ *  and
+ * {@code RunningStopWatch}
+ * <p> When a stopwatch is paused:
+ * <p> time t1: s = StopWatch().start;
+ * <p> time t2: StopWatch p = s.pause();
+ * <p> time t2: StopWatch r = p.resume();
+ * <p> time t2: s.getElapsedNanos()
+ * <p> {@code p}
+ *  refers to a
+ * {@code PausedStopWatch}
+ * .
+ * <p> {@code r}
+ *  refers to a
+ * {@code RunningStopWatch}
+ * <p> {@code s}
+ *  is still a running stopwatch and the elapsed nanoseconds can still be obtained from it.
+ * <p> A running stopwatch created from a paused stopwatch will remember the time taken so far by the paused stopwatch
  *
- * It is intended to act like a physical stopwatch - in that it has:
- *
- * 1. start
- * 2. resume
- * 3. pause
- *
- * However, the class is immutable so that eaach of the methods above will return a new StopWatch
- *
- *
- * This is implemented by having two classes tha implement `StopWatch` - `PausedStopWatch` and `RunningStopWatch`
- *
- * When a stopwatch is paused:
- *
- *    time t1: s = StopWatch().start;
- *
- *    time t2: StopWatch p = s.pause();
- *
- *    time t2: StopWatch r = p.resume();
- *
- *    time t2: s.getElapsedNanos()
- *
- * `p` refers to a `PausedStopWatch`.
- *
- * `r` refers to a `RunningStopWatch`
- *
- * `s` is still a running stopwatch and the elapsed nanoseconds can still be obtained from it.
- *
- *
- * A running stopwatch created from a paused stopwatch will remember the time taken so far by the paused stopwatch
  */
 public abstract class StopWatch
 {
 
+    /**
+     * Create a running stopwatch
+     */
     public static StopWatch start()
     {
         return RunningStopWatch.start();
     }
 
+    /**
+     * The total elapsed nanoseconds for this stopwatch
+     */
     abstract long getElapsedNanos();
 
+    /**
+     * Create a paused stopwatch from the running stopwatch
+     */
     abstract StopWatch pause();
 
+    /**
+     * Create a running stopwatch from a paused stopwatch
+     */
     abstract StopWatch resume();
 
+    /**
+     * The total elapsed microseconds for this stopwatch
+     */
     public long getElapsedMicroseconds()
     {
         return getElapsedNanos() / 1000;
     }
 
+    /**
+     * The total elapsed milliseconds for this stopwatch
+     */
     public long getElapsedMilliseconds()
     {
         return getElapsedMicroseconds() / 1000;
     }
 
+    /**
+     * The total elapsed seconds for this stopwatch
+     */
     public long getElapsedSeconds()
     {
         return getElapsedMilliseconds() / 1000;
     }
 
-    public double getElapsedMs()
-    {
-        return getElapsedMilliseconds();
-    }
-
+    /**
+     * <p> Sleep the current thread for
+     * {@code millisToSleep}
+     *  milliseconds
+     *
+     */
     public static void sleep(int millisToSleep)
     {
         LockSupport.parkNanos(millisToSleep * 1000 * 1000);
     }
 
-    public static void sleepSeconds(int seconds)
+    /**
+     * <p> Sleep the current thread for
+     * {@code seconds}
+     *  seconds
+     *
+     */
+    public static void sleepSeconds(int secondsToSleep)
     {
-        sleep(seconds * 1000);
+        sleep(secondsToSleep * 1000);
     }
 
 }
