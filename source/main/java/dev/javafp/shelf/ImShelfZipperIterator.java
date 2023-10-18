@@ -20,7 +20,7 @@ public class ImShelfZipperIterator<T> implements Iterator<ImShelfZipper<T>>
 
     private ImShelfZipper<T> zipper;
 
-    public ImShelfZipperIterator(ImShelfZipper<T> zipper)
+    ImShelfZipperIterator(ImShelfZipper<T> zipper)
     {
         this.zipper = zipper;
     }
@@ -56,7 +56,6 @@ public class ImShelfZipperIterator<T> implements Iterator<ImShelfZipper<T>>
      * s in this way.
      *
      */
-
     public void remove()
     {
         throw new UnsupportedOperationException();
