@@ -7,6 +7,9 @@
 
 package dev.javafp.geom;
 
+/**
+ * Orientation values.
+ */
 public enum Orient1
 {
     Left,

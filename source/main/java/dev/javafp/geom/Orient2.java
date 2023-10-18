@@ -15,24 +15,86 @@ import static dev.javafp.geom.Orient1.Top;
 
 /**
  * <p> Contains 2d orientation values for gemometric calculations.
+ *
+ * @see Orient1
+ * @see Rect
  */
 public enum Orient2
 {
+    /**
+     * <p> A combination of
+     * {@code Left}
+     * and
+     *  {@code Top}
+     */
     LeftTop(Left, Top),
-    LeftCentre(Left, Centre),
-    LeftBottom(Left, Bottom),
-    LeftFill(Left, Bottom),
 
+    /**
+     * <p> A combination of
+     * {@code Left}
+     * and
+     *  {@code Centre}
+     */
+    LeftCentre(Left, Centre),
+
+    /**
+     * <p> A combination of
+     * {@code Left}
+     * and
+     *  {@code Bottom}
+     */
+    LeftBottom(Left, Bottom),
+
+    /**
+     * <p> A combination of
+     * {@code Centre}
+     * and
+     *  {@code Top}
+     */
     CentreTop(Centre, Top),
+
+    /**
+     * <p> A combination of
+     * {@code Centre}
+     * and
+     *  {@code Centre}
+     */
     CentreCentre(Centre, Centre),
+
+    /**
+     * <p> A combination of
+     * {@code Centre}
+     * and
+     *  {@code Bottom}
+     */
     CentreBottom(Centre, Bottom),
 
+    /**
+     * <p> A combination of
+     * {@code Right}
+     * and
+     *  {@code Top}
+     */
     RightTop(Right, Top),
+
+    /**
+     * <p> A combination of
+     * {@code Right}
+     * and
+     *  {@code Centre}
+     */
     RightCentre(Right, Centre),
+
+    /**
+     * <p> A combination of
+     * {@code Right}
+     * and
+     *  {@code Bottom}
+     */
     RightBottom(Right, Bottom);
 
-    public final Orient1 ox;
-    public final Orient1 oy;
+    final Orient1 ox;
+    final Orient1 oy;
 
     Orient2(Orient1 ox, Orient1 oy)
     {
