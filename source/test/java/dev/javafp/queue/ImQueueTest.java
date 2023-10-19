@@ -80,13 +80,13 @@ public class ImQueueTest
     @Test
     public void testFirstOnEmpty()
     {
-        assertEquals(ImMaybe.nothing(), ImQueue.on().first());
+        assertEquals(ImMaybe.nothing, ImQueue.on().first());
     }
 
     @Test
     public void testTailOnEmptyThrows()
     {
-        assertEquals(ImMaybe.nothing(), ImQueue.on().removeFirst());
+        assertEquals(ImMaybe.nothing, ImQueue.on().removeFirst());
     }
 
     @Test

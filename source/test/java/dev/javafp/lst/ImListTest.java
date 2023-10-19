@@ -374,10 +374,10 @@ public class ImListTest implements Constants
         ImList<ImList<Integer>> groups = listToGroup.group$(pred);
 
         // All the groups pass the predicate
-        assertEquals(ImMaybe.nothing(), groups.find(l -> !pred.of(l)));
+        assertEquals(ImMaybe.nothing, groups.find(l -> !pred.of(l)));
 
         // None of the groups are empty
-        assertEquals(ImMaybe.nothing(), groups.find(l -> l.isEmpty()));
+        assertEquals(ImMaybe.nothing, groups.find(l -> l.isEmpty()));
 
         // They all add up to the original list
         assertEquals(listToGroup, ImList.join(groups));
@@ -528,7 +528,7 @@ public class ImListTest implements Constants
     {
         ImList<Integer> list = on(1, 2, 3, null, null);
 
-        assertEquals(ImMaybe.just(3), list.findM(i -> i > 2 ? ImMaybe.just(i) : ImMaybe.nothing()));
+        assertEquals(ImMaybe.just(3), list.findM(i -> i > 2 ? ImMaybe.just(i) : ImMaybe.nothing));
     }
 
     @Test

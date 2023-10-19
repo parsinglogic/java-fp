@@ -207,7 +207,7 @@ public class ImSetTest
             for (int i = 1; i <= 4; i++)
             {
                 assertEquals("" + i, (i == j)
-                                     ? ImMaybe.nothing()
+                                     ? ImMaybe.nothing
                                      : ImMaybe.just(i),
                         sr.find(i));
             }
@@ -320,7 +320,7 @@ public class ImSetTest
             for (int i = 1; i <= count; i++)
             {
                 assertEquals((i == j)
-                             ? ImMaybe.nothing()
+                             ? ImMaybe.nothing
                              : ImMaybe.just(dodgyHashCodesArray[i - 1]),
                         sr.find(dodgyHashCodesArray[i - 1]));
             }
@@ -565,7 +565,7 @@ public class ImSetTest
             // If the op was a remove, check that we can't find the element we have removed
             if (op.opType == OpType.remove)
             {
-                assertEquals(ImMaybe.nothing(), imSetAfterOp.find(op.value));
+                assertEquals(ImMaybe.nothing, imSetAfterOp.find(op.value));
             }
 
             // Check the set in this new state

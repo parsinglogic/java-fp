@@ -33,7 +33,7 @@ public class ClassUtils
     //        InputStream is = AppVersion.class.getResourceAsStream(name);
     //
     //        if (is == null)
-    //            return ImMaybe.nothing();
+    //            return ImMaybe.nothing;
     //        else
     //        {
     //            try (Reader reader = new InputStreamReader(is))

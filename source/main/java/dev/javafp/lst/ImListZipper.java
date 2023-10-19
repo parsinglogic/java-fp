@@ -924,7 +924,7 @@ public class ImListZipper<T> implements Iterable<ImListZipper<T>>
                 return ImMaybe.just(z);
         }
 
-        return ImMaybe.nothing();
+        return ImMaybe.nothing;
     }
 
     private boolean safeEquals(ImListZipper<T> two)

@@ -235,7 +235,7 @@ public class ImTreeZipper<A>
 
     private ImMaybe<ImTreeZipper<A>> nothing()
     {
-        return ImMaybe.nothing();
+        return ImMaybe.nothing;
     }
 
     private ImMaybe<ImTreeZipper<A>> just(ImTreeZipper<A> z)
@@ -492,7 +492,7 @@ public class ImTreeZipper<A>
     public static <A> ImMaybe<ImTreeZipper<A>> onIndex(ImTree<A> tree, int indexStartingAtOne)
     {
         if (indexStartingAtOne > tree.size())
-            return ImMaybe.nothing();
+            return ImMaybe.nothing;
         else
             return ImMaybe.just(onRoot(tree).goToIndex(indexStartingAtOne));
     }

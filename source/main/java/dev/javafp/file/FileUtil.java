@@ -699,7 +699,7 @@ public class FileUtil
             return ImMaybe.just(path.toRealPath());
         } catch (IOException e)
         {
-            return ImMaybe.nothing();
+            return ImMaybe.nothing;
         }
     }
 

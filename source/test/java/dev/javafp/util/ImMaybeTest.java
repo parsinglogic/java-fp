@@ -10,7 +10,7 @@ public class ImMaybeTest extends TestCase
     @Test
     public void testJoin()
     {
-        assertEquals(ImMaybe.nothing(), ImMaybe.join(ImMaybe.nothing()));
+        assertEquals(ImMaybe.nothing, ImMaybe.join(ImMaybe.nothing));
         assertEquals(just(1), ImMaybe.join(just(just(1))));
     }
 

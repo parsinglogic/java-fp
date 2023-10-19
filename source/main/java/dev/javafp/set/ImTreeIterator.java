@@ -26,7 +26,7 @@ public class ImTreeIterator<T> implements Iterator<T>
     private ImTreeIterator(final ImTree<T> tree)
     {
         if (tree == ImTree.Nil())
-            maybeNextPath = ImMaybe.nothing();
+            maybeNextPath = ImMaybe.nothing;
         else
             maybeNextPath = ImMaybe.just(ImTreeZipper.onLeftmost(tree));
     }

@@ -20,30 +20,37 @@ import dev.javafp.val.ImValuesImpl;
 import java.util.Objects;
 
 /**
- * <p> A
- * wrapper around a value that might be missing.
+ * <p> A wrapper around a value that might be missing - in which case it is
+ * {@code ImMaybe.nothing}
+ * .
+ *
  * <p> You can test if there is a value using {@link #isPresent}.
- * <p> If you try to get the value from a
+ * <p> If you try to
+ * {@link #get()}.
+ * the value from an
  * {@code ImMaybe}
- *  and it is missing, it will throw an exception.
+ * and it is missing, it will throw a
+ * {@code MaybeHasNothing}
+ * exception.
  *
  */
 public class ImMaybe<T> extends ImValuesImpl
 {
-
     private final T value;
 
     private static final LeafTextBox justBox = LeafTextBox.with("Just ");
 
     private static final LeafTextBox nothingBox = LeafTextBox.with("Nothing");
 
-    @SuppressWarnings("unchecked")
-    public static <A> ImMaybe<A> nothing()
-    {
-        return new ImMaybe(null);
-    }
+    /**
+     * <p> The singleton
+     * <strong>nothing</strong>
+     *  maybe
+     *
+     */
+    public static final ImMaybe nothing = new ImMaybe(null);
 
-    protected ImMaybe(T value)
+    private ImMaybe(T value)
     {
         this.value = value;
     }
@@ -64,7 +71,7 @@ public class ImMaybe<T> extends ImValuesImpl
     public static <T> ImMaybe<T> with(T bad, T valueOrBad)
     {
         return Equals.isEqual(bad, valueOrBad)
-               ? nothing()
+               ? nothing
                : just(valueOrBad);
     }
 
@@ -78,7 +85,7 @@ public class ImMaybe<T> extends ImValuesImpl
 
     public static <A> ImMaybe<A> join(ImMaybe<ImMaybe<A>> m)
     {
-        return m.orElse(ImMaybe.nothing());
+        return m.orElse(nothing);
     }
 
     public boolean isPresent()
@@ -102,7 +109,7 @@ public class ImMaybe<T> extends ImValuesImpl
     public <U> ImMaybe<U> map(Fn<T, U> fn)
     {
         return !isPresent()
-               ? nothing()
+               ? nothing
                : ImMaybe.with(fn.of(value));
     }
 

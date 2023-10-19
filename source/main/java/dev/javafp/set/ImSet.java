@@ -996,7 +996,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         ImList<T> elements = toList();
 
         return elements.isEmpty()
-               ? ImMaybe.nothing()
+               ? ImMaybe.nothing
                : ImMaybe.just(elements.head());
     }
 

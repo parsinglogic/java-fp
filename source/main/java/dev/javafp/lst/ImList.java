@@ -1482,7 +1482,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      *  and return
      * {@code ImMaybe.just(e)}
      *  or
-     * {@code ImMaybe.nothing()}
+     * {@code ImMaybe.nothing}
      * if no such element exists
      *
      */
@@ -1492,7 +1492,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
             if (fn.of(t))
                 return ImMaybe.just(t);
 
-        return ImMaybe.nothing();
+        return ImMaybe.nothing;
 
     }
 
@@ -1560,7 +1560,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      *  and return
      * {@code ImMaybe.just(i)}
      *  or
-     * {@code ImMaybe.nothing()}
+     * {@code ImMaybe.nothing}
      * if no such element exists
      *
      */
@@ -1575,7 +1575,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     private ImMaybe<Integer> findIndex(Fn<A, Boolean> fn, int index)
     {
         return isEmpty()
-               ? ImMaybe.nothing()
+               ? ImMaybe.nothing
                : fn.of(head())
                  ? ImMaybe.just(index)
                  : tail().findIndex(fn, index + 1);

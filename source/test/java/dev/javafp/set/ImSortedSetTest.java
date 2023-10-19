@@ -387,7 +387,7 @@ public class ImSortedSetTest
             // If the op was a remove, check that we can't find the element we have removed
             if (op.opType == OpType.remove)
             {
-                assertEquals(ImMaybe.nothing(), imSortedSetAfterOp.find(op.value));
+                assertEquals(ImMaybe.nothing, imSortedSetAfterOp.find(op.value));
             }
 
             // Check the set in this new state

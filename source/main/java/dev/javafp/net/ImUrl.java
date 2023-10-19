@@ -819,7 +819,7 @@ public class ImUrl extends ImValuesImpl
 
         return pairs.size() == 1
                ? ImMaybe.just(decode(pairs.head().snd))
-               : ImMaybe.nothing();
+               : ImMaybe.nothing;
     }
 
     protected static String decode(String s)

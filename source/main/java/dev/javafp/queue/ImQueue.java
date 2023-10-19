@@ -72,7 +72,7 @@ public class ImQueue<A> extends ImValuesImpl
     public ImMaybe<A> last()
     {
         return isEmpty()
-               ? ImMaybe.nothing()
+               ? ImMaybe.nothing
                : ImMaybe.just(two.isEmpty()
                               ? one.last()
                               : two.head());
@@ -84,7 +84,7 @@ public class ImQueue<A> extends ImValuesImpl
     public ImMaybe<A> first()
     {
         return isEmpty()
-               ? ImMaybe.nothing()
+               ? ImMaybe.nothing
                : ImMaybe.just(one.isEmpty()
                               ? two.last()
                               : one.head());
@@ -106,7 +106,7 @@ public class ImQueue<A> extends ImValuesImpl
     public ImMaybe<ImPair<A, ImQueue<A>>> split()
     {
         return isEmpty()
-               ? ImMaybe.nothing()
+               ? ImMaybe.nothing
                : ImMaybe.just(one.isEmpty()
                               ? ImPair.on(two.last(), onTwoLists(maxSize, two.reverse().tail(), ImList.on()))
                               : ImPair.on(one.head(), onTwoLists(maxSize, one.tail(), two)));
