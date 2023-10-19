@@ -8,6 +8,7 @@
 package dev.javafp.file;
 
 import dev.javafp.eq.Eq;
+import dev.javafp.eq.Equals;
 import dev.javafp.ex.FileProblem;
 import dev.javafp.ex.Throw;
 import dev.javafp.ex.UnexpectedChecked;
@@ -655,7 +656,7 @@ public class FileUtil
             return Chat.Left("the file permissions do not allow it to be read");
         } catch (IOException e)
         {
-            return e.getMessage().equals("Is a directory")
+            return Equals.isEqual(e.getMessage(), "Is a directory")
                    ? Chat.Left("it is a directory - not a file")
                    : Chat.Left("the file could not be read - the error was: " + getMessage(e));
         } catch (Exception e)

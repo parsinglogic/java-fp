@@ -49,7 +49,9 @@ class ImListOnList<A> extends ImEagerList<A> implements Eq
     }
 
     /**
-     * `this` without the first element.
+     * <p> {@code this}
+     *  without the first element.
+     *
      *
      * Throws {@link FunctionNotAllowedOnEmptyList} if the list is empty.
      */
