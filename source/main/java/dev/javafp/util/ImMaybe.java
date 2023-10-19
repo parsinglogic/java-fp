@@ -60,7 +60,7 @@ public class ImMaybe<T> extends ImValuesImpl
      */
     public static final ImMaybe nothing = new ImMaybe(null);
 
-    private ImMaybe(T value)
+    protected ImMaybe(T value)
     {
         this.value = value;
     }

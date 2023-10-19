@@ -11,7 +11,6 @@ import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
 import dev.javafp.lst.ImList;
 import dev.javafp.tuple.ImPair;
-import dev.javafp.util.SvgTransform;
 import dev.javafp.util.TextUtils;
 import dev.javafp.val.ImValuesImpl;
 
@@ -576,31 +575,4 @@ public class Point extends ImValuesImpl
         return ImList.on("x", "y");
     }
 
-    /**
-     * <p> The point obtained by
-     * <strong>pre-multiplying</strong>
-     *
-     * {@code this}
-     * by SvgTransform
-     * {@code t}
-     *
-     * <p> In other words, do this multiplication (using homogeneous coordinates):
-     *
-     * <pre>{@code
-     *             x
-     *             y
-     *             1
-     *
-     *  a c e      ax + cy + e
-     *  b d f      bx + dy + f
-     *  0 0 1      1
-     * }</pre>
-     *
-     * to get
-     * {@code (ax + cy + e, bx + dy + f)}
-     */
-    public Point preMultiply(SvgTransform t)
-    {
-        return Point.on(t.a * x + t.c * y + t.e, t.b * x + t.d * y + t.f);
-    }
 }

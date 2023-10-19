@@ -9,8 +9,6 @@ import org.junit.Test;
 import static dev.javafp.geom.Point.pt;
 import static dev.javafp.geom.Point.zero;
 import static dev.javafp.lst.ImList.on;
-import static dev.javafp.util.SvgTransform.move;
-import static dev.javafp.util.SvgTransform.scale;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -160,14 +158,6 @@ public class PointTest
         assertEquals(1.0, p1.normalise().length(), 1e-10);
         assertEquals(1.0, p2.normalise().length(), 1e-10);
         assertEquals(1.0, p3.normalise().length(), 1e-10);
-    }
-
-    @Test
-    public void testTranAndScale()
-    {
-        TestUtils.assertToStringEquals("(8, 16)", Point.on(1, 1).preMultiply(scale(2).postMultiplyBy(move(3, 7))));
-        TestUtils.assertToStringEquals("(4, 8)", Point.on(1, 2).preMultiply(scale(4)));
-
     }
 
 }
