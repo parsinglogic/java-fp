@@ -20,6 +20,7 @@ import java.io.Serializable;
 @FunctionalInterface
 public interface Fn<I, O> extends Serializable
 {
+
     /**
      * <p> Apply the function to
      * {@code in}
@@ -54,4 +55,13 @@ public interface Fn<I, O> extends Serializable
     {
         return i -> !f.of(i);
     }
+
+    /**
+     * The identity function
+     */
+    static <IN> Fn<IN, IN> id()
+    {
+        return i -> i;
+    }
+
 }
