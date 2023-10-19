@@ -1241,7 +1241,7 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/val/ImValuesImpl.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in class dev.javafp.val.<a href="dev/javafp/val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></dt>
 <dd>
 <div class="block"> <code>true</code>
-  iff this equals
+  if this equals
  <code>other</code></div>
 </dd>
 <dt><a href="dev/javafp/eq/Equals.html" class="type-name-link" title="class in dev.javafp.eq">Equals</a> - Class in <a href="dev/javafp/eq/package-summary.html">dev.javafp.eq</a></dt>
@@ -1374,7 +1374,7 @@ loadScripts(document, 'script');</script>
   and return
  <code>ImMaybe.just(e)</code>
   or
- <code>ImMaybe.nothing()</code>
+ <code>ImMaybe.nothing</code>
  if no such element exists</div>
 </dd>
 <dt><a href="dev/javafp/lst/ImListZipper.html#find(dev.javafp.func.Fn)" class="member-name-link">find(Fn&lt;T, Boolean&gt;)</a> - Method in class dev.javafp.lst.<a href="dev/javafp/lst/ImListZipper.html" title="class in dev.javafp.lst">ImListZipper</a></dt>
@@ -1431,7 +1431,7 @@ loadScripts(document, 'script');</script>
   and return
  <code>ImMaybe.just(i)</code>
   or
- <code>ImMaybe.nothing()</code>
+ <code>ImMaybe.nothing</code>
  if no such element exists</div>
 </dd>
 <dt><a href="dev/javafp/lst/ImList.html#findM(dev.javafp.func.Fn)" class="member-name-link">findM(Fn&lt;A, ImMaybe&lt;A&gt;&gt;)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
@@ -1509,7 +1509,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/Chat.html#flatMap(dev.javafp.func.Fn)" class="member-name-link">flatMap(Fn&lt;T, Chat&lt;U&gt;&gt;)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/Chat.html" title="class in dev.javafp.util">Chat</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#flatMap(dev.javafp.func.Fn)" class="member-name-link">flatMap(Fn&lt;T, ImMaybe&lt;U&gt;&gt;)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Map the function
+ <code>fn</code>
+  to  this
+ <code>ImMaybe</code>
+  and then run
+ <a href="dev/javafp/util/ImMaybe.html#join(dev.javafp.util.ImMaybe)"><code>ImMaybe.join(ImMaybe)</code></a> on the result</div>
+</dd>
 <dt><a href="dev/javafp/ex/FlatMapFunctionReturnedNull.html" class="type-name-link" title="class in dev.javafp.ex">FlatMapFunctionReturnedNull</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
 <dd>
 <div class="block"> Thrown when a function used in a flatMap operation returned
@@ -1809,7 +1816,11 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/tree/ImRoseTreeZipper.html#get()" class="member-name-link">get()</a> - Method in class dev.javafp.tree.<a href="dev/javafp/tree/ImRoseTreeZipper.html" title="class in dev.javafp.tree">ImRoseTreeZipper</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#get()" class="member-name-link">get()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The value in this
+ <code>ImMaybe</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/shelf/ImShelf.html#get(int)" class="member-name-link">get(int)</a> - Method in class dev.javafp.shelf.<a href="dev/javafp/shelf/ImShelf.html" title="class in dev.javafp.shelf">ImShelf</a></dt>
 <dd>
 <div class="block"> The element at index
@@ -2360,7 +2371,11 @@ loadScripts(document, 'script');</script>
  as an <a href="dev/javafp/box/AbstractTextBox.html" title="class in dev.javafp.box"><code>AbstractTextBox</code></a></div>
 </dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#getTextBox()" class="member-name-link">getTextBox()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The representation of
+ <code>this</code>
+ as an <a href="dev/javafp/box/AbstractTextBox.html" title="class in dev.javafp.box"><code>AbstractTextBox</code></a></div>
+</dd>
 <dt><a href="dev/javafp/util/StringWrapper.html#getTextBox()" class="member-name-link">getTextBox()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/StringWrapper.html" title="class in dev.javafp.util">StringWrapper</a></dt>
 <dd>
 <div class="block"> The representation of
@@ -2599,7 +2614,7 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/graph/ImGraph.html#hasCycle()" class="member-name-link">hasCycle()</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
 <div class="block"><code>true</code>
- iff any of the nodes in the graph have cycles.</div>
+ if any of the nodes in the graph have cycles.</div>
 </dd>
 <dt><a href="dev/javafp/util/Hash.html#hash(java.lang.Object...)" class="member-name-link">hash(Object...)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Hash.html" title="class in dev.javafp.util">Hash</a></dt>
 <dd>&nbsp;</dd>
@@ -2785,6 +2800,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:I">I</h2>
 <dl class="index">
+<dt><a href="dev/javafp/func/Fn.html#id()" class="member-name-link">id()</a> - Static method in interface dev.javafp.func.<a href="dev/javafp/func/Fn.html" title="interface in dev.javafp.func">Fn</a></dt>
+<dd>
+<div class="block">The identity function</div>
+</dd>
 <dt><a href="dev/javafp/util/SvgTransform.html#identity()" class="member-name-link">identity()</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/SvgTransform.html" title="class in dev.javafp.util">SvgTransform</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/ex/Throw.Exception.html#ifEmpty(java.lang.String,java.lang.String)" class="member-name-link">ifEmpty(String, String)</a> - Static method in class dev.javafp.ex.<a href="dev/javafp/ex/Throw.Exception.html" title="class in dev.javafp.ex">Throw.Exception</a></dt>
@@ -2878,9 +2897,21 @@ loadScripts(document, 'script');</script>
 <div class="block"> Check if the specified index is within a range.</div>
 </dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#ifPresentDo(dev.javafp.func.FnConsumer)" class="member-name-link">ifPresentDo(FnConsumer&lt;T&gt;)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> If there is a value in this
+ <code>ImMaybe</code>
+  then apply the consumer function
+ <code>block</code>
+  to the value</div>
+</dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#ifPresentElse(dev.javafp.func.Fn,A)" class="member-name-link">ifPresentElse(Fn&lt;T, A&gt;, A)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> If there is a value in this
+ <code>ImMaybe</code>
+  then apply the function
+ <code>fn</code>
+  to the value and return the result.</div>
+</dd>
 <dt><a href="dev/javafp/ex/Throw.Exception.html#ifTrue(boolean,java.lang.String)" class="member-name-link">ifTrue(boolean, String)</a> - Static method in class dev.javafp.ex.<a href="dev/javafp/ex/Throw.Exception.html" title="class in dev.javafp.ex">Throw.Exception</a></dt>
 <dd>
 <div class="block"> Throw an exception if
@@ -2999,8 +3030,9 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/util/ImMaybe.html" class="type-name-link" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="dev/javafp/util/ImMaybe.html" title="type parameter in ImMaybe">T</a>&gt; - Class in <a href="dev/javafp/util/package-summary.html">dev.javafp.util</a></dt>
 <dd>
-<div class="block"> A
- wrapper around a value that might be missing.</div>
+<div class="block"> A wrapper around a value that might be missing - in which case it is
+ <code>ImMaybe.nothing</code>
+ .</div>
 </dd>
 <dt><a href="dev/javafp/tuple/ImPair.html" class="type-name-link" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="dev/javafp/tuple/ImPair.html" title="type parameter in ImPair">U</a>,<wbr><a href="dev/javafp/tuple/ImPair.html" title="type parameter in ImPair">V</a>&gt; - Class in <a href="dev/javafp/tuple/package-summary.html">dev.javafp.tuple</a></dt>
 <dd>&nbsp;</dd>
@@ -3296,7 +3328,7 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/set/ImTree.html#isBalanced()" class="member-name-link">isBalanced()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTree.html" title="class in dev.javafp.set">ImTree</a></dt>
 <dd>
 <div class="block"> <code>true</code>
- iff the tree is balanced</div>
+ if the tree is balanced</div>
 </dd>
 <dt><a href="dev/javafp/util/ParseUtils.html#isDigits(java.lang.String)" class="member-name-link">isDigits(String)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ParseUtils.html" title="class in dev.javafp.util">ParseUtils</a></dt>
 <dd>&nbsp;</dd>
@@ -3387,7 +3419,16 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/net/ImUrl.html#isPortDefault(java.lang.String)" class="member-name-link">isPortDefault(String)</a> - Static method in class dev.javafp.net.<a href="dev/javafp/net/ImUrl.html" title="class in dev.javafp.net">ImUrl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#isPresent()" class="member-name-link">isPresent()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> <code>True</code>
+  if this
+ <code>ImMaybe</code>
+  is not
+ <code>ImMaybe.nothing</code>
+ ,
+ <code>false</code>
+  otherwise</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#isReadable(java.nio.file.Path)" class="member-name-link">isReadable(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>
 <div class="block"> <code>true </code>
@@ -3502,7 +3543,12 @@ loadScripts(document, 'script');</script>
   in order.</div>
 </dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#join(dev.javafp.util.ImMaybe)" class="member-name-link">join(ImMaybe&lt;ImMaybe&lt;A&gt;&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Given an
+ <code>ImMaybe</code>
+  whose value is itself an
+ <code>ImMaybe</code></div>
+</dd>
 <dt><a href="dev/javafp/util/TextUtils.html#join(java.lang.Iterable,java.lang.String)" class="member-name-link">join(Iterable&lt;?&gt;, String)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/TextUtils.html" title="class in dev.javafp.util">TextUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/TextUtils.html#join(java.lang.Iterable,java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">join(Iterable&lt;?&gt;, String, String, String)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/TextUtils.html" title="class in dev.javafp.util">TextUtils</a></dt>
@@ -3544,7 +3590,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/JsonValue.html#%3Cinit%3E()" class="member-name-link">JsonValue()</a> - Constructor for class dev.javafp.util.<a href="dev/javafp/util/JsonValue.html" title="class in dev.javafp.util">JsonValue</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#just(U)" class="member-name-link">just(U)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> A
+ <code>Maybe</code>
+  with the value
+ <code>value</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html#justifyIn(dev.javafp.geom.Orient2,dev.javafp.geom.Point)" class="member-name-link">justifyIn(Orient2, Point)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>
 <div class="block"> A rectangle representing
@@ -3834,7 +3886,13 @@ loadScripts(document, 'script');</script>
      <code>this</code></div>
 </dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#map(dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;T, U&gt;)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Apply the function
+ <code>fn</code>
+  to the value and return an
+ <code>ImMaybe</code>
+  with that value.</div>
+</dd>
 <dt><a href="dev/javafp/tuple/ImPair.html#map(dev.javafp.func.Fn,dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;U, UU&gt;, Fn&lt;V, VV&gt;)</a> - Method in class dev.javafp.tuple.<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/set/ImMap.html#map(dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;V, V2&gt;)</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.html" title="class in dev.javafp.set">ImMap</a></dt>
@@ -4300,8 +4358,12 @@ loadScripts(document, 'script');</script>
 <div class="block"> The negation of the function
  <code>f</code></div>
 </dd>
-<dt><a href="dev/javafp/util/ImMaybe.html#nothing()" class="member-name-link">nothing()</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="dev/javafp/util/ImMaybe.html#nothing" class="member-name-link">nothing</a> - Static variable in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
+<dd>
+<div class="block"> The singleton
+ <strong>nothing</strong>
+  maybe</div>
+</dd>
 <dt><a href="dev/javafp/ex/NotNullValue.html" class="type-name-link" title="class in dev.javafp.ex">NotNullValue</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
 <dd>
 <div class="block"> Thrown when a value is expected to be null.</div>
@@ -4806,7 +4868,12 @@ loadScripts(document, 'script');</script>
  .</div>
 </dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#orElse(T)" class="member-name-link">orElse(T)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> If there is a value in this
+ <code>ImMaybe</code>
+  then return it, otherwise return
+ <code>other</code></div>
+</dd>
 <dt><a href="dev/javafp/geom/Orient1.html" class="type-name-link" title="enum class in dev.javafp.geom">Orient1</a> - Enum Class in <a href="dev/javafp/geom/package-summary.html">dev.javafp.geom</a></dt>
 <dd>
 <div class="block">Orientation values.</div>
@@ -5835,17 +5902,17 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/Sums.html#sign(double)" class="member-name-link">sign(double)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Sums.html" title="class in dev.javafp.util">Sums</a></dt>
 <dd>
 <div class="block"><code>
- Return -1 iff l &lt; 0
-         0 iff l == 0
-         1 iff l &gt;0
+ Return -1 if l &lt; 0
+         0 if l == 0
+         1 if l &gt;0
  </code></div>
 </dd>
 <dt><a href="dev/javafp/util/Sums.html#sign(long)" class="member-name-link">sign(long)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Sums.html" title="class in dev.javafp.util">Sums</a></dt>
 <dd>
 <div class="block"><code>
- Return -1 iff l &lt; 0
-         0 iff l == 0
-         1 iff l &gt;0
+ Return -1 if l &lt; 0
+         0 if l == 0
+         1 if l &gt;0
  </code></div>
 </dd>
 <dt><a href="dev/javafp/util/ClassUtils.html#simpleName(java.lang.Class)" class="member-name-link">simpleName(Class&lt;?&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ClassUtils.html" title="class in dev.javafp.util">ClassUtils</a></dt>
@@ -6947,9 +7014,29 @@ the order they are declared.</div>
 <dt><a href="dev/javafp/box/LeafTextBox.html#with(java.lang.String)" class="member-name-link">with(String)</a> - Static method in class dev.javafp.box.<a href="dev/javafp/box/LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#with(T)" class="member-name-link">with(T)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> An
+ <code>ImMaybe</code>
+  with the value
+ <code>valueOrNull</code>
+ or
+ <code>ImMaybe.nothing</code>
+  if
+ <code>value == null</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/util/ImMaybe.html#with(T,T)" class="member-name-link">with(T, T)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> An
+ <code>ImMaybe</code>
+  with the value
+ <code>valueOrBad</code>
+ or
+ <code>ImMaybe.nothing</code>
+  if
+ <code>Equals.isEqual(bad, valueOrBad)</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/box/LeftRightBox.html#withAll(dev.javafp.lst.ImList)" class="member-name-link">withAll(ImList&lt;?&gt;)</a> - Static method in class dev.javafp.box.<a href="dev/javafp/box/LeftRightBox.html" title="class in dev.javafp.box">LeftRightBox</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/box/TopDownBox.html#withAll(dev.javafp.lst.ImList)" class="member-name-link">withAll(ImList&lt;?&gt;)</a> - Static method in class dev.javafp.box.<a href="dev/javafp/box/TopDownBox.html" title="class in dev.javafp.box">TopDownBox</a></dt>

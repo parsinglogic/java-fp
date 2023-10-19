@@ -44,13 +44,13 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -83,12 +83,18 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ImMaybe&lt;T&gt;</span>
 <span class="extends-implements">extends <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></span></div>
-<div class="block"><p> A
- wrapper around a value that might be missing.
+<div class="block"><p> A wrapper around a value that might be missing - in which case it is
+ <code>ImMaybe.nothing</code>
+ .
+
  <p> You can test if there is a value using <a href="#isPresent()"><code>isPresent()</code></a>.
- <p> If you try to get the value from a
+ <p> If you try to
+ <a href="#get()"><code>get()</code></a>.
+ the value from an
  <code>ImMaybe</code>
-  and it is missing, it will throw an exception.</div>
+ and it is missing, it will throw a
+ <code>MaybeHasNothing</code>
+ exception.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -100,6 +106,25 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field-summary">
+<h2>Field Summary</h2>
+<div class="caption"><span>Fields</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static final <a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></code></div>
+<div class="col-second even-row-color"><code><a href="#nothing" class="member-name-link">nothing</a></code></div>
+<div class="col-last even-row-color">
+<div class="block"> The singleton
+ <strong>nothing</strong>
+  maybe</div>
+</div>
+</div>
+</section>
+</li>
 <!-- ========== METHOD SUMMARY =========== -->
 <li>
 <section class="method-summary" id="method-summary">
@@ -113,10 +138,21 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;U&gt;&nbsp;<a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;U&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#flatMap(dev.javafp.func.Fn)" class="member-name-link">flatMap</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>,<wbr><a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;U&gt;&gt;&nbsp;fn)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> Map the function
+ <code>fn</code>
+  to  this
+ <code>ImMaybe</code>
+  and then run
+ <a href="#join(dev.javafp.util.ImMaybe)"><code>join(ImMaybe)</code></a> on the result</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImMaybe.html" title="type parameter in ImMaybe">T</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#get()" class="member-name-link">get</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The value in this
+ <code>ImMaybe</code>
+ .</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNames()" class="member-name-link">getNames</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -127,12 +163,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> The representation of
  <code>this</code>
- as an <a href="../box/AbstractTextBox.html" title="class in dev.javafp.box"><code>AbstractTextBox</code></a>
- The default
- <code>toString</code>
-  method will use this method
- and then convert the result to a
- <code>String</code></div>
+ as an <a href="../box/AbstractTextBox.html" title="class in dev.javafp.box"><code>AbstractTextBox</code></a></div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValues()" class="member-name-link">getValues</a>()</code></div>
@@ -141,36 +172,96 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#ifPresentDo(dev.javafp.func.FnConsumer)" class="member-name-link">ifPresentDo</a><wbr>(<a href="../func/FnConsumer.html" title="interface in dev.javafp.func">FnConsumer</a>&lt;<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>&gt;&nbsp;block)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> If there is a value in this
+ <code>ImMaybe</code>
+  then apply the consumer function
+ <code>block</code>
+  to the value</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;A&gt;&nbsp;A</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#ifPresentElse(dev.javafp.func.Fn,A)" class="member-name-link">ifPresentElse</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>,<wbr>A&gt;&nbsp;yes,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#ifPresentElse(dev.javafp.func.Fn,A)" class="member-name-link">ifPresentElse</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>,<wbr>A&gt;&nbsp;fn,
  A&nbsp;not)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> If there is a value in this
+ <code>ImMaybe</code>
+  then apply the function
+ <code>fn</code>
+  to the value and return the result.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isPresent()" class="member-name-link">isPresent</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> <code>True</code>
+  if this
+ <code>ImMaybe</code>
+  is not
+ <code>ImMaybe.nothing</code>
+ ,
+ <code>false</code>
+  otherwise</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;A&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#join(dev.javafp.util.ImMaybe)" class="member-name-link">join</a><wbr>(<a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;A&gt;&gt;&nbsp;m)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Given an
+ <code>ImMaybe</code>
+  whose value is itself an
+ <code>ImMaybe</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;U&gt;&nbsp;<a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;U&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#just(U)" class="member-name-link">just</a><wbr>(U&nbsp;value)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A
+ <code>Maybe</code>
+  with the value
+ <code>value</code>
+ .</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;U&gt;&nbsp;<a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;U&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#map(dev.javafp.func.Fn)" class="member-name-link">map</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>,<wbr>U&gt;&nbsp;fn)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A&gt;&nbsp;<a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;A&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#nothing()" class="member-name-link">nothing</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImMaybe.html" title="type parameter in ImMaybe">T</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#orElse(T)" class="member-name-link">orElse</a><wbr>(<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>&nbsp;other)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;T&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#with(T)" class="member-name-link">with</a><wbr>(T&nbsp;valueOrNull)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> Apply the function
+ <code>fn</code>
+  to the value and return an
+ <code>ImMaybe</code>
+  with that value.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImMaybe.html" title="type parameter in ImMaybe">T</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#orElse(T)" class="member-name-link">orElse</a><wbr>(<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>&nbsp;other)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> If there is a value in this
+ <code>ImMaybe</code>
+  then return it, otherwise return
+ <code>other</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;T&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#with(T,T)" class="member-name-link">with</a><wbr>(T&nbsp;bad,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#with(T)" class="member-name-link">with</a><wbr>(T&nbsp;valueOrNull)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> An
+ <code>ImMaybe</code>
+  with the value
+ <code>valueOrNull</code>
+ or
+ <code>ImMaybe.nothing</code>
+  if
+ <code>value == null</code>
+ .</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;T&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#with(T,T)" class="member-name-link">with</a><wbr>(T&nbsp;bad,
  T&nbsp;valueOrBad)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> An
+ <code>ImMaybe</code>
+  with the value
+ <code>valueOrBad</code>
+ or
+ <code>ImMaybe.nothing</code>
+  if
+ <code>Equals.isEqual(bad, valueOrBad)</code>
+ .</div>
+</div>
 </div>
 </div>
 </div>
@@ -189,27 +280,55 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field-detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="nothing">
+<h3>nothing</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a></span>&nbsp;<span class="element-name">nothing</span></div>
+<div class="block"><p> The singleton
+ <strong>nothing</strong>
+  maybe</div>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ============ METHOD DETAIL ========== -->
 <li>
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="nothing()">
-<h3>nothing</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;A&gt;</span>&nbsp;<span class="element-name">nothing</span>()</div>
-</section>
-</li>
-<li>
 <section class="detail" id="just(U)">
 <h3 id="just(java.lang.Object)">just</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;U&gt;</span>&nbsp;<span class="return-type"><a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;U&gt;</span>&nbsp;<span class="element-name">just</span><wbr><span class="parameters">(U&nbsp;value)</span></div>
+<div class="block"><p> A
+ <code>Maybe</code>
+  with the value
+ <code>value</code>
+ .
+ <p> Throws <a href="../ex/MaybeCannotHaveANullValueException.html" title="class in dev.javafp.ex"><code>MaybeCannotHaveANullValueException</code></a> if
+ <code>value == null</code>
+ .</div>
 </section>
 </li>
 <li>
 <section class="detail" id="with(T)">
 <h3 id="with(java.lang.Object)">with</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;T&gt;</span>&nbsp;<span class="element-name">with</span><wbr><span class="parameters">(T&nbsp;valueOrNull)</span></div>
+<div class="block"><p> An
+ <code>ImMaybe</code>
+  with the value
+ <code>valueOrNull</code>
+ or
+ <code>ImMaybe.nothing</code>
+  if
+ <code>value == null</code>
+ .</div>
 </section>
 </li>
 <li>
@@ -217,66 +336,130 @@ loadScripts(document, 'script');</script>
 <h3 id="with(java.lang.Object,java.lang.Object)">with</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;T&gt;</span>&nbsp;<span class="element-name">with</span><wbr><span class="parameters">(T&nbsp;bad,
  T&nbsp;valueOrBad)</span></div>
+<div class="block"><p> An
+ <code>ImMaybe</code>
+  with the value
+ <code>valueOrBad</code>
+ or
+ <code>ImMaybe.nothing</code>
+  if
+ <code>Equals.isEqual(bad, valueOrBad)</code>
+ .</div>
 </section>
 </li>
 <li>
 <section class="detail" id="get()">
 <h3>get</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImMaybe.html" title="type parameter in ImMaybe">T</a></span>&nbsp;<span class="element-name">get</span>()</div>
+<div class="block"><p> The value in this
+ <code>ImMaybe</code>
+ .
+ <p> If there is no value, throw <a href="../ex/MaybeHasNothing.html" title="class in dev.javafp.ex"><code>MaybeHasNothing</code></a></div>
 </section>
 </li>
 <li>
 <section class="detail" id="join(dev.javafp.util.ImMaybe)">
 <h3>join</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;A&gt;</span>&nbsp;<span class="element-name">join</span><wbr><span class="parameters">(<a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;A&gt;&gt;&nbsp;m)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="isPresent()">
-<h3>isPresent</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isPresent</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="ifPresentElse(dev.javafp.func.Fn,A)">
-<h3 id="ifPresentElse(dev.javafp.func.Fn,java.lang.Object)">ifPresentElse</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type">A</span>&nbsp;<span class="element-name">ifPresentElse</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>,<wbr>A&gt;&nbsp;yes,
- A&nbsp;not)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="ifPresentDo(dev.javafp.func.FnConsumer)">
-<h3>ifPresentDo</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">ifPresentDo</span><wbr><span class="parameters">(<a href="../func/FnConsumer.html" title="interface in dev.javafp.func">FnConsumer</a>&lt;<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>&gt;&nbsp;block)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="map(dev.javafp.func.Fn)">
-<h3>map</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;U&gt;</span>&nbsp;<span class="return-type"><a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;U&gt;</span>&nbsp;<span class="element-name">map</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>,<wbr>U&gt;&nbsp;fn)</span></div>
+<div class="block"><p> Given an
+ <code>ImMaybe</code>
+  whose value is itself an
+ <code>ImMaybe</code>
+ <p> return
+
+ <pre><code>
+ m.flatMap(Fn.id())
+ </code></pre></div>
 </section>
 </li>
 <li>
 <section class="detail" id="flatMap(dev.javafp.func.Fn)">
 <h3>flatMap</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;U&gt;</span>&nbsp;<span class="return-type"><a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;U&gt;</span>&nbsp;<span class="element-name">flatMap</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>,<wbr><a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;U&gt;&gt;&nbsp;fn)</span></div>
+<div class="block"><p> Map the function
+ <code>fn</code>
+  to  this
+ <code>ImMaybe</code>
+  and then run
+ <a href="#join(dev.javafp.util.ImMaybe)"><code>join(ImMaybe)</code></a> on the result</div>
+</section>
+</li>
+<li>
+<section class="detail" id="isPresent()">
+<h3>isPresent</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isPresent</span>()</div>
+<div class="block"><p> <code>True</code>
+  if this
+ <code>ImMaybe</code>
+  is not
+ <code>ImMaybe.nothing</code>
+ ,
+ <code>false</code>
+  otherwise</div>
+</section>
+</li>
+<li>
+<section class="detail" id="ifPresentElse(dev.javafp.func.Fn,A)">
+<h3 id="ifPresentElse(dev.javafp.func.Fn,java.lang.Object)">ifPresentElse</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type">A</span>&nbsp;<span class="element-name">ifPresentElse</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>,<wbr>A&gt;&nbsp;fn,
+ A&nbsp;not)</span></div>
+<div class="block"><p> If there is a value in this
+ <code>ImMaybe</code>
+  then apply the function
+ <code>fn</code>
+  to the value and return the result.
+ <p> If there is no value then return
+ <code>not</code></div>
+</section>
+</li>
+<li>
+<section class="detail" id="ifPresentDo(dev.javafp.func.FnConsumer)">
+<h3>ifPresentDo</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">ifPresentDo</span><wbr><span class="parameters">(<a href="../func/FnConsumer.html" title="interface in dev.javafp.func">FnConsumer</a>&lt;<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>&gt;&nbsp;block)</span></div>
+<div class="block"><p> If there is a value in this
+ <code>ImMaybe</code>
+  then apply the consumer function
+ <code>block</code>
+  to the value
+ <p> If there is no value then do nothing</div>
+</section>
+</li>
+<li>
+<section class="detail" id="map(dev.javafp.func.Fn)">
+<h3>map</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;U&gt;</span>&nbsp;<span class="return-type"><a href="ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;U&gt;</span>&nbsp;<span class="element-name">map</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>,<wbr>U&gt;&nbsp;fn)</span></div>
+<div class="block"><p> Apply the function
+ <code>fn</code>
+  to the value and return an
+ <code>ImMaybe</code>
+  with that value.
+ <p> If that value is null then return
+ <code>ImMaybe.nothing</code>
+ .
+ <p> If there is no value in this
+ <code>ImMaybe</code>
+  then return
+ <code>ImMaybe.nothing</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="orElse(T)">
 <h3 id="orElse(java.lang.Object)">orElse</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImMaybe.html" title="type parameter in ImMaybe">T</a></span>&nbsp;<span class="element-name">orElse</span><wbr><span class="parameters">(<a href="ImMaybe.html" title="type parameter in ImMaybe">T</a>&nbsp;other)</span></div>
+<div class="block"><p> If there is a value in this
+ <code>ImMaybe</code>
+  then return it, otherwise return
+ <code>other</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="getTextBox()">
 <h3>getTextBox</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span>&nbsp;<span class="element-name">getTextBox</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../val/ImValuesImpl.html#getTextBox()">ImValuesImpl</a></code></span></div>
 <div class="block"><p> The representation of
  <code>this</code>
  as an <a href="../box/AbstractTextBox.html" title="class in dev.javafp.box"><code>AbstractTextBox</code></a>
- The default
+ <p> If the class extends <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val"><code>ImValuesImpl</code></a> then the default
  <code>toString</code>
   method will use this method
  and then convert the result to a
