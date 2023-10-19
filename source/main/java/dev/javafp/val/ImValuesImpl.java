@@ -46,7 +46,7 @@ public abstract class ImValuesImpl implements Serializable, Values
 
     /**
      * <p> {@code true}
-     *  iff this equals
+     *  if this equals
      * {@code other}
      * <p> This implementation uses
      * {@code getValues}

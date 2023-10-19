@@ -676,7 +676,7 @@ public class ImTree<A> implements Serializable, Iterable<A>
 
     /**
      * <p> {@code true}
-     * iff the tree is balanced
+     * if the tree is balanced
      *
      */
     public boolean isBalanced()

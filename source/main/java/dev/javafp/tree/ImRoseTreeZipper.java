@@ -671,7 +671,7 @@ public class ImRoseTreeZipper<T> implements FIterator<ImRoseTree<T>>
      * {@code this}
      *  for equality.  Returns
      * {@code true}
-     *  iff the specified object is also a
+     *  if the specified object is also a
      * {@code rose tree}
      * , both
      * trees have the same size, and all corresponding pairs of elements in

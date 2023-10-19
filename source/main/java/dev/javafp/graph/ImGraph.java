@@ -663,7 +663,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
     /**
      * {@code true}
-     * iff any of the nodes in the graph have cycles.
+     * if any of the nodes in the graph have cycles.
      *
      * A cycle is a path from a node to itself that can be traced by following any arc on a node in the
      * direction

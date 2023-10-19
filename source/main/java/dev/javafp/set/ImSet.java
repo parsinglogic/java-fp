@@ -79,7 +79,7 @@ import java.util.NoSuchElementException;
  *
  * <p> For example, in this library {@link ImMap} is implemented as a set of {@link ImMap.Entry} objects where an entry has a key and a value.
  * Two {@link ImMap.Entry} objects are equal
- * iff their keys are equal. So for any pair of entries
+ * if their keys are equal. So for any pair of entries
  * {@code e1}
  *  and
  * {@code e2}
@@ -273,7 +273,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         {
             for (int i = 0; i < elements.length; i++)
             {
-                if (elements[i].equals(newElement))
+                if (Equals.isEqual(elements[i], newElement))
                 {
                     return i;
                 }

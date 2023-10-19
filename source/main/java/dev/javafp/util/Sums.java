@@ -32,13 +32,13 @@ public class Sums
             1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 };
 
     /**
-     * 
+     *
      * <pre>{@code
-     * Return -1 iff l < 0
-     *         0 iff l == 0
-     *         1 iff l >0
+     * Return -1 if l < 0
+     *         0 if l == 0
+     *         1 if l >0
      * }</pre>
-     * 
+     *
      */
     public static int sign(long l)
     {
@@ -50,13 +50,13 @@ public class Sums
     }
 
     /**
-     * 
+     *
      * <pre>{@code
-     * Return -1 iff l < 0
-     *         0 iff l == 0
-     *         1 iff l >0
+     * Return -1 if l < 0
+     *         0 if l == 0
+     *         1 if l >0
      * }</pre>
-     * 
+     *
      */
     public static int sign(double l)
     {
