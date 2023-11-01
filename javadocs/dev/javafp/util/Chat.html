@@ -83,11 +83,34 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Chat&lt;T&gt;</span>
 <span class="extends-implements">extends <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></span></div>
-<div class="block"><p> A class that represents the result of parsing/reading some object from some file/files/whatever
- <p> There is some chat that we want to give the user and if we get lucky there might be the object as well.
- <p> If the parse of the object succeeded then the chat will be about that - otherwise the chat will be about
+<div class="block"><p> A class to help us simplfy handling several side-effectful sequential operations and keep track of the success or failure states of each operation.
+ <p> These are typically side-effectful operations that we can't easily undo so we can't spot that an error occurred
+ on the nth object and then simply undo all the previous n-1 results. Instead we have to report on all the failures and successes.
+ <p> When a Chat contains an error - the text is designed to be read by users.
+ <p> Sometimes/often a function will depend upon the success of a previously called function. For example, the creation of a file given a path
+ where not all of the path components already exist - as in
+ <code>mkdir -p</code>
+  - will depend on
+ being able to create each parent directory successfully.
+ <p> Chat is a Monad so we can use
+ <code>flatmap</code>
+  repeatedly to simplify this.
+ <p> There is some
+ <strong>chat</strong>
+  that we want to give the user and if we get lucky there might be a result object as well.
+ operations succeeded then the chat could be empty - otherwise the chat will be about
  why it failed.
- <p> I think this is a writer monad and ImEither. Hmm</div>
+ <p> So, if we try to do something involving, for example, several filenames then some operations could succeed and some could fail.
+ <p> For example in FileUtil:
+
+ <pre><code>
+ public static Chat&lt;ImList&lt;Path&gt;&gt; makeFiles(ImList&lt;ImPair&lt;Path, String&gt;&gt; pairs)
+ {
+     ImList&lt;Chat&lt;Path&gt;&gt; chats = pairs.map(p -&gt; makeFile(p.fst, p.snd)).flush();
+     return Chat.combine(chats);
+ }
+ </code></pre>
+ <p> I think this is a writer monad and an Either. Hmm</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -186,7 +209,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isOk()" class="member-name-link">isOk</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;T&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Chat.html" title="class in dev.javafp.util">Chat</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Left(dev.javafp.lst.ImList)" class="member-name-link">Left</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;chatLines)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;T&gt;</code></div>
@@ -196,30 +219,33 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;T&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Left(java.lang.String)" class="member-name-link">Left</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;chatLine)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="Chat.html" title="type parameter in Chat">T</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#prepend(dev.javafp.lst.ImList)" class="member-name-link">prepend</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;lines)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="Chat.html" title="type parameter in Chat">T</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#prependToFirstLine(java.lang.String)" class="member-name-link">prependToFirstLine</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;prefix)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;T&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Right(dev.javafp.lst.ImList,T)" class="member-name-link">Right</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;chatLines,
- T&nbsp;thing)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Chat.html" title="class in dev.javafp.util">Chat</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#LeftFormat(java.lang.Object...)" class="member-name-link">LeftFormat</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>...&nbsp;xs)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="Chat.html" title="type parameter in Chat">T</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#prepend(dev.javafp.lst.ImList)" class="member-name-link">prepend</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;lines)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="Chat.html" title="type parameter in Chat">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#prependToFirstLine(java.lang.String)" class="member-name-link">prependToFirstLine</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;prefix)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;T&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Right(java.lang.String,T)" class="member-name-link">Right</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;chatLine,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Right(dev.javafp.lst.ImList,T)" class="member-name-link">Right</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;chatLines,
  T&nbsp;thing)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;T&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Right(T)" class="member-name-link">Right</a><wbr>(T&nbsp;thing)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Right(java.lang.String,T)" class="member-name-link">Right</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;chatLine,
+ T&nbsp;thing)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Chat.html" title="type parameter in Chat">T</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#rightOrThrow()" class="member-name-link">rightOrThrow</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#tryCatch(dev.javafp.func.FnProducer,java.lang.String)" class="member-name-link">tryCatch</a><wbr>(<a href="../func/FnProducer.html" title="interface in dev.javafp.func">FnProducer</a>&nbsp;fn,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;T&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Right(T)" class="member-name-link">Right</a><wbr>(T&nbsp;thing)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Chat.html" title="type parameter in Chat">T</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#rightOrThrow()" class="member-name-link">rightOrThrow</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#tryCatch(dev.javafp.func.FnProducer,java.lang.String)" class="member-name-link">tryCatch</a><wbr>(<a href="../func/FnProducer.html" title="interface in dev.javafp.func">FnProducer</a>&nbsp;fn,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;errorMessage)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block"> Try running
  <code>fn</code>
  .</div>
@@ -302,7 +328,13 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="Left(dev.javafp.lst.ImList)">
 <h3>Left</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="Chat.html" title="class in dev.javafp.util">Chat</a>&lt;T&gt;</span>&nbsp;<span class="element-name">Left</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;chatLines)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Chat.html" title="class in dev.javafp.util">Chat</a></span>&nbsp;<span class="element-name">Left</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;chatLines)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="LeftFormat(java.lang.Object...)">
+<h3>LeftFormat</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Chat.html" title="class in dev.javafp.util">Chat</a></span>&nbsp;<span class="element-name">LeftFormat</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>...&nbsp;xs)</span></div>
 </section>
 </li>
 <li>

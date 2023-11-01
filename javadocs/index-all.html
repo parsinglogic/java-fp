@@ -182,7 +182,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#addSuffix(java.nio.file.Path,java.nio.file.Path)" class="member-name-link">addSuffix(Path, Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>
-<div class="block"> Let's think of paths as lists of strings</div>
+<div class="block"> The path that is
+ <code>prefix</code>
+  followed by
+ <code>suffix</code></div>
 </dd>
 <dt><a href="dev/javafp/queue/ImQueue.html#addToEnd(A)" class="member-name-link">addToEnd(A)</a> - Method in class dev.javafp.queue.<a href="dev/javafp/queue/ImQueue.html" title="class in dev.javafp.queue">ImQueue</a></dt>
 <dd>
@@ -338,24 +341,60 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/ArrayIterator.html#%3Cinit%3E(T%5B%5D)" class="member-name-link">ArrayIterator(T[])</a> - Constructor for class dev.javafp.util.<a href="dev/javafp/util/ArrayIterator.html" title="class in dev.javafp.util">ArrayIterator</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.html#assertFileExists(java.nio.file.Path)" class="member-name-link">assertFileExists(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#assertFileIsADirectory(java.nio.file.Path)" class="member-name-link">assertFileIsADirectory(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Assert that
+ <code>path</code>
+  represents a directory in the filesystem.</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#assertFileIsAFileAndWritableOrDoesNotExist(java.nio.file.Path)" class="member-name-link">assertFileIsAFileAndWritableOrDoesNotExist(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Check that either
+ <code>path</code>
+  exists, is a file and is writable or else that it does not exist.</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#assertFileIsNotADirectory(java.nio.file.Path)" class="member-name-link">assertFileIsNotADirectory(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.html#assertFileIsReadable(java.nio.file.Path)" class="member-name-link">assertFileIsReadable(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Assert that
+ <code>path</code>
+  does not represent a directory in the filesystem.</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#assertFileIsWritable(java.nio.file.Path)" class="member-name-link">assertFileIsWritable(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Assert that
+ <code>path</code>
+  is writable in the filesystem.</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#assertFileIsWritableEmptyDirOrDoesNotExist(java.nio.file.Path)" class="member-name-link">assertFileIsWritableEmptyDirOrDoesNotExist(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Assert that
+ <code>path</code>
+  represents a directory in the filesystem, is writable and is empty.</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#assertIsAFile(java.nio.file.Path)" class="member-name-link">assertIsAFile(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Check that either
+ <code>path</code>
+  is a file.</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#assertParentDirExists(java.nio.file.Path)" class="member-name-link">assertParentDirExists(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Check that the parent of
+ <code>path</code>
+  is a directory</div>
+</dd>
+<dt><a href="dev/javafp/file/FileUtil.html#assertPathExists(java.nio.file.Path)" class="member-name-link">assertPathExists(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
+<dd>
+<div class="block"> Check that
+ <code>path</code>
+ exists</div>
+</dd>
+<dt><a href="dev/javafp/file/FileUtil.html#assertPathIsReadable(java.nio.file.Path)" class="member-name-link">assertPathIsReadable(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
+<dd>
+<div class="block"> Assert that
+ <code>path</code>
+  is readable in the filesystem.</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#at(int)" class="member-name-link">at(int)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> Get the element of
@@ -547,7 +586,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Chat.html" class="type-name-link" title="class in dev.javafp.util">Chat</a>&lt;<a href="dev/javafp/util/Chat.html" title="type parameter in Chat">T</a>&gt; - Class in <a href="dev/javafp/util/package-summary.html">dev.javafp.util</a></dt>
 <dd>
-<div class="block"> A class that represents the result of parsing/reading some object from some file/files/whatever</div>
+<div class="block"> A class to help us simplfy handling several side-effectful sequential operations and keep track of the success or failure states of each operation.</div>
 </dd>
 <dt><a href="dev/javafp/ex/ChatFailed.html" class="type-name-link" title="class in dev.javafp.ex">ChatFailed</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
 <dd>
@@ -587,13 +626,11 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/TextUtils.html#checkCssIdentifier(java.lang.String)" class="member-name-link">checkCssIdentifier(String)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/TextUtils.html" title="class in dev.javafp.util">TextUtils</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.html#checkPath(java.nio.file.Path,dev.javafp.file.FileUtil.ExistsEnum,dev.javafp.file.FileUtil.FileAccessEnum,dev.javafp.file.FileUtil.FileTypeEnum)" class="member-name-link">checkPath(Path, FileUtil.ExistsEnum, FileUtil.FileAccessEnum, FileUtil.FileTypeEnum)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.html#checkPathName(java.lang.String,dev.javafp.file.FileUtil.ExistsEnum,dev.javafp.file.FileUtil.FileAccessEnum,dev.javafp.file.FileUtil.FileTypeEnum)" class="member-name-link">checkPathName(String, FileUtil.ExistsEnum, FileUtil.FileAccessEnum, FileUtil.FileTypeEnum)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.html#checkPathNameIsReasonable(dev.javafp.file.FileUtil.FileTypeEnum,java.lang.String)" class="member-name-link">checkPathNameIsReasonable(FileUtil.FileTypeEnum, String)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.html#checkPath(java.nio.file.Path,dev.javafp.file.FileUtil.FileExists,dev.javafp.file.FileUtil.FileAccess,dev.javafp.file.FileUtil.FileType)" class="member-name-link">checkPath(Path, FileUtil.FileExists, FileUtil.FileAccess, FileUtil.FileType)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>
-<div class="block"> In Jadle, we have various config files that specify file names/dir names.</div>
+<div class="block"> Check
+ <code>path</code>
+  exists/does not exist, is readable/writable, is a directory/file.</div>
 </dd>
 <dt><a href="dev/javafp/util/SetUtils.html#chooseRandom(java.util.List)" class="member-name-link">chooseRandom(List&lt;T&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/SetUtils.html" title="class in dev.javafp.util">SetUtils</a></dt>
 <dd>&nbsp;</dd>
@@ -792,7 +829,9 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block"> Copy
  <code>src </code>
-  to `dest, recursively</div>
+  to
+ <code>dest </code>
+  recursively</div>
 </dd>
 <dt><a href="dev/javafp/geom/Rect.html#corner" class="member-name-link">corner</a> - Variable in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>
@@ -836,16 +875,23 @@ loadScripts(document, 'script');</script>
  <code>path </code></div>
 </dd>
 <dt><a href="dev/javafp/file/FileUtil.html#createTempDir()" class="member-name-link">createTempDir()</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.html#createTempDir(java.lang.String)" class="member-name-link">createTempDir(String)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.html#createTempPath()" class="member-name-link">createTempPath()</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.html#createTempPathUnder(java.nio.file.Path)" class="member-name-link">createTempPathUnder(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>
-<div class="block"> Create a temporary path in
+<div class="block">Create a temporary directory using
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Files.html#createTempDirectory(java.lang.String,java.nio.file.attribute.FileAttribute...)" title="class or interface in java.nio.file" class="external-link"><code>Files.createTempDirectory(String, FileAttribute[])</code></a>
+
+ The directory is set to be readable and writable after it is created and a shutdown hook is added to the VM
+ to delete it when the VM exists.</div>
+</dd>
+<dt><a href="dev/javafp/file/FileUtil.html#createTempFile()" class="member-name-link">createTempFile()</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
+<dd>
+<div class="block"> Create a writable temporary empty file in a temporary dir
+ that will be deleted on exit</div>
+</dd>
+<dt><a href="dev/javafp/file/FileUtil.html#createTempFileUnder(java.nio.file.Path)" class="member-name-link">createTempFileUnder(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
+<dd>
+<div class="block"> Create a writable temporary empty file in
  <code>parentPath </code>
-  that will be deleted on exit</div>
+ that will be deleted on exit</div>
 </dd>
 <dt><a href="dev/javafp/lst/ImList.html#cross(dev.javafp.lst.ImList)" class="member-name-link">cross(ImList&lt;ImList&lt;? extends T&gt;&gt;)</a> - Static method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
@@ -886,8 +932,6 @@ loadScripts(document, 'script');</script>
  <code>pathToDelete </code>
  .</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.html#deleteDirRecursively(java.nio.file.Path,boolean)" class="member-name-link">deleteDirRecursively(Path, boolean)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#deleteIfExists(java.nio.file.Path,boolean)" class="member-name-link">deleteIfExists(Path, boolean)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>
 <div class="block"> Delete path.</div>
@@ -941,12 +985,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/rand/RandomString.html#digits" class="member-name-link">digits</a> - Static variable in class dev.javafp.rand.<a href="dev/javafp/rand/RandomString.html" title="class in dev.javafp.rand">RandomString</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.FileTypeEnum.html#Directory" class="member-name-link">Directory</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileType.html#Directory" class="member-name-link">Directory</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileType.html" title="enum class in dev.javafp.file">FileUtil.FileType</a></dt>
 <dd>
 <div class="block">Expect a file to be a directory</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.html#Directory" class="member-name-link">Directory</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/func/FnBlock.html#doit()" class="member-name-link">doit()</a> - Method in interface dev.javafp.func.<a href="dev/javafp/func/FnBlock.html" title="interface in dev.javafp.func">FnBlock</a></dt>
 <dd>
 <div class="block"> Run the function - no argument and no return value</div>
@@ -1249,13 +1291,19 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/util/ExecutorWithExceptions.html#%3Cinit%3E(int,int,long,java.util.concurrent.TimeUnit,java.util.concurrent.BlockingQueue)" class="member-name-link">ExecutorWithExceptions(int, int, long, TimeUnit, BlockingQueue&lt;Runnable&gt;)</a> - Constructor for class dev.javafp.util.<a href="dev/javafp/util/ExecutorWithExceptions.html" title="class in dev.javafp.util">ExecutorWithExceptions</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#exists(java.nio.file.Path)" class="member-name-link">exists(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.ExistsEnum.html#Exists" class="member-name-link">Exists</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a></dt>
+<dd>
+<div class="block">
+ <code>true</code>
+ if
+ <code>path</code>
+ exists,
+ <code>false</code>
+ otherwise</div>
+</dd>
+<dt><a href="dev/javafp/file/FileUtil.FileExists.html#Exists" class="member-name-link">Exists</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileExists.html" title="enum class in dev.javafp.file">FileUtil.FileExists</a></dt>
 <dd>
 <div class="block">Expect a file to exist</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.html#Exists" class="member-name-link">Exists</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#expandBy(double)" class="member-name-link">expandBy(double)</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>
 <div class="block"> Expand by a border of borderWidth, keeping the origin the same</div>
@@ -1274,12 +1322,10 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="dev/javafp/util/Sums.html#factorial(int)" class="member-name-link">factorial(int)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Sums.html" title="class in dev.javafp.util">Sums</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.FileTypeEnum.html#File" class="member-name-link">File</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileType.html#File" class="member-name-link">File</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileType.html" title="enum class in dev.javafp.file">FileUtil.FileType</a></dt>
 <dd>
 <div class="block">Expect a file to not be a directory</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.html#File" class="member-name-link">File</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/ex/FileProblem.html" class="type-name-link" title="class in dev.javafp.ex">FileProblem</a> - Exception in <a href="dev/javafp/ex/package-summary.html">dev.javafp.ex</a></dt>
 <dd>
 <div class="block"> Exceptions relating to problems with files</div>
@@ -1288,19 +1334,17 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.html" class="type-name-link" title="class in dev.javafp.file">FileUtil</a> - Class in <a href="dev/javafp/file/package-summary.html">dev.javafp.file</a></dt>
 <dd>
-<div class="block"> Some "file utilities"</div>
+<div class="block"> Some file utilities.</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.html#%3Cinit%3E()" class="member-name-link">FileUtil()</a> - Constructor for class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.ExistsEnum.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a> - Enum Class in <a href="dev/javafp/file/package-summary.html">dev.javafp.file</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileAccess.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.FileAccess</a> - Enum Class in <a href="dev/javafp/file/package-summary.html">dev.javafp.file</a></dt>
 <dd>
 <div class="block">Used as an argument to various file utility functions</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.FileAccessEnum.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a> - Enum Class in <a href="dev/javafp/file/package-summary.html">dev.javafp.file</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileExists.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.FileExists</a> - Enum Class in <a href="dev/javafp/file/package-summary.html">dev.javafp.file</a></dt>
 <dd>
 <div class="block">Used as an argument to various file utility functions</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.FileTypeEnum.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a> - Enum Class in <a href="dev/javafp/file/package-summary.html">dev.javafp.file</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileType.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.FileType</a> - Enum Class in <a href="dev/javafp/file/package-summary.html">dev.javafp.file</a></dt>
 <dd>
 <div class="block">Used as an argument to various file utility functions</div>
 </dd>
@@ -1658,6 +1702,8 @@ loadScripts(document, 'script');</script>
  <code>ImList</code>
  s of <a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple"><code>ImPair</code></a></div>
 </dd>
+<dt><a href="dev/javafp/util/TextUtils.html#format(java.lang.Object...)" class="member-name-link">format(Object...)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/TextUtils.html" title="class in dev.javafp.util">TextUtils</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Say.html#format(java.lang.String,java.lang.Object...)" class="member-name-link">format(String, Object...)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Say.html" title="class in dev.javafp.util">Say</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Say.html#formatColumns(dev.javafp.lst.ImList...)" class="member-name-link">formatColumns(ImList&lt;?&gt;...)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Say.html" title="class in dev.javafp.util">Say</a></dt>
@@ -1856,6 +1902,13 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Chat.html#getChatString()" class="member-name-link">getChatString()</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/Chat.html" title="class in dev.javafp.util">Chat</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="dev/javafp/file/FileUtil.html#getChildren(java.nio.file.Path)" class="member-name-link">getChildren(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
+<dd>
+<div class="block"> A list of the children of
+ <code>path</code>
+ wrapped in a
+ <a href="dev/javafp/util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a></div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getClosure(dev.javafp.func.Fn,dev.javafp.set.ImSet)" class="member-name-link">getClosure(Fn&lt;KEY, ImSet&lt;KEY&gt;&gt;, ImSet&lt;KEY&gt;)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
 <div class="block"> The closure of
@@ -1984,7 +2037,8 @@ loadScripts(document, 'script');</script>
 <dt><a href="dev/javafp/ex/FileProblem.html#getInfo(java.nio.file.Path)" class="member-name-link">getInfo(Path)</a> - Static method in exception dev.javafp.ex.<a href="dev/javafp/ex/FileProblem.html" title="class in dev.javafp.ex">FileProblem</a></dt>
 <dd>
 <div class="block"> Information about
- <code>path</code></div>
+ <code>path</code>
+ that can be used in error messages.</div>
 </dd>
 <dt><a href="dev/javafp/set/ImMap.Entry.html#getKey()" class="member-name-link">getKey()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImMap.Entry.html" title="class in dev.javafp.set">ImMap.Entry</a></dt>
 <dd>
@@ -2161,11 +2215,31 @@ loadScripts(document, 'script');</script>
   in the form of pairs containing the arc label and the key</div>
 </dd>
 <dt><a href="dev/javafp/file/FileUtil.html#getParent(java.nio.file.Path)" class="member-name-link">getParent(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The parent of
+ <code>path</code>
+  wrapped in a
+ <a href="dev/javafp/util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a>
+ or
+ <code>Chat.Left</code>
+  if
+ <code>path</code>
+  is the root</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#getPath(java.lang.String)" class="member-name-link">getPath(String)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#getPath(java.nio.file.Path,java.lang.String...)" class="member-name-link">getPath(Path, String...)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Given a path with components:
+ <code>a₀, a₁ ... aₙ</code>
+
+ and
+ <code>otherNames = b₀, b₁, ... bₙ</code>
+
+ return the path with components:
+
+ <code>a₀, a₁, ... aₙ, b₀, b₁, ... bₙ</code></div>
+</dd>
 <dt><a href="dev/javafp/graph/ImGraph.html#getPaths(dev.javafp.graph.ImGraph.Dir,dev.javafp.set.ImSet,KEY)" class="member-name-link">getPaths(ImGraph.Dir, ImSet&lt;LABEL&gt;, KEY)</a> - Method in class dev.javafp.graph.<a href="dev/javafp/graph/ImGraph.html" title="class in dev.javafp.graph">ImGraph</a></dt>
 <dd>
 <div class="block"> Get the paths of the keys that are connected to
@@ -2199,7 +2273,15 @@ loadScripts(document, 'script');</script>
 <div class="block"> The rank of the focus of this wrt the root tree</div>
 </dd>
 <dt><a href="dev/javafp/file/FileUtil.html#getRealPath(java.nio.file.Path)" class="member-name-link">getRealPath(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> The "real" path that
+ <code>path</code>
+  represents, wrapped in an
+ <a href="dev/javafp/util/ImMaybe.html" title="class in dev.javafp.util"><code>ImMaybe</code></a>
+ or
+ <code>Nothing</code>
+  if the path does not exist</div>
+</dd>
 <dt><a href="dev/javafp/net/GetRequest.html" class="type-name-link" title="class in dev.javafp.net">GetRequest</a> - Class in <a href="dev/javafp/net/package-summary.html">dev.javafp.net</a></dt>
 <dd>
 <div class="block"> A GET request</div>
@@ -3253,13 +3335,35 @@ loadScripts(document, 'script');</script>
  <code>cause</code></div>
 </dd>
 <dt><a href="dev/javafp/file/FileUtil.html#isADirectory(java.nio.file.Path)" class="member-name-link">isADirectory(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> <code>true</code>
+  if
+ <code>path</code>
+  represents a directory in the filesystem,
+ <code>false</code>
+  otherwise.</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#isAFile(java.nio.file.Path)" class="member-name-link">isAFile(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> <code>true</code>
+  if
+ <code>path</code>
+ represents a file (rather than a directory or a special file like
+ <code>/dev/tty</code>
+ ) in the filesystem,
+
+ <code>false</code>
+  otherwise.</div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#isAncestor(java.nio.file.Path,java.nio.file.Path)" class="member-name-link">isAncestor(Path, Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.html#isAncestor$(java.nio.file.Path,java.nio.file.Path)" class="member-name-link">isAncestor$(Path, Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> <code>true</code>
+  if
+ <code>possibleAncestor</code>
+  is an ancestor of
+ <code>pathToTest</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/set/ImTree.html#isBalanced()" class="member-name-link">isBalanced()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTree.html" title="class in dev.javafp.set">ImTree</a></dt>
 <dd>
 <div class="block"> <code>true</code>
@@ -3366,8 +3470,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/file/FileUtil.html#isReadable(java.nio.file.Path)" class="member-name-link">isReadable(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>
-<div class="block"> <code>true </code>
-  if owner, group and other have read permissions</div>
+<div class="block">
+ <code>true </code>
+ if owner, group and other have read permissions,
+ <code>false </code> otherwise</div>
 </dd>
 <dt><a href="dev/javafp/set/ImTreeZipper.html#isRoot()" class="member-name-link">isRoot()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTreeZipper.html" title="class in dev.javafp.set">ImTreeZipper</a></dt>
 <dd>
@@ -3694,6 +3800,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/box/LeafTextBox.html#lefted(java.lang.String,int)" class="member-name-link">lefted(String, int)</a> - Static method in class dev.javafp.box.<a href="dev/javafp/box/LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="dev/javafp/util/Chat.html#LeftFormat(java.lang.Object...)" class="member-name-link">LeftFormat(Object...)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Chat.html" title="class in dev.javafp.util">Chat</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/box/LeftRightBox.html" class="type-name-link" title="class in dev.javafp.box">LeftRightBox</a> - Class in <a href="dev/javafp/box/package-summary.html">dev.javafp.box</a></dt>
 <dd>
 <div class="block">A text-box that lays out its children left to right.</div>
@@ -3735,8 +3843,6 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/lst/ImListIterator.html#list" class="member-name-link">list</a> - Variable in class dev.javafp.lst.<a href="dev/javafp/lst/ImListIterator.html" title="class in dev.javafp.lst">ImListIterator</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.html#listChildren(java.nio.file.Path)" class="member-name-link">listChildren(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Say.html#log(java.lang.String,java.lang.Object...)" class="member-name-link">log(String, Object...)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Say.html" title="class in dev.javafp.util">Say</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/rand/RandomString.html#lower" class="member-name-link">lower</a> - Static variable in class dev.javafp.rand.<a href="dev/javafp/rand/RandomString.html" title="class in dev.javafp.rand">RandomString</a></dt>
@@ -3754,9 +3860,24 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:M">M</h2>
 <dl class="index">
 <dt><a href="dev/javafp/file/FileUtil.html#makeFile(java.nio.file.Path,java.lang.String)" class="member-name-link">makeFile(Path, String)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Create a file with path
+ <code>path</code>
+  and contents
+ <code>contents</code></div>
+</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#makeFiles(dev.javafp.lst.ImList)" class="member-name-link">makeFiles(ImList&lt;ImPair&lt;Path, String&gt;&gt;)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> For each pair -
+ <code>(path, contents)</code>
+  in
+ <code>pairs</code>
+ create a file with path
+ <code>path</code>
+  and contents
+ <code>contents</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/lst/ImList.html#map(dev.javafp.func.Fn)" class="member-name-link">map(Fn&lt;A, B&gt;)</a> - Method in interface dev.javafp.lst.<a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a></dt>
 <dd>
 <div class="block"> The
@@ -3871,8 +3992,6 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Util.html#max(dev.javafp.lst.ImList)" class="member-name-link">max(ImList&lt;Double&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Util.html" title="class in dev.javafp.util">Util</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.html#MAX_FILE_NAME" class="member-name-link">MAX_FILE_NAME</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Util.html#maxInt(dev.javafp.lst.ImList)" class="member-name-link">maxInt(ImList&lt;Integer&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Util.html" title="class in dev.javafp.util">Util</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/queue/ImQueue.html#maxSize" class="member-name-link">maxSize</a> - Variable in class dev.javafp.queue.<a href="dev/javafp/queue/ImQueue.html" title="class in dev.javafp.queue">ImQueue</a></dt>
@@ -3953,12 +4072,10 @@ loadScripts(document, 'script');</script>
   minus
  <code>iterable</code></div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.ExistsEnum.html#Missing" class="member-name-link">Missing</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileExists.html#Missing" class="member-name-link">Missing</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileExists.html" title="enum class in dev.javafp.file">FileUtil.FileExists</a></dt>
 <dd>
 <div class="block">Expect a file to not exist</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.html#Missing" class="member-name-link">Missing</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Mixer.html#mix(dev.javafp.lst.ImList,dev.javafp.lst.ImList)" class="member-name-link">mix(ImList&lt;T&gt;, ImList&lt;T&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/Mixer.html" title="class in dev.javafp.util">Mixer</a></dt>
 <dd>
 <div class="block"> I think this is the Haskell...</div>
@@ -4072,8 +4189,6 @@ loadScripts(document, 'script');</script>
  <code>newRight</code>
  .</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.html#newBufferedReader(java.nio.file.Path)" class="member-name-link">newBufferedReader(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/ExecutorWithExceptions.html#newFixedThreadPool(int)" class="member-name-link">newFixedThreadPool(int)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/ExecutorWithExceptions.html" title="class in dev.javafp.util">ExecutorWithExceptions</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/SetUtils.html#newSet(java.util.List)" class="member-name-link">newSet(List&lt;T&gt;)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/SetUtils.html" title="class in dev.javafp.util">SetUtils</a></dt>
@@ -4233,8 +4348,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The point that is this scaled to have length 1</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.html#normalize(java.nio.file.Path)" class="member-name-link">normalize(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/geom/Rect.html#north()" class="member-name-link">north()</a> - Method in class dev.javafp.geom.<a href="dev/javafp/geom/Rect.html" title="class in dev.javafp.geom">Rect</a></dt>
 <dd>
 <div class="block"> The north point of the rectangle.</div>
@@ -4878,8 +4991,6 @@ loadScripts(document, 'script');</script>
  <code>path </code>
  .</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.html#pathList(java.nio.file.Path,boolean)" class="member-name-link">pathList(Path, boolean)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/time/PausedStopWatch.html#pause()" class="member-name-link">pause()</a> - Method in class dev.javafp.time.<a href="dev/javafp/time/PausedStopWatch.html" title="class in dev.javafp.time">PausedStopWatch</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/time/RunningStopWatch.html#pause()" class="member-name-link">pause()</a> - Method in class dev.javafp.time.<a href="dev/javafp/time/RunningStopWatch.html" title="class in dev.javafp.time">RunningStopWatch</a></dt>
@@ -5220,18 +5331,14 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/ReaderUtil.html#read(java.io.InputStream)" class="member-name-link">read(InputStream)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/ReaderUtil.html" title="class in dev.javafp.file">ReaderUtil</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.FileAccessEnum.html#Readable" class="member-name-link">Readable</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileAccess.html#Readable" class="member-name-link">Readable</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileAccess.html" title="enum class in dev.javafp.file">FileUtil.FileAccess</a></dt>
 <dd>
 <div class="block">Expect a file to be readable</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.html#Readable" class="member-name-link">Readable</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/ReaderUtil.html" class="type-name-link" title="class in dev.javafp.file">ReaderUtil</a> - Class in <a href="dev/javafp/file/package-summary.html">dev.javafp.file</a></dt>
 <dd>
 <div class="block"> A utility class to read a String from an InputStream</div>
 </dd>
-<dt><a href="dev/javafp/file/ReaderUtil.html#%3Cinit%3E()" class="member-name-link">ReaderUtil()</a> - Constructor for class dev.javafp.file.<a href="dev/javafp/file/ReaderUtil.html" title="class in dev.javafp.file">ReaderUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/LineReader.html#readLine()" class="member-name-link">readLine()</a> - Method in class dev.javafp.file.<a href="dev/javafp/file/LineReader.html" title="class in dev.javafp.file">LineReader</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/file/FileUtil.html#readLines(int,java.nio.file.Path)" class="member-name-link">readLines(int, Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
@@ -5242,7 +5349,17 @@ loadScripts(document, 'script');</script>
  <code>path </code></div>
 </dd>
 <dt><a href="dev/javafp/file/FileUtil.html#readLines(java.nio.file.Path)" class="member-name-link">readLines(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Read all the lines of text from the file
+ <code>path</code>
+  as a list of
+ <code>Strings</code>
+  in the returned
+
+ <a href="dev/javafp/util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a>
+ There are many things that could go wrong - all these are reported in the
+  <a href="dev/javafp/util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a></div>
+</dd>
 <dt><a href="dev/javafp/geom/Rect.html" class="type-name-link" title="class in dev.javafp.geom">Rect</a> - Class in <a href="dev/javafp/geom/package-summary.html">dev.javafp.geom</a></dt>
 <dd>
 <div class="block"> A Rectangle.</div>
@@ -5420,7 +5537,11 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/file/FileUtil.html#removePrefix(java.nio.file.Path,java.nio.file.Path)" class="member-name-link">removePrefix(Path, Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
 <dd>
-<div class="block"> Let's think of paths as lists of strings</div>
+<div class="block"> The relative path obtained by removing
+ <code>prefix </code>
+  from
+ <code>prefixPlusSuffix </code>
+  to leave the suffix.</div>
 </dd>
 <dt><a href="dev/javafp/set/ImTree.html#removeRoot()" class="member-name-link">removeRoot()</a> - Method in class dev.javafp.set.<a href="dev/javafp/set/ImTree.html" title="class in dev.javafp.set">ImTree</a></dt>
 <dd>
@@ -6613,7 +6734,21 @@ loadScripts(document, 'script');</script>
  .</div>
 </dd>
 <dt><a href="dev/javafp/file/FileUtil.html#trySocket(java.lang.String,int)" class="member-name-link">trySocket(String, int)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"> Try to open a
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/Socket.html" title="class or interface in java.net" class="external-link"><code>Socket</code></a>
+ on port
+ <code>port</code>
+  on host
+ <code>host</code>
+ and return
+ <code>true</code>
+  if it succeeded and
+ <code>false</code>
+  if a
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/ConnectException.html" title="class or interface in java.net" class="external-link"><code>ConnectException</code></a>
+ was thrown.</div>
+</dd>
 <dt><a href="dev/javafp/lst/TupleListBuilder.html" class="type-name-link" title="class in dev.javafp.lst">TupleListBuilder</a> - Class in <a href="dev/javafp/lst/package-summary.html">dev.javafp.lst</a></dt>
 <dd>
 <div class="block"> Utility to build lists of tuples from lists of single elements.</div>
@@ -6658,6 +6793,14 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="dev/javafp/util/SetUtils.html#union(java.util.Collection...)" class="member-name-link">union(Collection&lt;T&gt;...)</a> - Static method in class dev.javafp.util.<a href="dev/javafp/util/SetUtils.html" title="class in dev.javafp.util">SetUtils</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="dev/javafp/file/FileUtil.html#unique(java.nio.file.Path)" class="member-name-link">unique(Path)</a> - Static method in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
+<dd>
+<div class="block"> Return an absolute
+ <strong>and</strong>
+  normalised path that represents the same path as
+ <code>path</code>
+ .</div>
+</dd>
 <dt><a href="dev/javafp/util/UniqueId.html" class="type-name-link" title="class in dev.javafp.util">UniqueId</a> - Class in <a href="dev/javafp/util/package-summary.html">dev.javafp.util</a></dt>
 <dd>
 <div class="block"> Utility for generating <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/UUID.html" title="class or interface in java.util" class="external-link"><code>UUID</code></a>s.</div>
@@ -6746,15 +6889,15 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/StringWrapper.html#value" class="member-name-link">value</a> - Variable in class dev.javafp.util.<a href="dev/javafp/util/StringWrapper.html" title="class in dev.javafp.util">StringWrapper</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="dev/javafp/file/FileUtil.ExistsEnum.html#valueOf(java.lang.String)" class="member-name-link">valueOf(String)</a> - Static method in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileAccess.html#valueOf(java.lang.String)" class="member-name-link">valueOf(String)</a> - Static method in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileAccess.html" title="enum class in dev.javafp.file">FileUtil.FileAccess</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this class with the specified name.</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.FileAccessEnum.html#valueOf(java.lang.String)" class="member-name-link">valueOf(String)</a> - Static method in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileExists.html#valueOf(java.lang.String)" class="member-name-link">valueOf(String)</a> - Static method in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileExists.html" title="enum class in dev.javafp.file">FileUtil.FileExists</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this class with the specified name.</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.FileTypeEnum.html#valueOf(java.lang.String)" class="member-name-link">valueOf(String)</a> - Static method in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileType.html#valueOf(java.lang.String)" class="member-name-link">valueOf(String)</a> - Static method in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileType.html" title="enum class in dev.javafp.file">FileUtil.FileType</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this class with the specified name.</div>
 </dd>
@@ -6790,17 +6933,17 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the enum constant of this class with the specified name.</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.ExistsEnum.html#values()" class="member-name-link">values()</a> - Static method in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileAccess.html#values()" class="member-name-link">values()</a> - Static method in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileAccess.html" title="enum class in dev.javafp.file">FileUtil.FileAccess</a></dt>
 <dd>
 <div class="block">Returns an array containing the constants of this enum class, in
 the order they are declared.</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.FileAccessEnum.html#values()" class="member-name-link">values()</a> - Static method in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileExists.html#values()" class="member-name-link">values()</a> - Static method in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileExists.html" title="enum class in dev.javafp.file">FileUtil.FileExists</a></dt>
 <dd>
 <div class="block">Returns an array containing the constants of this enum class, in
 the order they are declared.</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.FileTypeEnum.html#values()" class="member-name-link">values()</a> - Static method in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileType.html#values()" class="member-name-link">values()</a> - Static method in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileType.html" title="enum class in dev.javafp.file">FileUtil.FileType</a></dt>
 <dd>
 <div class="block">Returns an array containing the constants of this enum class, in
 the order they are declared.</div>
@@ -7005,12 +7148,10 @@ the order they are declared.</div>
 <dd>
 <div class="block"> A method to let us have an exception throw as one of the branches of a ?: invocation</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.FileAccessEnum.html#Writable" class="member-name-link">Writable</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a></dt>
+<dt><a href="dev/javafp/file/FileUtil.FileAccess.html#Writable" class="member-name-link">Writable</a> - Enum constant in enum class dev.javafp.file.<a href="dev/javafp/file/FileUtil.FileAccess.html" title="enum class in dev.javafp.file">FileUtil.FileAccess</a></dt>
 <dd>
 <div class="block">Expect a file to be writable</div>
 </dd>
-<dt><a href="dev/javafp/file/FileUtil.html#Writable" class="member-name-link">Writable</a> - Static variable in class dev.javafp.file.<a href="dev/javafp/file/FileUtil.html" title="class in dev.javafp.file">FileUtil</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="dev/javafp/util/Sink.html#write(java.lang.String)" class="member-name-link">write(String)</a> - Method in class dev.javafp.util.<a href="dev/javafp/util/Sink.html" title="class in dev.javafp.util">Sink</a></dt>
 <dd>&nbsp;</dd>
 </dl>

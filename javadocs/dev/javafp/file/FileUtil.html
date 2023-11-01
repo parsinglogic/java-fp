@@ -44,14 +44,14 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li><a href="#nested-class-summary">Nested</a>&nbsp;|&nbsp;</li>
-<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
 </div>
@@ -77,20 +77,47 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">FileUtil</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block"><p> Some "file utilities"
+<div class="block"><p> Some file utilities.
+
  <p> So the file system in Java is a very tricky place.
  <p> Even in an o/s like Linux it is a tricky place
  <p> full pathnames, relative pathnames, .., .,  case significance,  hard links, symbolic links, permissions, file-systems,
  imaginary vs real paths, no proper transactions, how to report errors - oh my
- <p> When we add to this the fact that Java doesn't know much about the file system it is being deployed on and the result is a large pile of poo
+ <p> When we add to this the fact that Java doesn't know much about the file system it is being deployed on and the result is
+ an API that is quite tricky.
  <p> For example:
 
  <pre><code>
   Path x = getPath(tempDir, "x");
   Path z = getPath(x, "y", "z");
  </code></pre>
- <p> If we do the above (and x,y,z do not exist) then ask x for its children it finds y
- <p> That is not what I would expect</div>
+
+ <p> If we do the above (and
+ <code>x,y,z</code>
+  do not exist) then ask
+ <code>y</code>
+  for its parent, it returns
+ <code>x</code>
+ That is not what I would (naively) expect.
+ It is because
+ <code>getParent</code>
+  operates on the path - and a path may well not
+ <strong>actually exist</strong>
+  in the file system.
+ <p> Sometimes we are supplying a path to a function to create the file. The path does not exist yet - but we still want to be able
+ to ask questions about the hierarchy of the path.
+
+ <p> There are a number of functions starting with
+ <code>assert</code>
+ .
+ <p> These are intended to be used by code that wants to assert that certain things are true about the file system before it attempts a particular
+ operation. They make it easier to do this without complicated boiler-plate code to write appropiated error messages.
+ <p> The idea is that these functions make that assertion and then throw a
+ <a href="../ex/FileProblem.html" title="class in dev.javafp.ex"><code>FileProblem</code></a>
+ with a reasonable error message about what assertion failed and why.
+
+ <p> Of course, it is possible that an assertion might succeed, but a few milliseconds later, the filesystem might change and the asssertion
+ will now fail.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -104,66 +131,20 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Class</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static enum&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="FileUtil.ExistsEnum.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a></code></div>
+<div class="col-second even-row-color"><code><a href="FileUtil.FileAccess.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.FileAccess</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">Used as an argument to various file utility functions</div>
 </div>
 <div class="col-first odd-row-color"><code>static enum&nbsp;</code></div>
-<div class="col-second odd-row-color"><code><a href="FileUtil.FileAccessEnum.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a></code></div>
+<div class="col-second odd-row-color"><code><a href="FileUtil.FileExists.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.FileExists</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block">Used as an argument to various file utility functions</div>
 </div>
 <div class="col-first even-row-color"><code>static enum&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="FileUtil.FileTypeEnum.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a></code></div>
+<div class="col-second even-row-color"><code><a href="FileUtil.FileType.html" class="type-name-link" title="enum class in dev.javafp.file">FileUtil.FileType</a></code></div>
 <div class="col-last even-row-color">
 <div class="block">Used as an argument to various file utility functions</div>
 </div>
-</div>
-</section>
-</li>
-<!-- =========== FIELD SUMMARY =========== -->
-<li>
-<section class="field-summary" id="field-summary">
-<h2>Field Summary</h2>
-<div class="caption"><span>Fields</span></div>
-<div class="summary-table three-column-summary">
-<div class="table-header col-first">Modifier and Type</div>
-<div class="table-header col-second">Field</div>
-<div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>static <a href="FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a></code></div>
-<div class="col-second even-row-color"><code><a href="#Directory" class="member-name-link">Directory</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static <a href="FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#Exists" class="member-name-link">Exists</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>static <a href="FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a></code></div>
-<div class="col-second even-row-color"><code><a href="#File" class="member-name-link">File</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static final int</code></div>
-<div class="col-second odd-row-color"><code><a href="#MAX_FILE_NAME" class="member-name-link">MAX_FILE_NAME</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>static <a href="FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a></code></div>
-<div class="col-second even-row-color"><code><a href="#Missing" class="member-name-link">Missing</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static <a href="FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#Readable" class="member-name-link">Readable</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
-<div class="col-first even-row-color"><code>static <a href="FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a></code></div>
-<div class="col-second even-row-color"><code><a href="#Writable" class="member-name-link">Writable</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-</div>
-</section>
-</li>
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<li>
-<section class="constructor-summary" id="constructor-summary">
-<h2>Constructor Summary</h2>
-<div class="caption"><span>Constructors</span></div>
-<div class="summary-table two-column-summary">
-<div class="table-header col-first">Constructor</div>
-<div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">FileUtil</a>()</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -182,52 +163,83 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#addSuffix(java.nio.file.Path,java.nio.file.Path)" class="member-name-link">addSuffix</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;prefix,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;suffix)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> Let's think of paths as lists of strings</div>
+<div class="block"> The path that is
+ <code>prefix</code>
+  followed by
+ <code>suffix</code></div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertFileExists(java.nio.file.Path)" class="member-name-link">assertFileExists</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertFileIsADirectory(java.nio.file.Path)" class="member-name-link">assertFileIsADirectory</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Assert that
+ <code>path</code>
+  represents a directory in the filesystem.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertFileIsADirectory(java.nio.file.Path)" class="member-name-link">assertFileIsADirectory</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertFileIsAFileAndWritableOrDoesNotExist(java.nio.file.Path)" class="member-name-link">assertFileIsAFileAndWritableOrDoesNotExist</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Check that either
+ <code>path</code>
+  exists, is a file and is writable or else that it does not exist.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertFileIsAFileAndWritableOrDoesNotExist(java.nio.file.Path)" class="member-name-link">assertFileIsAFileAndWritableOrDoesNotExist</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertFileIsNotADirectory(java.nio.file.Path)" class="member-name-link">assertFileIsNotADirectory</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertFileIsReadable(java.nio.file.Path)" class="member-name-link">assertFileIsReadable</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertFileIsNotADirectory(java.nio.file.Path)" class="member-name-link">assertFileIsNotADirectory</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Assert that
+ <code>path</code>
+  does not represent a directory in the filesystem.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertFileIsWritable(java.nio.file.Path)" class="member-name-link">assertFileIsWritable</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Assert that
+ <code>path</code>
+  is writable in the filesystem.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertFileIsWritableEmptyDirOrDoesNotExist(java.nio.file.Path)" class="member-name-link">assertFileIsWritableEmptyDirOrDoesNotExist</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Assert that
+ <code>path</code>
+  represents a directory in the filesystem, is writable and is empty.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertIsAFile(java.nio.file.Path)" class="member-name-link">assertIsAFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Check that either
+ <code>path</code>
+  is a file.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertParentDirExists(java.nio.file.Path)" class="member-name-link">assertParentDirExists</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#checkPath(java.nio.file.Path,dev.javafp.file.FileUtil.ExistsEnum,dev.javafp.file.FileUtil.FileAccessEnum,dev.javafp.file.FileUtil.FileTypeEnum)" class="member-name-link">checkPath</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path,
- <a href="FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a>&nbsp;exists,
- <a href="FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a>&nbsp;access,
- <a href="FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a>&nbsp;fileType)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#checkPathName(java.lang.String,dev.javafp.file.FileUtil.ExistsEnum,dev.javafp.file.FileUtil.FileAccessEnum,dev.javafp.file.FileUtil.FileTypeEnum)" class="member-name-link">checkPathName</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;pathName,
- <a href="FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a>&nbsp;exists,
- <a href="FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a>&nbsp;fileAccess,
- <a href="FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a>&nbsp;fileType)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#checkPathNameIsReasonable(dev.javafp.file.FileUtil.FileTypeEnum,java.lang.String)" class="member-name-link">checkPathNameIsReasonable</a><wbr>(<a href="FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a>&nbsp;fileType,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Check that the parent of
+ <code>path</code>
+  is a directory</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertPathExists(java.nio.file.Path)" class="member-name-link">assertPathExists</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> In Jadle, we have various config files that specify file names/dir names.</div>
+<div class="block"> Check that
+ <code>path</code>
+ exists</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#assertPathIsReadable(java.nio.file.Path)" class="member-name-link">assertPathIsReadable</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Assert that
+ <code>path</code>
+  is readable in the filesystem.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#checkPath(java.nio.file.Path,dev.javafp.file.FileUtil.FileExists,dev.javafp.file.FileUtil.FileAccess,dev.javafp.file.FileUtil.FileType)" class="member-name-link">checkPath</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path,
+ <a href="FileUtil.FileExists.html" title="enum class in dev.javafp.file">FileUtil.FileExists</a>&nbsp;exists,
+ <a href="FileUtil.FileAccess.html" title="enum class in dev.javafp.file">FileUtil.FileAccess</a>&nbsp;fileAccess,
+ <a href="FileUtil.FileType.html" title="enum class in dev.javafp.file">FileUtil.FileType</a>&nbsp;fileType)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Check
+ <code>path</code>
+  exists/does not exist, is readable/writable, is a directory/file.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#copy(java.nio.file.Path,java.nio.file.Path)" class="member-name-link">copy</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;src,
@@ -235,7 +247,9 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block"> Copy
  <code>src </code>
-  to `dest, recursively</div>
+  to
+ <code>dest </code>
+  recursively</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createDir(java.nio.file.Path)" class="member-name-link">createDir</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
@@ -245,36 +259,38 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createTempDir()" class="member-name-link">createTempDir</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Create a temporary directory using
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Files.html#createTempDirectory(java.lang.String,java.nio.file.attribute.FileAttribute...)" title="class or interface in java.nio.file" class="external-link"><code>Files.createTempDirectory(String, FileAttribute[])</code></a>
+
+ The directory is set to be readable and writable after it is created and a shutdown hook is added to the VM
+ to delete it when the VM exists.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createTempDir(java.lang.String)" class="member-name-link">createTempDir</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;prefix)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createTempPath()" class="member-name-link">createTempPath</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createTempPathUnder(java.nio.file.Path)" class="member-name-link">createTempPathUnder</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;parentPath)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createTempFile()" class="member-name-link">createTempFile</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> Create a temporary path in
- <code>parentPath </code>
-  that will be deleted on exit</div>
+<div class="block"> Create a writable temporary empty file in a temporary dir
+ that will be deleted on exit</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#cwd()" class="member-name-link">cwd</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createTempFileUnder(java.nio.file.Path)" class="member-name-link">createTempFileUnder</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;parentPath)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Create a writable temporary empty file in
+ <code>parentPath </code>
+ that will be deleted on exit</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#cwd()" class="member-name-link">cwd</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block"> The current working dir</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#deleteDirRecursively(java.nio.file.Path)" class="member-name-link">deleteDirRecursively</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;pathToDelete)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#deleteDirRecursively(java.nio.file.Path)" class="member-name-link">deleteDirRecursively</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;pathToDelete)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block"> Try to delete the directory
  <code>pathToDelete </code>
  .</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#deleteDirRecursively(java.nio.file.Path,boolean)" class="member-name-link">deleteDirRecursively</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;pathToDelete,
- boolean&nbsp;force)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#deleteIfExists(java.nio.file.Path,boolean)" class="member-name-link">deleteIfExists</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;pathToDelete,
  boolean&nbsp;force)</code></div>
@@ -283,39 +299,105 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#exists(java.nio.file.Path)" class="member-name-link">exists</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getParent(java.nio.file.Path)" class="member-name-link">getParent</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">
+ <code>true</code>
+ if
+ <code>path</code>
+ exists,
+ <code>false</code>
+ otherwise</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getChildren(java.nio.file.Path)" class="member-name-link">getChildren</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A list of the children of
+ <code>path</code>
+ wrapped in a
+ <a href="../util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a></div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getParent(java.nio.file.Path)" class="member-name-link">getParent</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The parent of
+ <code>path</code>
+  wrapped in a
+ <a href="../util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a>
+ or
+ <code>Chat.Left</code>
+  if
+ <code>path</code>
+  is the root</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPath(java.lang.String)" class="member-name-link">getPath</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPath(java.lang.String)" class="member-name-link">getPath</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPath(java.nio.file.Path,java.lang.String...)" class="member-name-link">getPath</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;parentDir,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPath(java.nio.file.Path,java.lang.String...)" class="member-name-link">getPath</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;parentDir,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;otherNames)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getRealPath(java.nio.file.Path)" class="member-name-link">getRealPath</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isADirectory(java.nio.file.Path)" class="member-name-link">isADirectory</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Given a path with components:
+ <code>a₀, a₁ ... aₙ</code>
+
+ and
+ <code>otherNames = b₀, b₁, ... bₙ</code>
+
+ return the path with components:
+
+ <code>a₀, a₁, ... aₙ, b₀, b₁, ... bₙ</code></div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getRealPath(java.nio.file.Path)" class="member-name-link">getRealPath</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The "real" path that
+ <code>path</code>
+  represents, wrapped in an
+ <a href="../util/ImMaybe.html" title="class in dev.javafp.util"><code>ImMaybe</code></a>
+ or
+ <code>Nothing</code>
+  if the path does not exist</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isAFile(java.nio.file.Path)" class="member-name-link">isAFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isADirectory(java.nio.file.Path)" class="member-name-link">isADirectory</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> <code>true</code>
+  if
+ <code>path</code>
+  represents a directory in the filesystem,
+ <code>false</code>
+  otherwise.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isAncestor(java.nio.file.Path,java.nio.file.Path)" class="member-name-link">isAncestor</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;possibleAncestor,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;pathToTest)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isAFile(java.nio.file.Path)" class="member-name-link">isAFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> <code>true</code>
+  if
+ <code>path</code>
+ represents a file (rather than a directory or a special file like
+ <code>/dev/tty</code>
+ ) in the filesystem,
+
+ <code>false</code>
+  otherwise.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isAncestor$(java.nio.file.Path,java.nio.file.Path)" class="member-name-link">isAncestor$</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;possibleAncestor,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isAncestor(java.nio.file.Path,java.nio.file.Path)" class="member-name-link">isAncestor</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;possibleAncestor,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;pathToTest)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> <code>true</code>
+  if
+ <code>possibleAncestor</code>
+  is an ancestor of
+ <code>pathToTest</code>
+ .</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isReadable(java.nio.file.Path)" class="member-name-link">isReadable</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> <code>true </code>
-  if owner, group and other have read permissions</div>
+<div class="block">
+ <code>true </code>
+ if owner, group and other have read permissions,
+ <code>false </code> otherwise</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isWritable(java.nio.file.Path)" class="member-name-link">isWritable</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
@@ -323,33 +405,35 @@ loadScripts(document, 'script');</script>
 <div class="block"> <code>true </code>
   if owner, group and other have write permissions</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#listChildren(java.nio.file.Path)" class="member-name-link">listChildren</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#makeFile(java.nio.file.Path,java.lang.String)" class="member-name-link">makeFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#makeFile(java.nio.file.Path,java.lang.String)" class="member-name-link">makeFile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;contents)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#makeFiles(dev.javafp.lst.ImList)" class="member-name-link">makeFiles</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;&nbsp;pairs)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/BufferedReader.html" title="class or interface in java.io" class="external-link">BufferedReader</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#newBufferedReader(java.nio.file.Path)" class="member-name-link">newBufferedReader</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#normalize(java.nio.file.Path)" class="member-name-link">normalize</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#pathList(java.nio.file.Path)" class="member-name-link">pathList</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Create a file with path
+ <code>path</code>
+  and contents
+ <code>contents</code></div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#makeFiles(dev.javafp.lst.ImList)" class="member-name-link">makeFiles</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;&nbsp;pairs)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> For each pair -
+ <code>(path, contents)</code>
+  in
+ <code>pairs</code>
+ create a file with path
+ <code>path</code>
+  and contents
+ <code>contents</code>
+ .</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#pathList(java.nio.file.Path)" class="member-name-link">pathList</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block"> An in-order list of paths - starting with
  <code>path </code>
  .</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#pathList(java.nio.file.Path,boolean)" class="member-name-link">pathList</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path,
- boolean&nbsp;force)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#readLines(int,java.nio.file.Path)" class="member-name-link">readLines</a><wbr>(int&nbsp;count,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
@@ -361,12 +445,26 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#readLines(java.nio.file.Path)" class="member-name-link">readLines</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Read all the lines of text from the file
+ <code>path</code>
+  as a list of
+ <code>Strings</code>
+  in the returned
+
+ <a href="../util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a>
+ There are many things that could go wrong - all these are reported in the
+  <a href="../util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#removePrefix(java.nio.file.Path,java.nio.file.Path)" class="member-name-link">removePrefix</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;prefixPlusSuffix,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;prefix)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> Let's think of paths as lists of strings</div>
+<div class="block"> The relative path obtained by removing
+ <code>prefix </code>
+  from
+ <code>prefixPlusSuffix </code>
+  to leave the suffix.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#resolve(java.nio.file.Path,java.lang.String)" class="member-name-link">resolve</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;parentDir,
@@ -390,7 +488,30 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#trySocket(java.lang.String,int)" class="member-name-link">trySocket</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;host,
  int&nbsp;port)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Try to open a
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/Socket.html" title="class or interface in java.net" class="external-link"><code>Socket</code></a>
+ on port
+ <code>port</code>
+  on host
+ <code>host</code>
+ and return
+ <code>true</code>
+  if it succeeded and
+ <code>false</code>
+  if a
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/ConnectException.html" title="class or interface in java.net" class="external-link"><code>ConnectException</code></a>
+ was thrown.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#unique(java.nio.file.Path)" class="member-name-link">unique</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Return an absolute
+ <strong>and</strong>
+  normalised path that represents the same path as
+ <code>path</code>
+ .</div>
+</div>
 </div>
 </div>
 </div>
@@ -403,186 +524,215 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
-<!-- ============ FIELD DETAIL =========== -->
-<li>
-<section class="field-details" id="field-detail">
-<h2>Field Details</h2>
-<ul class="member-list">
-<li>
-<section class="detail" id="MAX_FILE_NAME">
-<h3>MAX_FILE_NAME</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">MAX_FILE_NAME</span></div>
-<dl class="notes">
-<dt>See Also:</dt>
-<dd>
-<ul class="see-list">
-<li><a href="../../../constant-values.html#dev.javafp.file.FileUtil.MAX_FILE_NAME">Constant Field Values</a></li>
-</ul>
-</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="Exists">
-<h3>Exists</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a></span>&nbsp;<span class="element-name">Exists</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="Missing">
-<h3>Missing</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a></span>&nbsp;<span class="element-name">Missing</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="Directory">
-<h3>Directory</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a></span>&nbsp;<span class="element-name">Directory</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="File">
-<h3>File</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a></span>&nbsp;<span class="element-name">File</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="Readable">
-<h3>Readable</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a></span>&nbsp;<span class="element-name">Readable</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="Writable">
-<h3>Writable</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a></span>&nbsp;<span class="element-name">Writable</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<li>
-<section class="constructor-details" id="constructor-detail">
-<h2>Constructor Details</h2>
-<ul class="member-list">
-<li>
-<section class="detail" id="&lt;init&gt;()">
-<h3>FileUtil</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">FileUtil</span>()</div>
-</section>
-</li>
-</ul>
-</section>
-</li>
 <!-- ============ METHOD DETAIL ========== -->
 <li>
 <section class="method-details" id="method-detail">
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="checkPathName(java.lang.String,dev.javafp.file.FileUtil.ExistsEnum,dev.javafp.file.FileUtil.FileAccessEnum,dev.javafp.file.FileUtil.FileTypeEnum)">
-<h3>checkPathName</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</span>&nbsp;<span class="element-name">checkPathName</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;pathName,
- <a href="FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a>&nbsp;exists,
- <a href="FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a>&nbsp;fileAccess,
- <a href="FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a>&nbsp;fileType)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="checkPath(java.nio.file.Path,dev.javafp.file.FileUtil.ExistsEnum,dev.javafp.file.FileUtil.FileAccessEnum,dev.javafp.file.FileUtil.FileTypeEnum)">
+<section class="detail" id="checkPath(java.nio.file.Path,dev.javafp.file.FileUtil.FileExists,dev.javafp.file.FileUtil.FileAccess,dev.javafp.file.FileUtil.FileType)">
 <h3>checkPath</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</span>&nbsp;<span class="element-name">checkPath</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path,
- <a href="FileUtil.ExistsEnum.html" title="enum class in dev.javafp.file">FileUtil.ExistsEnum</a>&nbsp;exists,
- <a href="FileUtil.FileAccessEnum.html" title="enum class in dev.javafp.file">FileUtil.FileAccessEnum</a>&nbsp;access,
- <a href="FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a>&nbsp;fileType)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="checkPathNameIsReasonable(dev.javafp.file.FileUtil.FileTypeEnum,java.lang.String)">
-<h3>checkPathNameIsReasonable</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">checkPathNameIsReasonable</span><wbr><span class="parameters">(<a href="FileUtil.FileTypeEnum.html" title="enum class in dev.javafp.file">FileUtil.FileTypeEnum</a>&nbsp;fileType,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</span></div>
-<div class="block"><p> In Jadle, we have various config files that specify file names/dir names.
- <p> In order to keep ourselves sane, let's impose some restrictions on what can be allowed in filenames</div>
+ <a href="FileUtil.FileExists.html" title="enum class in dev.javafp.file">FileUtil.FileExists</a>&nbsp;exists,
+ <a href="FileUtil.FileAccess.html" title="enum class in dev.javafp.file">FileUtil.FileAccess</a>&nbsp;fileAccess,
+ <a href="FileUtil.FileType.html" title="enum class in dev.javafp.file">FileUtil.FileType</a>&nbsp;fileType)</span></div>
+<div class="block"><p> Check
+ <code>path</code>
+  exists/does not exist, is readable/writable, is a directory/file.
+ <p> If
+ <code>exists == FileExists.Exists</code>
+  then if
+ <code>path</code>
+  does not exist, do no further checks and return a
+ <code>Chat.Left</code>
+ .
+ <p> Otherwise,  check that
+ <code>path</code>
+  exists and that its file fileAccess matches
+ <code>fileAccess</code>
+  and that its file type
+ matches
+ <code>fileType</code>
+ <p> If any check fails, return a
+ <code>Chat.Left</code>
+  that indicates the failure.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="assertFileIsAFileAndWritableOrDoesNotExist(java.nio.file.Path)">
 <h3>assertFileIsAFileAndWritableOrDoesNotExist</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">assertFileIsAFileAndWritableOrDoesNotExist</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> Check that either
+ <code>path</code>
+  exists, is a file and is writable or else that it does not exist.
+ <p> If any of these checks fail then throw
+ <a href="../ex/FileProblem.html" title="class in dev.javafp.ex"><code>FileProblem</code></a>
+ which has a message that tries to be clear about what the path was and why it was thrown.
+
+ If the checks pass then do nothing.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="assertIsAFile(java.nio.file.Path)">
 <h3>assertIsAFile</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">assertIsAFile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> Check that either
+ <code>path</code>
+  is a file.
+ <p> If not then throw
+ <a href="../ex/FileProblem.html" title="class in dev.javafp.ex"><code>FileProblem</code></a>
+ which has a message that tries to be clear about what the path was and why it was thrown.
+
+ <p> If
+ <code>path</code>
+  is a file then do nothing.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="assertParentDirExists(java.nio.file.Path)">
 <h3>assertParentDirExists</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">assertParentDirExists</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> Check that the parent of
+ <code>path</code>
+  is a directory
+ <p> If not then throw
+ <a href="../ex/FileProblem.html" title="class in dev.javafp.ex"><code>FileProblem</code></a>
+ which has a message that tries to be clear about what the path was and why it was thrown.
+
+ <p> Otherwise, do nothing.</div>
 </section>
 </li>
 <li>
-<section class="detail" id="assertFileExists(java.nio.file.Path)">
-<h3>assertFileExists</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">assertFileExists</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<section class="detail" id="assertPathExists(java.nio.file.Path)">
+<h3>assertPathExists</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">assertPathExists</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> Check that
+ <code>path</code>
+ exists
+ <p> If not then throw
+ <a href="../ex/FileProblem.html" title="class in dev.javafp.ex"><code>FileProblem</code></a>
+ which has a message that tries to be clear about what the path was and why it was thrown.
+
+ <p> Otherwise, do nothing.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="exists(java.nio.file.Path)">
 <h3>exists</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">exists</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p>
+ <code>true</code>
+ if
+ <code>path</code>
+ exists,
+ <code>false</code>
+ otherwise</div>
 </section>
 </li>
 <li>
-<section class="detail" id="assertFileIsReadable(java.nio.file.Path)">
-<h3>assertFileIsReadable</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">assertFileIsReadable</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<section class="detail" id="assertPathIsReadable(java.nio.file.Path)">
+<h3>assertPathIsReadable</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">assertPathIsReadable</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> Assert that
+ <code>path</code>
+  is readable in the filesystem.
+ <p> Throw
+ <a href="../ex/FileProblem.html" title="class in dev.javafp.ex"><code>FileProblem</code></a>
+ if this is not the case.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="assertFileIsNotADirectory(java.nio.file.Path)">
 <h3>assertFileIsNotADirectory</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">assertFileIsNotADirectory</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> Assert that
+ <code>path</code>
+  does not represent a directory in the filesystem.
+ <p> Throw
+ <a href="../ex/FileProblem.html" title="class in dev.javafp.ex"><code>FileProblem</code></a>
+ if this is not the case.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="assertFileIsADirectory(java.nio.file.Path)">
 <h3>assertFileIsADirectory</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">assertFileIsADirectory</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> Assert that
+ <code>path</code>
+  represents a directory in the filesystem.
+ <p> Throw
+ <a href="../ex/FileProblem.html" title="class in dev.javafp.ex"><code>FileProblem</code></a>
+ if this is not the case.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="isADirectory(java.nio.file.Path)">
 <h3>isADirectory</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isADirectory</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> <code>true</code>
+  if
+ <code>path</code>
+  represents a directory in the filesystem,
+ <code>false</code>
+  otherwise.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="isAFile(java.nio.file.Path)">
 <h3>isAFile</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isAFile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> <code>true</code>
+  if
+ <code>path</code>
+ represents a file (rather than a directory or a special file like
+ <code>/dev/tty</code>
+ ) in the filesystem,
+
+ <code>false</code>
+  otherwise.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="assertFileIsWritableEmptyDirOrDoesNotExist(java.nio.file.Path)">
 <h3>assertFileIsWritableEmptyDirOrDoesNotExist</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">assertFileIsWritableEmptyDirOrDoesNotExist</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> Assert that
+ <code>path</code>
+  represents a directory in the filesystem, is writable and is empty.
+ <p> Throw
+ <a href="../ex/FileProblem.html" title="class in dev.javafp.ex"><code>FileProblem</code></a>
+ if this is not the case.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="assertFileIsWritable(java.nio.file.Path)">
 <h3>assertFileIsWritable</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">assertFileIsWritable</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> Assert that
+ <code>path</code>
+  is writable in the filesystem.
+ <p> Throw
+ <a href="../ex/FileProblem.html" title="class in dev.javafp.ex"><code>FileProblem</code></a>
+ if this is not the case.</div>
 </section>
 </li>
 <li>
-<section class="detail" id="listChildren(java.nio.file.Path)">
-<h3>listChildren</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;&gt;</span>&nbsp;<span class="element-name">listChildren</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<section class="detail" id="getChildren(java.nio.file.Path)">
+<h3>getChildren</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;&gt;</span>&nbsp;<span class="element-name">getChildren</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> A list of the children of
+ <code>path</code>
+ wrapped in a
+ <a href="../util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a>
+
+ <p> If
+ <code>path</code>
+  does not exist a
+ <code>Chat.Left</code>
+  is returned.
+ <p> If
+ <code>path</code>
+  exists, but is not a directory, then return the empty list.</div>
 </section>
 </li>
 <li>
@@ -612,13 +762,6 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="pathList(java.nio.file.Path,boolean)">
-<h3>pathList</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</span>&nbsp;<span class="element-name">pathList</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path,
- boolean&nbsp;force)</span></div>
-</section>
-</li>
-<li>
 <section class="detail" id="deleteDirRecursively(java.nio.file.Path)">
 <h3>deleteDirRecursively</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</span>&nbsp;<span class="element-name">deleteDirRecursively</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;pathToDelete)</span></div>
@@ -629,13 +772,6 @@ loadScripts(document, 'script');</script>
  <p> If
  <code>pathToDelete </code>
   is a file then delete it</div>
-</section>
-</li>
-<li>
-<section class="detail" id="deleteDirRecursively(java.nio.file.Path,boolean)">
-<h3>deleteDirRecursively</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</span>&nbsp;<span class="element-name">deleteDirRecursively</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;pathToDelete,
- boolean&nbsp;force)</span></div>
 </section>
 </li>
 <li>
@@ -660,33 +796,48 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="createTempDir()">
 <h3>createTempDir</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="element-name">createTempDir</span>()</div>
+<div class="block">Create a temporary directory using
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Files.html#createTempDirectory(java.lang.String,java.nio.file.attribute.FileAttribute...)" title="class or interface in java.nio.file" class="external-link"><code>Files.createTempDirectory(String, FileAttribute[])</code></a>
+
+ The directory is set to be readable and writable after it is created and a shutdown hook is added to the VM
+ to delete it when the VM exists.</div>
 </section>
 </li>
 <li>
-<section class="detail" id="createTempDir(java.lang.String)">
-<h3>createTempDir</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="element-name">createTempDir</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;prefix)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="createTempPathUnder(java.nio.file.Path)">
-<h3>createTempPathUnder</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="element-name">createTempPathUnder</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;parentPath)</span></div>
-<div class="block"><p> Create a temporary path in
+<section class="detail" id="createTempFileUnder(java.nio.file.Path)">
+<h3>createTempFileUnder</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="element-name">createTempFileUnder</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;parentPath)</span></div>
+<div class="block"><p> Create a writable temporary empty file in
  <code>parentPath </code>
-  that will be deleted on exit</div>
+ that will be deleted on exit</div>
 </section>
 </li>
 <li>
-<section class="detail" id="createTempPath()">
-<h3>createTempPath</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="element-name">createTempPath</span>()</div>
+<section class="detail" id="createTempFile()">
+<h3>createTempFile</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="element-name">createTempFile</span>()</div>
+<div class="block"><p> Create a writable temporary empty file in a temporary dir
+ that will be deleted on exit</div>
 </section>
 </li>
 <li>
 <section class="detail" id="makeFiles(dev.javafp.lst.ImList)">
 <h3>makeFiles</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;&gt;</span>&nbsp;<span class="element-name">makeFiles</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;&nbsp;pairs)</span></div>
+<div class="block"><p> For each pair -
+ <code>(path, contents)</code>
+  in
+ <code>pairs</code>
+ create a file with path
+ <code>path</code>
+  and contents
+ <code>contents</code>
+ .
+
+
+ <p> Return a
+ <a href="../util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a>
+ that describes what happened.</div>
 </section>
 </li>
 <li>
@@ -694,6 +845,14 @@ loadScripts(document, 'script');</script>
 <h3>makeFile</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</span>&nbsp;<span class="element-name">makeFile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;contents)</span></div>
+<div class="block"><p> Create a file with path
+ <code>path</code>
+  and contents
+ <code>contents</code>
+
+ <p> Return a
+ <a href="../util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a>
+ that describes what happened.</div>
 </section>
 </li>
 <li>
@@ -708,8 +867,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="isReadable(java.nio.file.Path)">
 <h3>isReadable</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isReadable</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
-<div class="block"><p> <code>true </code>
-  if owner, group and other have read permissions</div>
+<div class="block"><p>
+ <code>true </code>
+ if owner, group and other have read permissions,
+ <code>false </code> otherwise</div>
 </section>
 </li>
 <li>
@@ -732,6 +893,15 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="readLines(java.nio.file.Path)">
 <h3>readLines</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</span>&nbsp;<span class="element-name">readLines</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> Read all the lines of text from the file
+ <code>path</code>
+  as a list of
+ <code>Strings</code>
+  in the returned
+
+ <a href="../util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a>
+ There are many things that could go wrong - all these are reported in the
+  <a href="../util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a></div>
 </section>
 </li>
 <li>
@@ -739,6 +909,15 @@ loadScripts(document, 'script');</script>
 <h3>getPath</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="element-name">getPath</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;parentDir,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>...&nbsp;otherNames)</span></div>
+<div class="block">Given a path with components:
+ <code>a₀, a₁ ... aₙ</code>
+
+ and
+ <code>otherNames = b₀, b₁, ... bₙ</code>
+
+ return the path with components:
+
+ <code>a₀, a₁, ... aₙ, b₀, b₁, ... bₙ</code></div>
 </section>
 </li>
 <li>
@@ -752,21 +931,55 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="normalize(java.nio.file.Path)">
-<h3>normalize</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="element-name">normalize</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<section class="detail" id="unique(java.nio.file.Path)">
+<h3>unique</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="element-name">unique</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> Return an absolute
+ <strong>and</strong>
+  normalised path that represents the same path as
+ <code>path</code>
+ .
+ <p> Making a path absolute means that if it does not start with
+ <code>/</code>
+  then prepend the current directory.
+ <p> Normalizing a path means removing any redundant elements taking any
+ <code>.</code>
+  or
+ <code>..</code>
+  or repeated
+ <code>/</code>
+ <p> This path does not need to exist.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="getRealPath(java.nio.file.Path)">
 <h3>getRealPath</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</span>&nbsp;<span class="element-name">getRealPath</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> The "real" path that
+ <code>path</code>
+  represents, wrapped in an
+ <a href="../util/ImMaybe.html" title="class in dev.javafp.util"><code>ImMaybe</code></a>
+ or
+ <code>Nothing</code>
+  if the path does not exist</div>
 </section>
 </li>
 <li>
 <section class="detail" id="getParent(java.nio.file.Path)">
 <h3>getParent</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../util/Chat.html" title="class in dev.javafp.util">Chat</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&gt;</span>&nbsp;<span class="element-name">getParent</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block"><p> The parent of
+ <code>path</code>
+  wrapped in a
+ <a href="../util/Chat.html" title="class in dev.javafp.util"><code>Chat</code></a>
+ or
+ <code>Chat.Left</code>
+  if
+ <code>path</code>
+  is the root
+ <p> Note that
+ <code>path</code>
+  does not have to exist</div>
 </section>
 </li>
 <li>
@@ -774,13 +987,17 @@ loadScripts(document, 'script');</script>
 <h3>isAncestor</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isAncestor</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;possibleAncestor,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;pathToTest)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="isAncestor$(java.nio.file.Path,java.nio.file.Path)">
-<h3>isAncestor$</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isAncestor$</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;possibleAncestor,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;pathToTest)</span></div>
+<div class="block"><p> <code>true</code>
+  if
+ <code>possibleAncestor</code>
+  is an ancestor of
+ <code>pathToTest</code>
+ .
+
+ <pre><code>
+ isAncestor(p,p) == true
+ </code></pre>
+ <p> Neither path has to exist.</div>
 </section>
 </li>
 <li>
@@ -803,7 +1020,9 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;dest)</span></div>
 <div class="block"><p> Copy
  <code>src </code>
-  to `dest, recursively
+  to
+ <code>dest </code>
+  recursively
  <p> copy /a/b/c/src  x/y/z/dest
 
  <pre><code>
@@ -853,9 +1072,10 @@ loadScripts(document, 'script');</script>
 <h3>addSuffix</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="element-name">addSuffix</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;prefix,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;suffix)</span></div>
-<div class="block"><p> Let's think of paths as lists of strings
- <p> This function "adds" two paths together
- <p> plus(a/b, c/d/e) = a/b/c/d/e</div>
+<div class="block"><p> The path that is
+ <code>prefix</code>
+  followed by
+ <code>suffix</code></div>
 </section>
 </li>
 <li>
@@ -863,8 +1083,7 @@ loadScripts(document, 'script');</script>
 <h3>removePrefix</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a></span>&nbsp;<span class="element-name">removePrefix</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;prefixPlusSuffix,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;prefix)</span></div>
-<div class="block"><p> Let's think of paths as lists of strings
- <p> This function removes
+<div class="block"><p> The relative path obtained by removing
  <code>prefix </code>
   from
  <code>prefixPlusSuffix </code>
@@ -878,17 +1097,6 @@ loadScripts(document, 'script');</script>
   to
  <code>prefixPlusSuffix </code>
  <p> minus(plus(p,s), p) === s</div>
-</section>
-</li>
-<li>
-<section class="detail" id="newBufferedReader(java.nio.file.Path)">
-<h3>newBufferedReader</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/BufferedReader.html" title="class or interface in java.io" class="external-link">BufferedReader</a></span>&nbsp;<span class="element-name">newBufferedReader</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span>
-                                        throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
-<dl class="notes">
-<dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code></dd>
-</dl>
 </section>
 </li>
 <li>
@@ -912,6 +1120,20 @@ loadScripts(document, 'script');</script>
 <h3>trySocket</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">trySocket</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;host,
  int&nbsp;port)</span></div>
+<div class="block"><p> Try to open a
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/Socket.html" title="class or interface in java.net" class="external-link"><code>Socket</code></a>
+ on port
+ <code>port</code>
+  on host
+ <code>host</code>
+ and return
+ <code>true</code>
+  if it succeeded and
+ <code>false</code>
+  if a
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/ConnectException.html" title="class or interface in java.net" class="external-link"><code>ConnectException</code></a>
+ was thrown.
+ <p> The socket is closed if the connection succeeded.</div>
 </section>
 </li>
 </ul>
