@@ -21,6 +21,11 @@ import java.io.InputStreamReader;
 public class ReaderUtil
 {
     private static final int BUFFER_SIZE = 16_000;
+    
+    private ReaderUtil()
+    {
+
+    }
 
     public static String read(InputStream in)
     {

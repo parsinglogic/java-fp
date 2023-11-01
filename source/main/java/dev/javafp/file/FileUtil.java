@@ -16,8 +16,10 @@ import dev.javafp.func.Fn;
 import dev.javafp.lst.ImList;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.util.Chat;
+import dev.javafp.util.ClassUtils;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.Say;
+import dev.javafp.util.TextUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,12 +33,12 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import static dev.javafp.util.ClassUtils.shortClassName;
@@ -48,40 +50,60 @@ import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
 
 /**
- * <p> Some "file utilities"
+ * <p> Some file utilities.
+ *
  * <p> So the file system in Java is a very tricky place.
  * <p> Even in an o/s like Linux it is a tricky place
  * <p> full pathnames, relative pathnames, .., .,  case significance,  hard links, symbolic links, permissions, file-systems,
  * imaginary vs real paths, no proper transactions, how to report errors - oh my
- * <p> When we add to this the fact that Java doesn't know much about the file system it is being deployed on and the result is a large pile of poo
+ * <p> When we add to this the fact that Java doesn't know much about the file system it is being deployed on and the result is
+ * an API that is quite tricky.
  * <p> For example:
  *
  * <pre>{@code
  *  Path x = getPath(tempDir, "x");
  *  Path z = getPath(x, "y", "z");
  * }</pre>
- * <p> If we do the above (and x,y,z do not exist) then ask x for its children it finds y
- * <p> That is not what I would expect
+ *
+ * <p> If we do the above (and
+ * {@code x,y,z}
+ *  do not exist) then ask
+ * {@code y}
+ *  for its parent, it returns
+ * {@code x}
+ * That is not what I would (naively) expect.
+ * It is because
+ * {@code getParent}
+ *  operates on the path - and a path may well not
+ * <strong>actually exist</strong>
+ *  in the file system.
+ * <p> Sometimes we are supplying a path to a function to create the file. The path does not exist yet - but we still want to be able
+ * to ask questions about the hierarchy of the path.
+ *
+ * <p> There are a number of functions starting with
+ * {@code assert}
+ * .
+ * <p> These are intended to be used by code that wants to assert that certain things are true about the file system before it attempts a particular
+ * operation. They make it easier to do this without complicated boiler-plate code to write appropiated error messages.
+ * <p> The idea is that these functions make that assertion and then throw a
+ * {@link FileProblem}
+ * with a reasonable error message about what assertion failed and why.
+ *
+ * <p> Of course, it is possible that an assertion might succeed, but a few milliseconds later, the filesystem might change and the asssertion
+ * will now fail.
+ *
  *
  */
 public class FileUtil
 {
 
-    // On OS/X the max file name size is 255
-    public final static int MAX_FILE_NAME = 100;
-
-    private static String allowedChars = "a-zA-Z0-9,._:=+@-";
-    private static Pattern allowedCharsPattern = Pattern.compile("^[" + allowedChars + "]+$");
-
-    public static ExistsEnum Exists = ExistsEnum.Exists;
-    public static ExistsEnum Missing = ExistsEnum.Missing;
     private static List<PosixFilePermission> WRITES = Arrays.asList(OWNER_WRITE, GROUP_WRITE, OTHERS_WRITE);
     private static List<PosixFilePermission> READS = Arrays.asList(OWNER_READ, GROUP_READ, OTHERS_READ);
 
     /**
      * Used as an argument to various file utility functions
      */
-    public enum ExistsEnum
+    public enum FileExists
     {
         /**
          * Expect a file to exist
@@ -94,13 +116,10 @@ public class FileUtil
         Missing
     }
 
-    public static FileTypeEnum Directory = FileTypeEnum.Directory;
-    public static FileTypeEnum File = FileTypeEnum.File;
-
     /**
      * Used as an argument to various file utility functions
      */
-    public enum FileTypeEnum
+    public enum FileType
     {
         /**
          * Expect a file to be a directory
@@ -112,13 +131,10 @@ public class FileUtil
         File
     }
 
-    public static FileAccessEnum Readable = FileAccessEnum.Readable;
-    public static FileAccessEnum Writable = FileAccessEnum.Writable;
-
     /**
      * Used as an argument to various file utility functions
      */
-    public enum FileAccessEnum
+    public enum FileAccess
     {
         /**
          * Expect a file to be readable
@@ -130,38 +146,58 @@ public class FileUtil
         Writable
     }
 
-    public static Chat<Path> checkPathName(String pathName, ExistsEnum exists, FileAccessEnum fileAccess, FileTypeEnum fileType)
+    private FileUtil()
     {
-        return FileUtil
-                .checkPathNameIsReasonable(fileType, pathName)
-                .flatMap(name -> Chat.Right(FileUtil.getPath(name)))
-                .flatMap(path -> FileUtil.checkPath(path, exists, fileAccess, fileType));
+
     }
 
-    public static Chat<Path> checkPath(Path path, ExistsEnum exists, FileAccessEnum access, FileTypeEnum fileType)
+    /**
+     * <p> Check
+     * {@code path}
+     *  exists/does not exist, is readable/writable, is a directory/file.
+     * <p> If
+     * {@code exists == FileExists.Exists}
+     *  then if
+     * {@code path}
+     *  does not exist, do no further checks and return a
+     * {@code Chat.Left}
+     * .
+     * <p> Otherwise,  check that
+     * {@code path}
+     *  exists and that its file fileAccess matches
+     * {@code fileAccess}
+     *  and that its file type
+     * matches
+     * {@code fileType}
+     * <p> If any check fails, return a
+     * {@code Chat.Left}
+     *  that indicates the failure.
+     *
+     */
+    public static Chat<Path> checkPath(Path path, FileExists exists, FileAccess fileAccess, FileType fileType)
     {
         return checkExists(exists, path)
-                .flatMap(pth -> checkAccess(access, pth))
+                .flatMap(pth -> checkAccess(fileAccess, pth))
                 .flatMap(pth -> checkFileType(fileType, pth));
     }
 
-    private static Chat<Path> checkFileType(FileTypeEnum fileType, Path path)
+    private static Chat<Path> checkFileType(FileType fileType, Path path)
     {
-        return fileType == Directory
+        return fileType == FileType.Directory
                ? check(p -> !isADirectory(p), " is not a directory", path)
                : check(p -> isADirectory(p), " is not a file", path);
     }
 
-    private static Chat<Path> checkAccess(FileAccessEnum access, Path path)
+    private static Chat<Path> checkAccess(FileAccess access, Path path)
     {
-        return access == Readable
+        return access == FileAccess.Readable
                ? check(p -> !isReadable(p), " is not readable", path)
                : check(p -> !isWritable(p), " is not writable", path);
     }
 
-    private static Chat<Path> checkExists(ExistsEnum exists, Path path)
+    private static Chat<Path> checkExists(FileExists exists, Path path)
     {
-        return exists == Exists
+        return exists == FileExists.Exists
                ? check(p -> !exists(p), " does not exist", path)
                : check(p -> exists(p), " already exists", path);
 
@@ -175,24 +211,15 @@ public class FileUtil
     }
 
     /**
-     * <p> In Jadle, we have various config files that specify file names/dir names.
-     * <p> In order to keep ourselves sane, let's impose some restrictions on what can be allowed in filenames
+     * <p> Check that either
+     * {@code path}
+     *  exists, is a file and is writable or else that it does not exist.
+     * <p> If any of these checks fail then throw
+     * {@link FileProblem}
+     * which has a message that tries to be clear about what the path was and why it was thrown.
      *
+     * If the checks pass then do nothing.
      */
-    public static Chat<String> checkPathNameIsReasonable(FileTypeEnum fileType, String name)
-    {
-        // @formatter:off
-         return Chat.Right(name)
-                 .flatMap(n -> n == null ? Chat.Left(" is null") : Chat.Right(n))
-                 .flatMap(n -> n.isEmpty() ? Chat.Left(" can't be the empty string") : Chat.Right(n))
-                 .flatMap(n -> !allowedCharsPattern.matcher(n).matches() ? Chat.Left(" can only contain " + allowedChars) : Chat.Right(n))
-                 .flatMap(n -> fileType == FileTypeEnum.File && Eq.uals(n, ".") ? Chat.Left(" can't be .") : Chat.Right(n))
-                 .flatMap(n -> fileType == FileTypeEnum.File && Eq.uals(n, "..") ? Chat.Left(" can't be ..") : Chat.Right(n))
-                 .flatMap(n -> n.length() > MAX_FILE_NAME ? Chat.Left(" can't be longer than " + MAX_FILE_NAME + " characters") : Chat.Right(n));
-
-        // @formatter:on
-    }
-
     public static void assertFileIsAFileAndWritableOrDoesNotExist(Path path)
     {
         if (Files.exists(path))
@@ -203,59 +230,162 @@ public class FileUtil
         }
     }
 
+    /**
+     * <p> Check that either
+     * {@code path}
+     *  is a file.
+     * <p> If not then throw
+     * {@link FileProblem}
+     * which has a message that tries to be clear about what the path was and why it was thrown.
+     *
+     * <p> If
+     * {@code path}
+     *  is a file then do nothing.
+     *
+     *
+     */
     public static void assertIsAFile(Path path)
     {
         if (!isAFile(path))
             throw FileProblem.create(path, "to be a file as defined by 'Files.isRegularFile'");
     }
 
+    /**
+     * <p> Check that the parent of
+     * {@code path}
+     *  is a directory
+     * <p> If not then throw
+     * {@link FileProblem}
+     * which has a message that tries to be clear about what the path was and why it was thrown.
+     *
+     * <p> Otherwise, do nothing.
+     *
+     */
     public static void assertParentDirExists(Path path)
     {
-        if (!Files.exists(path.toAbsolutePath().normalize().getParent()))
+        if (!isADirectory(path.getParent()))
             throw FileProblem.create(path, "to have a parent dir that exists");
     }
 
-    public static void assertFileExists(Path path)
+    /**
+     * <p> Check that
+     * {@code path}
+     * exists
+     * <p> If not then throw
+     * {@link FileProblem}
+     * which has a message that tries to be clear about what the path was and why it was thrown.
+     *
+     * <p> Otherwise, do nothing.
+     *
+     */
+    public static void assertPathExists(Path path)
     {
         if (!exists(path))
             throw FileProblem.create(path, "to exist");
     }
 
+    /**
+     * <p>
+     * {@code true}
+     * if
+     * {@code path}
+     * exists,
+     * {@code false}
+     * otherwise
+     *
+     */
     public static boolean exists(Path path)
     {
         return Files.exists(path);
     }
 
-    public static void assertFileIsReadable(Path path)
+    /**
+     * <p> Assert that
+     * {@code path}
+     *  is readable in the filesystem.
+     * <p> Throw
+     * {@link FileProblem}
+     * if this is not the case.
+     *
+     */
+    public static void assertPathIsReadable(Path path)
     {
-        assertFileExists(path);
+        //        assertPathExists(path);
 
         if (!isReadable(path))
             throw FileProblem.create(path, "to be readable");
     }
 
+    /**
+     * <p> Assert that
+     * {@code path}
+     *  does not represent a directory in the filesystem.
+     * <p> Throw
+     * {@link FileProblem}
+     * if this is not the case.
+     *
+     */
     public static void assertFileIsNotADirectory(Path path)
     {
         if (isADirectory(path))
             throw FileProblem.create(path, "to not be a directory");
     }
 
+    /**
+     * <p> Assert that
+     * {@code path}
+     *  represents a directory in the filesystem.
+     * <p> Throw
+     * {@link FileProblem}
+     * if this is not the case.
+     *
+     */
     public static void assertFileIsADirectory(Path path)
     {
         if (!isADirectory(path))
             throw FileProblem.create(path, "to be a directory");
     }
 
+    /**
+     * <p> {@code true}
+     *  if
+     * {@code path}
+     *  represents a directory in the filesystem,
+     * {@code false}
+     *  otherwise.
+     *
+     */
     public static boolean isADirectory(Path path)
     {
         return Files.isDirectory(path.toAbsolutePath().normalize());
     }
 
+    /**
+     * <p> {@code true}
+     *  if
+     * {@code path}
+     * represents a file (rather than a directory or a special file like
+     * {@code /dev/tty}
+     * ) in the filesystem,
+     *
+     * {@code false}
+     *  otherwise.
+     *
+     */
     public static boolean isAFile(Path path)
     {
         return Files.isRegularFile(path.toAbsolutePath().normalize());
     }
 
+    /**
+     * <p> Assert that
+     * {@code path}
+     *  represents a directory in the filesystem, is writable and is empty.
+     * <p> Throw
+     * {@link FileProblem}
+     * if this is not the case.
+     *
+     */
     public static void assertFileIsWritableEmptyDirOrDoesNotExist(Path path)
     {
         if (Files.exists(path))
@@ -266,6 +396,15 @@ public class FileUtil
         }
     }
 
+    /**
+     * <p> {@code true}
+     *  if
+     * {@code path}
+     *  represents an empty directory in the filesystem,
+     * {@code false}
+     *  otherwise.
+     *
+     */
     private static void assertDirIsEmpty(Path path)
     {
         try
@@ -283,38 +422,53 @@ public class FileUtil
         //            throw FileProblem.create(path, "to be empty");
     }
 
+    /**
+     * <p> Assert that
+     * {@code path}
+     *  is writable in the filesystem.
+     * <p> Throw
+     * {@link FileProblem}
+     * if this is not the case.
+     *
+     */
     public static void assertFileIsWritable(Path path)
     {
         if (!isWritable(path))
             throw FileProblem.create(path, "to be writable");
     }
 
-    public static Chat<ImList<Path>> listChildren(Path path)
+    /**
+     * <p> A list of the children of
+     * {@code path}
+     * wrapped in a
+     * {@link Chat}
+     *
+     * <p> If
+     * {@code path}
+     *  does not exist a
+     * {@code Chat.Left}
+     *  is returned.
+     * <p> If
+     * {@code path}
+     *  exists, but is not a directory, then return the empty list.
+     *
+     */
+    public static Chat<ImList<Path>> getChildren(Path path)
     {
         try
         {
-            if (!isADirectory((path)))
+            if (!exists(path))
+                return Chat.LeftFormat(path, "does not exist");
+            else if (!isADirectory((path)))
                 return Chat.Right(ImList.on());
             else if (!isReadable(path))
-            {
-                return Chat.Left("" + path + " is not readable");
-            }
+                return Chat.LeftFormat(path, "is not readable");
             else
-            {
                 return Chat.Right(ImList.onIterator(Files.list(path).iterator()));
-            }
         } catch (IOException e)
         {
-            throw new UnexpectedChecked(e);
+            return Chat.Left(TextUtils.format(path, " - exception ", ClassUtils.shortClassName(e), ": ", e.getMessage()));
         }
-
-        //        File[] files = path.toFile().listFiles();
-        //
-        //        return isADirectory(path)
-        //               ? files == null
-        //                 ? Chat.Left("" + path + " is not readable")
-        //                 : Chat.Right(ImList.on(files).map(f -> f.toPath()))
-        //               : Chat.Right(ImList.on());
 
     }
 
@@ -346,9 +500,9 @@ public class FileUtil
         return pathList(path, false);
     }
 
-    public static ImList<Path> pathList(Path path, boolean force)
+    static ImList<Path> pathList(Path path, boolean force)
     {
-        Chat<ImList<Path>> chat = listChildren(path);
+        Chat<ImList<Path>> chat = getChildren(path);
 
         if (chat.isOk())
             return chat.right.flatMap(p -> pathList(p, force)).push(path);
@@ -380,7 +534,7 @@ public class FileUtil
         return deleteDirRecursively(pathToDelete, true);
     }
 
-    public static ImList<Path> deleteDirRecursively(Path pathToDelete, boolean force)
+    static ImList<Path> deleteDirRecursively(Path pathToDelete, boolean force)
     {
         if (!exists(pathToDelete))
             return ImList.on();
@@ -452,12 +606,14 @@ public class FileUtil
         }
     }
 
+    /**
+     * Create a temporary directory using
+     * {@link Files#createTempDirectory(String, FileAttribute[])}
+     *
+     * The directory is set to be readable and writable after it is created and a shutdown hook is added to the VM
+     * to delete it when the VM exists.
+     */
     public static Path createTempDir()
-    {
-        return createTempDir(null);
-    }
-
-    public static Path createTempDir(String prefix)
     {
         try
         {
@@ -477,12 +633,12 @@ public class FileUtil
     }
 
     /**
-     * <p> Create a temporary path in
+     * <p> Create a writable temporary empty file in
      * {@code parentPath }
-     *  that will be deleted on exit
+     * that will be deleted on exit
      *
      */
-    public static Path createTempPathUnder(Path parentPath)
+    public static Path createTempFileUnder(Path parentPath)
     {
         try
         {
@@ -496,33 +652,63 @@ public class FileUtil
         }
     }
 
-    public static Path createTempPath()
+    /**
+     * <p> Create a writable temporary empty file in a temporary dir
+     * that will be deleted on exit
+     *
+     */
+    public static Path createTempFile()
     {
-        return createTempPathUnder(createTempDir());
+        return createTempFileUnder(createTempDir());
     }
 
+    /**
+     * <p> For each pair -
+     * {@code (path, contents)}
+     *  in
+     * {@code pairs}
+     * create a file with path
+     * {@code path}
+     *  and contents
+     * {@code contents}
+     * .
+     *
+     *
+     * <p> Return a
+     * {@link Chat}
+     * that describes what happened.
+     */
     public static Chat<ImList<Path>> makeFiles(ImList<ImPair<Path, String>> pairs)
     {
         ImList<Chat<Path>> chats = pairs.map(p -> makeFile(p.fst, p.snd)).flush();
         return Chat.combine(chats);
     }
 
+    /**
+     * <p> Create a file with path
+     * {@code path}
+     *  and contents
+     * {@code contents}
+     *
+     * <p> Return a
+     * {@link Chat}
+     * that describes what happened.
+     *
+     */
     public static Chat<Path> makeFile(Path path, String contents)
     {
-        // @formatter:off
         return exists(path)
-                        ? isADirectory(path)
-                                ? Chat.Left("the name refers to an existing directory")
-                                : makeFile3(path, contents)
-                        : getParent(path)
-                                .flatMap(p -> FileUtil.createDir(p))
-                                .flatMap(p -> makeFile3(path, contents));
-         // @formatter:on
+               ? isADirectory(path)
+                 ? Chat.Left(path + " - the name refers to an existing directory")
+                 : makeFile3(path, contents)
+               : getParent(path)
+                       .flatMap(p -> FileUtil.createDir(p))
+                       .flatMap(p -> makeFile3(path, contents));
+
     }
 
     private static Chat<Path> makeFile3(Path path, String contents)
     {
-
         //
         //        try (FileOutputStream fos = new FileOutputStream(path.toFile());
         //                PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos, "UTF-8"))))
@@ -546,7 +732,6 @@ public class FileUtil
     {
         Runnable r = () ->
         {
-
             ImList<Path> failed = deleteDirRecursively(dir, true);
 
             if (!failed.isEmpty())
@@ -584,9 +769,10 @@ public class FileUtil
     }
 
     /**
-     * <p> {@code true }
-     *  if owner, group and other have read permissions
-     *
+     * <p>
+     * {@code true }
+     * if owner, group and other have read permissions,
+     * {@code false } otherwise
      */
     public static boolean isReadable(Path path)
     {
@@ -641,6 +827,17 @@ public class FileUtil
         }
     }
 
+    /**
+     * <p> Read all the lines of text from the file
+     * {@code path}
+     *  as a list of
+     * {@code Strings}
+     *  in the returned
+     *
+     * {@link Chat}
+     * There are many things that could go wrong - all these are reported in the
+     *  {@link Chat}
+     */
     public static Chat<ImList<String>> readLines(Path path)
     {
         //assertFileIsReadable(path);
@@ -670,11 +867,22 @@ public class FileUtil
         return shortClassName(e) + ": " + e.getMessage();
     }
 
+    /**
+     * Given a path with components:
+     * {@code a₀, a₁ ... aₙ}
+     *
+     * and
+     * {@code otherNames = b₀, b₁, ... bₙ}
+     *
+     * return the path with components:
+     *
+     * {@code a₀, a₁, ... aₙ, b₀, b₁, ... bₙ}
+     */
     public static Path getPath(Path parentDir, String... otherNames)
     {
         return otherNames.length == 0
                ? parentDir
-               : normalize(Paths.get(parentDir.toAbsolutePath().toString(), otherNames));
+               : unique(Paths.get(parentDir.toAbsolutePath().toString(), otherNames));
     }
 
     /**
@@ -685,14 +893,42 @@ public class FileUtil
      */
     public static Path resolve(Path parentDir, String otherPathAsString)
     {
-        return normalize(parentDir.resolve(otherPathAsString));
+        return unique(parentDir.resolve(otherPathAsString));
     }
 
-    public static Path normalize(Path path)
+    /**
+     * <p> Return an absolute
+     * <strong>and</strong>
+     *  normalised path that represents the same path as
+     * {@code path}
+     * .
+     * <p> Making a path absolute means that if it does not start with
+     * {@code /}
+     *  then prepend the current directory.
+     * <p> Normalizing a path means removing any redundant elements taking any
+     * {@code .}
+     *  or
+     * {@code ..}
+     *  or repeated
+     * {@code /}
+     * <p> This path does not need to exist.
+     *
+     *
+     */
+    public static Path unique(Path path)
     {
         return path.toAbsolutePath().normalize();
     }
 
+    /**
+     * <p> The "real" path that
+     * {@code path}
+     *  represents, wrapped in an
+     * {@link ImMaybe}
+     * or
+     * {@code Nothing}
+     *  if the path does not exist
+     */
     public static ImMaybe<Path> getRealPath(Path path)
     {
         try
@@ -704,21 +940,52 @@ public class FileUtil
         }
     }
 
+    /**
+     * <p> The parent of
+     * {@code path}
+     *  wrapped in a
+     * {@link Chat}
+     * or
+     * {@code Chat.Left}
+     *  if
+     * {@code path}
+     *  is the root
+     * <p> Note that
+     * {@code path}
+     *  does not have to exist
+     *
+     */
     public static Chat<Path> getParent(Path path)
     {
-        Path parent = normalize(path).getParent();
+        Path actual = unique(path);
+
+        Path parent = actual.getParent();
 
         return parent == null
                ? Chat.Left("the root directory does not have a parent")
                : Chat.Right(parent);
     }
 
+    /**
+     * <p> {@code true}
+     *  if
+     * {@code possibleAncestor}
+     *  is an ancestor of
+     * {@code pathToTest}
+     * .
+     *
+     * <pre>{@code
+     * isAncestor(p,p) == true
+     * }</pre>
+     * <p> Neither path has to exist.
+     *
+     */
     public static boolean isAncestor(Path possibleAncestor, Path pathToTest)
     {
-        return isAncestor$(normalize(possibleAncestor), normalize(pathToTest));
+        return isAncestor$(unique(possibleAncestor), unique(pathToTest));
     }
 
-    public static boolean isAncestor$(Path possibleAncestor, Path pathToTest)
+    static boolean isAncestor$(Path possibleAncestor, Path pathToTest)
     {
         if (Eq.uals(pathToTest, possibleAncestor))
         {
@@ -737,9 +1004,22 @@ public class FileUtil
      */
     public static Path cwd()
     {
-        return normalize(Paths.get("."));
+        return unique(Paths.get("."));
     }
 
+    /**
+     * <p> The
+     * {@link Path}
+     * represented by
+     * {@code name}
+     * <p> Throws
+     * {@link java.nio.file.InvalidPathException}
+     * if
+     * {@code name}
+     *  cannot be converted to a
+     * {@code Path}
+     *
+     */
     public static Path getPath(String name)
     {
         return Paths.get(name);
@@ -748,7 +1028,9 @@ public class FileUtil
     /**
      * <p> Copy
      * {@code src }
-     *  to `dest, recursively
+     *  to
+     * {@code dest }
+     *  recursively
      * <p> copy /a/b/c/src  x/y/z/dest
      *
      * <pre>{@code
@@ -846,7 +1128,7 @@ public class FileUtil
             //say(table("src", src, "target", target))
 
             // Let's check the file is readable
-            Chat<Path> pathChat = checkAccess(Readable, src);
+            Chat<Path> pathChat = checkAccess(FileAccess.Readable, src);
 
             // If the target parent doesn't exist
 
@@ -869,19 +1151,19 @@ public class FileUtil
     }
 
     /**
-     * <p> Let's think of paths as lists of strings
-     * <p> This function "adds" two paths together
-     * <p> plus(a/b, c/d/e) = a/b/c/d/e
+     * <p> The path that is
+     * {@code prefix}
+     *  followed by
+     * {@code suffix}
      *
      */
     public static Path addSuffix(Path prefix, Path suffix)
     {
-        return prefix.resolve(suffix);
+        return unique(prefix.resolve(suffix));
     }
 
     /**
-     * <p> Let's think of paths as lists of strings
-     * <p> This function removes
+     * <p> The relative path obtained by removing
      * {@code prefix }
      *  from
      * {@code prefixPlusSuffix }
@@ -902,7 +1184,7 @@ public class FileUtil
         return prefix.relativize(prefixPlusSuffix);
     }
 
-    public static BufferedReader newBufferedReader(Path path)
+    static BufferedReader newBufferedReader(Path path)
             throws IOException
     {
         Reader reader = new InputStreamReader(Files.newInputStream(path));
@@ -925,7 +1207,7 @@ public class FileUtil
     {
         Throw.Exception.ifLessThan("count", count, 0);
 
-        return checkPath(path, FileUtil.ExistsEnum.Exists, FileUtil.Readable, FileUtil.File)
+        return checkPath(path, FileExists.Exists, FileAccess.Readable, FileType.File)
                 .flatMap(p -> Chat.Right(ImList.on(readLines$(count, path))));
     }
 
@@ -960,6 +1242,23 @@ public class FileUtil
 
     }
 
+    /**
+     * <p> Try to open a
+     * {@link Socket}
+     * on port
+     * {@code port}
+     *  on host
+     * {@code host}
+     * and return
+     * {@code true}
+     *  if it succeeded and
+     * {@code false}
+     *  if a
+     * {@link ConnectException}
+     * was thrown.
+     * <p> The socket is closed if the connection succeeded.
+     *
+     */
     public static boolean trySocket(String host, int port)
     {
         try

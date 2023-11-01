@@ -13,6 +13,7 @@ import dev.javafp.tuple.ImPair;
 import dev.javafp.util.Chat;
 import dev.javafp.util.Say;
 import dev.javafp.util.TestUtils;
+import dev.javafp.util.TextUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,17 +22,16 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static dev.javafp.file.FileUtil.FileTypeEnum;
-import static dev.javafp.file.FileUtil.assertFileExists;
 import static dev.javafp.file.FileUtil.assertFileIsADirectory;
 import static dev.javafp.file.FileUtil.assertFileIsAFileAndWritableOrDoesNotExist;
 import static dev.javafp.file.FileUtil.assertFileIsNotADirectory;
-import static dev.javafp.file.FileUtil.assertFileIsReadable;
 import static dev.javafp.file.FileUtil.assertParentDirExists;
+import static dev.javafp.file.FileUtil.assertPathExists;
+import static dev.javafp.file.FileUtil.assertPathIsReadable;
 import static dev.javafp.file.FileUtil.copy;
 import static dev.javafp.file.FileUtil.createDir;
 import static dev.javafp.file.FileUtil.createTempDir;
-import static dev.javafp.file.FileUtil.createTempPath;
+import static dev.javafp.file.FileUtil.createTempFile;
 import static dev.javafp.file.FileUtil.cwd;
 import static dev.javafp.file.FileUtil.deleteDirRecursively;
 import static dev.javafp.file.FileUtil.deleteIfExists;
@@ -67,13 +67,12 @@ public class FileUtilTest
     private Path tempDir;
     private String contents;
     private Path devTty;
-    private FileTypeEnum fileType = FileTypeEnum.File;
 
     @Before
     public void before()
     {
         userDir = Paths.get(System.getProperty("user.dir"));
-        tempFile = createTempPath();
+        tempFile = createTempFile();
         contents = "stuff";
         makeFile(tempFile, contents);
 
@@ -90,12 +89,18 @@ public class FileUtilTest
 
         setReadable(tempDir, false);
 
-        Chat<ImList<Path>> lstChat = FileUtil.listChildren(tempDir);
+        Chat<ImList<Path>> lstChat = FileUtil.getChildren(tempDir);
 
         assertEquals(false, lstChat.isOk());
         assertEquals(tempDir.toString() + " is not readable", lstChat.getChatString());
 
         setReadable(tempDir, true);
+
+        Chat<ImList<Path>> lstChat2 = FileUtil.getChildren(getPath(tempDir, "hkjgkhgkh"));
+
+        assertEquals(false, lstChat2.isOk());
+        assertEquals(tempDir.toString() + "/hkjgkhgkh does not exist", lstChat2.getChatString());
+
     }
 
     @Test
@@ -290,10 +295,10 @@ public class FileUtilTest
     @Test
     public void testListChildrenOnUrbanSpaceman()
     {
-        Chat<ImList<Path>> lstChat = FileUtil.listChildren(nonExistent);
+        Chat<ImList<Path>> lstChat = FileUtil.getChildren(nonExistent);
 
-        assertEquals(true, lstChat.isOk());
-        assertEquals(ImList.on(), lstChat.right);
+        assertEquals(false, lstChat.isOk());
+        assertEquals("/i/don/t/exist does not exist", lstChat.getChatString());
     }
 
     @Test
@@ -311,19 +316,24 @@ public class FileUtilTest
     {
         assertParentDirExists(userDir);
         assertThrows(() -> assertParentDirExists(Paths.get(tempDir.toString(), "foo", "bar")), FileProblem.class);
+
+        // Make a "parent" that is not  a dir
+        FileUtil.makeFile(getPath(tempDir, "foo"), "foo");
+
+        assertThrows(() -> assertParentDirExists(Paths.get(tempDir.toString(), "foo", "bar")), FileProblem.class);
     }
 
     @Test
     public void testAssertFileExists()
     {
-        assertFileExists(tempFile);
-        assertThrows(() -> assertFileExists(nonExistent), FileProblem.class);
+        assertPathExists(tempFile);
+        assertThrows(() -> assertPathExists(nonExistent), FileProblem.class);
     }
 
     @Test
     public void testAssertFileIsReadable()
     {
-        assertFileIsReadable(tempFile);
+        assertPathIsReadable(tempFile);
     }
 
     @Test
@@ -355,7 +365,7 @@ public class FileUtilTest
     public void testDeleteIfExists()
     {
         deleteIfExists(tempFile, false);
-        assertThrows(() -> assertFileExists(tempFile), FileProblem.class);
+        assertThrows(() -> assertPathExists(tempFile), FileProblem.class);
     }
 
     @Test
@@ -413,7 +423,7 @@ public class FileUtilTest
     @Test
     public void testMakeFileFailsOnDir()
     {
-        assertEquals(ImList.on("the name refers to an existing directory"),
+        assertEquals(ImList.on("/ - the name refers to an existing directory"),
                 makeFile(Paths.get("/"), contents).left);
     }
 
@@ -454,6 +464,19 @@ public class FileUtilTest
 
         testIsAncestor(tempDir, z);
         testIsAncestor(x, z);
+
+    }
+
+    @Test
+    public void testFunny()
+    {
+
+        Path x = getPath(tempDir, "x");
+        Path z = getPath(x, "y", "z");
+
+        assertFalse(FileUtil.exists(x));
+
+        assertTrue(FileUtil.isAncestor(x, z));
 
     }
 
@@ -538,7 +561,7 @@ public class FileUtilTest
          *
          */
 
-        //        say("testCopyShape", tree);
+        say("testCopyShape", tree);
         Path topLevel = getPath(tempDir, "testCopy");
         FileUtil.deleteDirRecursively(topLevel);
 
@@ -566,8 +589,8 @@ public class FileUtilTest
         String srcPaths = relativePathList(src).toString("\n");
         String targetPaths = relativePathList(target).toString("\n");
 
-        //        say(srcPaths);
-        //        say(targetPaths);
+        say("srcPaths", srcPaths);
+        say("targetPaths", targetPaths);
 
         assertEquals(srcPaths, targetPaths);
 
@@ -609,7 +632,7 @@ public class FileUtilTest
     }
 
     @Test
-    public void testMakeFileFailsWithSurrogateChars()
+    public void testMakeFileWithSurrogateChars()
     {
         String newContents = "\uD800";
         assertTrue(makeFile(tempFile, newContents).isOk());
@@ -645,10 +668,35 @@ public class FileUtilTest
     @Test
     public void testMakeFileFailsWhenFileReadOnly()
     {
-        Path readOnlyFile = createTempPath();
+        Path readOnlyFile = createTempFile();
         FileUtil.setWritable(readOnlyFile, false);
         Chat<Path> result = makeFile(readOnlyFile, contents);
         assertEquals(ImList.on("the file permissions do not allow it to be written"), result.left);
+    }
+
+    @Test
+    public void testMakeFiles()
+    {
+        Path root = createTempDir();
+
+        FileUtil.setWritable(root, true);
+
+        Path dir = getPath(root, "readOnly");
+        FileUtil.createDir(dir);
+
+        Path ok = getPath(root, "ok");
+
+        // Set up the paths
+        ImList<Path> paths = ImList.on(dir, ok, Path.of("/dev/tty"));
+
+        // The content
+        ImList<String> content = ImList.repeat("foo");
+
+        // Zip together and make files
+        Chat<ImList<Path>> chat = FileUtil.makeFiles(paths.zip(content));
+
+        say(chat);
+
     }
 
     @Test
@@ -677,13 +725,12 @@ public class FileUtilTest
     public void testGetRealPathOnDotParent()
     {
         say(getRealPath(Paths.get(".")).get().getParent());
-
     }
 
     @Test
     public void testOpenUnreadableFile()
     {
-        Path p = createTempPath();
+        Path p = createTempFile();
         setReadable(p, false);
         assertEquals(ImList.on("the file permissions do not allow it to be read"), readLines(p).left);
     }
@@ -699,13 +746,6 @@ public class FileUtilTest
     {
         assertEquals(ImList.on("it is a directory - not a file"), readLines(tempDir).left);
     }
-
-    //    @Test
-    //    public void testOpenTty()
-    //    {
-    //        assertEquals(ImList.on("the file could not be read - the error was: FileSystemException: /dev/tty: Device not configured"),
-    //                     readLines(Paths.get("/dev/tty")).left);
-    //    }
 
     @Test
     public void testSetReadable()
@@ -775,12 +815,13 @@ public class FileUtilTest
 
         /**
          *
-         * So there are a few Unicode code points thaat are not valid as file names
+         * So there are a few Unicode code points that are not valid as file names
          * 0 is the easiest one to understand
          *
          * The other ones that I have found that cause Paths.get to throw are actually invalid Unicode characters
          *
-         * Basic multilingual plane
+         * Basic multilingual plane is the set of characters in the range:
+         *
          * 0 - 2^16 -1
          * 0 - 65535
          * 0 - ffff
@@ -802,7 +843,7 @@ public class FileUtilTest
          *
          */
 
-        //                                  0  d800   d868   d8ff
+        //                                        0  d800   d868   d8ff
         ImList<Integer> badCodePoints = ImList.on(0, 55296, 55400, 55551);
         //ImList<String> chars = ImRange.inclusive(64000, 128000).map(i -> Character.valueOf((char) i.shortValue()).toString());
 
@@ -835,11 +876,66 @@ public class FileUtilTest
         assertTrue(dir.isOk());
 
         System.out.println(dir);
-        System.out.println(FileUtil.normalize(path));
+        System.out.println(FileUtil.unique(path));
 
-        FileUtil.assertFileExists(path);
+        FileUtil.assertPathExists(path);
 
         assertTrue(FileUtil.exists(path));
+    }
+
+    @Test
+    public void testUnique()
+    {
+        // Basic creation allows a path to be specified with arbitrary parts of the path
+        Path path = Paths.get("/a", "/b/" + "c/d");
+
+        assertEquals("/a/b/c/d", path.toString());
+
+        // Get the current working dir so we can assert some stuff
+        Path cwd = cwd();
+        say(cwd);
+
+        // A relative path
+        String rel = "a/b/c/d";
+        Path path4 = Paths.get(rel);
+
+        // The unique path should have added the relative path to cwd
+        Path path4AbsNorm = FileUtil.unique(path4);
+        assertEquals(cwd.getNameCount() + path4.getNameCount(), path4AbsNorm.getNameCount());
+
+        // and it should look like this
+        assertEquals(FileUtil.getPath(cwd, rel), path4AbsNorm);
+        assertEquals(cwd.toAbsolutePath() + "/" + rel, path4AbsNorm.toString());
+
+        // normalising should remove all the duplication and relative stuff
+        Path path2 = Paths.get("////a/../a//b/./c/d/..//////..");
+        say(FileUtil.unique(path2));
+
+        assertEquals(FileUtil.getPath("/a/b"), FileUtil.unique(path2));
+    }
+
+    @Test
+    public void testPathsGet()
+    {
+        //        Path path1 = Paths.get("...");
+        //        Path unique = FileUtil.unique(path1);
+        //        say("unique", unique);
+        //        say(FileUtil.makeFile(unique, ""));
+
+        String tooLong = TextUtils.join(ImList.repeat("0123456789", 30), "");
+
+        Path tooLongPath = Paths.get(tooLong);
+
+        say(tooLongPath);
+
+        TestUtils.assertThrows(() -> Paths.get(String.valueOf(Character.valueOf((char) 0))), InvalidPathException.class);
+
+        Path p = Paths.get("");
+
+        say("p", p);
+
+        say(FileUtil.makeFile(p, ""));
+
     }
 
     @Test
@@ -847,59 +943,8 @@ public class FileUtilTest
     {
         Path path = Paths.get("/");
 
-        assertEquals("the name refers to an existing directory", makeFile(path, "").left.head());
+        assertEquals("/ - the name refers to an existing directory", makeFile(path, "").left.head());
 
-    }
-
-    @Test
-    public void testCheckFilenameIsReasonableRejectsBadNames()
-    {
-        String longName = repeat("a", FileUtil.MAX_FILE_NAME + 1);
-        ImList<String> badNames = ImList.on(".", "..", "/", "\n", "\u3456", "\r", "", " ", longName);
-        ImList<Chat<String>> wrong = badNames.map(n -> FileUtil.checkPathNameIsReasonable(fileType, n)).filter(c -> c.isOk());
-
-        TestUtils.assertSetsEqual("", ImList.on(), wrong);
-    }
-
-    @Test
-    public void testCFIROnEmptyString()
-    {
-        assertEquals(" can't be the empty string", FileUtil.checkPathNameIsReasonable(fileType, "").left.head());
-    }
-
-    @Test
-    public void testCFIROnDot()
-    {
-        assertEquals(" can't be .", FileUtil.checkPathNameIsReasonable(fileType, ".").left.head());
-    }
-
-    @Test
-    public void testCFIROnDotDot()
-    {
-        assertEquals(" can't be ..", FileUtil.checkPathNameIsReasonable(fileType, "..").left.head());
-    }
-
-    @Test
-    public void testCFIROnSlash()
-    {
-        assertEquals(" can only contain a-zA-Z0-9,._:=+@-", FileUtil.checkPathNameIsReasonable(fileType, "/").left.head());
-    }
-
-    @Test
-    public void testCFIROnLongName()
-    {
-        String longName = repeat("a", FileUtil.MAX_FILE_NAME + 1);
-        assertEquals(" can't be longer than 100 characters", FileUtil.checkPathNameIsReasonable(fileType, longName).left.head());
-    }
-
-    @Test
-    public void testCheckFilenameIsReasonableAcceptsGoodNames()
-    {
-        String longName = repeat("a", FileUtil.MAX_FILE_NAME);
-        ImList<String> badNames = ImList.on(".a", ".b.", "c", "abcDEF123456789", ",._:=+@-", "...", longName);
-        ImList<Chat<String>> right = badNames.map(n -> FileUtil.checkPathNameIsReasonable(fileType, n)).filter(c -> !c.isOk());
-
-        TestUtils.assertSetsEqual("", ImList.on(), right);
     }
 
     private int getMinusOneOrCodePointIfError(String s)
@@ -960,7 +1005,7 @@ public class FileUtilTest
     public void testReadLinesFromOkFile()
     {
 
-        Path temp = createTempPath();
+        Path temp = createTempFile();
         contents = "line one\nline two";
         makeFile(temp, contents);
 
@@ -977,7 +1022,7 @@ public class FileUtilTest
     @Test
     public void testReadLinesFromOkFileWithNl()
     {
-        Path temp = createTempPath();
+        Path temp = createTempFile();
         contents = "line one\nline two\n";
         makeFile(temp, contents);
 
@@ -994,7 +1039,7 @@ public class FileUtilTest
     @Test
     public void testReadLinesFromEmptyFile()
     {
-        Path temp = createTempPath();
+        Path temp = createTempFile();
         contents = "";
         makeFile(temp, contents);
 

@@ -41,7 +41,7 @@ public class FileProblem extends ImException
     /**
      * <p> Information about
      * {@code path}
-     * <p> that can be used in error messages. For example this:
+     * that can be used in error messages. For example this:
      *
      * <pre>{@code
      * FileProblem.getInfo("/abc")

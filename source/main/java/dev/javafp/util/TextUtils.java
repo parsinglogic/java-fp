@@ -395,4 +395,9 @@ public class TextUtils
             return null;
     }
 
+    public static String format(Object... xs)
+    {
+        return join(xs, " ");
+    }
+
 }

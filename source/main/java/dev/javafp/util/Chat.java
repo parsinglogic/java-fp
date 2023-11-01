@@ -16,11 +16,35 @@ import dev.javafp.lst.ImList;
 import dev.javafp.val.ImValuesImpl;
 
 /**
- * <p> A class that represents the result of parsing/reading some object from some file/files/whatever
- * <p> There is some chat that we want to give the user and if we get lucky there might be the object as well.
- * <p> If the parse of the object succeeded then the chat will be about that - otherwise the chat will be about
+ *
+ * <p> A class to help us simplfy handling several side-effectful sequential operations and keep track of the success or failure states of each operation.
+ * <p> These are typically side-effectful operations that we can't easily undo so we can't spot that an error occurred
+ * on the nth object and then simply undo all the previous n-1 results. Instead we have to report on all the failures and successes.
+ * <p> When a Chat contains an error - the text is designed to be read by users.
+ * <p> Sometimes/often a function will depend upon the success of a previously called function. For example, the creation of a file given a path
+ * where not all of the path components already exist - as in
+ * {@code mkdir -p}
+ *  - will depend on
+ * being able to create each parent directory successfully.
+ * <p> Chat is a Monad so we can use
+ * {@code flatmap}
+ *  repeatedly to simplify this.
+ * <p> There is some
+ * <strong>chat</strong>
+ *  that we want to give the user and if we get lucky there might be a result object as well.
+ * operations succeeded then the chat could be empty - otherwise the chat will be about
  * why it failed.
- * <p> I think this is a writer monad and ImEither. Hmm
+ * <p> So, if we try to do something involving, for example, several filenames then some operations could succeed and some could fail.
+ * <p> For example in FileUtil:
+ *
+ * <pre>{@code
+ * public static Chat<ImList<Path>> makeFiles(ImList<ImPair<Path, String>> pairs)
+ * {
+ *     ImList<Chat<Path>> chats = pairs.map(p -> makeFile(p.fst, p.snd)).flush();
+ *     return Chat.combine(chats);
+ * }
+ * }</pre>
+ * <p> I think this is a writer monad and an Either. Hmm
  *
  */
 public class Chat<T> extends ImValuesImpl
@@ -68,9 +92,14 @@ public class Chat<T> extends ImValuesImpl
         return Left(ImList.on(chatLine));
     }
 
-    public static <T> Chat<T> Left(ImList<String> chatLines)
+    public static Chat Left(ImList<String> chatLines)
     {
         return new Chat<>(chatLines);
+    }
+
+    public static Chat LeftFormat(Object... xs)
+    {
+        return Left(TextUtils.format(xs));
     }
 
     public static <T> Chat<T> Left(ImList<String> chatLines, T thing)
