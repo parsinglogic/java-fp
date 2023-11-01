@@ -20,7 +20,6 @@ public class LeafTextBoxTest
         assertEquals("  ", leafTextBox.getLine(4));
     }
 
-
     @Test
     public void testAddEmptyLeafBox()
     {
@@ -31,7 +30,6 @@ public class LeafTextBoxTest
         assertEquals(2, LeafTextBox.with(" ").above(emptyString).height);
         assertEquals(2, LeafTextBox.with("a\nb\n").height);
     }
-
 
     @Test
     public void testFourLinesWithTabsUsingWith()
@@ -76,7 +74,7 @@ public class LeafTextBoxTest
         LeafTextBox leafTextBox = LeafTextBox.with("");
 
         assertEquals("", leafTextBox.getLine(1));
-        assertEquals(0, leafTextBox.getWidth());
+        assertEquals(0, leafTextBox.width);
     }
 
     @Test

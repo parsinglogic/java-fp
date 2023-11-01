@@ -36,8 +36,8 @@ public class TopDownBox extends AbstractTextBox
         for (Object t : things)
         {
             AbstractTextBox b = TextUtils.getBoxFrom(t);
-            w = Math.max(w, b.getWidth());
-            h = h + b.getHeight();
+            w = Math.max(w, b.width);
+            h = h + b.height;
             boxes.add(b);
         }
 
@@ -57,8 +57,8 @@ public class TopDownBox extends AbstractTextBox
 
         for (AbstractTextBox b : things)
         {
-            w = Math.max(w, b.getWidth());
-            h = h + b.getHeight();
+            w = Math.max(w, b.width);
+            h = h + b.height;
             boxes.add(b);
         }
 
@@ -72,22 +72,22 @@ public class TopDownBox extends AbstractTextBox
     }
 
     @Override
-    public String getLine(int index)
+    public String getLine(int n)
     {
-        if (index > getHeight())
+        if (n > height)
         {
-            return TextUtils.repeat(" ", getWidth());
+            return TextUtils.repeatString(" ", width);
         }
 
         int count = 0;
         for (AbstractTextBox b : boxes)
         {
-            for (int i = 1; i <= b.getHeight(); i++)
+            for (int i = 1; i <= b.height; i++)
             {
                 count++;
-                if (count == index)
+                if (count == n)
                 {
-                    return TextUtils.padToWidth(b.getLine(i), getWidth());
+                    return TextUtils.padToWidth(b.getLine(i), width);
                 }
             }
         }

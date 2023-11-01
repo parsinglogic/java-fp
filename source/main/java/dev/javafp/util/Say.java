@@ -357,7 +357,7 @@ public class Say
 
     public static void printNewLines(int count)
     {
-        printf(TextUtils.repeat("%n", count));
+        printf(TextUtils.repeatString("%n", count));
     }
 
     public static void setStart(long st)
@@ -491,7 +491,7 @@ public class Say
 
     private static Integer getWidth(ImList<AbstractTextBox> c)
     {
-        return Util.maxInt(c.map(i -> i.getWidth()));
+        return Util.maxInt(c.map(i -> i.width));
     }
 
     private static ImList<AbstractTextBox> getBoxes(ImList<?> col)

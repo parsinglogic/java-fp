@@ -617,13 +617,13 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
          * 4 5
          *
          */
-        int rawWidth = childBoxes.getWidth();
+        int rawWidth = childBoxes.width;
 
         ImRoseTree<A> lastChild = getSubTrees().at(getSubTrees().size());
 
-        int reducedWidth = rawWidth - (boxes.getLast().getWidth() - ("" + lastChild.element).length());
+        int reducedWidth = rawWidth - (boxes.getLast().width - ("" + lastChild.element).length());
 
-        final AbstractTextBox dots = LeafTextBox.with(TextUtils.repeat(".", reducedWidth));
+        final AbstractTextBox dots = LeafTextBox.with(TextUtils.repeatString(".", reducedWidth));
 
         return TopDownBox.with(myTopBox, dots, childBoxes);
     }

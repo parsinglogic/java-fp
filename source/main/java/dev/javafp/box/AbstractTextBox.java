@@ -14,21 +14,54 @@ import java.io.Serializable;
 
 /**
  * <p> The top level class for text-boxes.
+ *
+ * <p> The classes in the
+ * {@code box}
+ *  package allow you to easily output text that is formatted in some way.
+ * <p> We assume a fixed width font.
+ * <p> The basic element is the box - which is a rectangular grid of characters that can be manipulated as a unit.
+ * <p> We can create a some boxes and then stack them side by side - horizontally - or we could stack them vertically.
+ * <p> Having done that we can regard the resulting stack of boxes as a box itself and then stack that box with other boxes - and so on.
+ * <p> To actually write out a text box, we convert it to a String and then write that String.
+ *
+ * <p> <img src="{@docRoot}/dev/doc-files/textbox-hierarchy.png"  width=400/>
+ *
+ * <p> All of the classes that extend
+ * {@link dev.javafp.val.ImValuesImpl}
+ * will have a function called
+ * {@code getTextBox}
+ * which will generate a text representation of the object as a text box
+ * <p> Then the default
+ * {@code toString}
+ * method will use this method
+ * and convert the resulting text box to a
+ * {@code String}
+ *
  */
 public abstract class AbstractTextBox implements Serializable
 {
     public static final LeafTextBox empty = LeafTextBox.with("");
 
+    /**
+     * The width of the box in characters
+     */
     public final int width;
+
+    /**
+     * The height of the box in lines
+     */
     public final int height;
 
-    public AbstractTextBox(int width, int height)
+    AbstractTextBox(int width, int height)
     {
         this.width = width;
         this.height = height;
     }
 
-    public abstract String getLine(int count);
+    /**
+     * The line of text at line number `n` where `n ∈ [1, height]`
+     */
+    public abstract String getLine(int n);
 
     /**
      * A String representation of this object
@@ -36,29 +69,18 @@ public abstract class AbstractTextBox implements Serializable
     @Override
     public String toString()
     {
-
-        if (getHeight() == 1)
+        if (height == 1)
             return TextUtils.trimRight(getLine(1));
         else
         {
             StringBuilder sb = new StringBuilder();
-            for (int i = 1; i <= getHeight(); i++)
+            for (int i = 1; i <= height; i++)
             {
                 sb.append(TextUtils.trimRight(getLine(i)));
                 sb.append("\n");
             }
             return sb.toString();
         }
-    }
-
-    public int getWidth()
-    {
-        return width;
-    }
-
-    public int getHeight()
-    {
-        return height;
     }
 
     public AbstractTextBox indentBy(int spaces)
@@ -92,10 +114,10 @@ public abstract class AbstractTextBox implements Serializable
 
         LeafTextBox space = LeafTextBox.with(" ");
 
-        TopDownBox side = TopDownBox.withAll(ImList.repeat(vert, this.getHeight()));
+        TopDownBox side = TopDownBox.withAll(ImList.repeat(vert, height));
         LeftRightBox b = LeftRightBox.with(side, space, this, space, side);
 
-        String line = "─".repeat(this.getWidth() + 2);
+        String line = "─".repeat(width + 2);
         LeafTextBox top = LeafTextBox.with("┌" + line + "┐");
 
         LeafTextBox bottom = LeafTextBox.with("└" + line + "┘");

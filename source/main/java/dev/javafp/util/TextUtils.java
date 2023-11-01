@@ -37,7 +37,7 @@ public class TextUtils
 
     private static final String DQ = "\"";
 
-    public static String repeat(String stringToRepeat, int repeatCount)
+    public static String repeatString(String stringToRepeat, int repeatCount)
     {
         StringBuilder sb = new StringBuilder();
         for (int j = 0; j < repeatCount; j++)
@@ -86,7 +86,7 @@ public class TextUtils
         return gap == 0
                 ? stringToPad
                 : gap > 0
-                    ? stringToPad + repeat(" ", gap)
+                    ? stringToPad + repeatString(" ", gap)
                     : stringToPad.substring(0, width);
         // @formatter:on
     }
@@ -94,7 +94,7 @@ public class TextUtils
     public static String centreInWidth(String text, int widthToCentreIn)
     {
         int lead = Math.max(0, (widthToCentreIn - text.length()) / 2);
-        return padToWidth(TextUtils.repeat(" ", lead) + text, widthToCentreIn);
+        return padToWidth(TextUtils.repeatString(" ", lead) + text, widthToCentreIn);
     }
 
     public static String abbreviate(String s, int width)

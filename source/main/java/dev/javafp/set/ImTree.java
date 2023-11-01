@@ -570,8 +570,8 @@ public class ImTree<A> implements Serializable, Iterable<A>
         final AbstractTextBox leftChildBox = toBox(tree.getLeft());
         final AbstractTextBox rightChildBox = toBox(tree.getRight());
 
-        final int leftWidth = leftChildBox.getWidth();
-        final int rightWidth = rightChildBox.getWidth();
+        final int leftWidth = leftChildBox.width;
+        final int rightWidth = rightChildBox.width;
 
         /**
          *     +--------+
@@ -586,8 +586,8 @@ public class ImTree<A> implements Serializable, Iterable<A>
         final LeafTextBox gap = LeafTextBox.centred("", width - (leftWidth + rightWidth));
         final LeftRightBox children = LeftRightBox.with(leftChildBox, gap, rightChildBox);
 
-        final String dots = TextUtils.repeat(".", (leftWidth + 1) / 2 + gap.getWidth() + (rightWidth + 1) / 2);
-        final String spaceAndDots = TextUtils.repeat(" ", leftWidth / 2) + dots;
+        final String dots = TextUtils.repeatString(".", (leftWidth + 1) / 2 + gap.width + (rightWidth + 1) / 2);
+        final String spaceAndDots = TextUtils.repeatString(" ", leftWidth / 2) + dots;
 
         return TopDownBox.with(LeafTextBox.centred(myText, width), LeafTextBox.with(spaceAndDots), children);
     }

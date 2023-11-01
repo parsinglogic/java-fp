@@ -29,8 +29,8 @@ public class LeftRightBoxTest
         LeafTextBox b3 = LeafTextBox.with(2, 2, "  \nCD");
 
         LeftRightBox lr = LeftRightBox.with(b1, b2, b3);
-        assertEquals(4, lr.getWidth());
-        assertEquals(3, lr.getHeight());
+        assertEquals(4, lr.width);
+        assertEquals(3, lr.height);
 
         assertEquals(" X  ", lr.getLine(1));
         assertEquals("ABCD", lr.getLine(2));

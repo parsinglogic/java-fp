@@ -31,8 +31,8 @@ public class TopDownBoxTest
 
         TopDownBox td = TopDownBox.with(b1, b2, b3, b4);
 
-        assertEquals(5, td.getWidth());
-        assertEquals(4, td.getHeight());
+        assertEquals(5, td.width);
+        assertEquals(4, td.height);
 
         assertEquals("A  B ", td.getLine(1));
         assertEquals("C    ", td.getLine(2));

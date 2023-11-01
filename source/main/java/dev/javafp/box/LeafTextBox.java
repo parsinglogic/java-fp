@@ -59,15 +59,15 @@ public class LeafTextBox extends AbstractTextBox
     }
 
     @Override
-    public String getLine(int index)
+    public String getLine(int n)
     {
-        if (index > lines.size())
-            return TextUtils.repeat(" ", width);
+        if (n > lines.size())
+            return TextUtils.repeatString(" ", width);
         else
         {
-            String line = lines.at(index);
+            String line = lines.at(n);
             if (line.length() < width)
-                return line + TextUtils.repeat(" ", width - line.length());
+                return line + TextUtils.repeatString(" ", width - line.length());
             else
                 return line.substring(0, width);
         }
@@ -77,14 +77,14 @@ public class LeafTextBox extends AbstractTextBox
     {
         String t = detab(text);
         int lead = Math.max(0, (widthToCentreIn - t.length()) / 2);
-        return new LeafTextBox(widthToCentreIn, 1, TextUtils.repeat(" ", lead) + t);
+        return new LeafTextBox(widthToCentreIn, 1, TextUtils.repeatString(" ", lead) + t);
     }
 
     public static LeafTextBox righted(String text, int width)
     {
         ImPair<Integer, String[]> p = splitIntoLinesAndDetab(text);
         int leadCount = Math.max(0, width - p.fst);
-        p.snd[0] = TextUtils.repeat(" ", leadCount) + p.snd[0];
+        p.snd[0] = TextUtils.repeatString(" ", leadCount) + p.snd[0];
 
         return new LeafTextBox(p.fst + leadCount, p.snd.length, p.snd);
     }
@@ -97,7 +97,7 @@ public class LeafTextBox extends AbstractTextBox
     public static LeafTextBox withMargin(String text, int marginSize)
     {
         ImPair<Integer, String[]> p = splitIntoLinesAndDetab(text);
-        p.snd[0] = TextUtils.repeat(" ", marginSize) + p.snd[0];
+        p.snd[0] = TextUtils.repeatString(" ", marginSize) + p.snd[0];
 
         return new LeafTextBox(p.fst + marginSize * 2, p.snd.length, p.snd);
     }
@@ -105,7 +105,7 @@ public class LeafTextBox extends AbstractTextBox
     public static LeafTextBox withMargins(String text, int leftMargin, int width)
     {
         ImPair<Integer, String[]> p = splitIntoLinesAndDetab(text);
-        p.snd[0] = TextUtils.repeat(" ", leftMargin) + p.snd[0];
+        p.snd[0] = TextUtils.repeatString(" ", leftMargin) + p.snd[0];
 
         return new LeafTextBox(Math.max(width, leftMargin + p.fst), p.snd.length, p.snd);
     }

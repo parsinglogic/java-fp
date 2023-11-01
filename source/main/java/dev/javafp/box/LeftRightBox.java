@@ -35,8 +35,8 @@ public class LeftRightBox extends AbstractTextBox
         for (Object t : things)
         {
             AbstractTextBox b = TextUtils.getBoxFrom(t);
-            h = Math.max(h, b.getHeight());
-            w = w + b.getWidth();
+            h = Math.max(h, b.height);
+            w = w + b.width;
             boxes.add(b);
         }
         return new LeftRightBox(w, h, ImList.on(boxes));
@@ -50,8 +50,8 @@ public class LeftRightBox extends AbstractTextBox
 
         for (AbstractTextBox b : things)
         {
-            h = Math.max(h, b.getHeight());
-            w = w + b.getWidth();
+            h = Math.max(h, b.height);
+            w = w + b.width;
             boxes.add(b);
         }
 
@@ -65,19 +65,19 @@ public class LeftRightBox extends AbstractTextBox
     }
 
     @Override
-    public String getLine(int index)
+    public String getLine(int n)
     {
         StringBuilder sb = new StringBuilder();
         for (AbstractTextBox b : boxes)
         {
-            sb.append(b.getLine(index));
+            sb.append(b.getLine(n));
         }
         return sb.toString();
     }
 
     public static LeftRightBox indent(int indent, AbstractTextBox box)
     {
-        return LeftRightBox.with(LeafTextBox.with(TextUtils.repeat(" ", indent)), box);
+        return LeftRightBox.with(LeafTextBox.with(TextUtils.repeatString(" ", indent)), box);
     }
 
     public static LeftRightBox indent(int indent, Object thing)
@@ -87,7 +87,7 @@ public class LeftRightBox extends AbstractTextBox
 
     public static LeftRightBox withMargins(int leftMargin, int width, AbstractTextBox box)
     {
-        return LeftRightBox.with(LeafTextBox.with(leftMargin, 1, ""), box, LeafTextBox.with(width - box.getWidth(), 1, ""));
+        return LeftRightBox.with(LeafTextBox.with(leftMargin, 1, ""), box, LeafTextBox.with(width - box.width, 1, ""));
     }
 
 }

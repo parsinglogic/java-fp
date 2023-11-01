@@ -45,7 +45,7 @@ public class ParseUtils
     private static ImPair<String, String> skipOverAny(char charToSkipOver, String stringToParse, int skipped)
     {
         return stringToParse.isEmpty() || (stringToParse.charAt(0) != charToSkipOver)
-               ? ImPair.on(TextUtils.repeat("" + charToSkipOver, skipped), stringToParse)
+               ? ImPair.on(TextUtils.repeatString("" + charToSkipOver, skipped), stringToParse)
                : skipOverAny(charToSkipOver, stringToParse.substring(1), skipped + 1);
     }
 
