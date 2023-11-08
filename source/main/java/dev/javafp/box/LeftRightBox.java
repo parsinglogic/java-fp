@@ -9,25 +9,43 @@ package dev.javafp.box;
 
 import dev.javafp.lst.ImList;
 import dev.javafp.util.TextUtils;
+import dev.javafp.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>A text-box that lays out its children left to right.
+ * <p>A composite text-box that lays out its children left to right.
+ *
+ * <p> <img src="{@docRoot}/dev/doc-files/left-right-box.png"  width=300/>
  */
 public class LeftRightBox extends AbstractTextBox
 {
     private final ImList<AbstractTextBox> boxes;
 
-    public static LeftRightBox with(Object... boxes)
+    /**
+     * <p> A
+     * {@code LeftRightBox}
+     *  with children obtained from
+     * {@code things}
+     * using {@link TextUtils#getBoxFrom(Object)}.
+     *
+     */
+    public static LeftRightBox with(Object... things)
     {
-        return withAll(ImList.on(boxes));
+        return withAll(ImList.on(things));
     }
 
+    /**
+     * <p> A
+     * {@code LeftRightBox}
+     *  with children obtained from
+     * {@code things}
+     * using {@link TextUtils#getBoxFrom(Object)}.
+     *
+     */
     public static LeftRightBox withAll(ImList<?> things)
     {
-
         int w = 0;
         int h = 0;
         List<AbstractTextBox> boxes = new ArrayList<>();
@@ -42,20 +60,16 @@ public class LeftRightBox extends AbstractTextBox
         return new LeftRightBox(w, h, ImList.on(boxes));
     }
 
-    public static LeftRightBox withAllBoxes(ImList<AbstractTextBox> things)
+    /**
+     * <p> A
+     * {@code LeftRightBox}
+     *  with children
+     * {@code boxes}
+     *
+     */
+    public static LeftRightBox withAllBoxes(ImList<AbstractTextBox> boxes)
     {
-        int w = 0;
-        int h = 0;
-        List<AbstractTextBox> boxes = new ArrayList<>();
-
-        for (AbstractTextBox b : things)
-        {
-            h = Math.max(h, b.height);
-            w = w + b.width;
-            boxes.add(b);
-        }
-
-        return new LeftRightBox(w, h, ImList.on(boxes));
+        return new LeftRightBox(Util.sumInt(boxes.map(i -> i.width)), Util.maxInt(boxes.map(i -> i.height)), boxes);
     }
 
     private LeftRightBox(int w, int h, ImList<AbstractTextBox> boxes)
@@ -75,19 +89,50 @@ public class LeftRightBox extends AbstractTextBox
         return sb.toString();
     }
 
+    /**
+     * <p> A
+     * {@code LeftRightBox}
+     * obtained by indenting
+     * {@code box}
+     *  by
+     * {@code indent}
+     *  spaces.
+     *
+     */
     public static LeftRightBox indent(int indent, AbstractTextBox box)
     {
         return LeftRightBox.with(LeafTextBox.with(TextUtils.repeatString(" ", indent)), box);
     }
 
+    /**
+     * <p> A
+     * {@code LeftRightBox}
+     * obtained by indenting the text-box obtained from
+     * {@code thing}
+     * using {@link TextUtils#getBoxFrom(Object)}.
+     *  by
+     * {@code indent}
+     *  spaces.
+     *
+     */
     public static LeftRightBox indent(int indent, Object thing)
     {
         return indent(indent, LeafTextBox.with("" + thing));
     }
 
+    /**
+     * <p> A
+     * {@code LeftRightBox}
+     * obtained by adding a margin of
+     * {@code leftMargin}
+     * <p> spaces and then adding a box to make the resulting box have width
+     * {@code width}
+     *
+     *
+     */
     public static LeftRightBox withMargins(int leftMargin, int width, AbstractTextBox box)
     {
-        return LeftRightBox.with(LeafTextBox.with(leftMargin, 1, ""), box, LeafTextBox.with(width - box.width, 1, ""));
+        return LeftRightBox.with(LeafTextBox.with(leftMargin, 1, ""), box, LeafTextBox.with(width - box.width - leftMargin, 1, ""));
     }
 
 }

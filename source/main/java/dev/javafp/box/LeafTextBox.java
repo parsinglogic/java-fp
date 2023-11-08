@@ -12,8 +12,24 @@ import dev.javafp.tuple.ImPair;
 import dev.javafp.util.TextUtils;
 
 /**
- * <p> A text box that does not contain any other text boxes
- * <p> A leaf text box on the empty string has width 0 and height 1
+ * <p> A text box that does not contain any other text boxes.
+ *
+ * <p> <img src="{@docRoot}/dev/doc-files/leaf-text-box.png"  width=300/>
+ *
+ * <p> It consists of 1 or more lines of text - ie Strings.
+ * <p> Any tab characters will be expanded to spaces assuming a tab width of 4.
+ * <p> There will be no newline characters in any of the lines.
+ * <p> If any of the characters used to create the box are ISO control characters, they will be converted using
+ * {@link #transformISOControlChars(String)}
+ *
+ *
+ * <p> A
+ * {@code LeafTextBox}
+ * on the empty string has width
+ * {@code 0}
+ *  and height
+ * {@code 1}
+ *
  *
  */
 
@@ -24,21 +40,24 @@ public class LeafTextBox extends AbstractTextBox
     private LeafTextBox(int width, int height, String... strings)
     {
         super(width, height);
-        //        this.lines = new ArrayList<String>(strings.length);
-        //
-        //        int count = 0;
-        //        for (String string : strings)
-        //        {
-        //            count++;
-        //            if (count > height)
-        //                break;
-        //
-        //            lines.add(transformISOControlChars(string));
-        //        }
 
         lines = ImList.on(strings).map(s -> transformISOControlChars(s)).take(height);
     }
 
+    private LeafTextBox(int width, int height, ImList<String> lines)
+    {
+        super(width, height);
+
+        this.lines = lines;
+    }
+
+    /**
+     * <p> The String
+     * {@code string}
+     *  with each ISO control characters replaced with
+     * {@code ¬}
+     *
+     */
     public static String transformISOControlChars(String string)
     {
         StringBuilder sb = new StringBuilder();
@@ -53,7 +72,7 @@ public class LeafTextBox extends AbstractTextBox
 
     private static char transformISOChar(char codePoint)
     {
-        return isISOControl(codePoint)
+        return Character.isISOControl(codePoint)
                ? '¬'
                : codePoint;
     }
@@ -66,50 +85,179 @@ public class LeafTextBox extends AbstractTextBox
         else
         {
             String line = lines.at(n);
-            if (line.length() < width)
-                return line + TextUtils.repeatString(" ", width - line.length());
-            else
-                return line.substring(0, width);
+            return line.length() < width
+                   ? line + TextUtils.repeatString(" ", width - line.length())
+                   : line.substring(0, width);
         }
     }
 
-    public static LeafTextBox centred(String text, int widthToCentreIn)
+    /**
+     * <p> A
+     * {@code LeafTextBox}
+     *  containing
+     * {@code text}
+     *  centred in
+     * {@code width}
+     * .
+     * <p> The centering is done using space characters.
+     * <p> Any tabs in
+     * {@code text}
+     *  are expanded assuming a tab width of
+     * {@code 4}
+     *  using
+     * {@link TextUtils#detab(int, String)}
+     * <p> {@code text}
+     *  is not trimmed.
+     * <p> If any line of the text,
+     * {@code l}
+     * , is such that
+     * {@code width <= l.size()}
+     *  then this line is right trimmed to length
+     * {@code width}
+     * <p> Otherwise, let
+     * {@code d = width - text.size()}
+     * <p> if
+     * {@code d}
+     *  is not even then there will be
+     * {@code (d - 1)/2}
+     *  spaces on the left and
+     * {@code (d - 1)/2 + 1}
+     *  spaces on the right
+     * <p> Examples:
+     *
+     * <pre>{@code
+     * centred("abc", 7) => "  abc   "
+     * centred("abc", 2) => "ab"
+     * centred("abc", 4) => "abc "
+     * centred("abc\nde", 14) =>
+     * "     abc      "
+     * "      de      "
+     * }</pre>
+     *
+     */
+    public static LeafTextBox centred(String text, int width)
     {
-        String t = detab(text);
-        int lead = Math.max(0, (widthToCentreIn - t.length()) / 2);
-        return new LeafTextBox(widthToCentreIn, 1, TextUtils.repeatString(" ", lead) + t);
+        ImList<String> lines = tidyUp(text).snd.map(i -> TextUtils.centreIn(width, i));
+
+        return new LeafTextBox(width, lines.size(), lines);
     }
 
+    /**
+     * <p> A
+     * {@code LeafTextBox}
+     *  containing
+     * {@code text}
+     *  right-justified in
+     * {@code width}
+     * .
+     * <p> The justification is done using space characters.
+     * <p> Any tabs in
+     * {@code text}
+     *  are expanded assuming a tab width of
+     * {@code 4}
+     *  using
+     * {@link TextUtils#detab(int, String)}
+     * <p>
+     * {@code text}
+     *  is not trimmed.
+     * <p> If any line of the text,
+     * {@code l}
+     * , is such that
+     * {@code width <= l.size()}
+     *  then this line is right trimmed to length
+     * {@code width}
+     * <p> Examples:
+     *
+     * <pre>{@code
+     * righted("abc", 7) => "    abc"
+     * righted("abc", 2) => "ab"
+     * righted("abc", 4) => "abc "
+     * righted("abc\nde", 5) =>
+     * "  abc"
+     * "   de"
+     * }</pre>
+     *
+     */
     public static LeafTextBox righted(String text, int width)
     {
-        ImPair<Integer, String[]> p = splitIntoLinesAndDetab(text);
-        int leadCount = Math.max(0, width - p.fst);
-        p.snd[0] = TextUtils.repeatString(" ", leadCount) + p.snd[0];
+        ImList<String> lines = tidyUp(text).snd.map(i -> TextUtils.rightJustifyIn(width, i));
 
-        return new LeafTextBox(p.fst + leadCount, p.snd.length, p.snd);
+        return new LeafTextBox(width, lines.size(), lines);
     }
 
+    /**
+     * <p> A
+     * {@code LeafTextBox}
+     *  containing
+     * {@code text}
+     *  left-justified in
+     * {@code width}
+     * .
+     * <p> The justification is done using space characters.
+     * <p> Any tabs in
+     * {@code text}
+     *  are expanded assuming a tab width of
+     * {@code 4}
+     *  using
+     * {@link TextUtils#detab(int, String)}
+     *
+     * <p>
+     * {@code text}
+     *  is not trimmed.
+     * <p> If any line of the text,
+     * {@code l}
+     * , is such that
+     * {@code width <= l.size()}
+     *  then this line is right trimmed to length
+     * {@code width}
+     * <p> Examples:
+     *
+     * <pre>{@code
+     * lefted("abc", 7) => "abc    "
+     * lefted("abc", 2) => "ab"
+     * lefted("abc", 4) => "abc "
+     * lefted("abc\nde", 7) =>
+     * "abc    "
+     * "de     "
+     * }</pre>
+     *
+     */
     public static LeafTextBox lefted(String text, int width)
     {
-        return withMargins(text, 0, width);
+        ImList<String> lines = tidyUp(text).snd.map(i -> TextUtils.leftJustifyIn(width, i));
+
+        return new LeafTextBox(width, lines.size(), lines);
     }
 
-    public static LeafTextBox withMargin(String text, int marginSize)
-    {
-        ImPair<Integer, String[]> p = splitIntoLinesAndDetab(text);
-        p.snd[0] = TextUtils.repeatString(" ", marginSize) + p.snd[0];
-
-        return new LeafTextBox(p.fst + marginSize * 2, p.snd.length, p.snd);
-    }
-
-    public static LeafTextBox withMargins(String text, int leftMargin, int width)
-    {
-        ImPair<Integer, String[]> p = splitIntoLinesAndDetab(text);
-        p.snd[0] = TextUtils.repeatString(" ", leftMargin) + p.snd[0];
-
-        return new LeafTextBox(Math.max(width, leftMargin + p.fst), p.snd.length, p.snd);
-    }
-
+    /**
+     *
+     * <p> A
+     * {@code LeafTextBox}
+     *  containing
+     * {@code text}
+     *
+     * <p> The width of the box is set to the maximum width of the lines in
+     * {@code text}
+     * <p> Any tabs in
+     * {@code text}
+     *  are expanded assuming a tab width of
+     * {@code 4}
+     *  using
+     * {@link TextUtils#detab(int, String)}
+     *
+     * <p>
+     * {@code text}
+     *  is not trimmed.
+     * <p> Examples:
+     *
+     * <pre>{@code
+     * with("abc") => "abc"
+     * with("Happy\nChristmas") =>
+     * "Happy    "
+     * "Christmas"
+     * }</pre>
+     *
+     */
     public static LeafTextBox with(String text)
     {
         ImPair<Integer, String[]> p = splitIntoLinesAndDetab(text);
@@ -136,6 +284,59 @@ public class LeafTextBox extends AbstractTextBox
         return ImPair.on(max, lines);
     }
 
+    private static ImPair<Integer, ImList<String>> tidyUp(String text)
+    {
+        if (text.endsWith("\n"))
+        {
+            text = text.substring(0, text.length() - 1);
+        }
+
+        String[] lines = text.split("\n");
+        int max = 0;
+
+        for (int i = 0; i < lines.length; i++)
+        {
+            lines[i] = transformISOControlChars(detab(lines[i]));
+            max = Math.max(max, lines[i].length());
+        }
+
+        return ImPair.on(max, ImList.on(lines));
+    }
+
+    /**
+     *
+     * <p> A
+     * {@code LeafTextBox}
+     * <p> with width
+     * {@code width}
+     *  and height
+     * {@code height}
+     *
+     *  containing
+     * {@code text}
+     *
+     * <p> The width of the box is set to the maximum width of the lines in
+     * {@code text}
+     * <p> Any tabs in
+     * {@code text}
+     *  are expanded assuming a tab width of
+     * {@code 4}
+     *  using
+     * {@link TextUtils#detab(int, String)}
+     *
+     * <p>
+     * {@code text}
+     *  is not trimmed.
+     * <p> Examples:
+     *
+     * <pre>{@code
+     * with("abc") => "abc"
+     * with("Happy\nChristmas") =>
+     * "Happy    "
+     * "Christmas"
+     * }</pre>
+     *
+     */
     public static LeafTextBox with(int width, int height, String text)
     {
         ImPair<Integer, String[]> p = splitIntoLinesAndDetab(text);
@@ -148,24 +349,23 @@ public class LeafTextBox extends AbstractTextBox
         return TextUtils.detab(4, text);
     }
 
-    //    private static int maxWidth(String[] lines)
-    //    {
-    //        int max = 0;
-    //        for (String line : lines)
-    //        {
-    //            max = Math.max(max, line.length());
-    //        }
-    //
-    //        return max;
-    //    }
-
     /**
      * <p> A text box with width
      * {@code width}
      *  and the contents
      * {@code text}
-     *  wrapped in it
-     * The wrapping is on characters - not words
+     * <p> <strong>wrapped</strong>
+     *  in it
+     * The wrapping is on characters - not words.
+     * <p> Examples:
+     *
+     * <pre>{@code
+     * wrap(6, "Mind how you go") =>
+     * "Mind h\n"
+     * "ow you\n"
+     * " go\n"
+     * }</pre>
+     *
      *
      */
     public static LeafTextBox wrap(int width, String text)
@@ -173,11 +373,6 @@ public class LeafTextBox extends AbstractTextBox
         String[] chunks = TextUtils.splitIntoChunks(width, text);
 
         return new LeafTextBox(width, chunks.length, chunks);
-    }
-
-    private static boolean isISOControl(int codePoint)
-    {
-        return codePoint != 0x0009 && ((codePoint >= 0x0000 && codePoint <= 0x001F) || (codePoint >= 0x007F && codePoint <= 0x009F));
     }
 
 }

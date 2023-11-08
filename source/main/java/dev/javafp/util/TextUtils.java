@@ -39,12 +39,7 @@ public class TextUtils
 
     public static String repeatString(String stringToRepeat, int repeatCount)
     {
-        StringBuilder sb = new StringBuilder();
-        for (int j = 0; j < repeatCount; j++)
-        {
-            sb.append(stringToRepeat);
-        }
-        return sb.toString();
+        return stringToRepeat.repeat(repeatCount);
     }
 
     /**
@@ -89,12 +84,6 @@ public class TextUtils
                     ? stringToPad + repeatString(" ", gap)
                     : stringToPad.substring(0, width);
         // @formatter:on
-    }
-
-    public static String centreInWidth(String text, int widthToCentreIn)
-    {
-        int lead = Math.max(0, (widthToCentreIn - text.length()) / 2);
-        return padToWidth(TextUtils.repeatString(" ", lead) + text, widthToCentreIn);
     }
 
     public static String abbreviate(String s, int width)
@@ -282,7 +271,30 @@ public class TextUtils
     /**
      * <p> Get a text box from
      * {@code thing}
-     * <p> It uses various defaults
+     * <p> It uses various tricks to do this.
+     *
+     * <p> If
+     * {@code thing}
+     *  is a
+     * {@code AbstractTextBox}
+     *  then it just returns
+     * {@code thing}
+     * <p> If
+     * {@code thing}
+     *  is a
+     * {@code HasTextBox}
+     *  then it just returns
+     * {@code thing.getTextBox()}
+     * <p> If
+     * {@code thing}
+     *  is an array or collection then it recursively calls
+     * {@code getBoxFrom}
+     *  on each element
+     * <p> Otherwise it creates a
+     * {@link LeafTextBox}
+     * on the result of
+     * {@code thing.toString()}
+     *
      *
      */
     public static AbstractTextBox getBoxFrom(Object thing)
@@ -398,6 +410,56 @@ public class TextUtils
     public static String format(Object... xs)
     {
         return join(xs, " ");
+    }
+
+    public static String indentBy(int indent, String cs)
+    {
+        return indent <= 0
+               ? cs
+               : " ".repeat(indent) + cs;
+    }
+
+    public static String rightJustifyIn(int width, String cs)
+    {
+        if (width <= 0)
+            return cs;
+        else
+        {
+            int d = width - cs.length();
+            return d <= 0
+                   ? cs.substring(-d, width - d)
+                   : indentBy(width - cs.length(), cs);
+        }
+    }
+
+    public static String leftJustifyIn(int width, String cs)
+    {
+        if (width <= 0)
+            return cs;
+        else
+        {
+            int d = width - cs.length();
+            return d <= 0
+                   ? cs.substring(0, width)
+                   : padToWidth(cs, width);
+        }
+    }
+
+    /**
+     *
+
+     */
+    public static String centreIn(int width, String cs)
+    {
+        int d = width - cs.length();
+        if (d <= 0)
+            return cs.substring(0, width);
+        else
+        {
+            int left = (d - d % 2) >> 1;
+            return padToWidth(indentBy(left, cs), width);
+        }
+
     }
 
 }

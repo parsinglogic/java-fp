@@ -10,6 +10,7 @@ import java.util.List;
 import static dev.javafp.util.Say.say;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TextUtilsTest
 {
@@ -21,14 +22,14 @@ public class TextUtilsTest
         say(TextUtils.getBoxFrom(new byte[] { 0, 1, 2 }));
 
         String ex = ""
-                    + "1:   0\n"
-                    + "2:   1\n"
-                    + "3:   2\n";
+                + "1:   0\n"
+                + "2:   1\n"
+                + "3:   2\n";
 
         String ex2 = ""
-                     + "1:   true\n"
-                     + "2:   false\n"
-                     + "3:   true\n";
+                + "1:   true\n"
+                + "2:   false\n"
+                + "3:   true\n";
 
         assertEquals(ex, TextUtils.getBoxFrom(new byte[] { 0, 1, 2 }).toString());
 
@@ -156,6 +157,48 @@ public class TextUtilsTest
         assertEquals("", TextUtils.trimRight(""));
         assertEquals("abc", TextUtils.trimRight("abc      "));
         assertEquals("abc", TextUtils.trimRight("abc"));
+    }
+
+    @Test
+    public void testIndentBy()
+    {
+        assertEquals("   abc", TextUtils.indentBy(3, "abc"));
+        assertEquals("abc", TextUtils.indentBy(0, "abc"));
+        assertEquals("abc", TextUtils.indentBy(-321321, "abc"));
+    }
+
+    @Test
+    public void testRightJustifyIn()
+    {
+        assertEquals("    abc", TextUtils.rightJustifyIn(7, "abc"));
+        assertEquals("bc", TextUtils.rightJustifyIn(2, "abc"));
+        assertEquals("abc", TextUtils.rightJustifyIn(-1, "abc"));
+        assertEquals("      ", TextUtils.rightJustifyIn(6, ""));
+    }
+
+    @Test
+    public void testLeftJustifyIn()
+    {
+        assertEquals("abc    ", TextUtils.leftJustifyIn(7, "abc"));
+        assertEquals("ab", TextUtils.leftJustifyIn(2, "abc"));
+        assertEquals("abc", TextUtils.leftJustifyIn(-1, "abc"));
+        assertEquals("    ", TextUtils.leftJustifyIn(4, ""));
+    }
+
+    @Test
+    public void testCentreIn()
+    {
+        assertEquals("  abc  ", TextUtils.centreIn(7, "abc"));
+        assertEquals(" abc  ", TextUtils.centreIn(6, "abc"));
+        assertEquals("ab", TextUtils.centreIn(2, "abc"));
+        assertEquals("", TextUtils.centreIn(0, "abc"));
+        assertEquals("     ", TextUtils.centreIn(5, ""));
+    }
+
+    @Test
+    public void testIsNlAnISOControl()
+    {
+        assertTrue(Character.isISOControl(Character.valueOf('\n')));
     }
 
 }

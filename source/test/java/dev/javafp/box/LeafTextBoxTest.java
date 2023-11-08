@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import static dev.javafp.util.Say.say;
 import static org.junit.Assert.assertEquals;
 
 public class LeafTextBoxTest
@@ -57,6 +58,49 @@ public class LeafTextBoxTest
                 + "c         +\n"
                 + "d         +\n"
                 + "xxxxx     +\n", tb.toString());
+
+        say(tb);
+    }
+
+    @Test
+    public void testFourLinesUsingLefted()
+    {
+        String source = "ab\ncde\nfghij\nkl";
+        LeafTextBox leafTextBox = LeafTextBox.lefted(source, 10);
+
+        assertEquals(source + "\n", leafTextBox.toString());
+        say(leafTextBox);
+
+        say(LeafTextBox.with("abc"));
+        say("----");
+    }
+
+    @Test
+    public void testFourLinesUsingCentred()
+    {
+        String expected = ""
+                + "    ab\n"
+                + "   cde\n"
+                + "  fghij\n"
+                + "    kl\n";
+        String source = "ab\ncde\nfghij\nkl\n";
+        LeafTextBox leafTextBox = LeafTextBox.centred(source, 10);
+
+        assertEquals(expected, leafTextBox.toString());
+    }
+
+    @Test
+    public void testFourLinesUsingRighted()
+    {
+        String expected = ""
+                + "        ab\n"
+                + "       cde\n"
+                + "     fghij\n"
+                + "        kl\n";
+        String source = "ab\ncde\nfghij\nkl\n";
+        LeafTextBox leafTextBox = LeafTextBox.righted(source, 10);
+
+        assertEquals(expected, leafTextBox.toString());
     }
 
     @Test
@@ -85,14 +129,14 @@ public class LeafTextBoxTest
         assertEquals(expected, actual);
     }
 
-    @Test
-    public void testWithMargin()
-    {
-        LeafTextBox leafTextBox = LeafTextBox.withMargin("foo", 1);
-
-        assertEquals(" foo ", leafTextBox.getLine(1));
-        assertEquals("     ", leafTextBox.getLine(2));
-    }
+    //    @Test
+    //    public void testWithMargin()
+    //    {
+    //        LeafTextBox leafTextBox = LeafTextBox.withMargin("foo", 1);
+    //
+    //        assertEquals(" foo ", leafTextBox.getLine(1));
+    //        assertEquals("     ", leafTextBox.getLine(2));
+    //    }
 
     @Test
     public void testWithTabs()
@@ -165,12 +209,41 @@ public class LeafTextBoxTest
     }
 
     @Test
+    public void testWithMargins()
+    {
+        assertEquals("foo  ", LeafTextBox.lefted("foo", 5).getLine(1));
+        assertEquals("foo", LeafTextBox.lefted("foo", 3).getLine(1));
+    }
+
+    @Test
+    public void withShouldTrim()
+    {
+        assertEquals("a", LeafTextBox.with(1, 1, "ab\ncde").toString());
+        assertEquals("a\nc\n", LeafTextBox.with(1, 2, "ab\ncde\nf").toString());
+    }
+
+    @Test
+    public void withShouldPadAndTrim()
+    {
+        assertEquals("a\nc\n\n", LeafTextBox.with(1, 3, "ab\ncde").toString());
+    }
+
+    @Test
     public void testWrap()
     {
         LeafTextBox wrap = LeafTextBox.wrap(2, "abcdefg");
 
         assertEquals(2, wrap.width);
         assertEquals(4, wrap.height);
+
+        LeafTextBox wrap2 = LeafTextBox.wrap(6, "Mind how you go");
+
+        String expected = ""
+                + "Mind h\n"
+                + "ow you\n"
+                + " go\n";
+
+        assertEquals(expected, wrap2.toString());
     }
 
     @Test
@@ -186,7 +259,7 @@ public class LeafTextBoxTest
         assertEquals(s, LeafTextBox.transformISOControlChars(s));
 
         s = "\n\ta";
-        assertEquals("¬\ta", LeafTextBox.transformISOControlChars(s));
+        assertEquals("¬¬a", LeafTextBox.transformISOControlChars(s));
     }
 
     public static String getStackTrace(Exception e)

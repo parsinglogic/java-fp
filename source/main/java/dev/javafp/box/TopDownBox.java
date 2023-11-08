@@ -15,18 +15,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>A text-box that lays out its children top downt.
+ * <p>A composite text-box that lays out its children top down.
+ *
+ * <p> <img src="{@docRoot}/dev/doc-files/top-down-box.png"  width=300/>
  */
 public class TopDownBox extends AbstractTextBox
 {
 
     private final ImList<AbstractTextBox> boxes;
 
+    /**
+     * <p> A
+     * {@code TopDownBox}
+     *  with children obtained from
+     * {@code things}
+     * using {@link TextUtils#getBoxFrom(Object)}.
+     *
+     */
     public static TopDownBox with(Object... things)
     {
         return withAll(ImList.on(things));
     }
 
+    /**
+     * <p> A
+     * {@code TopDownBox}
+     *  with children obtained from
+     * {@code things}
+     * using {@link TextUtils#getBoxFrom(Object)}.
+     *
+     */
     public static TopDownBox withAll(ImList<?> things)
     {
         int w = 0;
@@ -44,25 +62,40 @@ public class TopDownBox extends AbstractTextBox
         return new TopDownBox(w, h, ImList.on(boxes));
     }
 
-    public static TopDownBox withBoxes(AbstractTextBox... things)
+    /**
+     * <p> A
+     * {@code TopDownBox}
+     *  with children
+     * {@code boxes}
+     *
+     *
+     */
+    public static TopDownBox withBoxes(AbstractTextBox... boxes)
     {
-        return withAllBoxes(ImList.on(things));
+        return withAllBoxes(ImList.on(boxes));
     }
 
-    public static TopDownBox withAllBoxes(ImList<AbstractTextBox> things)
+    /**
+     * <p> A
+     * {@code TopDownBox}
+     *  with children
+     * {@code boxes}
+     *
+     */
+    public static TopDownBox withAllBoxes(ImList<AbstractTextBox> boxes)
     {
         int w = 0;
         int h = 0;
-        List<AbstractTextBox> boxes = new ArrayList<>();
+        List<AbstractTextBox> bs = new ArrayList<>();
 
-        for (AbstractTextBox b : things)
+        for (AbstractTextBox b : boxes)
         {
             w = Math.max(w, b.width);
             h = h + b.height;
-            boxes.add(b);
+            bs.add(b);
         }
 
-        return new TopDownBox(w, h, ImList.on(boxes));
+        return new TopDownBox(w, h, ImList.on(bs));
     }
 
     private TopDownBox(int w, int h, ImList<AbstractTextBox> boxes)

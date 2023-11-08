@@ -40,6 +40,9 @@ import java.io.Serializable;
  */
 public abstract class AbstractTextBox implements Serializable
 {
+    /**
+     * The empty text box
+     */
     public static final LeafTextBox empty = LeafTextBox.with("");
 
     /**
@@ -59,12 +62,16 @@ public abstract class AbstractTextBox implements Serializable
     }
 
     /**
-     * The line of text at line number `n` where `n ∈ [1, height]`
+     * <p> The line of text at line number
+     * {@code n}
+     *  where
+     * {@code n ∈ [1, height]}
+     *
      */
     public abstract String getLine(int n);
 
     /**
-     * A String representation of this object
+     * <p> The String representation of this box that is used to write it to (eg) standard output
      */
     @Override
     public String toString()
@@ -83,32 +90,74 @@ public abstract class AbstractTextBox implements Serializable
         }
     }
 
-    public AbstractTextBox indentBy(int spaces)
+    /**
+     * <p> A
+     * {@link LeftRightBox}
+     * with a
+     * {@link LeafTextBox}
+     * with
+     * {@code count}
+     *  spaces on the left and
+     * {@code this}
+     *  on the right
+     *
+     */
+    public AbstractTextBox indentBy(int count)
     {
-        return LeftRightBox.with(LeafTextBox.with(TextUtils.padToWidth("", spaces)), this);
+        return LeftRightBox.with(LeafTextBox.with(TextUtils.padToWidth("", count)), this);
     }
 
+    /**
+     * <p> A
+     * {@link TopDownBox}
+     * <p> with
+     * {@code this}
+     *  above
+     * {@code other}
+     *
+     *
+     */
     public AbstractTextBox above(AbstractTextBox other)
     {
         return TopDownBox.with(this, other);
     }
 
+    /**
+     * <p> A
+     * {@link LeftRightBox}
+     * <p> with
+     * {@code this}
+     *  to the left of
+     * {@code other}
+     *
+     *
+     */
     public AbstractTextBox before(AbstractTextBox other)
     {
         return LeftRightBox.with(this, other);
     }
 
+    /**
+     * <p> A composite box that adds vertical line and horizontal line characters and "corner" characters around
+     * {@code this}
+     *  to draw
+     * a box around it.
+     *
+     * <pre>{@code
+     * LeafTextBox.with("text").boxed()
+     * }</pre>
+     * <p> would look like this:
+     *
+     *
+     * <pre>{@code
+     * ┌──────┐
+     * │ text │
+     * └──────┘
+     * }</pre>
+     *
+     */
     public AbstractTextBox boxed()
     {
-        /**
-         *
-         * <pre>{@code
-         * ┌──────┐
-         * │ text │
-         * └──────┘
-         * }</pre>
-         *
-         */
 
         LeafTextBox vert = LeafTextBox.with("│");
 
