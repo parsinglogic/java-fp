@@ -13,9 +13,17 @@ package dev.javafp.eq;
 public interface Eq
 {
 
+    /**
+     * Return
+     * {@link Equals#isEqual(Object, Object)}
+     * <p> applied to
+     * {@code one}
+     *  and
+     * {@code two}
+     *
+     */
     static boolean uals(Object one, Object two)
     {
         return Equals.isEqual(one, two);
     }
-
 }

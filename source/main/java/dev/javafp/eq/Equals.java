@@ -17,21 +17,42 @@ import java.util.Objects;
 /**
  * Utility for equality calculations.
  */
-public class Equals
+public abstract class Equals
 {
+    private Equals()
+    {
+    }
 
     /**
-     * <p> true if
+     * <p>
+     * {@code true}
+     * if
      * {@code one}
      *  "is equal to"
      * {@code two}
-     * <p> For all our objects - the ones that extend Values, we have each equals method doing a nested equals anyway.
-     * <p> Before, we could not deal with Values objects that contained arrays and so some of them had their own implementation
-     * of Values::eq. Now we don't require this method so I have removed it.
-     * <p> So Objects.deepEquals does the right thing:
-     * <h3>Objects::deepEquals</h3>
+     *
+     * <p> For all our objects - the ones that extend
+     * {@link dev.javafp.val.ImValuesImpl}
+     * , we have each `equals` method doing a nested equals already.
+     *
+     * <p> Before, we could not deal with
+     * {@link dev.javafp.val.ImValuesImpl}
+     * objects that contained arrays and so some of them had their own implementation
+     * of
+     * {@link dev.javafp.val.ImValuesImpl#equals(Object)}
+     * Now we don't require these implementations.
+     *
+     * <p> So
+     *  {@link Objects#deepEquals}
+     * does the right thing.
+     *
+     * <p> Here it is:
+     *
+     *
      *
      * <pre>{@code
+     * Objects::deepEquals
+     *
      *  public static boolean deepEquals(Object a, Object b) {
      *      if (a == b)
      *          return true;
@@ -42,9 +63,10 @@ public class Equals
      *  }
      * }</pre>
      *
-     * <h3>Arrays::deepEquals0</h3>
      *
      * <pre>{@code
+     * Arrays::deepEquals0
+     *
      *  static boolean deepEquals0(Object e1, Object e2) {
      *      assert e1 != null;
      *      boolean eq;
@@ -79,8 +101,10 @@ public class Equals
     }
 
     /**
-     * <p> Convenience function to do pairwise equality tests.
-     * <p> true if
+     * <p> Convenience function to do pairwise equality tests on
+     * {@code objects}
+     * <p> {@code true}
+     * if
      *
      * <pre>{@code
      * isEqual(objects[0], objects[1]) &&
@@ -106,11 +130,39 @@ public class Equals
         return true;
     }
 
+    /**
+     * <p> Compare
+     * {@code expected}
+     *  and
+     * {@code actual}
+     *  and return
+     * {@code true}
+     * if
+     * {@link #getDifferences(Collection, Collection)}
+     *  returns the empty
+     * {@code String}
+     *  and
+     * {@code false}
+     *  otherwise.
+     *
+     *
+     */
     public static boolean isEqualSet(Collection<?> expected, Collection<?> actual)
     {
         return getDifferences(expected, actual).isEmpty();
     }
 
+    /**
+     * <p> Compare
+     * {@code expected}
+     *  and
+     * {@code actual}
+     * <p> and return a String representing any differences - treating each collection as representing a
+     * {@code Set}
+     *  and
+     * showing the objects that are not in both collections.
+     *
+     */
     public static String getDifferences(Collection<?> expected, Collection<?> actual)
     {
 
@@ -133,6 +185,17 @@ public class Equals
         return sb.toString();
     }
 
+    /**
+     * <p> {@code true}
+     *  if
+     * {@code itOne}
+     *  and
+     * {@code itTwo}
+     *  return equal objects when compared pairwise and
+     * {@code false}
+     *  otherwise.
+     *
+     */
     public static boolean isEqualIterators(Iterator<?> itOne, Iterator<?> itTwo)
     {
         while (itOne.hasNext())
