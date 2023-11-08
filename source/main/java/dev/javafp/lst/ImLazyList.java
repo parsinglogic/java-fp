@@ -140,7 +140,7 @@ public abstract class ImLazyList<A> implements ImList<A>
 
     /**
      * <p> {@code true}
-     *  iff
+     *  if
      * {@code this}
      * equals
      * {@code other}

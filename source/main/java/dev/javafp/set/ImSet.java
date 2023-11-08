@@ -851,7 +851,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     /**
      *
      * {@code true}
-     *  iff
+     *  if
      * {@code this}
      *  contains all of
      * {@code elements}
@@ -1002,7 +1002,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
 
     /**
      * {@code true}
-     * iff
+     * if
      * {@code this}
      * is the empty set
      */
@@ -1013,7 +1013,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
 
     /**
      * {@code true}
-     * iff
+     * if
      * {@code this}
      * is not the empty set
      */

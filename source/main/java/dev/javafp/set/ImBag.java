@@ -123,7 +123,7 @@ public class ImBag<A> extends ImValuesImpl
 
     /**
      * {@code true}
-     * iff
+     * if
      * {@code this}
      * is the empty bag
      */

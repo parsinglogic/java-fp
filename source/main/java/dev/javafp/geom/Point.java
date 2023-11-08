@@ -264,7 +264,7 @@ public class Point extends ImValuesImpl
 
     /**
      * <p> {@code true}
-     *  iff
+     *  if
      * {@code x >= p.x && y >= p.y}
      *
      *
@@ -276,7 +276,7 @@ public class Point extends ImValuesImpl
 
     /**
      * {@code true}
-     * iff
+     * if
      * {@code p.ge(this)}
      *
      */
@@ -287,7 +287,7 @@ public class Point extends ImValuesImpl
 
     /**
      * <p> {@code true}
-     *  iff
+     *  if
      * {@code this}
      *  is to the left of and above
      * {@code p}

@@ -41,7 +41,7 @@ abstract class ImEagerList<A> implements ImList<A>
 
     /**
      * <p> {@code true}
-     *  iff
+     *  if
      * {@code this}
      * equals
      * {@code other}

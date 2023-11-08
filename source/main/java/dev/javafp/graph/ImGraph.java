@@ -188,7 +188,7 @@ import static dev.javafp.graph.ImGraph.Dir.Out;
  * <strong>adjacent</strong>
  *  to vertex
  * {@code v}
- *  iff:
+ *  if:
  * <ol>
  * <li>
  * <p> there exists an edge

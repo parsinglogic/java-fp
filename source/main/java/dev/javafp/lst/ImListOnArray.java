@@ -148,7 +148,7 @@ class ImListOnArray<A> extends ImEagerList<A>
 
     /**
      * <p> {@code true}
-     *  iff
+     *  if
      * {@code this}
      * equals
      * {@code other}

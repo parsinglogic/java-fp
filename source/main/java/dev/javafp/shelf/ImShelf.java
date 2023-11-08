@@ -463,7 +463,7 @@ public class ImShelf<T> implements Iterable<T>
 
     /**
      * <p> {@code true}
-     *  iff
+     *  if
      * {@code this}
      *  is the empty shelf
      *

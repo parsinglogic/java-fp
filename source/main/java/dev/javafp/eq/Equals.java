@@ -21,7 +21,7 @@ public class Equals
 {
 
     /**
-     * <p> true iff
+     * <p> true if
      * {@code one}
      *  "is equal to"
      * {@code two}
@@ -80,7 +80,7 @@ public class Equals
 
     /**
      * <p> Convenience function to do pairwise equality tests.
-     * <p> true iff
+     * <p> true if
      *
      * <pre>{@code
      * isEqual(objects[0], objects[1]) &&

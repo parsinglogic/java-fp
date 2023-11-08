@@ -543,7 +543,7 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
 
     /**
      * <p> {@code true}
-     *  iff
+     *  if
      * {@code this}
      *  contains no entries.
      *
@@ -555,7 +555,7 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
 
     /**
      * <p> {@code true}
-     *  iff
+     *  if
      * {@code other}
      *  is an instance of
      * {@code ImMap}
