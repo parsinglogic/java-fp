@@ -83,8 +83,23 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">LeafTextBox</span>
 <span class="extends-implements">extends <a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span></div>
-<div class="block"><p> A text box that does not contain any other text boxes
- <p> A leaf text box on the empty string has width 0 and height 1</div>
+<div class="block"><p> A text box that does not contain any other text boxes.
+
+ <p> <img src="../../../dev/doc-files/leaf-text-box.png" width=300/>
+
+ <p> It consists of 1 or more lines of text - ie Strings.
+ <p> Any tab characters will be expanded to spaces assuming a tab width of 4.
+ <p> There will be no newline characters in any of the lines.
+ <p> If any of the characters used to create the box are ISO control characters, they will be converted using
+ <a href="#transformISOControlChars(java.lang.String)"><code>transformISOControlChars(String)</code></a>
+
+
+ <p> A
+ <code>LeafTextBox</code>
+ on the empty string has width
+ <code>0</code>
+  and height
+ <code>1</code></div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -118,39 +133,72 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#centred(java.lang.String,int)" class="member-name-link">centred</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text,
- int&nbsp;widthToCentreIn)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+ int&nbsp;width)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A
+ <code>LeafTextBox</code>
+  containing
+ <code>text</code>
+  centred in
+ <code>width</code>
+ .</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLine(int)" class="member-name-link">getLine</a><wbr>(int&nbsp;index)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getLine(int)" class="member-name-link">getLine</a><wbr>(int&nbsp;n)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The line of text at line number
+ <code>n</code>
+  where
+ <code>n ∈ [1, height]</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#lefted(java.lang.String,int)" class="member-name-link">lefted</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text,
  int&nbsp;width)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A
+ <code>LeafTextBox</code>
+  containing
+ <code>text</code>
+  left-justified in
+ <code>width</code>
+ .</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#righted(java.lang.String,int)" class="member-name-link">righted</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text,
  int&nbsp;width)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A
+ <code>LeafTextBox</code>
+  containing
+ <code>text</code>
+  right-justified in
+ <code>width</code>
+ .</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#transformISOControlChars(java.lang.String)" class="member-name-link">transformISOControlChars</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;string)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The String
+ <code>string</code>
+  with each ISO control characters replaced with
+ <code>¬</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#with(int,int,java.lang.String)" class="member-name-link">with</a><wbr>(int&nbsp;width,
  int&nbsp;height,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A
+ <code>LeafTextBox</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#with(java.lang.String)" class="member-name-link">with</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#withMargin(java.lang.String,int)" class="member-name-link">withMargin</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text,
- int&nbsp;marginSize)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#withMargins(java.lang.String,int,int)" class="member-name-link">withMargins</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text,
- int&nbsp;leftMargin,
- int&nbsp;width)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A
+ <code>LeafTextBox</code>
+  containing
+ <code>text</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#wrap(int,java.lang.String)" class="member-name-link">wrap</a><wbr>(int&nbsp;width,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text)</code></div>
@@ -158,16 +206,14 @@ loadScripts(document, 'script');</script>
 <div class="block"> A text box with width
  <code>width</code>
   and the contents
- <code>text</code>
-  wrapped in it
- The wrapping is on characters - not words</div>
+ <code>text</code></div>
 </div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-dev.javafp.box.AbstractTextBox">Methods inherited from class&nbsp;dev.javafp.box.<a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></h3>
-<code><a href="AbstractTextBox.html#above(dev.javafp.box.AbstractTextBox)">above</a>, <a href="AbstractTextBox.html#before(dev.javafp.box.AbstractTextBox)">before</a>, <a href="AbstractTextBox.html#boxed()">boxed</a>, <a href="AbstractTextBox.html#getHeight()">getHeight</a>, <a href="AbstractTextBox.html#getWidth()">getWidth</a>, <a href="AbstractTextBox.html#indentBy(int)">indentBy</a>, <a href="AbstractTextBox.html#toString()">toString</a></code></div>
+<code><a href="AbstractTextBox.html#above(dev.javafp.box.AbstractTextBox)">above</a>, <a href="AbstractTextBox.html#before(dev.javafp.box.AbstractTextBox)">before</a>, <a href="AbstractTextBox.html#boxed()">boxed</a>, <a href="AbstractTextBox.html#indentBy(int)">indentBy</a>, <a href="AbstractTextBox.html#toString()">toString</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -186,12 +232,21 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="transformISOControlChars(java.lang.String)">
 <h3>transformISOControlChars</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">transformISOControlChars</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;string)</span></div>
+<div class="block"><p> The String
+ <code>string</code>
+  with each ISO control characters replaced with
+ <code>¬</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="getLine(int)">
 <h3>getLine</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getLine</span><wbr><span class="parameters">(int&nbsp;index)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getLine</span><wbr><span class="parameters">(int&nbsp;n)</span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="AbstractTextBox.html#getLine(int)">AbstractTextBox</a></code></span></div>
+<div class="block"><p> The line of text at line number
+ <code>n</code>
+  where
+ <code>n ∈ [1, height]</code></div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="AbstractTextBox.html#getLine(int)">getLine</a></code>&nbsp;in class&nbsp;<code><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></dd>
@@ -202,7 +257,48 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="centred(java.lang.String,int)">
 <h3>centred</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></span>&nbsp;<span class="element-name">centred</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text,
- int&nbsp;widthToCentreIn)</span></div>
+ int&nbsp;width)</span></div>
+<div class="block"><p> A
+ <code>LeafTextBox</code>
+  containing
+ <code>text</code>
+  centred in
+ <code>width</code>
+ .
+ <p> The centering is done using space characters.
+ <p> Any tabs in
+ <code>text</code>
+  are expanded assuming a tab width of
+ <code>4</code>
+  using
+ <a href="../util/TextUtils.html#detab(int,java.lang.String)"><code>TextUtils.detab(int, String)</code></a>
+ <p> <code>text</code>
+  is not trimmed.
+ <p> If any line of the text,
+ <code>l</code>
+ , is such that
+ <code>width &lt;= l.size()</code>
+  then this line is right trimmed to length
+ <code>width</code>
+ <p> Otherwise, let
+ <code>d = width - text.size()</code>
+ <p> if
+ <code>d</code>
+  is not even then there will be
+ <code>(d - 1)/2</code>
+  spaces on the left and
+ <code>(d - 1)/2 + 1</code>
+  spaces on the right
+ <p> Examples:
+
+ <pre><code>
+ centred("abc", 7) =&gt; "  abc   "
+ centred("abc", 2) =&gt; "ab"
+ centred("abc", 4) =&gt; "abc "
+ centred("abc\nde", 14) =&gt;
+ "     abc      "
+ "      de      "
+ </code></pre></div>
 </section>
 </li>
 <li>
@@ -210,6 +306,39 @@ loadScripts(document, 'script');</script>
 <h3>righted</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></span>&nbsp;<span class="element-name">righted</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text,
  int&nbsp;width)</span></div>
+<div class="block"><p> A
+ <code>LeafTextBox</code>
+  containing
+ <code>text</code>
+  right-justified in
+ <code>width</code>
+ .
+ <p> The justification is done using space characters.
+ <p> Any tabs in
+ <code>text</code>
+  are expanded assuming a tab width of
+ <code>4</code>
+  using
+ <a href="../util/TextUtils.html#detab(int,java.lang.String)"><code>TextUtils.detab(int, String)</code></a>
+ <p>
+ <code>text</code>
+  is not trimmed.
+ <p> If any line of the text,
+ <code>l</code>
+ , is such that
+ <code>width &lt;= l.size()</code>
+  then this line is right trimmed to length
+ <code>width</code>
+ <p> Examples:
+
+ <pre><code>
+ righted("abc", 7) =&gt; "    abc"
+ righted("abc", 2) =&gt; "ab"
+ righted("abc", 4) =&gt; "abc "
+ righted("abc\nde", 5) =&gt;
+ "  abc"
+ "   de"
+ </code></pre></div>
 </section>
 </li>
 <li>
@@ -217,27 +346,71 @@ loadScripts(document, 'script');</script>
 <h3>lefted</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></span>&nbsp;<span class="element-name">lefted</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text,
  int&nbsp;width)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="withMargin(java.lang.String,int)">
-<h3>withMargin</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></span>&nbsp;<span class="element-name">withMargin</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text,
- int&nbsp;marginSize)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="withMargins(java.lang.String,int,int)">
-<h3>withMargins</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></span>&nbsp;<span class="element-name">withMargins</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text,
- int&nbsp;leftMargin,
- int&nbsp;width)</span></div>
+<div class="block"><p> A
+ <code>LeafTextBox</code>
+  containing
+ <code>text</code>
+  left-justified in
+ <code>width</code>
+ .
+ <p> The justification is done using space characters.
+ <p> Any tabs in
+ <code>text</code>
+  are expanded assuming a tab width of
+ <code>4</code>
+  using
+ <a href="../util/TextUtils.html#detab(int,java.lang.String)"><code>TextUtils.detab(int, String)</code></a>
+
+ <p>
+ <code>text</code>
+  is not trimmed.
+ <p> If any line of the text,
+ <code>l</code>
+ , is such that
+ <code>width &lt;= l.size()</code>
+  then this line is right trimmed to length
+ <code>width</code>
+ <p> Examples:
+
+ <pre><code>
+ lefted("abc", 7) =&gt; "abc    "
+ lefted("abc", 2) =&gt; "ab"
+ lefted("abc", 4) =&gt; "abc "
+ lefted("abc\nde", 7) =&gt;
+ "abc    "
+ "de     "
+ </code></pre></div>
 </section>
 </li>
 <li>
 <section class="detail" id="with(java.lang.String)">
 <h3>with</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></span>&nbsp;<span class="element-name">with</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text)</span></div>
+<div class="block"><p> A
+ <code>LeafTextBox</code>
+  containing
+ <code>text</code>
+
+ <p> The width of the box is set to the maximum width of the lines in
+ <code>text</code>
+ <p> Any tabs in
+ <code>text</code>
+  are expanded assuming a tab width of
+ <code>4</code>
+  using
+ <a href="../util/TextUtils.html#detab(int,java.lang.String)"><code>TextUtils.detab(int, String)</code></a>
+
+ <p>
+ <code>text</code>
+  is not trimmed.
+ <p> Examples:
+
+ <pre><code>
+ with("abc") =&gt; "abc"
+ with("Happy\nChristmas") =&gt;
+ "Happy    "
+ "Christmas"
+ </code></pre></div>
 </section>
 </li>
 <li>
@@ -246,6 +419,36 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></span>&nbsp;<span class="element-name">with</span><wbr><span class="parameters">(int&nbsp;width,
  int&nbsp;height,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;text)</span></div>
+<div class="block"><p> A
+ <code>LeafTextBox</code>
+ <p> with width
+ <code>width</code>
+  and height
+ <code>height</code>
+
+  containing
+ <code>text</code>
+
+ <p> The width of the box is set to the maximum width of the lines in
+ <code>text</code>
+ <p> Any tabs in
+ <code>text</code>
+  are expanded assuming a tab width of
+ <code>4</code>
+  using
+ <a href="../util/TextUtils.html#detab(int,java.lang.String)"><code>TextUtils.detab(int, String)</code></a>
+
+ <p>
+ <code>text</code>
+  is not trimmed.
+ <p> Examples:
+
+ <pre><code>
+ with("abc") =&gt; "abc"
+ with("Happy\nChristmas") =&gt;
+ "Happy    "
+ "Christmas"
+ </code></pre></div>
 </section>
 </li>
 <li>
@@ -257,8 +460,17 @@ loadScripts(document, 'script');</script>
  <code>width</code>
   and the contents
  <code>text</code>
-  wrapped in it
- The wrapping is on characters - not words</div>
+ <p> <strong>wrapped</strong>
+  in it
+ The wrapping is on characters - not words.
+ <p> Examples:
+
+ <pre><code>
+ wrap(6, "Mind how you go") =&gt;
+ "Mind h\n"
+ "ow you\n"
+ " go\n"
+ </code></pre></div>
 </section>
 </li>
 </ul>

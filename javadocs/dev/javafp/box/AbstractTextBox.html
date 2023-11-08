@@ -45,13 +45,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
 <li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
 </div>
@@ -86,7 +86,29 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">AbstractTextBox</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></span></div>
-<div class="block"><p> The top level class for text-boxes.</div>
+<div class="block"><p> The top level class for text-boxes.
+
+ <p> The classes in the
+ <code>box</code>
+  package allow you to easily output text that is formatted in some way.
+ <p> We assume a fixed width font.
+ <p> The basic element is the box - which is a rectangular grid of characters that can be manipulated as a unit.
+ <p> We can create a some boxes and then stack them side by side - horizontally - or we could stack them vertically.
+ <p> Having done that we can regard the resulting stack of boxes as a box itself and then stack that box with other boxes - and so on.
+ <p> To actually write out a text box, we convert it to a String and then write that String.
+
+ <p> <img src="../../../dev/doc-files/textbox-hierarchy.png" width=400/>
+
+ <p> All of the classes that extend
+ <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val"><code>ImValuesImpl</code></a>
+ will have a function called
+ <code>getTextBox</code>
+ which will generate a text representation of the object as a text box
+ <p> Then the default
+ <code>toString</code>
+ method will use this method
+ and convert the resulting text box to a
+ <code>String</code></div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -109,27 +131,19 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static final <a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></code></div>
 <div class="col-second even-row-color"><code><a href="#empty" class="member-name-link">empty</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">The empty text box</div>
+</div>
 <div class="col-first odd-row-color"><code>final int</code></div>
 <div class="col-second odd-row-color"><code><a href="#height" class="member-name-link">height</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">The height of the box in lines</div>
+</div>
 <div class="col-first even-row-color"><code>final int</code></div>
 <div class="col-second even-row-color"><code><a href="#width" class="member-name-link">width</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">The width of the box in characters</div>
 </div>
-</section>
-</li>
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<li>
-<section class="constructor-summary" id="constructor-summary">
-<h2>Constructor Summary</h2>
-<div class="caption"><span>Constructors</span></div>
-<div class="summary-table two-column-summary">
-<div class="table-header col-first">Constructor</div>
-<div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,int)" class="member-name-link">AbstractTextBox</a><wbr>(int&nbsp;width,
- int&nbsp;height)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -146,29 +160,49 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#above(dev.javafp.box.AbstractTextBox)" class="member-name-link">above</a><wbr>(<a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a>&nbsp;other)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> A
+ <a href="TopDownBox.html" title="class in dev.javafp.box"><code>TopDownBox</code></a></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#before(dev.javafp.box.AbstractTextBox)" class="member-name-link">before</a><wbr>(<a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a>&nbsp;other)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> A
+ <a href="LeftRightBox.html" title="class in dev.javafp.box"><code>LeftRightBox</code></a></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#boxed()" class="member-name-link">boxed</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHeight()" class="member-name-link">getHeight</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getLine(int)" class="member-name-link">getLine</a><wbr>(int&nbsp;count)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getWidth()" class="member-name-link">getWidth</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> A composite box that adds vertical line and horizontal line characters and "corner" characters around
+ <code>this</code>
+  to draw
+ a box around it.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getLine(int)" class="member-name-link">getLine</a><wbr>(int&nbsp;n)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block"> The line of text at line number
+ <code>n</code>
+  where
+ <code>n ∈ [1, height]</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#indentBy(int)" class="member-name-link">indentBy</a><wbr>(int&nbsp;spaces)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#indentBy(int)" class="member-name-link">indentBy</a><wbr>(int&nbsp;count)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> A
+ <a href="LeftRightBox.html" title="class in dev.javafp.box"><code>LeftRightBox</code></a>
+ with a
+ <a href="LeafTextBox.html" title="class in dev.javafp.box"><code>LeafTextBox</code></a>
+ with
+ <code>count</code>
+  spaces on the left and
+ <code>this</code>
+  on the right</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A String representation of this object</div>
+<div class="block"> The String representation of this box that is used to write it to (eg) standard output</div>
 </div>
 </div>
 </div>
@@ -191,33 +225,21 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="empty">
 <h3>empty</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></span>&nbsp;<span class="element-name">empty</span></div>
+<div class="block">The empty text box</div>
 </section>
 </li>
 <li>
 <section class="detail" id="width">
 <h3>width</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">width</span></div>
+<div class="block">The width of the box in characters</div>
 </section>
 </li>
 <li>
 <section class="detail" id="height">
 <h3>height</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">height</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<li>
-<section class="constructor-details" id="constructor-detail">
-<h2>Constructor Details</h2>
-<ul class="member-list">
-<li>
-<section class="detail" id="&lt;init&gt;(int,int)">
-<h3>AbstractTextBox</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AbstractTextBox</span><wbr><span class="parameters">(int&nbsp;width,
- int&nbsp;height)</span></div>
+<div class="block">The height of the box in lines</div>
 </section>
 </li>
 </ul>
@@ -231,14 +253,18 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <li>
 <section class="detail" id="getLine(int)">
 <h3>getLine</h3>
-<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getLine</span><wbr><span class="parameters">(int&nbsp;count)</span></div>
+<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getLine</span><wbr><span class="parameters">(int&nbsp;n)</span></div>
+<div class="block"><p> The line of text at line number
+ <code>n</code>
+  where
+ <code>n ∈ [1, height]</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="toString()">
 <h3>toString</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">toString</span>()</div>
-<div class="block">A String representation of this object</div>
+<div class="block"><p> The String representation of this box that is used to write it to (eg) standard output</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
@@ -246,39 +272,64 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 </section>
 </li>
 <li>
-<section class="detail" id="getWidth()">
-<h3>getWidth</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getWidth</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getHeight()">
-<h3>getHeight</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getHeight</span>()</div>
-</section>
-</li>
-<li>
 <section class="detail" id="indentBy(int)">
 <h3>indentBy</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span>&nbsp;<span class="element-name">indentBy</span><wbr><span class="parameters">(int&nbsp;spaces)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span>&nbsp;<span class="element-name">indentBy</span><wbr><span class="parameters">(int&nbsp;count)</span></div>
+<div class="block"><p> A
+ <a href="LeftRightBox.html" title="class in dev.javafp.box"><code>LeftRightBox</code></a>
+ with a
+ <a href="LeafTextBox.html" title="class in dev.javafp.box"><code>LeafTextBox</code></a>
+ with
+ <code>count</code>
+  spaces on the left and
+ <code>this</code>
+  on the right</div>
 </section>
 </li>
 <li>
 <section class="detail" id="above(dev.javafp.box.AbstractTextBox)">
 <h3>above</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span>&nbsp;<span class="element-name">above</span><wbr><span class="parameters">(<a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a>&nbsp;other)</span></div>
+<div class="block"><p> A
+ <a href="TopDownBox.html" title="class in dev.javafp.box"><code>TopDownBox</code></a>
+ <p> with
+ <code>this</code>
+  above
+ <code>other</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="before(dev.javafp.box.AbstractTextBox)">
 <h3>before</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span>&nbsp;<span class="element-name">before</span><wbr><span class="parameters">(<a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a>&nbsp;other)</span></div>
+<div class="block"><p> A
+ <a href="LeftRightBox.html" title="class in dev.javafp.box"><code>LeftRightBox</code></a>
+ <p> with
+ <code>this</code>
+  to the left of
+ <code>other</code></div>
 </section>
 </li>
 <li>
 <section class="detail" id="boxed()">
 <h3>boxed</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span>&nbsp;<span class="element-name">boxed</span>()</div>
+<div class="block"><p> A composite box that adds vertical line and horizontal line characters and "corner" characters around
+ <code>this</code>
+  to draw
+ a box around it.
+
+ <pre><code>
+ LeafTextBox.with("text").boxed()
+ </code></pre>
+ <p> would look like this:
+
+
+ <pre><code>
+ ┌──────┐
+ │ text │
+ └──────┘
+ </code></pre></div>
 </section>
 </li>
 </ul>
