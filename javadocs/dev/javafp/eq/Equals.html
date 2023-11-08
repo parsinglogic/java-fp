@@ -45,13 +45,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
 </div>
@@ -75,25 +75,12 @@ loadScripts(document, 'script');</script>
 </div>
 <section class="class-description" id="class-description">
 <hr>
-<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Equals</span>
+<div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">Equals</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
 <div class="block">Utility for equality calculations.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<li>
-<section class="constructor-summary" id="constructor-summary">
-<h2>Constructor Summary</h2>
-<div class="caption"><span>Constructors</span></div>
-<div class="summary-table two-column-summary">
-<div class="table-header col-first">Constructor</div>
-<div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">Equals</a>()</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-</div>
-</section>
-</li>
 <!-- ========== METHOD SUMMARY =========== -->
 <li>
 <section class="method-summary" id="method-summary">
@@ -108,12 +95,19 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getDifferences(java.util.Collection,java.util.Collection)" class="member-name-link">getDifferences</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;?&gt;&nbsp;expected,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;?&gt;&nbsp;actual)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Compare
+ <code>expected</code>
+  and
+ <code>actual</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isEqual(java.lang.Object,java.lang.Object)" class="member-name-link">isEqual</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;one,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;two)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> true iff
+<div class="block">
+ <code>true</code>
+ if
  <code>one</code>
   "is equal to"
  <code>two</code></div>
@@ -121,16 +115,40 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isEqualIterators(java.util.Iterator,java.util.Iterator)" class="member-name-link">isEqualIterators</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;?&gt;&nbsp;itOne,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;?&gt;&nbsp;itTwo)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> <code>true</code>
+  if
+ <code>itOne</code>
+  and
+ <code>itTwo</code>
+  return equal objects when compared pairwise and
+ <code>false</code>
+  otherwise.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isEqualPairwise(java.lang.Object...)" class="member-name-link">isEqualPairwise</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>...&nbsp;objects)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> Convenience function to do pairwise equality tests.</div>
+<div class="block"> Convenience function to do pairwise equality tests on
+ <code>objects</code></div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isEqualSet(java.util.Collection,java.util.Collection)" class="member-name-link">isEqualSet</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;?&gt;&nbsp;expected,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;?&gt;&nbsp;actual)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Compare
+ <code>expected</code>
+  and
+ <code>actual</code>
+  and return
+ <code>true</code>
+ if
+ <a href="#getDifferences(java.util.Collection,java.util.Collection)"><code>getDifferences(Collection, Collection)</code></a>
+  returns the empty
+ <code>String</code>
+  and
+ <code>false</code>
+  otherwise.</div>
+</div>
 </div>
 </div>
 </div>
@@ -143,20 +161,6 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<li>
-<section class="constructor-details" id="constructor-detail">
-<h2>Constructor Details</h2>
-<ul class="member-list">
-<li>
-<section class="detail" id="&lt;init&gt;()">
-<h3>Equals</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Equals</span>()</div>
-</section>
-</li>
-</ul>
-</section>
-</li>
 <!-- ============ METHOD DETAIL ========== -->
 <li>
 <section class="method-details" id="method-detail">
@@ -167,17 +171,35 @@ loadScripts(document, 'script');</script>
 <h3>isEqual</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEqual</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;one,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;two)</span></div>
-<div class="block"><p> true iff
+<div class="block"><p>
+ <code>true</code>
+ if
  <code>one</code>
   "is equal to"
  <code>two</code>
- <p> For all our objects - the ones that extend Values, we have each equals method doing a nested equals anyway.
- <p> Before, we could not deal with Values objects that contained arrays and so some of them had their own implementation
- of Values::eq. Now we don't require this method so I have removed it.
- <p> So Objects.deepEquals does the right thing:
- <h3>Objects::deepEquals</h3>
+
+ <p> For all our objects - the ones that extend
+ <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val"><code>ImValuesImpl</code></a>
+ , we have each `equals` method doing a nested equals already.
+
+ <p> Before, we could not deal with
+ <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val"><code>ImValuesImpl</code></a>
+ objects that contained arrays and so some of them had their own implementation
+ of
+ <a href="../val/ImValuesImpl.html#equals(java.lang.Object)"><code>ImValuesImpl.equals(Object)</code></a>
+ Now we don't require these implementations.
+
+ <p> So
+  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Objects.html#deepEquals(java.lang.Object,java.lang.Object)" title="class or interface in java.util" class="external-link"><code>Objects.deepEquals(java.lang.Object, java.lang.Object)</code></a>
+ does the right thing.
+
+ <p> Here it is:
+
+
 
  <pre><code>
+ Objects::deepEquals
+
   public static boolean deepEquals(Object a, Object b) {
       if (a == b)
           return true;
@@ -188,9 +210,10 @@ loadScripts(document, 'script');</script>
   }
  </code></pre>
 
- <h3>Arrays::deepEquals0</h3>
 
  <pre><code>
+ Arrays::deepEquals0
+
   static boolean deepEquals0(Object e1, Object e2) {
       assert e1 != null;
       boolean eq;
@@ -223,8 +246,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="isEqualPairwise(java.lang.Object...)">
 <h3>isEqualPairwise</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEqualPairwise</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>...&nbsp;objects)</span></div>
-<div class="block"><p> Convenience function to do pairwise equality tests.
- <p> true iff
+<div class="block"><p> Convenience function to do pairwise equality tests on
+ <code>objects</code>
+ <p> <code>true</code>
+ if
 
  <pre><code>
  isEqual(objects[0], objects[1]) &amp;&amp;
@@ -239,6 +264,19 @@ loadScripts(document, 'script');</script>
 <h3>isEqualSet</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEqualSet</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;?&gt;&nbsp;expected,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;?&gt;&nbsp;actual)</span></div>
+<div class="block"><p> Compare
+ <code>expected</code>
+  and
+ <code>actual</code>
+  and return
+ <code>true</code>
+ if
+ <a href="#getDifferences(java.util.Collection,java.util.Collection)"><code>getDifferences(Collection, Collection)</code></a>
+  returns the empty
+ <code>String</code>
+  and
+ <code>false</code>
+  otherwise.</div>
 </section>
 </li>
 <li>
@@ -246,6 +284,14 @@ loadScripts(document, 'script');</script>
 <h3>getDifferences</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getDifferences</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;?&gt;&nbsp;expected,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;?&gt;&nbsp;actual)</span></div>
+<div class="block"><p> Compare
+ <code>expected</code>
+  and
+ <code>actual</code>
+ <p> and return a String representing any differences - treating each collection as representing a
+ <code>Set</code>
+  and
+ showing the objects that are not in both collections.</div>
 </section>
 </li>
 <li>
@@ -253,6 +299,14 @@ loadScripts(document, 'script');</script>
 <h3>isEqualIterators</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEqualIterators</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;?&gt;&nbsp;itOne,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;?&gt;&nbsp;itTwo)</span></div>
+<div class="block"><p> <code>true</code>
+  if
+ <code>itOne</code>
+  and
+ <code>itTwo</code>
+  return equal objects when compared pairwise and
+ <code>false</code>
+  otherwise.</div>
 </section>
 </li>
 </ul>
