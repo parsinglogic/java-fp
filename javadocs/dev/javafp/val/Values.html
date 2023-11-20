@@ -119,15 +119,22 @@ extends <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">Has
  <p> see Link for a simple class that does this
  <p> The ImValuesImpl::toString implementation basically gets the object as a ImList of its values and displays it indented.
 
- <p> This is <a href="../net/ApiRequest.html" title="class in dev.javafp.net"><code>ApiRequest</code></a>:
+ <h3>Example</h3>
+ <p> This is the start of <a href="../net/ApiRequest.html" title="class in dev.javafp.net"><code>ApiRequest</code></a>:
+
+ <p> <img src="../../../dev/doc-files/api-request-start.png" width=500/>
+
+ <p> And this is the start of <a href="../net/ImUrl.html" title="class in dev.javafp.net"><code>ImUrl</code></a>:
+
+ The `toString()` method on ApiRequest on a typical instance looks like this:
 
  <pre><code>
  GetRequest: url:             ImUrl: scheme:         http
-                                       port:           53031
-                                       host:           localhost
-                                       pathComponents: [hello]
-                                       queryElements:  []
-                                       fragment:
+                                     port:           53031
+                                     host:           localhost
+                                     pathComponents: [hello]
+                                     queryElements:  []
+                                     fragment:
              method:          GET
              followRedirects: true
              requestHeaders:  []

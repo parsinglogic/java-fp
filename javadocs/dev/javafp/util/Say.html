@@ -44,13 +44,13 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
@@ -77,43 +77,53 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Say</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block"><p> The idea is to display lines like this
- <p> Server log:
+<div class="block">A class to allow an easy way to display debugging information.
 
- <pre><code>
- Group id
- |                 First 8 chars of window id
- |                 |        YYYY-MM-DD hh:mm:ss:SSS
- |                 |        |                       ms since the last line
- |                 |        |                       |        method name
- |                 |        |                       |        |
- |                 |        |                       |        |                                                  message
- |                 |        |                       |        |                                                  |
- 1..............17 1......8 1....................23 1.....7  1...............................................50 |
- |               | |      | |                     | |     |  |                                                | |
- qtp319061373-23   7f1225b5 2020-01-15 12:03:09.897 1234567  DrumApplicationRunner::handleEvents5               timestamp = Wed Jan 15 12:03:09 GMT 2020
- qtp319061373-23   7f1225b5 2020-01-15 12:03:09.897    4567  DrumApplicationRunner::handleEvents0               Writing lock at the end WindowLock: header:         MetaData: content:     null
- </code></pre>
- <p> Browser log:
+ The easiest way to think about what it does is to consider what it in terms of text boxes.
 
- <pre><code>
- Group id
- |                 First 8 chars of window id
- |                 |        YYYY-MM-DD hh:mm:ss:SSS
- |                 |        |                       ms since the last line
- |                 |        |                       |        method name
- |                 |        |                       |        |
- |                 |        |                       |        |                                                  message
- |                 |        |                       |        |                                                  |
- 1..............17 1......8 1....................23 1.....7  1...............................................50 |
- |               | |      | |                     | |     |  |                                                | |
- test-g6rN0UrpCocL 7f1225b5 2020-01-15 12:03:09.897 1234567  DrumApplicationRunner::handleEvents5               timestamp = Wed Jan 15 12:03:09 GMT 2020
- G6vN4xT9F4fz      7f1225b5 2020-01-15 12:03:09.897      45  DrumApplicationRunner::handleEvents0               Writing lock at the end WindowLock: header:         MetaData: content:     null
-                                                                                                                                         version:        81
- </code></pre></div>
+ The main method, `say` takes an array of objects, uses `toString` on each to get a string - each string is wrapped in a LeafTextBox
+ and it then composes the LeafTextBoxes  into a
+ LeftRightBox. We call this the message box.
+
+ Each of the strings can have many lines of text.
+
+ It then generates the label box - a text box that contains three text boxes that are composed into a LeftRightBox. These contain some standard information
+
+ 1. The date and timestamp
+ 2. The ms since say was last called
+ 3. The method name that called it
+
+ This box is now composed in a LeftRightBox with the message text box and the final box is converted to a String and output.
+
+
+
+  <p> <img src="../../../dev/doc-files/leaf-text-box.png" width=300/>
+
+  <p> <img src="../../../dev/doc-files/say-output.png" width=300/></div>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field-summary">
+<h2>Field Summary</h2>
+<div class="caption"><span>Fields</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static final int</code></div>
+<div class="col-second even-row-color"><code><a href="#ELAPSED_MS_WIDTH" class="member-name-link">ELAPSED_MS_WIDTH</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>static final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/ZoneId.html" title="class or interface in java.time" class="external-link">ZoneId</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#londonZone" class="member-name-link">londonZone</a></code></div>
+<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-first even-row-color"><code>static final int</code></div>
+<div class="col-second even-row-color"><code><a href="#NAME_WIDTH" class="member-name-link">NAME_WIDTH</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
+</section>
+</li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <li>
 <section class="constructor-summary" id="constructor-summary">
@@ -139,19 +149,10 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#browserLog(java.lang.String,dev.javafp.util.UniqueId,dev.javafp.lst.ImList)" class="member-name-link">browserLog</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;groupId,
- <a href="UniqueId.html" title="class in dev.javafp.util">UniqueId</a>&nbsp;windowId,
- <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;lines)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> Log
- <code>lines</code>
-  from the browser from group
- <code>groupId</code>
-  and window
- <code>windowId</code></div>
-</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#errorln(java.lang.String)" class="member-name-link">errorln</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#errorln(java.lang.String)" class="member-name-link">errorln</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#finalPrint(java.lang.String)" class="member-name-link">finalPrint</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;formatted)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#format(java.lang.String,java.lang.Object...)" class="member-name-link">format</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;formatString,
@@ -170,11 +171,12 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="CachingBuffer.html" title="class in dev.javafp.util">CachingBuffer</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getBuffer()" class="member-name-link">getBuffer</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getDateFromEpochMsString(java.lang.String)" class="member-name-link">getDateFromEpochMsString</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;ms)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static long</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getLocalTime(long)" class="member-name-link">getLocalTime</a><wbr>(long&nbsp;ts)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static long</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getLocalTime(long)" class="member-name-link">getLocalTime</a><wbr>(long&nbsp;ts)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getMsBetween(java.time.LocalDateTime,java.time.LocalDateTime)" class="member-name-link">getMsBetween</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;after,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;before)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getPrefix()" class="member-name-link">getPrefix</a>()</code></div>
@@ -251,6 +253,48 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field-detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="londonZone">
+<h3>londonZone</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/ZoneId.html" title="class or interface in java.time" class="external-link">ZoneId</a></span>&nbsp;<span class="element-name">londonZone</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="ELAPSED_MS_WIDTH">
+<h3>ELAPSED_MS_WIDTH</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">ELAPSED_MS_WIDTH</span></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../constant-values.html#dev.javafp.util.Say.ELAPSED_MS_WIDTH">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="NAME_WIDTH">
+<h3>NAME_WIDTH</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">NAME_WIDTH</span></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../constant-values.html#dev.javafp.util.Say.NAME_WIDTH">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li>
 <section class="constructor-details" id="constructor-detail">
@@ -309,30 +353,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="browserLog(java.lang.String,dev.javafp.util.UniqueId,dev.javafp.lst.ImList)">
-<h3>browserLog</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">browserLog</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;groupId,
- <a href="UniqueId.html" title="class in dev.javafp.util">UniqueId</a>&nbsp;windowId,
- <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;lines)</span></div>
-<div class="block"><p> Log
- <code>lines</code>
-  from the browser from group
- <code>groupId</code>
-  and window
- <code>windowId</code>
- <p> See the class comments for details</div>
-</section>
-</li>
-<li>
 <section class="detail" id="formatDateTime(java.time.LocalDateTime)">
 <h3>formatDateTime</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">formatDateTime</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;t)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getDateFromEpochMsString(java.lang.String)">
-<h3>getDateFromEpochMsString</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a></span>&nbsp;<span class="element-name">getDateFromEpochMsString</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;ms)</span></div>
 </section>
 </li>
 <li>
@@ -347,6 +370,13 @@ loadScripts(document, 'script');</script>
 <h3>format</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">format</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;formatString,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>...&nbsp;thingsToPrint)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="getMsBetween(java.time.LocalDateTime,java.time.LocalDateTime)">
+<h3>getMsBetween</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">getMsBetween</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;after,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/LocalDateTime.html" title="class or interface in java.time" class="external-link">LocalDateTime</a>&nbsp;before)</span></div>
 </section>
 </li>
 <li>
@@ -365,6 +395,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="println(java.lang.Object)">
 <h3>println</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">println</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;objectToShow)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="finalPrint(java.lang.String)">
+<h3>finalPrint</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">finalPrint</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;formatted)</span></div>
 </section>
 </li>
 <li>
