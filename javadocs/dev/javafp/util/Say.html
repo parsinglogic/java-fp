@@ -77,29 +77,42 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Say</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">A class to allow an easy way to display debugging information.
+<div class="block"><p> A class to allow a convenient way to display debugging information that automatically includes
+ timestamp information and, most usefully, records which method contained the display call.
 
- The easiest way to think about what it does is to consider what it in terms of text boxes.
+ <p> The easiest way to think about what it does is to consider it in terms of text boxes,
+ <a href="../box/AbstractTextBox.html" title="class in dev.javafp.box"><code>AbstractTextBox</code></a>.
 
- The main method, `say` takes an array of objects, uses `toString` on each to get a string - each string is wrapped in a LeafTextBox
- and it then composes the LeafTextBoxes  into a
- LeftRightBox. We call this the message box.
-
- Each of the strings can have many lines of text.
-
- It then generates the label box - a text box that contains three text boxes that are composed into a LeftRightBox. These contain some standard information
-
- 1. The date and timestamp
- 2. The ms since say was last called
- 3. The method name that called it
-
- This box is now composed in a LeftRightBox with the message text box and the final box is converted to a String and output.
-
-
-
-  <p> <img src="../../../dev/doc-files/leaf-text-box.png" width=300/>
-
-  <p> <img src="../../../dev/doc-files/say-output.png" width=300/></div>
+ <p> The main method,
+ <code>say</code>
+  takes an array of objects, uses
+ <a href="TextUtils.html#getBoxFrom(java.lang.Object)"><code>TextUtils.getBoxFrom(Object)</code></a>
+ on each to get a text box
+ and it then composes the text boxes  into a
+ <a href="../box/LeftRightBox.html" title="class in dev.javafp.box"><code>LeftRightBox</code></a>
+ <p> We call this the
+ <code>message box</code>
+ .
+ <p> Each of the boxes can have many lines of text.
+ <p> It then generates a "header" box - a text box that contains three text boxes that are composed into a LeftRightBox.
+ <p> These contain some standard information:
+ <ol>
+ <li>
+ <p> The date and timestamp
+ </li>
+ <li>
+ <p> The ms since
+ <code>say</code>
+  was last called
+ </li>
+ <li>
+ <p> The method name that called it. We use the stack trace of an exception to work this out.
+ </li>
+ </ol>
+ <p> The data and timestamp text box has a fixed width. If the text in the other two boxes is too wide then it will wrap onto another line
+ <p> This means that the header box has a fixed width. It normally is only one line high.
+ <p> This box is now composed in a LeftRightBox with the message text box and this final box is converted to a String and output.
+  <p> <img src="../../../dev/doc-files/say-output.png" width=500/></div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -340,12 +353,6 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="say(java.lang.Object...)">
-<h3>say</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">say</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>...&nbsp;things)</span></div>
-</section>
-</li>
-<li>
 <section class="detail" id="log(java.lang.String,java.lang.Object...)">
 <h3>log</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">log</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;pre,
@@ -395,6 +402,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="println(java.lang.Object)">
 <h3>println</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">println</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;objectToShow)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="say(java.lang.Object...)">
+<h3>say</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">say</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>...&nbsp;things)</span></div>
 </section>
 </li>
 <li>
