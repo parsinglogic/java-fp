@@ -232,12 +232,41 @@ import static java.util.Spliterator.SIZED;
 
 public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
 {
-    int HASH_CONSTANT = 31;
 
+    /**
+     * The empty list
+     */
     ImList empty = new ImEmptyList();
+
+    /**
+     * <p>
+     * {@code "────────"}
+     * (eight dashes) in a
+     * {@code LeafTextBox}
+     *
+     */
     LeafTextBox dash = LeafTextBox.with("────────");
+
+    /**
+     * <p> {@code "["}
+     *  in a
+     * {@code LeafTextBox}
+     *
+     */
     LeafTextBox open = LeafTextBox.with("[");
+
+    /**
+     * <p> {@code "]"}
+     *  in a
+     * {@code LeafTextBox}
+     */
     LeafTextBox close = LeafTextBox.with("]");
+
+    /**
+     * <p> {@code ", "}
+     *  in a
+     * {@code LeafTextBox}
+     */
     LeafTextBox comma = LeafTextBox.with(", ");
 
     /**

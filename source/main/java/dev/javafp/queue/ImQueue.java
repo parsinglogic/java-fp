@@ -13,7 +13,7 @@ import dev.javafp.util.ImMaybe;
 import dev.javafp.val.ImValuesImpl;
 
 /**
- * <p> A queue that has a maximumm size.
+ * <p> A queue that has a maximum size.
  */
 public class ImQueue<A> extends ImValuesImpl
 {

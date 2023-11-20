@@ -9,6 +9,8 @@ package dev.javafp.geom;
 
 /**
  * Orientation values.
+ *
+ * @see Orient2
  */
 public enum Orient1
 {

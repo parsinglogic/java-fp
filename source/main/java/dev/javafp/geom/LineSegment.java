@@ -91,13 +91,8 @@ public class LineSegment extends ImValuesImpl
      * <p> So grid(1,1, 5, 2)
      * <p> would produce 9 line segments looking like this:
      *
-     * <pre>{@code
-     *     ┌───┬───┬───┬───┬───┐
-     *     │   │   │   │   │   │
-     *     ├───┼───┼───┼───┼───┤
-     *     │   │   │   │   │   │
-     *     └───┴───┴───┴───┴───┘
-     * }</pre>
+     * <p> <img src="{@docRoot}/dev/doc-files/grid.png"  width=200/>
+     *
      *
      */
     public static ImList<LineSegment> grid(double width, double height, int countX, int countY)

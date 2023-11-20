@@ -29,44 +29,6 @@ public class SayTest
     }
 
     @Test
-    public void testBrowserLog() throws Exception
-    {
-
-        ImList<String> ss = ImList.on(
-                "doClick PUSH",
-                "FOUND clickable = \"DIV, id: 1a4008ef-6696-4a10-8268-d2cb39d594b6, class: b4 DRUM_CLICKABLE\"",
-                "doClick UP",
-                "SEND TO SERVER CLICK",
-                "CLICK on element = \"DIV, id: 1a4008ef-6696-4a10-8268-d2cb39d594b6, class: b4 DRUM_CLICKABLE\"",
-                "doClick PUSH",
-                "FOUND clickable = \"DIV, id: 1a4008ef-6696-4a10-8268-d2cb39d594b6, class: b4 DRUM_CLICKABLE\"",
-                "doClick UP",
-                "SEND TO SERVER CLICK",
-                "CLICK on element = \"DIV, id: 1a4008ef-6696-4a10-8268-d2cb39d594b6, class: b4 DRUM_CLICKABLE\""
-        );
-
-        // Add timestamps that increase
-        long start = 1579113024101L;
-        ImList<Long> times = ImList.unfold(start, i -> i + 123);
-
-        ImList<String> lines = times.zipWith(ss, (t, s) -> "" + t + " " + s);
-
-        System.out.println(lines.toString("\n"));
-
-        say("one", "one", "three", "four\nfive");
-
-        aVeryLongMethodNameIndeedOhYesItIsxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx();
-
-        Say.browserLog("test-g6rN0UrpCocL", UniqueId.on("1a4008ef-6696-4a10-8268-d2cb39d594b6"), lines);
-
-    }
-
-    private void aVeryLongMethodNameIndeedOhYesItIsxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx()
-    {
-        say("second line");
-    }
-
-    @Test
     public void testSimpleDateFormat()
     {
         SimpleDateFormat sdf = new SimpleDateFormat("kk:mm:ss.SSS");

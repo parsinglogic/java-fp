@@ -14,7 +14,7 @@ import static dev.javafp.geom.Orient1.Right;
 import static dev.javafp.geom.Orient1.Top;
 
 /**
- * <p> Contains 2d orientation values for gemometric calculations.
+ * <p> Contains 2d orientation values for geometric calculations.
  *
  * @see Orient1
  * @see Rect

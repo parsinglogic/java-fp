@@ -15,46 +15,47 @@ import dev.javafp.lst.ImList;
 import dev.javafp.tuple.ImPair;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 /**
- * <p> The idea is to display lines like this
- * <p> Server log:
+ * <p> A class to allow a convenient way to display debugging information that automatically includes
+ * timestamp information and, most usefully, records which method contained the display call.
  *
- * <pre>{@code
- * Group id
- * |                 First 8 chars of window id
- * |                 |        YYYY-MM-DD hh:mm:ss:SSS
- * |                 |        |                       ms since the last line
- * |                 |        |                       |        method name
- * |                 |        |                       |        |
- * |                 |        |                       |        |                                                  message
- * |                 |        |                       |        |                                                  |
- * 1..............17 1......8 1....................23 1.....7  1...............................................50 |
- * |               | |      | |                     | |     |  |                                                | |
- * qtp319061373-23   7f1225b5 2020-01-15 12:03:09.897 1234567  DrumApplicationRunner::handleEvents5               timestamp = Wed Jan 15 12:03:09 GMT 2020
- * qtp319061373-23   7f1225b5 2020-01-15 12:03:09.897    4567  DrumApplicationRunner::handleEvents0               Writing lock at the end WindowLock: header:         MetaData: content:     null
- * }</pre>
- * <p> Browser log:
+ * <p> The easiest way to think about what it does is to consider it in terms of text boxes,
+ * {@link AbstractTextBox}.
  *
- * <pre>{@code
- * Group id
- * |                 First 8 chars of window id
- * |                 |        YYYY-MM-DD hh:mm:ss:SSS
- * |                 |        |                       ms since the last line
- * |                 |        |                       |        method name
- * |                 |        |                       |        |
- * |                 |        |                       |        |                                                  message
- * |                 |        |                       |        |                                                  |
- * 1..............17 1......8 1....................23 1.....7  1...............................................50 |
- * |               | |      | |                     | |     |  |                                                | |
- * test-g6rN0UrpCocL 7f1225b5 2020-01-15 12:03:09.897 1234567  DrumApplicationRunner::handleEvents5               timestamp = Wed Jan 15 12:03:09 GMT 2020
- * G6vN4xT9F4fz      7f1225b5 2020-01-15 12:03:09.897      45  DrumApplicationRunner::handleEvents0               Writing lock at the end WindowLock: header:         MetaData: content:     null
- *                                                                                                                                         version:        81
- * }</pre>
+ * <p> The main method,
+ * {@code say}
+ *  takes an array of objects, uses
+ * {@link TextUtils#getBoxFrom(Object)}
+ * on each to get a text box
+ * and it then composes the text boxes  into a
+ * {@link LeftRightBox}
+ * <p> We call this the
+ * {@code message box}
+ * .
+ * <p> Each of the boxes can have many lines of text.
+ * <p> It then generates a "header" box - a text box that contains three text boxes that are composed into a LeftRightBox.
+ * <p> These contain some standard information:
+ * <ol>
+ * <li>
+ * <p> The date and timestamp
+ * </li>
+ * <li>
+ * <p> The ms since
+ * {@code say}
+ *  was last called
+ * </li>
+ * <li>
+ * <p> The method name that called it. We use the stack trace of an exception to work this out.
+ * </li>
+ * </ol>
+ * <p> The data and timestamp text box has a fixed width. If the text in the other two boxes is too wide then it will wrap onto another line
+ * <p> This means that the header box has a fixed width. It normally is only one line high.
+ * <p> This box is now composed in a LeftRightBox with the message text box and this final box is converted to a String and output.
+ *  <p> <img src="{@docRoot}/dev/doc-files/say-output.png"  width=500/>
  *
  */
 public class Say
@@ -68,16 +69,15 @@ public class Say
 
     private static final AbstractTextBox colon = LeafTextBox.with(" : ");
 
-    private static final ZoneId londonZone = ZoneId.of("Europe/London");
+    public static final ZoneId londonZone = ZoneId.of("Europe/London");
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
     static ThreadLocal<LocalDateTime> oldDate = new ThreadLocal<>();
 
-    final static int GROUP_ID_WIDTH = 40;
     final static int DATE_TIME_WIDTH = 23;
-    final static int ELAPSED_MS_WIDTH = 7;
-    final static int NAME_WIDTH = 50;
+    public final static int ELAPSED_MS_WIDTH = 7;
+    public final static int NAME_WIDTH = 50;
 
     // We store each thread-specific prefix in a thread local
     private static ThreadLocal<String> threadLocalPrefix = new ThreadLocal<>();
@@ -111,66 +111,14 @@ public class Say
         threadLocalPrefix.remove();
     }
 
-    public static void say(Object... things)
-    {
-        say$(1, AbstractTextBox.empty, things);
-    }
-
     public static void log(String pre, Object... things)
     {
         say$(1, LeafTextBox.with(pre), things);
     }
 
-    /**
-     * <p> Log
-     * {@code lines}
-     *  from the browser from group
-     * {@code groupId}
-     *  and window
-     * {@code windowId}
-     * <p> See the class comments for details
-     *
-     */
-    public static void browserLog(String groupId, UniqueId windowId, ImList<String> lines)
-    {
-
-        ImList<ImPair<String, String>> pairs = lines.map(s -> ParseUtils.splitAt(' ', s));
-
-        ImList<LocalDateTime> times = pairs.map(p -> getDateFromEpochMsString(p.fst));
-
-        /**
-         * <p> Each line has the epoch milliseconds value, a space and then the line:
-         * <p> 1579113074101 doClick PUSH
-         *
-         */
-
-        // Create the group-id and window id columns
-        var groupIds = TopDownBox.withAllBoxes(ImList.repeat(LeafTextBox.lefted(groupId, GROUP_ID_WIDTH), lines.size()));
-        var windowIds = TopDownBox.withAllBoxes(ImList.repeat(LeafTextBox.lefted(windowId.toShortString(), 21), lines.size()));
-
-        var dateTimes = TopDownBox.withAllBoxes(times.map(t -> LeafTextBox.with(formatDateTime(t))));
-
-        var elapsedStrings = times.tail().zipWith(times, (t1, t0) -> "" + getMsBetween(t1, t0)).push("-");
-        var elapsed = TopDownBox.withAllBoxes(elapsedStrings.map(e -> LeafTextBox.righted(e, ELAPSED_MS_WIDTH)));
-
-        var ids = TopDownBox.withAllBoxes(ImList.repeat(LeafTextBox.lefted("BROWSER", NAME_WIDTH), lines.size()));
-
-        var messages = TopDownBox.withAllBoxes(pairs.map(s -> LeafTextBox.with(s.snd)));
-
-        var formatted = LeftRightBox.with(groupIds, spaceBox, windowIds, dateTimes, spaceBox, elapsed, spaceBox, ids, spaceBox, messages).toString();
-
-        finalPrint(formatted);
-
-    }
-
     public static String formatDateTime(LocalDateTime t)
     {
         return t.format(formatter);
-    }
-
-    public static LocalDateTime getDateFromEpochMsString(String ms)
-    {
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.valueOf(ms)), londonZone);
     }
 
     public static void printf(String formatString, Object... thingsToPrint)
@@ -227,7 +175,7 @@ public class Say
         return LeftRightBox.with(prefixBox, spaceBox, dateTimeBox, spaceBox, elapsedBox, spaceBox, nameBox, spaceBox);
     }
 
-    private static long getMsBetween(LocalDateTime after, LocalDateTime before)
+    public static long getMsBetween(LocalDateTime after, LocalDateTime before)
     {
         return Duration.between(before, after).toMillis();
     }
@@ -256,7 +204,7 @@ public class Say
     {
         AbstractTextBox preBox = preBox(0);
 
-        ImList<AbstractTextBox> boxes = ImList.on(things).map(t -> LeafTextBox.with("" + t));
+        ImList<AbstractTextBox> boxes = ImList.on(things).map(t -> TextUtils.getBoxFrom(t));
 
         print(preBox, TopDownBox.withAllBoxes(boxes));
     }
@@ -266,11 +214,16 @@ public class Say
         say(objectToShow);
     }
 
+    public static void say(Object... things)
+    {
+        say$(1, AbstractTextBox.empty, things);
+    }
+
     private static void say$(int extraStackFrameCount, AbstractTextBox preBox, Object... things)
     {
         AbstractTextBox preBox2 = preBox.before(preBox(extraStackFrameCount));
 
-        ImList<AbstractTextBox> boxes = ImList.on(things).map(t -> LeafTextBox.with("" + t));
+        ImList<AbstractTextBox> boxes = ImList.on(things).map(t -> TextUtils.getBoxFrom(t));
 
         print(preBox2, LeftRightBox.withAll(boxes.intersperse(spaceBox)));
     }
@@ -280,7 +233,7 @@ public class Say
         finalPrint(pre.before(content).toString());
     }
 
-    private static void finalPrint(String formatted)
+    public static void finalPrint(String formatted)
     {
         if (buffer == null)
             System.out.println(formatted);
@@ -295,7 +248,7 @@ public class Say
         ImList<String> bars = ImList.repeat(" | ");
 
         // Get boxes from the things
-        ImList<AbstractTextBox> boxes = ImList.on(things).map(t -> toBox(t));
+        ImList<AbstractTextBox> boxes = ImList.on(things).map(t -> TextUtils.getBoxFrom(t));
 
         // Get the max height
         int maxHeight = boxes.foldl(0, (z, b) -> Math.max(z, b.height));
@@ -308,13 +261,6 @@ public class Say
 
         // Display them
         print(preBox, LeftRightBox.withAll(boxesWithSep));
-    }
-
-    private static AbstractTextBox toBox(Object thing)
-    {
-        return thing instanceof AbstractTextBox
-               ? (AbstractTextBox) thing
-               : LeafTextBox.with("" + thing);
     }
 
     public static void printBox(AbstractTextBox box)

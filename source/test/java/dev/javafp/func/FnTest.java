@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertSame;
 
 public class FnTest
 {
@@ -17,6 +18,12 @@ public class FnTest
         Fn<Integer, Integer> timesTwo = i -> i * 2;
 
         assertEquals((Integer) 6, timesTwo.of(3));
+    }
+
+    @Test
+    public void testId()
+    {
+        assertSame("a", Fn.id().of("a"));
     }
 
     @Test

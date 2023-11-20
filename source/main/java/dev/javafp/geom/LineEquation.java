@@ -12,17 +12,40 @@ import dev.javafp.tuple.ImTriple;
 import dev.javafp.val.ImValuesImpl;
 
 /**
- * <p> A representation of an infinite straight line in 2 dimensions,
+ * <p> A representation of an infinite straight line in 2 dimensions:
  * {@code ax + by + c = 0}
  *
  */
 public class LineEquation extends ImValuesImpl
 {
+    /**
+     * <p> The
+     * {@code a}
+     *  in
+     * {@code ax + by + c = 0}
+     *
+     */
     public final double a;
+
+    /**
+     * <p> The
+     * {@code b}
+     *  in
+     * {@code ax + by + c = 0}
+     *
+     */
     public final double b;
+
+    /**
+     * <p> The
+     * {@code c}
+     *  in
+     * {@code ax + by + c = 0}
+     *
+     */
     public final double c;
 
-    public LineEquation(double a, double b, double c)
+    LineEquation(double a, double b, double c)
     {
         this.a = a;
         this.b = b;
@@ -30,7 +53,13 @@ public class LineEquation extends ImValuesImpl
     }
 
     /**
-     * A line equation with values `a`, `b`, `c`
+     * <p> A line equation with values
+     * {@code a}
+     * ,
+     * {@code b}
+     * ,
+     * {@code c}
+     *
      */
     public static LineEquation on(double a, double b, double c)
     {

@@ -42,7 +42,7 @@ import java.nio.charset.StandardCharsets;
  * <p> https://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1
  *
  */
-public abstract class ApiRequest extends ImValuesImpl
+public class ApiRequest extends ImValuesImpl
 {
     public enum Method
     {
@@ -50,7 +50,6 @@ public abstract class ApiRequest extends ImValuesImpl
         POST
     }
 
-    // The url - no query parameters allowed on this
     public final ImUrl url;
 
     public final Method method;

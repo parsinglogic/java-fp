@@ -20,6 +20,10 @@ import dev.javafp.func.FnBlock;
 public class ImRange
 {
 
+    private ImRange()
+    {
+    }
+
     /**
      * <p> A list of integers
      * {@code [min, min + 1, min + 2, ... max]}

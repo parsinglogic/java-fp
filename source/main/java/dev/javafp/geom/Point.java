@@ -26,21 +26,7 @@ import static java.lang.Math.min;
  *
  * <p> We use the terms east, west etc in some of the functions. These are indicated below.
  *
- * <pre>{@code
- *
- *              (north)
- *
- *
- *                 x
- *              ┌───────>
- *              │
- *  (west)    y │            (east)
- *              │
- *              ∨
- *
- *
- *             (south)
- * }</pre>
+ * <p> <img src="{@docRoot}/dev/doc-files/point.png"  width=300/>
  *
  * @see Rect
  */
@@ -55,12 +41,18 @@ public class Point extends ImValuesImpl
     public static final Point zero = Point.on(0, 0);
 
     /**
-     * The x coordinate
+     * <p> The
+     * {@code x}
+     *  coordinate
+     *
      */
     public final double x;
 
     /**
-     * The y coordinate
+     * <p> The
+     * {@code y}
+     *  coordinate
+     *
      */
     public final double y;
 

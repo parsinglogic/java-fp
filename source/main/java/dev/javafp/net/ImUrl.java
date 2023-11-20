@@ -458,15 +458,15 @@ import java.util.regex.Pattern;
 public class ImUrl extends ImValuesImpl
 {
 
-    private static final Pattern compile = Pattern.compile("^[a-zA-Z]\\w+:\\/\\/");
     public final String scheme;
     public final String port;
     public final String host;
-    public final ImList<String> pathComponents; // This will never be null
+    public final ImList<String> pathComponents;
     public final String path;
-    //    public final String query;
     public final ImList<ImPair<String, String>> queryElements;
     public final String fragment;
+
+    private static final Pattern compile = Pattern.compile("^[a-zA-Z]\\w+:\\/\\/");
 
     private static final Charset utf8 = StandardCharsets.UTF_8;
 

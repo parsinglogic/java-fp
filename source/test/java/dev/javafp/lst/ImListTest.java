@@ -178,7 +178,7 @@ public class ImListTest implements Constants
 
         assertEquals(1, empty.hashCode());
         assertEq(nulls, nulls);
-        int expected = ImLazyList.HASH_CONSTANT * ImLazyList.HASH_CONSTANT;
+        int expected = 31 * 31;
         assertEquals(expected, nulls.hashCode());
         assertEquals(expected, nullsList.hashCode());
     }

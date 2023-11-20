@@ -46,6 +46,11 @@ public abstract class AbstractTextBox implements Serializable
     public static final LeafTextBox empty = LeafTextBox.with("");
 
     /**
+     * The text box containing a space
+     */
+    public static final LeafTextBox spaceBox = LeafTextBox.with("");
+
+    /**
      * The width of the box in characters
      */
     public final int width;

@@ -10,7 +10,7 @@ package dev.javafp.time;
 /**
  * A timer that uses {@link System#nanoTime()}.
  */
-public class RunningStopWatch extends StopWatch
+class RunningStopWatch extends StopWatch
 {
     private final NanoTimeProvider timeProvider;
 
