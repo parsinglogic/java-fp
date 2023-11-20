@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+chmod a+w  javadocs/dev/doc-files
+
 # remove the output dir
 rm -rf javadocs
 
@@ -17,3 +19,7 @@ rg --files -g '*.html' javadocs | xargs -L 1 -I f sed -i '' -e '/<meta name="dc.
 # Copy the better stylesheet into javadocs
 cp stylesheet.css javadocs
 
+
+echo 'use source/main/java/dev/doc-files instead' > javadocs/dev/doc-files/DONT-PUT-FILES-HERE-THESE-ARE-GENERATED 
+
+chmod a-w  javadocs/dev/doc-files
