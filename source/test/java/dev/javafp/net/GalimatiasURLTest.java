@@ -11,6 +11,7 @@ import io.mola.galimatias.URL;
 import org.junit.Test;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -43,7 +44,7 @@ public class GalimatiasURLTest
     }
 
     @Test
-    public void testLeadingZerosInPort() throws Exception
+    public void testLeadingZerosInPort() throws GalimatiasParseException
     {
         URL url = URL.parse("http://example.com:0000000000000000000080");
 
@@ -51,7 +52,7 @@ public class GalimatiasURLTest
     }
 
     @Test
-    public void testPort() throws Exception
+    public void testPort() throws GalimatiasParseException
     {
         URL url = URL.parse("http://example.com");
 
@@ -64,7 +65,7 @@ public class GalimatiasURLTest
      * @throws Exception
      */
     @Test
-    public void testEncodeInHost() throws Exception
+    public void testEncodeInHost() throws GalimatiasParseException
     {
         URL url = URL.parse("http://%65xample.com");
 
@@ -194,7 +195,7 @@ public class GalimatiasURLTest
     }
 
     @Test
-    public void testDoesParseSchemesOk() throws Exception
+    public void testDoesParseSchemesOk() throws URISyntaxException
     {
         URI uri = new URI("a.+-://a.b");
 
@@ -202,7 +203,7 @@ public class GalimatiasURLTest
     }
 
     @Test
-    public void testDoesNotCanonicaliseScheme() throws Exception
+    public void testDoesNotCanonicaliseScheme() throws URISyntaxException
     {
         URI uri = new URI("HTTPS://example.com");
 
@@ -211,7 +212,7 @@ public class GalimatiasURLTest
     }
 
     @Test
-    public void testALongURL() throws Exception
+    public void testALongURL() throws URISyntaxException
     {
 
         String s = "http://localhost:8080/mock-cognito/%26logout"

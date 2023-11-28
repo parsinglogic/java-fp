@@ -241,7 +241,7 @@ public class ImSortedSetTest
     }
 
     @Test
-    public void testGetNumbers() throws Exception
+    public void testGetNumbers()
     {
         SortedSet<Integer> set = new TreeSet<Integer>();
         assertEquals(Arrays.asList(4), getNumbers(set, 3));
@@ -254,7 +254,7 @@ public class ImSortedSetTest
     }
 
     @Test
-    public void testGetNumbersThrowsWhenTooClose() throws Exception
+    public void testGetNumbersThrowsWhenTooClose()
     {
         SortedSet<Integer> set;
 

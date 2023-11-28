@@ -72,7 +72,7 @@ public class SayTest
     }
 
     @Test
-    public void testTable() throws Exception
+    public void testTable()
     {
         String expected = "one                           : one\n"
                 + "floccinaucinihilipilification : [99, 100, 101, 102, 103, 104, 105]\n"

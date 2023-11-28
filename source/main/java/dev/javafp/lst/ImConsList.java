@@ -21,7 +21,7 @@ class ImConsList<A> extends ImLazyList<A> implements Eq
 
     // TODO - remove this? - Van sep-2015
     //    // To maintain the Empty singleton
-    //    private Object readResolve() throws Exception
+    //    private Object readResolve()
     //    {
     //        return head == null
     //                ? empty

@@ -18,7 +18,7 @@ public class ImShelfZipperTest
 {
 
     @Test
-    public void testNextThrowsAtEnd() throws Exception
+    public void testNextThrowsAtEnd()
     {
         try
         {
@@ -30,7 +30,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void testSetFocusThrows() throws Exception
+    public void testSetFocusThrows()
     {
         try
         {
@@ -42,7 +42,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void getFocusThrows() throws Exception
+    public void getFocusThrows()
     {
         try
         {
@@ -54,7 +54,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void popThrows() throws Exception
+    public void popThrows()
     {
         try
         {
@@ -66,7 +66,7 @@ public class ImShelfZipperTest
     }
 
     //    @Test
-    //    public void testEquals() throws Exception
+    //    public void testEquals()
     //    {
     //        ImShelf<Integer> list = ImShelf.onArray(1, 2, 3, 4);
     //
@@ -79,7 +79,7 @@ public class ImShelfZipperTest
     //    }
     //
     //    @Test
-    //    public void testEqualsOnNull() throws Exception
+    //    public void testEqualsOnNull()
     //    {
     //        ImList<Integer> list = ImRange.oneTo(4);
     //
@@ -87,7 +87,7 @@ public class ImShelfZipperTest
     //    }
 
     @Test
-    public void testInsertBeforeAOnMany() throws Exception
+    public void testInsertBeforeAOnMany()
     {
         Random r = new Random(12345678);
 
@@ -152,7 +152,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void testPushOnMany() throws Exception
+    public void testPushOnMany()
     {
         List<Integer> startList = new ArrayList<Integer>();
 
@@ -178,7 +178,7 @@ public class ImShelfZipperTest
     }
 
     //    @Test
-    //    public void testInsertElementOnEmpty() throws Exception
+    //    public void testInsertElementOnEmpty()
     //    {
     //        ImShelfZipper<Integer> z = ImShelf.<Integer> empty().getZipper();
     //
@@ -191,7 +191,7 @@ public class ImShelfZipperTest
     //    }
 
     @Test
-    public void testPopElementOnSingle() throws Exception
+    public void testPopElementOnSingle()
     {
         ImShelf<Integer> shelf = ImShelf.onAll(Arrays.asList(1));
 
@@ -199,7 +199,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void testPopOnMany() throws Exception
+    public void testPopOnMany()
     {
         List<Integer> startList = new ArrayList<Integer>();
 
@@ -223,7 +223,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void testCloseWithNoChangesReturnsSameShelf() throws Exception
+    public void testCloseWithNoChangesReturnsSameShelf()
     {
         List<Integer> startList = new ArrayList<Integer>();
 
@@ -243,7 +243,7 @@ public class ImShelfZipperTest
     }
 
     //    @Test
-    //    public void testInsertBeforeSimple() throws Exception
+    //    public void testInsertBeforeSimple()
     //    {
     //        // Set up a list  [1 .. 10]
     //        List<Integer> checkList = ImTestHelper.makeList(10, 1);
@@ -270,7 +270,7 @@ public class ImShelfZipperTest
     //    }
 
     @Test
-    public void testPushSimple() throws Exception
+    public void testPushSimple()
     {
         // Set up a list  [1 .. 10]
         List<Integer> checkList = ImTestHelper.makeList(10, 1);
@@ -301,7 +301,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void exampleZipper() throws Exception
+    public void exampleZipper()
     {
         ImShelf<Integer> shelf = ImShelf.on(2, 3);
         ImShelf<Integer> other = ImShelf.on(5, 13);
@@ -341,7 +341,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void testPushAllOnMany() throws Exception
+    public void testPushAllOnMany()
     {
         List<Integer> startList = new ArrayList<Integer>();
 
@@ -388,19 +388,19 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void testHasNextOnEmpty() throws Exception
+    public void testHasNextOnEmpty()
     {
         assertEquals(false, ImShelf.empty().getZipper().hasNext());
     }
 
     @Test
-    public void testHasNextOnSingletonList() throws Exception
+    public void testHasNextOnSingletonList()
     {
         assertEquals(false, ImShelf.on(1).getZipper().next().hasNext());
     }
 
     @Test
-    public void testHasNextOnSmallList() throws Exception
+    public void testHasNextOnSmallList()
     {
         ImShelfZipper<Integer> z = ImShelf.on(1).getZipper().next();
 
@@ -411,7 +411,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void testEqualsOnSmallList() throws Exception
+    public void testEqualsOnSmallList()
     {
         ImShelfZipper<Integer> z = ImShelf.on(1, 2, 3, 4).getZipper().next().next();
 
@@ -419,13 +419,13 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void testHasPrevOnEmpty() throws Exception
+    public void testHasPrevOnEmpty()
     {
         assertEquals(false, ImShelf.empty().getZipper().hasPrev());
     }
 
     @Test
-    public void testHasPrevOnSingletonList() throws Exception
+    public void testHasPrevOnSingletonList()
     {
         ImShelfZipper<Integer> z = ImShelf.on(1).getZipper();
         assertEquals(false, z.hasPrev());
@@ -443,7 +443,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void testHasPrevOnSmallList() throws Exception
+    public void testHasPrevOnSmallList()
     {
         ImShelfZipper<Integer> z = ImShelf.on(1).getZipper().next();
 
@@ -456,7 +456,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void testPrevOnEmpty() throws Exception
+    public void testPrevOnEmpty()
     {
         ImShelfZipper<Object> ze = ImShelf.empty().getZipper();
         assertEquals(false, ze.hasPrev());
@@ -471,7 +471,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void exampleToString() throws Exception
+    public void exampleToString()
     {
         ImTestHelper.checkExample(ImShelf.empty().getZipper().toString(), "{}");
 
@@ -483,7 +483,7 @@ public class ImShelfZipperTest
     }
 
     @Test
-    public void testPopAndPushAreInverses() throws Exception
+    public void testPopAndPushAreInverses()
     {
         for (int i = 1; i <= 4; i++)
         {

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -328,7 +329,7 @@ public class ImSetTest
     }
 
     @Test
-    public void testSerializing() throws Exception
+    public void testSerializing() throws IOException, ClassNotFoundException
     {
         ByteArrayOutputStream bos;
         ObjectOutputStream oos;
@@ -356,7 +357,7 @@ public class ImSetTest
     }
 
     @Test
-    public void testExampleOnArray() throws Exception
+    public void testExampleOnArray()
     {
         checkExample(onArray(1, 2, 3, 2), "[1, 2, 3]");
         checkExample(onArray(), "          []");

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class TableTest
 {
     @Test
-    public void testTable() throws Exception
+    public void testTable()
     {
         String expected = "aab\n"
                 + "c\n"

@@ -23,7 +23,7 @@ public class ImRoseTreeTest
 {
 
     @Test
-    public void testAllUpToSix() throws Exception
+    public void testAllUpToSix()
     {
         for (int count = 1; count <= 6; count++)
         {
@@ -47,7 +47,7 @@ public class ImRoseTreeTest
     }
 
     @Test
-    public void testAllOfSizeSix() throws Exception
+    public void testAllOfSizeSix()
     {
 
         ImList<ImRoseTree<String>> trees = ImRoseTreeShapes.allTreesWithSize(6);
@@ -71,7 +71,7 @@ public class ImRoseTreeTest
     }
 
     @Test
-    public void testEquals() throws Exception
+    public void testEquals()
     {
 
         // Get a list of all tree shapes with size <= 5
@@ -94,7 +94,7 @@ public class ImRoseTreeTest
     }
 
     @Test
-    public void testEqualsWithTreesOfDifferentTypes() throws Exception
+    public void testEqualsWithTreesOfDifferentTypes()
     {
         ImRoseTree<Integer> tree = withElements(1, 2, 3);
         ImRoseTree<Boolean> tree2 = withElements(true, true, true);
@@ -102,7 +102,7 @@ public class ImRoseTreeTest
     }
 
     @Test
-    public void testEqualsWithNull() throws Exception
+    public void testEqualsWithNull()
     {
         ImRoseTree<Integer> tree = withElements(1, 2, 3);
 
@@ -110,7 +110,7 @@ public class ImRoseTreeTest
     }
 
     @Test
-    public void exampleMakeTree() throws Exception
+    public void exampleMakeTree()
     {
         ImRoseTree<Integer> tree = makeTree(3, 3);
 
@@ -118,14 +118,14 @@ public class ImRoseTreeTest
     }
 
     @Test
-    public void testReplace() throws Exception
+    public void testReplace()
     {
         ImRoseTree<Integer> tree = withElements(1, 2, 3);
         assertEquals("" + withElements(4, 2, 3), "" + tree.replaceElement(4));
     }
 
     @Test
-    public void testReplaceWithSameElementReturnsSameTree() throws Exception
+    public void testReplaceWithSameElementReturnsSameTree()
     {
         Integer rootElement = Integer.valueOf(1);
         ImRoseTree<Integer> tree = withElements(rootElement, 2, 3);
@@ -133,25 +133,25 @@ public class ImRoseTreeTest
     }
 
     @Test
-    public void exampleToBoxString() throws Exception
+    public void exampleToBoxString()
     {
         System.err.println(withNodes(1, withElements(2, 3, 4, 5), leaf(6), leaf(7)).toBoxString());
     }
 
     @Test
-    public void exampleToString() throws Exception
+    public void exampleToString()
     {
         System.err.println(withNodes(1, withElements(2, 3, 4, 5), leaf(6), leaf(7)).toString());
     }
 
     @Test
-    public void exampleIterator() throws Exception
+    public void exampleIterator()
     {
         System.err.println(withNodes("a", leaf("b"), withElements("c", "e", "f", "g"), withElements("d", "h")).toBoxString());
     }
 
     @Test
-    public void exampleGetNodeAtIndex() throws Exception
+    public void exampleGetNodeAtIndex()
     {
         ImRoseTree<String> t = withNodes("a", leaf("b"), withElements("c", "e", "f", "g"), withElements("d", "h"));
 
@@ -161,7 +161,7 @@ public class ImRoseTreeTest
     }
 
     @Test
-    public void exampleContains() throws Exception
+    public void exampleContains()
     {
         ImRoseTree<String> t = withNodes("a", leaf("b"), withElements("c"), withElements("d", "h"));
         System.err.println(t.toBoxString());
@@ -169,7 +169,7 @@ public class ImRoseTreeTest
     }
 
     @Test
-    public void exampleGetChildren() throws Exception
+    public void exampleGetChildren()
     {
         ImRoseTree<String> t = withElements("c", "e", "f", "g");
         System.err.println(t.toBoxString());
@@ -179,7 +179,7 @@ public class ImRoseTreeTest
     }
 
     @Test
-    public void exampleMap() throws Exception
+    public void exampleMap()
     {
         ImRoseTree<String> t = withElements("c", "e", "f", "g");
 

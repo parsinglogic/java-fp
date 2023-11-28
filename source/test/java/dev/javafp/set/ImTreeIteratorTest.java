@@ -13,7 +13,7 @@ public class ImTreeIteratorTest
 {
 
     @Test
-    public void testOnNil() throws Exception
+    public void testOnNil()
     {
         final ImTree<Character> node = t("");
 
@@ -22,7 +22,7 @@ public class ImTreeIteratorTest
     }
 
     @Test
-    public void testOnTree() throws Exception
+    public void testOnTree()
     {
         // Test that iterator as a list returns the same as flatten for all tree shapes of size 0 to 7
         List<ImTree<Character>> shapes = new ImTreeShapes().allUpToSize(7, true, 'a');

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import static org.junit.Assert.fail;
 public class ImMapTest
 {
     @Test
-    public void testOne() throws Exception
+    public void testOne()
     {
         ImMap<String, String> map = new ImMap();
 
@@ -194,7 +195,7 @@ public class ImMapTest
     }
 
     @Test
-    public void testSerializing() throws Exception
+    public void testSerializing() throws IOException, ClassNotFoundException
     {
         ByteArrayOutputStream bos;
         ObjectOutputStream oos;

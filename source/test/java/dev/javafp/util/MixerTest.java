@@ -9,20 +9,20 @@ import static org.junit.Assert.assertEquals;
 public class MixerTest
 {
     @Test
-    public void testOne() throws Exception
+    public void testOne()
     {
         assertEquals(ImList.on(ImList.on()), Mixer.mix(ImList.on(), ImList.on()));
     }
 
     @Test
-    public void testTwo() throws Exception
+    public void testTwo()
     {
         assertEquals("[[1, 2, 3, 4], [1, 3, 2, 4], [1, 3, 4, 2], [3, 1, 2, 4], [3, 1, 4, 2], [3, 4, 1, 2]]", //
                 "" + Mixer.mix(ImList.on(1, 2), ImList.on(3, 4)));
     }
 
     @Test
-    public void testMixIsOk() throws Exception
+    public void testMixIsOk()
     {
         for (int i = 0; i < 5; i++)
             for (int j = 0; j < 5; j++)

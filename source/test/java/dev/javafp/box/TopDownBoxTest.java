@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class TopDownBoxTest
 {
     @Test
-    public void testOne() throws Exception
+    public void testOne()
     {
         /**
          *

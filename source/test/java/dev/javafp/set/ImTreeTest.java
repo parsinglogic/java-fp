@@ -17,12 +17,12 @@ public class ImTreeTest
     private ImTree<Character> nil = ImTree.Nil();
 
     @Before
-    public void setUp() throws Exception
+    public void setUp()
     {
     }
 
     @Test
-    public void testCreateLeft5() throws Exception
+    public void testCreateLeft5()
     {
         ImTree<Character> e = leaf('e');
         ImTree<Character> d = tree('d', e, nil);
@@ -34,7 +34,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testGetAtIndex0() throws Exception
+    public void testGetAtIndex0()
     {
         try
         {
@@ -48,7 +48,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testGetAtIndexTooLarge() throws Exception
+    public void testGetAtIndexTooLarge()
     {
         try
         {
@@ -62,7 +62,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testGetAtIndex() throws Exception
+    public void testGetAtIndex()
     {
         List<ImTree<Character>> shapes = new ImTreeShapes().allUpToSize(4, true, 'a');
 
@@ -93,7 +93,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testCreateRight5() throws Exception
+    public void testCreateRight5()
     {
         ImTree<Character> e = leaf('e');
         ImTree<Character> d = tree('d', nil, e);
@@ -104,7 +104,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testTree3() throws Exception
+    public void testTree3()
     {
         ImTree<Character> alone = leaf('a');
         ImTree<Character> leftOnly = tree('a', leaf('b'), nil);
@@ -132,7 +132,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testToString() throws Exception
+    public void testToString()
     {
         System.out.println(t("a1"));
         System.out.println(t("a1 b2"));
@@ -144,7 +144,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testIsBalanced() throws Exception
+    public void testIsBalanced()
     {
         for (int i = 0; i < 5; i++)
         {
@@ -202,13 +202,13 @@ public class ImTreeTest
     }
 
     @Test
-    public void testToString3() throws Exception
+    public void testToString3()
     {
         System.out.println(t("f1 e2 d3 c4 e5"));
     }
 
     @Test
-    public void testLeftDeepSwizzle() throws Exception
+    public void testLeftDeepSwizzle()
     {
         ImTree<Character> expected = t("e1 b2 d3 f3 a2 g3 c3");
 
@@ -218,14 +218,14 @@ public class ImTreeTest
     }
 
     @Test
-    public void testConcat3Simple() throws Exception
+    public void testConcat3Simple()
     {
         assertTreeIs("b1 a2 c2", ImTree.concat3('b', t("a1"), t("c1")));
         assertTreeIs("d1 b2 a3 c3 f2 e3 g3", ImTree.concat3('f', t("b1 a2 d2 c3 e3"), t("g1")));
     }
 
     @Test
-    public void testLeftShallowSwizzle() throws Exception
+    public void testLeftShallowSwizzle()
     {
         ImTree<Character> expected = t("b1 d2 x3 a2 e3 c3");
 
@@ -236,7 +236,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testRightDeepSwizzle() throws Exception
+    public void testRightDeepSwizzle()
     {
         ImTree<Character> expected = t("d1 a2 b3 f3 c2 g3 e3");
 
@@ -246,7 +246,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testRightShallowSwizzle() throws Exception
+    public void testRightShallowSwizzle()
     {
         ImTree<Character> expected = t("c1 a2 b3 d3 e2 x3");
 
@@ -257,7 +257,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testTreesForSwizzling() throws Exception
+    public void testTreesForSwizzling()
     {
         System.out.println(t("a1 b2 d3 e3 f4 g4 c2"));
         System.out.println(t("e1 b2 d3 f3 a2 g3 c3"));
@@ -276,7 +276,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testToString2() throws Exception
+    public void testToString2()
     {
         ImTree<Character> c = tree('c', nil, nil);
         ImTree<Character> d = tree('d', nil, nil);
@@ -287,7 +287,7 @@ public class ImTreeTest
     }
 
     @Test
-    public void testMap() throws Exception
+    public void testMap()
     {
 
         assertEquals("a (b (d e (f g)) c)".toUpperCase(), "" + t("a1 b2 d3 e3 f4 g4 c2").map(i -> i.toUpperCase(i)));

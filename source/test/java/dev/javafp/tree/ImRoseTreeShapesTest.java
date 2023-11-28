@@ -10,19 +10,19 @@ public class ImRoseTreeShapesTest
 {
 
     @Test
-    public void testOne() throws Exception
+    public void testOne()
     {
         assertStringEquals("[1]", ImRoseTreeShapes.allTreesWithSize(1));
     }
 
     @Test
-    public void testTwo() throws Exception
+    public void testTwo()
     {
         assertStringEquals("[1 (2)]", ImRoseTreeShapes.allTreesWithSize(2));
     }
 
     @Test
-    public void testThree() throws Exception
+    public void testThree()
     {
         ImList<ImRoseTree<String>> trees = ImRoseTreeShapes.allTreesWithSize(3);
 
@@ -31,7 +31,7 @@ public class ImRoseTreeShapesTest
     }
 
     @Test
-    public void testFour() throws Exception
+    public void testFour()
     {
         assertTreesEqual(ImList.on("1 (2 (3 4))", "1 (2 (3 (4)))", "1 (2 (3) 4)", "1 (2 3 (4))", "1 (2 3 4)"),
                 ImRoseTreeShapes.allTreesWithSize(4));
@@ -43,7 +43,7 @@ public class ImRoseTreeShapesTest
     }
 
     @Test
-    public void testFive() throws Exception
+    public void testFive()
     {
         ImList<String> expected = ImList.on("1 (2 (3 4 5))",
                 "1 (2 (3 4 (5)))",

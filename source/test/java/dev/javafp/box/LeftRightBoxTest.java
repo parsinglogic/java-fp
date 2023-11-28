@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 public class LeftRightBoxTest
 {
     @Test
-    public void testOne() throws Exception
+    public void testOne()
     {
         /**
          *

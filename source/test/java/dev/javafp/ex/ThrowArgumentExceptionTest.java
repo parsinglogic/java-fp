@@ -14,7 +14,7 @@ public class ThrowArgumentExceptionTest
 {
 
     @Test
-    public void testIfNullOrEmptyThrowsWhenEmpty() throws Exception
+    public void testIfNullOrEmptyThrowsWhenEmpty()
     {
         try
         {
@@ -27,7 +27,7 @@ public class ThrowArgumentExceptionTest
     }
 
     @Test
-    public void testIfNullOrEmptyThrowsWhenNull() throws Exception
+    public void testIfNullOrEmptyThrowsWhenNull()
     {
         try
         {
@@ -40,13 +40,13 @@ public class ThrowArgumentExceptionTest
     }
 
     @Test
-    public void testIfNullOrEmptyDoesNotThrowWhenNotNullOrEmpty() throws Exception
+    public void testIfNullOrEmptyDoesNotThrowWhenNotNullOrEmpty()
     {
         Throw.Exception.ifNullOrEmpty("wibble", "wobble");
     }
 
     @Test
-    public void testIfEmptyThrowsWhenEmpty() throws Exception
+    public void testIfEmptyThrowsWhenEmpty()
     {
         try
         {
@@ -59,7 +59,7 @@ public class ThrowArgumentExceptionTest
     }
 
     @Test
-    public void testIfTrue() throws Exception
+    public void testIfTrue()
     {
 
         Throw.Exception.ifTrue(false, "");
@@ -74,7 +74,7 @@ public class ThrowArgumentExceptionTest
     }
 
     @Test
-    public void testIfFalse() throws Exception
+    public void testIfFalse()
     {
 
         Throw.Exception.ifFalse(true, "");
@@ -89,13 +89,13 @@ public class ThrowArgumentExceptionTest
     }
 
     @Test
-    public void testIfEmptyDoesNotThrowWhenNotEmpty() throws Exception
+    public void testIfEmptyDoesNotThrowWhenNotEmpty()
     {
         Throw.Exception.ifEmpty("wibble", "wobble");
     }
 
     @Test
-    public void testIfNullThrowsWhenNull() throws Exception
+    public void testIfNullThrowsWhenNull()
     {
         try
         {
@@ -108,7 +108,7 @@ public class ThrowArgumentExceptionTest
     }
 
     @Test
-    public void testIfOutOfRange1() throws Exception
+    public void testIfOutOfRange1()
     {
         Throw.Exception.ifOutOfRange("foo", 37, 37, 37);
         Throw.Exception.ifOutOfRange("foo", 0, Integer.MIN_VALUE + 1, Integer.MAX_VALUE - 1);
@@ -131,7 +131,7 @@ public class ThrowArgumentExceptionTest
     }
 
     @Test
-    public void testIfOutOfRangeThrowsIfMinIsGreaterThanMax() throws Exception
+    public void testIfOutOfRangeThrowsIfMinIsGreaterThanMax()
     {
 
         try
@@ -144,7 +144,7 @@ public class ThrowArgumentExceptionTest
     }
 
     @Test
-    public void testIfIndexNotInCollection() throws Exception
+    public void testIfIndexNotInCollection()
     {
         final ImList<String> foos = ImList.on();
 
@@ -166,7 +166,7 @@ public class ThrowArgumentExceptionTest
     }
 
     @Test
-    public void testLessThan() throws Exception
+    public void testLessThan()
     {
         Throw.Exception.ifLessThan("foo", 0, 0);
         Throw.Exception.ifLessThan("foo", 1, -1);
@@ -181,13 +181,13 @@ public class ThrowArgumentExceptionTest
     }
 
     @Test
-    public void testIfNullDoesNotThrowWhenNotNull() throws Exception
+    public void testIfNullDoesNotThrowWhenNotNull()
     {
         Throw.Exception.ifNull("wibble", "wobble");
     }
 
     //    @Test
-    //public void testIfNotTypeThrowsWhenWrongType() throws Exception
+    //public void testIfNotTypeThrowsWhenWrongType()
     //    {
     //        try
     //        {
@@ -203,7 +203,7 @@ public class ThrowArgumentExceptionTest
     //    }
 
     //    @Test
-    //public void testIfNotTypeDoesNotThrowWhenRightType() throws Exception
+    //public void testIfNotTypeDoesNotThrowWhenRightType()
     //    {
     //        ThrowArgument.Exception.ifNotType(new Integer(0), Number.class);
     //    }

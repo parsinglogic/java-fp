@@ -10,7 +10,7 @@ import static junit.framework.TestCase.assertEquals;
 public class ImRoseTreeIteratorTest
 {
     @Test
-    public void testAllUpToSix() throws Exception
+    public void testAllUpToSix()
     {
         for (int count = 1; count <= 6; count++)
         {

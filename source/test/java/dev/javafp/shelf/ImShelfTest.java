@@ -27,7 +27,7 @@ public class ImShelfTest
 {
 
     @Test
-    public void testAddingingAtStart() throws Exception
+    public void testAddingingAtStart()
     {
         ImShelf<Character> s = ImShelf.empty();
 
@@ -48,7 +48,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testExampleConcatShowingtheTree() throws Exception
+    public void testExampleConcatShowingtheTree()
     {
         List<Integer> first = ImTestHelper.makeList(10, 1);
         ImShelf<Integer> one = ImShelf.onAll(first);
@@ -68,7 +68,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testGet1() throws Exception
+    public void testGet1()
     {
         ImShelf<Integer> shelf = ImShelf.empty();
         try
@@ -81,7 +81,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testMatchesList() throws Exception
+    public void testMatchesList()
     {
         ImShelf<Integer> shelf = ImShelf.empty();
         List<Integer> list = new LinkedList<Integer>();
@@ -105,7 +105,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testAddingingAtEnd() throws Exception
+    public void testAddingingAtEnd()
     {
         ImShelf<Character> s = ImShelf.empty();
 
@@ -126,7 +126,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testIterator() throws Exception
+    public void testIterator()
     {
         ImShelf<Character> s = ImShelf.empty();
 
@@ -146,13 +146,13 @@ public class ImShelfTest
     }
 
     @Test
-    public void testAsList() throws Exception
+    public void testAsList()
     {
         assertEquals(ImList.on(1, 8, 2, 3, 5), ImShelf.on(1, 8, 2, 3, 5).toImList());
     }
 
     @Test
-    public void testAddingInThree() throws Exception
+    public void testAddingInThree()
     {
         ImShelf<Character> s = tt("b1 a2 c2");
         System.out.println(s);
@@ -177,7 +177,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testRemove1() throws Exception
+    public void testRemove1()
     {
         ImShelf<Character> s = tt("a1");
 
@@ -186,7 +186,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testRemove1FromEmpty() throws Exception
+    public void testRemove1FromEmpty()
     {
         ImShelf<Character> s = ImShelf.empty();
 
@@ -201,7 +201,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testRemove1FromThree() throws Exception
+    public void testRemove1FromThree()
     {
         ImShelf<Character> s = tt("b1 a2 c2");
 
@@ -211,7 +211,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testAddingToThree() throws Exception
+    public void testAddingToThree()
     {
         ImShelf<Character> s = tt("b1 a2 c2");
 
@@ -219,7 +219,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testSet1() throws Exception
+    public void testSet1()
     {
         ImShelf<Character> s = tt("a1");
 
@@ -227,7 +227,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testSet1OnThree() throws Exception
+    public void testSet1OnThree()
     {
         ImShelf<Character> s = tt("b1 a2 c2");
 
@@ -237,7 +237,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testExampleAddingAtIndex() throws Exception
+    public void testExampleAddingAtIndex()
     {
         checkExample(on(1, 2, 3, 5).add(2, 8), "[1, 8, 2, 3, 5]");
         checkExample(on(1, 2, 3).add(4, 8), "[1, 2, 3, 8]");
@@ -254,7 +254,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testExampleRemove() throws Exception
+    public void testExampleRemove()
     {
         checkExample(on(1, 8, 2, 3, 5).remove(2), "[1, 2, 3, 5]");
 
@@ -269,7 +269,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testExampleGet1() throws Exception
+    public void testExampleGet1()
     {
         checkExample(on(1, 2, 3).get(1), "1");
         checkExample(on(1, 2, 3).get(3), "3");
@@ -295,7 +295,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testExampleSet1() throws Exception
+    public void testExampleSet1()
     {
         checkExample(on(1, 2, 3).set(1, 5), "[5, 2, 3]");
         checkExample(on(1, 2, 3).set(3, 8), "[1, 2, 8]");
@@ -321,7 +321,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testExampleadd() throws Exception
+    public void testExampleadd()
     {
         checkExample(on(1, 2).add(3), "[1, 2, 3]");
         checkExample(on().add(1), "    [1]");
@@ -337,7 +337,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testExampleContains() throws Exception
+    public void testExampleContains()
     {
         checkExample(on(1, 2, 3).contains(1), "true");
         checkExample(on(1, 2, 3).contains(1.0), "false");
@@ -353,7 +353,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testExampleIndexOf() throws Exception
+    public void testExampleIndexOf()
     {
         checkExample(on(1, 2, 3).indexOf(1), "1");
         checkExample(on(1, 2, 3).indexOf(5), "-1");
@@ -370,7 +370,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testExampleMap() throws Exception
+    public void testExampleMap()
     {
         // To convert a list of objects to a list their string representations:
 
@@ -392,13 +392,13 @@ public class ImShelfTest
     }
 
     @Test
-    public void testOnIteratorAllArrayIsTheSameAsEmpty() throws Exception
+    public void testOnIteratorAllArrayIsTheSameAsEmpty()
     {
         checkExample(on() == ImShelf.empty(), "true");
     }
 
     @Test
-    public void testOnIteratorAllArray() throws Exception
+    public void testOnIteratorAllArray()
     {
         List<Number> threeFive = Arrays.<Number>asList(3, 5);
 
@@ -407,7 +407,7 @@ public class ImShelfTest
     }
 
     @Test
-    public void testExampleAddingAll() throws Exception
+    public void testExampleAddingAll()
     {
         List<Integer> threeFive = Arrays.<Integer>asList(3, 5);
         ImShelf<Integer> oneTwo = on(1, 2);
@@ -417,7 +417,7 @@ public class ImShelfTest
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testExampleJoin() throws Exception
+    public void testExampleJoin()
     {
 
         ImShelf<Integer> oneTwo = on(1, 2);
@@ -428,14 +428,14 @@ public class ImShelfTest
     }
 
     @Test
-    public void testExampleEquals() throws Exception
+    public void testExampleEquals()
     {
         checkExample(on().equals(null), "false");
         checkExample(on(1).equals(on(1)), "true");
     }
 
     @Test
-    public void testHashCode() throws Exception
+    public void testHashCode()
     {
         assertEquals(on().hashCode(), on().hashCode());
         assertEquals(on(1).hashCode(), on(1).hashCode());

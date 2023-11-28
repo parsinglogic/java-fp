@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class ImRoseTreeZipperIteratorTest
 {
     @Test
-    public void testAllUpToSix() throws Exception
+    public void testAllUpToSix()
     {
         for (int count = 1; count <= 6; count++)
         {

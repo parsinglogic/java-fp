@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 public class LineSegmentTest
 {
     @Test
-    public void testEquals() throws Exception
+    public void testEquals()
     {
         LineSegment one = LineSegment.originOffset(1, 2, 3, 4);
         LineSegment two = LineSegment.originOffset(1, 2, 3, 4);
@@ -28,7 +28,7 @@ public class LineSegmentTest
     }
 
     @Test
-    public void testGrid() throws Exception
+    public void testGrid()
     {
         /**
          *
@@ -73,7 +73,7 @@ public class LineSegmentTest
     }
 
     @Test
-    public void testLineCoords2() throws Exception
+    public void testLineCoords2()
     {
         check(LineSegment.fromTo(Point.zero, Point.on(1, 1)));
         check(LineSegment.fromTo(Point.zero, Point.on(0, 1)));

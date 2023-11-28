@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 public class MutableTreeTest
 {
     @Test
-    public void testOne() throws Exception
+    public void testOne()
     {
         for (int count = 1; count <= 6; count++)
         {
@@ -24,7 +24,7 @@ public class MutableTreeTest
     }
 
     @Test
-    public void testRemove() throws Exception
+    public void testRemove()
     {
         for (int count = 1; count <= 6; count++)
         {

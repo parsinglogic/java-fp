@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 public class ImRoseTreeZipperTest
 {
     @Test
-    public void testSetElementOnMany() throws Exception
+    public void testSetElementOnMany()
     {
         for (int count = 1; count <= 6; count++)
         {
@@ -46,7 +46,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testRemoveOnMany() throws Exception
+    public void testRemoveOnMany()
     {
         for (int count = 1; count <= 6; count++)
         {
@@ -76,7 +76,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testCloseReturnsSameIfNoModification() throws Exception
+    public void testCloseReturnsSameIfNoModification()
     {
         for (int count = 6; count <= 6; count++)
         {
@@ -97,7 +97,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testPushBeforeOnMany() throws Exception
+    public void testPushBeforeOnMany()
     {
         ImRoseTree<String> treeToInsert = leaf("x");
         MutableTree<String> imTreeToInsert = MutableTree.from(treeToInsert);
@@ -131,7 +131,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testPushOnMany() throws Exception
+    public void testPushOnMany()
     {
         ImRoseTree<String> treeToInsert = leaf("x");
         MutableTree<String> imTreeToInsert = MutableTree.from(treeToInsert);
@@ -166,7 +166,7 @@ public class ImRoseTreeZipperTest
 
     @SuppressWarnings("unchecked")
     @Test
-    public void exampleChangeNode4() throws Exception
+    public void exampleChangeNode4()
     {
         ImRoseTree<Integer> tree = ImRoseTree.withNodes(1, leaf(2), ImRoseTree.withElements(3, 4, 5), leaf(6));
 
@@ -175,7 +175,7 @@ public class ImRoseTreeZipperTest
 
     @SuppressWarnings("unchecked")
     @Test
-    public void exampleUp() throws Exception
+    public void exampleUp()
     {
         ImRoseTree<Integer> tree = ImRoseTree.withNodes(1, leaf(2), ImRoseTree.withElements(3, 4, 5), leaf(6));
 
@@ -193,7 +193,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testUpThrowsOnRoot() throws Exception
+    public void testUpThrowsOnRoot()
     {
         try
         {
@@ -205,7 +205,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testNextThrowsOnRoot() throws Exception
+    public void testNextThrowsOnRoot()
     {
         try
         {
@@ -217,7 +217,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testNextSiblingThrowsOnRoot() throws Exception
+    public void testNextSiblingThrowsOnRoot()
     {
         try
         {
@@ -229,7 +229,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testPrevSiblingThrowsOnRoot() throws Exception
+    public void testPrevSiblingThrowsOnRoot()
     {
         try
         {
@@ -241,7 +241,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testNextSiblingThrowsWhenAtEnd() throws Exception
+    public void testNextSiblingThrowsWhenAtEnd()
     {
         try
         {
@@ -253,7 +253,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testGetFocusThrows() throws Exception
+    public void testGetFocusThrows()
     {
         try
         {
@@ -265,7 +265,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testGetElementThrows() throws Exception
+    public void testGetElementThrows()
     {
         try
         {
@@ -277,7 +277,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testSetFocusThrows() throws Exception
+    public void testSetFocusThrows()
     {
         try
         {
@@ -289,7 +289,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testSetElementThrows() throws Exception
+    public void testSetElementThrows()
     {
         try
         {
@@ -349,7 +349,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void exampleNextSibling() throws Exception
+    public void exampleNextSibling()
     {
         ImRoseTree<String> tree = ImRoseTree.withElements("a", "b", "c");
 
@@ -388,7 +388,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testHasNextAndPrevOnMany() throws Exception
+    public void testHasNextAndPrevOnMany()
     {
         for (int count = 1; count <= 6; count++)
         {
@@ -472,7 +472,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testEquals() throws Exception
+    public void testEquals()
     {
         // Get a list of all tree shapes with size <= 5
         ImList<ImRoseTree<String>> ts = ImRange.inclusive(2, 5).flatMap(i -> ImRoseTreeShapes.allTreesWithSize(i));
@@ -525,7 +525,7 @@ public class ImRoseTreeZipperTest
     }
 
     @Test
-    public void testShowPath() throws Exception
+    public void testShowPath()
     {
         // Get a list of all tree shapes with size <= 5
         ImList<ImRoseTree<String>> ts = ImRange.inclusive(5, 5).flatMap(i -> ImRoseTreeShapes.allTreesWithSize(i));

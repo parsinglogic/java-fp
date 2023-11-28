@@ -18,7 +18,7 @@ public class SetUtilsTest
 {
 
     @Test
-    public void testUnionMatchesContainsAll() throws Exception
+    public void testUnionMatchesContainsAll()
     {
         Set<Integer> s1 = newSet(1, 2, 3);
         Set<Integer> s2 = newSet(3, 4);
@@ -33,7 +33,7 @@ public class SetUtilsTest
     }
 
     @Test
-    public void testIntersectMatchesContainsAll() throws Exception
+    public void testIntersectMatchesContainsAll()
     {
         Set<Integer> allSet = newSet(1, 2, 3, 4);
         ImList<Integer> allList = ImList.onAll(allSet);
@@ -56,7 +56,7 @@ public class SetUtilsTest
     }
 
     @Test
-    public void testRemoveMatchesDiff() throws Exception
+    public void testRemoveMatchesDiff()
     {
         Set<Integer> one = newSet(1);
         Set<Integer> allSet = newSet(1, 2, 3, 4);

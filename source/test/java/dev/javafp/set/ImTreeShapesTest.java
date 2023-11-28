@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class ImTreeShapesTest
 {
     @Test
-    public void testZero() throws Exception
+    public void testZero()
     {
         List<ImTree<Character>> zeros = new ImTreeShapes().withSize(0);
 
@@ -19,7 +19,7 @@ public class ImTreeShapesTest
     }
 
     @Test
-    public void testOne() throws Exception
+    public void testOne()
     {
         List<ImTree<Character>> ones = new ImTreeShapes().withSize(1);
 
@@ -28,7 +28,7 @@ public class ImTreeShapesTest
     }
 
     @Test
-    public void testTwo() throws Exception
+    public void testTwo()
     {
         List<ImTree<Character>> twos = new ImTreeShapes().withSize(2);
 

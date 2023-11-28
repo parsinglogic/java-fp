@@ -1223,7 +1223,7 @@ public class ImListTest implements Constants
     }
 
     @Test
-    public void testSerialization() throws Exception
+    public void testSerialization() throws IOException, ClassNotFoundException
     {
         ImList<Integer> list = on(Arrays.asList(1, 2, 3));
 
