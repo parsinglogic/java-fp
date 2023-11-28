@@ -94,7 +94,7 @@ public class Say
     // The default prefix when there isn't one in the thread
     private static String defaultPrefix = "";
 
-    // Set the default prefix
+    // Set the default thread prefix
     public static void setDefaultThreadPrefix(String prefix)
     {
         defaultPrefix = prefix;
@@ -108,7 +108,10 @@ public class Say
         threadLocalPrefix.set(prefix);
     }
 
-    public static String getPrefix()
+    /**
+     * <p> Get the current thread prefix or the default if there isn't one
+     */
+    public static String getThreadPrefix()
     {
         String prefix = threadLocalPrefix.get();
 
@@ -160,7 +163,7 @@ public class Say
     {
         LocalDateTime date = LocalDateTime.now();
 
-        AbstractTextBox prefixBox = LeafTextBox.with(getPrefix());
+        AbstractTextBox prefixBox = LeafTextBox.with(getThreadPrefix());
 
         String elapsed = oldDate.get() == null ? "-" : "" + getMsBetween(date, oldDate.get());
 
@@ -184,8 +187,6 @@ public class Say
     private static ImPair<ImList<AbstractTextBox>, ImList<Integer>> getHeaderBoxes(int extraStackFrameCount)
     {
         LocalDateTime date = LocalDateTime.now();
-
-        AbstractTextBox prefixBox = LeafTextBox.with(getPrefix());
 
         String elapsed = oldDate.get() == null ? "-" : "" + getMsBetween(date, oldDate.get());
 
@@ -260,16 +261,7 @@ public class Say
 
     static void say$(int extraStackFrameCount, Object... things)
     {
-        getHeaderBoxes(extraStackFrameCount).map((boxes, widths) -> sayWithHeaderVoid(boxes, widths, things));
-    }
-
-    /**
-     * To allow me to use sayWithHeader in map
-     */
-    private static Void sayWithHeaderVoid(ImList<AbstractTextBox> boxes, ImList<Integer> widths, Object... things)
-    {
-        sayWithHeader(boxes, widths, things);
-        return null;
+        getHeaderBoxes(extraStackFrameCount).consumeIn((boxes, widths) -> sayWithHeader(boxes, widths, things));
     }
 
     /**
@@ -279,12 +271,11 @@ public class Say
      */
     public static void sayWithHeader(ImList<AbstractTextBox> boxes, ImList<Integer> widths, Object... things)
     {
-        say$$$(boxes, widths, ImList.on(things).map(t -> TextUtils.getBoxFrom(t)));
+        sayBoxesWithHeader(boxes, widths, ImList.on(things).map(t -> TextUtils.getBoxFrom(t)));
     }
 
-    private static void say$$$(ImList<AbstractTextBox> boxes, ImList<Integer> widths, ImList<AbstractTextBox> thingBoxes)
+    private static void sayBoxesWithHeader(ImList<AbstractTextBox> boxes, ImList<Integer> widths, ImList<AbstractTextBox> thingBoxes)
     {
-
         // I could intersperse with spaces - but let's just add 1 to the widths
         ImList<AbstractTextBox> headerBoxesWithSpaces = boxes.zipWith(widths, (a, b) -> a.leftJustifyIn(b + 1));
 
@@ -338,7 +329,9 @@ public class Say
 
     public static void printBox(AbstractTextBox box)
     {
-        print(preBox(0), box);
+        LeafTextBox threadPrefix = LeafTextBox.with(getThreadPrefix());
+
+        getHeaderBoxes(0).consumeIn((boxes, widths) -> sayWithHeader(boxes.push(threadPrefix), widths.push(threadPrefix.width), box));
     }
 
     public static void errorln(String message)

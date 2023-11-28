@@ -11,6 +11,7 @@ import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
 import dev.javafp.func.Fn;
 import dev.javafp.func.Fn2;
+import dev.javafp.func.FnPairConsumer;
 import dev.javafp.lst.ImList;
 import dev.javafp.val.ImValuesImpl;
 
@@ -100,9 +101,30 @@ public class ImPair<U, V> extends ImValuesImpl
         return ImList.on("fst", "snd");
     }
 
-    public <C> C map(Fn2<U, V, C> f)
+    /**
+     * Apply function `f` to the components of this pair.
+     *
+     * This is used to allow code that easily accesses the components of a pair with each component having
+     * a variable name. Eg:
+     *
+     *
+     */
+    public <C> C useIn(Fn2<U, V, C> f)
     {
         return f.of(fst, snd);
+    }
+
+    /**
+     * Apply function `pairConsumer` to the components of this pair.
+     *
+     * This is used to allow code that easily accesses the components of a pair with each component having
+     * a variable name. Eg:
+     *
+     *
+     */
+    public void consumeIn(FnPairConsumer<U, V> pairConsumer)
+    {
+        pairConsumer.doit(fst, snd);
     }
 
     public <UU, VV> ImPair<UU, VV> map(Fn<U, UU> f1, Fn<V, VV> f2)
