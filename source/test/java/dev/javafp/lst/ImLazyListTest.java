@@ -39,7 +39,6 @@ public class ImLazyListTest
 
     public void resolveSizeOnKnownInfinite()
     {
-
         say(infiniteList.resolveSize());
     }
 

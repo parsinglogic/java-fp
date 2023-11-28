@@ -10,6 +10,7 @@ package dev.javafp.util;
 import dev.javafp.ex.Throw;
 import dev.javafp.lst.ImList;
 import dev.javafp.tuple.ImPair;
+import dev.javafp.tuple.Pai;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -184,14 +185,32 @@ public class ParseUtils
     }
 
     /**
-     * <p> Splits the string at the separator sep
-     * <p> null   => [ ]
-     * "a"    => [ "a" ]
-     * ""     => [ "" ]
-     * "/a//" => [ "", "a", "", ""]
+     * <p> Splits
+     * {@code s}
+     *  at the separator
+     * {@code sep}
+     * , giving an
+     * {@link ImList }
+     * ,
+     * {@code ls}
+     * such that
+     * <p> TextUtils.join(ls, sep) == s
+     * <p> (or
+     * {@code []}
+     * - if
+     * {@code s}
+     *  is
+     * {@code null}
+     * )
+     * <pre>{@code
+     * split('/', null)   => [ ]
+     * split('/', "a")    => ["a"]
+     * split('/', "")     => [""]
+     * split('/', /a//")  => ["", "a", "", ""]
+     * }</pre>
      *
      */
-    public static ImList<String> split(char sep, String s)
+    public static ImList<String> split2(char sep, String s)
     {
         if (s == null)
             return ImList.on();
@@ -199,7 +218,55 @@ public class ParseUtils
         {
             ImPair<String, String> p = ParseUtils.splitAt(sep, s);
 
-            return ImList.cons(p.fst, split(sep, p.snd));
+            return ImList.cons(p.fst, split2(sep, p.snd));
+        }
+    }
+
+    /**
+     * <p> Splits
+     * {@code s}
+     *  at the separator
+     * {@code sep}
+     * , giving an
+     * {@link ImList }
+     * ,
+     * {@code ls}
+     * such that
+     * <p> TextUtils.join(ls, sep) == s
+     * <p> (or
+     * {@code []}
+     * - if
+     * {@code s}
+     *  is
+     * {@code null}
+     * )
+     * <pre>{@code
+     * split('/', null)   => [ ]
+     * split('/', "a")    => ["a"]
+     * split('/', "")     => [""]
+     * split('/', "/a//")  => ["", "a", "", ""]
+     * }</pre>
+     *
+     * <p> This function is lazy.
+     */
+    public static ImList<String> split(char sep, String s)
+    {
+        if (s == null)
+            return ImList.on();
+        else
+        {
+            // Get a list of pairs of strings.
+            // Before the tail():
+            // "a/b//c" -> [("", "a/b//c"), ("a", "b//c"), ("b", "/c"), ("", "c"), ("c", null)]
+            //
+            // After the tail():
+            // "a/b//c" -> [("a", "b//c"), ("b", "/c"), ("", "c"), ("c", null)]
+            ImList<ImPair<String, String>> ps = ImList.unfold(Pai.r("", s), p -> ParseUtils.splitAt(sep, p.snd)).tail();
+
+            //            say(ps.take(4));
+
+            // Take until we find teh pair with null as its 2nd element and use the first element of each pair
+            return ps.takeUntil(p -> p.snd == null).map(p -> p.fst);
         }
     }
 

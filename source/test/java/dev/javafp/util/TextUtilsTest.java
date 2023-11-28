@@ -42,14 +42,14 @@ public class TextUtilsTest
     @Test
     public void testPadToWidth()
     {
-        assertEquals("a   ", TextUtils.padToWidth("a", 4));
-        assertEquals("ab", TextUtils.padToWidth("abc", 2));
+        assertEquals("a   ", TextUtils.padOrTrimToWidth("a", 4));
+        assertEquals("ab", TextUtils.padOrTrimToWidth("abc", 2));
     }
 
     @Test
     public void testPadToWidthWillTruncate()
     {
-        assertEquals("abc", TextUtils.padToWidth("abcde", 3));
+        assertEquals("abc", TextUtils.padOrTrimToWidth("abcde", 3));
     }
 
     @Test

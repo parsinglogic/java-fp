@@ -1305,7 +1305,7 @@ public class ImListTest implements Constants
         int TEST_COUNT = 10;
         ImList<Integer> lst = ImRange.inclusive(-12, TEST_COUNT);
 
-        say("lst", lst);
+        say("list", lst);
         Integer[] array = lst.toArray(Integer.class);
 
         say("array", array);

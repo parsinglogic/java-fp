@@ -73,17 +73,16 @@ public class TextUtils
         return sb.toString();
     }
 
-    public static String padToWidth(String stringToPad, int width)
+    public static String padOrTrimToWidth(String stringToPad, int width)
     {
         int gap = width - stringToPad.length();
 
-        // @formatter:off
         return gap == 0
-                ? stringToPad
-                : gap > 0
-                    ? stringToPad + repeatString(" ", gap)
-                    : stringToPad.substring(0, width);
-        // @formatter:on
+               ? stringToPad
+               : gap > 0
+                 ? stringToPad + repeatString(" ", gap)
+                 : stringToPad.substring(0, width);
+
     }
 
     public static String abbreviate(String s, int width)
@@ -240,7 +239,7 @@ public class TextUtils
 
     public static LeftRightBox indent(int spaces, AbstractTextBox box)
     {
-        return LeftRightBox.with(LeafTextBox.with(TextUtils.padToWidth("", spaces)), box);
+        return LeftRightBox.with(LeafTextBox.with(TextUtils.padOrTrimToWidth("", spaces)), box);
     }
 
     /**
@@ -287,9 +286,17 @@ public class TextUtils
      * {@code thing.getTextBox()}
      * <p> If
      * {@code thing}
-     *  is an array or collection then it recursively calls
-     * {@code getBoxFrom}
-     *  on each element
+     *  is an array then it converts the array to an 
+     * {@link ImList}
+     *  and calls 
+     * {@code getBoxFromList}
+     *  on the list.
+     * <p> To convert the array to an 
+     * {@link ImList}
+     * , if the array contains primitives it uses
+     * {@link ImList#onPrimitiveArray(Object)}
+     * otherwise it uses
+     * {@link ImList#on(Object[])}
      * <p> Otherwise it creates a
      * {@link LeafTextBox}
      * on the result of
@@ -311,9 +318,15 @@ public class TextUtils
             return LeafTextBox.with(String.valueOf(thing));
     }
 
+    /**
+     * We have to check if this array is a primitive array or if it has objects in it and call different
+     * functions accordingly
+     */
     private static AbstractTextBox getBoxFromArray(Object arr)
     {
-        return getBoxFromList(ImList.onPrimitiveArray(arr));
+        return arr.getClass().getComponentType().isPrimitive()
+               ? getBoxFromList(ImList.onPrimitiveArray(arr))
+               : getBoxFromList(ImList.on((Object[]) arr));
     }
 
     public static AbstractTextBox getBoxFromNamesAndValues(ImList<String> names, ImList<?> things)
@@ -441,7 +454,7 @@ public class TextUtils
             int d = width - cs.length();
             return d <= 0
                    ? cs.substring(0, width)
-                   : padToWidth(cs, width);
+                   : padOrTrimToWidth(cs, width);
         }
     }
 
@@ -457,7 +470,7 @@ public class TextUtils
         else
         {
             int left = (d - d % 2) >> 1;
-            return padToWidth(indentBy(left, cs), width);
+            return padOrTrimToWidth(indentBy(left, cs), width);
         }
 
     }

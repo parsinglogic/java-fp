@@ -109,7 +109,7 @@ public abstract class AbstractTextBox implements Serializable
      */
     public AbstractTextBox indentBy(int count)
     {
-        return LeftRightBox.with(LeafTextBox.with(TextUtils.padToWidth("", count)), this);
+        return LeftRightBox.with(LeafTextBox.with(TextUtils.padOrTrimToWidth("", count)), this);
     }
 
     /**
@@ -178,5 +178,7 @@ public abstract class AbstractTextBox implements Serializable
 
         return TopDownBox.with(top, b, bottom);
     }
+
+    public abstract AbstractTextBox leftJustifyIn(int width);
 
 }

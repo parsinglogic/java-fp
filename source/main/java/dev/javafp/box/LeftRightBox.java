@@ -82,11 +82,26 @@ public class LeftRightBox extends AbstractTextBox
     public String getLine(int n)
     {
         StringBuilder sb = new StringBuilder();
+
         for (AbstractTextBox b : boxes)
-        {
             sb.append(b.getLine(n));
-        }
+
+        // Should I use padOrTrim here?
+        // Adjust for the width if necessary
+        if (sb.length() > width)
+            sb.delete(width, sb.length());
+        else if (sb.length() < width)
+            sb.append(" ".repeat(width - sb.length()));
+
         return sb.toString();
+    }
+
+    @Override
+    public AbstractTextBox leftJustifyIn(int width)
+    {
+        return width == this.width
+               ? this
+               : new LeftRightBox(width, height, boxes);
     }
 
     /**

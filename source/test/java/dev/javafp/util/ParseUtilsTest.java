@@ -112,6 +112,21 @@ public class ParseUtilsTest
     }
 
     @Test
+    public void testSplit2()
+    {
+        assertEquals(ImList.on("a", "b", "", "c"), ParseUtils.split2('/', "a/b//c"));
+
+        assertEquals(ImList.on("a", "b", "c"), ParseUtils.split2('/', "a/b/c"));
+
+        assertEquals(ImList.on("a", "", "c"), ParseUtils.split2('.', "a..c"));
+
+        assertEquals(ImList.on("", "a", "", ""), ParseUtils.split2('/', "/a//"));
+
+        assertEquals(ImList.on("", ""), ParseUtils.split2('/', "/"));
+        assertEquals(ImList.on(""), ParseUtils.split2('/', ""));
+    }
+
+    @Test
     public void testGetFieldAtIndex()
     {
         assertEquals("a", ParseUtils.getFieldAtIndex("a/b/c", '/', 1));

@@ -112,7 +112,7 @@ class ImListOnPrimitiveArray<A> extends ImEagerList<A> implements Eq
 
         if (!source.getClass().getComponentType().isPrimitive())
         {
-            throw new ClassCastException("Source has component type " + source.getClass().getComponentType() + " but it should be primitive");
+            throw new ClassCastException("Source array has component type " + source.getClass().getComponentType() + " but it should be primitive");
         }
 
         int len = Array.getLength(source);

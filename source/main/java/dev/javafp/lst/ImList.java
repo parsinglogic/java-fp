@@ -1101,6 +1101,40 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     }
 
     /**
+     * <p> The shortest sublist, starting at index 1, of
+     * {@code this}
+     *  where
+     * {@code pred.of(e) == true}
+     *  for each element
+     * {@code e}
+     *
+     * <pre>{@code
+     * [1, 2, 0, 1  takeWhile(i -> i < 2 ) == [1]
+     * [] takeWhile(...) == []
+     * }</pre>
+     * <p> Note that you will only get the
+     * <em>first</em>
+     *  elements that satisfy
+     * {@code pred}
+     *  - this function won't look beyond the first element
+     * that does
+     * <em>not</em>
+     *  satisfy
+     * {@code pred}
+     * .
+     * <p> To split the list into two where one list contains all the elements that satisfy
+     * {@code pred}
+     *  and the other list contains all the other elements
+     * you can use
+     * {@link ImList#filterIntoTwo(Fn)} ()}
+     *
+     */
+    default ImList<A> takeUntil(Fn<A, Boolean> pred)
+    {
+        return ImTakeUntilList.on(this, pred);
+    }
+
+    /**
      * <p> The first
      * {@code count}
      *  elements of

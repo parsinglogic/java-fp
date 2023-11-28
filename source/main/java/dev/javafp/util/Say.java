@@ -21,7 +21,9 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * <p> A class to allow a convenient way to display debugging information that automatically includes
- * timestamp information and, most usefully, records which method contained the display call.
+ * timestamp information and, most usefully, records which method contained the call to
+ * {@code say}
+ * .
  *
  * <p> The easiest way to think about what it does is to consider it in terms of text boxes,
  * {@link AbstractTextBox}.
@@ -62,13 +64,18 @@ public class Say
 {
     static long start = System.currentTimeMillis();
 
+    /**
+     * The buffer to use instead of writing to the standard out if we are in quiet mode
+     */
     static CachingBuffer buffer = null;
 
-    private static boolean quiet = false;
     private static final AbstractTextBox spaceBox = LeafTextBox.with(" ");
 
     private static final AbstractTextBox colon = LeafTextBox.with(" : ");
 
+    /**
+     * The timezone for the UK
+     */
     public static final ZoneId londonZone = ZoneId.of("Europe/London");
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
@@ -76,8 +83,10 @@ public class Say
     static ThreadLocal<LocalDateTime> oldDate = new ThreadLocal<>();
 
     final static int DATE_TIME_WIDTH = 23;
-    public final static int ELAPSED_MS_WIDTH = 7;
-    public final static int NAME_WIDTH = 50;
+    final static int ELAPSED_MS_WIDTH = 7;
+    final static int NAME_WIDTH = 50;
+
+    private static final ImList<Integer> widths = ImList.on(DATE_TIME_WIDTH, ELAPSED_MS_WIDTH, NAME_WIDTH);
 
     // We store each thread-specific prefix in a thread local
     private static ThreadLocal<String> threadLocalPrefix = new ThreadLocal<>();
@@ -85,7 +94,7 @@ public class Say
     // The default prefix when there isn't one in the thread
     private static String defaultPrefix = "";
 
-    // Set the deafault prefix
+    // Set the default prefix
     public static void setDefaultThreadPrefix(String prefix)
     {
         defaultPrefix = prefix;
@@ -109,11 +118,6 @@ public class Say
     public static void removeCurrentThreadPrefix()
     {
         threadLocalPrefix.remove();
-    }
-
-    public static void log(String pre, Object... things)
-    {
-        say$(1, LeafTextBox.with(pre), things);
     }
 
     public static String formatDateTime(LocalDateTime t)
@@ -143,22 +147,18 @@ public class Say
      * <pre>{@code
      * YYYY-MM-DD hh:mm:ss:SSS
      * |                       ms since the last line
-     * |                       |        method name                                        message
-     * |                       |        |                                                  |
+     * |                       |        method name                                 message
+     * |                       |        |                                           |
      *
-     * 1....................23 1.....7  1...............................................50 |
-     * |                     | |     |  |                                                | |
-     * 2020-01-15 12:03:09.897 1234567  DrumApplicationRunner::handleEvents5               xxxxxxxx
+     * 1....................23 1.....7  1........................................50 |
+     * |                     | |     |  |                                         | |
+     * 2020-01-15 12:03:09.897 1234567  DrumApplicationRunner::handleEvents5        xxxxxxxx
      * }</pre>
      *
      */
     private static AbstractTextBox preBox(int extraStackFrameCount)
     {
         LocalDateTime date = LocalDateTime.now();
-
-        //        int THREAD_WIDTH = 20 + 8;
-        //        int TIME_WIDTH = 13 + 6;
-        //        int NAME_WIDTH = 50;
 
         AbstractTextBox prefixBox = LeafTextBox.with(getPrefix());
 
@@ -175,6 +175,32 @@ public class Say
         return LeftRightBox.with(prefixBox, spaceBox, dateTimeBox, spaceBox, elapsedBox, spaceBox, nameBox, spaceBox);
     }
 
+    /**
+     * Get  a pair with
+     * a list of the header boxes
+     * a list of the widths of the header boxes
+     *
+     */
+    private static ImPair<ImList<AbstractTextBox>, ImList<Integer>> getHeaderBoxes(int extraStackFrameCount)
+    {
+        LocalDateTime date = LocalDateTime.now();
+
+        AbstractTextBox prefixBox = LeafTextBox.with(getPrefix());
+
+        String elapsed = oldDate.get() == null ? "-" : "" + getMsBetween(date, oldDate.get());
+
+        AbstractTextBox dateTimeBox = LeafTextBox.with(formatDateTime(date));
+        AbstractTextBox elapsedBox = LeafTextBox.righted(elapsed, ELAPSED_MS_WIDTH);
+
+        String abbreviatedName = TextUtils.abbreviate(getClassAndMethod(4 + extraStackFrameCount), NAME_WIDTH);
+        AbstractTextBox nameBox = LeafTextBox.with(abbreviatedName);
+
+        oldDate.set(date);
+
+        return ImPair.on(ImList.on(dateTimeBox, elapsedBox, nameBox), widths);
+
+    }
+
     public static long getMsBetween(LocalDateTime after, LocalDateTime before)
     {
         return Duration.between(before, after).toMillis();
@@ -185,6 +211,13 @@ public class Say
         Thread currentThread = Thread.currentThread();
 
         StackTraceElement ste = currentThread.getStackTrace()[stackCount];
+
+        return "" + getClassName(ste) + "::" + ste.getMethodName();
+    }
+
+    public static String getMethodName(int goUpCount)
+    {
+        StackTraceElement ste = Thread.currentThread().getStackTrace()[2 + goUpCount];
 
         return "" + getClassName(ste) + "::" + ste.getMethodName();
     }
@@ -216,16 +249,56 @@ public class Say
 
     public static void say(Object... things)
     {
-        say$(1, AbstractTextBox.empty, things);
+        say$(1, things);
     }
 
-    private static void say$(int extraStackFrameCount, AbstractTextBox preBox, Object... things)
+    //
+    //    public static void log(String pre, Object... things)
+    //    {
+    //        say$(1, LeafTextBox.with(pre), things);
+    //    }
+
+    static void say$(int extraStackFrameCount, Object... things)
     {
-        AbstractTextBox preBox2 = preBox.before(preBox(extraStackFrameCount));
+        getHeaderBoxes(extraStackFrameCount).map((boxes, widths) -> sayWithHeaderVoid(boxes, widths, things));
+    }
 
-        ImList<AbstractTextBox> boxes = ImList.on(things).map(t -> TextUtils.getBoxFrom(t));
+    /**
+     * To allow me to use sayWithHeader in map
+     */
+    private static Void sayWithHeaderVoid(ImList<AbstractTextBox> boxes, ImList<Integer> widths, Object... things)
+    {
+        sayWithHeader(boxes, widths, things);
+        return null;
+    }
 
-        print(preBox2, LeftRightBox.withAll(boxes.intersperse(spaceBox)));
+    /**
+     * Say `things` - with a header box that is a `LeftRightBox` composed of `boxes`, each adjusted to have a width taken from the
+     * corresponding element of `widths`
+     *
+     */
+    public static void sayWithHeader(ImList<AbstractTextBox> boxes, ImList<Integer> widths, Object... things)
+    {
+        say$$$(boxes, widths, ImList.on(things).map(t -> TextUtils.getBoxFrom(t)));
+    }
+
+    private static void say$$$(ImList<AbstractTextBox> boxes, ImList<Integer> widths, ImList<AbstractTextBox> thingBoxes)
+    {
+
+        // I could intersperse with spaces - but let's just add 1 to the widths
+        ImList<AbstractTextBox> headerBoxesWithSpaces = boxes.zipWith(widths, (a, b) -> a.leftJustifyIn(b + 1));
+
+        // Ok so here we have to do something different on the last box to prevent adding that last space
+        ImList<Integer> indexes = ImList.oneTo(thingBoxes.size());
+        ImList<AbstractTextBox> thingBoxesWithSpaces = thingBoxes.zipWith(indexes,
+                (a, b) -> b == thingBoxes.size() ? a : a.leftJustifyIn(a.width + 1));
+
+        print2(LeftRightBox.withAllBoxes(headerBoxesWithSpaces.append(thingBoxesWithSpaces)));
+    }
+
+    private static void print2(AbstractTextBox box)
+    {
+        finalPrint(box.toString());
     }
 
     private static void print(AbstractTextBox pre, AbstractTextBox content)
@@ -270,7 +343,7 @@ public class Say
 
     public static void errorln(String message)
     {
-        if (quiet)
+        if (isQuiet())
         {
             synchronized (System.out)
             {
@@ -282,14 +355,23 @@ public class Say
 
     }
 
-    public static String getString()
+    public static String getBufferString()
     {
         return buffer == null ? "" : buffer.getString();
     }
 
+    /**
+     * Clear any text in the current output buffer - or do nothing if not in quiet mode
+     */
+    public static void clearBuffer()
+    {
+        buffer = buffer == null
+                 ? null
+                 : new CachingBuffer(1000);
+    }
+
     public static void setQuiet(boolean beQuiet)
     {
-        quiet = beQuiet;
 
         buffer = beQuiet
                  ? new CachingBuffer(1000)
@@ -311,9 +393,9 @@ public class Say
         start = st;
     }
 
-    public static boolean getQuiet()
+    public static boolean isQuiet()
     {
-        return quiet;
+        return buffer != null;
     }
 
     /**

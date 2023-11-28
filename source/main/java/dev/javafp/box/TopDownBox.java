@@ -7,7 +7,6 @@
 
 package dev.javafp.box;
 
-import dev.javafp.ex.InvalidState;
 import dev.javafp.lst.ImList;
 import dev.javafp.util.TextUtils;
 
@@ -107,23 +106,28 @@ public class TopDownBox extends AbstractTextBox
     @Override
     public String getLine(int n)
     {
-        if (n > height)
-        {
-            return TextUtils.repeatString(" ", width);
-        }
+        return n > height
+               ? TextUtils.padOrTrimToWidth("", width)
+               : getLine$(n, boxes);
 
-        int count = 0;
-        for (AbstractTextBox b : boxes)
+    }
+
+    private String getLine$(int n, ImList<AbstractTextBox> boxes)
+    {
+        if (boxes.isEmpty())
+            return TextUtils.padOrTrimToWidth("", width);
+        else
         {
-            for (int i = 1; i <= b.height; i++)
-            {
-                count++;
-                if (count == n)
-                {
-                    return TextUtils.padToWidth(b.getLine(i), width);
-                }
-            }
+            AbstractTextBox box = boxes.head();
+
+            return n <= box.height
+                   ? TextUtils.padOrTrimToWidth(box.getLine(n), width)
+                   : getLine$(n - box.height, boxes.tail());
         }
-        throw new InvalidState("You can't get here");
+    }
+
+    @Override public AbstractTextBox leftJustifyIn(int width)
+    {
+        return new TopDownBox(width, height, boxes);
     }
 }

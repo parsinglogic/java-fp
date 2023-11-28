@@ -270,4 +270,20 @@ public class LeafTextBoxTest
         pw.close();
         return sw.getBuffer().toString();
     }
+
+    @Test
+    public void testLeftJustify()
+    {
+        LeafTextBox box = LeafTextBox.with("abcde\nfghi\njk");
+
+        for (int w = 0; w <= 10; w++)
+        {
+            AbstractTextBox boxJ = box.leftJustifyIn(w);
+
+            assertEquals(w, boxJ.width);
+
+            for (int i = 1; i <= boxJ.height; i++)
+                assertEquals(w, boxJ.getLine(i).length());
+        }
+    }
 }

@@ -43,4 +43,23 @@ public class TopDownBoxTest
         System.out.println(td);
     }
 
+    @Test
+    public void testLeftJustify()
+    {
+        LeafTextBox box1 = LeafTextBox.with("a\nfghi\njk");
+        LeafTextBox box2 = LeafTextBox.with("xxx");
+
+        AbstractTextBox box = box1.above(box2);
+
+        for (int w = 0; w <= 10; w++)
+        {
+            AbstractTextBox boxJ = box.leftJustifyIn(w);
+
+            assertEquals(w, boxJ.width);
+
+            for (int i = 1; i <= boxJ.height; i++)
+                assertEquals(w, boxJ.getLine(i).length());
+        }
+    }
+
 }

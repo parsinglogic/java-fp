@@ -11,10 +11,66 @@ import java.util.Date;
 import static dev.javafp.util.Say.say;
 import static dev.javafp.util.ServerTextUtils.toWord;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class SayTest
 {
+
+    /**
+     *  The width of the line "header"
+     */
+    int headerWidth = 84;
+
+    @Test
+    public void testSay()
+    {
+        Say.setQuiet(true);
+        say("one", "two", "three");
+
+        assertEquals("one two three\n", Say.getBufferString().substring(headerWidth));
+    }
+
+    @Test
+    public void testSayArray()
+    {
+        Say.setQuiet(true);
+        int TEST_COUNT = 2;
+        ImList<Integer> lst = ImRange.inclusive(-2, TEST_COUNT);
+
+        say("lst", lst);
+
+        //  2023-11-21 12:10:44.337       - SayTest::testSayArray                              lst [-2, -1, 0, 1, 2]
+        //  2023-11-21 12:14:01.093       9 SayTest::testTable                                 hello
+
+        assertEquals("lst [-2, -1, 0, 1, 2]\n", Say.getBufferString().substring(headerWidth));
+
+        Say.clearBuffer();
+
+        Integer[] array = lst.toArray(Integer.class);
+
+        say("array", array);
+
+        String bufferString = Say.getBufferString();
+
+        ImList<String> longLines = ParseUtils.split('\n', bufferString).filter(i -> i.length() >= headerWidth);
+
+        String ls = longLines.map(i -> i.substring(headerWidth)).toString("\n");
+
+        String expected = ""
+                + "array 1:   -2\n"
+                + "       2:   -1\n"
+                + "       3:   0\n"
+                + "       4:   1\n"
+                + "       5:   2\n";
+
+        assertEquals(expected, ls);
+    }
+
+    @Test
+    public void testGetMethodName()
+    {
+        assertEquals("SayTest::testGetMethodName", Say.getMethodName(0));
+    }
+
     @Test
     public void testTable() throws Exception
     {
@@ -25,6 +81,8 @@ public class SayTest
         ImList<Integer> things = ImRange.inclusive(99, 105);
         assertEquals(expected, Say.table("one", "one", "floccinaucinihilipilification", things, "three", null, "four").toString());
         Say.showTable("one", "one", "floccinaucinihilipilification", things, "three", null, "four");
+
+        Say.say("hello");
 
     }
 
@@ -93,20 +151,6 @@ public class SayTest
         say("col2", col2);
 
         TestUtils.assertThrows(() -> Say.formatColumns(col1, col2).toString(), InvalidState.class);
-    }
-
-    @Test
-    public void testLog()
-    {
-        // wibble main              -        2021-11-30 12:06:30.199       - SayTest::testLog                                   bing
-
-        Say.setQuiet(true);
-        String pre = "wibble ";
-        Say.log(pre, "bing");
-
-        String res = Say.getString();
-
-        assertTrue(res.startsWith(pre));
     }
 
     @Test

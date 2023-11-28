@@ -100,7 +100,7 @@ public class ImPair<U, V> extends ImValuesImpl
         return ImList.on("fst", "snd");
     }
 
-    public <UU, VV> ImPair<UU, VV> map(Fn2<U, V, ImPair<UU, VV>> f)
+    public <C> C map(Fn2<U, V, C> f)
     {
         return f.of(fst, snd);
     }

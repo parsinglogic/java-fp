@@ -2,6 +2,7 @@ package dev.javafp.box;
 
 import org.junit.Test;
 
+import static dev.javafp.util.Say.say;
 import static org.junit.Assert.assertEquals;
 
 public class LeftRightBoxTest
@@ -37,12 +38,31 @@ public class LeftRightBoxTest
         assertEquals(" Y  ", lr.getLine(3));
 
         System.out.println(lr);
+        say(lr);
     }
 
     @Test
-    public void testIndented() throws Exception
+    public void testIndented()
     {
         assertEquals("  a\n  b\n", LeftRightBox.indent(2, LeafTextBox.with("a\nb")).toString());
+    }
+
+    @Test
+    public void testLeftJustify()
+    {
+        LeafTextBox box = LeafTextBox.with("abcde\nfghi\njk");
+
+        LeftRightBox lr = LeftRightBox.with(box, LeafTextBox.with("xxx"));
+
+        for (int w = 0; w <= 10; w++)
+        {
+            AbstractTextBox lrj = lr.leftJustifyIn(w);
+
+            assertEquals(w, lrj.width);
+
+            for (int i = 1; i <= lrj.height; i++)
+                assertEquals(w, lrj.getLine(i).length());
+        }
     }
 
 }

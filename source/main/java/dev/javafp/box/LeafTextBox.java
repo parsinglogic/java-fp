@@ -84,10 +84,14 @@ public class LeafTextBox extends AbstractTextBox
             return TextUtils.repeatString(" ", width);
         else
         {
-            String line = lines.at(n);
-            return line.length() < width
-                   ? line + TextUtils.repeatString(" ", width - line.length())
-                   : line.substring(0, width);
+            return TextUtils.padOrTrimToWidth(lines.at(n), width);
+            //            String line = lines.at(n);
+            //
+            //            return line.length() < width
+            //                   ? TextUtils.padOrTrimToWidth(line, width)
+            //                   : line.length() > width
+            //                     ? line.substring(0, width)
+            //                     : line;
         }
     }
 
@@ -373,6 +377,11 @@ public class LeafTextBox extends AbstractTextBox
         String[] chunks = TextUtils.splitIntoChunks(width, text);
 
         return new LeafTextBox(width, chunks.length, chunks);
+    }
+
+    @Override public AbstractTextBox leftJustifyIn(int width)
+    {
+        return new LeafTextBox(width, height, lines);
     }
 
 }
