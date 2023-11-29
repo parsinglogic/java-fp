@@ -14,11 +14,11 @@ import static org.junit.Assert.assertEquals;
 
 public class SayTest
 {
-
     /**
      *  The width of the line "header"
      */
-    int headerWidth = 84;
+    int headerWidth = 83;
+    // 2023-11-29 15:45:24.299       - SayTest::testTable                                 one
 
     @Test
     public void testSay()
@@ -57,10 +57,10 @@ public class SayTest
 
         String expected = ""
                 + "array 1:   -2\n"
-                + "       2:   -1\n"
-                + "       3:   0\n"
-                + "       4:   1\n"
-                + "       5:   2\n";
+                + "      2:   -1\n"
+                + "      3:   0\n"
+                + "      4:   1\n"
+                + "      5:   2";
 
         assertEquals(expected, ls);
     }

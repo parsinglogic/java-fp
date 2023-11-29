@@ -139,46 +139,6 @@ public class Say
     }
 
     /**
-     * <p> There is a prefix that apps can set in SayPrefix - a thread local variable
-     * <p> The first part of the line shows:
-     * <p> the thread id
-     * the datetimestamp
-     * the ms since the last time we logged
-     * the class and method name
-     * <p> Then there is a space and then the message
-     *
-     * <pre>{@code
-     * YYYY-MM-DD hh:mm:ss:SSS
-     * |                       ms since the last line
-     * |                       |        method name                                 message
-     * |                       |        |                                           |
-     *
-     * 1....................23 1.....7  1........................................50 |
-     * |                     | |     |  |                                         | |
-     * 2020-01-15 12:03:09.897 1234567  DrumApplicationRunner::handleEvents5        xxxxxxxx
-     * }</pre>
-     *
-     */
-    private static AbstractTextBox preBox(int extraStackFrameCount)
-    {
-        LocalDateTime date = LocalDateTime.now();
-
-        AbstractTextBox prefixBox = LeafTextBox.with(getThreadPrefix());
-
-        String elapsed = oldDate.get() == null ? "-" : "" + getMsBetween(date, oldDate.get());
-
-        AbstractTextBox dateTimeBox = LeafTextBox.lefted(formatDateTime(date), DATE_TIME_WIDTH);
-        AbstractTextBox elapsedBox = LeafTextBox.righted(elapsed, ELAPSED_MS_WIDTH);
-
-        String abbreviatedName = TextUtils.abbreviate(getClassAndMethod(4 + extraStackFrameCount), NAME_WIDTH);
-        AbstractTextBox nameBox = LeafTextBox.lefted(abbreviatedName, NAME_WIDTH);
-
-        oldDate.set(date);
-
-        return LeftRightBox.with(prefixBox, spaceBox, dateTimeBox, spaceBox, elapsedBox, spaceBox, nameBox, spaceBox);
-    }
-
-    /**
      * Get  a pair with
      * a list of the header boxes
      * a list of the widths of the header boxes
@@ -234,30 +194,25 @@ public class Say
         return ts - start;
     }
 
-    public static void sayNl(Object... things)
+    public static void sayWithThreadPrefix(AbstractTextBox box)
     {
-        AbstractTextBox preBox = preBox(0);
-
-        ImList<AbstractTextBox> boxes = ImList.on(things).map(t -> TextUtils.getBoxFrom(t));
-
-        print(preBox, TopDownBox.withAllBoxes(boxes));
+        sayWithExtraHeader(LeafTextBox.with(getThreadPrefix()), box);
     }
 
-    public static void println(Object objectToShow)
+    public static void sayWithExtraHeader(AbstractTextBox header, AbstractTextBox box)
     {
-        say(objectToShow);
+        getHeaderBoxes(0).consumeIn((boxes, widths) -> sayWithHeader(boxes.push(header), widths.push(header.width), box));
+    }
+
+    public static void sayNl(Object... things)
+    {
+        sayWithExtraHeader(LeafTextBox.with(getThreadPrefix()), TopDownBox.with(things));
     }
 
     public static void say(Object... things)
     {
         say$(1, things);
     }
-
-    //
-    //    public static void log(String pre, Object... things)
-    //    {
-    //        say$(1, LeafTextBox.with(pre), things);
-    //    }
 
     static void say$(int extraStackFrameCount, Object... things)
     {
@@ -292,11 +247,6 @@ public class Say
         finalPrint(box.toString());
     }
 
-    private static void print(AbstractTextBox pre, AbstractTextBox content)
-    {
-        finalPrint(pre.before(content).toString());
-    }
-
     public static void finalPrint(String formatted)
     {
         if (buffer == null)
@@ -307,31 +257,17 @@ public class Say
 
     public static void sayBox(Object... things)
     {
-        AbstractTextBox preBox = preBox(0);
-
-        ImList<String> bars = ImList.repeat(" | ");
-
         // Get boxes from the things
         ImList<AbstractTextBox> boxes = ImList.on(things).map(t -> TextUtils.getBoxFrom(t));
 
-        // Get the max height
-        int maxHeight = boxes.foldl(0, (z, b) -> Math.max(z, b.height));
-
         // Create a "vertical bar"
-        TopDownBox vBar = TopDownBox.withAll(bars.take(maxHeight));
+        TopDownBox vBar = TopDownBox.withAll(ImList.repeat(" | ", Util.maxInt(boxes.map(i -> i.height))));
 
         // Intersperse the vertical bar
         ImList<AbstractTextBox> boxesWithSep = boxes.intersperse(vBar);
 
         // Display them
-        print(preBox, LeftRightBox.withAll(boxesWithSep));
-    }
-
-    public static void printBox(AbstractTextBox box)
-    {
-        LeafTextBox threadPrefix = LeafTextBox.with(getThreadPrefix());
-
-        getHeaderBoxes(0).consumeIn((boxes, widths) -> sayWithHeader(boxes.push(threadPrefix), widths.push(threadPrefix.width), box));
+        sayWithThreadPrefix(LeftRightBox.withAll(boxesWithSep));
     }
 
     public static void errorln(String message)

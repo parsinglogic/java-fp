@@ -102,34 +102,61 @@ public class ImPair<U, V> extends ImValuesImpl
     }
 
     /**
-     * Apply function `f` to the components of this pair.
-     *
-     * This is used to allow code that easily accesses the components of a pair with each component having
+     * <p> Apply function
+     * {@code pairConsumer}
+     *  to the components of this pair - as in `pairConsumer.of(fst, snd)`
+     * <p> This is used to allow code that easily accesses the components of a pair with each component having
      * a variable name. Eg:
      *
-     *
+     * <pre>{@code
+     * someFunctionReturningAPair(...).consumeIn((a, b) -> consume(a,b));
+     * }</pre>
+     * This is useful when you need to use a function that returns two values in an `ImPair` and you need to unpack the components
+     * easily.
      */
-    public <C> C useIn(Fn2<U, V, C> f)
+    public <C> C useIn(Fn2<U, V, C> fn)
     {
-        return f.of(fst, snd);
+        return fn.of(fst, snd);
     }
 
     /**
-     * Apply function `pairConsumer` to the components of this pair.
-     *
-     * This is used to allow code that easily accesses the components of a pair with each component having
+     * <p> Apply function
+     * {@code pairConsumer}
+     *  to the components of this pair - as in `pairConsumer.of(fst, snd)`
+     * <p> This is used to allow code that easily accesses the components of a pair with each component having
      * a variable name. Eg:
      *
-     *
+     * <pre>{@code
+     * someFunctionReturningAPair(...).consumeIn((a, b) -> consume(a,b));
+     * }</pre>
+     * This is useful when you need to use a function that returns two values in an `ImPair` and you need to unpack the components
+     * easily.
      */
     public void consumeIn(FnPairConsumer<U, V> pairConsumer)
     {
         pairConsumer.doit(fst, snd);
     }
 
+    /**
+     * <p> Apply functions
+     * {@code f1}
+     * to
+     * {@code fst}
+     * and
+     * {@code f2}
+     * to
+     * {@code snd}
+     * to produce a new `ImPair`, `p` with `p = (f1.of(fst), f2.of(snd))`
+     *
+     */
     public <UU, VV> ImPair<UU, VV> map(Fn<U, UU> f1, Fn<V, VV> f2)
     {
         return ImPair.on(f1.of(fst), f2.of(snd));
+    }
+
+    public <UU, VV> ImPair<UU, VV> map(Fn2<U, V, ImPair<UU, VV>> fn)
+    {
+        return fn.of(fst, snd);
     }
 
     /**
