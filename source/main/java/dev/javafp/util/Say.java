@@ -94,14 +94,22 @@ public class Say
     // The default prefix when there isn't one in the thread
     private static String defaultPrefix = "";
 
-    // Set the default thread prefix
+    /**
+     * <p> Set the default thread prefix to
+     * {@code prefix}.
+     *
+     * The default default is the empty string.
+     *
+     */
     public static void setDefaultThreadPrefix(String prefix)
     {
         defaultPrefix = prefix;
     }
 
     /**
-     * <p> Get the current prefix in the thread or the default if there isn't one
+     * <p> Set the current prefix in the thread to
+     * {@code prefix}
+     *
      */
     public static void setCurrentThreadPrefix(String prefix)
     {
@@ -109,7 +117,7 @@ public class Say
     }
 
     /**
-     * <p> Get the current thread prefix or the default if there isn't one
+     * <p> Get the current thread prefix or the default if one has not been set
      */
     public static String getThreadPrefix()
     {
@@ -118,24 +126,28 @@ public class Say
         return prefix == null ? defaultPrefix : prefix;
     }
 
+    /**
+     * <p> Remove the current thread prefix - returning it to the default
+     */
     public static void removeCurrentThreadPrefix()
     {
         threadLocalPrefix.remove();
     }
 
-    public static String formatDateTime(LocalDateTime t)
+    /**
+     * <p> {@code dateTime}
+     *  formatted to the pattern
+     * {@code "yyyy-MM-dd HH:mm:ss.SSS"}
+     *
+     */
+    public static String formatDateTime(LocalDateTime dateTime)
     {
-        return t.format(formatter);
+        return dateTime.format(formatter);
     }
 
     public static void printf(String formatString, Object... thingsToPrint)
     {
-        say$(1, AbstractTextBox.empty, format(formatString, thingsToPrint));
-    }
-
-    public static String format(String formatString, Object... thingsToPrint)
-    {
-        return String.format(formatString, thingsToPrint);
+        say$(1, String.format(formatString, thingsToPrint));
     }
 
     /**
@@ -220,8 +232,16 @@ public class Say
     }
 
     /**
-     * Say `things` - with a header box that is a `LeftRightBox` composed of `boxes`, each adjusted to have a width taken from the
-     * corresponding element of `widths`
+     * <p> Say
+     * {@code things}
+     *  - with a header box that is a
+     * {@code LeftRightBox}
+     *  composed of
+     * {@code boxes}
+     * , each adjusted to have a width taken from the
+     * corresponding element of
+     * {@code widths}
+     *
      *
      */
     public static void sayWithHeader(ImList<AbstractTextBox> boxes, ImList<Integer> widths, Object... things)
@@ -314,7 +334,7 @@ public class Say
 
     public static void printNewLines(int count)
     {
-        printf(TextUtils.repeatString("%n", count));
+        say(TextUtils.repeatString("%n", count));
     }
 
     public static void setStart(long st)
