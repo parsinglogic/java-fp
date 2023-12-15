@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>A composite text-box that lays out its children top down.
+ * <p>A composite text-box that lays out its children top down where each child box is a left-right box.
  *
  * <p> <img src="{@docRoot}/dev/doc-files/top-down-box.png"  width=300/>
  */

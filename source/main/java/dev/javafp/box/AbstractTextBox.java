@@ -43,12 +43,12 @@ public abstract class AbstractTextBox implements Serializable
     /**
      * The empty text box
      */
-    public static final LeafTextBox empty = LeafTextBox.with("");
+    public static final LeafTextBox empty = new LeafTextBox(0, 1, ImList.on(""));
 
     /**
-     * The text box containing a space
+     * The text box containing a single space
      */
-    public static final LeafTextBox spaceBox = LeafTextBox.with("");
+    public static final LeafTextBox spaceBox = new LeafTextBox(1, 1, ImList.on(" "));
 
     /**
      * The width of the box in characters
@@ -72,27 +72,54 @@ public abstract class AbstractTextBox implements Serializable
      *  where
      * {@code n ∈ [1, height]}
      *
+     * <p> The string that is returned is padded or trimmed to the width of this box.
+     *
      */
     public abstract String getLine(int n);
 
     /**
-     * <p> The String representation of this box that is used to write it to (eg) standard output
+     * <p> The String representation of this box.
+     *
+     * <p> The lines are not trimmed
+     *
      */
     @Override
     public String toString()
     {
-        if (height == 1)
-            return TextUtils.trimRight(getLine(1));
-        else
+        return toBuilder(false).toString();
+    }
+
+    /**
+     * <p> The
+     * {@link StringBuilder}
+     *  representation of this box, trimming the lines if
+     * {@code trimLines}
+     *  is true.
+     * <p> This is used by
+     * {@link dev.javafp.util.Say}
+     *  to write stuff
+     *
+     */
+    public StringBuilder toBuilder(boolean trimLines)
+    {
+        StringBuilder sb = new StringBuilder(128);
+
+        sb.append(getLine(trimLines, 1));
+
+        for (int i = 2; i <= height; i++)
         {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 1; i <= height; i++)
-            {
-                sb.append(TextUtils.trimRight(getLine(i)));
-                sb.append("\n");
-            }
-            return sb.toString();
+            sb.append("\n");
+            sb.append(getLine(trimLines, i));
         }
+
+        return sb;
+    }
+
+    private String getLine(boolean trimLines, int i)
+    {
+        return trimLines
+               ? getLine(i).stripTrailing()
+               : getLine(i);
     }
 
     /**

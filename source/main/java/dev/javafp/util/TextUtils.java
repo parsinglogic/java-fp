@@ -206,9 +206,9 @@ public class TextUtils
         return startQuote + stringToQuote + endQuote;
     }
 
-    public static String quote(String stringToQuote, String quote)
+    public static String quote(String stringToQuote, String quoteChars)
     {
-        return quote + stringToQuote + quote;
+        return quoteChars + stringToQuote + quoteChars;
     }
 
     public static String join(Object[] items, String separator)
@@ -374,7 +374,7 @@ public class TextUtils
     private static ImList<AbstractTextBox> getTextBoxes(ImList<?> things)
     {
         return things.isEmpty()
-               ? ImList.<AbstractTextBox>empty()
+               ? ImList.on()
                : ImList.cons(getBoxFrom(things.head()), getTextBoxes(things.tail()));
     }
 

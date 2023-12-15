@@ -1,5 +1,6 @@
 package dev.javafp.box;
 
+import dev.javafp.util.TextUtils;
 import org.junit.Test;
 
 import java.io.PrintWriter;
@@ -7,9 +8,11 @@ import java.io.StringWriter;
 
 import static dev.javafp.util.Say.say;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public class LeafTextBoxTest
 {
+
     @Test
     public void testFourLinesWithTabs()
     {
@@ -29,35 +32,31 @@ public class LeafTextBoxTest
         assertEquals(1, emptyString.height);
         assertEquals(1, LeafTextBox.with(" ").before(emptyString).width);
         assertEquals(2, LeafTextBox.with(" ").above(emptyString).height);
-        assertEquals(2, LeafTextBox.with("a\nb\n").height);
+        assertEquals(3, LeafTextBox.with("a\nb\n").height);
     }
 
     @Test
     public void testFourLinesWithTabsUsingWith()
     {
-        LeafTextBox leafTextBox = LeafTextBox.with("ab\t\t\nc\nd\nxxxxx");
+        LeafTextBox leafTextBox = LeafTextBox.with("x\tx\nxx\txxxx\txxx\txx\tx");
+        String expected = ""
+                + "x   x                \n"
+                + "xx  xxxx    xxx xx  x";
+        assertEquals(expected, leafTextBox.toString());
 
-        // We do this since the toString strips off trailing spaces
-        AbstractTextBox tb = leafTextBox.before(LeafTextBox.with("+\n+\n+\n+"));
-
-        assertEquals("ab      +\n"
-                + "c       +\n"
-                + "d       +\n"
-                + "xxxxx   +\n", tb.toString());
     }
 
     @Test
     public void testFourLinesWithTabsUsingLefted()
     {
-        LeafTextBox leafTextBox = LeafTextBox.lefted("ab\t\t\nc\nd\nxxxxx", 10);
+        LeafTextBox tb = LeafTextBox.lefted("ab\t\t\nc\nd\nxxxxx", 10);
 
-        // We do this since the toString strips off trailing spaces
-        AbstractTextBox tb = leafTextBox.before(LeafTextBox.with("+\n+\n+\n+"));
-
-        assertEquals("ab        +\n"
-                + "c         +\n"
-                + "d         +\n"
-                + "xxxxx     +\n", tb.toString());
+        String expected = ""
+                + "ab        \n"
+                + "c         \n"
+                + "d         \n"
+                + "xxxxx     ";
+        assertEquals(expected, tb.toString());
 
         say(tb);
     }
@@ -65,10 +64,14 @@ public class LeafTextBoxTest
     @Test
     public void testFourLinesUsingLefted()
     {
-        String source = "ab\ncde\nfghij\nkl";
+        String source = ""
+                + "ab        \n"
+                + "cde       \n"
+                + "fghij     \n"
+                + "kl        ";
         LeafTextBox leafTextBox = LeafTextBox.lefted(source, 10);
 
-        assertEquals(source + "\n", leafTextBox.toString());
+        assertEquals(source, leafTextBox.toString());
         say(leafTextBox);
 
         say(LeafTextBox.with("abc"));
@@ -79,10 +82,10 @@ public class LeafTextBoxTest
     public void testFourLinesUsingCentred()
     {
         String expected = ""
-                + "    ab\n"
-                + "   cde\n"
-                + "  fghij\n"
-                + "    kl\n";
+                + "    ab    \n"
+                + "   cde    \n"
+                + "  fghij   \n"
+                + "    kl    ";
         String source = "ab\ncde\nfghij\nkl\n";
         LeafTextBox leafTextBox = LeafTextBox.centred(source, 10);
 
@@ -96,7 +99,7 @@ public class LeafTextBoxTest
                 + "        ab\n"
                 + "       cde\n"
                 + "     fghij\n"
-                + "        kl\n";
+                + "        kl";
         String source = "ab\ncde\nfghij\nkl\n";
         LeafTextBox leafTextBox = LeafTextBox.righted(source, 10);
 
@@ -129,19 +132,63 @@ public class LeafTextBoxTest
         assertEquals(expected, actual);
     }
 
-    //    @Test
-    //    public void testWithMargin()
-    //    {
-    //        LeafTextBox leafTextBox = LeafTextBox.withMargin("foo", 1);
-    //
-    //        assertEquals(" foo ", leafTextBox.getLine(1));
-    //        assertEquals("     ", leafTextBox.getLine(2));
-    //    }
+    @Test
+    public void testHandlesNewlines()
+    {
+
+        LeafTextBox b;
+
+        //        LeafTextBox b = LeafTextBox.with2("abc");
+        //        assertEquals(3, b.width);
+        //        assertEquals(1, b.height);
+        //        assertEquals("abc", b.getLine(1));
+        //        assertEquals("abc", b.toString());
+        //
+        //
+        //        b = LeafTextBox.with2("abc\n");
+        //        assertEquals(3, b.width);
+        //        assertEquals(1, b.height);
+        //        assertEquals("abc", b.getLine(1));
+        //        assertEquals("abc", b.toString());
+
+        //        b = LeafTextBox.with2("abc\nd");
+        //        assertEquals(3, b.width);
+        //        assertEquals(2, b.height);
+        //        assertEquals("abc", b.getLine(1));
+        //        assertEquals("d  ", b.getLine(2));
+        //        assertEquals("abc\nd\n", b.toString());
+        //
+        //        b = LeafTextBox.with2("abc\nd\n");
+        //        assertEquals(3, b.width);
+        //        assertEquals(2, b.height);
+        //        assertEquals("abc", b.getLine(1));
+        //        assertEquals("d  ", b.getLine(2));
+        //        assertEquals("abc\nd\n", b.toString());
+
+        b = LeafTextBox.with2("");
+        assertEquals(0, b.width);
+        assertEquals(1, b.height);
+        assertEquals("", b.getLine(1));
+        assertEquals("", b.toString());
+        assertSame(AbstractTextBox.empty, b);
+
+        b = LeafTextBox.with2(" ");
+        assertEquals(1, b.width);
+        assertEquals(1, b.height);
+        assertEquals(" ", b.getLine(1));
+        assertEquals(" ", b.toString());
+        assertSame(AbstractTextBox.spaceBox, b);
+
+    }
 
     @Test
     public void testWithTabs()
     {
         LeafTextBox leafTextBox = LeafTextBox.with("\tfoo\t");
+
+        assertEquals("    foo ", TextUtils.detab(4, "\tfoo\t"));
+
+        assertEquals("    foo ", leafTextBox.getLine(1));
 
         // We do this since the toString strips off trailing spaces
         AbstractTextBox tb = leafTextBox.before(LeafTextBox.with("x"));
@@ -168,9 +215,11 @@ public class LeafTextBoxTest
         // We do this since the toString strips off trailing spaces
         AbstractTextBox tb = leafTextBox.before(LeafTextBox.with("x"));
 
-        assertEquals("a   bc  x\n"
-                + "    d\n"
-                + "e\n", tb.toString());
+        String expected = ""
+                + "a   bc  x\n"
+                + "    d    \n"
+                + "e        ";
+        assertEquals(expected, tb.toString());
     }
 
     @Test
@@ -179,7 +228,7 @@ public class LeafTextBoxTest
         LeafTextBox leafTextBox = LeafTextBox.with("foo ");
 
         assertEquals(4, leafTextBox.width);
-        assertEquals("foo", leafTextBox.toString());
+        assertEquals("foo ", leafTextBox.toString());
     }
 
     @Test
@@ -219,13 +268,13 @@ public class LeafTextBoxTest
     public void withShouldTrim()
     {
         assertEquals("a", LeafTextBox.with(1, 1, "ab\ncde").toString());
-        assertEquals("a\nc\n", LeafTextBox.with(1, 2, "ab\ncde\nf").toString());
+        assertEquals("a\nc", LeafTextBox.with(1, 2, "ab\ncde\nf").toString());
     }
 
     @Test
-    public void withShouldPadAndTrim()
+    public void withShouldPad()
     {
-        assertEquals("a\nc\n\n", LeafTextBox.with(1, 3, "ab\ncde").toString());
+        assertEquals("a\nc\n ", LeafTextBox.with(1, 3, "ab\ncde").toString());
     }
 
     @Test
@@ -236,12 +285,20 @@ public class LeafTextBoxTest
         assertEquals(2, wrap.width);
         assertEquals(4, wrap.height);
 
+        String ex = ""
+                + "ab\n"
+                + "cd\n"
+                + "ef\n"
+                + "g ";
+
+        assertEquals(ex, wrap.toString());
+
         LeafTextBox wrap2 = LeafTextBox.wrap(6, "Mind how you go");
 
         String expected = ""
                 + "Mind h\n"
                 + "ow you\n"
-                + " go\n";
+                + " go   ";
 
         assertEquals(expected, wrap2.toString());
     }
@@ -285,5 +342,10 @@ public class LeafTextBoxTest
             for (int i = 1; i <= boxJ.height; i++)
                 assertEquals(w, boxJ.getLine(i).length());
         }
+    }
+
+    private static String q(String s)
+    {
+        return TextUtils.quote(s.replaceAll("\t", "\\\\t"));
     }
 }

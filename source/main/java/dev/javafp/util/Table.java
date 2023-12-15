@@ -16,6 +16,8 @@ import dev.javafp.val.ImValuesImpl;
 
 /**
  * <p> A table data structure - containing text-boxes.
+ *
+ * <p> The table stores a list of columns with each column holding its cells in reverse order.
  */
 
 public class Table extends ImValuesImpl
@@ -37,7 +39,7 @@ public class Table extends ImValuesImpl
     }
 
     /**
-     * <p> Add a row to the table
+     * <p> A table with a single row
      */
     public static Table on(Object... cols)
     {
@@ -113,8 +115,9 @@ public class Table extends ImValuesImpl
     /**
      * <p> Add row to the list of boxes
      * <p> box[n] of row is pushed onto the front of the list at cols[n]
-     * <p> x x x x o o            x x x x o o
-     * -->   x x o o o o
+     * x x x x o o            x x x x o o
+     * -->
+     * x x o o o o
      * x o o o o o
      * x x o o o o            x x x x o o
      * x o o o o o
@@ -123,7 +126,7 @@ public class Table extends ImValuesImpl
      */
     private ImList<ImList<AbstractTextBox>> addRow(ImList<AbstractTextBox> row, ImList<ImList<AbstractTextBox>> cols)
     {
-        // pad the row to the correct size
+        // pad the row to the correct number of cells
         ImList<AbstractTextBox> padded = row.append(ImList.repeat(empty, cols.size() - row.size()));
 
         return padded.zipWith(cols, (b, c) -> c.push(b));

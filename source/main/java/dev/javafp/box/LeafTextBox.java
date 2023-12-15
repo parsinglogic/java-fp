@@ -11,19 +11,24 @@ import dev.javafp.lst.ImList;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.util.TextUtils;
 
+import java.util.ArrayList;
+
 /**
  * <p> A text box that does not contain any other text boxes.
  *
  * <p> <img src="{@docRoot}/dev/doc-files/leaf-text-box.png"  width=300/>
  *
  * <p> It consists of 1 or more lines of text - ie Strings.
- * <p> Any tab characters will be expanded to spaces assuming a tab width of 4.
+ *
+ * <p> Any tab characters will be expanded to spaces assuming a tab width of 4 and that the line they appear in starts at the leftmost
+ * position. If a leaf text box with tabs is assembled into a left-right box, the tab expansion will not always be correct
  * <p> There will be no newline characters in any of the lines.
  * <p> If any of the characters used to create the box are ISO control characters, they will be converted using
  * {@link #transformISOControlChars(String)}
  *
  *
- * <p> A
+ * If the text that the leaf-text box is created from has a newline as the last character, then the last line of the text-box will be empty
+ *
  * {@code LeafTextBox}
  * on the empty string has width
  * {@code 0}
@@ -44,7 +49,7 @@ public class LeafTextBox extends AbstractTextBox
         lines = ImList.on(strings).map(s -> transformISOControlChars(s)).take(height);
     }
 
-    private LeafTextBox(int width, int height, ImList<String> lines)
+    LeafTextBox(int width, int height, ImList<String> lines)
     {
         super(width, height);
 
@@ -80,19 +85,9 @@ public class LeafTextBox extends AbstractTextBox
     @Override
     public String getLine(int n)
     {
-        if (n > lines.size())
-            return TextUtils.repeatString(" ", width);
-        else
-        {
-            return TextUtils.padOrTrimToWidth(lines.at(n), width);
-            //            String line = lines.at(n);
-            //
-            //            return line.length() < width
-            //                   ? TextUtils.padOrTrimToWidth(line, width)
-            //                   : line.length() > width
-            //                     ? line.substring(0, width)
-            //                     : line;
-        }
+        return n > lines.size()
+               ? TextUtils.padOrTrimToWidth("", width)
+               : TextUtils.padOrTrimToWidth(lines.at(n), width);
     }
 
     /**
@@ -262,11 +257,66 @@ public class LeafTextBox extends AbstractTextBox
      * }</pre>
      *
      */
+    //    public static LeafTextBox with(String text)
+    //    {
+    //        ImPair<Integer, String[]> p = splitIntoLinesAndDetab(text);
+    //
+    //        return new LeafTextBox(p.fst, p.snd.length, p.snd);
+    //    }
+    public static LeafTextBox with2(String text)
+    {
+        return with(text);
+    }
+
     public static LeafTextBox with(String text)
     {
-        ImPair<Integer, String[]> p = splitIntoLinesAndDetab(text);
+        /**
+         * This implementation is deliberately not using many other library functions
+         */
+        if (text.isEmpty())
+            return empty;
+        else if (text.equals(" "))
+            return spaceBox;
+        else
+        {
+            //            // Replace the tabs with spaces
+            //            text = text.replace('\t', ' ');
 
-        return new LeafTextBox(p.fst, p.snd.length, p.snd);
+            // Does the text contain tabs?
+            boolean hasTabs = text.contains("\t");
+
+            int i = 0;
+            int j = 0;
+            int max = 0;
+            int ii = 0;
+
+            ArrayList<String> ss = new ArrayList<String>();
+
+            while (ii < text.length())
+            {
+                // Find the next newline position (0 based)
+                i = text.indexOf('\n', j);
+
+                // We didn't find it. This means that the last line does not have a newline at the end
+                if (i == -1)
+                    ii = text.length();
+                else
+                    ii = i;
+
+                // Add the string to the list of lines
+                String expanded = detab(hasTabs, text.substring(j, ii));
+                ss.add(expanded);
+
+                max = Math.max(expanded.length(), max);
+
+                j = ii + 1;
+            }
+
+            //            if (ss.size() > 1 && ss.get(ss.size() - 1).isEmpty())
+            //                ss.remove(ss.size() - 1);
+
+            return new LeafTextBox(max, ss.size(), ImList.on(ss));
+        }
     }
 
     private static ImPair<Integer, String[]> splitIntoLinesAndDetab(String text)
@@ -351,6 +401,29 @@ public class LeafTextBox extends AbstractTextBox
     private static String detab(String text)
     {
         return TextUtils.detab(4, text);
+    }
+
+    /**
+     * <p> Fix the tab characters in
+     * {@code text}
+     *  - if
+     * {@code hasTabs}
+     *  is
+     * {@code true}
+     * , otherwise return
+     * {@code text}
+     * .
+     * <p> We assume that
+     * {@code text}
+     *  will appear in the output starting in the first column or that the number of columns
+     * to the left of it is divisible by 4
+     *
+     */
+    private static String detab(boolean hasTabs, String text)
+    {
+        return hasTabs
+               ? TextUtils.detab(4, text)
+               : text;
     }
 
     /**

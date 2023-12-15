@@ -44,7 +44,7 @@ public class LeftRightBoxTest
     @Test
     public void testIndented()
     {
-        assertEquals("  a\n  b\n", LeftRightBox.indent(2, LeafTextBox.with("a\nb")).toString());
+        assertEquals("  a\n  b", LeftRightBox.indent(2, LeafTextBox.with("a\nb")).toString());
     }
 
     @Test
