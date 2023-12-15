@@ -142,7 +142,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="col-first even-row-color"><code>static final <a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></code></div>
 <div class="col-second even-row-color"><code><a href="#spaceBox" class="member-name-link">spaceBox</a></code></div>
 <div class="col-last even-row-color">
-<div class="block">The text box containing a space</div>
+<div class="block">The text box containing a single space</div>
 </div>
 <div class="col-first odd-row-color"><code>final int</code></div>
 <div class="col-second odd-row-color"><code><a href="#width" class="member-name-link">width</a></code></div>
@@ -204,10 +204,22 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
  <code>this</code>
   on the right</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract <a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#leftJustifyIn(int)" class="member-name-link">leftJustifyIn</a><wbr>(int&nbsp;width)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html" title="class or interface in java.lang" class="external-link">StringBuilder</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toBuilder(boolean)" class="member-name-link">toBuilder</a><wbr>(boolean&nbsp;trimLines)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html" title="class or interface in java.lang" class="external-link"><code>StringBuilder</code></a>
+  representation of this box, trimming the lines if
+ <code>trimLines</code>
+  is true.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block"> The String representation of this box that is used to write it to (eg) standard output</div>
+<div class="block"> The String representation of this box.</div>
 </div>
 </div>
 </div>
@@ -237,7 +249,7 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <section class="detail" id="spaceBox">
 <h3>spaceBox</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="LeafTextBox.html" title="class in dev.javafp.box">LeafTextBox</a></span>&nbsp;<span class="element-name">spaceBox</span></div>
-<div class="block">The text box containing a space</div>
+<div class="block">The text box containing a single space</div>
 </section>
 </li>
 <li>
@@ -269,18 +281,36 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
 <div class="block"><p> The line of text at line number
  <code>n</code>
   where
- <code>n ∈ [1, height]</code></div>
+ <code>n ∈ [1, height]</code>
+
+ <p> The string that is returned is padded or trimmed to the width of this box.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="toString()">
 <h3>toString</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">toString</span>()</div>
-<div class="block"><p> The String representation of this box that is used to write it to (eg) standard output</div>
+<div class="block"><p> The String representation of this box.
+
+ <p> The lines are not trimmed</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toBuilder(boolean)">
+<h3>toBuilder</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html" title="class or interface in java.lang" class="external-link">StringBuilder</a></span>&nbsp;<span class="element-name">toBuilder</span><wbr><span class="parameters">(boolean&nbsp;trimLines)</span></div>
+<div class="block"><p> The
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/StringBuilder.html" title="class or interface in java.lang" class="external-link"><code>StringBuilder</code></a>
+  representation of this box, trimming the lines if
+ <code>trimLines</code>
+  is true.
+ <p> This is used by
+ <a href="../util/Say.html" title="class in dev.javafp.util"><code>Say</code></a>
+  to write stuff</div>
 </section>
 </li>
 <li>
@@ -342,6 +372,12 @@ implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base
  │ text │
  └──────┘
  </code></pre></div>
+</section>
+</li>
+<li>
+<section class="detail" id="leftJustifyIn(int)">
+<h3>leftJustifyIn</h3>
+<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type"><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span>&nbsp;<span class="element-name">leftJustifyIn</span><wbr><span class="parameters">(int&nbsp;width)</span></div>
 </section>
 </li>
 </ul>

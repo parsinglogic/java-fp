@@ -83,7 +83,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">TopDownBox</span>
 <span class="extends-implements">extends <a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span></div>
-<div class="block"><p>A composite text-box that lays out its children top down.
+<div class="block"><p>A composite text-box that lays out its children top down where each child box is a left-right box.
 
  <p> <img src="../../../dev/doc-files/top-down-box.png" width=300/></div>
 <dl class="notes">
@@ -125,17 +125,11 @@ loadScripts(document, 'script');</script>
   where
  <code>n ∈ [1, height]</code></div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="TopDownBox.html" title="class in dev.javafp.box">TopDownBox</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#with(java.lang.Object...)" class="member-name-link">with</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>...&nbsp;things)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> A
- <code>TopDownBox</code>
-  with children obtained from
- <code>things</code>
- using <a href="../util/TextUtils.html#getBoxFrom(java.lang.Object)"><code>TextUtils.getBoxFrom(Object)</code></a>.</div>
-</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#leftJustifyIn(int)" class="member-name-link">leftJustifyIn</a><wbr>(int&nbsp;width)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="TopDownBox.html" title="class in dev.javafp.box">TopDownBox</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#withAll(dev.javafp.lst.ImList)" class="member-name-link">withAll</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;?&gt;&nbsp;things)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#with(java.lang.Object...)" class="member-name-link">with</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>...&nbsp;things)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block"> A
  <code>TopDownBox</code>
@@ -144,16 +138,25 @@ loadScripts(document, 'script');</script>
  using <a href="../util/TextUtils.html#getBoxFrom(java.lang.Object)"><code>TextUtils.getBoxFrom(Object)</code></a>.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="TopDownBox.html" title="class in dev.javafp.box">TopDownBox</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#withAllBoxes(dev.javafp.lst.ImList)" class="member-name-link">withAllBoxes</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a>&gt;&nbsp;boxes)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#withAll(dev.javafp.lst.ImList)" class="member-name-link">withAll</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;?&gt;&nbsp;things)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> A
+ <code>TopDownBox</code>
+  with children obtained from
+ <code>things</code>
+ using <a href="../util/TextUtils.html#getBoxFrom(java.lang.Object)"><code>TextUtils.getBoxFrom(Object)</code></a>.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="TopDownBox.html" title="class in dev.javafp.box">TopDownBox</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#withAllBoxes(dev.javafp.lst.ImList)" class="member-name-link">withAllBoxes</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a>&gt;&nbsp;boxes)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block"> A
  <code>TopDownBox</code>
   with children
  <code>boxes</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="TopDownBox.html" title="class in dev.javafp.box">TopDownBox</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#withBoxes(dev.javafp.box.AbstractTextBox...)" class="member-name-link">withBoxes</a><wbr>(<a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a>...&nbsp;boxes)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="TopDownBox.html" title="class in dev.javafp.box">TopDownBox</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#withBoxes(dev.javafp.box.AbstractTextBox...)" class="member-name-link">withBoxes</a><wbr>(<a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a>...&nbsp;boxes)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block"> A
  <code>TopDownBox</code>
   with children
@@ -164,7 +167,7 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-dev.javafp.box.AbstractTextBox">Methods inherited from class&nbsp;dev.javafp.box.<a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></h3>
-<code><a href="AbstractTextBox.html#above(dev.javafp.box.AbstractTextBox)">above</a>, <a href="AbstractTextBox.html#before(dev.javafp.box.AbstractTextBox)">before</a>, <a href="AbstractTextBox.html#boxed()">boxed</a>, <a href="AbstractTextBox.html#indentBy(int)">indentBy</a>, <a href="AbstractTextBox.html#toString()">toString</a></code></div>
+<code><a href="AbstractTextBox.html#above(dev.javafp.box.AbstractTextBox)">above</a>, <a href="AbstractTextBox.html#before(dev.javafp.box.AbstractTextBox)">before</a>, <a href="AbstractTextBox.html#boxed()">boxed</a>, <a href="AbstractTextBox.html#indentBy(int)">indentBy</a>, <a href="AbstractTextBox.html#toBuilder(boolean)">toBuilder</a>, <a href="AbstractTextBox.html#toString()">toString</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -229,10 +232,22 @@ loadScripts(document, 'script');</script>
 <div class="block"><p> The line of text at line number
  <code>n</code>
   where
- <code>n ∈ [1, height]</code></div>
+ <code>n ∈ [1, height]</code>
+
+ <p> The string that is returned is padded or trimmed to the width of this box.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="AbstractTextBox.html#getLine(int)">getLine</a></code>&nbsp;in class&nbsp;<code><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="leftJustifyIn(int)">
+<h3>leftJustifyIn</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span>&nbsp;<span class="element-name">leftJustifyIn</span><wbr><span class="parameters">(int&nbsp;width)</span></div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="AbstractTextBox.html#leftJustifyIn(int)">leftJustifyIn</a></code>&nbsp;in class&nbsp;<code><a href="AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></dd>
 </dl>
 </section>
 </li>
