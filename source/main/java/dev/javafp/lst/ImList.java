@@ -236,7 +236,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     /**
      * The empty list
      */
-    ImList empty = new ImEmptyList();
+    static ImList empty = new ImEmptyList();
 
     /**
      * <p>
@@ -369,11 +369,6 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         }
     }
 
-    /**
-     *
-     * @deprecated This method is intended for internal use and should not be called by clients.
-     */
-    @Deprecated
     int resolveSize();
 
     /**

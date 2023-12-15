@@ -130,7 +130,9 @@ public class ImGraphTest
          */
         ImGraph<String, String, String> g1 = makeTestGraph();
 
-        System.out.println(g1.getGraphVizGraph());
+        say("testGraph", g1);
+
+        say("visGraph", g1.getGraphVizGraph());
     }
 
     @Test

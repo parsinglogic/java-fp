@@ -127,17 +127,18 @@ public class ImListTest implements Constants
     {
         ImList<String> s = on("a\nb", "c\nd", "e", "f");
 
-        String expected = "[\n" +
-                "  1 a\n" +
-                "    b\n" +
-                "    ────────\n" +
-                "  2 c\n" +
-                "    d\n" +
-                "    ────────\n" +
-                "  3 e\n" +
-                "    ────────\n" +
-                "  4 f\n" +
-                "]\n";
+        String expected = ""
+                + "[           \n"
+                + "  1 a       \n"
+                + "    b       \n"
+                + "    ────────\n"
+                + "  2 c       \n"
+                + "    d       \n"
+                + "    ────────\n"
+                + "  3 e       \n"
+                + "    ────────\n"
+                + "  4 f       \n"
+                + "]           ";
 
         assertEquals(expected, s.toString());
     }

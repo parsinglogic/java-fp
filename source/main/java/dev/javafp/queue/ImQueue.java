@@ -60,14 +60,19 @@ public class ImQueue<A> extends ImValuesImpl
      */
     public ImQueue<A> addToEnd(A thing)
     {
-        // If we are full, remove the head and add `thing`
+        // If we are full, remove the head and add thing
         return size() == maxSize
                ? removeFirst().get().addToEnd(thing)
                : ImQueue.onTwoLists(maxSize, one, two.push(thing));
     }
 
     /**
-     * The last element in the queue in a `ImMaybe` or `Nothing` if no such element exists
+     * <p> The last element in the queue in a
+     * {@code ImMaybe}
+     *  or
+     * {@code Nothing}
+     *  if no such element exists
+     *
      */
     public ImMaybe<A> last()
     {
@@ -79,7 +84,12 @@ public class ImQueue<A> extends ImValuesImpl
     }
 
     /**
-     * The first element in the queue  in a `ImMaybe` or `Nothing` if no such element exists
+     * <p> The first element in the queue  in a
+     * {@code ImMaybe}
+     *  or
+     * {@code Nothing}
+     *  if no such element exists
+     *
      */
     public ImMaybe<A> first()
     {
@@ -101,7 +111,12 @@ public class ImQueue<A> extends ImValuesImpl
     }
 
     /**
-     * A pair of the first element and the queue with the first element removed in a `ImMaybe` or `Nothing` if the queue is empty
+     * <p> A pair of the first element and the queue with the first element removed in a
+     * {@code ImMaybe}
+     *  or
+     * {@code Nothing}
+     *  if the queue is empty
+     *
      */
     public ImMaybe<ImPair<A, ImQueue<A>>> split()
     {

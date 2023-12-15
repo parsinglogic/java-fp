@@ -103,16 +103,21 @@ public class ImPair<U, V> extends ImValuesImpl
 
     /**
      * <p> Apply function
-     * {@code pairConsumer}
-     *  to the components of this pair - as in `pairConsumer.of(fst, snd)`
+     * {@code fn}
+     * <p> to the components of this pair - as in
+     * {@code fn.of(fst, snd)}
      * <p> This is used to allow code that easily accesses the components of a pair with each component having
      * a variable name. Eg:
      *
+     *
      * <pre>{@code
-     * someFunctionReturningAPair(...).consumeIn((a, b) -> consume(a,b));
+     * something = someFunctionReturningAPair(...).consumeIn((a, b) -> consume(a,b));
      * }</pre>
-     * This is useful when you need to use a function that returns two values in an `ImPair` and you need to unpack the components
+     * <p> This is useful when you need to use a function that returns two values in an
+     * {@code ImPair}
+     *  and you need to unpack the components
      * easily.
+     *
      */
     public <C> C useIn(Fn2<U, V, C> fn)
     {
@@ -122,15 +127,19 @@ public class ImPair<U, V> extends ImValuesImpl
     /**
      * <p> Apply function
      * {@code pairConsumer}
-     *  to the components of this pair - as in `pairConsumer.of(fst, snd)`
+     * <p> to the components of this pair - as in
+     * {@code pairConsumer.of(fst, snd)}
+     *
      * <p> This is used to allow code that easily accesses the components of a pair with each component having
      * a variable name. Eg:
      *
      * <pre>{@code
      * someFunctionReturningAPair(...).consumeIn((a, b) -> consume(a,b));
      * }</pre>
-     * This is useful when you need to use a function that returns two values in an `ImPair` and you need to unpack the components
-     * easily.
+     * <p> This is useful when you need to use a function that returns two values in an
+     * {@code ImPair}
+     * and you need to unpack the components
+     * easily..
      */
     public void consumeIn(FnPairConsumer<U, V> pairConsumer)
     {
@@ -146,7 +155,13 @@ public class ImPair<U, V> extends ImValuesImpl
      * {@code f2}
      * to
      * {@code snd}
-     * to produce a new `ImPair`, `p` with `p = (f1.of(fst), f2.of(snd))`
+     * <p> to produce a new
+     * {@code ImPair}
+     * ,
+     * {@code p}
+     *  with
+     * {@code p = (f1.of(fst), f2.of(snd))}
+     *
      *
      */
     public <UU, VV> ImPair<UU, VV> map(Fn<U, UU> f1, Fn<V, VV> f2)

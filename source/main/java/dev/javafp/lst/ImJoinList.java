@@ -45,9 +45,10 @@ class ImJoinList<A> extends ImLazyList<A>
     }
 
     /**
-     * `this` without the first element.
+     * <p> {@code this}
+     *  without the first element.
+     * <p> Throws {@link FunctionNotAllowedOnEmptyList} if the list is empty.
      *
-     * Throws {@link FunctionNotAllowedOnEmptyList} if the list is empty.
      */
     @Override
     public ImList<A> tail()

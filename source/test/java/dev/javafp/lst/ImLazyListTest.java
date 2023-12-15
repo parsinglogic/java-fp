@@ -134,7 +134,7 @@ public class ImLazyListTest
 
         t.join();
 
-        String buffer = Say.getBuffer().getString();
+        String buffer = Say.getBufferString();
 
         assertTrue(buffer, buffer.contains("LazyList might be infinite"));
 
@@ -176,7 +176,7 @@ public class ImLazyListTest
 
         t.join();
 
-        String buffer = Say.getBuffer().getString();
+        String buffer = Say.getBufferString();
         assertTrue(buffer, buffer.contains("LazyList might be infinite"));
 
     }
@@ -233,7 +233,7 @@ public class ImLazyListTest
 
         t.join();
 
-        String buffer = Say.getBuffer().getString();
+        String buffer = Say.getBufferString();
         assertTrue(buffer, buffer.contains("List iterator might be infinite"));
     }
 

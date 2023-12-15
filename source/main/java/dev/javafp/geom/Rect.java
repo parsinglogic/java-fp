@@ -541,8 +541,9 @@ public class Rect extends ImValuesImpl
      * }</pre>
      *
      * or
-     * {@code []' if }
-     * count== 0`
+     * {@code []}
+     * if {@code count== 0}
+     *
      * <p> If
      * {@code count < 0}
      *  the

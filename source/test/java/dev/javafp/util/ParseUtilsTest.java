@@ -109,6 +109,8 @@ public class ParseUtilsTest
 
         assertEquals(ImList.on("", ""), ParseUtils.split('/', "/"));
         assertEquals(ImList.on(""), ParseUtils.split('/', ""));
+
+        assertEquals(ImList.on("", "", "", ""), ParseUtils.split('\n', "\n\n\n"));
     }
 
     @Test

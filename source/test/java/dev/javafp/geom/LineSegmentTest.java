@@ -43,31 +43,32 @@ public class LineSegmentTest
          *
          */
 
-        var expected = "[\n"
+        var expected = ""
+                + "[                              \n"
                 + "  1 LineSegment: start:  (0, 0)\n"
                 + "                 offset: (4, 0)\n"
-                + "    ────────\n"
+                + "    ────────                   \n"
                 + "  2 LineSegment: start:  (0, 1)\n"
                 + "                 offset: (4, 0)\n"
-                + "    ────────\n"
+                + "    ────────                   \n"
                 + "  3 LineSegment: start:  (0, 2)\n"
                 + "                 offset: (4, 0)\n"
-                + "    ────────\n"
+                + "    ────────                   \n"
                 + "  4 LineSegment: start:  (0, 0)\n"
                 + "                 offset: (0, 2)\n"
-                + "    ────────\n"
+                + "    ────────                   \n"
                 + "  5 LineSegment: start:  (1, 0)\n"
                 + "                 offset: (0, 2)\n"
-                + "    ────────\n"
+                + "    ────────                   \n"
                 + "  6 LineSegment: start:  (2, 0)\n"
                 + "                 offset: (0, 2)\n"
-                + "    ────────\n"
+                + "    ────────                   \n"
                 + "  7 LineSegment: start:  (3, 0)\n"
                 + "                 offset: (0, 2)\n"
-                + "    ────────\n"
+                + "    ────────                   \n"
                 + "  8 LineSegment: start:  (4, 0)\n"
                 + "                 offset: (0, 2)\n"
-                + "]\n";
+                + "]                              ";
 
         assertEquals(expected, LineSegment.grid(1, 1, 4, 2).toString());
     }

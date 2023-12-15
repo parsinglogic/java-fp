@@ -16,7 +16,7 @@ public class AbstractTextBoxTest
                 + "┌─────┐\n"
                 + "│ ab  │\n"
                 + "│ cde │\n"
-                + "└─────┘\n";
+                + "└─────┘";
 
         assertEquals(expected, leafTextBox.boxed().toString());
 

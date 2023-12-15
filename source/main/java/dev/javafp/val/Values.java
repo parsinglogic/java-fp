@@ -56,7 +56,11 @@ import dev.javafp.lst.ImList;
  *
  * <p> And this is the start of {@link dev.javafp.net.ImUrl}:
  *
- * The `toString()` method on ApiRequest on a typical instance looks like this:
+ * The
+ * {@code toString()}
+ * method on
+ * {@code ApiRequest }
+ * on a typical instance looks like this:
  *
  * <pre>{@code
  * GetRequest: url:             ImUrl: scheme:         http

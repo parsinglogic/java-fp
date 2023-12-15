@@ -55,7 +55,7 @@ class ImListOnArray<A> extends ImEagerList<A>
     }
 
     /**
-     * `this` without the first element.
+     * {@code this} without the first element.
      *
      * Throws {@link FunctionNotAllowedOnEmptyList} if the list is empty.
      */

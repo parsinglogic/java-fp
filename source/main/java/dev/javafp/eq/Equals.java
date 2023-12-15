@@ -33,7 +33,10 @@ public abstract class Equals
      *
      * <p> For all our objects - the ones that extend
      * {@link dev.javafp.val.ImValuesImpl}
-     * , we have each `equals` method doing a nested equals already.
+     * <p> , we have each
+     * {@code equals}
+     *  method doing a nested equals already.
+     *
      *
      * <p> Before, we could not deal with
      * {@link dev.javafp.val.ImValuesImpl}
