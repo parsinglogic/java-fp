@@ -265,7 +265,7 @@ public class ParseUtils
 
             //            say(ps.take(4));
 
-            // Take until we find teh pair with null as its 2nd element and use the first element of each pair
+            // Take until we find the pair with null as its 2nd element and use the first element of each pair
             return ps.takeUntil(p -> p.snd == null).map(p -> p.fst);
         }
     }

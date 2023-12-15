@@ -59,6 +59,39 @@ import java.time.format.DateTimeFormatter;
  * <p> This box is now composed in a LeftRightBox with the message text box and this final box is converted to a String and output.
  *  <p> <img src="{@docRoot}/dev/doc-files/say-output.png"  width=500/>
  *
+ * <p> An actual output, taken from a test. The code in the test does this:
+ *
+ * <pre>{@code
+ *         ImGraph<String, String, String> g1 = makeTestGraph();
+ *
+ *         say("testGraph", g1);
+ *
+ *         say("visGraph", g1.getGraphVizGraph());
+ * }</pre>
+ *
+ * <p> and the output generated looked like this:
+ *
+ * <pre>{@code
+ * 2023-11-30 15:59:44.938       - ImGraphTest::testABCDGraphViz                      testGraph ImGraph: valueMap: [A->, B->, C->, D->, x->, y->, z->]
+ *                                                                                                       arcsOut:  [A->[(A, x) art, (A, C) mod], B->[(B, z) art, (B, C) mod], C->[(C, z) art, (C, D) mod], D->[(D, y) art]]
+ *                                                                                                       arcsIn:   [C->[(A, C) mod, (B, C) mod], D->[(C, D) mod], x->[(A, x) art], y->[(D, y) art], z->[(B, z) art, (C, z) art]]
+ *
+ * 2023-11-30 15:59:44.978      39 ImGraphTest::testABCDGraphViz                      visGraph digraph d {
+ *                                                                                             rankdir=TD;
+ *                                                                                             size="10,10";
+ *                                                                                             node [shape = box];
+ *                                                                                             "A" -> "x"[ label = "art"];
+ *                                                                                             "A" -> "C"[ label = "mod"];
+ *                                                                                             "B" -> "z"[ label = "art"];
+ *                                                                                             "B" -> "C"[ label = "mod"];
+ *                                                                                             "C" -> "z"[ label = "art"];
+ *                                                                                             "C" -> "D"[ label = "mod"];
+ *                                                                                             "D" -> "y"[ label = "art"];
+ *                                                                                             "x";
+ *                                                                                             "y";
+ *                                                                                             "z";
+ *                                                                                             }
+ * }</pre>
  */
 public class Say
 {
@@ -151,9 +184,22 @@ public class Say
     }
 
     /**
-     * Get  a pair with
-     * a list of the header boxes
-     * a list of the widths of the header boxes
+     * <p> Given an extra stack frame count of
+     * {@code extraStackFrameCount}
+     * , return a
+     * {@link ImPair}
+     * with two lists:
+     * <ol>
+     * <li>
+     * <p> a list of the standard header boxes
+     * </li>
+     * <li>
+     * <p> a list of the widths of the header boxes
+     * </li>
+     * </ol>
+     * <p> Since one of the standard header boxes is the name of the method that called
+     * {@link Say#say(Object...)}
+     * we need the extra stack frame count to work out which entry in the stack to use.
      *
      */
     private static ImPair<ImList<AbstractTextBox>, ImList<Integer>> getHeaderBoxes(int extraStackFrameCount)
@@ -174,7 +220,7 @@ public class Say
 
     }
 
-    public static long getMsBetween(LocalDateTime after, LocalDateTime before)
+    static long getMsBetween(LocalDateTime after, LocalDateTime before)
     {
         return Duration.between(before, after).toMillis();
     }
@@ -188,7 +234,7 @@ public class Say
         return "" + getClassName(ste) + "::" + ste.getMethodName();
     }
 
-    public static String getMethodName(int goUpCount)
+    static String getMethodName(int goUpCount)
     {
         StackTraceElement ste = Thread.currentThread().getStackTrace()[2 + goUpCount];
 
@@ -201,26 +247,52 @@ public class Say
         return ParseUtils.split('.', fullName).last();
     }
 
+    /**
+     * <p> Get the offset of the time
+     * {@code ts}
+     *  from the time that the VM started
+     *
+     */
     public static long getLocalTime(long ts)
     {
         return ts - start;
     }
 
+    /**
+     * <p> Say
+     * {@code box}
+     *  with the extra prefix of the thread prefix (abbreviated to 8 characters)
+     *
+     */
     public static void sayWithThreadPrefix(AbstractTextBox box)
     {
         sayWithExtraHeader(LeafTextBox.with(getThreadPrefix()), box);
     }
 
-    public static void sayWithExtraHeader(AbstractTextBox header, AbstractTextBox box)
+    static void sayWithExtraHeader(AbstractTextBox header, AbstractTextBox box)
     {
         getHeaderBoxes(0).consumeIn((boxes, widths) -> sayWithHeader(boxes.push(header), widths.push(header.width), box));
     }
 
-    public static void sayNl(Object... things)
+    /**
+     * <p> Say
+     * {@code things}
+     *  but arranging them top-down rather than left-right
+     *
+     */
+    public static void sayTopDown(Object... things)
     {
         sayWithExtraHeader(LeafTextBox.with(getThreadPrefix()), TopDownBox.with(things));
     }
 
+    /**
+     * <p> The main diagnostic display method.
+     * <p> {@code things}
+     *  are converted to text boxes and composed left-right with a single spaces between them.
+     * <p> The first line has a number of standard header entries to help with debugging.
+     * <p> See the class comments for more details.
+     *
+     */
     public static void say(Object... things)
     {
         say$(1, things);
@@ -264,15 +336,15 @@ public class Say
 
     private static void print2(AbstractTextBox box)
     {
-        finalPrint(box.toString());
+        finalPrint(box.toBuilder(true).append('\n'));
     }
 
-    public static void finalPrint(String formatted)
+    private static void finalPrint(StringBuilder formatted)
     {
         if (buffer == null)
-            System.out.println(formatted);
+            System.out.append(formatted);
         else
-            buffer.println(formatted);
+            buffer.print(formatted);
     }
 
     public static void sayBox(Object... things)
@@ -290,20 +362,14 @@ public class Say
         sayWithThreadPrefix(LeftRightBox.withAll(boxesWithSep));
     }
 
-    public static void errorln(String message)
-    {
-        if (isQuiet())
-        {
-            synchronized (System.out)
-            {
-                say$(1, AbstractTextBox.empty, message);
-            }
-        }
-        else
-            say$(1, AbstractTextBox.empty, message);
-
-    }
-
+    /**
+     * <p> Get the output that has been stored in the buffer while
+     * {@code Say}
+     *  was in quiet mode, or the empty string if
+     * {@code Say}
+     *  was not in quiet mode.
+     *
+     */
     public static String getBufferString()
     {
         return buffer == null ? "" : buffer.getString();
@@ -319,22 +385,27 @@ public class Say
                  : new CachingBuffer(1000);
     }
 
+    /**
+     * <p> Set quiet mode on or off, depending on
+     * {@code beQuiet}
+     *
+     */
     public static void setQuiet(boolean beQuiet)
     {
-
         buffer = beQuiet
                  ? new CachingBuffer(1000)
                  : null;
     }
 
-    public static CachingBuffer getBuffer()
-    {
-        return buffer;
-    }
-
+    /**
+     * <p> Say
+     * {@code count}
+     *  newlines
+     *
+     */
     public static void printNewLines(int count)
     {
-        say(TextUtils.repeatString("%n", count));
+        say$(1, TextUtils.repeatString("\n", count));
     }
 
     public static void setStart(long st)

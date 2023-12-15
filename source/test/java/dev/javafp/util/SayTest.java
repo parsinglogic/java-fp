@@ -32,9 +32,15 @@ public class SayTest
     @Test
     public void testSayArray()
     {
-        Say.setQuiet(true);
+
         int TEST_COUNT = 2;
         ImList<Integer> lst = ImRange.inclusive(-2, TEST_COUNT);
+
+        Integer[] array = lst.toArray(Integer.class);
+
+        say("array", array);
+
+        Say.setQuiet(true);
 
         say("lst", lst);
 
@@ -45,8 +51,6 @@ public class SayTest
 
         Say.clearBuffer();
 
-        Integer[] array = lst.toArray(Integer.class);
-
         say("array", array);
 
         String bufferString = Say.getBufferString();
@@ -55,6 +59,7 @@ public class SayTest
 
         String ls = longLines.map(i -> i.substring(headerWidth)).toString("\n");
 
+        // When we use say, it does remove the trailing space
         String expected = ""
                 + "array 1:   -2\n"
                 + "      2:   -1\n"
@@ -74,10 +79,12 @@ public class SayTest
     @Test
     public void testTable()
     {
-        String expected = "one                           : one\n"
+        String expected = ""
+                + "one                           : one                               \n"
                 + "floccinaucinihilipilification : [99, 100, 101, 102, 103, 104, 105]\n"
-                + "three                         : null\n"
-                + "four                          : MISSING\n";
+                + "three                         : null                              \n"
+                + "four                          : MISSING                           ";
+
         ImList<Integer> things = ImRange.inclusive(99, 105);
         assertEquals(expected, Say.table("one", "one", "floccinaucinihilipilification", things, "three", null, "four").toString());
         Say.showTable("one", "one", "floccinaucinihilipilification", things, "three", null, "four");
@@ -103,17 +110,17 @@ public class SayTest
         ImList<String> col3 = ImRange.inclusive(10, 16).map(i -> toWord(i));
 
         String expected = ""
-                + "zero  six      ten\n"
-                + "one   seven    eleven\n"
-                + "two   eight    twelve\n"
-                + "three nine     thirteen\n"
-                + "four  ten      fourteen\n"
-                + "five  eleven   fifteen\n"
-                + "      twelve   sixteen\n"
-                + "      thirteen\n"
-                + "      fourteen\n"
-                + "      fifteen\n"
-                + "      sixteen\n";
+                + "zero  six      ten      \n"
+                + "one   seven    eleven   \n"
+                + "two   eight    twelve   \n"
+                + "three nine     thirteen \n"
+                + "four  ten      fourteen \n"
+                + "five  eleven   fifteen  \n"
+                + "      twelve   sixteen  \n"
+                + "      thirteen          \n"
+                + "      fourteen          \n"
+                + "      fifteen           \n"
+                + "      sixteen           ";
 
         assertEquals(expected, Say.formatColumns(col1, col2, col3).toString());
     }
@@ -130,12 +137,13 @@ public class SayTest
         say("col2", col2);
         say("col3", col3);
 
-        String expected = "ten      one   seven\n"
-                + "eleven   two   eight\n"
-                + "twelve   three nine\n"
-                + "thirteen four\n"
-                + "fourteen five\n"
-                + "         six\n";
+        String expected = ""
+                + "ten      one   seven \n"
+                + "eleven   two   eight \n"
+                + "twelve   three nine  \n"
+                + "thirteen four        \n"
+                + "fourteen five        \n"
+                + "         six         ";
 
         assertEquals(expected, Say.formatColumns(col1, col2, col3).toString());
     }
@@ -158,5 +166,12 @@ public class SayTest
     {
         String s = String.format("%.8s %10d ", "0123456789", 1);
         assertEquals("01234567          1 ", s);
+    }
+
+    @Test
+    public void testNewLines()
+    {
+        say(TextUtils.getBoxFrom("\n\n\n"));
+        Say.printNewLines(5);
     }
 }

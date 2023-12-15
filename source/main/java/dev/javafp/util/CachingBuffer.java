@@ -32,9 +32,9 @@ public class CachingBuffer
         add(string + "\n");
     }
 
-    public void print(String string)
+    public void print(CharSequence cs)
     {
-        add(string);
+        add(cs.toString());
     }
 
     /**
