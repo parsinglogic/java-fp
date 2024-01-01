@@ -206,6 +206,24 @@ public abstract class AbstractTextBox implements Serializable
         return TopDownBox.with(top, b, bottom);
     }
 
+    /**
+     * <p> A text box where the contents are the same as
+     * {@code this}
+     *  and the height is the same as
+     * {@code this}
+     *  but the width
+     * is now
+     * {@code width}
+     * .
+     * <p> If the width of
+     * {@code this}
+     *  is already
+     * {@code width}
+     *  then return
+     * {@code this}
+     * .
+     *
+     */
     public abstract AbstractTextBox leftJustifyIn(int width);
 
 }

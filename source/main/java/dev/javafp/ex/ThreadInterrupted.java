@@ -7,12 +7,9 @@
 
 package dev.javafp.ex;
 
-import dev.javafp.lst.ImListIterator;
-
 /**
  * <p> Thrown when a Thread is interrupted by the user as a response to a possible infinite loop being detected.
  *
- * <p> Thrown (for example) in {@link ImListIterator#next()}
  */
 public class ThreadInterrupted extends ImException
 {

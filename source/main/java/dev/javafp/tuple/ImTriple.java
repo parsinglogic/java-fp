@@ -9,7 +9,6 @@ package dev.javafp.tuple;
 
 import dev.javafp.func.Fn3;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.TupleListBuilder;
 import dev.javafp.val.ImValuesImpl;
 
 /**
@@ -35,7 +34,7 @@ public class ImTriple<A, B, C> extends ImValuesImpl
 
     public static <A, B, C> ImList<ImTriple<A, B, C>> zip(ImList<A> as, ImList<B> bs, ImList<C> cs)
     {
-        return TupleListBuilder.on3(as, bs, cs);
+        return ImList.tuple3On(as, bs, cs);
     }
 
     public static <A, B, C, D> ImList<D> zipWith(ImList<A> as, ImList<B> bs, ImList<C> cs, Fn3<A, B, C, D> fn)

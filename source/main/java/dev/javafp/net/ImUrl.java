@@ -97,7 +97,7 @@ import java.util.regex.Pattern;
  * <p> So it has six parts
  * <p> In fact, I am only talking about the main URL types that we care about - the ones with scheme http or https
  * <p> For other schemes, different rules apply
- * <p> There are some strange rules about what characters are allowed in the URL sting - and what characters are allowed in the URL object
+ * <p> There are some strange rules about what characters are allowed in the URL string - and what characters are allowed in the URL object
  * <p> This is the Whatwg spec - section 4.1:
  *
  * <pre>{@code
@@ -119,7 +119,7 @@ import java.util.regex.Pattern;
  * }</pre>
  * <p> Hmm
  * <p> The problem with this is that it is very misleading.
- * <p> The first thing to note is that these rules apply to the URL record - not the URL sting.
+ * <p> The first thing to note is that these rules apply to the URL record - not the URL string.
  * <p> While it is literally true that, apart from the port, the URL's parts are ASCII strings, what this doesn't mention is that these
  * ASCII strings are, for some parts, intended to represent UNICODE strings.
  * <p> They could have specified an encoding or even left the storage format up to the implementation - but they didn't.

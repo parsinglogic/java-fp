@@ -165,14 +165,14 @@ public class LeafTextBoxTest
         //        assertEquals("d  ", b.getLine(2));
         //        assertEquals("abc\nd\n", b.toString());
 
-        b = LeafTextBox.with2("");
+        b = LeafTextBox.with("");
         assertEquals(0, b.width);
         assertEquals(1, b.height);
         assertEquals("", b.getLine(1));
         assertEquals("", b.toString());
         assertSame(AbstractTextBox.empty, b);
 
-        b = LeafTextBox.with2(" ");
+        b = LeafTextBox.with(" ");
         assertEquals(1, b.width);
         assertEquals(1, b.height);
         assertEquals(" ", b.getLine(1));

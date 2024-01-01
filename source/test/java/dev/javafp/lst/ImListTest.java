@@ -65,6 +65,7 @@ public class ImListTest implements Constants
         ImList<Integer> list = on(1, 2, 3);
 
         assertEquals("[1, 2, 3]", list.toS());
+
     }
 
     @Test

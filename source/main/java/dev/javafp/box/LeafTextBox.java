@@ -241,7 +241,7 @@ public class LeafTextBox extends AbstractTextBox
      * {@code text}
      *  are expanded assuming a tab width of
      * {@code 4}
-     *  using
+     * and that the text will start in the first column - using
      * {@link TextUtils#detab(int, String)}
      *
      * <p>
@@ -257,17 +257,6 @@ public class LeafTextBox extends AbstractTextBox
      * }</pre>
      *
      */
-    //    public static LeafTextBox with(String text)
-    //    {
-    //        ImPair<Integer, String[]> p = splitIntoLinesAndDetab(text);
-    //
-    //        return new LeafTextBox(p.fst, p.snd.length, p.snd);
-    //    }
-    public static LeafTextBox with2(String text)
-    {
-        return with(text);
-    }
-
     public static LeafTextBox with(String text)
     {
         /**
@@ -452,7 +441,8 @@ public class LeafTextBox extends AbstractTextBox
         return new LeafTextBox(width, chunks.length, chunks);
     }
 
-    @Override public AbstractTextBox leftJustifyIn(int width)
+    @Override
+    public AbstractTextBox leftJustifyIn(int width)
     {
         return new LeafTextBox(width, height, lines);
     }

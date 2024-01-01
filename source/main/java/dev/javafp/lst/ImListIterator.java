@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
  * An iterator over ImLists
  *
  */
-public class ImListIterator<T> implements Iterator<T>, Serializable
+class ImListIterator<T> implements Iterator<T>, Serializable
 {
 
     private int count = 0;

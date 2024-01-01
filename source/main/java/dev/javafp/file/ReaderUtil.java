@@ -15,18 +15,32 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * <p> A utility class to read a String from an InputStream
+ * <p> A utility class to read all of an
+ * {@link InputStream }
+ * into a
+ * {@code String }
  */
-
 public class ReaderUtil
 {
     private static final int BUFFER_SIZE = 16_000;
-    
+
     private ReaderUtil()
     {
-
     }
 
+    /**
+     * <p> All the contents of
+     * {@code in}
+     *  as a
+     * {@code String}
+     * .
+     * <p> If an
+     * {@link IOException}
+     *  is thrown it is wrapped in an
+     * {@link UnexpectedChecked}
+     * .
+     *
+     */
     public static String read(InputStream in)
     {
         char[] buffer = new char[BUFFER_SIZE];

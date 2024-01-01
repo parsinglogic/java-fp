@@ -9,7 +9,6 @@ package dev.javafp.tuple;
 
 import dev.javafp.func.Fn4;
 import dev.javafp.lst.ImList;
-import dev.javafp.lst.TupleListBuilder;
 import dev.javafp.val.ImValuesImpl;
 
 /**
@@ -38,8 +37,7 @@ public class ImQuartet<A, B, C, D> extends ImValuesImpl
 
     public static <A, B, C, D> ImList<ImQuartet<A, B, C, D>> zip(ImList<A> as, ImList<B> bs, ImList<C> cs, ImList<D> ds)
     {
-        return TupleListBuilder.on4(as, bs, cs, ds);
-
+        return ImList.tuple4On(as, bs, cs, ds);
     }
 
     public static <A, B, C, D, E> ImList<E> zipWith(ImList<A> as, ImList<B> bs, ImList<C> cs, ImList<D> ds, Fn4<A, B, C, D, E> fn)

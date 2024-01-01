@@ -126,8 +126,11 @@ public class TopDownBox extends AbstractTextBox
         }
     }
 
-    @Override public AbstractTextBox leftJustifyIn(int width)
+    @Override
+    public AbstractTextBox leftJustifyIn(int width)
     {
-        return new TopDownBox(width, height, boxes);
+        return width == this.width
+               ? this
+               : new TopDownBox(width, height, boxes);
     }
 }

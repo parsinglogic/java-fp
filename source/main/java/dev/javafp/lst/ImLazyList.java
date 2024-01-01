@@ -38,7 +38,7 @@ import java.util.Iterator;
  * toString
  * iterator
  */
-public abstract class ImLazyList<A> implements ImList<A>
+abstract class ImLazyList<A> implements ImList<A>
 {
 
     /**

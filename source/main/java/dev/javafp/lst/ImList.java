@@ -29,6 +29,7 @@ import dev.javafp.func.FnProducer;
 import dev.javafp.rand.Rando;
 import dev.javafp.set.ImSet;
 import dev.javafp.tuple.ImPair;
+import dev.javafp.tuple.ImQuartet;
 import dev.javafp.tuple.ImTriple;
 import dev.javafp.tuple.Pai;
 import dev.javafp.util.Hash;
@@ -461,9 +462,12 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
 
     /**
      * <p> Create a
-     * {@code ImList} of size 1
+     * {@code ImList}
+     * of size 1 containing
+     * {@code thing}
      *
-     * <p> If you use on
+     *
+     * <p> If you want
      *
      */
     public static <A> ImList<A> onOne(A thing)
@@ -2099,6 +2103,44 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
 
             return tp.map(i -> cons(head(), i)).append(tp);
         }
+    }
+
+    /**
+     * <p> A list of
+     * {@link ImQuartet}
+     *  where the
+     * {@code nth}
+     *  element is formed from
+     * {@code as.at(n)}
+     * ,
+     * {@code bs.at(n)}
+     * ,
+     * {@code cs.at(n)}
+     * ,
+     * {@code ds.at(n)}
+     *
+     */
+    public static <C, D, A, B> ImList<ImQuartet<A, B, C, D>> tuple4On(ImList<A> as, ImList<B> bs, ImList<C> cs, ImList<D> ds)
+    {
+        return ImQuartetList.on(as, bs, cs, ds);
+    }
+
+    /**
+     * <p> A list of
+     * {@link ImTriple}
+     *  where the
+     * {@code nth}
+     *  element is formed from
+     * {@code as.at(n)}
+     * ,
+     * {@code bs.at(n)}
+     * ,
+     * {@code cs.at(n)}
+     *
+     */
+    public static <B, A, C> ImList<ImTriple<A, B, C>> tuple3On(ImList<A> as, ImList<B> bs, ImList<C> cs)
+    {
+        return ImTripleList.on(as, bs, cs);
     }
 
     /**
