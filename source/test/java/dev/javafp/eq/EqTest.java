@@ -185,7 +185,7 @@ public class EqTest
     public void testLargeWithListsOnJavaArrays()
     {
         // These are Lsts - but on Java arrays
-        final ImList<Integer> ints2 = ImList.on(tenMeeelionIntegers.toList());
+        final ImList<Integer> ints2 = ImList.onList(tenMeeelionIntegers.toList());
         ImList<Integer> range = ints2.append(ImList.on(1));
         ImList<Integer> range2 = ints2.append(ImList.on(0));
 

@@ -16,8 +16,8 @@ public class ImListOnListTest
     {
 
         List<Integer> list = Arrays.asList(1, 2, 3);
-        
-        ImList<Integer> l = ImList.on(list);
+
+        ImList<Integer> l = ImList.onList(list);
 
         assertSame(list, l.toList());
 
@@ -26,7 +26,7 @@ public class ImListOnListTest
     @Test
     public void testAppendElement()
     {
-        ImList<Integer> list = ImList.on(Arrays.asList(1, 2, 3));
+        ImList<Integer> list = ImList.onList(Arrays.asList(1, 2, 3));
 
         assertEquals(ImListOnList.class, list.getClass());
 
@@ -40,7 +40,7 @@ public class ImListOnListTest
     @Test
     public void testAppendElementAfterDrop()
     {
-        ImList<Integer> list = ImList.on(Arrays.asList(1, 2, 3));
+        ImList<Integer> list = ImList.onList(Arrays.asList(1, 2, 3));
 
         assertEquals(ImListOnList.class, list.getClass());
 

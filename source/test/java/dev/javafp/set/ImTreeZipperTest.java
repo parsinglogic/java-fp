@@ -265,11 +265,11 @@ public class ImTreeZipperTest
         for (ImTree<Character> tree : trees)
         {
             // System.err.println(tree);
-            ImList<Character> treeAsList = ImList.on(flatten(tree));
+            ImList<Character> treeAsList = ImList.onList(flatten(tree));
 
             for (ImTree<Character> treeToInsert : treesToInsert)
             {
-                ImList<Character> treeToInsertAsList = ImList.on(flatten(treeToInsert));
+                ImList<Character> treeToInsertAsList = ImList.onList(flatten(treeToInsert));
                 for (int i = 1; i <= tree.size(); i++)
                 {
                     testCount++;

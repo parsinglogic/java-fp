@@ -58,7 +58,7 @@ public class TopDownBox extends AbstractTextBox
             boxes.add(b);
         }
 
-        return new TopDownBox(w, h, ImList.on(boxes));
+        return new TopDownBox(w, h, ImList.onList(boxes));
     }
 
     /**
@@ -94,7 +94,7 @@ public class TopDownBox extends AbstractTextBox
             bs.add(b);
         }
 
-        return new TopDownBox(w, h, ImList.on(bs));
+        return new TopDownBox(w, h, ImList.onList(bs));
     }
 
     private TopDownBox(int w, int h, ImList<AbstractTextBox> boxes)

@@ -844,7 +844,7 @@ public class FileUtil
 
         try
         {
-            return Chat.Right(ImList.on(Files.readAllLines(path)));
+            return Chat.Right(ImList.onList(Files.readAllLines(path)));
         } catch (NoSuchFileException e)
         {
             return Chat.Left("the file does not exist");
@@ -1208,7 +1208,7 @@ public class FileUtil
         Throw.Exception.ifLessThan("count", count, 0);
 
         return checkPath(path, FileExists.Exists, FileAccess.Readable, FileType.File)
-                .flatMap(p -> Chat.Right(ImList.on(readLines$(count, path))));
+                .flatMap(p -> Chat.Right(ImList.onList(readLines$(count, path))));
     }
 
     private static List<String> readLines$(int count, Path path)

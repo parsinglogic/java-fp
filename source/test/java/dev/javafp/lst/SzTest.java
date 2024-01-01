@@ -17,7 +17,7 @@ public class SzTest
 {
 
     private final List<Integer> oneTwoThree = Arrays.asList(1, 2, 3);
-    private final ImList<Integer> listKF = ImList.on(oneTwoThree);
+    private final ImList<Integer> listKF = ImList.onList(oneTwoThree);
     private final ImList<Integer> listKI = ImList.repeat(1);
     private final ImList<Integer> listUF = listKF.filter(i -> i > 0);
     private final ImList<Integer> listUU = ImList.unfold(1, i -> i + 1).takeWhile(i -> i < 4);

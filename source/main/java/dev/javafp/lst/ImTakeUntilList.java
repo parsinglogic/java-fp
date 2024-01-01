@@ -34,7 +34,7 @@ class ImTakeUntilList<A> extends ImCachingLazyList<A>
                ? ImList.on()
                : !pred.of(source.head())
                  ? new ImTakeUntilList(source, pred)
-                 : ImList.onOne(source.head());
+                 : ImList.on(source.head());
     }
 
     @Override

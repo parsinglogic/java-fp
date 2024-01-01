@@ -93,7 +93,7 @@ public class ImReverseListTest
                 ImList.unfold(1, i -> i + 1).takeWhile(i -> i <= 3),     // takeWhile on an unfold
                 orig.map(i -> i + i - i),                             // map
                 ImList.onIterator(orig.iterator()),                      // iterator
-                ImList.on(orig.toList()) ,                               // ImListOnList
+                ImList.onList(orig.toList()) ,                               // ImListOnList
                 ImRange.inclusive(1, 3),                                // ImRange (just an array list )
                 ImList.on(0,1,2,3).drop(1),                              // drop
                 ImList.on(0,1,2,3).dropWhile(i -> i < 1)                 // dropWhile

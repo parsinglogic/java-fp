@@ -455,7 +455,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * {@code reader}
      *
      */
-    static ImList<String> on(Reader reader)
+    static ImList<String> onReader(Reader reader)
     {
         return ImListOnReader.on(reader);
     }
@@ -464,15 +464,19 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * <p> Create a
      * {@code ImList}
      * of size 1 containing
-     * {@code thing}
-     *
-     *
-     * <p> If you want
-     *
+     * {@code array}
+     * which is an array
+     * <p> If you want to create an
+     * {@code ImList}
+     * that has one element and that element is an array, then you can't use
+     * {@link ImList#on(Object[])}
+     * because Java will assume that the array is a variable argument list and it will create an
+     * {@code ImList}
+     * that has the same size as the array.
      */
-    public static <A> ImList<A> onOne(A thing)
+    public static <A> ImList<A[]> onOne(A[] array)
     {
-        return new ImConsList<>(thing, empty());
+        return new ImConsList<>(array, empty());
     }
 
     /**
@@ -498,6 +502,10 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      *
      * <p> The fact that it is a wrapper on an array means that certain operations on it are optimised.
      *
+     * <p> If you want to create a
+     * {@code ImList}
+     * that has one element and that element is an array, then you can use
+     * {@link ImList#onOne(Object)}
      */
     @SafeVarargs
     static <A> ImList<A> on(A... array)
@@ -573,7 +581,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      *  means that certain operations on it are optimised.
      *
      */
-    static <A> ImList<A> on(List<A> list)
+    static <A> ImList<A> onList(List<A> list)
     {
         return ImListOnList.on(list, 0, list.size());
     }
@@ -3045,7 +3053,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      */
     default ImList<A> sort()
     {
-        return ImList.on(stream().sorted().collect(Collectors.toList()));
+        return ImList.onList(stream().sorted().collect(Collectors.toList()));
     }
 
     /**
@@ -3059,7 +3067,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      */
     default <B extends Comparable<B>> ImList<A> sort(Function<A, B> getterFn)
     {
-        return ImList.on(stream().sorted(Comparator.comparing(getterFn)).collect(Collectors.toList()));
+        return ImList.onList(stream().sorted(Comparator.comparing(getterFn)).collect(Collectors.toList()));
     }
 
     /**
@@ -3073,7 +3081,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      */
     default ImList<A> sort(Comparator<A> comparatorFn)
     {
-        return ImList.on(stream().sorted(comparatorFn).collect(Collectors.toList()));
+        return ImList.onList(stream().sorted(comparatorFn).collect(Collectors.toList()));
     }
 
     /**

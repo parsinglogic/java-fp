@@ -57,7 +57,7 @@ public class LeftRightBox extends AbstractTextBox
             w = w + b.width;
             boxes.add(b);
         }
-        return new LeftRightBox(w, h, ImList.on(boxes));
+        return new LeftRightBox(w, h, ImList.onList(boxes));
     }
 
     /**

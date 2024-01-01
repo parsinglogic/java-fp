@@ -315,7 +315,7 @@ public class ImListZipperTest
             // Create a list of i elements
             List<Integer> list = ImTestHelper.makeList(i, 1);
 
-            ImList<Integer> lst = ImList.on(list);
+            ImList<Integer> lst = ImList.onList(list);
 
             ImListZipper<Integer> z0 = lst.getZipper();
 

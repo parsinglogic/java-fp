@@ -596,7 +596,7 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
         AbstractTextBox space = LeafTextBox.with(" ");
 
         // generateListsByInjecting the child boxes with spaces
-        ImList<AbstractTextBox> bs = ImList.on(boxes);
+        ImList<AbstractTextBox> bs = ImList.onList(boxes);
 
         LeftRightBox childBoxes = LeftRightBox.withAll(bs.intersperse(space));
 

@@ -215,7 +215,7 @@ public class ImRoseTreeTest
                 c += t.size();
             }
 
-            return withNodes(Integer.valueOf(count), ImList.on(kids));
+            return withNodes(Integer.valueOf(count), ImList.onList(kids));
         }
     }
 

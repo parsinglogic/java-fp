@@ -75,6 +75,10 @@ public class ImListTest implements Constants
         ImList<Integer[]> list = ImList.onOne(a);
 
         assertEquals(1, list.size());
+
+        ImList<?> list2 = ImList.on(a);
+        assertEquals(3, list2.size());
+
     }
 
     @Test
@@ -176,7 +180,7 @@ public class ImListTest implements Constants
     {
         ImList<Integer> cons = ImList.<Integer>on().withHead(null);
         ImList<Integer> nulls = cons(null, cons);
-        ImList<Integer> nullsList = on(Arrays.asList(null, null));
+        ImList<Integer> nullsList = ImList.onList(Arrays.asList(null, null));
 
         assertEquals(1, empty.hashCode());
         assertEq(nulls, nulls);
@@ -213,7 +217,7 @@ public class ImListTest implements Constants
         ImList<Integer> four = on(0, 1, 2).map(i -> i + 1);
         ImList<Integer> five = on(2, 3).withHead(1);
         ImList<Integer> six = four.filter(i -> i > 0);
-        ImList<Integer> seven = on(Arrays.asList(1, 2, 3));
+        ImList<Integer> seven = ImList.onList(Arrays.asList(1, 2, 3));
 
         assertEq(zero, on());
 
@@ -606,7 +610,7 @@ public class ImListTest implements Constants
 
         System.out.println("running old sort");
 
-        ImPair<Timer, ImList<Integer>> p = Timer.time(() -> on(before.stream().sorted().collect(Collectors.toList())).flush());
+        ImPair<Timer, ImList<Integer>> p = Timer.time(() -> ImList.onList(before.stream().sorted().collect(Collectors.toList())).flush());
 
         assertEquals(large, p.snd);
         System.out.println(p.fst.getMillis());
@@ -1227,7 +1231,7 @@ public class ImListTest implements Constants
     @Test
     public void testSerialization() throws IOException, ClassNotFoundException
     {
-        ImList<Integer> list = on(Arrays.asList(1, 2, 3));
+        ImList<Integer> list = ImList.onList(Arrays.asList(1, 2, 3));
 
         checkCanBeSerialized(list);
         checkCanBeSerialized(list.map(i -> i + 1));

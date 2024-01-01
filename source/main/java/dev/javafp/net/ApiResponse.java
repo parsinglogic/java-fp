@@ -42,7 +42,7 @@ public class ApiResponse extends ImValuesImpl
 
     public static ApiResponse on(int status, String statusMessage, Map<String, List<String>> headerFields, String body)
     {
-        ImList<ImPair<String, ImList<String>>> pairs = ImList.onIterator(headerFields.entrySet().iterator()).map(e -> ImPair.on(e.getKey(), ImList.on(e.getValue())));
+        ImList<ImPair<String, ImList<String>>> pairs = ImList.onIterator(headerFields.entrySet().iterator()).map(e -> ImPair.on(e.getKey(), ImList.onList(e.getValue())));
 
         Say.say("null key pairs", pairs.filter(p -> p.fst == null).toString("\n"));
 

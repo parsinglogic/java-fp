@@ -26,7 +26,7 @@ public class ImListOnReaderTest
 
         StringReader reader = new StringReader(lines.toString("\n"));
 
-        ImList<String> list = ImList.on(new BufferedReader(reader));
+        ImList<String> list = ImList.onReader(new BufferedReader(reader));
 
         assertEquals("" + lines, "" + list);
     }
@@ -38,7 +38,7 @@ public class ImListOnReaderTest
 
         StringReader reader = new StringReader(lines.toString("\r\n"));
 
-        ImList<String> list = ImList.on(new BufferedReader(reader));
+        ImList<String> list = ImList.onReader(new BufferedReader(reader));
 
         assertEquals("" + lines, "" + list);
     }
@@ -48,7 +48,7 @@ public class ImListOnReaderTest
     {
         StringReader reader = new StringReader("abc");
 
-        ImList<String> list = ImList.on(new BufferedReader(reader));
+        ImList<String> list = ImList.onReader(new BufferedReader(reader));
 
         assertEquals("abc", list.toString("|"));
     }
@@ -58,7 +58,7 @@ public class ImListOnReaderTest
     {
         StringReader reader = new StringReader("ab\rcd");
 
-        ImList<String> list = ImList.on(new BufferedReader(reader));
+        ImList<String> list = ImList.onReader(new BufferedReader(reader));
 
         assertEquals("ab|cd", list.toString("|"));
     }
@@ -68,7 +68,7 @@ public class ImListOnReaderTest
     {
         StringReader reader = new StringReader("a\r\r");
 
-        ImList<String> list = ImList.on(new BufferedReader(reader));
+        ImList<String> list = ImList.onReader(new BufferedReader(reader));
 
         assertEquals("a|", list.toString("|"));
     }
@@ -78,7 +78,7 @@ public class ImListOnReaderTest
     {
         StringReader reader = new StringReader("a\r\n\r");
 
-        ImList<String> list = ImList.on(new BufferedReader(reader));
+        ImList<String> list = ImList.onReader(new BufferedReader(reader));
 
         assertEquals("a|", list.toString("|"));
     }

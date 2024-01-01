@@ -367,7 +367,7 @@ public class ImMapTest
             Map<Fooble, Integer> map2 = new HashMap<Fooble, Integer>(map);
 
             // Add the op to the op list
-            ImList<Op> newOpList = ImList.cons(op, ImList.on(ops));
+            ImList<Op> newOpList = ImList.cons(op, ImList.onList(ops));
 
             testCount++;
 
