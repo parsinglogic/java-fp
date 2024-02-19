@@ -1102,18 +1102,18 @@ Now let's whizz through some other fun classes.
 ## Zippers
 
 
-> The wonderful thing about Tiggers
-> Is Tiggers are wonderful things
-> Their tops are made out of rubber
-> Their bottoms are made out of springs
-> They're bouncy, trouncy, flouncy, pouncy fun, fun, fun, fun, fun
+> The wonderful thing about Tiggers  
+> Is Tiggers are wonderful things  
+> Their tops are made out of rubber  
+> Their bottoms are made out of springs  
+> They're bouncy, trouncy, flouncy, pouncy fun, fun, fun, fun, fun  
 
 [Robert B. Sherman][sherman]
 
 Zippers may not **quite** be Tiggers but they are indeed rather wonderful things. They let us operate on immutable functional
 data structures in a very convenient way.
 
-In advanced functional languages, they have been supereseded by **Lenses** but Java is not an advanced functional language - as I am sure you knew already.
+In advanced functional languages, they have been superseded by **Lenses** but Java is not an advanced functional language - as I am sure you knew already.
 
 Zippers were first mentioned in a paper by Gerard Huet in 1997
 ["Functional Pearl: The Zipper"][zipper]
