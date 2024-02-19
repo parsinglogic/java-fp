@@ -17,7 +17,6 @@ import dev.javafp.ex.Throw;
 import dev.javafp.func.Fn;
 import dev.javafp.lst.ImList;
 import dev.javafp.util.ImMaybe;
-import dev.javafp.util.TextUtils;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -585,8 +584,8 @@ public class ImTree<A> implements Serializable, Iterable<A>
         final LeafTextBox gap = LeafTextBox.centred("", width - (leftWidth + rightWidth));
         final LeftRightBox children = LeftRightBox.with(leftChildBox, gap, rightChildBox);
 
-        final String dots = TextUtils.repeatString(".", (leftWidth + 1) / 2 + gap.width + (rightWidth + 1) / 2);
-        final String spaceAndDots = TextUtils.repeatString(" ", leftWidth / 2) + dots;
+        final String dots = ".".repeat((leftWidth + 1) / 2 + gap.width + (rightWidth + 1) / 2);
+        final String spaceAndDots = " ".repeat(leftWidth / 2) + dots;
 
         return TopDownBox.with(LeafTextBox.centred(myText, width), LeafTextBox.with(spaceAndDots), children);
     }

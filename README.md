@@ -790,7 +790,7 @@ For example, in a **Rank Tree** (which is what `ImShelf` is) we can use the size
 
 When we do operations on the tree like deleting or adding an element, all the algorithms to keep the tree balanced by doing tree rotations etc do not need the elements to be ordered.
 
-Because we wanted to use AVL trees to store ordered elements and no-ordered elements we decided to have this class implement juat the insertion and deletion algorithms.
+Because we wanted to use AVL trees to store ordered elements and no-ordered elements we decided to have this class implement just the insertion and deletion algorithms.
 
 `ImSortedSet` and `ImShelf` both use this class and they add their own find methods as appropriate. `ImSortedSet` does require its elements to have an ordering and `ImShelf` does not.
 
@@ -808,7 +808,7 @@ Consider an example tree with six non nil nodes:
 
 If we show the nil nodes then it looks like this:
 
-<img src="source/main/java/dev/doc-files/tree-abcdef-with-nulls.png"   width="30%" />
+<img src="source/main/java/dev/doc-files/tree-abcdef-with-nils.png"   width="30%" />
 
 Each node also has a `size` value defined as the sum of the sizes of its children plus one. Nil Nodes are considered to have a size of zero. The size of a node, `n`, represents how many non-nil nodes there are in the tree rooted at `n`.
 

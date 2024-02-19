@@ -19,20 +19,26 @@ public class ArrayIterator<T> implements Iterator<T>
     private final T[] arrayItems;
     private int index;
 
+    /**
+     * An iterator on the empty array
+     */
     @SuppressWarnings("unchecked")
-    public ArrayIterator()
+    public static ArrayIterator empty()
     {
-        this.arrayItems = (T[]) emptyArray;
-        index = 0;
+        return on(emptyArray);
     }
 
-    public ArrayIterator(T[] arrayItems)
+    /**
+     * An iterator on
+     * {@code arrayItems}
+     */
+    private ArrayIterator(T[] arrayItems)
     {
         this.arrayItems = arrayItems;
         index = 0;
     }
 
-    public static <T> Iterator<T> on(T[] arrayItems)
+    public static <T> ArrayIterator<T> on(T[] arrayItems)
     {
         return new ArrayIterator<T>(arrayItems);
     }

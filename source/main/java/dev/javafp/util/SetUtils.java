@@ -12,17 +12,20 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 /**
- * <p> Utility for working with {@link Set}s.
+ * <p> Utility for working more conveniently with standard Java {@link Set}s.
  */
-
 public class SetUtils
 {
-    private static Random rand = new Random();
 
+    /**
+     * A new
+     * {@link HashSet}
+     * that is the union of the sets in
+     * {@code setsToAdd}
+     */
     @SafeVarargs
     public static <T> Set<T> union(Collection<T>... setsToAdd)
     {
@@ -36,17 +39,40 @@ public class SetUtils
         return result;
     }
 
+    /**
+     * A new
+     * {@link HashSet}
+     * containing the elements
+     * {@code ts}
+     * (with any duplicates removed of course)
+     */
     @SafeVarargs
     public static <T> Set<T> newSet(T... ts)
     {
         return new HashSet<T>(Arrays.asList(ts));
     }
 
+    /**
+     * A new
+     * {@link HashSet}
+     * containing the elements in
+     * {@code ts}
+     * (with any duplicates removed of course)
+     */
     public static <T> Set<T> newSet(List<T> ts)
     {
         return new HashSet<T>(ts);
     }
 
+    /**
+     * A new
+     * {@link HashSet}
+     * containing the elements in
+     * {@code main}
+     * with elements of
+     * {@code remove}
+     * removed
+     */
     public static <T> Set<T> diff(Iterable<T> main, Iterable<T> remove)
     {
         HashSet<T> results = new HashSet<T>();
@@ -60,6 +86,20 @@ public class SetUtils
         return results;
     }
 
+    /**
+     * If main contains
+     * {@code itemToRemove}
+     * return a new
+     * {@link HashSet}
+     * containing the elements in
+     * {@code main}
+     * with
+     * {@code itemToRemove}
+     * removed
+     * else
+     * return
+     * {@code main}
+     */
     public static <T> Set<T> remove(Set<T> main, T itemToRemove)
     {
         return main.contains(itemToRemove)
@@ -67,25 +107,22 @@ public class SetUtils
                : main;
     }
 
-    public static <T> Set<T> chooseRandom(List<T> list)
-    {
-        int length = rand.nextInt(list.size() + 1);
-        Set<T> results = new HashSet<>();
-
-        while (true)
-        {
-            if (results.size() == length)
-                return results;
-            else
-                results.add(list.get(rand.nextInt(list.size())));
-        }
-    }
-
+    /**
+     * The empty set
+     */
     public static <T> Set<T> emptySet()
     {
         return Collections.emptySet();
     }
 
+    /**
+     * A new
+     * {@link HashSet}
+     * that is the intersection of
+     * {@code s1}
+     * and
+     * {@code s2}
+     */
     public static <T> Set<T> intersect(Set<T> s1, Set<T> s2)
     {
         return s1.size() <= s2.size()

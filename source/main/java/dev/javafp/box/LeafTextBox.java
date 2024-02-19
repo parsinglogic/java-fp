@@ -12,6 +12,7 @@ import dev.javafp.tuple.ImPair;
 import dev.javafp.util.TextUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p> A text box that does not contain any other text boxes.
@@ -435,7 +436,7 @@ public class LeafTextBox extends AbstractTextBox
      */
     public static LeafTextBox wrap(int width, String text)
     {
-        String[] chunks = TextUtils.splitIntoChunks(width, text);
+        String[] chunks = splitIntoChunks(width, text);
 
         return new LeafTextBox(width, chunks.length, chunks);
     }
@@ -446,4 +447,22 @@ public class LeafTextBox extends AbstractTextBox
         return new LeafTextBox(width, height, lines);
     }
 
+    /**
+     *
+     */
+    static String[] splitIntoChunks(int chunkSize, String stringToSplit)
+    {
+        int len = stringToSplit.length();
+
+        List<String> chunks = new ArrayList<>();
+
+        int skip = 0;
+        while (skip < len)
+        {
+            chunks.add(stringToSplit.substring(skip, Math.min(skip + chunkSize, len)));
+            skip += chunkSize;
+        }
+
+        return chunks.toArray(new String[0]);
+    }
 }

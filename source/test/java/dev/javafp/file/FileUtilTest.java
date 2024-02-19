@@ -49,7 +49,6 @@ import static dev.javafp.file.FileUtil.setReadable;
 import static dev.javafp.file.FileUtil.setWritable;
 import static dev.javafp.util.Say.say;
 import static dev.javafp.util.TestUtils.assertThrows;
-import static dev.javafp.util.TextUtils.repeatString;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -58,7 +57,6 @@ import static org.junit.Assert.fail;
 /**
  * Created by aove215 on 07/05/16.
  */
-
 public class FileUtilTest
 {
     private Path userDir;
@@ -856,7 +854,7 @@ public class FileUtilTest
     @Test
     public void testGetLongPath()
     {
-        String s = repeatString("1", 256);
+        String s = "1".repeat(256);
 
         Path path = Paths.get(s);
 

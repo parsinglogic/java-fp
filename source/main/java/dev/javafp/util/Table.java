@@ -19,7 +19,6 @@ import dev.javafp.val.ImValuesImpl;
  *
  * <p> The table stores a list of columns with each column holding its cells in reverse order.
  */
-
 public class Table extends ImValuesImpl
 {
     public final ImList<ImList<AbstractTextBox>> rowsReversed;

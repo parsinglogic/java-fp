@@ -26,7 +26,7 @@ public class ImRoseTreeZipperIterator<T> implements Iterator<ImRoseTreeZipper<T>
     private ImRoseTreeZipper<T> zipper;
     private boolean offLeft = true;
 
-    public ImRoseTreeZipperIterator(final ImRoseTreeZipper<T> zipper)
+    ImRoseTreeZipperIterator(final ImRoseTreeZipper<T> zipper)
     {
         this.zipper = zipper;
     }

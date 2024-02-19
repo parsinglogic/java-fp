@@ -24,24 +24,40 @@ public class ImPair<U, V> extends ImValuesImpl
     public final U fst;
     public final V snd;
 
-    public ImPair(U fst, V snd)
+    private ImPair(U fst, V snd)
     {
         this.fst = fst;
         this.snd = snd;
     }
 
+    /**
+     * <p> An
+     * {@code ImPair}
+     * ,
+     * {@code p}
+     *  with
+     * {@code p = (fst, snd)}
+     */
     public static <U, V> ImPair<U, V> on(U fst, V snd)
     {
-        return new ImPair<>(fst, snd);
+        return new ImPair(fst, snd);
     }
 
+    /**
+     * <p> An
+     * {@code ImPair}
+     * ,
+     * {@code p}
+     *  with
+     * {@code p = (e.getKey(), e.getValue())}
+     */
     public static <U, V> ImPair<U, V> on(Map.Entry<U, V> e)
     {
         return ImPair.on(e.getKey(), e.getValue());
     }
 
     /**
-     * <p> The list created by mapping ImPair::fst ofer
+     * <p> The list created by mapping ImPair::fst over
      * {@code ps}
      *
      */
@@ -161,7 +177,6 @@ public class ImPair<U, V> extends ImValuesImpl
      * {@code p}
      *  with
      * {@code p = (f1.of(fst), f2.of(snd))}
-     *
      *
      */
     public <UU, VV> ImPair<UU, VV> map(Fn<U, UU> f1, Fn<V, VV> f2)

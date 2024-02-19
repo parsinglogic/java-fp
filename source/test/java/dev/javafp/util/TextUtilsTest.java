@@ -6,11 +6,7 @@ import dev.javafp.lst.ImList;
 import dev.javafp.set.ImSet;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static dev.javafp.util.Say.say;
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -40,6 +36,7 @@ public class TextUtilsTest
         assertEquals(ex, TextUtils.getBoxFrom(new byte[] { 0, 1, 2 }).toString());
 
         assertEquals(ex, (TextUtils.getBoxFrom(new int[] { 0, 1, 2 })).toString());
+        assertEquals(ex, (TextUtils.getBoxFromList(ImList.on(0, 1, 2))).toString());
 
         assertEquals(ex2, (TextUtils.getBoxFrom((new boolean[] { true, false, true }))).toString());
 
@@ -50,6 +47,15 @@ public class TextUtilsTest
     {
         assertEquals("a   ", TextUtils.padOrTrimToWidth("a", 4));
         assertEquals("ab", TextUtils.padOrTrimToWidth("abc", 2));
+    }
+
+    @Test
+    public void testPrettyPrint()
+    {
+        assertEquals("1.2345", TextUtils.prettyPrint(1.2345));
+        assertEquals("1.23456789012345", TextUtils.prettyPrint(1.23456789012345));
+        assertEquals("1.2345678901234567", TextUtils.prettyPrint(1.2345678901234567));
+        assertEquals("12", TextUtils.prettyPrint(12.000));
     }
 
     @Test
@@ -144,17 +150,23 @@ public class TextUtilsTest
     }
 
     /**
-     * Check that `after` is `before` with tabs expanded
+     * <p> Check that
+     * {@code after}
+     *  is
+     * {@code before}
+     *  with tabs expanded
+     * <p> We assume that there are no spaces in
+     * {@code before}
+     * . We will not have any in the tests.
+     * <p> Let's consider an example:
      *
-     * We assume that there are no spaces in `before`. We will not have any in the tests.
-     *
-     * Let's consider an example:
-     *
-     *     before                             after
-     *       0   1   2   3   4   5   6         0   1   2   3   4   5   6   7   8   9  10  11  12
-     *     ┌───┬───┬───┬───┬───┬───┬───┐     ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
-     *     │ a │\t │\t │ b │ c │\t │ d │     │ a │   │   │   │   │   │   │   │ b │ c │   │   │ d │
-     *     └───┴───┴───┴───┴───┴───┴───┘     └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
+     * <pre>{@code
+     * before                           after
+     *   0   1   2   3   4   5   6       0   1   2   3   4   5   6   7   8   9  10  11  12
+     * ┌───┬───┬───┬───┬───┬───┬───┐   ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+     * │ a │\t │\t │ b │ c │\t │ d │   │ a │   │   │   │   │   │   │   │ b │ c │   │   │ d │
+     * └───┴───┴───┴───┴───┴───┴───┘   └───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘
+     * }</pre>
      *
      */
     private void checkTabExpansion(String before, String after)
@@ -257,18 +269,6 @@ public class TextUtilsTest
     }
 
     @Test
-    public void testChunk()
-    {
-        assertArrayEquals(new String[] {}, TextUtils.splitIntoChunks(0, ""));
-        assertArrayEquals(new String[] { "a" }, TextUtils.splitIntoChunks(3, "a"));
-        assertArrayEquals(new String[] { "ab" }, TextUtils.splitIntoChunks(3, "ab"));
-        assertArrayEquals(new String[] { "abc" }, TextUtils.splitIntoChunks(3, "abc"));
-        assertArrayEquals(new String[] { "abc", "d" }, TextUtils.splitIntoChunks(3, "abcd"));
-        assertArrayEquals(new String[] { "abc", "def" }, TextUtils.splitIntoChunks(3, "abcdef"));
-        assertArrayEquals(new String[] { "a", "b" }, TextUtils.splitIntoChunks(1, "ab"));
-    }
-
-    @Test
     public void testCharAtFromEnd()
     {
         assertEquals('c', TextUtils.charAtFromEnd("abc", 0));
@@ -284,25 +284,25 @@ public class TextUtilsTest
 
     }
 
-    @Test(expected = StringIndexOutOfBoundsException.class)
+    @Test(expected = dev.javafp.ex.ArgumentOutOfRange.class)
     public void testCharAtFromEndThrowsWhenIndexIsTooLarge()
     {
         TextUtils.charAtFromEnd("abc", 3);
     }
 
-    @Test
-    public void testShowCollection()
-    {
-        List<String> list = Arrays.asList("one", "two");
-
-        assertEquals("[one, two]", TextUtils.showCollection(list));
-    }
-
-    @Test
-    public void testShowCollection2()
-    {
-        System.out.println(TextUtils.showCollection(ImList.on("apples", "blackberries", "cherries")));
-    }
+    //    @Test
+    //    public void testShowCollection()
+    //    {
+    //        List<String> list = Arrays.asList("one", "two");
+    //
+    //        assertEquals("[one, two]", TextUtils.showCollection(list));
+    //    }
+    //
+    //    @Test
+    //    public void testShowCollection2()
+    //    {
+    //        System.out.println(TextUtils.showCollection(ImList.on("apples", "blackberries", "cherries")));
+    //    }
 
     @Test
     public void testJoin()
@@ -329,7 +329,9 @@ public class TextUtilsTest
     {
         assertEquals("   abc", TextUtils.indentBy(3, "abc"));
         assertEquals("abc", TextUtils.indentBy(0, "abc"));
-        assertEquals("abc", TextUtils.indentBy(-321321, "abc"));
+
+        TestUtils.assertThrows(() -> TextUtils.indentBy(-321321, "abc"), ArgumentShouldNotBeLessThan.class);
+        //        assertEquals("abc", TextUtils.indentBy(-321321, "abc"));
     }
 
     @Test
@@ -337,8 +339,9 @@ public class TextUtilsTest
     {
         assertEquals("    abc", TextUtils.rightJustifyIn(7, "abc"));
         assertEquals("bc", TextUtils.rightJustifyIn(2, "abc"));
-        assertEquals("abc", TextUtils.rightJustifyIn(-1, "abc"));
         assertEquals("      ", TextUtils.rightJustifyIn(6, ""));
+
+        TestUtils.assertThrows(() -> TextUtils.rightJustifyIn(-1, "abc"), ArgumentShouldNotBeLessThan.class);
     }
 
     @Test
@@ -346,8 +349,10 @@ public class TextUtilsTest
     {
         assertEquals("abc    ", TextUtils.leftJustifyIn(7, "abc"));
         assertEquals("ab", TextUtils.leftJustifyIn(2, "abc"));
-        assertEquals("abc", TextUtils.leftJustifyIn(-1, "abc"));
+        assertEquals("", TextUtils.leftJustifyIn(0, "abc"));
         assertEquals("    ", TextUtils.leftJustifyIn(4, ""));
+
+        TestUtils.assertThrows(() -> TextUtils.leftJustifyIn(-20, ""), ArgumentShouldNotBeLessThan.class);
     }
 
     @Test

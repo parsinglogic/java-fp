@@ -17,7 +17,6 @@ import static dev.javafp.util.Say.say;
 /**
  * <p> Utility for working with {@link Thread}s.
  */
-
 public class ThreadUtils
 {
 

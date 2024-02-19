@@ -623,7 +623,7 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
 
         int reducedWidth = rawWidth - (boxes.getLast().width - ("" + lastChild.element).length());
 
-        final AbstractTextBox dots = LeafTextBox.with(TextUtils.repeatString(".", reducedWidth));
+        final AbstractTextBox dots = LeafTextBox.with(".".repeat(reducedWidth));
 
         return TopDownBox.with(myTopBox, dots, childBoxes);
     }
@@ -679,7 +679,7 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
         return mapS(fn, this);
     }
 
-    public static <T, O> ImRoseTree<O> mapS(Fn<T, O> f, ImRoseTree<T> tree)
+    private static <T, O> ImRoseTree<O> mapS(Fn<T, O> f, ImRoseTree<T> tree)
     {
 
         /**

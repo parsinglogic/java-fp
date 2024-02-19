@@ -744,7 +744,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
                 ImPair<ImSet<KEY>, AbstractTextBox> boxForPairs = getBoxForPairs(start, pairs);
 
                 // Create the left hand box with the vertical line
-                String s = "|" + TextUtils.repeatString(" ", getLabelToDisplay(labelAndKey.fst).length() + 4);
+                String s = "|" + " ".repeat(getLabelToDisplay(labelAndKey.fst).length() + 4);
 
                 LeafTextBox left = LeafTextBox.with(TextUtils.join(ImList.repeat(s, boxForPairs.snd.height), "\n"));
 

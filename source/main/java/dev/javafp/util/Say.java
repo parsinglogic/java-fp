@@ -405,7 +405,7 @@ public class Say
      */
     public static void printNewLines(int count)
     {
-        say$(1, TextUtils.repeatString("\n", count));
+        say$(1, "\n".repeat(count));
     }
 
     public static void setStart(long st)

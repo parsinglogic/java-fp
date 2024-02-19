@@ -116,7 +116,7 @@ public class LeftRightBox extends AbstractTextBox
      */
     public static LeftRightBox indent(int indent, AbstractTextBox box)
     {
-        return LeftRightBox.with(LeafTextBox.with(TextUtils.repeatString(" ", indent)), box);
+        return LeftRightBox.with(LeafTextBox.with(" ".repeat(indent)), box);
     }
 
     /**

@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import static dev.javafp.util.Say.say;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
@@ -348,4 +349,17 @@ public class LeafTextBoxTest
     {
         return TextUtils.quote(s.replaceAll("\t", "\\\\t"));
     }
+
+    @Test
+    public void testChunk()
+    {
+        assertArrayEquals(new String[] {}, LeafTextBox.splitIntoChunks(0, ""));
+        assertArrayEquals(new String[] { "a" }, LeafTextBox.splitIntoChunks(3, "a"));
+        assertArrayEquals(new String[] { "ab" }, LeafTextBox.splitIntoChunks(3, "ab"));
+        assertArrayEquals(new String[] { "abc" }, LeafTextBox.splitIntoChunks(3, "abc"));
+        assertArrayEquals(new String[] { "abc", "d" }, LeafTextBox.splitIntoChunks(3, "abcd"));
+        assertArrayEquals(new String[] { "abc", "def" }, LeafTextBox.splitIntoChunks(3, "abcdef"));
+        assertArrayEquals(new String[] { "a", "b" }, LeafTextBox.splitIntoChunks(1, "ab"));
+    }
+
 }

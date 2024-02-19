@@ -15,7 +15,6 @@ import dev.javafp.lst.ImList;
 /**
  * <p> Utilities for various things..
  */
-
 public class Util
 {
     /**

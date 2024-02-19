@@ -17,30 +17,17 @@ import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
-import java.util.regex.Pattern;
 
 /**
- * <p> Utility for text manipulation.
+ * <p> A class containing static functions for text manipulation.
  */
-
 public class TextUtils
 {
 
-    private final static Pattern allowedIdentifierChars = Pattern.compile("[-_a-zA-Z0-9]+");
-    private final static Pattern badStartOne = Pattern.compile("[0-9].*");
-    private final static Pattern badStartTwo = Pattern.compile("-[0-9].*");
-
     private static final String DQ = "\"";
-
-    public static String repeatString(String stringToRepeat, int repeatCount)
-    {
-        return stringToRepeat.repeat(repeatCount);
-    }
 
     /**
      * <p> Convert tabs to spaces in
@@ -73,6 +60,19 @@ public class TextUtils
         return sb.toString();
     }
 
+    /**
+     * <p> Right-pad
+     * {@code stringToPad}
+     *  with spaces to make its length
+     * {@code width}
+     *  or take the first
+     * {@code width}
+     * characters of
+     * {@code stringToPad}
+     * or leave it alone - depending on the size of
+     * {@code stringToPad}
+     *
+     */
     public static String padOrTrimToWidth(String stringToPad, int width)
     {
         int gap = width - stringToPad.length();
@@ -80,11 +80,34 @@ public class TextUtils
         return gap == 0
                ? stringToPad
                : gap > 0
-                 ? stringToPad + repeatString(" ", gap)
+                 ? stringToPad + " ".repeat(gap)
                  : stringToPad.substring(0, width);
 
     }
 
+    /**
+     * <p> if
+     * {@code s.length() > width}
+     *  then
+     * right-trim
+     * {@code s}
+     *  to
+     * {@code width - 3}
+     *  characters and add
+     * {@code "..."}
+     * otherwise
+     * {@code s}
+     * <p> If
+     * {@code width < 4}
+     *  an exception is thrown
+     * <p> Examples
+     *
+     * <pre>{@code
+     * abbreviate("Pooling", 6) == "Poo..."
+     * abbreviate("abracadabra", 5) == "ab..."
+     * }</pre>
+     *
+     */
     public static String abbreviate(String s, int width)
     {
         Throw.Exception.ifLessThan("width", width, 4);
@@ -94,6 +117,29 @@ public class TextUtils
                : s.substring(0, width - 3) + "...";
     }
 
+    /**
+     * <p> if
+     * {@code s.length() > width}
+     *  then
+     * right-trim
+     * {@code s}
+     *  to
+     * {@code width}
+     *  characters
+     * otherwise
+     * {@code s}
+     * <p> If
+     * {@code width < 0}
+     *  an exception is thrown
+     * <p> Examples
+     *
+     * <pre>{@code
+     * truncate("Hope", 3) == "Hop"
+     * truncate("food", 17) == "food"
+     * truncate("wibble", 0) == ""
+     * }</pre>
+     *
+     */
     public static String truncate(String s, int width)
     {
         Throw.Exception.ifLessThan("width", width, 0);
@@ -104,42 +150,46 @@ public class TextUtils
     }
 
     /**
-     * <p> An 'optimised' version.
+     * <p> A String with the string representation of each element in
+     * {@code thingsToJoin}
+     *  separated by
+     * {@code separator}
+     *  with
+     * {@code start}
+     *  at the start and
+     * {@code end}
+     *  at the end.
+     * <p> Examples
+     *
+     * <pre>{@code
+     * join([1, 2, 3], "{", "-", "}") == "{1-2-3}"
+     * join(["a", "b"], "/", "", "/") == "/ab/"
+     * }</pre>
+     *
      */
     public static String join(Iterable<?> thingsToJoin, String start, String separator, String end)
     {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(start);
-
-        boolean some = false;
-        for (Object t : thingsToJoin)
-        {
-            sb.append(t);
-            sb.append(separator);
-            some = true;
-        }
-
-        // Remove the last separator if necessary
-        if (some)
-            sb.setLength(sb.length() - separator.length());
-
-        sb.append(end);
-        return sb.toString();
+        return join(thingsToJoin.iterator(), start, separator, end);
     }
 
     /**
-     * <p> Join - but if it turns out that
-     * {@code thingsToJoin}
-     *  is empty, return the empty string rather than start + end
+     * <p> A String with the string representation of each element in
+     * {@code iterator}
+     *  separated by
+     * {@code separator}
+     *  with
+     * {@code start}
+     *  at the start and
+     * {@code end}
+     *  at the end.
+     * <p> Examples
+     *
+     * <pre>{@code
+     * join([1, 2, 3], "{", "-", "}") == "{1-2-3}"
+     * join(["a", "b"], "/", "", "/") == "/ab/"
+     * }</pre>
      *
      */
-    public static String joinMin(Iterable<?> thingsToJoin, String start, String separator, String end)
-    {
-        String res = join(thingsToJoin, start, separator, end);
-        return res.length() == start.length() + end.length() ? "" : res;
-    }
-
     public static String join(Iterator<?> iterator, String start, String separator, String end)
     {
         StringBuilder sb = new StringBuilder();
@@ -157,22 +207,63 @@ public class TextUtils
     }
 
     /**
-     * <p> Join - but if it turns out that
-     * {@code thingsToJoin}
+     * <p> A String with the string representation of each element in
+     * {@code items}
+     *  separated by
+     * {@code separator}
+     *
+     */
+    public static String join(Object[] items, String separator)
+    {
+        return join(Arrays.asList(items), separator);
+    }
+
+    /**
+     * <p> Do the same as
+     * {@link TextUtils#join(Iterator, String, String, String)}
+     *
+     * - but if it turns out that
+     * {@code iterator}
      *  is empty, return the empty string rather than start + end
      *
      */
-    public static String joinMin(Iterator<?> thingsToJoin, String start, String separator, String end)
+    public static String joinMin(Iterator<?> iterator, String start, String separator, String end)
     {
-        String res = join(thingsToJoin, start, separator, end);
+        String res = join(iterator, start, separator, end);
         return res.length() == start.length() + end.length() ? "" : res;
     }
 
+    /**
+     * <p> Do the same as
+     * {@link TextUtils#join(Iterable, String, String, String)}
+     *
+     * - but if it turns out that
+     * {@code iterator}
+     *  is empty, return the empty string rather than start + end
+     *
+     */
+    public static String joinMin(Iterable<?> thingsToJoin, String start, String separator, String end)
+    {
+        return joinMin(thingsToJoin.iterator(), start, separator, end);
+    }
+
+    /**
+     * <p> Do the same as
+     *
+     *  {@code join(thingsToJoin, String, "", "")}
+     *
+     */
     public static String join(Iterable<?> thingsToJoin, String separator)
     {
         return join(thingsToJoin, "", separator, "");
     }
 
+    /**
+     * <p> Do the same as
+     *
+     *  {@code join(iterator, String, "", "")}
+     *
+     */
     public static String join(Iterator<?> iterator, String separator)
     {
         return join(iterator, "", separator, "");
@@ -187,53 +278,41 @@ public class TextUtils
         return quote(DQ, str, DQ);
     }
 
-    public static String unquote(String stringToUnQuote)
-    {
-        return unquote(DQ, stringToUnQuote, DQ);
-    }
-
-    public static String unquote(String startQuote, String stringToUnQuote, String endQuote)
-    {
-        String s = stringToUnQuote.substring(startQuote.length());
-        s = s.substring(0, s.length() - endQuote.length());
-
-        // TODO check start and end here
-        return s;
-    }
-
+    /**
+     *
+     * The string `startQuote` + `stringToQuote` + `endQuote`
+     */
     public static String quote(String startQuote, String stringToQuote, String endQuote)
     {
         return startQuote + stringToQuote + endQuote;
     }
 
+    /**
+     *
+     * The string `quoteChars` + `stringToQuote` + `quoteChars`
+     */
     public static String quote(String stringToQuote, String quoteChars)
     {
         return quoteChars + stringToQuote + quoteChars;
     }
 
-    public static String join(Object[] items, String separator)
-    {
-        return join(Arrays.asList(items), separator);
-    }
-
-    public static String[] splitIntoChunks(int chunkSize, String stringToSplit)
-    {
-        int len = stringToSplit.length();
-
-        List<String> chunks = new ArrayList<>();
-
-        int skip = 0;
-        while (skip < len)
-        {
-            chunks.add(stringToSplit.substring(skip, Math.min(skip + chunkSize, len)));
-            skip += chunkSize;
-        }
-
-        return chunks.toArray(new String[0]);
-    }
-
+    /**
+     * <p> The character that is
+     * {@code indexFromEndStartingAtZero}
+     *  positions from the end of the string.
+     * <p> So
+     * {@code charAtFromEnd("wibble", 0) == 'e'}
+     * <p> Throw
+     * {@link dev.javafp.ex.ArgumentOutOfRange}
+     * if
+     * {@code indexFromEndStartingAtZero}
+     *  is out of range.
+     *
+     *
+     */
     public static char charAtFromEnd(String s, int indexFromEndStartingAtZero)
     {
+        Throw.Exception.ifOutOfRange("s", indexFromEndStartingAtZero, 0, s.length() - 1);
         return s.charAt(s.length() - 1 - indexFromEndStartingAtZero);
     }
 
@@ -243,32 +322,7 @@ public class TextUtils
     }
 
     /**
-     * <p> Format the collection as a top down list with index numbers to the left of each item
-     * <p> TextUtils.showCollection(ImList.on("apples", "blackberries", "cherries"))
-     * <p> gives:
-     * <p> 1    apples
-     * <br/>
-     * 2    blackberries
-     * 3    cherries
-     *
-     */
-    public static String showCollection(Collection<?> things)
-    {
-        return showCollection(ImList.onAll(things));
-    }
-
-    public static String showCollection(ImList<?> things)
-    {
-        return getBoxFrom(things).toString();
-    }
-
-    public static String showCollection(Object thing)
-    {
-        return getBoxFrom(thing).toString();
-    }
-
-    /**
-     * <p> Get a text box from
+     * <p> Get the text box representing
      * {@code thing}
      * <p> It uses various tricks to do this.
      *
@@ -282,7 +336,7 @@ public class TextUtils
      * {@code thing}
      *  is a
      * {@code HasTextBox}
-     *  then it just returns
+     *  then it returns
      * {@code thing.getTextBox()}
      * <p> If
      * {@code thing}
@@ -300,7 +354,7 @@ public class TextUtils
      * <p> Otherwise it creates a
      * {@link LeafTextBox}
      * on the result of
-     * {@code thing.toString()}
+     * {@code String.valueOf(thing)}
      *
      *
      */
@@ -329,33 +383,45 @@ public class TextUtils
                : getBoxFromList(ImList.on((Object[]) arr));
     }
 
-    public static AbstractTextBox getBoxFromNamesAndValues(ImList<String> names, ImList<?> things)
+    /**
+     * <p> Format the collection as a top down list with index numbers to the left of each item.
+     * <p> Example
+     *
+     * <pre>{@code
+     * TextUtils.showCollection(ImList.on("apples", "blackberries", "cherries"))
+     *
+     * gives:
+     *
+     * 1    apples
+     * 2    blackberries
+     * 3    cherries
+     * }</pre>
+     *
+     */
+    static TopDownBox getBoxFromList(ImList<?> things)
     {
-        ImList<String> ns = mergeLists(things.size(), names, ImRange.oneTo(things.size()).map(i -> "" + i));
-
-        int maxNameLength = ns.isEmpty() ? 0 : Util.maxInt(ns.map(i -> i.length()));
-
-        return TopDownBox.withAll(mapGetBoxFromPairOver(ns.zip(getTextBoxes(things)), maxNameLength));
-    }
-
-    private static ImList<String> mergeLists(int size, ImList<String> one, ImList<String> two)
-    {
-        if (size == one.size())
-            return one;
-        else if (size < one.size())
-            return one.take(size);
-        else
-            return one.append(two.drop(one.size()).take(size - one.size()));
-    }
-
-    public static TopDownBox getBoxFromList(ImList<?> things)
-    {
-
         ImList<AbstractTextBox> boxes = getTextBoxes(things);
 
         ImList<String> ints = ImRange.oneTo(boxes.size()).map(i -> "" + i);
 
         return TopDownBox.withAll(mapGetBoxFromPairOver(ints.zip(boxes), 3));
+    }
+
+    /**
+     *
+     * @param names
+     * @param things
+     * @return
+     */
+    public static AbstractTextBox getBoxFromNamesAndValues(ImList<String> names, ImList<?> things)
+    {
+        // If names is shorter than things, fill it up with numbers representing the index of the thing
+        // names = "a" "b" "c", things = h i j k l m => "a" "b" "c" "4" "5" "6"
+        ImList<String> ns = names.append(ImRange.inclusive(names.size() + 1, things.size()).map(i -> "" + i));
+
+        int maxNameLength = ns.isEmpty() ? 0 : Util.maxInt(ns.map(i -> i.length()));
+
+        return TopDownBox.withAll(mapGetBoxFromPairOver(ns.zip(getTextBoxes(things)), maxNameLength));
     }
 
     private static ImList<AbstractTextBox> mapGetBoxFromPairOver(ImList<ImPair<String, AbstractTextBox>> pairs, int maxNameLength)
@@ -364,7 +430,6 @@ public class TextUtils
             return ImList.empty();
         else
         {
-
             LeftRightBox head = LeftRightBox.with(LeafTextBox.lefted("" + pairs.head().fst + ":", maxNameLength + 2), pairs.head().snd);
 
             return ImList.cons(head, mapGetBoxFromPairOver(pairs.tail(), maxNameLength));
@@ -379,7 +444,8 @@ public class TextUtils
     }
 
     /**
-     * <p> Print a double value using the minimum number of trailing zeros
+     * <p> Print a double value using the minimum number of trailing zeros.
+     * <p> Where all the numbers after the . are 0, omit the . and any 0's
      */
     public static String prettyPrint(double d)
     {
@@ -388,6 +454,14 @@ public class TextUtils
                : String.valueOf(d);
     }
 
+    /**
+     * <p> If
+     * {@code count}
+     *  > 1, add an "s" to
+     * {@code word}
+     * , otherwise leave it alone
+     *
+     */
     public static String plural(long count, String word)
     {
         return "" + count + " " + word + (count > 1
@@ -406,61 +480,98 @@ public class TextUtils
         return s.substring(0, pos);
     }
 
-    public static String checkCssIdentifier(String identifierToCheck)
-    {
-        if (identifierToCheck.isEmpty())
-            return "CSS identifier can't be the empty string";
-        else if (!allowedIdentifierChars.matcher(identifierToCheck).matches())
-            return "CSS identifier " + TextUtils.quote(identifierToCheck) + " contains invalid characters - each char must match [-_a-zA-Z0-9]";
-        else if (badStartOne.matcher(identifierToCheck).matches())
-            return "CSS identifier " + TextUtils.quote(identifierToCheck) + " starts with a digit - which is not allowed";
-        else if (badStartTwo.matcher(identifierToCheck).matches())
-            return "CSS identifier " + TextUtils.quote(identifierToCheck) + " starts with a hyphen followed by a digit - which is not allowed";
-        else
-            return null;
-    }
-
     public static String format(Object... xs)
     {
         return join(xs, " ");
     }
 
-    public static String indentBy(int indent, String cs)
+    /**
+     * {@code s}
+     *  left-padded with
+     * {@code indent}
+     * spaces
+     * <p> Throw
+     * {@link dev.javafp.ex.ArgumentShouldNotBeLessThan}
+     * if
+     * {@code indent < 0}
+     *
+     */
+    public static String indentBy(int indent, String s)
     {
-        return indent <= 0
-               ? cs
-               : " ".repeat(indent) + cs;
-    }
+        Throw.Exception.ifLessThan("indent", indent, 0);
 
-    public static String rightJustifyIn(int width, String cs)
-    {
-        if (width <= 0)
-            return cs;
-        else
-        {
-            int d = width - cs.length();
-            return d <= 0
-                   ? cs.substring(-d, width - d)
-                   : indentBy(width - cs.length(), cs);
-        }
-    }
-
-    public static String leftJustifyIn(int width, String cs)
-    {
-        if (width <= 0)
-            return cs;
-        else
-        {
-            int d = width - cs.length();
-            return d <= 0
-                   ? cs.substring(0, width)
-                   : padOrTrimToWidth(cs, width);
-        }
+        return " ".repeat(indent) + s;
     }
 
     /**
+     * <p> If
+     * {@code width < s.length()}
+     *  then
+     * {@code s}
+     *  left-trimmed to
+     * {@code width}
+     *  otherwise
+     * {@code s}
+     *  left-padded with spaces to
+     * {@code width}
+     * <p> Throw
+     * {@link dev.javafp.ex.ArgumentShouldNotBeLessThan}
+     * if
+     * {@code width < 0}
      *
+     */
+    public static String rightJustifyIn(int width, String s)
+    {
+        Throw.Exception.ifLessThan("width", width, 0);
 
+        int d = width - s.length();
+        return d <= 0
+               ? s.substring(-d, width - d)
+               : indentBy(width - s.length(), s);
+
+    }
+
+    /**
+     * <p> If
+     * {@code width < s.length()}
+     *  then
+     * {@code s}
+     *  right-trimmed to
+     * {@code width}
+     *  otherwise
+     * {@code s}
+     *  right-padded with spaces to
+     * {@code width}
+     * <p> Throw
+     * {@link dev.javafp.ex.ArgumentShouldNotBeLessThan}
+     * if
+     * {@code width < 0}
+     *
+     */
+    public static String leftJustifyIn(int width, String s)
+    {
+        Throw.Exception.ifLessThan("width", width, 0);
+
+        return width - s.length() <= 0
+               ? s.substring(0, width)
+               : padOrTrimToWidth(s, width);
+
+    }
+
+    /**
+     * <p> {@code cs}
+     *  left-padded and right-padded with spaces so that it is centred and has length
+     * {@code width}
+     * <p> If
+     * {@code width - cs.length()}
+     *  is not even then the left-pad string will be one shorter than the right-pad string.
+     * <p> Examples
+     *
+     * <pre>{@code
+     * TextUtils.centreIn(7, "abc") == "  abc  "
+     * TextUtils.centreIn(6, "abc") == " abc  "
+     * }</pre>
+     *
      */
     public static String centreIn(int width, String cs)
     {

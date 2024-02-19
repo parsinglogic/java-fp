@@ -218,6 +218,12 @@ public class ImUrlTest
     }
 
     @Test
+    public void testFunnyCharacters()
+    {
+        ImUrl url = ImUrl.on("https://fo+Ńńo:8080//foŃo//b(ar/%3F/?wibble%32#fr(ag►");
+    }
+
+    @Test
     public void withPath()
     {
         ImUrl url = ImUrl.on("foo.com?a=b&c=d");

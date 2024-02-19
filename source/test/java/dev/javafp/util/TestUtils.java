@@ -109,7 +109,8 @@ public class TestUtils
     public static String toString(Object things)
     {
         return things instanceof ImList<?>
-               ? TextUtils.showCollection(((ImList<?>) things).toList())
+               ? ((ImList<?>) things).toString(",")
+               //               ? TextUtils.showCollection(((ImList<?>) things).toList())
                : "" + things;
     }
 

@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 /**
  * <p> Utility for text manipulation.
  */
-
 public class ServerTextUtils
 {
 

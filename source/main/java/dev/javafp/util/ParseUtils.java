@@ -18,7 +18,6 @@ import java.util.regex.Pattern;
 /**
  * <p> Utility for basic parsing of strings.
  */
-
 public class ParseUtils
 {
 
@@ -46,7 +45,7 @@ public class ParseUtils
     private static ImPair<String, String> skipOverAny(char charToSkipOver, String stringToParse, int skipped)
     {
         return stringToParse.isEmpty() || (stringToParse.charAt(0) != charToSkipOver)
-               ? ImPair.on(TextUtils.repeatString("" + charToSkipOver, skipped), stringToParse)
+               ? ImPair.on(("" + charToSkipOver).repeat(skipped), stringToParse)
                : skipOverAny(charToSkipOver, stringToParse.substring(1), skipped + 1);
     }
 
@@ -138,7 +137,7 @@ public class ParseUtils
 
         int count = Integer.parseInt(p.fst);
 
-        return new ImPair<String, String>(p.snd.substring(0, count), p.snd.substring(count));
+        return ImPair.on(p.snd.substring(0, count), p.snd.substring(count));
     }
 
     public static String getStringMatching(Pattern pattern, String stringToParse)

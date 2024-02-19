@@ -746,11 +746,11 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
             if (oTreeIterator.hasNext())
             {
                 final ImSet.Bucket<T> bucket = oTreeIterator.next();
-                elementsIterator = new ArrayIterator<T>(bucket.elements);
+                elementsIterator = ArrayIterator.on(bucket.elements);
             }
             else
             {
-                elementsIterator = new ArrayIterator<T>();
+                elementsIterator = ArrayIterator.empty();
             }
         }
 
@@ -784,7 +784,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
             }
 
             // There *must* be another bucket because hasNext() is true and buckets can't be empty
-            elementsIterator = new ArrayIterator<T>(oTreeIterator.next().elements);
+            elementsIterator = ArrayIterator.on(oTreeIterator.next().elements);
 
             return elementsIterator.next();
         }

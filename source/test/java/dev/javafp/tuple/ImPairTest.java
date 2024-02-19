@@ -15,8 +15,8 @@ public class ImPairTest
     @Test
     public void testEqualsWithNullEtc()
     {
-        ImPair<Integer, Integer> p1 = new ImPair(1, 2);
-        ImPair<String, Integer> p2 = new ImPair("1", 2);
+        ImPair<Integer, Integer> p1 = ImPair.on(1, 2);
+        ImPair<String, Integer> p2 = ImPair.on("1", 2);
 
         assertEquals(false, p1.equals(null));
         assertEquals(false, p1.equals(p2));
@@ -33,7 +33,7 @@ public class ImPairTest
         {
             for (Integer j : list)
             {
-                pairs.add(new ImPair(i, j));
+                pairs.add(ImPair.on(i, j));
             }
         }
 
