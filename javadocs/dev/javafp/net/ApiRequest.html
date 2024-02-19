@@ -43,7 +43,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested-class-summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
 <li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
@@ -114,21 +114,6 @@ loadScripts(document, 'script');</script>
 </section>
 <section class="summary">
 <ul class="summary-list">
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-<li>
-<section class="nested-class-summary" id="nested-class-summary">
-<h2>Nested Class Summary</h2>
-<div class="caption"><span>Nested Classes</span></div>
-<div class="summary-table three-column-summary">
-<div class="table-header col-first">Modifier and Type</div>
-<div class="table-header col-second">Class</div>
-<div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>static enum&nbsp;</code></div>
-<div class="col-second even-row-color"><code><a href="ApiRequest.Method.html" class="type-name-link" title="enum class in dev.javafp.net">ApiRequest.Method</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-</div>
-</section>
-</li>
 <!-- =========== FIELD SUMMARY =========== -->
 <li>
 <section class="field-summary" id="field-summary">
@@ -140,10 +125,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>final boolean</code></div>
 <div class="col-second even-row-color"><code><a href="#followRedirects" class="member-name-link">followRedirects</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>final <a href="ApiRequest.Method.html" title="enum class in dev.javafp.net">ApiRequest.Method</a></code></div>
+<div class="col-last even-row-color">
+<div class="block"> Does this request follow redirects?</div>
+</div>
+<div class="col-first odd-row-color"><code>final dev.javafp.net.ApiRequest.Method</code></div>
 <div class="col-second odd-row-color"><code><a href="#method" class="member-name-link">method</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">The method to use - GET or POST</div>
+</div>
 <div class="col-first even-row-color"><code>final <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</code></div>
 <div class="col-second even-row-color"><code><a href="#queryParameters" class="member-name-link">queryParameters</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
@@ -152,7 +141,9 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>final <a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></code></div>
 <div class="col-second even-row-color"><code><a href="#url" class="member-name-link">url</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">The URL this request will use</div>
+</div>
 </div>
 </section>
 </li>
@@ -174,7 +165,9 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getUrlIncludingQueries()" class="member-name-link">getUrlIncludingQueries</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The url for this request - including any queries</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValues()" class="member-name-link">getValues</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -207,18 +200,24 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="url">
 <h3>url</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">url</span></div>
+<div class="block">The URL this request will use</div>
 </section>
 </li>
 <li>
 <section class="detail" id="method">
 <h3>method</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="ApiRequest.Method.html" title="enum class in dev.javafp.net">ApiRequest.Method</a></span>&nbsp;<span class="element-name">method</span></div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">dev.javafp.net.ApiRequest.Method</span>&nbsp;<span class="element-name">method</span></div>
+<div class="block">The method to use - GET or POST</div>
 </section>
 </li>
 <li>
 <section class="detail" id="followRedirects">
 <h3>followRedirects</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">followRedirects</span></div>
+<div class="block"><p> Does this request follow redirects?
+ <p> Always set to
+ <code>true</code>
+  for now.</div>
 </section>
 </li>
 <li>
@@ -263,6 +262,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getUrlIncludingQueries()">
 <h3>getUrlIncludingQueries</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getUrlIncludingQueries</span>()</div>
+<div class="block"><p> The url for this request - including any queries</div>
 </section>
 </li>
 </ul>

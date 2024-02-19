@@ -601,63 +601,6 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="serialized-package-container">
 <h2 title="Package">Package&nbsp;<a href="dev/javafp/lst/package-summary.html">dev.javafp.lst</a></h2>
-<ul class="block-list">
-<li>
-<section class="serialized-class-details" id="dev.javafp.lst.ImLazyList">
-<h3>Class&nbsp;<a href="dev/javafp/lst/ImLazyList.html" title="class in dev.javafp.lst">dev.javafp.lst.ImLazyList</a></h3>
-<div class="type-signature">class ImLazyList extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
-<ul class="block-list">
-<li>
-<section class="detail">
-<h4>Serialization Methods</h4>
-<ul class="block-list">
-<li class="block-list">
-<h5>writeReplace</h5>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span>&nbsp;<span class="element-name">writeReplace</span>()</div>
-<div class="block"><p> When serialising, we turn every ImList into a ImListOnArray</div>
-</li>
-</ul>
-</section>
-</li>
-<li>
-<section class="detail">
-<h4>Serialized Fields</h4>
-<ul class="block-list">
-<li class="block-list">
-<h5>sz</h5>
-<pre>int sz</pre>
-<div class="block">The size of the list</div>
-</li>
-</ul>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<li>
-<section class="serialized-class-details" id="dev.javafp.lst.ImListIterator">
-<h3>Class&nbsp;<a href="dev/javafp/lst/ImListIterator.html" title="class in dev.javafp.lst">dev.javafp.lst.ImListIterator</a></h3>
-<div class="type-signature">class ImListIterator extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
-<ul class="block-list">
-<li>
-<section class="detail">
-<h4>Serialized Fields</h4>
-<ul class="block-list">
-<li class="block-list">
-<h5>count</h5>
-<pre>int count</pre>
-</li>
-<li class="block-list">
-<h5>list</h5>
-<pre><a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="dev/javafp/lst/ImListIterator.html" title="type parameter in ImListIterator">T</a>&gt; list</pre>
-</li>
-</ul>
-</section>
-</li>
-</ul>
-</section>
-</li>
-</ul>
 </section>
 </li>
 <li>
@@ -676,10 +619,15 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>followRedirects</h5>
 <pre>boolean followRedirects</pre>
+<div class="block"><p> Does this request follow redirects?
+ <p> Always set to
+ <code>true</code>
+  for now.</div>
 </li>
 <li class="block-list">
 <h5>method</h5>
-<pre><a href="dev/javafp/net/ApiRequest.Method.html" title="enum class in dev.javafp.net">ApiRequest.Method</a> method</pre>
+<pre>dev.javafp.net.ApiRequest.Method method</pre>
+<div class="block">The method to use - GET or POST</div>
 </li>
 <li class="block-list">
 <h5>queryParameters</h5>
@@ -692,6 +640,7 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>url</h5>
 <pre><a href="dev/javafp/net/ImUrl.html" title="class in dev.javafp.net">ImUrl</a> url</pre>
+<div class="block">The URL this request will use</div>
 </li>
 </ul>
 </section>

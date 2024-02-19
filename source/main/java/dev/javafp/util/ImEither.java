@@ -12,7 +12,7 @@ import dev.javafp.lst.ImList;
 import dev.javafp.val.ImValuesImpl;
 
 /**
- * <p> The equivalent of the Haskell ImEither (well y'know - as far as possible)
+ * <p> The equivalent of the Haskell Either (well y'know - as far as possible)
  */
 public class ImEither<L, R> extends ImValuesImpl
 {

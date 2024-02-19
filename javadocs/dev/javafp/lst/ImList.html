@@ -75,10 +75,6 @@ loadScripts(document, 'script');</script>
 <dt>All Superinterfaces:</dt>
 <dd><code><a href="../box/HasTextBox.html" title="interface in dev.javafp.box">HasTextBox</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;A&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code></dd>
 </dl>
-<dl class="notes">
-<dt>All Known Implementing Classes:</dt>
-<dd><code><a href="ImLazyList.html" title="class in dev.javafp.lst">ImLazyList</a></code></dd>
-</dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">ImList&lt;A&gt;</span><span class="extends-implements">
 extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;A&gt;, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>, <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">HasTextBox</a></span></div>
@@ -985,25 +981,6 @@ B&gt;&nbsp;void</code></div>
  <code>array</code>
   in order.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#on(java.io.Reader)" class="member-name-link">on</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Reader.html" title="class or interface in java.io" class="external-link">Reader</a>&nbsp;reader)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
-<div class="block"> Create a
- <code>ImList</code>
-  from
- <code>reader</code>
-  where each element is a String obtained by reading a line from
- <code>reader</code></div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#on(java.util.List)" class="member-name-link">on</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;A&gt;&nbsp;list)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
-<div class="block"> Create a
- <code>ImList</code>
-  where each element is taken from
- <code>list</code>
-  in order.</div>
-</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onAll(dev.javafp.lst.ImList)" class="member-name-link">onAll</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&nbsp;list)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
@@ -1036,19 +1013,41 @@ B&gt;&nbsp;void</code></div>
   in order.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onOne(A)" class="member-name-link">onOne</a><wbr>(A&nbsp;thing)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onList(java.util.List)" class="member-name-link">onList</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;A&gt;&nbsp;list)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Create a
- <code>ImList</code> of size 1</div>
+ <code>ImList</code>
+  where each element is taken from
+ <code>list</code>
+  in order.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#onPrimitiveArray(java.lang.Object)" class="member-name-link">onPrimitiveArray</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;primitiveArray)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A[]&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#onOne(A%5B%5D)" class="member-name-link">onOne</a><wbr>(A[]&nbsp;array)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="block"> Create a
+ <code>ImList</code>
+ of size 1 containing
+ <code>array</code>
+ which is an array</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onPrimitiveArray(java.lang.Object)" class="member-name-link">onPrimitiveArray</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;primitiveArray)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Create a
  <code>ImList</code>
   where each element is taken from
  <code>primitiveArray</code>
   in order.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#onReader(java.io.Reader)" class="member-name-link">onReader</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Reader.html" title="class or interface in java.io" class="external-link">Reader</a>&nbsp;reader)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="block"> Create a
+ <code>ImList</code>
+  from
+ <code>reader</code>
+  where each element is a String obtained by reading a line from
+ <code>reader</code></div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onString(java.lang.String)" class="member-name-link">onString</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;s)</code></div>
@@ -1576,6 +1575,46 @@ B&gt;&nbsp;void</code></div>
  <code>cols</code>
   columns.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;B,<wbr>
+A,<wbr>
+C&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImTriple.html" title="class in dev.javafp.tuple">ImTriple</a>&lt;A,<wbr>B,<wbr>C&gt;&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#tuple3On(dev.javafp.lst.ImList,dev.javafp.lst.ImList,dev.javafp.lst.ImList)" class="member-name-link">tuple3On</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&nbsp;as,
+ <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;&nbsp;bs,
+ <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;C&gt;&nbsp;cs)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="block"> A list of
+ <a href="../tuple/ImTriple.html" title="class in dev.javafp.tuple"><code>ImTriple</code></a>
+  where the
+ <code>nth</code>
+  element is formed from
+ <code>as.at(n)</code>
+ ,
+ <code>bs.at(n)</code>
+ ,
+ <code>cs.at(n)</code></div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;C,<wbr>
+D,<wbr>
+A,<wbr>
+B&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImQuartet.html" title="class in dev.javafp.tuple">ImQuartet</a>&lt;A,<wbr>B,<wbr>C,<wbr>D&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#tuple4On(dev.javafp.lst.ImList,dev.javafp.lst.ImList,dev.javafp.lst.ImList,dev.javafp.lst.ImList)" class="member-name-link">tuple4On</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&nbsp;as,
+ <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;&nbsp;bs,
+ <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;C&gt;&nbsp;cs,
+ <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;D&gt;&nbsp;ds)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
+<div class="block"> A list of
+ <a href="../tuple/ImQuartet.html" title="class in dev.javafp.tuple"><code>ImQuartet</code></a>
+  where the
+ <code>nth</code>
+  element is formed from
+ <code>as.at(n)</code>
+ ,
+ <code>bs.at(n)</code>
+ ,
+ <code>cs.at(n)</code>
+ ,
+ <code>ds.at(n)</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#unfold(A,dev.javafp.func.Fn)" class="member-name-link">unfold</a><wbr>(A&nbsp;start,
  <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;A,<wbr>A&gt;&nbsp;stepFn)</code></div>
@@ -1850,9 +1889,9 @@ C&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&
 </section>
 </li>
 <li>
-<section class="detail" id="on(java.io.Reader)">
-<h3>on</h3>
-<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Reader.html" title="class or interface in java.io" class="external-link">Reader</a>&nbsp;reader)</span></div>
+<section class="detail" id="onReader(java.io.Reader)">
+<h3>onReader</h3>
+<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">onReader</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Reader.html" title="class or interface in java.io" class="external-link">Reader</a>&nbsp;reader)</span></div>
 <div class="block"><p> Create a
  <code>ImList</code>
   from
@@ -1862,13 +1901,21 @@ C&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&
 </section>
 </li>
 <li>
-<section class="detail" id="onOne(A)">
-<h3 id="onOne(java.lang.Object)">onOne</h3>
-<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</span>&nbsp;<span class="element-name">onOne</span><wbr><span class="parameters">(A&nbsp;thing)</span></div>
+<section class="detail" id="onOne(A[])">
+<h3 id="onOne(java.lang.Object[])">onOne</h3>
+<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A[]&gt;</span>&nbsp;<span class="element-name">onOne</span><wbr><span class="parameters">(A[]&nbsp;array)</span></div>
 <div class="block"><p> Create a
- <code>ImList</code> of size 1
-
- <p> If you use on</div>
+ <code>ImList</code>
+ of size 1 containing
+ <code>array</code>
+ which is an array
+ <p> If you want to create an
+ <code>ImList</code>
+ that has one element and that element is an array, then you can't use
+ <a href="#on(A...)"><code>on(Object[])</code></a>
+ because Java will assume that the array is a variable argument list and it will create an
+ <code>ImList</code>
+ that has the same size as the array.</div>
 </section>
 </li>
 <li>
@@ -1895,7 +1942,12 @@ C&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&
  <code>ImList</code>
  s are immutable.
 
- <p> The fact that it is a wrapper on an array means that certain operations on it are optimised.</div>
+ <p> The fact that it is a wrapper on an array means that certain operations on it are optimised.
+
+ <p> If you want to create a
+ <code>ImList</code>
+ that has one element and that element is an array, then you can use
+ <a href="#onOne(A%5B%5D)"><code>onOne(Object[])</code></a></div>
 </section>
 </li>
 <li>
@@ -1946,9 +1998,9 @@ C&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&
 </section>
 </li>
 <li>
-<section class="detail" id="on(java.util.List)">
-<h3>on</h3>
-<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;A&gt;&nbsp;list)</span></div>
+<section class="detail" id="onList(java.util.List)">
+<h3>onList</h3>
+<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</span>&nbsp;<span class="element-name">onList</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;A&gt;&nbsp;list)</span></div>
 <div class="block"><p> Create a
  <code>ImList</code>
   where each element is taken from
@@ -3187,6 +3239,50 @@ C&gt;</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interfa
  [1, 2, 2] powerSet == [ [1, 2, 2], [1, 2], [1, 2], [1], [2, 2], [2], [2], [] ]
  </code></pre>
  <p> @return</div>
+</section>
+</li>
+<li>
+<section class="detail" id="tuple4On(dev.javafp.lst.ImList,dev.javafp.lst.ImList,dev.javafp.lst.ImList,dev.javafp.lst.ImList)">
+<h3>tuple4On</h3>
+<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="type-parameters">&lt;C,<wbr>
+D,<wbr>
+A,<wbr>
+B&gt;</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImQuartet.html" title="class in dev.javafp.tuple">ImQuartet</a>&lt;A,<wbr>B,<wbr>C,<wbr>D&gt;&gt;</span>&nbsp;<span class="element-name">tuple4On</span><wbr><span class="parameters">(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&nbsp;as,
+ <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;&nbsp;bs,
+ <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;C&gt;&nbsp;cs,
+ <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;D&gt;&nbsp;ds)</span></div>
+<div class="block"><p> A list of
+ <a href="../tuple/ImQuartet.html" title="class in dev.javafp.tuple"><code>ImQuartet</code></a>
+  where the
+ <code>nth</code>
+  element is formed from
+ <code>as.at(n)</code>
+ ,
+ <code>bs.at(n)</code>
+ ,
+ <code>cs.at(n)</code>
+ ,
+ <code>ds.at(n)</code></div>
+</section>
+</li>
+<li>
+<section class="detail" id="tuple3On(dev.javafp.lst.ImList,dev.javafp.lst.ImList,dev.javafp.lst.ImList)">
+<h3>tuple3On</h3>
+<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="type-parameters">&lt;B,<wbr>
+A,<wbr>
+C&gt;</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImTriple.html" title="class in dev.javafp.tuple">ImTriple</a>&lt;A,<wbr>B,<wbr>C&gt;&gt;</span>&nbsp;<span class="element-name">tuple3On</span><wbr><span class="parameters">(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&nbsp;as,
+ <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;&nbsp;bs,
+ <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;C&gt;&nbsp;cs)</span></div>
+<div class="block"><p> A list of
+ <a href="../tuple/ImTriple.html" title="class in dev.javafp.tuple"><code>ImTriple</code></a>
+  where the
+ <code>nth</code>
+  element is formed from
+ <code>as.at(n)</code>
+ ,
+ <code>bs.at(n)</code>
+ ,
+ <code>cs.at(n)</code></div>
 </section>
 </li>
 <li>
