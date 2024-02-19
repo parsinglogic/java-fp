@@ -21,7 +21,6 @@ import java.util.Map;
 /**
  * <p> The response from sending a GET or a POST using an ApiClient
  */
-
 public class ApiResponse extends ImValuesImpl
 {
     public final int status;
@@ -29,7 +28,7 @@ public class ApiResponse extends ImValuesImpl
     public final ImMap<String, ImList<String>> headers;
     public final String body;
 
-    public ApiResponse(int status, String statusMessage, ImMap<String, ImList<String>> headers, String body)
+    ApiResponse(int status, String statusMessage, ImMap<String, ImList<String>> headers, String body)
     {
         this.status = status;
         this.statusMessage = statusMessage;
@@ -40,7 +39,7 @@ public class ApiResponse extends ImValuesImpl
 
     }
 
-    public static ApiResponse on(int status, String statusMessage, Map<String, List<String>> headerFields, String body)
+    static ApiResponse on(int status, String statusMessage, Map<String, List<String>> headerFields, String body)
     {
         ImList<ImPair<String, ImList<String>>> pairs = ImList.onIterator(headerFields.entrySet().iterator()).map(e -> ImPair.on(e.getKey(), ImList.onList(e.getValue())));
 
@@ -77,7 +76,7 @@ public class ApiResponse extends ImValuesImpl
     /**
      * <p> Get a list of key/value pairs from the body - assuming form-URL encoding
      */
-    public ImList<ImPair<String, String>> keyValuePairs()
+    ImList<ImPair<String, String>> keyValuePairs()
     {
         return ParseUtils.split('&', body).filter(i -> !Eq.uals("", i)).map(s -> ParseUtils.splitAt('=', s));
     }

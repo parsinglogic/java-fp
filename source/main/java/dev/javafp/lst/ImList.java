@@ -230,7 +230,6 @@ import static java.util.Spliterator.SIZED;
  * <h2>{@code ImList}s can contain {@code nulls}</h2>
  *
  */
-
 public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
 {
 
@@ -505,7 +504,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * <p> If you want to create a
      * {@code ImList}
      * that has one element and that element is an array, then you can use
-     * {@link ImList#onOne(Object)}
+     * {@link ImList#onOne(Object[])}
      */
     @SafeVarargs
     static <A> ImList<A> on(A... array)

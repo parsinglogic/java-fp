@@ -20,7 +20,7 @@ import java.nio.file.Path;
 public class FileProblem extends ImException
 {
 
-    public FileProblem(String message)
+    FileProblem(String message)
     {
         super(message);
     }

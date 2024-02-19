@@ -37,7 +37,6 @@ import java.util.ArrayList;
  *
  *
  */
-
 public class LeafTextBox extends AbstractTextBox
 {
     private final ImList<String> lines;

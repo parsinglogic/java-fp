@@ -133,7 +133,7 @@ import static dev.javafp.lst.ImLazyList.UNKNOWN_UNKNOWN;
 class Sz
 {
 
-    public static int addOne(int sz)
+    static int addOne(int sz)
     {
         if (sz >= 0)
         {
@@ -143,7 +143,7 @@ class Sz
             return sz;
     }
 
-    public static int take(int szNotZero, int countStartingAtOne)
+    static int take(int szNotZero, int countStartingAtOne)
     {
         if (szNotZero >= 1)
         {
@@ -161,7 +161,7 @@ class Sz
             return szNotZero;
     }
 
-    public static int zipWith(int szOne, int szTwo)
+    static int zipWith(int szOne, int szTwo)
     {
         if (szOne >= 0 && szTwo >= 0)
             return Math.min(szOne, szTwo);
@@ -178,7 +178,7 @@ class Sz
             return UNKNOWN_UNKNOWN;
     }
 
-    public static int append(int szOne, int szTwo)
+    static int append(int szOne, int szTwo)
     {
         int s = Math.min(szOne, szTwo);
 
@@ -187,7 +187,7 @@ class Sz
                : szOne + szTwo;
     }
 
-    public static int filter(int sz)
+    static int filter(int sz)
     {
         if (sz >= 0)
             return UNKNOWN_FINITE;
@@ -197,12 +197,12 @@ class Sz
             return sz;
     }
 
-    public static <A> int join(ImList<ImList<A>> l)
+    static <A> int join(ImList<ImList<A>> l)
     {
         return UNKNOWN_UNKNOWN;
     }
 
-    public static <A> int doAdds(int sz, ImList<ImList<A>> tl)
+    static <A> int doAdds(int sz, ImList<ImList<A>> tl)
     {
 
         for (ImList<A> l : tl)
@@ -217,7 +217,7 @@ class Sz
 
     }
 
-    public static int takeWhile(int sz)
+    static int takeWhile(int sz)
     {
         return sz >= 0
                ? UNKNOWN_FINITE
@@ -226,7 +226,7 @@ class Sz
                  : sz;
     }
 
-    public static int dropWhile(int sz)
+    static int dropWhile(int sz)
     {
         return sz >= 0
                ? UNKNOWN_FINITE
@@ -238,7 +238,7 @@ class Sz
      * but it is on an interface and so can't be protected.
      * This is my frig. I have removed it from ImList and instead of calling i I now call this method
      */
-    public static int getSz(ImList as)
+    static int getSz(ImList as)
     {
         if (as instanceof ImEagerList<?>)
         {

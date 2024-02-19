@@ -19,7 +19,6 @@ import java.net.HttpURLConnection;
 /**
  * <p> A POST request
  */
-
 public class PostRequest extends ApiRequest
 {
 
@@ -30,14 +29,24 @@ public class PostRequest extends ApiRequest
         super(url, Method.POST, followRedirects, requestHeaders, queryParameters);
 
         this.bodyString = bodyString;
-
     }
 
+    /**
+     * <p> A POST request on
+     * {@code url}
+     *
+     */
     public static PostRequest on(ImUrl url)
     {
         return new PostRequest(url, true, ImList.on(), ImList.on(), "");
     }
 
+    /**
+     * <p> Send this request and return an
+     *
+     * {@link ApiResponse}
+     *
+     */
     public ApiResponse send()
     {
         HttpURLConnection conn = createConnection();
@@ -51,8 +60,8 @@ public class PostRequest extends ApiRequest
 
     /**
      * <p> A common case is that we need to set the body to "form parameters"
-     * <p> Set the body to the specified parameters in application/x-www-form-urlencoded styley
-     * and set the content type appropriately
+     * <p> A new POST request with the body set to the specified parameters in application/x-www-form-urlencoded styley
+     * and with the content type set appropriately
      *
      */
     public PostRequest setBodyFormParameters(ImList<ImPair<String, String>> formParameters)
@@ -62,33 +71,39 @@ public class PostRequest extends ApiRequest
                 .setBody(TextUtils.join(formParameters.map(p -> urlEncode(p.fst) + "=" + urlEncode(p.snd) + "&"), ""));
     }
 
+    /**
+     * <p> A new GET request that is the same as this but with an added BODY of
+     * {@code bodyString}
+     *
+     */
     public PostRequest setBody(String bodyString)
     {
         return new PostRequest(url, followRedirects, requestHeaders, queryParameters, bodyString);
     }
 
-    private void write(String s, HttpURLConnection connection)
-    {
-        //        Say.say("request body", s);
-
-        try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream()))
-        {
-            writer.write(s);
-
-        } catch (IOException e)
-        {
-            throw new UnexpectedChecked(e);
-        }
-    }
-
+    /**
+     * <p> A new POST request that is the same as this but with an added header with
+     * key
+     * {@code key}
+     *  and value
+     * {@code value}
+     *
+     */
     public PostRequest addHeader(String key, String value)
     {
         return new PostRequest(url, followRedirects, requestHeaders.push(ImPair.on(key, value)), queryParameters, bodyString);
     }
 
-    public PostRequest addQueryParameter(String key, String value)
+    /**
+     * <p> A new POST request that is the same as this but with an added query with
+     * key
+     * {@code key}
+     *  and value
+     * {@code value}
+     *
+     */
+    public PostRequest addQuery(String key, String value)
     {
-
         return new PostRequest(url, followRedirects, requestHeaders, queryParameters.push(ImPair.on(urlEncode(key), urlEncode(value))), bodyString);
     }
 
@@ -116,4 +131,15 @@ public class PostRequest extends ApiRequest
         return super.getNames().appendElement("bodyString");
     }
 
+    private void write(String s, HttpURLConnection connection)
+    {
+        try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream()))
+        {
+            writer.write(s);
+
+        } catch (IOException e)
+        {
+            throw new UnexpectedChecked(e);
+        }
+    }
 }

@@ -26,7 +26,6 @@ import dev.javafp.val.ImValuesImpl;
  * @see Rect
  *
  */
-
 public class RectGrid extends ImValuesImpl
 {
 

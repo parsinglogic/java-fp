@@ -44,16 +44,32 @@ import java.nio.charset.StandardCharsets;
  */
 public class ApiRequest extends ImValuesImpl
 {
-    public enum Method
+
+    enum Method
     {
         GET,
         POST
     }
 
+    /**
+     * The URL this request will use
+     */
     public final ImUrl url;
 
+    /**
+     * The method to use - GET or POST
+     */
     public final Method method;
+
+    /**
+     * <p> Does this request follow redirects?
+     * <p> Always set to
+     * {@code true}
+     *  for now.
+     *
+     */
     public final boolean followRedirects;
+
     public final ImList<ImPair<String, String>> requestHeaders;
     public final ImList<ImPair<String, String>> queryParameters;
 
@@ -69,7 +85,6 @@ public class ApiRequest extends ImValuesImpl
 
         // Get the query elements from the url and add the ones passed as an argument
         this.queryParameters = url.queryElements.append(queryParameters);
-
     }
 
     /**
@@ -121,6 +136,9 @@ public class ApiRequest extends ImValuesImpl
         return conn;
     }
 
+    /**
+     * <p> The url for this request - including any queries
+     */
     public String getUrlIncludingQueries()
     {
         return "" + url.withQueryElements(queryParameters);

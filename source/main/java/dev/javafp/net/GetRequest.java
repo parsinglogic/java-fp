@@ -19,24 +19,50 @@ public class GetRequest extends ApiRequest
     private GetRequest(ImUrl url, boolean followRedirects, ImList<ImPair<String, String>> requestHeaders, ImList<ImPair<String, String>> queryParameters)
     {
         super(url, Method.GET, followRedirects, requestHeaders, queryParameters);
-
     }
 
+    /**
+     * <p> A GET request on
+     * {@code url}
+     *
+     */
     public static GetRequest on(ImUrl url)
     {
         return new GetRequest(url, true, ImList.on(), ImList.on());
     }
 
+    /**
+     * <p> Send this request and return an
+     *
+     * {@link ApiResponse}
+     *
+     */
     public ApiResponse send()
     {
         return getApiResponse(createConnection());
     }
 
+    /**
+     * <p> A new GET request that is the same as this but with an added header with
+     * key
+     * {@code key}
+     *  and value
+     * {@code value}
+     *
+     */
     public GetRequest addHeader(String key, String value)
     {
         return new GetRequest(url, followRedirects, requestHeaders.push(ImPair.on(key, value)), queryParameters);
     }
 
+    /**
+     * <p> A new GET request that is the same as this but with an added query with
+     * key
+     * {@code key}
+     *  and value
+     * {@code value}
+     *
+     */
     public GetRequest addQuery(String key, String value)
     {
         return new GetRequest(url, followRedirects, requestHeaders, queryParameters.push(ImPair.on(urlEncode(key), urlEncode(value))));

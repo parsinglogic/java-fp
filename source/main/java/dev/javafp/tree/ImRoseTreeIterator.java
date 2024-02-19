@@ -25,7 +25,7 @@ public class ImRoseTreeIterator<T> implements Iterator<T>
 
     private Iterator<ImRoseTreeZipper<T>> zipperIterator;
 
-    public ImRoseTreeIterator(final ImRoseTree<T> tree)
+    ImRoseTreeIterator(final ImRoseTree<T> tree)
     {
         zipperIterator = tree.getZipperIterator();
     }

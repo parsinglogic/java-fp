@@ -110,7 +110,6 @@ import java.util.Collection;
  * <p> <a href="http://groups.csail.mit.edu/mac/users/adams/BB/92-10.ps"  >Implementing Sets Efficiently in a Functional Language,Stephen Adams</a>
  *
  */
-
 public class ImTree<A> implements Serializable, Iterable<A>
 {
     // TODO replace with getters? Deal with nil?

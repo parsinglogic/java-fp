@@ -16,6 +16,15 @@ package dev.javafp.ex;
 public class ValueShouldBeGreaterThan extends ImException
 {
 
+    /**
+     * <p> Thrown when argument
+     * {@code name}
+     *  with value
+     * {@code value}
+     *  is not greater than
+     * {@code min}
+     *
+     */
     public ValueShouldBeGreaterThan(String name, int value, int min)
     {
         super("Argument " + name + " with value " + value + " is out of range. It should be > " + min);

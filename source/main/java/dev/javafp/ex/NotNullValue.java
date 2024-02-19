@@ -12,7 +12,6 @@ package dev.javafp.ex;
  *
  * <p> Thrown (for example) in {@link Throw.Exception#ifNotNull(String, Object)}
  */
-
 public class NotNullValue extends ImException
 {
     /**

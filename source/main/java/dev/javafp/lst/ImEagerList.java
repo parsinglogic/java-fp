@@ -28,7 +28,7 @@ abstract class ImEagerList<A> implements ImList<A>
         return size;
     }
 
-    public int getSz()
+    int getSz()
     {
         return size;
     }

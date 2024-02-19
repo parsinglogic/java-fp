@@ -13,23 +13,23 @@ import java.util.Locale;
 
 /**
  * <p> Generate random strings from an alphabet
- * <p> adapted from https://stackoverflow.com/questions/41107/how-to-generate-a-random-alpha-numeric-string
- * 
+ * <p> Adapted from  <a href="https://stackoverflow.com/questions/41107/how-to-generate-a-random-alpha-numeric-string" >stackoverflow how-to-generate-a-random-alpha-numeric-string</a>
+ *
  */
 public class RandomString
 {
 
-    public static final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    static final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    public static final String lower = upper.toLowerCase(Locale.ROOT);
+    static final String lower = upper.toLowerCase(Locale.ROOT);
 
-    public static final String digits = "0123456789";
+    static final String digits = "0123456789";
 
-    public static final String alphanum = upper + lower + digits;
+    static final String alphanum = upper + lower + digits;
 
     private final char[] symbols;
 
-    public RandomString(String symbols)
+    RandomString(String symbols)
     {
         if (symbols.length() < 2)
             throw new IllegalArgumentException();

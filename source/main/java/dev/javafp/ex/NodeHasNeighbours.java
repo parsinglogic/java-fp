@@ -14,7 +14,6 @@ import dev.javafp.set.ImSet;
  *
  * <p> Thrown (for example) in {@link dev.javafp.graph.ImGraph#removeNode(java.lang.Object)}
  */
-
 public class NodeHasNeighbours extends ImException
 {
     /**

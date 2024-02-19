@@ -74,7 +74,7 @@ import java.util.regex.Pattern;
  * distinct is not helping anyone. URL also easily wins the search result popularity contest.
  * }</pre>
  * <h2>The Live Viewer</h2>
- * <p> There is a github repos associated withe the spec
+ * <p> There is a github repos associated with the spec
  * <p> https://github.com/whatwg/url
  * <p> It says this:
  * <blockquote>
@@ -511,6 +511,21 @@ public class ImUrl extends ImValuesImpl
      */
     public static ImUrl on(String urlString)
     {
+        /**
+         * I think I can drop the external parser and use the URI parser now - but I am not quite sure.
+         * If the tests incluse all the cases that URI failed on before then all is good - but I am not quite
+         * sure that this is the case. I will try to make this change later
+         *
+         * I will also need to change APIRequest::createUrl
+         */
+        //        try
+        //        {
+        //            new URI(urlString);
+        //        } catch (URISyntaxException e)
+        //        {
+        //            say(e.getMessage());
+        //            throw new RuntimeException(e);
+        //        }
 
         // If the string starts with a / then it must be a file scheme
 

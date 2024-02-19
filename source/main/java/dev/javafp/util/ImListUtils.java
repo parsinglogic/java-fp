@@ -15,7 +15,6 @@ import dev.javafp.tuple.ImPair;
 /**
  * <p> Utility for list operations.
  */
-
 public class ImListUtils
 {
 

@@ -96,7 +96,7 @@ abstract class ImLazyList<A> implements ImList<A>
      * The internal size of the list
      */
 
-    public int getSz()
+    int getSz()
     {
         return sz;
     }

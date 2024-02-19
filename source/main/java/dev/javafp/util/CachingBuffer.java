@@ -13,7 +13,6 @@ import dev.javafp.queue.ImQueue;
 /**
  * <p> A circular buffer that can be used to accumulate strings.
  */
-
 public class CachingBuffer
 {
     ImQueue<String> queue;
