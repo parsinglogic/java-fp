@@ -20,6 +20,7 @@ import dev.javafp.util.ClassUtils;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.Say;
 import dev.javafp.util.TextUtils;
+import dev.javafp.util.ThreadUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -730,18 +731,19 @@ public class FileUtil
 
     private static void addShutdownHookToDelete(Path dir)
     {
-        Runnable r = () ->
-        {
-            ImList<Path> failed = deleteDirRecursively(dir, true);
+        ThreadUtils.addShutdownHook(
+                () ->
+                {
+                    ImList<Path> failed = deleteDirRecursively(dir, true);
 
-            if (!failed.isEmpty())
-            {
-                System.err.println("failed to delete temp files:");
-                System.err.println(failed);
-            }
-        };
+                    if (!failed.isEmpty())
+                    {
+                        System.err.println("failed to delete temp files:");
+                        System.err.println(failed);
+                    }
+                }
+        );
 
-        Runtime.getRuntime().addShutdownHook(new Thread(r));
     }
 
     /**

@@ -7,7 +7,7 @@
 
 package dev.javafp.util;
 
-import dev.javafp.func.FnProducer;
+import dev.javafp.func.FnBlock;
 import dev.javafp.time.StopWatch;
 
 import java.util.concurrent.ExecutorService;
@@ -57,7 +57,12 @@ public class ThreadUtils
         say("Finished sleeping for", seconds, "seconds", message);
     }
 
-    public static void addShutdownHook(FnProducer func)
+    /**
+     * <p> Add a shutdown hook to the java runtime to execute
+     * {@code func}
+     *
+     */
+    public static void addShutdownHook(FnBlock func)
     {
         Say.say("Adding shutdown hook");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> func.doit()));
