@@ -27,6 +27,31 @@ class ImListOnArray<A> extends ImEagerList<A>
         this.skipCount = skipCount;
     }
 
+    public static <T> ImList<T> join(ImList<ImList<T>> lists)
+    {
+
+        int total = 0;
+        for (ImList<?> l : lists)
+        {
+            total += l.size();
+        }
+
+        Object[] dest = new Object[total];
+
+        int soFar = 0;
+
+        //        System.out.println("total " + total + " list count " + lists.size());
+
+        for (ImList<?> l : lists)
+        {
+            ImListOnArray a = (ImListOnArray) l;
+            System.arraycopy(a.source, a.skipCount, dest, soFar, l.size());
+            soFar += l.size();
+        }
+
+        return (ImList<T>) on(dest);
+    }
+
     /**
      * The first element in
      * {@code this}
