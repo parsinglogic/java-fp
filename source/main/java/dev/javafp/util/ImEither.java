@@ -17,11 +17,36 @@ import dev.javafp.val.ImValuesImpl;
 public class ImEither<L, R> extends ImValuesImpl
 {
 
+    /**
+     * <p> The left value (or
+     * {@code null}
+     *  if
+     * {@code isLeft()}
+     *  is
+     * {@code false}
+     * )
+     *
+     */
     public final L left;
+
+    /**
+     * <p> The right value (or
+     * {@code null}
+     *  if
+     * {@code isLeft()}
+     *  is
+     * {@code true}
+     * )
+     *
+     */
     public final R right;
+
+    /**
+     * Does this object have a left value?
+     */
     public final boolean isLeft;
 
-    public ImEither(L left, R right, boolean isLeft)
+    private ImEither(L left, R right, boolean isLeft)
     {
         this.left = left;
         this.right = right;
@@ -29,7 +54,49 @@ public class ImEither<L, R> extends ImValuesImpl
 
     }
 
-    // The pattern matching method
+    /**
+     * <p> An
+     * {@code ImEither}
+     *  with
+     * {@code left}
+     *  set to
+     * {@code left}
+     *  and
+     * {@code isLeft}
+     *  set to
+     * {@code true}
+     *
+     */
+    public static <L, R> ImEither<L, R> Left(L left)
+    {
+        return new ImEither(left, null, true);
+    }
+
+    /**
+     * <p> An
+     * {@code ImEither}
+     *  with
+     * {@code right}
+     *  set to
+     * {@code right}
+     *  and
+     * {@code isLeft}
+     *  set to
+     * {@code false}
+     *
+     */
+    public static <L, R> ImEither<L, R> Right(R right)
+    {
+        return new ImEither(null, right, false);
+    }
+
+    /**
+     * <p> If this.isLeft() then
+     * {@code f1(left)}
+     *  else
+     * {@code f2(right)}
+     *
+     */
     public <A> A match(Fn<L, A> f1, Fn<R, A> f2)
     {
         return isLeft
@@ -59,16 +126,6 @@ public class ImEither<L, R> extends ImValuesImpl
     public ImList<String> getNames()
     {
         return ImList.on("left", "right", "isLeft");
-    }
-
-    public static <L, R> ImEither<L, R> Left(L left)
-    {
-        return new ImEither(left, null, true);
-    }
-
-    public static <L, R> ImEither<L, R> Right(R right)
-    {
-        return new ImEither(null, right, false);
     }
 
     public <B> ImEither<L, B> flatMap(Fn<R, ImEither<L, B>> fn)
