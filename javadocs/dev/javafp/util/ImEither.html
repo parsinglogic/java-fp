@@ -45,13 +45,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
 <li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
 </div>
@@ -83,7 +83,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ImEither&lt;L,<wbr>R&gt;</span>
 <span class="extends-implements">extends <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></span></div>
-<div class="block"><p> The equivalent of the Haskell ImEither (well y'know - as far as possible)</div>
+<div class="block"><p> The equivalent of the Haskell Either (well y'know - as far as possible)</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -106,28 +106,31 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>final boolean</code></div>
 <div class="col-second even-row-color"><code><a href="#isLeft" class="member-name-link">isLeft</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Does this object have a left value?</div>
+</div>
 <div class="col-first odd-row-color"><code>final <a href="ImEither.html" title="type parameter in ImEither">L</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#left" class="member-name-link">left</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block"> The left value (or
+ <code>null</code>
+  if
+ <code>isLeft()</code>
+  is
+ <code>false</code>
+ )</div>
+</div>
 <div class="col-first even-row-color"><code>final <a href="ImEither.html" title="type parameter in ImEither">R</a></code></div>
 <div class="col-second even-row-color"><code><a href="#right" class="member-name-link">right</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block"> The right value (or
+ <code>null</code>
+  if
+ <code>isLeft()</code>
+  is
+ <code>true</code>
+ )</div>
 </div>
-</section>
-</li>
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<li>
-<section class="constructor-summary" id="constructor-summary">
-<h2>Constructor Summary</h2>
-<div class="caption"><span>Constructors</span></div>
-<div class="summary-table two-column-summary">
-<div class="table-header col-first">Constructor</div>
-<div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(L,R,boolean)" class="member-name-link">ImEither</a><wbr>(<a href="ImEither.html" title="type parameter in ImEither">L</a>&nbsp;left,
- <a href="ImEither.html" title="type parameter in ImEither">R</a>&nbsp;right,
- boolean&nbsp;isLeft)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -158,15 +161,42 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;L,<wbr>
 R&gt;&nbsp;<a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;L,<wbr>R&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Left(L)" class="member-name-link">Left</a><wbr>(L&nbsp;left)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> An
+ <code>ImEither</code>
+  with
+ <code>left</code>
+  set to
+ <code>left</code>
+  and
+ <code>isLeft</code>
+  set to
+ <code>true</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;A&gt;&nbsp;A</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#match(dev.javafp.func.Fn,dev.javafp.func.Fn)" class="member-name-link">match</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">L</a>,<wbr>A&gt;&nbsp;f1,
  <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">R</a>,<wbr>A&gt;&nbsp;f2)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> If this.isLeft() then
+ <code>f1(left)</code>
+  else
+ <code>f2(right)</code></div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;L,<wbr>
 R&gt;&nbsp;<a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;L,<wbr>R&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Right(R)" class="member-name-link">Right</a><wbr>(R&nbsp;right)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> An
+ <code>ImEither</code>
+  with
+ <code>right</code>
+  set to
+ <code>right</code>
+  and
+ <code>isLeft</code>
+  set to
+ <code>false</code></div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -199,34 +229,33 @@ R&gt;&nbsp;<a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>
 <section class="detail" id="left">
 <h3>left</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="ImEither.html" title="type parameter in ImEither">L</a></span>&nbsp;<span class="element-name">left</span></div>
+<div class="block"><p> The left value (or
+ <code>null</code>
+  if
+ <code>isLeft()</code>
+  is
+ <code>false</code>
+ )</div>
 </section>
 </li>
 <li>
 <section class="detail" id="right">
 <h3>right</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="ImEither.html" title="type parameter in ImEither">R</a></span>&nbsp;<span class="element-name">right</span></div>
+<div class="block"><p> The right value (or
+ <code>null</code>
+  if
+ <code>isLeft()</code>
+  is
+ <code>true</code>
+ )</div>
 </section>
 </li>
 <li>
 <section class="detail" id="isLeft">
 <h3>isLeft</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isLeft</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<li>
-<section class="constructor-details" id="constructor-detail">
-<h2>Constructor Details</h2>
-<ul class="member-list">
-<li>
-<section class="detail" id="&lt;init&gt;(L,R,boolean)">
-<h3 id="&lt;init&gt;(java.lang.Object,java.lang.Object,boolean)">ImEither</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ImEither</span><wbr><span class="parameters">(<a href="ImEither.html" title="type parameter in ImEither">L</a>&nbsp;left,
- <a href="ImEither.html" title="type parameter in ImEither">R</a>&nbsp;right,
- boolean&nbsp;isLeft)</span></div>
+<div class="block">Does this object have a left value?</div>
 </section>
 </li>
 </ul>
@@ -238,10 +267,48 @@ R&gt;&nbsp;<a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
+<section class="detail" id="Left(L)">
+<h3 id="Left(java.lang.Object)">Left</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;L,<wbr>
+R&gt;</span>&nbsp;<span class="return-type"><a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;L,<wbr>R&gt;</span>&nbsp;<span class="element-name">Left</span><wbr><span class="parameters">(L&nbsp;left)</span></div>
+<div class="block"><p> An
+ <code>ImEither</code>
+  with
+ <code>left</code>
+  set to
+ <code>left</code>
+  and
+ <code>isLeft</code>
+  set to
+ <code>true</code></div>
+</section>
+</li>
+<li>
+<section class="detail" id="Right(R)">
+<h3 id="Right(java.lang.Object)">Right</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;L,<wbr>
+R&gt;</span>&nbsp;<span class="return-type"><a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;L,<wbr>R&gt;</span>&nbsp;<span class="element-name">Right</span><wbr><span class="parameters">(R&nbsp;right)</span></div>
+<div class="block"><p> An
+ <code>ImEither</code>
+  with
+ <code>right</code>
+  set to
+ <code>right</code>
+  and
+ <code>isLeft</code>
+  set to
+ <code>false</code></div>
+</section>
+</li>
+<li>
 <section class="detail" id="match(dev.javafp.func.Fn,dev.javafp.func.Fn)">
 <h3>match</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type">A</span>&nbsp;<span class="element-name">match</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">L</a>,<wbr>A&gt;&nbsp;f1,
  <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">R</a>,<wbr>A&gt;&nbsp;f2)</span></div>
+<div class="block"><p> If this.isLeft() then
+ <code>f1(left)</code>
+  else
+ <code>f2(right)</code></div>
 </section>
 </li>
 <li>
@@ -260,20 +327,6 @@ R&gt;&nbsp;<a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>
 <div class="block">The field names for this object including fields from superclasses.
 
  See <a href="../val/Values.html" title="interface in dev.javafp.val"><code>Values</code></a> and <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val"><code>ImValuesImpl</code></a></div>
-</section>
-</li>
-<li>
-<section class="detail" id="Left(L)">
-<h3 id="Left(java.lang.Object)">Left</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;L,<wbr>
-R&gt;</span>&nbsp;<span class="return-type"><a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;L,<wbr>R&gt;</span>&nbsp;<span class="element-name">Left</span><wbr><span class="parameters">(L&nbsp;left)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="Right(R)">
-<h3 id="Right(java.lang.Object)">Right</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;L,<wbr>
-R&gt;</span>&nbsp;<span class="return-type"><a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;L,<wbr>R&gt;</span>&nbsp;<span class="element-name">Right</span><wbr><span class="parameters">(R&nbsp;right)</span></div>
 </section>
 </li>
 <li>

@@ -550,7 +550,7 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>end</h5>
 <pre><a href="dev/javafp/graph/ImArc.html" title="type parameter in ImArc">KEY</a> end</pre>
-<div class="block">The key of the node where the arc starts.</div>
+<div class="block">The key of the node where the arc ends.</div>
 </li>
 <li class="block-list">
 <h5>label</h5>
@@ -632,10 +632,12 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>queryParameters</h5>
 <pre><a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt; queryParameters</pre>
+<div class="block">The query parameters</div>
 </li>
 <li class="block-list">
 <h5>requestHeaders</h5>
 <pre><a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt; requestHeaders</pre>
+<div class="block">The request headers</div>
 </li>
 <li class="block-list">
 <h5>url</h5>
@@ -746,6 +748,7 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>bodyString</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a> bodyString</pre>
+<div class="block">The body of the POST</div>
 </li>
 </ul>
 </section>
@@ -1162,14 +1165,29 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>isLeft</h5>
 <pre>boolean isLeft</pre>
+<div class="block">Does this object have a left value?</div>
 </li>
 <li class="block-list">
 <h5>left</h5>
 <pre><a href="dev/javafp/util/ImEither.html" title="type parameter in ImEither">L</a> left</pre>
+<div class="block"><p> The left value (or
+ <code>null</code>
+  if
+ <code>isLeft()</code>
+  is
+ <code>false</code>
+ )</div>
 </li>
 <li class="block-list">
 <h5>right</h5>
 <pre><a href="dev/javafp/util/ImEither.html" title="type parameter in ImEither">R</a> right</pre>
+<div class="block"><p> The right value (or
+ <code>null</code>
+  if
+ <code>isLeft()</code>
+  is
+ <code>true</code>
+ )</div>
 </li>
 </ul>
 </section>

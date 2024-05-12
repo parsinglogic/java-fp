@@ -107,7 +107,8 @@ loadScripts(document, 'script');</script>
  </blockquote>
  <p> from
  <a href="https://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/graph-intro.pdf">"Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Graphs: Definition, Applications, Representation"</a>
- <p> So these authors use node/vertex (and edge/arc) interchangeably. Other outhors reserve node and arc for directed graphs ans vertx edge for undirected graphs.
+ <p> So these authors use node/vertex (and edge/arc) interchangeably. Other authors reserve node and arc for directed graphs and
+ vertex and edge for undirected graphs.
  <p> For now, we will use vertex and edge.
  <p> Note that this definition considers the vertices and the edges to be in a
  <strong>set</strong>
@@ -353,7 +354,11 @@ loadScripts(document, 'script');</script>
  <p> <img src="../../../dev/doc-files/graph-diagrams.png" width=700/>
  <h2>References</h2>
  <p> <a href="https://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/preliminaries-notes.pdf">"Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Mathematical Preliminaries"</a>
- <p> <a href="https://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/graph-intro.pdf">"Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Graphs: Definition, Applications, Representation"</a></div>
+ <p> <a href="https://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/graph-intro.pdf">"Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Graphs: Definition, Applications, Representation"</a>
+
+ Each node has a unique key that identifies it.
+ Each arc stores the key of its source node and the key of its target node.
+ Each arc has a label</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -609,39 +614,43 @@ LABEL&gt;<br><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a
 <div class="block"><code>true</code>
  if any of the nodes in the graph have cycles.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#keys()" class="member-name-link">keys</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A list of all the keys in the graph</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#keysSet()" class="member-name-link">keysSet</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isEmpty()" class="member-name-link">isEmpty</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#leaves()" class="member-name-link">leaves</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A set of all the keys in the graph</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#leaves()" class="member-name-link">leaves</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The nodes that have no outgoing arcs.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;NEWDATA&gt;&nbsp;<a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr>NEWDATA,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#map(dev.javafp.func.Fn)" class="member-name-link">map</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr>NEWDATA&gt;&nbsp;fn)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;NEWDATA&gt;&nbsp;<a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr>NEWDATA,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#map(dev.javafp.func.Fn)" class="member-name-link">map</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr>NEWDATA&gt;&nbsp;fn)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The graph that has the same nodes and arcs as the original but with each
  data value for each node transformed by
  <code>fn</code></div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;KEY,<wbr>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#nodeKeys()" class="member-name-link">nodeKeys</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">A list of all the keys in the graph</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#nodeKeysSet()" class="member-name-link">nodeKeysSet</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">A set of all the keys in the graph</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;KEY,<wbr>
 DATA,<wbr>
 LABEL&gt;<br><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;KEY,<wbr>DATA,<wbr>LABEL&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on()" class="member-name-link">on</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on()" class="member-name-link">on</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">The singleton empty graph.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#partition()" class="member-name-link">partition</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeArc(LABEL,KEY,KEY)" class="member-name-link">removeArc</a><wbr>(<a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&nbsp;label,
- <a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;start,
- <a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;end)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeArc(dev.javafp.graph.ImArc)" class="member-name-link">removeArc</a><wbr>(<a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;&nbsp;arcToRemove)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Remove the arc with label
  <code>label</code>
@@ -651,30 +660,41 @@ LABEL&gt;<br><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a
  <code>end</code></div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeNode(KEY)" class="member-name-link">removeNode</a><wbr>(<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;key)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeArc(LABEL,KEY,KEY)" class="member-name-link">removeArc</a><wbr>(<a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&nbsp;label,
+ <a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;start,
+ <a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;end)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> Remove the arc
+ <code>arc</code></div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeNode(KEY)" class="member-name-link">removeNode</a><wbr>(<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;key)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Remove the node with key
  <code>key</code>
 
  If the node is connected to another node then throw <a href="../ex/NodeHasNeighbours.html" title="class in dev.javafp.ex"><code>NodeHasNeighbours</code></a>.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeNodes(dev.javafp.set.ImSet)" class="member-name-link">removeNodes</a><wbr>(<a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&nbsp;keys)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeNodes(java.lang.Iterable)" class="member-name-link">removeNodes</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&nbsp;keys)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Remove all the nodes in
  <code>keys</code>
  .</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#roots()" class="member-name-link">roots</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#roots()" class="member-name-link">roots</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The nodes that have no incoming arcs.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#show()" class="member-name-link">show</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#show()" class="member-name-link">show</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The text-box representation of the graph in an "ascii-art" form</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#showAsSets()" class="member-name-link">showAsSets</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#shrinkToInclusiveClosureOf(dev.javafp.set.ImSet,dev.javafp.lst.ImList)" class="member-name-link">shrinkToInclusiveClosureOf</a><wbr>(<a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;&nbsp;labels,
  <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&nbsp;ks)</code></div>
@@ -880,6 +900,14 @@ LABEL&gt;</span>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</span>&nbsp;<span class="element-name">removeArc</span><wbr><span class="parameters">(<a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&nbsp;label,
  <a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;start,
  <a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;end)</span></div>
+<div class="block"><p> Remove the arc
+ <code>arc</code></div>
+</section>
+</li>
+<li>
+<section class="detail" id="removeArc(dev.javafp.graph.ImArc)">
+<h3>removeArc</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</span>&nbsp;<span class="element-name">removeArc</span><wbr><span class="parameters">(<a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;&nbsp;arcToRemove)</span></div>
 <div class="block"><p> Remove the arc with label
  <code>label</code>
   from
@@ -910,9 +938,9 @@ LABEL&gt;</span>
 </section>
 </li>
 <li>
-<section class="detail" id="removeNodes(dev.javafp.set.ImSet)">
+<section class="detail" id="removeNodes(java.lang.Iterable)">
 <h3>removeNodes</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</span>&nbsp;<span class="element-name">removeNodes</span><wbr><span class="parameters">(<a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&nbsp;keys)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</span>&nbsp;<span class="element-name">removeNodes</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&nbsp;keys)</span></div>
 <div class="block"><p> Remove all the nodes in
  <code>keys</code>
  .
@@ -968,6 +996,24 @@ LABEL&gt;</span>
 </section>
 </li>
 <li>
+<section class="detail" id="showAsSets()">
+<h3>showAsSets</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span>&nbsp;<span class="element-name">showAsSets</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="isEmpty()">
+<h3>isEmpty</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEmpty</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="partition()">
+<h3>partition</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&gt;</span>&nbsp;<span class="element-name">partition</span>()</div>
+</section>
+</li>
+<li>
 <section class="detail" id="map(dev.javafp.func.Fn)">
 <h3>map</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;NEWDATA&gt;</span>&nbsp;<span class="return-type"><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr>NEWDATA,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</span>&nbsp;<span class="element-name">map</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr>NEWDATA&gt;&nbsp;fn)</span></div>
@@ -984,16 +1030,16 @@ LABEL&gt;</span>
 </section>
 </li>
 <li>
-<section class="detail" id="keys()">
-<h3>keys</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</span>&nbsp;<span class="element-name">keys</span>()</div>
+<section class="detail" id="nodeKeys()">
+<h3>nodeKeys</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</span>&nbsp;<span class="element-name">nodeKeys</span>()</div>
 <div class="block">A list of all the keys in the graph</div>
 </section>
 </li>
 <li>
-<section class="detail" id="keysSet()">
-<h3>keysSet</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</span>&nbsp;<span class="element-name">keysSet</span>()</div>
+<section class="detail" id="nodeKeysSet()">
+<h3>nodeKeysSet</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</span>&nbsp;<span class="element-name">nodeKeysSet</span>()</div>
 <div class="block">A set of all the keys in the graph</div>
 </section>
 </li>
@@ -1051,7 +1097,10 @@ LABEL&gt;</span>
 <div class="block"><p> The closure of
  <code>candidates</code>
   with respect to the function
- <code>adjacentFn</code></div>
+ <code>adjacentFn</code>
+
+ <p> Note that the closure does not intersect with
+ <code>candidates</code></div>
 </section>
 </li>
 <li>
@@ -1065,9 +1114,7 @@ LABEL&gt;</span>
   by arcs in the direction
  <code>dir</code>
   that have the label
- <code>label</code>
-
- <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.</div>
+ <code>label</code></div>
 </section>
 </li>
 <li>
@@ -1081,10 +1128,7 @@ LABEL&gt;</span>
   by arcs in the direction
  <code>dir</code>
   that have a label contained in
- <code>labels</code>
-
-
- <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.</div>
+ <code>labels</code></div>
 </section>
 </li>
 <li>
@@ -1100,7 +1144,7 @@ LABEL&gt;</span>
  following the arcs with labels in the set
  <code>labels</code>
 
- <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
+ <p> Returns a <em>set</em> of keys.
 
  <p> The list will not include the key
  <code>key</code>
@@ -1144,7 +1188,7 @@ LABEL&gt;</span>
  <code>dir</code>
   following all arcs
 
- <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
+ <p> Returns a <em>set</em> of keys.
 
  <p> The list will not include the key
  <code>key</code>

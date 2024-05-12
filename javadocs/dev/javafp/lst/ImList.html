@@ -312,6 +312,20 @@ extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/ja
   satisfy
  <code>pred</code></div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;T&gt;&nbsp;boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#allArrayLists(dev.javafp.lst.ImList)" class="member-name-link">allArrayLists</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;T&gt;&gt;&nbsp;lists)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#allCombinationsOfSize(int)" class="member-name-link">allCombinationsOfSize</a><wbr>(int&nbsp;n)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block"> All
+ <em>combinations</em>
+  of tuples of size
+ <code>n</code>
+  chosen from
+ <code>this</code>
+ .</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>,<wbr><a href="ImList.html" title="type parameter in ImList">A</a>&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#allPairs()" class="member-name-link">allPairs</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
@@ -967,81 +981,89 @@ B&gt;&nbsp;void</code></div>
  <code>this</code>
   such that no two elements are equal</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#on()" class="member-name-link">on</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
-<div class="block"> The singleton <code>ImEmptyList</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#nub(dev.javafp.func.Fn2)" class="member-name-link">nub</a><wbr>(<a href="../func/Fn2.html" title="interface in dev.javafp.func">Fn2</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>,<wbr><a href="ImList.html" title="type parameter in ImList">A</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;eq)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block"> The sub-sequence of
+ <code>this</code>
+  such that no two elements are equal according to
+ <code>eq</code></div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#on(A...)" class="member-name-link">on</a><wbr>(A...&nbsp;array)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#on()" class="member-name-link">on</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="block"> The singleton <code>ImEmptyList</code></div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#on(A...)" class="member-name-link">on</a><wbr>(A...&nbsp;array)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Create a
  <code>ImList</code>
   where each element is taken from
  <code>array</code>
   in order.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onAll(dev.javafp.lst.ImList)" class="member-name-link">onAll</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&nbsp;list)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#onAll(dev.javafp.lst.ImList)" class="member-name-link">onAll</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&nbsp;list)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> An optimised version that just returns
  <code>list</code>
  to avoid creating a new list</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#onAll(java.lang.Iterable)" class="member-name-link">onAll</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;A&gt;&nbsp;iterable)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onAll(java.lang.Iterable)" class="member-name-link">onAll</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;A&gt;&nbsp;iterable)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Create a
  <code>ImList</code>
   where each element is taken from
  <code>iterable</code>
   in order.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#oneTo(int)" class="member-name-link">oneTo</a><wbr>(int&nbsp;max)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#oneTo(int)" class="member-name-link">oneTo</a><wbr>(int&nbsp;max)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
 <div class="block">The same as
  <code>inclusive(1, max)</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#onIterator(java.util.Iterator)" class="member-name-link">onIterator</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;? extends A&gt;&nbsp;it)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onIterator(java.util.Iterator)" class="member-name-link">onIterator</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;? extends A&gt;&nbsp;it)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Create a
  <code>ImList</code>
   where each element is taken from
  <code>it</code>
   in order.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onList(java.util.List)" class="member-name-link">onList</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;A&gt;&nbsp;list)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#onList(java.util.List)" class="member-name-link">onList</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;A&gt;&nbsp;list)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Create a
  <code>ImList</code>
   where each element is taken from
  <code>list</code>
   in order.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A[]&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#onOne(A%5B%5D)" class="member-name-link">onOne</a><wbr>(A[]&nbsp;array)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A[]&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onOne(A%5B%5D)" class="member-name-link">onOne</a><wbr>(A[]&nbsp;array)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Create a
  <code>ImList</code>
  of size 1 containing
  <code>array</code>
  which is an array</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onPrimitiveArray(java.lang.Object)" class="member-name-link">onPrimitiveArray</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;primitiveArray)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#onPrimitiveArray(java.lang.Object)" class="member-name-link">onPrimitiveArray</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;primitiveArray)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Create a
  <code>ImList</code>
   where each element is taken from
  <code>primitiveArray</code>
   in order.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#onReader(java.io.Reader)" class="member-name-link">onReader</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Reader.html" title="class or interface in java.io" class="external-link">Reader</a>&nbsp;reader)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onReader(java.io.Reader)" class="member-name-link">onReader</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Reader.html" title="class or interface in java.io" class="external-link">Reader</a>&nbsp;reader)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Create a
  <code>ImList</code>
   from
@@ -1049,9 +1071,9 @@ B&gt;&nbsp;void</code></div>
   where each element is a String obtained by reading a line from
  <code>reader</code></div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#onString(java.lang.String)" class="member-name-link">onString</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;s)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#onString(java.lang.String)" class="member-name-link">onString</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;s)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Create a
  <code>ImList</code>
   from
@@ -1059,9 +1081,9 @@ B&gt;&nbsp;void</code></div>
   where each element is a character and
  <code>l.toString("") == s</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#or(dev.javafp.lst.ImList)" class="member-name-link">or</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;things)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#or(dev.javafp.lst.ImList)" class="member-name-link">or</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;things)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> <code>true</code>
   if one or more of the elements in
  <code>things</code>
@@ -1069,17 +1091,17 @@ B&gt;&nbsp;void</code></div>
  <code>true</code>
  .</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#permutations()" class="member-name-link">permutations</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#permutations()" class="member-name-link">permutations</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> A
  <code>ImList</code>
   containing all the possible permutations of the elements of
  <code>this</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#powerSet()" class="member-name-link">powerSet</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#powerSet()" class="member-name-link">powerSet</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> In mathematics, the
  <em>power set</em>
   of a set,
@@ -1090,9 +1112,9 @@ B&gt;&nbsp;void</code></div>
  <code>S</code>
   itself.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#prepend(A...)" class="member-name-link">prepend</a><wbr>(<a href="ImList.html" title="type parameter in ImList">A</a>...&nbsp;things)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#prepend(A...)" class="member-name-link">prepend</a><wbr>(<a href="ImList.html" title="type parameter in ImList">A</a>...&nbsp;things)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> The
  <code>ImList</code>
   formed by appending
@@ -1102,9 +1124,9 @@ B&gt;&nbsp;void</code></div>
   formed from the elements of
  <code>things</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#prependAll(dev.javafp.lst.ImList)" class="member-name-link">prependAll</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&nbsp;other)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#prependAll(dev.javafp.lst.ImList)" class="member-name-link">prependAll</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&nbsp;other)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> The
  <code>ImList</code>
   formed by appending
@@ -1112,9 +1134,9 @@ B&gt;&nbsp;void</code></div>
   to
  <code>other</code></div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#prependAll(java.util.Collection)" class="member-name-link">prependAll</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&nbsp;otherCollection)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#prependAll(java.util.Collection)" class="member-name-link">prependAll</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Collection.html" title="class or interface in java.util" class="external-link">Collection</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&nbsp;otherCollection)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> The
  <code>ImList</code>
   formed by appending
@@ -1124,9 +1146,9 @@ B&gt;&nbsp;void</code></div>
   formed from the elements of
  <code>otherCollection</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#push(A)" class="member-name-link">push</a><wbr>(<a href="ImList.html" title="type parameter in ImList">A</a>&nbsp;head)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#push(A)" class="member-name-link">push</a><wbr>(<a href="ImList.html" title="type parameter in ImList">A</a>&nbsp;head)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> The
  <code>ImList</code>
   with head
@@ -1134,10 +1156,10 @@ B&gt;&nbsp;void</code></div>
   and tail
  <code>this</code></div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#put(int,A)" class="member-name-link">put</a><wbr>(int&nbsp;indexStartingAtOne,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#put(int,A)" class="member-name-link">put</a><wbr>(int&nbsp;indexStartingAtOne,
  <a href="ImList.html" title="type parameter in ImList">A</a>&nbsp;thingToPut)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> The
  <code>ImList</code>
   that is the same as
@@ -1147,9 +1169,9 @@ B&gt;&nbsp;void</code></div>
   is
  <code>thingToPut</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#randomDoubles(java.util.Random)" class="member-name-link">randomDoubles</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Random.html" title="class or interface in java.util" class="external-link">Random</a>&nbsp;random)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#randomDoubles(java.util.Random)" class="member-name-link">randomDoubles</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Random.html" title="class or interface in java.util" class="external-link">Random</a>&nbsp;random)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> A
  <code>ImList</code>
   of
@@ -1161,10 +1183,10 @@ B&gt;&nbsp;void</code></div>
  , generated from
  <code>random</code></div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#randomInts(java.util.Random,int)" class="member-name-link">randomInts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Random.html" title="class or interface in java.util" class="external-link">Random</a>&nbsp;random,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#randomInts(java.util.Random,int)" class="member-name-link">randomInts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Random.html" title="class or interface in java.util" class="external-link">Random</a>&nbsp;random,
  int&nbsp;limit)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> A
  <code>ImList</code>
   of numbers n,
@@ -1172,11 +1194,11 @@ B&gt;&nbsp;void</code></div>
  , generated from
  <code>random</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#randomInts(java.util.Random,int,int)" class="member-name-link">randomInts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Random.html" title="class or interface in java.util" class="external-link">Random</a>&nbsp;random,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#randomInts(java.util.Random,int,int)" class="member-name-link">randomInts</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Random.html" title="class or interface in java.util" class="external-link">Random</a>&nbsp;random,
  int&nbsp;min,
  int&nbsp;max)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> A
  <code>ImList</code>
   of Integers
@@ -1187,9 +1209,9 @@ B&gt;&nbsp;void</code></div>
  <code>random</code>
  .</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#randomPicks()" class="member-name-link">randomPicks</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#randomPicks()" class="member-name-link">randomPicks</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> A
  <code>ImList</code>
   with the same size as
@@ -1197,9 +1219,9 @@ B&gt;&nbsp;void</code></div>
   containing randomly chosen elements from
  <code>this</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#remove(A)" class="member-name-link">remove</a><wbr>(<a href="ImList.html" title="type parameter in ImList">A</a>&nbsp;thingToRemove)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#remove(A)" class="member-name-link">remove</a><wbr>(<a href="ImList.html" title="type parameter in ImList">A</a>&nbsp;thingToRemove)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> The
  <code>ImList</code>
   that is the same as
@@ -1208,9 +1230,9 @@ B&gt;&nbsp;void</code></div>
  <code>thingToRemove</code>
   are missing</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#removeAll(dev.javafp.lst.ImList)" class="member-name-link">removeAll</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;? extends <a href="ImList.html" title="type parameter in ImList">A</a>&gt;&nbsp;elementsToRemove)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#removeAll(dev.javafp.lst.ImList)" class="member-name-link">removeAll</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;? extends <a href="ImList.html" title="type parameter in ImList">A</a>&gt;&nbsp;elementsToRemove)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> The
  <code>ImList</code>
   that is the same as
@@ -1219,9 +1241,9 @@ B&gt;&nbsp;void</code></div>
  <code>elementsToRemove</code>
   are missing</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#removeAt(int)" class="member-name-link">removeAt</a><wbr>(int&nbsp;indexToRemoveStartingAtOne)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#removeAt(int)" class="member-name-link">removeAt</a><wbr>(int&nbsp;indexToRemoveStartingAtOne)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> The
  <code>ImList</code>
   that is the same as
@@ -1230,19 +1252,19 @@ B&gt;&nbsp;void</code></div>
  <code>indexToRemoveStartingAtOne</code>
   is missing.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#repeat(A)" class="member-name-link">repeat</a><wbr>(A&nbsp;thingToRepeat)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#repeat(A)" class="member-name-link">repeat</a><wbr>(A&nbsp;thingToRepeat)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Create a
  <code>ImList</code>
   where each element is
  <code>thingToRepeat</code>
  .</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#repeat(A,int)" class="member-name-link">repeat</a><wbr>(A&nbsp;thingToRepeat,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#repeat(A,int)" class="member-name-link">repeat</a><wbr>(A&nbsp;thingToRepeat,
  int&nbsp;count)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Create a
  <code>ImList</code>
   of size
@@ -1251,10 +1273,10 @@ B&gt;&nbsp;void</code></div>
  <code>thingToRepeat</code>
  .</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#replace(dev.javafp.func.Fn,A)" class="member-name-link">replace</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;pred,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#replace(dev.javafp.func.Fn,A)" class="member-name-link">replace</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;pred,
  <a href="ImList.html" title="type parameter in ImList">A</a>&nbsp;replacement)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> A
  <code>ImList</code>
   that has the same elements as
@@ -1265,37 +1287,49 @@ B&gt;&nbsp;void</code></div>
   is replaced with
  <code>replacement</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#resolveSize()" class="member-name-link">resolveSize</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#reverse()" class="member-name-link">reverse</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#resolveSize()" class="member-name-link">resolveSize</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#reverse()" class="member-name-link">reverse</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> The
  <code>ImList</code>
   whose elements are the same as in
  <code>this</code>
   but where the order is reversed.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#right(dev.javafp.lst.ImList)" class="member-name-link">right</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&gt;&nbsp;matrix)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1"><code>static &lt;A&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1"><code><a href="#right(dev.javafp.lst.ImList)" class="member-name-link">right</a><wbr>(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;&gt;&nbsp;matrix)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1">
 <div class="block"> Assuming that
  <code>matrix</code>
   represents a matrix then return
  <code>matrix</code>
   with the first column removed</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default &lt;B&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#scanl(B,dev.javafp.func.Fn2)" class="member-name-link">scanl</a><wbr>(B&nbsp;start,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default &lt;B&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#scanl(B,dev.javafp.func.Fn2)" class="member-name-link">scanl</a><wbr>(B&nbsp;start,
  <a href="../func/Fn2.html" title="interface in dev.javafp.func">Fn2</a>&lt;B,<wbr><a href="ImList.html" title="type parameter in ImList">A</a>,<wbr>B&gt;&nbsp;f)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block"> <code>scanl</code>
   is similar to
  <code>foldl</code>
  , but returns a
  <code>ImList</code>
   of successive reduced values from the left:</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#show(dev.javafp.func.Fn,java.lang.String)" class="member-name-link">show</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>,<wbr>?&gt;&nbsp;showFn,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;separator)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="block"> A String representation of
+ <code>this</code>
+  using
+ <code>showFn</code>
+ to convert the object to a String
+ <code>separator</code>
+ to separate each element</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#shuffle()" class="member-name-link">shuffle</a>()</code></div>
@@ -2309,6 +2343,20 @@ C&gt;&nbsp;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&
 </section>
 </li>
 <li>
+<section class="detail" id="show(dev.javafp.func.Fn,java.lang.String)">
+<h3>show</h3>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">show</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>,<wbr>?&gt;&nbsp;showFn,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;separator)</span></div>
+<div class="block"><p> A String representation of
+ <code>this</code>
+  using
+ <code>showFn</code>
+ to convert the object to a String
+ <code>separator</code>
+ to separate each element</div>
+</section>
+</li>
+<li>
 <section class="detail" id="toString(char)">
 <h3>toString</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">toString</span><wbr><span class="parameters">(char&nbsp;separatorChar)</span></div>
@@ -3090,6 +3138,48 @@ C&gt;</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interfa
 </section>
 </li>
 <li>
+<section class="detail" id="allCombinationsOfSize(int)">
+<h3>allCombinationsOfSize</h3>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&gt;</span>&nbsp;<span class="element-name">allCombinationsOfSize</span><wbr><span class="parameters">(int&nbsp;n)</span></div>
+<div class="block"><p> All
+ <em>combinations</em>
+  of tuples of size
+ <code>n</code>
+  chosen from
+ <code>this</code>
+ .
+ <p> Because we are returning <em>combinations</em> rather than <em>permutations</em> (so order is not important) each tuple is
+ a
+ <em>sub-sequence</em>
+  of
+
+ <code>this</code>
+
+ <pre><code>
+ [1, 2, 3, 4].allCombinationsOfSize(3) == [[1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4]]
+ </code></pre>
+
+ <p> A <em>sub-sequence</em>,
+ <code>s</code>
+ , of a
+ <code>ImList</code>
+ <code>l</code>
+  is a
+ <code>list</code>
+  that can be obtained from
+ <code>l</code>
+  by deleting 0 or more elements</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="https://www.britannica.com/science/permutation"></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="prependAll(dev.javafp.lst.ImList)">
 <h3>prependAll</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</span>&nbsp;<span class="element-name">prependAll</span><wbr><span class="parameters">(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;&nbsp;other)</span></div>
@@ -3144,6 +3234,12 @@ C&gt;</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interfa
 
  join [ [1, 2], [3, 4], [5, 6, 7] ] == [1, 2, 3, 4, 5, 6, 7]
  </code></pre></div>
+</section>
+</li>
+<li>
+<section class="detail" id="allArrayLists(dev.javafp.lst.ImList)">
+<h3>allArrayLists</h3>
+<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">allArrayLists</span><wbr><span class="parameters">(<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;T&gt;&gt;&nbsp;lists)</span></div>
 </section>
 </li>
 <li>
@@ -3222,6 +3318,17 @@ C&gt;</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interfa
  <p> This function generates all the possible sub-sequences of
  <code>this</code>
  .
+ <p> A <em>sub-sequence</em>,
+ <code>s</code>
+ , of a
+ <code>ImList</code>
+ <code>l</code>
+  is a
+ <code>list</code>
+  that can be obtained from
+ <code>l</code>
+  by deleting 0 or more elements
+
  <p> If
  <code>this</code>
   has no duplicate elements then the sub-sequences are essentially the same as the power set - in that there are he same number of them
@@ -3725,17 +3832,16 @@ V&gt;</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interfa
  <pre><code>
  [1, 5, 7] isSubSequence [0, 1, 2, 3, 1, 1, 5, 1, 7, 11] == true
  </code></pre>
- <p> A sub-sequence,
+ <p> A <em>sub-sequence</em>,
  <code>s</code>
  , of a
  <code>ImList</code>
  <code>l</code>
   is a
- <code>ImList</code>
+ <code>list</code>
   that can be obtained from
  <code>l</code>
-  by deleting 0 or more elements from
- <code>l</code>
+  by deleting 0 or more elements
 
  <pre><code>
  [a, b, c] has sub-sequences [], [a], [b], [c], [b, c], [a, c], [a, b]
@@ -3948,17 +4054,16 @@ B&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="elemen
  If a and b have any elements that are equal to each other, then not all elements in ls will be distinct
  If a and b have no elements that are equal then all elements in ls will be distinct
  </code></pre>
- <p> A sub-sequence,
+ <p> A <em>sub-sequence</em>,
  <code>s</code>
  , of a
  <code>ImList</code>
  <code>l</code>
   is a
- <code>ImList</code>
+ <code>list</code>
   that can be obtained from
  <code>l</code>
-  by deleting 0 or more elements from
- <code>l</code>
+  by deleting 0 or more elements
 
  <pre><code>
  [a, b, c] has sub-sequences [], [a], [b], [c], [b, c], [a, c], [a, b]
@@ -4042,20 +4147,48 @@ B&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="elemen
  <code>this</code>
   such that no two elements are equal
 
- <pre><code>
- [7, 7, 11, 7, 11, 7, 17, 19, 7] nub ==  [7, 11, 17, 19]
- </code></pre>
- <p> A sub-sequence,
+ <p> A <em>sub-sequence</em>,
  <code>s</code>
  , of a
  <code>ImList</code>
  <code>l</code>
   is a
- <code>ImList</code>
+ <code>list</code>
   that can be obtained from
  <code>l</code>
-  by deleting 0 or more elements from
+  by deleting 0 or more elements
+
+ <pre><code>
+ [7, 7, 11, 7, 11, 7, 17, 19, 7] nub ==  [7, 11, 17, 19]
+ </code></pre>
+
+ <pre><code>
+ [a, b, c] has sub-sequences [], [a], [b], [c], [b, c], [a, c], [a, b]
+ </code></pre></div>
+</section>
+</li>
+<li>
+<section class="detail" id="nub(dev.javafp.func.Fn2)">
+<h3>nub</h3>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>&gt;</span>&nbsp;<span class="element-name">nub</span><wbr><span class="parameters">(<a href="../func/Fn2.html" title="interface in dev.javafp.func">Fn2</a>&lt;<a href="ImList.html" title="type parameter in ImList">A</a>,<wbr><a href="ImList.html" title="type parameter in ImList">A</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Boolean.html" title="class or interface in java.lang" class="external-link">Boolean</a>&gt;&nbsp;eq)</span></div>
+<div class="block"><p> The sub-sequence of
+ <code>this</code>
+  such that no two elements are equal according to
+ <code>eq</code>
+
+ <pre><code>
+ [7, 7, 11, 7, 11, 7, 17, 19, 7] nub ==  [7, 11, 17, 19]
+ </code></pre>
+ <p> A <em>sub-sequence</em>,
+ <code>s</code>
+ , of a
+ <code>ImList</code>
  <code>l</code>
+  is a
+ <code>list</code>
+  that can be obtained from
+ <code>l</code>
+  by deleting 0 or more elements
 
  <pre><code>
  [a, b, c] has sub-sequences [], [a], [b], [c], [b, c], [a, c], [a, b]
@@ -4340,17 +4473,17 @@ B&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="elemen
  {@code pred}
   is true for all elements in a and false for all elements in b
  </code></pre>
- <p> A sub-sequence
+
+ <p> A <em>sub-sequence</em>,
  <code>s</code>
-  of a
+ , of a
  <code>ImList</code>
  <code>l</code>
   is a
- <code>ImList</code>
+ <code>list</code>
   that can be obtained from
  <code>l</code>
-  by deleting 0 or more elements from
- <code>l</code>
+  by deleting 0 or more elements
 
  <pre><code>
  [a, b, c] has sub-sequences [], [a], [b], [c], [b, c], [a, c], [a, b]
