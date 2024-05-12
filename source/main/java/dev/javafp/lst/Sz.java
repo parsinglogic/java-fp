@@ -169,9 +169,9 @@ class Sz
             return KNOWN_INFINITE;
         else if (szOne == UNKNOWN_FINITE || szTwo == UNKNOWN_FINITE)
             return UNKNOWN_FINITE;
-        else if (szOne >= 0 || szTwo == KNOWN_INFINITE)
+        else if (szOne >= 0 && szTwo == KNOWN_INFINITE)
             return szOne;
-        else if (szTwo >= 0 || szOne == KNOWN_INFINITE)
+        else if (szTwo >= 0 && szOne == KNOWN_INFINITE)
             return szTwo;
         else
             // if (szOne == UNKNOWN_UNKNOWN || szTwo == UNKNOWN_UNKNOWN)
