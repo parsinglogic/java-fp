@@ -89,8 +89,8 @@ public class ServerTextUtils
 
         //        say(hundreds, tensAndUnits);
 
-        String h = toWord(hundreds);
-        String t = toWord(tensAndUnits);
+        String h = toWords(hundreds);
+        String t = toWords(tensAndUnits);
         //        return h + " hundred and " + t;
 
         return hundreds == 0
@@ -110,7 +110,7 @@ public class ServerTextUtils
 
     /**
      */
-    private static String toWord(int i)
+    private static String toWords(int i)
     {
         if (i >= 0 && i < 100)
         {
