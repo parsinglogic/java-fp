@@ -10,41 +10,12 @@ package dev.javafp.util;
 public class ClassUtils
 {
 
-    public static String simpleName(Class<?> clazz)
-    {
-        String[] names = clazz.getName().split("\\.");
-
-        return names[names.length - 1];
-    }
-
+    /**
+     * The simple class name of the class of `object` or `null` if the object is null
+     */
     public static String shortClassName(Object object)
     {
-        return object == null ? "null" : simpleName(object.getClass());
+        return object == null ? "null" : object.getClass().getSimpleName();
     }
 
-    public static String simpleNameOf(Object object)
-    {
-        return simpleName(object.getClass());
-    }
-
-    //    public static ImMaybe<ImList<String>> getResource(String name)
-    //    {
-    //
-    //        InputStream is = AppVersion.class.getResourceAsStream(name);
-    //
-    //        if (is == null)
-    //            return ImMaybe.nothing;
-    //        else
-    //        {
-    //            try (Reader reader = new InputStreamReader(is))
-    //            {
-    //                // We need to flush so that when the reader is closed, we don't have a problem
-    //                return ImMaybe.just(ImList.on(reader).flush());
-    //            } catch (IOException e)
-    //            {
-    //                throw new UnexpectedChecked(e);
-    //            }
-    //        }
-    //
-    //    }
 }
