@@ -44,38 +44,92 @@ public class Util
         return String.format("%.1fpx", d);
     }
 
-    public static double sum(ImList<Double> ds)
-    {
-        return ds.foldl(0.0, (z, i) -> z + i);
-    }
-
+    /**
+     * <p> Map
+     * {@code f}
+     *  over
+     * {@code ds}
+     *  to get a list of
+     * {@code Double}
+     *  and then calculate the sum of those
+     *
+     */
     public static <A> double sum(ImList<A> ds, Fn<A, Double> f)
     {
         return ds.foldl(0.0, (z, a) -> z + f.of(a));
     }
 
+    /**
+     * <p> The (
+     * {@code double}
+     * ) sum of
+     *
+     * {@code ds}
+     *
+     */
+    public static double sum(ImList<Double> ds)
+    {
+        return ds.foldl(0.0, (z, i) -> z + i);
+    }
+
+    /**
+     * <p> The (
+     * {@code long}
+     * ) sum of
+     *
+     * {@code ds}
+     *
+     */
     public static long sumLong(ImList<Long> ds)
     {
         return ds.foldl(0L, (z, i) -> z + i);
     }
 
+    /**
+     * <p> The (
+     * {@code int}
+     * ) sum of
+     *
+     * {@code ds}
+     *
+     */
     public static int sumInt(ImList<Integer> ds)
     {
         return ds.foldl(0, (z, i) -> z + i);
     }
 
+    /**
+     * <p> The (
+     * {@code double}
+     * ) largest of
+     *
+     * {@code ds}
+     *
+     */
     public static double max(ImList<Double> ds)
     {
         Throw.Exception.ifTrue(ds.isEmpty(), "list cannot be empty");
         return ds.tail().foldl(ds.head(), (z, i) -> Math.max(z, i));
     }
 
+    /**
+     * `min(ds.map(f))`
+     *
+     */
     public static <A> double min(ImList<A> ds, Fn<A, Double> f)
     {
         Throw.Exception.ifTrue(ds.isEmpty(), "list cannot be empty");
         return min(ds.map(f));
     }
 
+    /**
+     * <p> The (
+     * {@code double}
+     * ) smallest of
+     *
+     * {@code ds}
+     *
+     */
     public static double min(ImList<Double> ds)
     {
         Throw.Exception.ifTrue(ds.isEmpty(), "list cannot be empty");
@@ -98,6 +152,12 @@ public class Util
     {
         Throw.Exception.ifTrue(is.isEmpty(), "list cannot be empty");
         return is.tail().foldl(is.head(), (z, i) -> Math.min(z, i));
+    }
+
+    public static <A, B> A maxElement(ImList<A> is, Fn<A, Comparable> f)
+    {
+        Throw.Exception.ifTrue(is.isEmpty(), "list cannot be empty");
+        return is.tail().foldl(is.head(), (z, i) -> f.of(i).compareTo(f.of(z)) > 0 ? i : z);
     }
 
     /**
