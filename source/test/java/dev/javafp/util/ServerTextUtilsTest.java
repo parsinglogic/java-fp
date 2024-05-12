@@ -68,7 +68,7 @@ public class ServerTextUtilsTest
         assertEquals("eighty eight", ServerTextUtils.toWords(88));
         assertEquals("ninety nine", ServerTextUtils.toWords(99));
 
-        assertEquals("100", ServerTextUtils.toWords(100));
+        assertEquals("one hundred", ServerTextUtils.toWords(100));
         assertEquals("-1", ServerTextUtils.toWords(-1));
     }
 
