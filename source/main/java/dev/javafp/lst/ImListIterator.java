@@ -16,7 +16,6 @@ import java.util.NoSuchElementException;
 
 /**
  * An iterator over ImLists
- *
  */
 class ImListIterator<T> implements Iterator<T>, Serializable
 {
@@ -31,12 +30,11 @@ class ImListIterator<T> implements Iterator<T>, Serializable
 
     /**
      * <p> {@code true}
-     *  if the iterator has more elements. (In other words, returns
+     * if the iterator has more elements. (In other words, returns
      * {@code true}
-     *  if
+     * if
      * {@code next()}
-     *  would return an element rather than throwing an exception.)
-     *
+     * would return an element rather than throwing an exception.)
      */
     @Override
     public boolean hasNext()
@@ -50,7 +48,7 @@ class ImListIterator<T> implements Iterator<T>, Serializable
     @Override
     public T next()
     {
-        if (hasNext())
+        if (!list.isEmpty())
         {
             try
             {
@@ -81,8 +79,8 @@ class ImListIterator<T> implements Iterator<T>, Serializable
      * {@code UnsupportedOperationException}
      * . You can't modify
      * {@code ImLists}
-     *  in this way.
-     *
+     * in this way.
+     * <p>
      * To remove elements, see {@link ImListZipper}
      */
     @Override
