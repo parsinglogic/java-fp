@@ -438,7 +438,7 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
     }
 
     /**
-     * An ImList containing ImRoseTrees in
+     * An ImList containing ImRoseTrees in order
      *
      *
      * @return
@@ -579,7 +579,7 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
         throw new InvalidState("Can't get here");
     }
 
-    protected AbstractTextBox toBox()
+    public AbstractTextBox toBox()
     {
         AbstractTextBox myTopBox = LeafTextBox.with("" + element);
 
@@ -686,7 +686,7 @@ public class ImRoseTree<A> implements Iterable<A>, Serializable
          * <p> We have a function, fn
          * <p> fn :: A -> O
          * <p> We have a rose tree with an element of type A at the root and a list of rose trees that are the children.
-         * <p> If only we have a function that operated on a rose tree and applied the function fn to each element of it.
+         * <p> If only we had a function that operated on a rose tree and applied the function fn to each element of it.
          * If we had that function we could map it over the children.
          * <p> Wait - that is the very function we are in now. We just have to partially apply it to f
          *

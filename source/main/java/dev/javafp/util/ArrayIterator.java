@@ -38,6 +38,10 @@ public class ArrayIterator<T> implements Iterator<T>
         index = 0;
     }
 
+    /**
+     * An iterator on
+     * {@code arrayItems}
+     */
     public static <T> ArrayIterator<T> on(T[] arrayItems)
     {
         return new ArrayIterator<T>(arrayItems);

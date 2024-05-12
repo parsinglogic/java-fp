@@ -29,7 +29,7 @@ public class ImArc<KEY, LABEL> extends ImValuesImpl
     public final KEY start;
 
     /**
-     * The key of the node where the arc starts.
+     * The key of the node where the arc ends.
      */
     public final KEY end;
 

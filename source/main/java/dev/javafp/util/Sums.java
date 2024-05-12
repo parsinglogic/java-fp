@@ -10,9 +10,17 @@ package dev.javafp.util;
 public class Sums
 {
 
+    /**
+     * <p> The value of
+     * {@code n!}
+     *  as an
+     * {@code int}
+     *  - strictly
+     * {@code Math.min(n!, Integer.MAX_VALUE)}
+     *
+     */
     public static int factorial(int n)
     {
-
         return (n < factorials.length)
                ? factorials[n]
                : Integer.MAX_VALUE;

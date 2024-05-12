@@ -450,7 +450,7 @@ public class LeafTextBox extends AbstractTextBox
     /**
      *
      */
-    static String[] splitIntoChunks(int chunkSize, String stringToSplit)
+    public static String[] splitIntoChunks(int chunkSize, String stringToSplit)
     {
         int len = stringToSplit.length();
 

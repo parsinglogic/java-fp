@@ -70,7 +70,14 @@ public class ApiRequest extends ImValuesImpl
      */
     public final boolean followRedirects;
 
+    /**
+     * The request headers
+     */
     public final ImList<ImPair<String, String>> requestHeaders;
+
+    /**
+     * The query parameters
+     */
     public final ImList<ImPair<String, String>> queryParameters;
 
     private static final Charset utf8 = StandardCharsets.UTF_8;

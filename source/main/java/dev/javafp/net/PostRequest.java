@@ -22,6 +22,9 @@ import java.net.HttpURLConnection;
 public class PostRequest extends ApiRequest
 {
 
+    /**
+     * The body of the POST
+     */
     public final String bodyString;
 
     private PostRequest(ImUrl url, boolean followRedirects, ImList<ImPair<String, String>> requestHeaders, ImList<ImPair<String, String>> queryParameters, String bodyString)
