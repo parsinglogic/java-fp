@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static dev.javafp.util.Say.say;
-import static dev.javafp.util.ServerTextUtils.toWord;
+import static dev.javafp.util.ServerTextUtils.toWords;
 import static org.junit.Assert.assertEquals;
 
 public class SayTest
@@ -105,9 +105,9 @@ public class SayTest
     public void testFormatColumns()
     {
 
-        ImList<String> col1 = ImRange.inclusive(0, 5).map(i -> toWord(i));
-        ImList<String> col2 = ImRange.inclusive(6, 16).map(i -> toWord(i));
-        ImList<String> col3 = ImRange.inclusive(10, 16).map(i -> toWord(i));
+        ImList<String> col1 = ImRange.inclusive(0, 5).map(i -> toWords(i));
+        ImList<String> col2 = ImRange.inclusive(6, 16).map(i -> toWords(i));
+        ImList<String> col3 = ImRange.inclusive(10, 16).map(i -> toWords(i));
 
         String expected = ""
                 + "zero  six      ten      \n"
@@ -129,9 +129,9 @@ public class SayTest
     public void testFormatColumns2()
     {
 
-        ImList<String> col1 = ImRange.inclusive(10, 14).map(i -> toWord(i));
-        ImList<String> col2 = ImRange.inclusive(1, 6).map(i -> toWord(i));
-        ImList<String> col3 = ImRange.inclusive(7, 9).map(i -> toWord(i));
+        ImList<String> col1 = ImRange.inclusive(10, 14).map(i -> toWords(i));
+        ImList<String> col2 = ImRange.inclusive(1, 6).map(i -> toWords(i));
+        ImList<String> col3 = ImRange.inclusive(7, 9).map(i -> toWords(i));
 
         say("col1", col1);
         say("col2", col2);
@@ -152,7 +152,7 @@ public class SayTest
     public void testFormatColumnsWithEmptyLists()
     {
 
-        ImList<String> col1 = ImRange.inclusive(10, 14).map(i -> toWord(i));
+        ImList<String> col1 = ImRange.inclusive(10, 14).map(i -> toWords(i));
         ImList<String> col2 = ImList.on();
 
         say("col1", col1);

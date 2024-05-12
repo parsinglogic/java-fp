@@ -426,25 +426,27 @@ public class Say
      * <p> If there are an odd number of things, the last item in the second column is "MISSING"
      * <p> There are actually three columns since the two columns are separated by a column of colons
      * <p> Eg
-     * <p> table [ one, one, floccinaucinihilipilification, [99, 100, 101, 102, 103, 104, 105], three,  null, four ]
+     * <p> table [ one, one, pathologicopsychological, [99, 100, 101, 102, 103, 104, 105], three,  null, four ]
      * <p> gives:
-     * <p> one                           : one
-     * floccinaucinihilipilification : [99, 100, 101, 102, 103, 104, 105]
-     * three                         : null
-     * four                          : MISSING
+     *
+     * <pre>{@code
+     * one                      : one
+     * pathologicopsychological : [99, 100, 101, 102, 103, 104, 105]
+     * three                    : null
+     * four                     : MISSING
+     * }</pre>
      *
      */
     public static AbstractTextBox table(Object... things)
     {
         ImList<ImPair<String, String>> pairs = ImList.on(things).group(2).map(p -> ImPair.on("" + p.at(1), "" + p.at(2, "MISSING")));
 
-        AbstractTextBox col1 = TopDownBox.withAllBoxes(pairs.map(p -> LeafTextBox.with(p.fst)));
-        AbstractTextBox col3 = TopDownBox.withAllBoxes(pairs.map(p -> TextUtils.getBoxFrom(p.snd)));
+        ImList<AbstractTextBox> col1 = pairs.map(p -> LeafTextBox.with(p.fst));
+        ImList<AbstractTextBox> col2 = pairs.map(p -> TextUtils.getBoxFrom(p.snd));
 
-        AbstractTextBox col2 = TopDownBox.withAllBoxes(ImList.repeat(colon).take(pairs.size()));
+        int colOneWidth = Util.maxInt(col1.map(i -> i.width));
 
-        return LeftRightBox.with(col1, col2, col3);
-
+        return TopDownBox.withAllBoxes(col1.zipWith(col2, (i, j) -> LeftRightBox.with(i.leftJustifyIn(colOneWidth), colon, j)));
     }
 
     /**
