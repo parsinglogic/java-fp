@@ -917,6 +917,21 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * <p> A String representation of
      * {@code this}
      *  using
+     * {@code showFn}
+     * to convert the object to a String
+     * {@code separator}
+     * to separate each element
+     *
+     */
+    default String show(Fn<A, ?> showFn, String separator)
+    {
+        return TextUtils.join(this.map(i -> showFn.of(i).toString()), separator);
+    }
+
+    /**
+     * <p> A String representation of
+     * {@code this}
+     *  using
      * {@code separatorChar}
      *  to separate each element
      * <p> The implementation is:
@@ -1440,21 +1455,27 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      */
     default ImList<A> reverse()
     {
-        // We create an array from this in revers order and then create a ImListOnArray on that
-        //
-        // Create a new array
-        Object[] target = new Object[this.size()];
-        ImList<A> old = this;
 
-        // Write to it in reverse order
-        int i = this.size();
-        while (!old.isEmpty())
+        if (this.size() <= 1)
+            return this;
+        else
         {
-            target[--i] = old.head();
-            old = old.tail();
-        }
+            // We create an array from this in reverse order and then create a ImListOnArray on that
+            //
+            // Create a new array
+            Object[] target = new Object[this.size()];
+            ImList<A> old = this;
 
-        return ImList.on((A[]) target);
+            // Write to it in reverse order
+            int i = this.size();
+            while (!old.isEmpty())
+            {
+                target[--i] = old.head();
+                old = old.tail();
+            }
+
+            return ImList.on((A[]) target);
+        }
     }
 
     /**
@@ -1930,6 +1951,51 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     }
 
     /**
+     * <p> All
+     * <em>combinations</em>
+     *  of tuples of size
+     * {@code n}
+     *  chosen from
+     * {@code this}
+     * .
+     * <p> Because we are returning <em>combinations</em> rather than <em>permutations</em> (so order is not important) each tuple is
+     * a
+     * <em>sub-sequence</em>
+     *  of
+     *
+     * {@code this}
+     *
+     * <pre>{@code
+     * [1, 2, 3, 4].allCombinationsOfSize(3) == [[1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4]]
+     * }</pre>
+     *
+     * <p> A <em>sub-sequence</em>,
+     * {@code s}
+     * , of a
+     * {@code ImList}
+     * {@code l}
+     *  is a
+     * {@code list}
+     *  that can be obtained from
+     * {@code l}
+     *  by deleting 0 or more elements
+     *
+     * @see <href="https://www.britannica.com/science/permutation"</a>
+     */
+    default ImList<ImList<A>> allCombinationsOfSize(int n)
+    {
+        if (n > this.size() || this.isEmpty())
+            return ImList.on();
+        else if (n == 0)
+            return ImList.on(ImList.on());
+        else if (n == 1)
+            return this.map((i -> ImList.on(i)));
+        else
+            return this.tail().allCombinationsOfSize(n - 1).map(i -> i.push(this.head()))
+                    .append(this.tail().allCombinationsOfSize(n));
+    }
+
+    /**
      * <p> The
      * {@code ImList}
      *  formed by appending
@@ -1991,9 +2057,31 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      */
     static <T> ImList<T> join(ImList<ImList<T>> lists)
     {
-        return lists.isEmpty()
-               ? empty()
-               : ImJoinList.on(lists);
+        if (lists.isEmpty())
+            return empty();
+        else if (lists.size() == 1)
+            return lists.head();
+        else
+            return joinLists(lists);
+    }
+
+    private static <T> ImList<T> joinLists(ImList<ImList<T>> lists)
+    {
+        if (allArrayLists(lists))
+            return ImListOnArray.join(lists);
+        else
+            return ImJoinList.on(lists);
+    }
+
+    static <T> boolean allArrayLists(ImList<ImList<T>> lists)
+    {
+        for (ImList<?> l : lists)
+        {
+            if (!(l instanceof ImListOnArray<?>))
+                return false;
+        }
+
+        return true;
     }
 
     /**
@@ -2081,6 +2169,17 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * <p> This function generates all the possible sub-sequences of
      * {@code this}
      * .
+     * <p> A <em>sub-sequence</em>,
+     * {@code s}
+     * , of a
+     * {@code ImList}
+     * {@code l}
+     *  is a
+     * {@code list}
+     *  that can be obtained from
+     * {@code l}
+     *  by deleting 0 or more elements
+     *
      * <p> If
      * {@code this}
      *  has no duplicate elements then the sub-sequences are essentially the same as the power set - in that there are he same number of them
@@ -2610,17 +2709,16 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * <pre>{@code
      * [1, 5, 7] isSubSequence [0, 1, 2, 3, 1, 1, 5, 1, 7, 11] == true
      * }</pre>
-     * <p> A sub-sequence,
+     * <p> A <em>sub-sequence</em>,
      * {@code s}
      * , of a
      * {@code ImList}
      * {@code l}
      *  is a
-     * {@code ImList}
+     * {@code list}
      *  that can be obtained from
      * {@code l}
-     *  by deleting 0 or more elements from
-     * {@code l}
+     *  by deleting 0 or more elements
      *
      * <pre>{@code
      * [a, b, c] has sub-sequences [], [a], [b], [c], [b, c], [a, c], [a, b]
@@ -2884,17 +2982,16 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * If a and b have any elements that are equal to each other, then not all elements in ls will be distinct
      * If a and b have no elements that are equal then all elements in ls will be distinct
      * }</pre>
-     * <p> A sub-sequence,
+     * <p> A <em>sub-sequence</em>,
      * {@code s}
      * , of a
      * {@code ImList}
      * {@code l}
      *  is a
-     * {@code ImList}
+     * {@code list}
      *  that can be obtained from
      * {@code l}
-     *  by deleting 0 or more elements from
-     * {@code l}
+     *  by deleting 0 or more elements
      *
      * <pre>{@code
      * [a, b, c] has sub-sequences [], [a], [b], [c], [b, c], [a, c], [a, b]
@@ -2999,20 +3096,20 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * {@code this}
      *  such that no two elements are equal
      *
-     * <pre>{@code
-     * [7, 7, 11, 7, 11, 7, 17, 19, 7] nub ==  [7, 11, 17, 19]
-     * }</pre>
-     * <p> A sub-sequence,
+     * <p> A <em>sub-sequence</em>,
      * {@code s}
      * , of a
      * {@code ImList}
      * {@code l}
      *  is a
-     * {@code ImList}
+     * {@code list}
      *  that can be obtained from
      * {@code l}
-     *  by deleting 0 or more elements from
-     * {@code l}
+     *  by deleting 0 or more elements
+     *
+     * <pre>{@code
+     * [7, 7, 11, 7, 11, 7, 17, 19, 7] nub ==  [7, 11, 17, 19]
+     * }</pre>
      *
      * <pre>{@code
      * [a, b, c] has sub-sequences [], [a], [b], [c], [b, c], [a, c], [a, b]
@@ -3024,6 +3121,40 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         return isEmpty()
                ? empty()
                : tail().filter(i -> !Eq.uals(i, head())).nub().push(head());
+    }
+
+    /**
+     * <p> The sub-sequence of
+     * {@code this}
+     *  such that no two elements are equal according to
+     * {@code eq}
+     *
+     * <pre>{@code
+     * [7, 7, 11, 7, 11, 7, 17, 19, 7] nub ==  [7, 11, 17, 19]
+     * }</pre>
+     * <p> A <em>sub-sequence</em>,
+     * {@code s}
+     * , of a
+     * {@code ImList}
+     * {@code l}
+     *  is a
+     * {@code list}
+     *  that can be obtained from
+     * {@code l}
+     *  by deleting 0 or more elements
+     *
+     * <pre>{@code
+     * [a, b, c] has sub-sequences [], [a], [b], [c], [b, c], [a, c], [a, b]
+     * }</pre>
+     *
+     */
+    default ImList<A> nub(Fn2<A, A, Boolean> eq)
+    {
+
+        return isEmpty()
+               ? empty()
+               : tail().filter(i -> !eq.of(i, head())).nub(eq).push(head());
+
     }
 
     /**
@@ -3393,17 +3524,17 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * {@code pred}
      *  is true for all elements in a and false for all elements in b
      * }</pre>
-     * <p> A sub-sequence
+     *
+     * <p> A <em>sub-sequence</em>,
      * {@code s}
-     *  of a
+     * , of a
      * {@code ImList}
      * {@code l}
      *  is a
-     * {@code ImList}
+     * {@code list}
      *  that can be obtained from
      * {@code l}
-     *  by deleting 0 or more elements from
-     * {@code l}
+     *  by deleting 0 or more elements
      *
      * <pre>{@code
      * [a, b, c] has sub-sequences [], [a], [b], [c], [b, c], [a, c], [a, b]

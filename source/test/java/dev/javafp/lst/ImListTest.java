@@ -630,7 +630,7 @@ public class ImListTest implements Constants
         ImList<Integer> numbers = ImList.unfold(1, i -> i + 1);
         ImList<Integer> squares = numbers.map(i -> i * i);
 
-        ImList<String> words = numbers.map(i -> ServerTextUtils.toWord(i));
+        ImList<String> words = numbers.map(i -> ServerTextUtils.toWords(i));
 
         ImList<String> results = words.zipWith(squares, (s, i) -> s + " squared is " + i);
 
@@ -643,7 +643,7 @@ public class ImListTest implements Constants
         ImList<Integer> numbers = ImList.unfold(1, i -> i + 1);
         ImList<Integer> squares = numbers.map(i -> i * i);
 
-        ImList<String> words = numbers.map(i -> ServerTextUtils.toWord(i));
+        ImList<String> words = numbers.map(i -> ServerTextUtils.toWords(i));
 
         ImList<String> results = words.zipWith(squares, (s, i) -> s + " squared is " + i);
 
@@ -654,11 +654,11 @@ public class ImListTest implements Constants
 
         ImList<String> names = ImList.on("numbers", "squares", "words", "results", "results.take(3)", "objects");
 
-        AbstractTextBox output = TopDownBox.withAll(names).before(LeafTextBox.with(" ")).before(TopDownBox.withAll(objects.map(o -> ClassUtils.simpleNameOf(o))));
+        AbstractTextBox output = TopDownBox.withAll(names).before(LeafTextBox.with(" ")).before(TopDownBox.withAll(objects.map(o -> ClassUtils.shortClassName(o))));
 
         say(output);
 
-        say(ClassUtils.simpleNameOf(objects));
+        say(ClassUtils.shortClassName(objects));
 
     }
 
@@ -1450,6 +1450,16 @@ public class ImListTest implements Constants
     }
 
     @Test
+    public void testReverseOnZipWith()
+    {
+        ImList<Integer> is = ImList.on(1, 2, 3);
+        ImList<Integer> js = is.zipWith(is, (i, j) -> i + j);
+
+        say(js);
+        say(js.reverse());
+    }
+
+    @Test
     public void testRevs()
     {
 
@@ -1675,6 +1685,23 @@ public class ImListTest implements Constants
         ImList<ImList<Integer>> subs = ImList.repeat(range, 24).map(r -> r.shuffle());
 
         return subs.foldl(ImSet.empty(), (z, i) -> z.add(i)).size();
+    }
+
+    @Test
+    public void testAllCombinationsOfSize()
+    {
+        var is = ImList.on(1, 2, 3, 4);
+
+        assertEquals("[]", ImList.on().allCombinationsOfSize(1).toString());
+        assertEquals("[]", ImList.on().allCombinationsOfSize(0).toString());
+
+        assertEquals("[[]]", is.allCombinationsOfSize(0).toString());
+        assertEquals("[[1], [2], [3], [4]]", is.allCombinationsOfSize(1).toString());
+        assertEquals("[[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]", is.allCombinationsOfSize(2).toString());
+        assertEquals("[[1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4]]", is.allCombinationsOfSize(3).toString());
+        assertEquals("[[1, 2, 3, 4]]", is.allCombinationsOfSize(4).toString());
+        assertEquals("[]", is.allCombinationsOfSize(5).toString());
+
     }
 
 }
