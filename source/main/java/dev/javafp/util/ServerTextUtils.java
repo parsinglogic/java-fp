@@ -8,6 +8,7 @@
 package dev.javafp.util;
 
 import dev.javafp.lst.ImList;
+import dev.javafp.tuple.ImPair;
 
 import java.util.regex.Pattern;
 
@@ -21,29 +22,9 @@ public class ServerTextUtils
     private final static Pattern badStartOne = Pattern.compile("[0-9].*");
     private final static Pattern badStartTwo = Pattern.compile("-[0-9].*");
 
-    private static ImList<String> names = ParseUtils.split(' ', "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen");
+    private static ImList<String> names = ParseUtils.split(',', ",one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen");
     private static ImList<String> tensNames = ParseUtils.split(' ', "twenty thirty forty fifty sixty seventy eighty ninety");
-
-    /**
-     * <p> Split
-     * {@code stringToSplit}
-     *  into chunks of length
-     * {@code length}
-     * <p> If s1, s2, ... , sn-1, sn are the strings then s1 to sn-1 have length
-     * {@code length}
-     *  and sn has
-     * {@code length <= length}
-     * <p> {@code stringToSplit}
-     *  =
-     * {@code s1 + s2 + ... + sn-1 + sn}
-     *
-     */
-    public static ImList<String> splitIntoChunks(String stringToSplit, int length)
-    {
-        return stringToSplit.length() <= length
-               ? ImList.on(stringToSplit)
-               : ImList.cons(stringToSplit.substring(0, length), splitIntoChunks(stringToSplit.substring(length), length));
-    }
+    private static ImList<String> placeNames = ImList.on("", "thousand", "million", "billion", "quadrillion", "quintillion", "sextillion");
 
     /**
      * <p> Split
@@ -57,9 +38,80 @@ public class ServerTextUtils
         return ImList.on(stringToSplit.split(" +"));
     }
 
-    public static String toWord(int i)
+    static long thou = 1000;
+
+    public static String toWords(long n)
+    {
+        return toWords_(n).trim();
+    }
+
+    public static String toWords_(long n)
+    {
+        if (n == 0)
+            return "zero";
+        else
+        {
+            ImList<ImPair<Long, Long>> ps = ImList.unfold(ImPair.on(n, 0L), p -> ImPair.on(p.fst / thou, p.fst % thou)).tail();
+
+            //            say("ps", ps.take(10));
+
+            ImList<ImPair<Long, Long>> ps2 = ps.takeWhile(p -> !p.equals(ImPair.on(0L, 0L)));
+
+            //            say("ps2", ps2);
+
+            ImList<String> magnitudes = ps2.map(p -> componentToWords(p.snd));
+            //            say("magnitudes", magnitudes);
+
+            ImList<String> nearly3 = magnitudes.zipWith(placeNames, (m, p) -> m.equals("") ? "" : m + " " + p);
+
+            // Remove empty string elements
+            //            say("nearly", nearly3.filter(s1 -> !s1.isEmpty()).reverse());
+
+            ImList<String> nearly = nearly3.filter(s -> !s.isEmpty());
+
+            // Do the final and
+
+            if (addFinalAnd(nearly, ps2.head().snd))
+            {
+                ImList<String> one = nearly.tail().reverse();
+                return TextUtils.join(one, ", ") + " and " + nearly.head();
+            }
+            else
+                return TextUtils.join(nearly.reverse(), ", ");
+        }
+    }
+
+    public static String componentToWords(long i)
     {
 
+        int hundreds = (int) (i / 100);
+        int tensAndUnits = (int) (i % 100);
+
+        //        say(hundreds, tensAndUnits);
+
+        String h = toWord(hundreds);
+        String t = toWord(tensAndUnits);
+        //        return h + " hundred and " + t;
+
+        return hundreds == 0
+               ? t
+               : tensAndUnits > 0
+                 ? h + " hundred and " + t
+                 : h + " hundred";
+    }
+
+    private static boolean addFinalAnd(ImList<String> nearly, long n)
+    {
+        return nearly.size() > 1 && n < 100 && n > 0
+               ? true
+               : false;
+
+    }
+
+    /**
+     */
+    private static String toWord(int i)
+    {
         if (i >= 0 && i < 100)
         {
             if (i < 20)
@@ -80,70 +132,4 @@ public class ServerTextUtils
             return "" + i;
     }
 
-    public static String toWord2(int i)
-    {
-        switch (i)
-        {
-        case 0:
-            return "zero";
-        case 1:
-            return "one";
-        case 2:
-            return "two";
-        case 3:
-            return "three";
-        case 4:
-            return "four";
-        case 5:
-            return "five";
-        case 6:
-            return "six";
-        case 7:
-            return "seven";
-        case 8:
-            return "eight";
-        case 9:
-            return "nine";
-        case 10:
-            return "ten";
-        case 11:
-            return "eleven";
-        case 12:
-            return "twelve";
-        case 13:
-            return "thirteen";
-        case 14:
-            return "fourteen";
-        case 15:
-            return "fifteen";
-        case 16:
-            return "sixteen";
-        case 17:
-            return "seventeen";
-        case 18:
-            return "eighteen";
-        case 19:
-            return "nineteen";
-        case 20:
-            return "twenty";
-
-        default:
-            return "unknown";
-        }
-
-    }
-
-    public static String checkCssIdentifier(String identifierToCheck)
-    {
-        if (identifierToCheck.isEmpty())
-            return "CSS identifier can't be the empty string";
-        else if (!allowedIdentifierChars.matcher(identifierToCheck).matches())
-            return "CSS identifier " + TextUtils.quote(identifierToCheck) + " contains invalid characters - each char must match [-_a-zA-Z0-9]";
-        else if (badStartOne.matcher(identifierToCheck).matches())
-            return "CSS identifier " + TextUtils.quote(identifierToCheck) + " starts with a digit - which is not allowed";
-        else if (badStartTwo.matcher(identifierToCheck).matches())
-            return "CSS identifier " + TextUtils.quote(identifierToCheck) + " starts with a hyphen followed by a digit - which is not allowed";
-        else
-            return null;
-    }
 }

@@ -7,30 +7,69 @@ import org.junit.Test;
 
 import static dev.javafp.util.Say.say;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 public class ServerTextUtilsTest
 {
 
     @Test
+    public void testToWords()
+    {
+        //        ServerTextUtils.toWords(Long.MAX_VALUE);
+        ServerTextUtils.toWords(Long.MAX_VALUE);
+        ServerTextUtils.toWords(1001);
+
+    }
+
+    @Test
+    public void testSomeValues()
+    {
+        say(Long.MAX_VALUE);
+        assertOk("zero", 0);
+        assertOk("seven hundred and fifty five", 755);
+        assertOk("one thousand, seven hundred and fifty five", 1755);
+        assertOk("one thousand and five", 1005);
+
+        assertOk("one hundred", 100);
+        assertOk("one thousand", 1_000);
+        assertOk("one million", 1_000_000);
+        assertOk("nine sextillion and one", 9_000_000_000_000_000_001L);
+        assertOk("nine sextillion and ninety nine", 9_000_000_000_000_000_099L);
+        assertOk("nine sextillion, one hundred", 9_000_000_000_000_000_100L);
+        assertOk("nine sextillion, two hundred and twenty three quintillion, three hundred and seventy two quadrillion, thirty six billion, "
+                + "eight hundred and fifty four million, seven hundred and seventy five thousand, eight hundred and seven", 9_223_372_036_854_775_807L);
+        // 9,223,372,036,854,775,807
+        // 9_223_372_036_854_775_807
+
+    }
+
+    private void assertOk(String expected, long i)
+    {
+        String actual = ServerTextUtils.toWords(i);
+        say(i, "->", actual);
+
+        assertEquals("error on " + i, expected, actual);
+
+    }
+
+    @Test
     public void testToWord()
     {
         assertEquals("zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen",
-                ImRange.inclusive(0, 19).map(i -> ServerTextUtils.toWord(i)).toString(" "));
+                ImRange.inclusive(0, 19).map(i -> ServerTextUtils.toWords(i)).toString(" "));
 
-        assertEquals("twenty", ServerTextUtils.toWord(20));
-        assertEquals("twenty one", ServerTextUtils.toWord(21));
-        assertEquals("twenty two", ServerTextUtils.toWord(22));
-        assertEquals("thirty three", ServerTextUtils.toWord(33));
-        assertEquals("forty four", ServerTextUtils.toWord(44));
-        assertEquals("fifty five", ServerTextUtils.toWord(55));
-        assertEquals("sixty six", ServerTextUtils.toWord(66));
-        assertEquals("seventy seven", ServerTextUtils.toWord(77));
-        assertEquals("eighty eight", ServerTextUtils.toWord(88));
-        assertEquals("ninety nine", ServerTextUtils.toWord(99));
+        assertEquals("twenty", ServerTextUtils.toWords(20));
+        assertEquals("twenty one", ServerTextUtils.toWords(21));
+        assertEquals("twenty two", ServerTextUtils.toWords(22));
+        assertEquals("thirty three", ServerTextUtils.toWords(33));
+        assertEquals("forty four", ServerTextUtils.toWords(44));
+        assertEquals("fifty five", ServerTextUtils.toWords(55));
+        assertEquals("sixty six", ServerTextUtils.toWords(66));
+        assertEquals("seventy seven", ServerTextUtils.toWords(77));
+        assertEquals("eighty eight", ServerTextUtils.toWords(88));
+        assertEquals("ninety nine", ServerTextUtils.toWords(99));
 
-        assertEquals("100", ServerTextUtils.toWord(100));
-        assertEquals("-1", ServerTextUtils.toWord(-1));
+        assertEquals("100", ServerTextUtils.toWords(100));
+        assertEquals("-1", ServerTextUtils.toWords(-1));
     }
 
     @Test
@@ -41,7 +80,7 @@ public class ServerTextUtilsTest
         say(is);
         // [11, 22, 33, 44, 55, 66, 77, 88, 99]
 
-        ImList<String> words = is.map(i -> ServerTextUtils.toWord(i));
+        ImList<String> words = is.map(i -> ServerTextUtils.toWords(i));
 
         say(words);
         // [eleven, twenty two, thirty three, forty four, fifty five, sixty six, seventy seven, eighty eight, ninety nine]
@@ -50,48 +89,6 @@ public class ServerTextUtilsTest
 
         say(wordsToIntegers.get("ninety nine"));
 
-    }
-
-    @Test
-    public void testCssIdCheck()
-    {
-        for (String s : ImList.on("a", "a-", "-", "-a", "A1", "abcdefghiJKLMNOP_-12349"))
-        {
-            assertEquals("fail on " + s, null, ServerTextUtils.checkCssIdentifier(s));
-        }
-    }
-
-    @Test
-    public void testCssIdCheckWhenBad()
-    {
-        for (String s : ImList.on("", "-1", "0", "-123", "()", "a{!", "1a"))
-        {
-            assertNotEquals("fail on " + s, null, ServerTextUtils.checkCssIdentifier(s));
-        }
-    }
-
-    @Test
-    public void testCssIdCheckWhenEmpty()
-    {
-        assertEquals("CSS identifier can't be the empty string", ServerTextUtils.checkCssIdentifier(""));
-    }
-
-    @Test
-    public void testCssIdCheckWhenBadChar()
-    {
-        assertEquals("CSS identifier \"uywteuryt^\" contains invalid characters - each char must match [-_a-zA-Z0-9]", ServerTextUtils.checkCssIdentifier("uywteuryt^"));
-    }
-
-    @Test
-    public void testCssIdCheckWhenStartsWithDigit()
-    {
-        assertEquals("CSS identifier \"12345\" starts with a digit - which is not allowed", ServerTextUtils.checkCssIdentifier("12345"));
-    }
-
-    @Test
-    public void testCssIdCheckWhenStartsWithAHyphenAndThenADigit()
-    {
-        assertEquals("CSS identifier \"-1Tgq1-_\" starts with a hyphen followed by a digit - which is not allowed", ServerTextUtils.checkCssIdentifier("-1Tgq1-_"));
     }
 
 }
