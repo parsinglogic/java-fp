@@ -17,9 +17,11 @@ import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * <p> A class containing static functions for text manipulation.
@@ -584,6 +586,41 @@ public class TextUtils
             return padOrTrimToWidth(indentBy(left, cs), width);
         }
 
+    }
+
+    /**
+     * <p> Split
+     * {@code stringToSplit}
+     *  into chunks of length
+     * {@code chunkSize}
+     * <p> If s1, s2, ... , sn-1, sn are the strings then s1 to sn-1 have length
+     * {@code chunkSize}
+     *  and sn has
+     * {@code length <= chunkSize}
+     * <p> {@code stringToSplit}
+     *  =
+     * {@code s1 + s2 + ... + sn-1 + sn}
+     *
+     */
+    public static ImList<String> splitIntoListOfChunks(int chunkSize, String stringToSplit)
+    {
+        return ImList.on(splitIntoChunks(chunkSize, stringToSplit));
+    }
+
+    static String[] splitIntoChunks(int chunkSize, String stringToSplit)
+    {
+        int len = stringToSplit.length();
+
+        List<String> chunks = new ArrayList<>();
+
+        int skip = 0;
+        while (skip < len)
+        {
+            chunks.add(stringToSplit.substring(skip, Math.min(skip + chunkSize, len)));
+            skip += chunkSize;
+        }
+
+        return chunks.toArray(new String[0]);
     }
 
 }

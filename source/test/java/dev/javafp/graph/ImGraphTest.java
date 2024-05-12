@@ -1,5 +1,7 @@
 package dev.javafp.graph;
 
+import dev.javafp.eq.Eq;
+import dev.javafp.ex.ImException;
 import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImRange;
 import dev.javafp.rand.Rando;
@@ -10,6 +12,7 @@ import org.junit.Test;
 
 import static dev.javafp.graph.ImGraph.Dir.In;
 import static dev.javafp.graph.ImGraph.Dir.Out;
+import static dev.javafp.tuple.ImPair.on;
 import static dev.javafp.util.Say.say;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -261,17 +264,6 @@ public class ImGraphTest
     }
 
     @Test
-    public void testCycles()
-    {
-
-        ImGraph<String, String, String> g1 = makeCycleGraph();
-
-        // Check Closures - no labels
-        assertEquals("", ImSet.on("b", "c", "a"), g1.getClosure(Out, "a"));
-
-    }
-
-    @Test
     public void testInOrderClosure()
     {
 
@@ -461,12 +453,130 @@ public class ImGraphTest
     @Test
     public void testShow()
     {
-        ImGraph<Integer, String, String> g = makeMultiplesGraph(30);
+        ImGraph<Integer, String, String> g = makeMultiplesGraph(20);
 
         System.out.println(g.show());
 
         //System.out.println(g.getGraphVizGraph());
         //assertEquals(expected, s);
+    }
+
+    @Test
+    public void testPartition()
+    {
+        ImGraph<Integer, String, String> empty = ImGraph.empty();
+
+        final ImGraph<Integer, String, String> g = ImList.on(1, 2, 3).foldl(empty, (z, i) -> z.addNode(i, "" + i))
+                .addArc("a", 1, 2)
+                .addArc("b", 2, 3)
+                .addArc("c", 3, 1);
+
+        final ImList<ImSet<Integer>> parts = g.partition();
+        assertEquals(g.nodeKeysSet(), parts.head());
+
+        assertEquals(g.nodeKeysSet(), parts.foldl(ImSet.empty(), (z, i) -> z.union(i)));
+
+        parts.foreach(i -> checkPart(g, i));
+
+    }
+
+    @Test
+    public void testPartition2()
+    {
+        ImGraph<Integer, String, String> g = makeMultiplesGraph(30);
+
+        final ImList<ImSet<Integer>> parts = g.partition();
+
+        assertEquals(g.nodeKeysSet(), parts.foldl(ImSet.empty(), (z, i) -> z.union(i)));
+
+        parts.foreach(i -> checkPart(g, i));
+    }
+
+    <KEY, DATA, LABEL> void checkPart(ImGraph<KEY, DATA, LABEL> graph, ImSet<KEY> keysInPart)
+    {
+        ImSet<KEY> expected = graph.getClosure(i -> graph.getAdjacents(Out, i), keysInPart).union(keysInPart);
+
+        assertEquals(expected, keysInPart);
+    }
+
+    @Test
+    public void testShowOnLoopyGraph()
+    {
+        //        ImGraph<Integer, String, String> g = makeMultiplesGraph(6);
+
+        ImGraph<Integer, String, String> g = ImList.on(1, 2, 3, 4).foldl(ImGraph.empty(), (z, i) -> z.addNode(i, "" + i));
+
+        g = g.addArc("a", 1, 2)
+                .addArc("b", 2, 3)
+                .addArc("d", 2, 3)
+                .addArc("c", 4, 3);
+
+        System.out.println(g.show());
+    }
+
+    @Test
+    public void testShowOnLoopyGraph2()
+    {
+        //        ImGraph<Integer, String, String> g = makeMultiplesGraph(6);
+
+        ImGraph<Integer, String, String> g = ImList.on(0, 1).foldl(ImGraph.empty(), (z, i) -> z.addNode(i, "" + i));
+
+        g = g.addArc("-", 1, 0)
+                .addArc("b", 1, 1);
+
+        System.out.println(g.show());
+
+    }
+
+    @Test
+    public void testShowOnRandomGraph()
+    {
+        ImGraph<Integer, String, String> g = makeRandomGraph(6);
+
+        System.out.println(g);
+        System.out.println(g.showAsSets());
+        System.out.println(g.show());
+    }
+
+    @Test
+    public void testRemoveArcOnRandomGraph()
+    {
+        ImGraph<Integer, String, String> g = makeRandomGraph(6);
+
+        ImList<ImArc<Integer, String>> arcs = g.arcs().toList().shuffle();
+
+        ImGraph<Integer, String, String> empty = g.arcs().foldl(g, (z, i) -> removeArcAndCheck(z, i));
+
+        assertEquals(ImSet.on(), empty.arcs());
+
+        //        System.out.println(g.showAsSets());
+    }
+
+    @Test
+    public void testRemoveNodeOnRandomGraph()
+    {
+        ImGraph<Integer, String, String> g = makeRandomGraph(6);
+
+        ImList<ImArc<Integer, String>> arcs = g.arcs().toList().shuffle();
+
+        ImGraph<Integer, String, String> empty = g.arcs().foldl(g, (z, i) -> removeArcAndCheck(z, i));
+
+        assertEquals(ImSet.on(), empty.arcs());
+
+        //        System.out.println(g.showAsSets());
+    }
+
+    private <K, D, L> ImGraph<K, D, L> removeArcAndCheck(ImGraph<K, D, L> g0, ImArc<K, L> arcToRemove)
+    {
+
+        ImGraph<K, D, L> g = g0.removeArc(arcToRemove);
+
+        assertTrue(g0.arcs().contains(arcToRemove));
+        assertFalse(g.arcs().contains(arcToRemove));
+
+        checkIntegrity(g);
+
+        return g;
     }
 
     @Test
@@ -493,7 +603,7 @@ public class ImGraphTest
 
         say(shrunk.show());
 
-        assertEquals(ImList.on(6, 12, 18, 24, 30), g2.keys());
+        assertEquals(ImList.on(6, 12, 18, 24, 30), g2.nodeKeys());
         assertEquals(ImList.on(6), g2.roots());
     }
 
@@ -559,6 +669,18 @@ public class ImGraphTest
         return g;
     }
 
+    private ImGraph<Integer, String, String> addMultiples(ImGraph<Integer, String, String> g, int i, int size)
+    {
+        return addMultiples(g, i, 2, size);
+    }
+
+    private ImGraph<Integer, String, String> addMultiples(ImGraph<Integer, String, String> g, int i, int factor, int size)
+    {
+        return i * factor > size
+               ? g
+               : addMultiples(g.addArc("" + factor, i, i * factor), i, factor + 1, size);
+    }
+
     private ImGraph<String, String, String> makeV()
     {
 
@@ -589,18 +711,6 @@ public class ImGraphTest
 
     }
 
-    private ImGraph<Integer, String, String> addMultiples(ImGraph<Integer, String, String> g, int i, int size)
-    {
-        return addMultiples(g, i, 2, size);
-    }
-
-    private ImGraph<Integer, String, String> addMultiples(ImGraph<Integer, String, String> g, int i, int factor, int size)
-    {
-        return i * factor > size
-               ? g
-               : addMultiples(g.addArc("" + factor, i, i * factor), i, factor + 1, size);
-    }
-
     //    @Test
     //    public void testAdjacents()
     //    {
@@ -629,7 +739,7 @@ public class ImGraphTest
         //
         //        say(g.arcs());
 
-        ImList<Integer> keys = g.topologicalOrder(i -> g.getAdjacents(Out, i), g.keys().head());
+        ImList<Integer> keys = g.topologicalOrder(i -> g.getAdjacents(Out, i), g.nodeKeys().head());
 
         //        say("start", g.keys().head(), keys);
 
@@ -680,6 +790,69 @@ public class ImGraphTest
         say(g.show());
 
         say(g.topologicalOrder(i -> g.getAdjacents(Out, i), 1));
+
+    }
+
+    public static <K, V, L> void checkIntegrity(ImGraph<K, V, L> graph)
+    {
+
+        ImSet<ImArc<K, L>> inSet = graph.arcsIn.values().foldl(ImSet.on(), (z, i) -> z.union(i));
+        ImSet<ImArc<K, L>> outSet = graph.arcsOut.values().foldl(ImSet.on(), (z, i) -> z.union(i));
+
+        if (!Eq.uals(inSet, outSet))
+        {
+            say("outArcs != inArcs", inSet.minus((outSet)), outSet.minus((inSet)));
+
+            throw new ImException();
+        }
+
+        if (outSet.map(i -> i.start).minus(graph.nodeKeysSet()).isNotEmpty())
+        {
+            say("invalid arcs:", outSet);
+        }
+
+        if (outSet.map(i -> i.end).minus(graph.nodeKeysSet()).isNotEmpty())
+        {
+            say("invalid arcs:", outSet);
+        }
+    }
+
+    @Test
+    public void testRemoveArc()
+    {
+
+        /**
+         * A test graph:
+         *
+         *              4
+         *          ┌─◁─▢─◁─┐
+         *    1    2│   │   │
+         *    ▢──▷──▢   △   ▢ 5
+         *          │   │   │
+         *          └─▷─▢─▷─┘
+         *              3
+         *
+         */
+        ImList<Integer> nodes = ImRange.oneTo(5);
+        ImGraph<Integer, String, String> g0 = nodes.foldl(ImGraph.on(), (z, i) -> z.addNode(i, ""));
+
+        ImList<ImPair<Integer, Integer>> pairs = ImList.on(on(1, 2), on(1, 2), on(2, 3), on(3, 4), on(4, 2), on(3, 5), on(5, 4));
+
+        say("pairs", pairs);
+
+        var g = pairs.foldl(g0, (z, i) -> z.addArc("", i.fst, i.snd));
+
+        ImSet<ImArc<Integer, String>> a = g.getArcs(Out, 1);
+
+        ImArc<Integer, String> arc = a.toList().head();
+        say(arc);
+
+        ImGraph<Integer, String, String> g2 = g.removeArc(arc.label, arc.start, arc.end);
+
+        say("g", g);
+        say("g2", g2);
+
+        checkIntegrity(g2);
 
     }
 
@@ -768,6 +941,41 @@ public class ImGraphTest
         return g;
     }
 
+    private ImGraph<Integer, String, String> makeRandomGraph(int n)
+    {
+        return ImRange.oneTo(n).foldl(ImGraph.empty(), (z, i) -> addToGraph(z, 1));
+    }
+
+    private ImGraph<Integer, String, String> addToGraph(ImGraph<Integer, String, String> g, int n)
+    {
+        // Add n nodes
+        int count = g.nodeKeysSet().size();
+        ImGraph<Integer, String, String> g2 = ImRange.inclusive(count + 1, count + n).foldl(g, (z, i) -> z.addNode(i, ""));
+
+        int newSize = g2.nodeKeysSet().size();
+
+        if (newSize < 2)
+            return g2;
+        else
+        {
+            int connectCount = Rando.nextIntInclusive(newSize / 2, newSize - 1);
+
+            // Chose a random node
+            ImList<Integer> keys = g2.nodeKeys();
+            Integer node = keys.at(Rando.nextInt(1, newSize));
+
+            // Choose connectCount nodes
+            ImList<Integer> ns = keys.shuffle().take(connectCount);
+
+            // connect node to them
+
+            ImGraph<Integer, String, String> g3 = ns.foldl(g2, (z, i) -> z.addArc("", node, i));
+
+            return g3;
+        }
+
+    }
+
     static class TestGraph extends ImGraph<Integer, String, String>
     {
 
@@ -831,6 +1039,95 @@ public class ImGraphTest
                 .makePath(1, 3, 4);
         //                .makePath(3, 2);
 
+    }
+
+    public ImList<ImGraph<String, String, String>> getAllGraphsOfSizeThree()
+    {
+        ImGraph<String, String, String> g = ImGraph.empty();
+
+        //        ImList<ImGraph<String, String, String>> gs = addNewNodeAndConnect(g, "a");
+
+        ImGraph<String, String, String> g1 = g.addNode("a", "a");
+
+        ImList<ImGraph<String, String, String>> gs = GraphBuilder.with(g1).addNewNodeAndConnect(ImList.on(g1), "b");
+
+        //        say(gs.map(i -> i.showAsSets()));
+
+        ImList<ImGraph<String, String, String>> gs2 = GraphBuilder.with(gs.head()).addNewNodeAndConnect(gs, "c");
+
+        //        say(gs2.map(i -> i.showAsSets()));
+
+        return gs2;
+    }
+
+    @Test
+    public void testCycles()
+    {
+
+        ImGraph<String, String, String> g1 = makeCycleGraph();
+
+        // Check Closures - no labels
+        assertEquals("", ImSet.on("b", "c", "a"), g1.getClosure(Out, "a"));
+
+    }
+
+    @Test
+    public void testHasCycle()
+    {
+        ImGraph<String, String, String> g1 = ImGraph.on();
+
+        var g2 = g1.addNode("a", "a");
+
+        var g3 = g2.addArc("", "a", "a");
+
+        assertTrue(g3.hasCycle());
+
+    }
+
+    @Test
+    public void testCycleFinder()
+    {
+
+        ImList<ImGraph<String, String, String>> gs2 = getAllGraphsOfSizeThree();
+
+        //        var gsWithCycles = gs2.filter(gg -> gg.hasCycle());
+        var gsWithCycles2 = gs2.filter(gg -> ImGraphCycleFinder.with(gg).getAllCycles().isNotEmpty());
+        var gsWithCycles3 = gs2.filter(gg -> ImGraphCycleFinder.with(gg).removeNonCycles().nodeKeys().isNotEmpty());
+
+        //
+        //        var ps = gs2.zip(ImList.oneTo(gs2.size()));
+        //
+        //        ps.foreach(p -> {
+        //            say(p.snd);
+        //            ImGraphCycleFinder.with(p.fst).removeNonCycles();
+        //        });
+
+        //        ImList<AbstractTextBox> one = gsWithCycles.map(i -> i.showAsSets());
+        //        say(one);
+        //
+
+        //        ImList<AbstractTextBox> two = gsWithCycles2.map(i -> i.showAsSets());
+        //        say(two);
+        //
+        //        ImList<AbstractTextBox> three = gsWithCycles3.map(i -> i.showAsSets());
+        //        say(three);
+
+        assertEquals(gsWithCycles2, gsWithCycles3);
+
+        gsWithCycles2.foreach(g -> {
+            if (!g.hasCycle())
+                say("wrong", g.showAsSets());
+        });
+
+        //        say(TopDownBox.withAllBoxes(one).before(TopDownBox.withAllBoxes(two)));
+
+        //        gs2.allCombinationsOfSize(2).foreach(p -> assertNotEquals(p.at(1), p.at(2)));
+        //
+        //        ImList<ImGraph<String, String, String>> gs3 = GraphBuilder.with(gs2.head()).addNewNodeAndConnect(gs2, "d");
+        //
+        //        say(gs3.map(i -> i.showAsSets()));
+        //
+        //        gs3.allCombinationsOfSize(2).foreach(p -> assertNotEquals(p.at(1), p.at(2)));
     }
 
 }

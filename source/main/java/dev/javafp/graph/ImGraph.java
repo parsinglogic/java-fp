@@ -10,6 +10,7 @@ package dev.javafp.graph;
 import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
 import dev.javafp.box.TopDownBox;
+import dev.javafp.eq.Equals;
 import dev.javafp.ex.CantRemoveNodes;
 import dev.javafp.ex.KeyExists;
 import dev.javafp.ex.KeyMissing;
@@ -52,7 +53,8 @@ import static dev.javafp.graph.ImGraph.Dir.Out;
  * </blockquote>
  * <p> from
  * <a href="https://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/graph-intro.pdf"  >"Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Graphs: Definition, Applications, Representation"</a>
- * <p> So these authors use node/vertex (and edge/arc) interchangeably. Other outhors reserve node and arc for directed graphs ans vertx edge for undirected graphs.
+ * <p> So these authors use node/vertex (and edge/arc) interchangeably. Other authors reserve node and arc for directed graphs and
+ * vertex and edge for undirected graphs.
  * <p> For now, we will use vertex and edge.
  * <p> Note that this definition considers the vertices and the edges to be in a
  * <strong>set</strong>
@@ -300,6 +302,9 @@ import static dev.javafp.graph.ImGraph.Dir.Out;
  * <p> <a href="https://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/preliminaries-notes.pdf"  >"Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Mathematical Preliminaries"</a>
  * <p> <a href="https://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/graph-intro.pdf"  >"Carnegie Mellon University, School of Computer Science: Parallel and Sequential Data Structures and Algorithms, Graphs: Definition, Applications, Representation"</a>
  *
+ * Each node has a unique key that identifies it.
+ * Each arc stores the key of its source node and the key of its target node.
+ * Each arc has a label
  */
 public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 {
@@ -308,7 +313,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     protected ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> arcsOut;
     protected ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> arcsIn;
 
-    private static ImGraph empty = new ImGraph<>(ImMap.empty(), ImMap.empty(), ImMap.empty());
+    private static ImGraph empty = new ImGraph(ImMap.empty(), ImMap.empty(), ImMap.empty());
 
     /**
      * The direction of an arc in a graph with respect to a node.
@@ -333,6 +338,13 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         this.arcsOut = arcsOut;
     }
 
+    protected static <KEY, DATA, LABEL> ImGraph<KEY, DATA, LABEL> with(ImMap<KEY, DATA> valueMap, ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> arcsOut, ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> arcsIn)
+    {
+        return valueMap.isEmpty()
+               ? empty()
+               : new ImGraph(valueMap, arcsOut, arcsIn);
+    }
+
     /**
      * <p> If
      * {@code iks}
@@ -352,7 +364,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
         ImSet<KEY> closure = getClosure(i -> this.getAdjacents(Out, labels, i), ks.toImSet()).union(ks);
 
-        ImSet<KEY> otherKeysSet = ImSet.onAll(keys()).minus(closure);
+        ImSet<KEY> otherKeysSet = ImSet.onAll(nodeKeys()).minus(closure);
 
         ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> entries = this.arcsIn.removeAll(otherKeysSet);
 
@@ -364,7 +376,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
 
         ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> arcsIn3 = ImMap.fromPairs(pairs.filter(p -> p.snd.isNotEmpty()));
 
-        return new ImGraph<>(valueMap.removeAll(otherKeysSet), arcsOut.removeAll(otherKeysSet), arcsIn3);
+        return ImGraph.with(valueMap.removeAll(otherKeysSet), arcsOut.removeAll(otherKeysSet), arcsIn3);
     }
 
     /**
@@ -410,7 +422,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         Throw.Exception.ifNull("key", key);
         mustNotContain(key);
 
-        return new ImGraph<>(valueMap.put(key, value), arcsOut, arcsIn);
+        return ImGraph.with(valueMap.put(key, value), arcsOut, arcsIn);
     }
 
     /**
@@ -504,7 +516,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         ImSet<ImArc<KEY, LABEL>> out = arcsOut.getOrDefault(start, ImSet.empty()).add(arc);
         ImSet<ImArc<KEY, LABEL>> in = arcsIn.getOrDefault(end, ImSet.empty()).add(arc);
 
-        return new ImGraph<>(valueMap, arcsOut.put(start, out), arcsIn.put(end, in));
+        return ImGraph.with(valueMap, arcsOut.put(start, out), arcsIn.put(end, in));
     }
 
     /**
@@ -512,11 +524,21 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * {@code arc}
      *
      */
-    private ImGraph<KEY, DATA, LABEL> removeArc(ImArc<KEY, LABEL> arc)
+    //    private ImGraph<KEY, DATA, LABEL> removeArc(ImArc<KEY, LABEL> arc)
+    //    {
+    //        Throw.Exception.ifNull("arc", arc);
+    //
+    //        return removeArc(arc.label, arc.start, arc.end);
+    //    }
+    public ImGraph<KEY, DATA, LABEL> removeArc(LABEL label, KEY start, KEY end)
     {
-        Throw.Exception.ifNull("arc", arc);
+        Throw.Exception.ifNull("start", start);
+        Throw.Exception.ifNull("end", end);
+        mustContain(start);
+        mustContain(end);
 
-        return removeArc(arc.label, arc.start, arc.end);
+        ImArc<KEY, LABEL> arcToRemove = ImArc.on(label, start, end);
+        return removeArc(arcToRemove);
     }
 
     /**
@@ -538,33 +560,109 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      *
      * If no such arc exists then return the original graph,
      */
-    public ImGraph<KEY, DATA, LABEL> removeArc(LABEL label, KEY start, KEY end)
+    public ImGraph<KEY, DATA, LABEL> removeArc(ImArc<KEY, LABEL> arcToRemove)
     {
-        //        say("removeArc - label ", label, start, " -> ", end);
 
-        Throw.Exception.ifNull("start", start);
-        Throw.Exception.ifNull("end", end);
-        mustContain(start);
-        mustContain(end);
+        var newOut = removeArc(arcsOut, arcToRemove.start, arcToRemove);
+        var newIn = removeArc(arcsIn, arcToRemove.end, arcToRemove);
 
-        ImSet<ImArc<KEY, LABEL>> outArcsAtKey = arcsOut.get(start);
-        ImSet<ImArc<KEY, LABEL>> out = outArcsAtKey.filter(a -> !(a.label.equals(label) && a.end.equals(end)));
-
-        // We have to make sure we remove the entry for start if it is now empty - otherwise just replace the value at start
-        ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> newArcsOut = out.isEmpty()
-                                                          ? arcsOut.remove(start)
-                                                          : arcsOut.put(start, out);
-
-        ImSet<ImArc<KEY, LABEL>> inArcsAtKey = arcsIn.get(end);
-        ImSet<ImArc<KEY, LABEL>> in = inArcsAtKey.filter(a -> !(a.label.equals(label) && a.start.equals(start)));
-
-        // We have to make sure we remove the entry for end if it is now empty - otherwise just replace the value at end
-        ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> newArcsIn = in.isEmpty()
-                                                         ? arcsIn.remove(end)
-                                                         : arcsOut.put(end, in);
-
-        return new ImGraph<>(valueMap, newArcsOut, newArcsIn);
+        return ImGraph.with(valueMap, newOut, newIn);
     }
+
+    private ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> removeArc(ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> arcsMap, KEY key, ImArc<KEY, LABEL> arcToRemove)
+    {
+
+        ImSet<ImArc<KEY, LABEL>> newSet = arcsMap.get(key).remove(arcToRemove);
+
+        // We have to make sure we remove the entry for `key`` if it is now empty - otherwise just replace the value at `key`
+        return newSet.isEmpty()
+               ? arcsMap.remove(key)
+               : arcsMap.put(key, newSet);
+    }
+
+    //    public ImGraph<KEY, DATA, LABEL> removeArc(LABEL label, KEY start, KEY end)
+    //    {
+    //        say("removeArc - label ", label, start, " -> ", end);
+    //
+    //        Throw.Exception.ifNull("start", start);
+    //        Throw.Exception.ifNull("end", end);
+    //        mustContain(start);
+    //        mustContain(end);
+    //
+    //        arcToRemove = Ar
+    //
+    //        ImSet<ImArc<KEY, LABEL>> outArcsAtKey = arcsOut.get(start);
+    //        ImSet<ImArc<KEY, LABEL>> single = outArcsAtKey.filter(a -> a.label.equals(label) && a.end.equals(end));
+    //
+    //        ImSet<ImArc<KEY, LABEL>> newSet = outArcsAtKey.minus(single);
+    //
+    //        // We have to make sure we remove the entry for start if it is now empty - otherwise just replace the value at start
+    //        ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> newArcsOut = newSet.isEmpty()
+    //                                                          ? arcsOut.remove(start)
+    //                                                          : arcsOut.put(start, newSet);
+    //
+    //
+    //        ImSet<ImArc<KEY, LABEL>> inArcsAtKey = arcsIn.get(end);
+    //        ImSet<ImArc<KEY, LABEL>> single = outArcsAtKey.filter(a -> a.label.equals(label) && a.end.equals(end));
+    //
+    //        ImSet<ImArc<KEY, LABEL>> newSet = outArcsAtKey.minus(single);
+    //
+    //        // We have to make sure we remove the entry for start if it is now empty - otherwise just replace the value at start
+    //        ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> newArcsOut = newSet.isEmpty()
+    //                                                          ? arcsOut.remove(start)
+    //                                                          : arcsOut.put(start, newSet);
+    //
+    //
+    //
+    //        return ImGraph.with(valueMap, newArcsOut, newArcsIn);
+    //    }
+
+    /**
+     * <p> Remove the arc with label
+     * {@code label}
+     *  from
+     * {@code start}
+     *  to
+     * {@code end}
+     *
+     * <p> If
+     * {@code start}
+     * or
+     * {@code end}
+     * is null then throw {@link dev.javafp.ex.NullValue}.
+     *
+     *
+     * If one or more of the nodes do not exist then throw {@link KeyMissing}.
+     *
+     * If no such arc exists then return the original graph,
+     */
+    //    public ImGraph<KEY, DATA, LABEL> removeArc(LABEL label, KEY start, KEY end)
+    //    {
+    //        say("removeArc - label ", label, start, " -> ", end);
+    //
+    //        Throw.Exception.ifNull("start", start);
+    //        Throw.Exception.ifNull("end", end);
+    //        mustContain(start);
+    //        mustContain(end);
+    //
+    //        ImSet<ImArc<KEY, LABEL>> outArcsAtKey = arcsOut.get(start);
+    //        ImSet<ImArc<KEY, LABEL>> out = outArcsAtKey.filter(a -> !(a.label.equals(label) && a.end.equals(end)));
+    //
+    //        // We have to make sure we remove the entry for start if it is now empty - otherwise just replace the value at start
+    //        ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> newArcsOut = out.isEmpty()
+    //                                                          ? arcsOut.remove(start)
+    //                                                          : arcsOut.put(start, out);
+    //
+    //        ImSet<ImArc<KEY, LABEL>> inArcsAtKey = arcsIn.get(end);
+    //        ImSet<ImArc<KEY, LABEL>> in = inArcsAtKey.filter(a -> !(a.label.equals(label) && a.start.equals(start)));
+    //
+    //        // We have to make sure we remove the entry for end if it is now empty - otherwise just replace the value at end
+    //        ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> newArcsIn = in.isEmpty()
+    //                                                         ? arcsIn.remove(end)
+    //                                                         : arcsOut.put(end, in);
+    //
+    //        return ImGraph.with(valueMap, newArcsOut, newArcsIn);
+    //    }
 
     /**
      * <p> Remove the node with key
@@ -585,7 +683,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
             throw new NodeHasNeighbours(key, connected);
         }
 
-        return new ImGraph<>(valueMap.remove(key), arcsOut.remove(key), arcsIn.remove(key));
+        return ImGraph.with(valueMap.remove(key), arcsOut.remove(key), arcsIn.remove(key));
     }
 
     private void mustContain(KEY key)
@@ -607,20 +705,28 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * <p> Remove any arcs incident on nodes.
      * <p> if any node is connected to a node that does not belong to keys then throw {@link CantRemoveNodes}
      */
-    public ImGraph<KEY, DATA, LABEL> removeNodes(ImSet<KEY> keys)
+    public ImGraph<KEY, DATA, LABEL> removeNodes(Iterable<KEY> keys)
     {
+        //        ImList<KEY> keysList = ImList.onAll(keys);
 
-        // Calculate the neighbours of keys
-        ImSet<KEY> neighbours = keys.flatMap(k -> getAdjacents(In, k)).union(keys.flatMap(k -> getAdjacents(Out, k)));
+        ImSet<KEY> keysSet = ImSet.onAll(keys);
 
-        if (!keys.containsAll(neighbours))
+        // Get the keys in keysList that are not in the graph
+        ImSet<KEY> baddies = keysSet.filter(k -> valueMap.get(k) == null);
+
+        if (baddies.isNotEmpty())
         {
-            throw new CantRemoveNodes(keys, neighbours.minus(keys));
+            throw new KeyMissing(baddies.anyElement()); // TODO improve this
         }
+        else
+        {
+            var outArcs = keysSet.map(k -> getArcs(Out, k));
+            var inArcs = keysSet.map(k -> getArcs(In, k));
 
-        ImList<KEY> ks = keys.toList();
+            var g = ImSet.join(outArcs.union(inArcs)).foldl(this, (z, i) -> z.removeArc(i));
 
-        return new ImGraph<>(valueMap.removeAll(ks), arcsOut.removeAll(ks), arcsIn.removeAll(ks));
+            return ImGraph.with(g.valueMap.removeAll(keys), g.arcsOut, g.arcsIn);
+        }
     }
 
     private ImMap<KEY, ImSet<ImArc<KEY, LABEL>>> getMap(Dir dir)
@@ -648,7 +754,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      */
     public ImList<KEY> roots()
     {
-        return keys().filter(k -> getAdjacents(In, k).isEmpty());
+        return nodeKeys().filter(k -> getAdjacents(In, k).isEmpty());
     }
 
     /**
@@ -658,7 +764,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      */
     public ImList<KEY> leaves()
     {
-        return keys().filter(k -> getAdjacents(Out, k).isEmpty());
+        return nodeKeys().filter(k -> getAdjacents(Out, k).isEmpty());
     }
 
     /**
@@ -671,7 +777,15 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      */
     public boolean hasCycle()
     {
-        return roots().any(this::hasCycle);
+        if (arcsOut.entrySet.containsElementWhere(e -> xxx(e)))
+            return true;
+        else
+            return roots().any(this::hasCycle);
+    }
+
+    private <K, L> boolean xxx(ImMap.Entry<K, ImSet<ImArc<K, L>>> e)
+    {
+        return e.value.containsElementWhere(a -> Equals.isEqual(a.end, e.key));
     }
 
     private boolean hasCycle(KEY root)
@@ -697,9 +811,68 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      */
     public AbstractTextBox show()
     {
-        ImList<ImPair<String, KEY>> pairs = roots().map(r -> ImPair.on("", r));
 
-        return getBoxForPairs(ImPair.on(ImSet.empty(), ImList.on()), pairs).snd;
+        // Split the graph into parts
+        ImList<ImSet<KEY>> parts = this.partition();
+
+        // For each part, try to find the root. If one does not exist, take a random node from the set that points to at least one other node
+        ImList<KEY> roots = parts.map(i -> getRootOrANodeInALoop(i));
+
+        return getBoxForPairs(ImPair.on(ImSet.empty(), ImList.on()), roots.map(r -> ImPair.on("", r))).snd;
+    }
+
+    private KEY getRootOrANodeInALoop(ImSet<KEY> keys)
+    {
+        // There will be 0 or 1 roots
+        ImSet<KEY> roots = keys.filter(i -> this.getArcs(In, i).isEmpty());
+
+        // If there are no roots, find a node that points to another node
+        return (roots.isEmpty() ? keys.filter(i -> this.getArcs(Out, i).isNotEmpty()) : roots).anyElement().get();
+    }
+
+    public AbstractTextBox showAsSets()
+    {
+        if (this.isEmpty())
+            return LeafTextBox.with("empty()");
+        else
+        {
+            ImList<ImSet<ImArc<KEY, LABEL>>> values = arcsOut.values();
+
+            return LeafTextBox.with(nodeKeys().toString(" ")).above(LeafTextBox.with(values.flatMap(i -> i.toList()).toString("\n")));
+        }
+    }
+
+    public boolean isEmpty()
+    {
+        return this == empty();
+    }
+
+    public ImList<ImSet<KEY>> partition()
+    {
+
+        // Get the nodes that point to another node or are freestanding
+        ImSet<KEY> ks = nodeKeysSet().filter(i -> getArcs(Out, i).isNotEmpty() || (getArcs(Out, i).isEmpty() && getArcs(In, i).isEmpty()));
+
+        // Partition the graph
+        return partition(ks);
+    }
+
+    /**
+     * The list of sets of keys representing nodes that are not connected by following "out arcs"
+     */
+    private ImList<ImSet<KEY>> partition(ImSet<KEY> remaining)
+    {
+        if (remaining.isEmpty())
+            return ImList.on();
+        else
+        {
+            KEY k = remaining.anyElement().get();
+
+            ImSet<KEY> reachable = this.getClosure(Out, k).add(k);
+
+            return partition(remaining.minus(reachable)).push(reachable);
+        }
+
     }
 
     /**
@@ -713,22 +886,24 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * Instead, just its label is shown in brackets to indicate that it has been shown already - somewhere above the current line.
 
      */
-    ImPair<ImSet<KEY>, AbstractTextBox> getBoxFor(ImSet<KEY> seen, ImPair<String, KEY> labelAndKey)
+    ImPair<ImSet<KEY>, AbstractTextBox> getBoxFor(ImSet<KEY> seen, String label, KEY key) //ImPair<String, KEY> labelAndKey)
     {
 
-        KEY key = labelAndKey.snd;
-        String label = labelAndKey.fst;
+        //        KEY key = labelAndKey.snd;
+        //        String label = labelAndKey.fst;
+
+        //        say("getBoxFor - seen", seen);
 
         if (seen.contains(key))
             return ImPair.on(seen, LeafTextBox.with("|- " + label + " -> (" + key + ")"));
         else
         {
+            AbstractTextBox firstBox = LeafTextBox.with("|-" + getLabelToDisplay(label) + "-> " + key);
+
             ImSet<KEY> seen2 = seen.add(key);
 
             // Get the pairs of arc labels and keys and convert the label to a string
-            ImList<ImPair<String, KEY>> pairs = getPairs(Out, labelAndKey.snd).map(p -> ImPair.on(p.fst.toString(), p.snd));
-
-            AbstractTextBox firstBox = LeafTextBox.with("|-" + getLabelToDisplay(labelAndKey.fst) + "-> " + labelAndKey.snd);
+            ImList<ImPair<String, KEY>> pairs = getPairs(Out, key).map(p -> ImPair.on(p.fst.toString(), p.snd));
 
             if (pairs.isEmpty())
             {
@@ -741,10 +916,12 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
                 // I need to accumulate two things - the seen set and the list of boxes - so I need a ImPair
                 ImPair<ImSet<KEY>, ImList<AbstractTextBox>> start = ImPair.on(seen2, ImList.on());
 
+                //                say("getBoxFor - calling boxForPairs, start =", start);
                 ImPair<ImSet<KEY>, AbstractTextBox> boxForPairs = getBoxForPairs(start, pairs);
+                //                say("getBoxFor - finished calling boxForPairs, boxForPairs.fst =", boxForPairs.fst);
 
                 // Create the left hand box with the vertical line
-                String s = "|" + " ".repeat(getLabelToDisplay(labelAndKey.fst).length() + 4);
+                String s = "|" + " ".repeat(getLabelToDisplay(label).length() + 4);
 
                 LeafTextBox left = LeafTextBox.with(TextUtils.join(ImList.repeat(s, boxForPairs.snd.height), "\n"));
 
@@ -761,10 +938,17 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
                : " " + label + " ";
     }
 
+    /**
+     *
+     * @param start
+     * @param pairs
+     * @return
+     */
     private ImPair<ImSet<KEY>, AbstractTextBox> getBoxForPairs(ImPair<ImSet<KEY>, ImList<AbstractTextBox>> start,
             ImList<ImPair<String, KEY>> pairs)
     {
         // For each pair, get the new set and the text box and add the text box to the accumulator
+
         ImPair<ImSet<KEY>, ImList<AbstractTextBox>> setAndBoxes = pairs.foldl(start, (z, sk) -> getBoxFor2(z, sk));
 
         // Stack the boxes vertically
@@ -778,7 +962,15 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      */
     private ImPair<ImSet<KEY>, ImList<AbstractTextBox>> getBoxFor2(ImPair<ImSet<KEY>, ImList<AbstractTextBox>> z, ImPair<String, KEY> labelAndKey)
     {
-        ImPair<ImSet<KEY>, AbstractTextBox> setAndBox = getBoxFor(z.fst, labelAndKey);
+        //        say("getBoxFor2 - z.fst", z.fst);
+        //        say("labelAndKey", labelAndKey);
+
+        ImPair<ImSet<KEY>, AbstractTextBox> setAndBox = getBoxFor(z.fst, labelAndKey.fst, labelAndKey.snd);
+
+        //        say("setAndBox.fst", setAndBox.fst);
+        //        say("box", setAndBox.snd);
+        //        say("");
+
         return ImPair.on(setAndBox.fst, z.snd.push(setAndBox.snd));
     }
 
@@ -789,7 +981,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      */
     public <NEWDATA> ImGraph<KEY, NEWDATA, LABEL> map(Fn<DATA, NEWDATA> fn)
     {
-        return new ImGraph<>(valueMap.map(fn), arcsOut, arcsIn);
+        return ImGraph.with(valueMap.map(fn), arcsOut, arcsIn);
     }
 
     /**
@@ -808,7 +1000,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         );
         ImList<String> tail = ImList.on("}");
 
-        ImList<String> nodes = keys().flatMap(this::getGraphVizChunk);
+        ImList<String> nodes = nodeKeys().flatMap(this::getGraphVizChunk);
 
         return TextUtils.join(ImList.join(head, nodes, tail), "\n");
     }
@@ -817,7 +1009,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      *
      * A list of all the keys in the graph
      */
-    public ImList<KEY> keys()
+    public ImList<KEY> nodeKeys()
     {
         return valueMap.keys();
     }
@@ -826,7 +1018,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      *
      * A set of all the keys in the graph
      */
-    public ImSet<KEY> keysSet()
+    public ImSet<KEY> nodeKeysSet()
     {
         return valueMap.keysSet();
     }
@@ -916,6 +1108,10 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      *  with respect to the function
      * {@code adjacentFn}
      *
+     * <p> Note that the closure does not intersect with
+     * {@code candidates}
+     *
+     *
      */
     public ImSet<KEY> getClosure(Fn<KEY, ImSet<KEY>> adjacentFn, ImSet<KEY> candidates)
     {
@@ -943,8 +1139,6 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      *  that have the label
      * {@code label}
      *
-     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
-     *
      */
     public ImSet<KEY> getAdjacents(Dir dir, LABEL label, KEY key)
     {
@@ -963,7 +1157,6 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * {@code labels}
      *
      *
-     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
      */
     public ImSet<KEY> getAdjacents(Dir dir, ImSet<LABEL> labels, KEY key)
     {
@@ -982,7 +1175,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * following the arcs with labels in the set
      * {@code labels}
      *
-     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
+     * <p> Returns a <em>set</em> of keys.
      *
      * <p> The list will not include the key
      * {@code key}
@@ -1047,7 +1240,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
      * {@code dir}
      *  following all arcs
      *
-     * <p> Returns a <em>set</em> of keys - although represented as a <em>list</em>.
+     * <p> Returns a <em>set</em> of keys.
      *
      * <p> The list will not include the key
      * {@code key}
