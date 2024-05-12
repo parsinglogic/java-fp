@@ -230,12 +230,14 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
             if (size() == 1)
                 return new Bucket<B>(hashCode, (B[]) EMPTY_ARRAY);
 
-            // Create a new array
-            // a b c d
-            // If we are removing b then after the copy the new array looks like this:
-            // a b c
-            // Now copy from c to d from the old array into the new array:
-            // a c d
+            /**
+             * Create a new array
+             * a b c d
+             * If we are removing b then after the copy the new array looks like this:
+             * a b c
+             * Now copy from c to d from the old array into the new array:
+             * a c d
+             */
             B[] newArray = Arrays.copyOf(elements, elements.length - 1);
             System.arraycopy(elements, index + 1, newArray, index, newArray.length - index);
 
@@ -530,8 +532,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         if (newBucket == bucketWithMatchingHashCode)
             return this;
         else
-            // If the size of the bucket is now zero then we must remove the
-            // bucket
+            // If the size of the bucket is now zero then we must remove the bucket
             // otherwise we must add the new bucket
             return ImSet.onBucketSet(newBucket.size() == 0
                                      ? sortedSetOfBuckets.remove(bucketWithMatchingHashCode)
@@ -597,40 +598,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     }
 
     /**
-     * <p> The set whose elements are obtained from
-     * {@code elementsCollection}
-     * .
-     * <p> ImSets can't contain
-     * {@code null}
-     *  so none of the elements in
-     * {@code elementsCollection}
-     *  can be
-     * {@code null}
-     * <h4>Examples:</h4>
-     *
-     * <pre>{@code
-     * on(Arrays.asList(1, 2, 1))    => [1, 2]
-     * on(Arrays.asList())           => []
-     * on(Arrays.asList(1, null, 3)) => throws NullPointerException("This collection can't contain nulls");
-     * }</pre>
-     * <p> @throws NullPointerException if any of the elements in
-     * {@code elementsCollection}
-     *  is
-     * {@code null}
-     * @see #onIterator(Iterator)
-     * @see #onArray(Object...)
-     * @see #on
-     *
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> ImSet<T> onAll(Collection<? extends T> elementsCollection)
-    {
-        return elementsCollection instanceof ImSet
-               ? (ImSet<T>) elementsCollection
-               : onIterator(elementsCollection.iterator());
-    }
-
-    /**
      * <p> The set whose elements are obtained by iterating over
      * {@code iterator}
      * .
@@ -645,7 +612,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * {@code iterator}
      *  is
      * {@code null}
-     * @see #onAll(Collection)
+     * @see #onAll(Iterable)
      * @see #onArray(Object...)
      * @see #on
      *
@@ -680,16 +647,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     }
 
     /**
-     * <p> The set whose elements are obtained from the list
-     * {@code ts}
-     * .
-     */
-    public static <T> ImSet<T> onAll(ImList<T> ts)
-    {
-        return ImSet.onIterator(ts.iterator());
-    }
-
-    /**
      * <p> The set whose elements are obtained from the set
      * {@code xs}
      * .
@@ -706,7 +663,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * {@code iterable}
      *
      */
-    static <A> ImSet<A> onAll(Iterable<A> iterable)
+    public static <A> ImSet<A> onAll(Iterable<A> iterable)
     {
         return onIterator(iterable.iterator());
     }
@@ -819,8 +776,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         return new ImSetIterator<T>(sortedSetOfBuckets);
     }
 
-    //
-
     /**
      * <p> {@code true}
      *  if
@@ -864,6 +819,49 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
                 return false;
         }
         return true;
+    }
+
+    /**
+     * <p> {@code true}
+     *  if
+     * {@code this}
+     *  contains an element,
+     * {@code e}
+     * , where
+     * {@code fn.of(e)}
+     *  is
+     * {@code true}
+     * .
+     *
+     */
+    public boolean containsElementWhere(Fn<T, Boolean> fn)
+    {
+        return findElementWhere(fn).isPresent();
+    }
+
+    /**
+     * <p> Find the first element,
+     * {@code e}
+     * , of
+     * {@code this}
+     * , where
+     * {@code fn.of(e)}
+     *  is
+     * {@code true}
+     *  and return
+     * {@code ImMaybe.just(e)}
+     *  or
+     * {@code ImMaybe.nothing}
+     * if no such element exists
+     *
+     */
+    public ImMaybe<T> findElementWhere(Fn<T, Boolean> fn)
+    {
+        for (T t : this)
+            if (fn.of(t))
+                return ImMaybe.just(t);
+
+        return ImMaybe.nothing;
     }
 
     /**

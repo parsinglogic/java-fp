@@ -30,6 +30,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class ImSetTest
@@ -194,6 +195,35 @@ public class ImSetTest
         {
             assertEquals(Integer.valueOf(i), s.find(i).get());
         }
+    }
+
+    @Test
+    public void testContains()
+    {
+        ImSet<Integer> s = onArray(1, 2, 3, 4);
+
+        for (int i = 1; i <= 4; i++)
+        {
+            assertEquals(true, s.contains(i));
+        }
+    }
+
+    @Test
+    public void testFindElementWhere()
+    {
+        ImSet<Integer> s = ImSet.on(1, 2, 3, 4);
+        var result = s.findElementWhere(i -> i > 2);
+
+        assertEquals(ImMaybe.just(3), result);
+    }
+
+    @Test
+    public void testContainsElementWhere()
+    {
+        ImSet<Integer> s = ImSet.on(1, 2, 3, 4);
+        var result = s.containsElementWhere(i -> i > 2);
+
+        assertTrue(result);
     }
 
     @Test
