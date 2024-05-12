@@ -1980,7 +1980,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * {@code l}
      *  by deleting 0 or more elements
      *
-     * @see <href="https://www.britannica.com/science/permutation"</a>
+     * @see <a href="https://www.britannica.com/science/permutation">
      */
     default ImList<ImList<A>> allCombinationsOfSize(int n)
     {
