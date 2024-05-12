@@ -10,7 +10,9 @@ public class ClassUtilsTest
     @Test
     public void testSimpleName()
     {
-        assertEquals("String", ClassUtils.simpleName(String.class));
+        assertEquals("String", String.class.getSimpleName());
+
+        assertEquals("String", String.class.getSimpleName());
     }
 
 }
