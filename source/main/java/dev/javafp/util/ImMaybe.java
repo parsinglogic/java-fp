@@ -14,6 +14,7 @@ import dev.javafp.ex.MaybeCannotHaveANullValueException;
 import dev.javafp.ex.MaybeHasNothing;
 import dev.javafp.func.Fn;
 import dev.javafp.func.FnConsumer;
+import dev.javafp.func.FnProducer;
 import dev.javafp.lst.ImList;
 import dev.javafp.val.ImValuesImpl;
 
@@ -200,6 +201,13 @@ public class ImMaybe<T> extends ImValuesImpl
         return isPresent()
                ? fn.of(value)
                : not;
+    }
+
+    public <A> A handle(Fn<T, A> yes, FnProducer<A> other)
+    {
+        return isPresent()
+               ? yes.of(value)
+               : other.doit();
     }
 
     /**
