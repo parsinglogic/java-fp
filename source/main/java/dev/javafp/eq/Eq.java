@@ -15,14 +15,14 @@ public interface Eq
 
     /**
      * Return
-     * {@link Equals#isEqual(Object, Object)}
+     * {@link Equals#isEqual(T, T)}
      * <p> applied to
      * {@code one}
      *  and
      * {@code two}
      *
      */
-    static boolean uals(Object one, Object two)
+    public static <T> boolean uals(T one, T two)
     {
         return Equals.isEqual(one, two);
     }

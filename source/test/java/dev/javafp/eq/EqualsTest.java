@@ -26,7 +26,6 @@ public class EqualsTest
     @Test
     public void testDifferentClasses()
     {
-
         assertFalse(Equals.isEqual(1, "foo"));
 
     }

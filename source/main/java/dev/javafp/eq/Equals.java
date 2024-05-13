@@ -98,7 +98,7 @@ public abstract class Equals
      * }</pre>
      *
      */
-    public static boolean isEqual(Object one, Object two)
+    public static <T> boolean isEqual(T one, T two)
     {
         return Objects.deepEquals(one, two);
     }
