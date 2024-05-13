@@ -45,7 +45,7 @@ public class ServerTextUtils
         return toWords_(n).trim();
     }
 
-    public static String toWords_(long n)
+    private static String toWords_(long n)
     {
         if (n == 0)
             return "zero";
@@ -53,19 +53,13 @@ public class ServerTextUtils
         {
             ImList<ImPair<Long, Long>> ps = ImList.unfold(ImPair.on(n, 0L), p -> ImPair.on(p.fst / thou, p.fst % thou)).tail();
 
-            //            say("ps", ps.take(10));
-
             ImList<ImPair<Long, Long>> ps2 = ps.takeWhile(p -> !p.equals(ImPair.on(0L, 0L)));
 
-            //            say("ps2", ps2);
-
             ImList<String> magnitudes = ps2.map(p -> componentToWords(p.snd));
-            //            say("magnitudes", magnitudes);
 
             ImList<String> nearly3 = magnitudes.zipWith(placeNames, (m, p) -> m.equals("") ? "" : m + " " + p);
 
             // Remove empty string elements
-            //            say("nearly", nearly3.filter(s1 -> !s1.isEmpty()).reverse());
 
             ImList<String> nearly = nearly3.filter(s -> !s.isEmpty());
 
@@ -87,11 +81,8 @@ public class ServerTextUtils
         int hundreds = (int) (i / 100);
         int tensAndUnits = (int) (i % 100);
 
-        //        say(hundreds, tensAndUnits);
-
         String h = toWords(hundreds);
         String t = toWords(tensAndUnits);
-        //        return h + " hundred and " + t;
 
         return hundreds == 0
                ? t

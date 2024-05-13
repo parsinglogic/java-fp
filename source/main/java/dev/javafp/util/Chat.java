@@ -234,11 +234,6 @@ public class Chat<T> extends ImValuesImpl
         return combine(ImList.on(chats));
     }
 
-    //    public static <A, B> Chat<A> do_(Chat<A> start, ImList<B> bs, Fn<B, Chat<A>> fun)
-    //    {
-    //        return bs.foldl(start, (z,e ) -> z.andThen(() -> fun.of(e)));
-    //    }
-
     public Chat<T> doMany(ImList<T> bs, Fn<T, Chat<T>> fn)
     {
         return bs.foldl(this, (z, e) -> z.andThen(() -> fn.of(e)));

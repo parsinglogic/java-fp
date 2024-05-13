@@ -268,8 +268,6 @@ public class LeafTextBox extends AbstractTextBox
             return spaceBox;
         else
         {
-            //            // Replace the tabs with spaces
-            //            text = text.replace('\t', ' ');
 
             // Does the text contain tabs?
             boolean hasTabs = text.contains("\t");
@@ -300,9 +298,6 @@ public class LeafTextBox extends AbstractTextBox
 
                 j = ii + 1;
             }
-
-            //            if (ss.size() > 1 && ss.get(ss.size() - 1).isEmpty())
-            //                ss.remove(ss.size() - 1);
 
             return new LeafTextBox(max, ss.size(), ImList.onList(ss));
         }

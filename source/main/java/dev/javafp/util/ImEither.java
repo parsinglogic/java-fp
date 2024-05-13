@@ -130,13 +130,7 @@ public class ImEither<L, R> extends ImValuesImpl
 
     public <B> ImEither<L, B> flatMap(Fn<R, ImEither<L, B>> fn)
     {
-        // Hmm - this line won't compile in javac. I can't understand why though - Van - jul-16
-        // Is it related to https://bugs.openjdk.java.net/browse/JDK-8043926
-        // return match( l -> ImEither.Left(l), r -> fn.of(r));
-
-        return isLeft
-               ? ImEither.Left(left)
-               : fn.of(right);
+        return match(l -> ImEither.Left(l), r -> fn.of(r));
     }
 
     /**

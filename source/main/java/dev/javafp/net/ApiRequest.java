@@ -224,38 +224,6 @@ public class ApiRequest extends ImValuesImpl
         }
     }
 
-    //    protected String getResponseBodyOld(HttpURLConnection con)
-    //    {
-    //
-    //        if (getStatus(con) >= 200 && getStatus(con) < 300)
-    //        {
-    //            try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream())))
-    //            {
-    //                char[] buffer = new char[300_000];
-    //                int readCount = read(buffer, 0, in);
-    //                return new String(buffer, 0, readCount);
-    //
-    //            } catch (IOException e)
-    //            {
-    //                throw new UnexpectedChecked(e);
-    //            }
-    //        }
-    //        else
-    //        {
-    //            return "";
-    //        }
-    //    }
-    //
-    //    private int read(char[] buffer, int soFar, BufferedReader in) throws IOException
-    //    {
-    //        int count = in.read(buffer, soFar, buffer.length - soFar);
-    //
-    //        return count == -1
-    //               ? soFar
-    //               : read(buffer, soFar + count, in);
-    //
-    //    }
-
     protected URL createUrl(String urlString)
     {
         try

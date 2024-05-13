@@ -40,8 +40,6 @@ class ImListOnArray<A> extends ImEagerList<A>
 
         int soFar = 0;
 
-        //        System.out.println("total " + total + " list count " + lists.size());
-
         for (ImList<?> l : lists)
         {
             ImListOnArray a = (ImListOnArray) l;
@@ -163,11 +161,6 @@ class ImListOnArray<A> extends ImEagerList<A>
      */
     public ImList<A> reverse()
     {
-        //        // We can't just use toArray here because that does not actually copy anything
-        //        A[] target = Arrays.copyOfRange(source, skipCount, skipCount + size());
-        //
-        //        return ImList.on(reverseArrayInPlace(target));
-
         return ImReverseList.on(source, skipCount, size);
     }
 

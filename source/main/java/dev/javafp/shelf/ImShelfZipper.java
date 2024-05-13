@@ -416,35 +416,6 @@ public class ImShelfZipper<T> implements Iterable<ImShelfZipper<T>>
     }
 
     /**
-     * <p> A string representation of this zipper that uses the function
-     * {@code fn}
-     *  on each element to get its string representation.
-     * <p> If this method was defined:
-     *
-     * <pre>{@code
-     * public static String star(Object o)
-     * {
-     *     return "*";
-     * }
-     * }</pre>
-     * <p> then:
-     *
-     * <pre>{@code
-     * Function1<String> starFn = FnFactory.on(this).getFnStatic(String.class, "star", Object.class);
-     *
-     * ImShelfZipper<String> z = ImShelf.onArray("Yabba", "dabba", "do").getZipper();
-     *
-     * z.next().toString(starFn)  =>  "[*] [*, *]"
-     * }</pre>
-     * @see im.functions
-     *
-     */
-    //    public String toString(Function1<String> fn)
-    //    {
-    //        return getFirst().toString(fn) + " " + getSecond().toString(fn);
-    //    }
-
-    /**
      * <p> The first list.
      *
      * <pre>{@code

@@ -262,8 +262,6 @@ public class ParseUtils
             // "a/b//c" -> [("a", "b//c"), ("b", "/c"), ("", "c"), ("c", null)]
             ImList<ImPair<String, String>> ps = ImList.unfold(Pai.r("", s), p -> ParseUtils.splitAt(sep, p.snd)).tail();
 
-            //            say(ps.take(4));
-
             // Take until we find the pair with null as its 2nd element and use the first element of each pair
             return ps.takeUntil(p -> p.snd == null).map(p -> p.fst);
         }

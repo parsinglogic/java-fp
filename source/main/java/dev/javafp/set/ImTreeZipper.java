@@ -664,7 +664,7 @@ public class ImTreeZipper<A>
         {
             // If the zipper has not been modified then the parent's left child is the same as
             // our focus so we could say this:
-            //     int parentLeftChildSize = getfocus().size();
+            //     int parentLeftChildSize = getfocus().size()
             // but we might have focus that is different from the left child of parent
             int parentLeftChildSize = parent.getFocus().getLeft().size();
             return side == Side.left

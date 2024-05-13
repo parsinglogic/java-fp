@@ -59,57 +59,6 @@ class ImListOnReader extends ImCachingLazyList<String>
             throw new UnexpectedChecked(e);
         }
 
-        //        // Hmm - a bit fiddly
-        //        try
-        //        {
-        //            int character = reader.read();
-        //
-        //            if (character == -1)
-        //                return null;
-        //            else
-        //            {
-        //                StringBuilder b = new StringBuilder();
-        //
-        //                while (character != (int) '\n' && character != -1)
-        //                {
-        //                    // If the character is a CR then we look at the next character
-        //                    if (character == '\r')
-        //                    {
-        //                        int nextCharacter = reader.read();
-        //
-        //                        // If a NL then this is the end of the line. We don't store the CR or the LF
-        //                        // If there is no next character then this is the end of the line. We do store the CR
-        //                        // Otherwise we store the CR and the next character to be `nextCharacter`
-        //                        if (nextCharacter == '\n')
-        //                        {
-        //                            break;
-        //                        }
-        //                        else if (nextCharacter == -1)
-        //                        {
-        //                            b.append((char) character);
-        //                            break;
-        //                        }
-        //                        else
-        //                        {
-        //                            b.append((char) character);
-        //                            character = nextCharacter;
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        b.append((char) character);
-        //                        character = reader.read();
-        //                    }
-        //
-        //                }
-        //
-        //                return b.toString();
-        //            }
-        //        }
-        //        catch (IOException e)
-        //        {
-        //            throw new UnexpectedChecked(e);
-        //        }
     }
 
     @Override

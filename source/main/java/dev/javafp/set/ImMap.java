@@ -323,8 +323,6 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
     {
         ImList<Entry<A, B>> es = values.map(v -> new Entry<>(getKeyFn.of(v), v));
 
-        // Had to change this line because gwt compiler crashed
-        // return es.foldl(empty(), ImMap<A,B>::putEntry);
         return es.foldl(empty(), (entries, newEntry) -> entries.putEntry(newEntry));
     }
 

@@ -19,15 +19,6 @@ class ImConsList<A> extends ImLazyList<A> implements Eq
 
     private final ImList<A> tail;
 
-    // TODO - remove this? - Van sep-2015
-    //    // To maintain the Empty singleton
-    //    private Object readResolve()
-    //    {
-    //        return head == null
-    //                ? empty
-    //                : this;
-    //    }
-
     protected ImConsList(A head, ImList<A> tail)
     {
         super(Sz.addOne(Sz.getSz(tail)));

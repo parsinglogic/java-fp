@@ -27,8 +27,6 @@ import java.util.Arrays;
  */
 public class Hash
 {
-    //    public final static int listHashCode = 10;
-    //    public final static int arrayHashCode = 11;
 
     public static int hash(Object... values)
     {

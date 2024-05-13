@@ -311,8 +311,6 @@ public class FileUtil
      */
     public static void assertPathIsReadable(Path path)
     {
-        //        assertPathExists(path);
-
         if (!isReadable(path))
             throw FileProblem.create(path, "to be readable");
     }
@@ -418,9 +416,6 @@ public class FileUtil
         {
             throw new UnexpectedChecked(e);
         }
-
-        //        if (path.toFile().list().length > 0)
-        //            throw FileProblem.create(path, "to be empty");
     }
 
     /**
@@ -710,9 +705,6 @@ public class FileUtil
 
     private static Chat<Path> makeFile3(Path path, String contents)
     {
-        //
-        //        try (FileOutputStream fos = new FileOutputStream(path.toFile());
-        //                PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos, "UTF-8"))))
         try (PrintWriter out = new PrintWriter(Files.newBufferedWriter(path)))
         {
             out.print(contents);
