@@ -8,14 +8,16 @@
 package dev.javafp.eq;
 
 /**
- * A "shortcut" for {@link Equals#isEqual(Object, Object)}
+ * A "shortcut" for
+ * {@link Equals#isEqual(T, T)}
  */
 public interface Eq
 {
 
     /**
-     * Return
-     * {@link Equals#isEqual(T, T)}
+     * <p> Return
+     * {@code Equals.isEqual()}
+     *
      * <p> applied to
      * {@code one}
      *  and
