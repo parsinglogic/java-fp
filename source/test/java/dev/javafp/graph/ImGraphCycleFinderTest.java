@@ -14,14 +14,13 @@ public class ImGraphCycleFinderTest
     @Test
     public void one()
     {
-
         /**
          * A test graph:
          *
          *              4
          *          ┌─◁─▢─◁─┐
-         *    1    2│   │   │5
-         *    ▢──▷──▢   △   ▢──▷──▢ 6
+         *    1    2│   │   │5    6
+         *    ▢──▷──▢   △   ▢──▷──▢
          *          │   │   │
          *          └─▷─▢─▷─┘
          *              3
@@ -41,16 +40,6 @@ public class ImGraphCycleFinderTest
         assertTrue(g.hasCycle());
 
         ImGraphCycleFinder finder = ImGraphCycleFinder.with(g);
-
-        //        ImSet<ImArc<Integer, String>> a = g.getArcs(Out, 1);
-        //
-        //        ImArc<Integer, String> arc = a.toList().head();
-        //        say(arc);
-        //
-        //        ImGraph<Integer, String, String> g2 = g.removeArc(arc.label, arc.start, arc.end);
-
-        //        say("g", g);
-        //        say("g2", g2);
 
         ImList<ImList<ImArc<Integer, String>>> allCycles = finder.getAllCycles();
 
