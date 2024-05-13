@@ -45,13 +45,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor-summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor-detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-detail">Method</a></li>
 </ul>
 </div>
@@ -77,22 +77,57 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ImGraphCycleFinder&lt;L,<wbr>K,<wbr>V&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block"><p> A class to find cycles in graphs.
+ <p> A cycle is a path where you can reach the start node by following arcs
+ <p> If we consider an example of a graph that contains 6 nodes, connected as shown:
+
+ <pre><code>
+           4
+       ┌─◁─▢─◁─┐
+ 1    2│   │   │5    6
+ ▢──▷──▢   △   ▢──▷──▢
+       │   │   │
+       └─▷─▢─▷─┘
+           3
+ </code></pre>
+ <p> Then we can see that there are "two" cycles:
+
+ <pre><code>
+ 2, 3, 4, 2
+ 2, 3, 5, 4, 2
+ </code></pre>
+ <p> We could think of each of these paths as representing a number of paths that are cycles
+
+ <pre><code>
+ 2, 3, 4, 2
+ </code></pre>
+ <p> also represents
+
+ <pre><code>
+ 3, 4, 2, 3
+ 4, 2, 3, 4
+ </code></pre>
+ <p> This class implements two algorithms
+ <p> One (getAllCycles) searches for cycles and returns any that it finds
+ <p> The other (removeNonCycles) removes nodes and arcs from the graph to create a new graph until
+ <p> we either have an empty graph - which means
+ that the original graph did not contain any cycles
+ <p> or we have a graph that contains only cycles - in the sense that if youstart on a node and follow an out arc to
+ another node, you will never encounter a node that has no out arcs.
+ <p> In the example, the remaining graph is this:
+
+ <pre><code>
+           4
+       ┌─◁─▢─◁─┐
+       │   │   │
+     2 ▢   △   ▢ 5
+       │   │   │
+       └─▷─▢─▷─┘
+           3
+ </code></pre></div>
 </section>
 <section class="summary">
 <ul class="summary-list">
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<li>
-<section class="constructor-summary" id="constructor-summary">
-<h2>Constructor Summary</h2>
-<div class="caption"><span>Constructors</span></div>
-<div class="summary-table two-column-summary">
-<div class="table-header col-first">Constructor</div>
-<div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(dev.javafp.graph.ImGraph)" class="member-name-link">ImGraphCycleFinder</a><wbr>(<a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">V</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">L</a>&gt;&nbsp;graph)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-</div>
-</section>
-</li>
 <!-- ========== METHOD SUMMARY =========== -->
 <li>
 <section class="method-summary" id="method-summary">
@@ -106,25 +141,23 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">L</a>&gt;&gt;&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAllCycles()" class="member-name-link">getAllCycles</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">L</a>&gt;&gt;&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCyclesFromNode(dev.javafp.lst.ImList,K)" class="member-name-link">getCyclesFromNode</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">L</a>&gt;&gt;&nbsp;pathSoFar,
- <a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>&nbsp;node)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">L</a>&gt;&gt;&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCyclesStartingAt(K)" class="member-name-link">getCyclesStartingAt</a><wbr>(<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>&nbsp;node)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> Return a list of arcs that represent the cycles.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">V</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">L</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#removeNonCycles()" class="member-name-link">removeNonCycles</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Return the graph with all the non cycle arcs removed so that the only arcs left form cycles
- We can't tell how many cycles or how they are connected</div>
+<div class="block"> Return the graph with all the non cycle arcs removed so that the only arcs left form cycles.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;K,<wbr>
 V,<wbr>
 L&gt;&nbsp;<a href="ImGraphCycleFinder.html" title="class in dev.javafp.graph">ImGraphCycleFinder</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#with(dev.javafp.graph.ImGraph)" class="member-name-link">with</a><wbr>(<a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;K,<wbr>V,<wbr>L&gt;&nbsp;graph)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Create a cycle finder with
+ <code>graph</code>
+  as the graph to test</div>
+</div>
 </div>
 </div>
 </div>
@@ -137,20 +170,6 @@ L&gt;&nbsp;<a href="ImGraphCycleFinder.html" title="class in dev.javafp.graph">I
 </section>
 <section class="details">
 <ul class="details-list">
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<li>
-<section class="constructor-details" id="constructor-detail">
-<h2>Constructor Details</h2>
-<ul class="member-list">
-<li>
-<section class="detail" id="&lt;init&gt;(dev.javafp.graph.ImGraph)">
-<h3>ImGraphCycleFinder</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">ImGraphCycleFinder</span><wbr><span class="parameters">(<a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">V</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">L</a>&gt;&nbsp;graph)</span></div>
-</section>
-</li>
-</ul>
-</section>
-</li>
 <!-- ============ METHOD DETAIL ========== -->
 <li>
 <section class="method-details" id="method-detail">
@@ -162,33 +181,28 @@ L&gt;&nbsp;<a href="ImGraphCycleFinder.html" title="class in dev.javafp.graph">I
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;K,<wbr>
 V,<wbr>
 L&gt;</span>&nbsp;<span class="return-type"><a href="ImGraphCycleFinder.html" title="class in dev.javafp.graph">ImGraphCycleFinder</a></span>&nbsp;<span class="element-name">with</span><wbr><span class="parameters">(<a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;K,<wbr>V,<wbr>L&gt;&nbsp;graph)</span></div>
+<div class="block"><p> Create a cycle finder with
+ <code>graph</code>
+  as the graph to test</div>
 </section>
 </li>
 <li>
 <section class="detail" id="getAllCycles()">
 <h3>getAllCycles</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">L</a>&gt;&gt;&gt;</span>&nbsp;<span class="element-name">getAllCycles</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getCyclesStartingAt(K)">
-<h3 id="getCyclesStartingAt(java.lang.Object)">getCyclesStartingAt</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">L</a>&gt;&gt;&gt;</span>&nbsp;<span class="element-name">getCyclesStartingAt</span><wbr><span class="parameters">(<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>&nbsp;node)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getCyclesFromNode(dev.javafp.lst.ImList,K)">
-<h3 id="getCyclesFromNode(dev.javafp.lst.ImList,java.lang.Object)">getCyclesFromNode</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">L</a>&gt;&gt;&gt;</span>&nbsp;<span class="element-name">getCyclesFromNode</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">L</a>&gt;&gt;&nbsp;pathSoFar,
- <a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>&nbsp;node)</span></div>
+<div class="block"><p> Return a list of arcs that represent the cycles. Each list of arcs of length
+ <code>n</code>
+  will represent
+ <code>n</code>
+  possible cycles.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="removeNonCycles()">
 <h3>removeNonCycles</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">K</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">V</a>,<wbr><a href="ImGraphCycleFinder.html" title="type parameter in ImGraphCycleFinder">L</a>&gt;</span>&nbsp;<span class="element-name">removeNonCycles</span>()</div>
-<div class="block">Return the graph with all the non cycle arcs removed so that the only arcs left form cycles
- We can't tell how many cycles or how they are connected</div>
+<div class="block"><p> Return the graph with all the non cycle arcs removed so that the only arcs left form cycles.
+ <p> We can't tell how many cycles there are or how they are connected.</div>
 </section>
 </li>
 </ul>

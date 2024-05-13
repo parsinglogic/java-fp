@@ -69,7 +69,8 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">Eq</span></div>
-<div class="block">A "shortcut" for <a href="Equals.html#isEqual(java.lang.Object,java.lang.Object)"><code>Equals.isEqual(Object, Object)</code></a></div>
+<div class="block">A "shortcut" for
+ <a href="Equals.html#isEqual(T,T)"><code>Equals.isEqual(T, T)</code></a></div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -83,12 +84,12 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#uals(java.lang.Object,java.lang.Object)" class="member-name-link">uals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;one,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;two)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1"><code>static &lt;T&gt;&nbsp;boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1"><code><a href="#uals(T,T)" class="member-name-link">uals</a><wbr>(T&nbsp;one,
+ T&nbsp;two)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1">
-<div class="block">Return
- <a href="Equals.html#isEqual(java.lang.Object,java.lang.Object)"><code>Equals.isEqual(Object, Object)</code></a></div>
+<div class="block"> Return
+ <code>Equals.isEqual()</code></div>
 </div>
 </div>
 </div>
@@ -104,12 +105,13 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="uals(java.lang.Object,java.lang.Object)">
-<h3>uals</h3>
-<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">uals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;one,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;two)</span></div>
-<div class="block">Return
- <a href="Equals.html#isEqual(java.lang.Object,java.lang.Object)"><code>Equals.isEqual(Object, Object)</code></a>
+<section class="detail" id="uals(T,T)">
+<h3 id="uals(java.lang.Object,java.lang.Object)">uals</h3>
+<div class="member-signature"><span class="modifiers">static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">uals</span><wbr><span class="parameters">(T&nbsp;one,
+ T&nbsp;two)</span></div>
+<div class="block"><p> Return
+ <code>Equals.isEqual()</code>
+
  <p> applied to
  <code>one</code>
   and
