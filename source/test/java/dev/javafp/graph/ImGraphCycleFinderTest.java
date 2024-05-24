@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import static dev.javafp.tuple.ImPair.on;
 import static dev.javafp.util.Say.say;
-import static org.junit.Assert.assertTrue;
 
 public class ImGraphCycleFinderTest
 {
@@ -37,7 +36,7 @@ public class ImGraphCycleFinderTest
 
         say("g", g.showAsSets());
 
-        assertTrue(g.hasCycle());
+        //        assertTrue(g.hasCycle());
 
         ImGraphCycleFinder finder = ImGraphCycleFinder.with(g);
 

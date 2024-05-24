@@ -10,7 +10,6 @@ package dev.javafp.graph;
 import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
 import dev.javafp.box.TopDownBox;
-import dev.javafp.eq.Equals;
 import dev.javafp.ex.CantRemoveNodes;
 import dev.javafp.ex.KeyExists;
 import dev.javafp.ex.KeyMissing;
@@ -677,42 +676,6 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     }
 
     /**
-     * {@code true}
-     * if any of the nodes in the graph have cycles.
-     *
-     * A cycle is a path from a node to itself that can be traced by following any arc on a node in the
-     * direction
-     * {@code Out}
-     */
-    public boolean hasCycle()
-    {
-        if (arcsOut.entrySet.containsElementWhere(e -> xxx(e)))
-            return true;
-        else
-            return roots().any(this::hasCycle);
-    }
-
-    private <K, L> boolean xxx(ImMap.Entry<K, ImSet<ImArc<K, L>>> e)
-    {
-        return e.value.containsElementWhere(a -> Equals.isEqual(a.end, e.key));
-    }
-
-    private boolean hasCycle(KEY root)
-    {
-        return hasCycle(ImSet.empty(), root);
-    }
-
-    private boolean hasCycle(ImSet<KEY> set, KEY key)
-    {
-        Throw.Exception.ifNull("key", key);
-
-        //System.out.println(ImList.onAll(set) + " --- " + key);
-        return set.contains(key)
-               ? true
-               : getAdjacents(Out, key).any(a -> hasCycle(set.add(key), a));
-    }
-
-    /**
      * The text-box representation of the graph in an "ascii-art" form
      *
      * <p> <img src="{@docRoot}/dev/doc-files/graph-diagrams.png"  width=1000/>
@@ -1103,6 +1066,16 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     }
 
     /**
+     * <p> The arcs in the direction
+     * {@code out}
+     *
+     */
+    public ImSet<ImArc<KEY, LABEL>> getOutArcs()
+    {
+        return ImSet.join(arcsOut.values());
+    }
+
+    /**
      * <p> Get the paths of the keys that are connected to
      * {@code key}
      *  by arcs in the direction
@@ -1190,7 +1163,7 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
     /**
      * The list of data values associated with the nodes whose keys are in
      *
-     * {@code key}
+     * {@code keys}
      *
      * There might be repeated values in the list.
      */

@@ -37,12 +37,15 @@ import static dev.javafp.graph.ImGraph.Dir.Out;
  * 3, 4, 2, 3
  * 4, 2, 3, 4
  * }</pre>
- * <p> This class implements two algorithms
+ * <p> This class implements two algorithms to find cycles.
  * <p> One (getAllCycles) searches for cycles and returns any that it finds
  * <p> The other (removeNonCycles) removes nodes and arcs from the graph to create a new graph until
  * <p> we either have an empty graph - which means
  * that the original graph did not contain any cycles
- * <p> or we have a graph that contains only cycles - in the sense that if youstart on a node and follow an out arc to
+ * <p> or we have a graph that contains only cycles - in the sense that each node belongs to at least one path that is
+ * a cycle.
+ *
+ * <p> If you start on a node and follow an out arc to
  * another node, you will never encounter a node that has no out arcs.
  * <p> In the example, the remaining graph is this:
  *

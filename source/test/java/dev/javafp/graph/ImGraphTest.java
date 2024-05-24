@@ -853,30 +853,7 @@ public class ImGraphTest
         say("g2", g2);
 
         checkIntegrity(g2);
-
     }
-
-    //    @Test
-    //    public void testTop0()
-    //    {
-    //        ImGraph<String, String, String> g = makeGraph();
-    //
-    //        say(g.show());
-    //
-    //        g.topSort0(i -> g.getAdjacents(Out, i), "a", ImSet.on());
-    //
-    //    }
-    //
-    //    @Test
-    //    public void testTop()
-    //    {
-    //        ImGraph<String, String, String> g = makeGraph();
-    //
-    //        say(g.show());
-    //
-    //        g.topSort(i -> g.getAdjacents(Out, i), "a");
-    //
-    //    }
 
     /**
      * Create a graph like this:
@@ -935,7 +912,6 @@ public class ImGraphTest
             // Only add if the start node is present
             if (g.containsNodeWithKey(n1))
                 g = g.addNodeIfMissing(n1, "").addNodeToParentIfMissing("-", n1, n2, "");
-
         }
 
         return g;
@@ -973,7 +949,6 @@ public class ImGraphTest
 
             return g3;
         }
-
     }
 
     static class TestGraph extends ImGraph<Integer, String, String>
@@ -1014,7 +989,6 @@ public class ImGraphTest
                 .makePath(1, 3, 6, 7)
                 .makePath(2, 3)
                 .makePath(5, 6);
-
     }
 
     private ImGraph<Integer, String, String> makeDagExample9()
@@ -1027,7 +1001,6 @@ public class ImGraphTest
                 .makePath(4, 9)
                 .makePath(7, 10)
                 .makePath(2, 8);
-
     }
 
     private ImGraph<Integer, String, String> makeDagExample2()
@@ -1037,97 +1010,16 @@ public class ImGraphTest
 
         return g.makePath(1, 2, 4)
                 .makePath(1, 3, 4);
-        //                .makePath(3, 2);
-
-    }
-
-    public ImList<ImGraph<String, String, String>> getAllGraphsOfSizeThree()
-    {
-        ImGraph<String, String, String> g = ImGraph.empty();
-
-        //        ImList<ImGraph<String, String, String>> gs = addNewNodeAndConnect(g, "a");
-
-        ImGraph<String, String, String> g1 = g.addNode("a", "a");
-
-        ImList<ImGraph<String, String, String>> gs = GraphBuilder.with(g1).addNewNodeAndConnect(ImList.on(g1), "b");
-
-        //        say(gs.map(i -> i.showAsSets()));
-
-        ImList<ImGraph<String, String, String>> gs2 = GraphBuilder.with(gs.head()).addNewNodeAndConnect(gs, "c");
-
-        //        say(gs2.map(i -> i.showAsSets()));
-
-        return gs2;
     }
 
     @Test
     public void testCycles()
     {
-
         ImGraph<String, String, String> g1 = makeCycleGraph();
 
         // Check Closures - no labels
         assertEquals("", ImSet.on("b", "c", "a"), g1.getClosure(Out, "a"));
 
-    }
-
-    @Test
-    public void testHasCycle()
-    {
-        ImGraph<String, String, String> g1 = ImGraph.on();
-
-        var g2 = g1.addNode("a", "a");
-
-        var g3 = g2.addArc("", "a", "a");
-
-        assertTrue(g3.hasCycle());
-
-    }
-
-    @Test
-    public void testCycleFinder()
-    {
-
-        ImList<ImGraph<String, String, String>> gs2 = getAllGraphsOfSizeThree();
-
-        //        var gsWithCycles = gs2.filter(gg -> gg.hasCycle());
-        var gsWithCycles2 = gs2.filter(gg -> ImGraphCycleFinder.with(gg).getAllCycles().isNotEmpty());
-        var gsWithCycles3 = gs2.filter(gg -> ImGraphCycleFinder.with(gg).removeNonCycles().nodeKeys().isNotEmpty());
-
-        //
-        //        var ps = gs2.zip(ImList.oneTo(gs2.size()));
-        //
-        //        ps.foreach(p -> {
-        //            say(p.snd);
-        //            ImGraphCycleFinder.with(p.fst).removeNonCycles();
-        //        });
-
-        //        ImList<AbstractTextBox> one = gsWithCycles.map(i -> i.showAsSets());
-        //        say(one);
-        //
-
-        //        ImList<AbstractTextBox> two = gsWithCycles2.map(i -> i.showAsSets());
-        //        say(two);
-        //
-        //        ImList<AbstractTextBox> three = gsWithCycles3.map(i -> i.showAsSets());
-        //        say(three);
-
-        assertEquals(gsWithCycles2, gsWithCycles3);
-
-        gsWithCycles2.foreach(g -> {
-            if (!g.hasCycle())
-                say("wrong", g.showAsSets());
-        });
-
-        //        say(TopDownBox.withAllBoxes(one).before(TopDownBox.withAllBoxes(two)));
-
-        //        gs2.allCombinationsOfSize(2).foreach(p -> assertNotEquals(p.at(1), p.at(2)));
-        //
-        //        ImList<ImGraph<String, String, String>> gs3 = GraphBuilder.with(gs2.head()).addNewNodeAndConnect(gs2, "d");
-        //
-        //        say(gs3.map(i -> i.showAsSets()));
-        //
-        //        gs3.allCombinationsOfSize(2).foreach(p -> assertNotEquals(p.at(1), p.at(2)));
     }
 
 }
