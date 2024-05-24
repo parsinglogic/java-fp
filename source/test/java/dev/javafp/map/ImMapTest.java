@@ -31,7 +31,7 @@ import static org.junit.Assert.fail;
 public class ImMapTest
 {
     @Test
-    public void testOne()
+    public void testSimpleRemove()
     {
         ImMap<String, String> map = new ImMap();
 
@@ -145,6 +145,19 @@ public class ImMapTest
         assertEquals(m1.hashCode(), m2.hashCode());
         assertEquals(m1.remove("a").remove("b").hashCode(), m2.remove("b").remove("a").hashCode());
     }
+
+    //    @Test
+    //    public void testHashCodeForPairs()
+    //    {
+    //        ImMap<Integer, Integer> m1 = ImMap.on(1, 2);
+    //
+    //        say(m1.entrySet.anyElement().hashCode());
+    //
+    //        ImMap<Integer, Integer> m2 = ImMap.on(2, 1);
+    //
+    //        say(m2.entrySet.anyElement().hashCode());
+    //
+    //    }
 
     @Test
     public void hashCodeExample()
@@ -381,8 +394,8 @@ public class ImMapTest
             ImMap<Fooble, Integer> imMapAfterOp = apply(op, imMap);
 
             // Check that they are "the same"
-            String expected = trace(mapAfterOp);
-            String actual = trace(imMapAfterOp);
+            String expected = traceJavaMap(mapAfterOp);
+            String actual = traceImMap(imMapAfterOp);
 
             if (!(expected.equals(actual)) || mapAfterOp.size() != imMapAfterOp.size())
             {
@@ -424,26 +437,22 @@ public class ImMapTest
         //        assertEquals(map.hashCode(), imMap.hashCode());
     }
 
-    private String trace(Map<Fooble, Integer> setAfterOp)
+    private String traceJavaMap(Map<Fooble, Integer> setAfterOp)
     {
         TreeSet<String> stringsInOrder = new TreeSet<String>();
         for (Map.Entry<Fooble, Integer> entry : setAfterOp.entrySet())
         {
-            stringsInOrder.add("" + entry.getKey() + "->" + entry.getValue());
+            stringsInOrder.add("(" + entry.getKey() + ", " + entry.getValue() + ")");
         }
 
         return stringsInOrder.toString();
     }
 
-    private String trace(ImMap<Fooble, Integer> mt)
+    private String traceImMap(ImMap<Fooble, Integer> mt)
     {
-        TreeSet<String> stringsInOrder = new TreeSet<String>();
-        for (ImMap.Entry<Fooble, Integer> entry : mt)
-        {
-            stringsInOrder.add("" + entry.key + "->" + entry.value);
-        }
 
-        return stringsInOrder.toString();
+        return mt.keyValuePairs().map(p -> p.toString()).sort().toString();
+
     }
 
     private List<Op> generateOpsFor(Map<Fooble, Integer> set, int depth)

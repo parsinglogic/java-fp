@@ -21,7 +21,6 @@ import dev.javafp.util.Util;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -115,6 +114,11 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
 
     // The cached hashCode value
     private int cachedHashCode = 0;
+
+    /**
+     * The sorted set that contains the buckets
+     */
+    final ImSortedSet<Bucket<T>> sortedSetOfBuckets;
 
     /**
      * <p> Enumeration containing values
@@ -214,8 +218,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         }
 
         @SuppressWarnings("unchecked")
-            // If an equals element is not in this bucket then the bucket should
-            // not change
         Bucket<B> remove(final B elementToRemove)
         {
 
@@ -312,21 +314,26 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     }
 
     /**
-     * <p> The sorted set that contains the buckets
-     */
-    final ImSortedSet<Bucket<T>> sortedSetOfBuckets;
-
-    /**
-     * <p> The number of elements in this set
+     * <p> Some statistics about the internal representation of this set.
+     * <p> For example:
+     *
+     * <pre>{@code
+     * # buckets = 60939
+     * height  = 19
+     * average bucket size = 1.0754361
+     * max bucket size = 5
+     * totalElements  = 65536
+     * average elements length = 1.0754361
+     * }</pre>
+     *
+     *
      */
     final private int size;
 
-    protected String getStats()
+    public String getStats()
     {
         int total = 0;
-        int totalElements = 0;
-        int max = 0;
-        int maxElements = 0;
+        int maxBucketSize = 0;
 
         ImTreeIterator<Bucket<T>> it = sortedSetOfBuckets.iterator();
 
@@ -334,20 +341,17 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
         {
             Bucket<T> b = it.next();
             total += b.size();
-            totalElements += b.elements.length;
-            max = Math.max(max, b.size());
-            maxElements = Math.max(maxElements, b.elements.length);
+            maxBucketSize = Math.max(maxBucketSize, b.size());
+
         }
 
         return //
                 "# buckets = " + sortedSetOfBuckets.size() + //
-                        "\nmax bucket size = " + max + //
-                        "\ntotal  = " + total + //
                         "\nheight  = " + sortedSetOfBuckets.tree.getHeight() + //
                         "\naverage bucket size = " + total / (float) sortedSetOfBuckets.size() + //
-                        "\nmaxElements  = " + maxElements + //
-                        "\ntotalElements  = " + totalElements + //
-                        "\naverage elements length = " + totalElements / (float) sortedSetOfBuckets.size();
+                        "\nmax bucket size = " + maxBucketSize + //
+                        "\ntotalElements  = " + total + //
+                        "\naverage elements length = " + total / (float) sortedSetOfBuckets.size();
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -566,6 +570,49 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     }
 
     /**
+     * <p> {@code true}
+     *  if
+     * {@code this}
+     *  contains an element,
+     * {@code e}
+     * , where
+     * {@code fn.of(e)}
+     *  is
+     * {@code true}
+     * .
+     *
+     */
+    public boolean containsElementWhere(Fn<T, Boolean> fn)
+    {
+        return findElementWhere(fn).isPresent();
+    }
+
+    /**
+     * <p> Find the first element,
+     * {@code e}
+     * , of
+     * {@code this}
+     * , where
+     * {@code fn.of(e)}
+     *  is
+     * {@code true}
+     *  and return
+     * {@code ImMaybe.just(e)}
+     *  or
+     * {@code ImMaybe.nothing}
+     * if no such element exists
+     *
+     */
+    public ImMaybe<T> findElementWhere(Fn<T, Boolean> fn)
+    {
+        for (T t : this)
+            if (fn.of(t))
+                return ImMaybe.just(t);
+
+        return ImMaybe.nothing;
+    }
+
+    /**
      * <p> The set whose elements are obtained from
      * {@code array}
      * .
@@ -586,7 +633,7 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      * {@code array}
      *  is
      * {@code null}
-     * @see #onAll(Collection)
+     *
      * @see #onIterator(Iterator)
      * @see #on
      *
@@ -819,49 +866,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
                 return false;
         }
         return true;
-    }
-
-    /**
-     * <p> {@code true}
-     *  if
-     * {@code this}
-     *  contains an element,
-     * {@code e}
-     * , where
-     * {@code fn.of(e)}
-     *  is
-     * {@code true}
-     * .
-     *
-     */
-    public boolean containsElementWhere(Fn<T, Boolean> fn)
-    {
-        return findElementWhere(fn).isPresent();
-    }
-
-    /**
-     * <p> Find the first element,
-     * {@code e}
-     * , of
-     * {@code this}
-     * , where
-     * {@code fn.of(e)}
-     *  is
-     * {@code true}
-     *  and return
-     * {@code ImMaybe.just(e)}
-     *  or
-     * {@code ImMaybe.nothing}
-     * if no such element exists
-     *
-     */
-    public ImMaybe<T> findElementWhere(Fn<T, Boolean> fn)
-    {
-        for (T t : this)
-            if (fn.of(t))
-                return ImMaybe.just(t);
-
-        return ImMaybe.nothing;
     }
 
     /**
@@ -1254,24 +1258,41 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     @Override
     public int hashCode()
     {
-        if (cachedHashCode == 0)
-            cachedHashCode = computeHash();
-
-        return cachedHashCode;
+        return cachedHashCode == 0
+               ? cachedHashCode = computeHash()
+               : cachedHashCode;
     }
 
     /**
-     * This hash computation can't rely on any ordering in the elements -  so it has to look at all the elements
      *
-     * It uses the same algorithm to combine the hashCodes of the elements as java.util.AbstractSet
+     * <p> At first glance, we might think that the
+     * hash computation of an unordered collection like a set
+     * can't rely on any ordering in the elements.
+     * <p> This is what
+     * {@code java.util.AbstractSet}
+     *  assumes, for example.
+     * <p> But, because we store the elements of the set in a sorted set of
+     * <em>Buckets</em>
+     *  - where all the elements with the same hashcode
+     * are stored in the same bucket - then we can use the ordering of that set to help us.
+     * <p> This allows us to use the multiplier that we use for ordered lists:
+     *
+     * <p>{@link Hash#hashCodeOfIterable(Iterable)}
+     *
+     * <p> to reduce hash conflicts.
+     * <p> Maybe we could use a sample size approach as well? For now, we are considering all the elements.
+     *
+     * <p> We also adjust the hashcode calculation for each bucket by considering its size.
+     *
      */
     private int computeHash()
     {
-        int h = 0;
-
-        for (T t : this)
-            h += Hash.hashCodeOf(t);
-
-        return h;
+        return Hash.sizeMultiplier * this.size() + Hash.hashCodeOfIterableUsing(sortedSetOfBuckets, b -> hashCodeAdjustedForSize(b));
     }
+
+    private int hashCodeAdjustedForSize(Bucket<?> bucket)
+    {
+        return bucket.hashCode * bucket.size();
+    }
+
 }

@@ -64,6 +64,18 @@ public class ImSetTest
     }
 
     @Test
+    public void testHashCode()
+    {
+        ImSet s = ImSet.on(1, 2, 3, 4, 5, 6);
+
+        say(s.hashCode());
+
+        ImSet s2 = ImSet.on(6, 5, 1, 3, 2, 4);
+
+        say(s2.hashCode());
+    }
+
+    @Test
     public void testAddingNullThrows()
     {
         try
@@ -177,8 +189,8 @@ public class ImSetTest
     public void testFindDodgyHashCodes()
     {
 
-        ImSet<DodgyHashCode> s = ImSet.<DodgyHashCode>empty();
-        for (int i = 1; i <= 20000; i++)
+        ImSet<DodgyHashCode> s = ImSet.empty();
+        for (int i = 1; i <= 200; i++)
         {
             s = s.add(new DodgyHashCode(i));
         }

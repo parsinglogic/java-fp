@@ -23,9 +23,7 @@ public abstract class ImValuesImpl implements Serializable, Values
 {
     private static final long serialVersionUID = 1L;
 
-    protected int hashCode = 0;
-
-    private boolean hashed;
+    protected int cachedHashCode = 0;
 
     /**
      * The (cached) hashcode for this object.
@@ -33,13 +31,12 @@ public abstract class ImValuesImpl implements Serializable, Values
     @Override
     public int hashCode()
     {
-        if (hashCode == 0)
-            hashCode = computeHash2();
-
-        return hashCode;
+        return cachedHashCode == 0
+               ? cachedHashCode = computeHash()
+               : cachedHashCode;
     }
 
-    protected int computeHash2()
+    protected int computeHash()
     {
         return getValues().hashCode();
     }

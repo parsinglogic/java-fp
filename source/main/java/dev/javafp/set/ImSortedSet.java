@@ -12,6 +12,7 @@ import dev.javafp.func.Fn;
 import dev.javafp.lst.ImList;
 import dev.javafp.util.ArrayIterator;
 import dev.javafp.util.Caster;
+import dev.javafp.util.Hash;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TextUtils;
 
@@ -405,14 +406,14 @@ public class ImSortedSet<T extends Comparable<T>> implements Iterable<T>, Serial
     public int hashCode()
     {
         if (cachedHashCode == 0)
-            cachedHashCode = computeHash(10);
+            cachedHashCode = computeHash();
 
         return cachedHashCode;
     }
 
-    private int computeHash(int count)
+    private int computeHash()
     {
-        return ImList.onAll(this).hashCode(count);
+        return Hash.sizeMultiplier * size() + Hash.hashCodeOfIterable(this);
     }
 
 }

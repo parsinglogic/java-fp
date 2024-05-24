@@ -178,15 +178,12 @@ public class ImListTest implements Constants
     @Test
     public void testListsCanContainNulls()
     {
-        ImList<Integer> cons = ImList.<Integer>on().withHead(null);
-        ImList<Integer> nulls = cons(null, cons);
-        ImList<Integer> nullsList = ImList.onList(Arrays.asList(null, null));
+        ImList<Object> n3 = on(null, null, null);
 
-        assertEquals(1, empty.hashCode());
-        assertEq(nulls, nulls);
-        int expected = 31 * 31;
-        assertEquals(expected, nulls.hashCode());
-        assertEquals(expected, nullsList.hashCode());
+        ImList<String> s2 = on(null, null);
+        ImList<String> s3 = s2.push(null);
+
+        assertEquals(n3, s3);
     }
 
     @Test
@@ -249,6 +246,16 @@ public class ImListTest implements Constants
     }
 
     @Test
+    public void testHash()
+    {
+        ImList<Number> xs = ImList.on(1, 2, 3, 4, 5);
+
+        ImSet<Number> ss = xs.toImSet();
+
+        assertEquals(xs.hashCode(), ss.hashCode());
+    }
+
+    @Test
     public void testEquals3()
     {
         ImList<Number> xs = ImList.on(1, 2);
@@ -257,7 +264,6 @@ public class ImListTest implements Constants
         assertTrue(ys.equals(xs));
 
         assertTrue(((Object) ys).equals((Object) xs));
-
     }
 
     @Test

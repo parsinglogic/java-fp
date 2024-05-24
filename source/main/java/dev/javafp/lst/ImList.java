@@ -32,7 +32,6 @@ import dev.javafp.tuple.ImPair;
 import dev.javafp.tuple.ImQuartet;
 import dev.javafp.tuple.ImTriple;
 import dev.javafp.tuple.Pai;
-import dev.javafp.util.Hash;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TextUtils;
 
@@ -1958,16 +1957,36 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      *  chosen from
      * {@code this}
      * .
-     * <p> Because we are returning <em>combinations</em> rather than <em>permutations</em> (so order is not important) each tuple is
-     * a
-     * <em>sub-sequence</em>
-     *  of
      *
-     * {@code this}
+     * <p> Let the size of the list be
+     * {@code m}
+     * .
+     * <p> To explain what this function does let's transform the list to a list of integers
+     * {@code i}
+     *  where
+     * {@code 1 ≤ i ≤ m}
+     *  and each element with
+     * index
+     * {@code i}
+     *  is mapped to
+     * {@code i}
+     * .
+     *
+     * <p> So the list
      *
      * <pre>{@code
-     * [1, 2, 3, 4].allCombinationsOfSize(3) == [[1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4]]
+     * ["a", "b", "c", "a"]
      * }</pre>
+     * <p> would become
+     *
+     * <pre>{@code
+     * [1, 2, 3, 4]
+     * }</pre>
+     *
+     *
+     * <p>Each combination is a unique
+     * <em>sub-sequence</em>
+     * of the list
      *
      * <p> A <em>sub-sequence</em>,
      * {@code s}
@@ -1980,7 +1999,32 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * {@code l}
      *  by deleting 0 or more elements
      *
-     * @see <a href="https://www.britannica.com/science/permutation">
+     * <p> A
+     * <em>combination</em>
+     *  of size
+     * {@code n}
+     *  has no duplicate elements
+     *
+     * <pre>{@code
+     * [1, 2, 3, 4].allCombinationsOfSize(1) == [[1], [2], [3], [4]]
+     * [1, 2, 3, 4].allCombinationsOfSize(2) == [[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4],]
+     * [1, 2, 3, 4].allCombinationsOfSize(3) == [[1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4]]
+     * [1, 2, 3, 4].allCombinationsOfSize(4) == [[1, 2, 3, 4]]
+     * }</pre>
+     *
+     * <p>If we consider combinations as defined above and then imagine that we then transform each combination of integers to the elements that they represent in the obvious way, then
+     * this is what this function does.
+     *
+     * <p>Using the example above:
+     * <pre>{@code
+     * ["a", "b", "c", "a"].allCombinationsOfSize(1) == [["a"], ["b"], ["c"], ["a"]]
+     * ["a", "b", "c", "a"].allCombinationsOfSize(2) == [["a", "b"], ["a", "c"], ["a", "d"], ["b", "c"], ["b", "a"], ["c", "a"] ]
+     * ["a", "b", "c", "a"].allCombinationsOfSize(4) == [["a", "b", "c", "a"]]
+     * }</pre>
+     *
+     * <p> If the list has no duplicates, then it can be transformed to a set of the same size. Each combination of that list represents a unique subset of that set.
+     *
+     * <p>See <a href="https://www.britannica.com/science/permutation">www.britannica.com/science/permutation</a>
      */
     default ImList<ImList<A>> allCombinationsOfSize(int n)
     {
@@ -2094,6 +2138,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * }</pre>
      *
      */
+    @SafeVarargs
     static <T> ImList<T> join(ImList<? extends T>... listsArray)
     {
         return join(ImList.on(listsArray).upCast());
@@ -2247,18 +2292,6 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     public static <B, A, C> ImList<ImTriple<A, B, C>> tuple3On(ImList<A> as, ImList<B> bs, ImList<C> cs)
     {
         return ImTripleList.on(as, bs, cs);
-    }
-
-    /**
-     * <p> The hash code calculated from the first
-     * {@code count}
-     *  elements of
-     * {@code this}
-     *
-     */
-    default int hashCode(int count)
-    {
-        return Hash.hashCodeOfArray(take(count).toArray(Object.class));
     }
 
     /**

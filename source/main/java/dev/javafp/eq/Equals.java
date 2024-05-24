@@ -8,6 +8,7 @@
 package dev.javafp.eq;
 
 import dev.javafp.ex.Throw;
+import dev.javafp.func.Fn2;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -204,6 +205,30 @@ public abstract class Equals
         while (itOne.hasNext())
         {
             if (!isEqual(itOne.next(), itTwo.next()))
+                return false;
+        }
+
+        return !itTwo.hasNext();
+    }
+
+    /**
+     * <p> {@code true}
+     *  if
+     * {@code itOne}
+     *  and
+     * {@code itTwo}
+     *  return equal when compared pairwise using the comparison function
+     * {@code compareFn}
+     *  and
+     * {@code false}
+     *  otherwise.
+     *
+     */
+    public static <T> boolean isEqualIteratorsUsing(Iterator<T> itOne, Iterator<T> itTwo, Fn2<T, T, Boolean> compareFn)
+    {
+        while (itOne.hasNext())
+        {
+            if (!compareFn.of(itOne.next(), itTwo.next()))
                 return false;
         }
 

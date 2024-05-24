@@ -10,11 +10,14 @@ package dev.javafp.set;
 import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.HasTextBox;
 import dev.javafp.box.LeafTextBox;
+import dev.javafp.eq.Eq;
+import dev.javafp.eq.Equals;
 import dev.javafp.func.Fn;
 import dev.javafp.lst.ImList;
 import dev.javafp.set.ImSet.Replace;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.tuple.Pai;
+import dev.javafp.util.Hash;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.NullCheck;
 import dev.javafp.util.TextUtils;
@@ -32,7 +35,7 @@ import java.util.Set;
  * .
  * <h2>Introduction</h2>
  * </p>
- * <p> A collection of {@link Entry} objects (key-value pairs).
+ * <p> A collection of (key-value pairs) and the property that finding a value given a key is
  * <p> As with
  * {@code java.util.Map}
  * , the fundamental methods are {@link #get}, {@link #put} and {@link #remove} although
@@ -122,10 +125,12 @@ import java.util.Set;
  * }</pre>
  *
  */
-public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, HasTextBox
+public class ImMap<K, V> implements Iterable<ImPair<K, V>>, Serializable, HasTextBox
 {
 
-    final public ImSet<Entry<K, V>> entrySet;
+    private int cachedHashCode = 0;
+
+    final protected ImSet<Entry<K, V>> entrySet;
 
     /**
      * <p> The singleton empty map
@@ -146,8 +151,28 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
      * {@code ImMap}
      *  entry (key-value pair).
      *
+     * <p> Note that
+     * {@code Entry}
+     *  is *very peculiar *in that its
+     * {@code equals}
+     *  and
+     * {@code hashCode}
+     *  functions only consider the
+     * {@code key}
+     *  - not the
+     * {@code value}
+     * <p> This is what allows us to have a set of
+     * {@code Entry}
+     *  objects and find the entry given just the
+     * {@code key}
+     * <p> It does mean that we have to do some more work when calculating
+     * {@code hashCode()}
+     *  for the
+     * {@code ImMap}
+     *
+     *
      */
-    public static class Entry<KEY, VALUE> implements Serializable, HasTextBox
+    private static class Entry<KEY, VALUE> implements Serializable, HasTextBox
     {
         public final KEY key;
         public final VALUE value;
@@ -193,6 +218,11 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
         public int hashCode()
         {
             return key.hashCode();
+        }
+
+        public Integer hashCodeIncludingValue()
+        {
+            return ImList.on(key, value).hashCode();
         }
 
         /**
@@ -253,6 +283,11 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
     private ImMap(ImSet<Entry<K, V>> entrySet)
     {
         this.entrySet = entrySet;
+    }
+
+    public ImList<ImPair<K, V>> keyValuePairs()
+    {
+        return entrySet.toList().map(e -> ImPair.on(e.key, e.value));
     }
 
     /**
@@ -615,15 +650,14 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private boolean hasEqualEntries(ImMap other)
+    private boolean hasEqualEntries(ImMap<K, V> other)
     {
-        for (Entry entry : this)
-        {
-            if (!entry.value.equals(other.get(entry.key)))
-                return false;
-        }
+        return Equals.isEqualIteratorsUsing(this.entrySet.iterator(), other.entrySet.iterator(), (a, b) -> equalsIncludingValue(a, b));
+    }
 
-        return true;
+    private Boolean equalsIncludingValue(Entry<K, V> a, Entry<K, V> b)
+    {
+        return Eq.uals(a.key, b.key) && Eq.uals(a.value, b.value);
     }
 
     /**
@@ -684,24 +718,34 @@ public class ImMap<K, V> implements Iterable<ImMap.Entry<K, V>>, Serializable, H
         return entrySet.toString();
     }
 
-    /**
-     * We use the hashcode of the entry set
-     */
     @Override
     public int hashCode()
     {
-        return entrySet.hashCode();
+        return cachedHashCode == 0
+               ? cachedHashCode = computeHash()
+               : cachedHashCode;
     }
 
     /**
-     * <p> An iterator on the key-value entries in
+     * We use the hashcode of the entry set - kinda.
+     *
+     * We actually get the hash of the entry key and the value - the entry normally only considers
+     * the key for its hash and equality
+     */
+    protected int computeHash()
+    {
+        return Hash.hashCodeOfIterableUsing(entrySet, e -> e.hashCodeIncludingValue());
+    }
+
+    /**
+     * <p> An iterator on the key-value pairs in
      * {@code this}
      * .
      *
      */
-    public Iterator<Entry<K, V>> iterator()
+    public Iterator<ImPair<K, V>> iterator()
     {
-        return entrySet.iterator();
+        return keyValuePairs().iterator();
     }
 
 }

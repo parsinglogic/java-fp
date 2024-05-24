@@ -242,7 +242,7 @@ class Sz
     {
         if (as instanceof ImEagerList<?>)
         {
-            return ((ImEagerList) as).getSz();
+            return ((ImEagerList) as).size();
         }
 
         if (as instanceof ImLazyList<?>)
@@ -250,6 +250,11 @@ class Sz
             return ((ImLazyList) as).getSz();
         }
 
+        if (as instanceof ImEmptyList<?>)
+        {
+            return 0;
+        }
+        
         return Throw.Exception.ifYouGetHere();
     }
 }
