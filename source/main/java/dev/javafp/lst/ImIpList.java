@@ -18,8 +18,15 @@ package dev.javafp.lst;
  * <p> The implementation is a little fiddly.
  *
  * <pre>{@code
- * list.generateListsByInjecting(thing)` is implemented as ip([], thing, list)
+ * list.generateListsByInjecting(thing)
  * }</pre>
+ *
+ *  is implemented as
+ *
+ * <pre>{@code
+ * ip([], thing, list)
+ * }</pre>
+ *
  * <p> Here is the constructor:
  *
  * <pre>{@code
@@ -27,7 +34,12 @@ package dev.javafp.lst;
  * }</pre>
  * <p> It has two lists - one and two. The list one starts off as an empty list. At each recursive step, the head is
  * list one with thing appended and two appended to that.
- * <p> the tail is a new ImIpList with one' = one ++ [head(two)], two' = tail two
+ * <p> the tail is a new ImIpList with
+ *
+ * <pre>{@code
+ * one = one ++ [head(two)]
+ * two = tail two
+ * }</pre>
  *
  * <pre>{@code
  * one       thing   two

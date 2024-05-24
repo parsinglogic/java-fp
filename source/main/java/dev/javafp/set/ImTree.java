@@ -31,6 +31,15 @@ import java.util.Collection;
  * {@code ImTree}
  *  is an AVL tree (a balanced binary tree) where each node stores some arbitrary data.
  *
+ * <p> This means that we can guarantee that a search takes
+ * {@code O(log n)}
+ *  operations, where
+ * {@code n}
+ *  is the size of the tree and
+ * {@code log}
+ *  is base 2
+ *
+ *
  * <p> <strong>Note that this is not a traditional sorted binary tree</strong>
  * .
  * <p> It is
