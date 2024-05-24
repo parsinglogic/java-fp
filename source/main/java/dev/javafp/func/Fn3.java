@@ -41,4 +41,12 @@ public interface Fn3<A, B, C, D> extends Serializable
     {
         return (b, c) -> of(a, b, c);
     }
+
+    /**
+     * <p> Partially apply the function to its second argument
+     */
+    default Fn2<A, C, D> ofSecond(B b)
+    {
+        return (a, c) -> of(a, b, c);
+    }
 }
