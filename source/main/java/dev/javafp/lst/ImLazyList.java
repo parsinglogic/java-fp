@@ -11,6 +11,7 @@ import dev.javafp.box.LeafTextBox;
 import dev.javafp.ex.InvalidState;
 import dev.javafp.ex.SizeOnInfiniteList;
 import dev.javafp.ex.ThreadInterrupted;
+import dev.javafp.ex.Throw;
 import dev.javafp.util.Say;
 
 import java.util.Iterator;
@@ -38,7 +39,7 @@ import java.util.Iterator;
  * toString
  * iterator
  */
-abstract class ImLazyList<A> implements ImList<A>
+abstract class ImLazyList<A> extends ImAbstractList<A>
 {
 
     /**
@@ -139,41 +140,23 @@ abstract class ImLazyList<A> implements ImList<A>
     }
 
     /**
-     * <p> {@code true}
-     *  if
-     * {@code this}
-     * equals
-     * {@code other}
-     *
-     * <p> Equality for lists means that both lists have the same size and the
-     * {@code i}
-     * th element of
-     * {@code this}
-     *  equals the
-     * {@code i}
-     * th element of
-     * {@code other}
-     *
-     */
-    @Override
-    public boolean equals(Object other)
-    {
-        return other instanceof ImList
-               ? equalsList((ImList<A>) other)
-               : false;
-    }
-
-    /**
-     * A String representation of this object
-     */
-    @Override
-    public String toString()
-    {
-        return toS();
-    }
-
-    /**
      * <p> Calculate the size of this list - in constant memory
+     *
+     * <p> If the list is "large" - ie greater than
+     * {@code START_SHOW}
+     *  then this function starts to output warning messages to the standard
+     * output. It also uses the value
+     * {@code SHOW_INTERVAL}
+     * <p> At the time of writing,
+     * {@code START_SHOW}
+     *  is 20 million and
+     * {@code SHOW_INTERVAL}
+     *  is 10 million.
+     * <p> If the list is not infinite and is larger than
+     * {@code START_SHOW}
+     * , then it will eventually complete (unless any other limiting
+     * factor in the environment prevents it)
+     * <p> I should make these values more settable - Van 2024.
      *
      */
     @Override
@@ -201,34 +184,21 @@ abstract class ImLazyList<A> implements ImList<A>
         return count;
     }
 
-    @Override
     /**
      * <p> An iterator on the elements of
      * {@code this}
      * .
+     *
+     * <p> If this list is known infinite then throw
+     * {@code SizeOnInfiniteList}
+     *
      */
+    @Override
     public Iterator<A> iterator()
     {
-        if (Sz.getSz(this) == KNOWN_INFINITE)
-            throw new SizeOnInfiniteList();
-
-        return ImList.super.iterator();
-    }
-
-    /**
-     * <p> When serialising, we turn every ImList into a ImListOnArray
-     */
-    protected Object writeReplace()
-    {
-        return ImList.on(toArray(Object.class));
-    }
-
-    /**
-     * <p> Get the hashcode using the first few elements
-     */
-    public int hashCode()
-    {
-        return hashCode(10);
+        return Sz.getSz(this) == KNOWN_INFINITE
+               ? Throw.wrap(new SizeOnInfiniteList())
+               : super.iterator();
     }
 
 }

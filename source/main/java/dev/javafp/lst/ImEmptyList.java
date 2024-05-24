@@ -11,16 +11,14 @@ import dev.javafp.box.AbstractTextBox;
 import dev.javafp.box.LeafTextBox;
 import dev.javafp.ex.FunctionNotAllowedOnEmptyList;
 
-import java.util.ArrayList;
-
-class ImEmptyList<A> extends ImLazyList<A>
+class ImEmptyList<A> extends ImAbstractList<A>
 {
     @SuppressWarnings("rawtypes")
-    private static final int hashCodeOfEmpty = new ArrayList().hashCode();
+    private static final int hashCodeOfEmpty = 1;
 
     protected ImEmptyList()
     {
-        super(0);
+
     }
 
     /**
@@ -93,11 +91,17 @@ class ImEmptyList<A> extends ImLazyList<A>
         return 0;
     }
 
+    @Override
+    public int resolveSize()
+    {
+        return 0;
+    }
+
     /**
      * The (cached) hashcode for this object.
      */
     @Override
-    public int hashCode(int count)
+    public int hashCode()
     {
         return hashCodeOfEmpty;
     }

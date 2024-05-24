@@ -7,10 +7,10 @@
 
 package dev.javafp.lst;
 
-abstract class ImEagerList<A> implements ImList<A>
+abstract class ImEagerList<A> extends ImAbstractList<A>
 {
 
-    final int size;
+    protected final int size;
 
     ImEagerList(int size)
     {
@@ -28,65 +28,15 @@ abstract class ImEagerList<A> implements ImList<A>
         return size;
     }
 
-    int getSz()
-    {
-        return size;
-    }
+    //    int getSz()
+    //    {
+    //        return size;
+    //    }
 
     @Override
     public int resolveSize()
     {
         return size;
-    }
-
-    /**
-     * <p> {@code true}
-     *  if
-     * {@code this}
-     * equals
-     * {@code other}
-     *
-     * <p> Equality for lists means that both lists have the same size and the
-     * {@code i}
-     * th element of
-     * {@code this}
-     *  equals the
-     * {@code i}
-     * th element of
-     * {@code other}
-     *
-     */
-    @Override
-    public boolean equals(Object other)
-    {
-        return other instanceof ImList
-               ? equalsList((ImList<A>) other)
-               : false;
-    }
-
-    /**
-     * A String representation of this object
-     */
-    @Override
-    public String toString()
-    {
-        return toS();
-    }
-
-    /**
-     * <p> When serialising, we turn every ImList into a ImListOnArray
-     */
-    protected Object writeReplace()
-    {
-        return ImList.on(toArray(Object.class));
-    }
-
-    /**
-     * <p> Get the hash of the first few elements
-     */
-    public int hashCode()
-    {
-        return hashCode(10);
     }
 
 }
