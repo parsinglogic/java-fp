@@ -11,7 +11,6 @@ import dev.javafp.ex.UnexpectedChecked;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.Reader;
 
 class ImListOnReader extends ImCachingLazyList<String>
 {
@@ -21,10 +20,10 @@ class ImListOnReader extends ImCachingLazyList<String>
     private final BufferedReader reader;
     private final String line;
 
-    private ImListOnReader(Reader reader, String line)
+    private ImListOnReader(BufferedReader reader, String line)
     {
         super(UNKNOWN_UNKNOWN);
-        this.reader = new BufferedReader(reader);
+        this.reader = reader;
 
         this.line = line;
     }
@@ -38,15 +37,13 @@ class ImListOnReader extends ImCachingLazyList<String>
      * <p> [ "" ]
      *
      */
-    static ImList<String> on(Reader reader)
+    static ImList<String> on(BufferedReader reader)
     {
-
-        BufferedReader br = new BufferedReader(reader);
-        String line = getLine(br);
+        String line = getLine(reader);
 
         return line == null
                ? ImList.on()
-               : new ImListOnReader(br, line);
+               : new ImListOnReader(reader, line);
     }
 
     private static String getLine(BufferedReader reader)

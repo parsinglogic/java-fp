@@ -92,7 +92,7 @@ loadScripts(document, 'script');</script>
  The syntax of URL is defined by RFC 2396: Uniform Resource Identifiers (URI): Generic Syntax, amended by
  RFC 2732: Format for Literal IPv6 Addresses in URLs. The Literal IPv6 address format also supports scope_ids.
  </code></pre>
- <p> It seems to have bugs and is, of course not immutable.
+ <p> It seems to have bugs and is, of course, not immutable.
  <p> I then tried using URI - which is based on a later RFC -
  but it also has problems
  <p> Represents a Uniform Resource Identifier (URI) reference.
@@ -105,33 +105,46 @@ loadScripts(document, 'script');</script>
  2732 is 1999
  3986 is 2005
  </code></pre>
- <p> This documents Java's pain with this issue
- <p> <a href="https://cr.openjdk.java.net/~dfuchs/writeups/updating-uri/"></a>
+
+
+
+ <p> This documents Java's pain with this issue:
+ <p> <a href="https://cr.openjdk.java.net/~dfuchs/writeups/updating-uri/">https://cr.openjdk.java.net/~dfuchs/writeups/updating-uri</a>
  <p> I need to parse the query string as well - this is not defined in any URL parsing standard.
  <p> The rules for what is and is not a valid URL are pretty damn complicated with loads of special cases.
- <p> According to Wikipedia https://en.wikipedia.org/wiki/URL
- <p> Uniform Resource Locators were defined in RFC 1738 in 1994 by Tim Berners-Lee
+
+
+ <p> According to Wikipedia,
+ <a href="https://en.wikipedia.org/wiki/URL">https://en.wikipedia.org/wiki/URL</a>,
+ <p> uniform resource locators were defined in RFC 1738 in 1994 by Tim Berners-Lee
+
+ <p>
  <h2>Latest spec</h2>
  <p> There appears to be an effort to standardise 3986 (and 3987 - Internationalized Resource Identifiers (IRIs))
- <p> https://url.spec.whatwg.org/
- <p> (Although this is very difficult to read)
+ <a href="https://url.spec.whatwg.org">https://url.spec.whatwg.org</a>
+ <p> (Although I find this rather difficult to read)
  <p> from that document:
 
- <pre><code>
- Goals
+ <blockquote>
+ <p> Goals
 
- The URL standard takes the following approach towards making URLs fully interoperable:
+ <p> The URL standard takes the following approach towards making URLs fully interoperable:
 
- Align RFC 3986 and RFC 3987 with contemporary implementations and obsolete them in the process. (E.g., spaces, other "illegal"
+ <p> Align RFC 3986 and RFC 3987 with contemporary implementations and obsolete them in the process. (E.g., spaces, other "illegal"
  code points, query encoding, equality, canonicalization, are all concepts not entirely shared, or defined.) URL parsing needs
  to become as solid as HTML parsing. [RFC3986] [RFC3987]
 
- Standardize on the term URL. URI and IRI are just confusing. In practice a single algorithm is used for both so keeping them
+ <p> Standardize on the term URL. URI and IRI are just confusing. In practice a single algorithm is used for both so keeping them
  distinct is not helping anyone. URL also easily wins the search result popularity contest.
- </code></pre>
+ </blockquote>
+
+
+ <p>
  <h2>The Live Viewer</h2>
- <p> There is a github repos associated with the spec
+ <p> There is a github repo associated with the spec
  <p> https://github.com/whatwg/url
+
+
  <p> It says this:
  <blockquote>
  <p> Tests can be found in the url/ directory of web-platform-tests/wpt. A dashboard showing the tests running against major browsers can be seen at wpt.fyi.
@@ -139,11 +152,14 @@ loadScripts(document, 'script');</script>
  <p> The Live URL Viewer lets you manually test-parse any URL, comparing your browser's URL parser to that of jsdom/whatwg-url.
  <p> https://jsdom.github.io/whatwg-url
  </blockquote>
+
  <p> However, this viewer appears to show some differences with the spec
  <h2>So where are we now?</h2>
  <p> I am using a library to help me do the parsing - I have decided to keep this class as a wrapper
  <p> I don't fully understand the whatwg spec
  I don't believe the galimatias library is bug free
+
+ <p>
  <h2>So what is a URL exactly?</h2>
  <p> A URL string has this form (roughly)
 
@@ -181,17 +197,24 @@ loadScripts(document, 'script');</script>
  <p> They could have specified an encoding or even left the storage format up to the implementation - but they didn't.
  <p> They could also have simply specified that the UNICODE strings should be some encoding or other - but they didn't
  <p> Instead they have specified that the characters are stored in UTF8 - which is then "percent encoded"
+
+ <p>
  <h3>Questions on the whatwg spec</h3>
  <h4>How can fragments contain many <code>#</code> characters</h4>
  <p> a://example.co#######
  <p> seems to be ok on the
  <a href="https://jsdom.github.io/whatwg-url">live URL Viewer</a>
+
+
  <p> 4.3 says
  <blockquote>
  <p> A URL-fragment string must be zero or more URL units.
  <p> The URL units are URL code points and percent-encoded bytes.
  <p> Percent-encoded bytes can be used to encode code points that are not URL code points or are excluded from being written.
  </blockquote>
+
+
+ <p>
  <h4>Why do they specify the forbidden host code points?</h4>
  <p> There are a set of forbidden characters - but there are many others that are noted as invalid on the live URL viewer
  <p> eg FORM FEED
@@ -209,19 +232,23 @@ loadScripts(document, 'script');</script>
  <pre><code>
  https://fo+%0CŃńo:8080//foŃo//b(ar/%3F/?wibble%32#fr(ag►
  </code></pre>
- <h2>Why not just use the java class URI?</h2>
+
+ <p>
+ <h2>Why doesn't this library just use the java class URI?</h2>
  <p> The URI class in Java seems to only refers to 2396:
+
  <blockquote>
  <p> Aside from some minor deviations noted below, an instance of this class represents
  a URI reference as defined by RFC 2396: Uniform Resource Identifiers (URI): Generic Syntax,
  amended by RFC 2732: Format for Literal IPv6 Addresses in URLs.
  </blockquote>
+
  <p> I tried to use what Jetty gives us - but it is a bit peculiar. It does not tell you what the fragment is for example. I guess that is because fragments
  are meant to be browser-side things?
- <p> I tried to use URI - but it chokes on URLs that actually get sent from browsers. I don't want to parse a url only to get an exception
+ <p> I tried to use URI - but it chokes on URLs that actually get sent from browsers. I don't want to parse a url from a browser only to get an exception
  <p> The URI class does not let us access the parts of a query as a map
- <p> So we need to process the URLs that we get in Drum
- <p> So to reach Drum on the server the url must have been processed by (eg)
+ <p> So we need to process the URLs that we get in real life
+ <p> So to reach a server the url must have been processed by (eg)
  <ul>
  <li>
  <p> curl
@@ -247,7 +274,7 @@ loadScripts(document, 'script');</script>
  </ul>
  <p> These elements will apply their rules about what is a valid URL
  <p> I am passing the url - as it is perceived on the browser - to the server
- <p> I think this is the best plan as it accurately reflects what we will need to do to do a redirect
+ <p> I think this is the best plan as it accurately reflects what we will need to do in order to handle a redirect
  <p> If we use the URL on the server - it is possible that it will have been mangled
  <p> The URI has this form (roughly)
 
@@ -261,7 +288,7 @@ loadScripts(document, 'script');</script>
  </code></pre>
  <p> I am ignoring the userinfo part for now
  <p> So we have the concept of the URL string - which is parsed into the URL in-memory representation (object)
- <p> So you take the URL string and parse it to get the URL object and we can then write it to get the URL string
+ <p> So we take the URL string and parse it to get the URL object and we can then write it to get the URL string
  <p> It seems that each part of the URL has
  <ol>
  <li>
@@ -272,11 +299,13 @@ loadScripts(document, 'script');</script>
  </li>
  </ol>
  <p> I don't think it matters if we encode a code point that did not have to be encoded
- <p> So, obviously, if we want to have a = character in a query then we must encode it so that it doesn't act as a delimeter
+ <p> So, obviously, if we want to have a = character in a query then we must encode it so that it doesn't act as a delimiter
+
+ <p>
  <h2>Encoding and decoding</h2>
  <p> There are two java classes
  URLEncoder and URLDecoder
- <p> These are based on application/x-www-form-urlencoded MIME format
+ <p> These are based on <code>application/x-www-form-urlencoded</code> MIME format
  <p> So an encoded string has a character set that is:
 
  <pre><code>
@@ -288,6 +317,7 @@ loadScripts(document, 'script');</script>
  -
  _
  </code></pre>
+
  <p> (and % - but this is the character that introduces two octets). An octet is a character [0-9A-F]
  <p> If we want to have a % character anywhere we must encode it
  encoding and decoding make reference to a character encoding - the idea is tha we encode a unicode code point into a percent
@@ -323,6 +353,8 @@ loadScripts(document, 'script');</script>
  </ul>
  <p> I am not sure if this is the case in the whatwg spec. I suppose it is.
  <h2>A rough attempt</h2>
+
+ <p>
  <h2>Parsing</h2>
  <p> Roughly I think what we need to do is to parse the URL into its different parts
  store each part in its
@@ -333,6 +365,8 @@ loadScripts(document, 'script');</script>
  <p> Let s be a valid URL
  <p> then
  <p> write(parse(s)) != s for some s
+
+ <p>
  <h2>Writing</h2>
  <p> To access a part
  <p> encode each part (not scheme, host or port)
@@ -388,6 +422,7 @@ loadScripts(document, 'script');</script>
  <p> However - you may notice that
  <code>#</code>
   is not a code point
+ <p>
  <h2>Scheme - No encoding</h2>
  <p> Case insensitive - canonical form is lowercase
 
@@ -398,8 +433,9 @@ loadScripts(document, 'script');</script>
  <p> according to https://url.spec.whatwg.org
  <blockquote>
  <p> A forbidden host code point is U+0000 NULL, U+0009 TAB, U+000A LF, U+000D CR, U+0020 SPACE, U+0023 (#), U+0025 (%), U+002F (/),
- U+003A (:), U+003F (?), U+0040 (@), U+005B ([), U+005C (), or U+005D (]).
+ U+003A (:), U+003F (?), U+0040 (@), U+005B ([), U+005C (\), or U+005D (]).
  </blockquote>
+
  <p> So - not
  <code>null \t \n \r space # % / : ? @ [ \ ]</code>
  <h2>Port - no encoding</h2>
@@ -411,6 +447,7 @@ loadScripts(document, 'script');</script>
  <h2>Fragment - encoding</h2>
  <p> You could argue that fragments should not be sent to the server at all. They are meant to indicate to the browser what part of the
  resulting page to view
+ <p>
  <h2>Browsers</h2>
  <p> FF kind of takes this view. If you have a request that differs only in the fragment, FF will only send the first one. I think this
  is a little unreasonable since it will send urls without a
@@ -481,12 +518,16 @@ loadScripts(document, 'script');</script>
  <code>http://localhost:8080/ab0/d</code>
   so a subsequent
  <code>GET</code>
- will not be exactly the same as before
+ will not be exactly the same as before.
+
+ <p>
  Chrome adjusts it
  <em>before</em>
   it sends it
  <p> http://localhost:8080/ab%23/d    (%23 is #)
  This gets sent as is and is never corrected by Chrome.
+
+
  <p> I guess the browsers only correct the % escapes that are not necessary
  <p> So why have this class?
  <p> I am sending the URL to the server from the browser. I want to be able to parse this and process it to a certain extent. For example
@@ -494,10 +535,12 @@ loadScripts(document, 'script');</script>
  <p> I wanted to have
  <em>control</em>
   (as usual) in this messy and confusing area.
+
+ <p>
  <h2>Query</h2>
  <p> The content of the query is not part of any URL spec
  <p> https://www.w3.org/TR/html401/interact/forms.html
- <p> Hmm - this suggests tha all unicode code points > U+007E (~) should be encoded
+ <p> Hmm - this suggests that all unicode code points > U+007E (~) should be encoded
  <p> Crucially, it does not say how to decode them
  <p> Let's assume that a query maps to [(String, String)]
  <p> with the usual separators etc
@@ -507,8 +550,7 @@ loadScripts(document, 'script');</script>
  <p> getQueryStringValueMaybe(String key)
  <p> this will only return a Just if exactly one of the pairs has key as the first element.
  <p> It returns the value.
- <p> When we display the Url, we will go through the query list, decoding them
- This means that the original string will not necessarily be preserved. I can't</div>
+ <p> When we display the Url, we will go through the query list, decoding them</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>

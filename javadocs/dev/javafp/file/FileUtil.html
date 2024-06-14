@@ -1065,21 +1065,43 @@ loadScripts(document, 'script');</script>
  <p> this is a deceptively simple operation that is actually quite complicated to get right
  How do we report failures? The destination can't be created? The source can't be read?
  <p> What can go wrong?
+ <ol>
+ <li>
  <p> src is an ancestor of dest
- dest is an ancestor of src
- src == dest
- src can't be read
- One of the descendents of src can't be read
- dest exists
- dest exists and can't be written
- dest does not exist and can't be created
- src is a file, dest is a non-empty dir
+ </li>
+ <li>
+ <p> dest is an ancestor of src
+ </li>
+ <li>
+ <p> src == dest
+ </li>
+ <li>
+ <p> src can't be read
+ </li>
+ <li>
+ <p> one of the descendents of src can't be read
+ </li>
+ <li>
+ <p> dest exists
+ </li>
+ <li>
+ <p> dest exists and can't be written
+ </li>
+ <li>
+ <p> dest does not exist and can't be created
+ </li>
+ <li>
+ <p> src is a file, dest is a non-empty dir
+ </li>
+ </ol>
+
+
  <p> If dest does not exist but dest.getParent() exists then it is easy to see what we should do.
  If dest exists and is a dir and so is src then is the idea to overlay src on dest, maintaining all the existing nodes
  where we can and overwriting when we can't. Or should we overwright where we can and report an error where we can't
  Or should we give priority to existing nodes in dest.
- <p> I have not solved many of these problems yet. I only copy to work in some special circumstances
- <p> I am using Chat to try to sovle some of the problems - to an extent</div>
+ <p> I have not solved all of these problems yet. I only expect copy to work in some special circumstances
+ <p> I am using Chat to try to solve some of the problems - to an extent</div>
 </section>
 </li>
 <li>

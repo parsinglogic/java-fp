@@ -80,6 +80,10 @@ loadScripts(document, 'script');</script>
 <dt>All Implemented Interfaces:</dt>
 <dd><code><a href="../box/HasTextBox.html" title="interface in dev.javafp.box">HasTextBox</a></code>, <code><a href="../val/Values.html" title="interface in dev.javafp.val">Values</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code></dd>
 </dl>
+<dl class="notes">
+<dt>Direct Known Subclasses:</dt>
+<dd><code><a href="ImDuo.html" title="class in dev.javafp.tuple">ImDuo</a></code></dd>
+</dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ImPair&lt;U,<wbr>V&gt;</span>
 <span class="extends-implements">extends <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></span></div>
@@ -181,20 +185,9 @@ C&gt;&nbsp;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImLi
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;U,<wbr>
 V&gt;&nbsp;<a href="ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;U,<wbr>V&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(java.util.Map.Entry)" class="member-name-link">on</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.Entry.html" title="class or interface in java.util" class="external-link">Map.Entry</a>&lt;U,<wbr>V&gt;&nbsp;e)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> An
- <code>ImPair</code>
- ,
- <code>p</code>
-  with
- <code>p = (e.getKey(), e.getValue())</code></div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;U,<wbr>
-V&gt;&nbsp;<a href="ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;U,<wbr>V&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(U,V)" class="member-name-link">on</a><wbr>(U&nbsp;fst,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(U,V)" class="member-name-link">on</a><wbr>(U&nbsp;fst,
  V&nbsp;snd)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block"> An
  <code>ImPair</code>
  ,
@@ -202,16 +195,16 @@ V&gt;&nbsp;<a href="ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt
   with
  <code>p = (fst, snd)</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A,<wbr>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A,<wbr>
 B&gt;&nbsp;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#snd(dev.javafp.lst.ImList)" class="member-name-link">snd</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;A,<wbr>B&gt;&gt;&nbsp;ps)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> The list created by mapping ImPair::snd ofer
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#snd(dev.javafp.lst.ImList)" class="member-name-link">snd</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;A,<wbr>B&gt;&gt;&nbsp;ps)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The list created by mapping ImPair::snd over
  <code>ps</code></div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;C&gt;&nbsp;C</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#useIn(dev.javafp.func.Fn2)" class="member-name-link">useIn</a><wbr>(<a href="../func/Fn2.html" title="interface in dev.javafp.func">Fn2</a>&lt;<a href="ImPair.html" title="type parameter in ImPair">U</a>,<wbr><a href="ImPair.html" title="type parameter in ImPair">V</a>,<wbr>C&gt;&nbsp;fn)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;C&gt;&nbsp;C</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#useIn(dev.javafp.func.Fn2)" class="member-name-link">useIn</a><wbr>(<a href="../func/Fn2.html" title="interface in dev.javafp.func">Fn2</a>&lt;<a href="ImPair.html" title="type parameter in ImPair">U</a>,<wbr><a href="ImPair.html" title="type parameter in ImPair">V</a>,<wbr>C&gt;&nbsp;fn)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Apply function
  <code>fn</code></div>
 </div>
@@ -273,19 +266,6 @@ V&gt;</span>&nbsp;<span class="return-type"><a href="ImPair.html" title="class i
 </section>
 </li>
 <li>
-<section class="detail" id="on(java.util.Map.Entry)">
-<h3>on</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;U,<wbr>
-V&gt;</span>&nbsp;<span class="return-type"><a href="ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;U,<wbr>V&gt;</span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.Entry.html" title="class or interface in java.util" class="external-link">Map.Entry</a>&lt;U,<wbr>V&gt;&nbsp;e)</span></div>
-<div class="block"><p> An
- <code>ImPair</code>
- ,
- <code>p</code>
-  with
- <code>p = (e.getKey(), e.getValue())</code></div>
-</section>
-</li>
-<li>
 <section class="detail" id="fst(dev.javafp.lst.ImList)">
 <h3>fst</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A,<wbr>
@@ -299,7 +279,7 @@ B&gt;</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="
 <h3>snd</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A,<wbr>
 B&gt;</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;B&gt;</span>&nbsp;<span class="element-name">snd</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;A,<wbr>B&gt;&gt;&nbsp;ps)</span></div>
-<div class="block"><p> The list created by mapping ImPair::snd ofer
+<div class="block"><p> The list created by mapping ImPair::snd over
  <code>ps</code></div>
 </section>
 </li>

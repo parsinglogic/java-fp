@@ -15,4 +15,5 @@ tstArtifacts:
   - { g: com.sparkjava        , a: spark-core          , v: 2.9.2 }
   - { g: com.github.sbridges  , a: ephemeralfs         , v: 1.0.1.0 }
   - { g:  org.jsoup           , a:  jsoup              , v:  1.15.2}
+  - { g: com.google.code.gson,  a: gson,                             v: 2.8.5}
 

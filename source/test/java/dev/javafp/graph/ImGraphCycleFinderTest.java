@@ -3,6 +3,7 @@ package dev.javafp.graph;
 import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
+import dev.javafp.util.ServerTextUtils;
 import org.junit.Test;
 
 import static dev.javafp.tuple.ImPair.on;
@@ -32,7 +33,7 @@ public class ImGraphCycleFinderTest
 
         say("pairs", pairs);
 
-        var g = pairs.foldl(g0, (z, i) -> z.addArc("", i.fst, i.snd));
+        var g = pairs.foldl(g0, (z, i) -> z.addArc(ServerTextUtils.toWords(i.fst), i.fst, i.snd));
 
         say("g", g.showAsSets());
 

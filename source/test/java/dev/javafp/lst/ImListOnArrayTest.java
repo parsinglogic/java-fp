@@ -137,6 +137,18 @@ public class ImListOnArrayTest
     }
 
     @Test
+    public void testJoin()
+    {
+
+        ImList<Integer> a = ImList.on(1, 2, 3);
+
+        ImList<ImList<Integer>> b = on(a, a);
+
+        ImList<Integer> list = ImList.join(b);
+
+    }
+
+    @Test
     public void testTail()
     {
 

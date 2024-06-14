@@ -7,6 +7,10 @@
 
 package dev.javafp.util;
 
+import dev.javafp.lst.ImList;
+
+import java.math.BigInteger;
+
 public class Sums
 {
 
@@ -73,6 +77,25 @@ public class Sums
                : l == 0
                  ? 0
                  : 1;
+    }
+
+    public static ImList<BigInteger> convertToDigitsUsingRadix(BigInteger radix, BigInteger number)
+    {
+        ImList<BigInteger> digits = ImList.on();
+        BigInteger t = number;
+
+        while (true)
+        {
+            if (t.equals(BigInteger.ZERO))
+                return digits.isEmpty() ? ImList.on(BigInteger.ZERO) : digits;
+
+            BigInteger d = t.mod(radix);
+
+            digits = digits.push(d);
+
+            t = t.subtract(d).divide(radix);
+        }
+
     }
 
 }

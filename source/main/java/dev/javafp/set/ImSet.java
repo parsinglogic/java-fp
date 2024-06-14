@@ -115,6 +115,8 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
     // The cached hashCode value
     private int cachedHashCode = 0;
 
+    final private int size;
+
     /**
      * The sorted set that contains the buckets
      */
@@ -328,8 +330,6 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
      *
      *
      */
-    final private int size;
-
     public String getStats()
     {
         int total = 0;

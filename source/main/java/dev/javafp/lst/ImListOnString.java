@@ -38,6 +38,7 @@ class ImListOnString extends ImEagerList<Character> implements Eq
     @Override
     public Character head()
     {
+        //        return Throw.Exception.ifYouGetHere();
         return source.charAt(skipCount);
     }
 

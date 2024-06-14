@@ -44,13 +44,18 @@ public class ApiRequestTest extends TestCase
 
     //    https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation;areaName=england&structure=%7B%22name%22:%22areaName%22%7D
 
+    private static ImUrl makeUrl(String urlString)
+    {
+        return ImUrl.on(urlString).right;
+    }
+
     @Test
     public void testGetLocal()
     {
         // Start the test api server in a thread on a random port
         int port = ApiServerForTesting.startInAThreadOnARandomPort();
 
-        GetRequest getRequest = GetRequest.on(ImUrl.on("http://localhost/hello").withPort(port));
+        GetRequest getRequest = GetRequest.on(makeUrl("http://localhost/hello").withPort(port));
 
         getRequest = getRequest.addQuery("foo", "bar").addQuery("bish", "bash");
 
@@ -68,14 +73,29 @@ public class ApiRequestTest extends TestCase
     @Test
     public void testUrlWithQuery()
     {
-        GetRequest getRequest = GetRequest.on(ImUrl.on("http://localhost:80/hello?foo=bar&bing=bong"));
+        GetRequest getRequest = GetRequest.on(makeUrl("http://localhost:80/hello?foo=bar&bing=bong"));
 
         getRequest = getRequest.addQuery("bish", "bash").addQuery("bing", "bong");
 
         assertEquals("http://localhost:80/hello", "" + getRequest.url);
 
         say("getRequest", getRequest);
+
     }
+
+    //    @Test
+    //    public void testUrlWithPunyCode()
+    //    {
+    //        //        GetRequest getRequest = GetRequest.on(makeUrl("https://xn--rksmrgs-5wao1o.josefsson.org"));
+    //        GetRequest getRequest = GetRequest.on(makeUrl("https://räksmörgås.josefßon.org"));
+    //
+    //        say("getRequest", getRequest);
+    //
+    //        ApiResponse response = getRequest.send();
+    //
+    //        assertEquals(200, response.status);
+    //
+    //    }
 
     @Test
     public void testURLEncoding() throws URISyntaxException
@@ -109,7 +129,7 @@ public class ApiRequestTest extends TestCase
     public void testPostToPostman()
     {
 
-        PostRequest client = PostRequest.on(ImUrl.on("https://postman-echo.com/post"));
+        PostRequest client = PostRequest.on(makeUrl("https://postman-echo.com/post"));
 
         ImList<ImPair<String, String>> kv = ImList.on(
                 Pai.r("grant_type", "authorization_code"),

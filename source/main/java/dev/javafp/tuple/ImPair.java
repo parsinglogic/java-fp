@@ -15,8 +15,6 @@ import dev.javafp.func.FnPairConsumer;
 import dev.javafp.lst.ImList;
 import dev.javafp.val.ImValuesImpl;
 
-import java.util.Map;
-
 @SuppressWarnings("serial")
 public class ImPair<U, V> extends ImValuesImpl
 {
@@ -24,11 +22,16 @@ public class ImPair<U, V> extends ImValuesImpl
     public final U fst;
     public final V snd;
 
-    private ImPair(U fst, V snd)
+    protected ImPair(U fst, V snd)
     {
         this.fst = fst;
         this.snd = snd;
     }
+
+    //    public static <A> ImPair<A, A> foo()
+    //    {
+    //        return null;
+    //    }
 
     /**
      * <p> An
@@ -43,18 +46,18 @@ public class ImPair<U, V> extends ImValuesImpl
         return new ImPair(fst, snd);
     }
 
-    /**
-     * <p> An
-     * {@code ImPair}
-     * ,
-     * {@code p}
-     *  with
-     * {@code p = (e.getKey(), e.getValue())}
-     */
-    public static <U, V> ImPair<U, V> on(Map.Entry<U, V> e)
-    {
-        return ImPair.on(e.getKey(), e.getValue());
-    }
+    //    /**
+    //     * <p> An
+    //     * {@code ImPair}
+    //     * ,
+    //     * {@code p}
+    //     *  with
+    //     * {@code p = (e.getKey(), e.getValue())}
+    //     */
+    //    public static <U, V> ImPair<U, V> on(Map.Entry<U, V> e)
+    //    {
+    //        return ImPair.on(e.getKey(), e.getValue());
+    //    }
 
     /**
      * <p> The list created by mapping ImPair::fst over
@@ -67,7 +70,7 @@ public class ImPair<U, V> extends ImValuesImpl
     }
 
     /**
-     * <p> The list created by mapping ImPair::snd ofer
+     * <p> The list created by mapping ImPair::snd over
      * {@code ps}
      *
      */

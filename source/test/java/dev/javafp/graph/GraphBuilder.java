@@ -1,6 +1,8 @@
 package dev.javafp.graph;
 
 import dev.javafp.lst.ImList;
+import dev.javafp.tuple.ImDuo;
+import dev.javafp.tuple.ImDuo$;
 
 public class GraphBuilder
 {
@@ -31,9 +33,9 @@ public class GraphBuilder
         // Get the list of all possible arcs
         ImList<String> nodes = start.nodeKeys();
 
-        ImList<ImDuo<String>> ps = nodes.allPairs().map(n -> ImDuo.from(n));
+        ImList<ImDuo<String>> ps = nodes.allPairs().map(n -> ImDuo$.from(n));
 
-        ImList<ImDuo<String>> allPairs = ImList.join(ps, ps.map(p -> p.swap()), nodes.map(n -> ImDuo.byTwo(n)));
+        ImList<ImDuo<String>> allPairs = ImList.join(ps, ps.map(p -> p.swap()), nodes.map(n -> ImDuo$.byTwo(n)));
 
         // for each subset of this list, create a graph with those connections
         return allPairs.powerSet().map(ss -> builder.addArcsBetween(ss));

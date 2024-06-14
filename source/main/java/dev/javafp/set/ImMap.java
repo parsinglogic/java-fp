@@ -285,6 +285,9 @@ public class ImMap<K, V> implements Iterable<ImPair<K, V>>, Serializable, HasTex
         this.entrySet = entrySet;
     }
 
+    /**
+     * The key-value pairs in this map
+     */
     public ImList<ImPair<K, V>> keyValuePairs()
     {
         return entrySet.toList().map(e -> ImPair.on(e.key, e.value));

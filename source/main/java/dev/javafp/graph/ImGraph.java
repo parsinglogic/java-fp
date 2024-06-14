@@ -702,6 +702,49 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         return (roots.isEmpty() ? keys.filter(i -> this.getArcs(Out, i).isNotEmpty()) : roots).anyElement().get();
     }
 
+    /**
+     * <p> A representation of the graph that shows the graph as a left-right list of its node keys above a top-down list of the pairs of nodes that are
+     * connected with the first element being connected via an out arc to the second element of the pair.
+     * <p> For example, this graph:
+     *
+     * <pre>{@code
+     *           4
+     *       ┌─◁─▢─◁─┐
+     * 1    2│   │   │5    6
+     * ▢──▷──▢   △   ▢──▷──▢
+     *       │   │   │
+     *       └─▷─▢─▷─┘
+     *           3
+     * }</pre>
+     * <p> Would be represented like this:
+     *
+     * <pre>{@code
+     * 1 2 3 4 5 6
+     * (1, 2)
+     * (2, 3)
+     * (3, 4)
+     * (3, 5)
+     * (4, 2)
+     * (5, 4)
+     * (5, 6)
+     * }</pre>
+     * <p> In this example, the node keys are integers and each arc label is
+     * {@code ""}
+     *
+     * <p> If each arc had a label that was the start node represented as a word then the result would be this:
+     *
+     * <pre>{@code
+     *  1 2 3 4 5 6
+     *  (1, 2) one
+     *  (2, 3) two
+     *  (3, 4) three
+     *  (3, 5) three
+     *  (4, 2) four
+     *  (5, 4) five
+     *  (5, 6) five
+     * }</pre>
+     *
+     */
     public AbstractTextBox showAsSets()
     {
         if (this.isEmpty())
@@ -714,6 +757,11 @@ public class ImGraph<KEY, DATA, LABEL> extends ImValuesImpl
         }
     }
 
+    /**
+     * <p> {@code true}
+     *  if this is the empty graph
+     *
+     */
     public boolean isEmpty()
     {
         return this == empty();

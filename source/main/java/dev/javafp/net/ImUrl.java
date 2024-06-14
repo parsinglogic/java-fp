@@ -17,8 +17,10 @@ import dev.javafp.util.ParseUtils;
 import dev.javafp.util.TextUtils;
 import dev.javafp.val.ImValuesImpl;
 import io.mola.galimatias.GalimatiasParseException;
+import io.mola.galimatias.Host;
 import io.mola.galimatias.URL;
 
+import java.net.IDN;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -27,443 +29,564 @@ import java.nio.file.Path;
 import java.util.regex.Pattern;
 
 /**
- * <p> This class parses a URL string into a URL ... er ... object, and can convert it back to a string.
- * <p> It also allows clients to create new URL objects by setting various parts of the URL.
- * <p> The rules for parsing URLs are pretty damn peculiar.
- * <p> I started off using the URL class - but that uses an old RFC:
+ * This class **parses** a URL string into an ImUrl object, and can convert it back to a string. You can access the various parts of the URL
+ * using fields and it is an immutable object.
  *
- * <pre>{@code
- * The syntax of URL is defined by RFC 2396: Uniform Resource Identifiers (URI): Generic Syntax, amended by
- * RFC 2732: Format for Literal IPv6 Addresses in URLs. The Literal IPv6 address format also supports scope_ids.
- * }</pre>
- * <p> It seems to have bugs and is, of course not immutable.
- * <p> I then tried using URI - which is based on a later RFC -
- * but it also has problems
- * <p> Represents a Uniform Resource Identifier (URI) reference.
- * Aside from some minor deviations noted below, an instance of this class represents a URI reference as
- * defined by RFC 2396: Uniform Resource Identifiers (URI): Generic Syntax, amended by RFC 2732: Format for Literal
- * IPv6 Addresses in URLs.
- *
- * <pre>{@code
- * 2396 is 1998
- * 2732 is 1999
- * 3986 is 2005
- * }</pre>
- * <p> This documents Java's pain with this issue
- * <p> <a href="https://cr.openjdk.java.net/~dfuchs/writeups/updating-uri/"  ></a>
- * <p> I need to parse the query string as well - this is not defined in any URL parsing standard.
- * <p> The rules for what is and is not a valid URL are pretty damn complicated with loads of special cases.
- * <p> According to Wikipedia https://en.wikipedia.org/wiki/URL
- * <p> Uniform Resource Locators were defined in RFC 1738 in 1994 by Tim Berners-Lee
- * <h2>Latest spec</h2>
- * <p> There appears to be an effort to standardise 3986 (and 3987 - Internationalized Resource Identifiers (IRIs))
- * <p> https://url.spec.whatwg.org/
- * <p> (Although this is very difficult to read)
- * <p> from that document:
- *
- * <pre>{@code
- * Goals
- *
- * The URL standard takes the following approach towards making URLs fully interoperable:
- *
- * Align RFC 3986 and RFC 3987 with contemporary implementations and obsolete them in the process. (E.g., spaces, other "illegal"
- * code points, query encoding, equality, canonicalization, are all concepts not entirely shared, or defined.) URL parsing needs
- * to become as solid as HTML parsing. [RFC3986] [RFC3987]
- *
- * Standardize on the term URL. URI and IRI are just confusing. In practice a single algorithm is used for both so keeping them
- * distinct is not helping anyone. URL also easily wins the search result popularity contest.
- * }</pre>
- * <h2>The Live Viewer</h2>
- * <p> There is a github repos associated with the spec
- * <p> https://github.com/whatwg/url
- * <p> It says this:
- * <blockquote>
- * <p> Tests can be found in the url/ directory of web-platform-tests/wpt. A dashboard showing the tests running against major browsers can be seen at wpt.fyi.
- * <p> A complete JavaScript implementation of the standard can be found at jsdom/whatwg-url. This implementation is kept synchronized with the standard and tests.
- * <p> The Live URL Viewer lets you manually test-parse any URL, comparing your browser's URL parser to that of jsdom/whatwg-url.
- * <p> https://jsdom.github.io/whatwg-url
- * </blockquote>
- * <p> However, this viewer appears to show some differences with the spec
- * <h2>So where are we now?</h2>
- * <p> I am using a library to help me do the parsing - I have decided to keep this class as a wrapper
- * <p> I don't fully understand the whatwg spec
- * I don't believe the galimatias library is bug free
- * <h2>So what is a URL exactly?</h2>
- * <p> A URL string has this form (roughly)
- *
- * <pre>{@code
- * scheme '://' host ':' port '/' path '?' query '#' fragment
- * }</pre>
- * <p> So it has six parts
- * <p> In fact, I am only talking about the main URL types that we care about - the ones with scheme http or https
- * <p> For other schemes, different rules apply
- * <p> There are some strange rules about what characters are allowed in the URL string - and what characters are allowed in the URL object
- * <p> This is the Whatwg spec - section 4.1:
- *
- * <pre>{@code
- * A URL is a universal identifier. To disambiguate from a valid URL string it can also be referred to as a URL record.
- *
- * A URL’s scheme is an ASCII string that identifies the type of URL and can be used to dispatch a URL for further processing after parsing. It is initially the empty string.
- *
- * A URL’s username is an ASCII string identifying a username. It is initially the empty string.
- *
- * A URL’s password is an ASCII string identifying a password. It is initially the empty string.
- *
- * A URL’s host is null or a host. It is initially null.
- *
- * ...
- *
- * A URL’s port is either null or a 16-bit unsigned integer that identifies a networking port. It is initially null.
- *
- * A URL’s path is a list of zero or more ASCII strings, usually identifying a location in hierarchical form. It is initially empty.
- * }</pre>
- * <p> Hmm
- * <p> The problem with this is that it is very misleading.
- * <p> The first thing to note is that these rules apply to the URL record - not the URL string.
- * <p> While it is literally true that, apart from the port, the URL's parts are ASCII strings, what this doesn't mention is that these
- * ASCII strings are, for some parts, intended to represent UNICODE strings.
- * <p> They could have specified an encoding or even left the storage format up to the implementation - but they didn't.
- * <p> They could also have simply specified that the UNICODE strings should be some encoding or other - but they didn't
- * <p> Instead they have specified that the characters are stored in UTF8 - which is then "percent encoded"
- * <h3>Questions on the whatwg spec</h3>
- * <h4>How can fragments contain many {@code #} characters</h4>
- * <p> a://example.co#######
- * <p> seems to be ok on the
- * <a href="https://jsdom.github.io/whatwg-url"  >live URL Viewer</a>
- * <p> 4.3 says
- * <blockquote>
- * <p> A URL-fragment string must be zero or more URL units.
- * <p> The URL units are URL code points and percent-encoded bytes.
- * <p> Percent-encoded bytes can be used to encode code points that are not URL code points or are excluded from being written.
- * </blockquote>
- * <h4>Why do they specify the forbidden host code points?</h4>
- * <p> There are a set of forbidden characters - but there are many others that are noted as invalid on the live URL viewer
- * <p> eg FORM FEED
- * <p> This is OK:
- *
- * <pre>{@code
- * https://fo+Ńńo:8080//foŃo//b(ar/%3F/?wibble%32#fr(ag►
- * }</pre>
- * <p> This is not: (
- * {@code %0C}
- *  is
- * {@code formfeed}
- * )
- *
- * <pre>{@code
- * https://fo+%0CŃńo:8080//foŃo//b(ar/%3F/?wibble%32#fr(ag►
- * }</pre>
- * <h2>Why not just use the java class URI?</h2>
- * <p> The URI class in Java seems to only refers to 2396:
- * <blockquote>
- * <p> Aside from some minor deviations noted below, an instance of this class represents
- * a URI reference as defined by RFC 2396: Uniform Resource Identifiers (URI): Generic Syntax,
- * amended by RFC 2732: Format for Literal IPv6 Addresses in URLs.
- * </blockquote>
- * <p> I tried to use what Jetty gives us - but it is a bit peculiar. It does not tell you what the fragment is for example. I guess that is because fragments
- * are meant to be browser-side things?
- * <p> I tried to use URI - but it chokes on URLs that actually get sent from browsers. I don't want to parse a url only to get an exception
- * <p> The URI class does not let us access the parts of a query as a map
- * <p> So we need to process the URLs that we get in Drum
- * <p> So to reach Drum on the server the url must have been processed by (eg)
- * <ul>
- * <li>
- * <p> curl
- * </li>
- * <li>
- * <p> wget
- * </li>
- * <li>
- * <p> a browser
- * </li>
- * <li>
- * <p> some javascript code
- * </li>
- * <li>
- * <p> Whatever processes it on the public internet
- * </li>
- * <li>
- * <p> Firewalls, routers, load balancers, reverse proxies, API gateways
- * </li>
- * <li>
- * <p> Some server side code - Jetty, Undertow, Lambda?
- * </li>
- * </ul>
- * <p> These elements will apply their rules about what is a valid URL
- * <p> I am passing the url - as it is perceived on the browser - to the server
- * <p> I think this is the best plan as it accurately reflects what we will need to do to do a redirect
- * <p> If we use the URL on the server - it is possible that it will have been mangled
- * <p> The URI has this form (roughly)
- *
- * <pre>{@code
- * scheme '://' host ':' port '/' path '?' query '#' fragment
- * }</pre>
- * <p> Actually, after the scheme comes the authority
- *
- * <pre>{@code
- * authority   = [ userinfo "@" ] host [ ":" port ]
- * }</pre>
- * <p> I am ignoring the userinfo part for now
- * <p> So we have the concept of the URL string - which is parsed into the URL in-memory representation (object)
- * <p> So you take the URL string and parse it to get the URL object and we can then write it to get the URL string
- * <p> It seems that each part of the URL has
- * <ol>
- * <li>
- * <p> a different allowed character set.
- * </li>
- * <li>
- * <p> a different set of characters that need to be encoded to percent escaped form
- * </li>
- * </ol>
- * <p> I don't think it matters if we encode a code point that did not have to be encoded
- * <p> So, obviously, if we want to have a = character in a query then we must encode it so that it doesn't act as a delimeter
- * <h2>Encoding and decoding</h2>
- * <p> There are two java classes
- * URLEncoder and URLDecoder
- * <p> These are based on application/x-www-form-urlencoded MIME format
- * <p> So an encoded string has a character set that is:
- *
- * <pre>{@code
- * [a-z]
- * [A-Z]
- * [0-9]
- * *
- * .
- * -
- * _
- * }</pre>
- * <p> (and % - but this is the character that introduces two octets). An octet is a character [0-9A-F]
- * <p> If we want to have a % character anywhere we must encode it
- * encoding and decoding make reference to a character encoding - the idea is tha we encode a unicode code point into a percent
- * escaped list of characters that you would see if the code point was encoded using that character encoding.
- * <p> The default is UTF-8
- * <h2>Where can escaped octets appear ?</h2>
- * <p> RFC 2396 allows escaped octets to only appear in:
- * <ul>
- * <li>
- * <p> user-info
- * </li>
- * <li>
- * <p> path
- * </li>
- * <li>
- * <p> query
- * </li>
- * <li>
- * <p> fragment
- * </li>
- * </ul>
- * <p> ie not:
- * <ul>
- * <li>
- * <p> scheme
- * </li>
- * <li>
- * <p> host
- * </li>
- * <li>
- * <p> port
- * </li>
- * </ul>
- * <p> I am not sure if this is the case in the whatwg spec. I suppose it is.
- * <h2>A rough attempt</h2>
- * <h2>Parsing</h2>
- * <p> Roughly I think what we need to do is to parse the URL into its different parts
- * store each part in its
- * <em>decoded</em>
- *  state
- * <p> This means that we can't guarantee that the round trip ends up back where we started
- * <p> In other words
- * <p> Let s be a valid URL
- * <p> then
- * <p> write(parse(s)) != s for some s
- * <h2>Writing</h2>
- * <p> To access a part
- * <p> encode each part (not scheme, host or port)
- * <p> To write a URL
- * <p> Extract each part in order asn encode it and display it with the necessary delimiters
- * <p> There are complications/questions:
- * <p> What is optional and mandatory?
- * <p> Should I tidy the URL up as I convert it to a string?
- * eg
- * www.example.com/ to www.example.com
- * www.example.com////// to www.example.com
- * www.example.com? to www.example.com/?
- * <h2>The allowed characters for the different parts</h2>
- * <p> Let's start by defining URL code points:
- * <p> From the Whatwg spec:
- * <p> The URL code points are:
- *
- * <pre>{@code
- * ASCII alphanumeric,
- * U+0021 (!),
- * U+0024 ($),
- * U+0026 (&amp;),
- *
- * U+0027 ('),
- * U+0028 LEFT PARENTHESIS,
- * U+0029 RIGHT PARENTHESIS,
- * U+002A (*),
- * U+002B (+),
- * U+002C (,),
- * U+002D (-),
- * U+002E (.),
- * U+002F (/),
- *
- * U+003A (:),
- * U+003B (;),
- *
- * U+003D (=),
- * U+003F (?),
- *
- * U+0040 (@),
- * U+005F (_),
- * U+007E (~),
- * and code points in the range U+00A0 to U+10FFFD, inclusive, excluding surrogates and noncharacters.
- * }</pre>
- * <p> percent-encoded byte is (as a regex)
- *
- * <pre>{@code
- * [%][A-Z0-9]{2,2}
- * }</pre>
- * <p> A URL unit is some URL codePoints and percent-encoded bytes
- * <p> Each part of the URL string is specified in terms of URL Units - and some parts have further restrictions
- * <p> For example the port part can only be numeric
- * <p> However - you may notice that
- * {@code #}
- *  is not a code point
- * <h2>Scheme - No encoding</h2>
- * <p> Case insensitive - canonical form is lowercase
- *
- * <pre>{@code
- * [a-z][a-z0-9+.-]
- * }</pre>
- * <h2>Host - encoding</h2>
- * <p> according to https://url.spec.whatwg.org
- * <blockquote>
- * <p> A forbidden host code point is U+0000 NULL, U+0009 TAB, U+000A LF, U+000D CR, U+0020 SPACE, U+0023 (#), U+0025 (%), U+002F (/),
- * U+003A (:), U+003F (?), U+0040 (@), U+005B ([), U+005C (), or U+005D (]).
- * </blockquote>
- * <p> So - not
- * {@code null \t \n \r space # % / : ? @ [ \ ]}
- * <h2>Port - no encoding</h2>
- * <p> unsigned 16 bit integer (I guess there is an assumption that it can also be null)
- * <p> If the port is present and the same as the default port then it is meant to be stored as null (4.4 page 24)
- * <p> The spec does not say anything about leading zeros. The Live URL viewer allows them
- * <h2>Path - encoding</h2>
- * <h2>Query - encoding</h2>
- * <h2>Fragment - encoding</h2>
- * <p> You could argue that fragments should not be sent to the server at all. They are meant to indicate to the browser what part of the
- * resulting page to view
- * <h2>Browsers</h2>
- * <p> FF kind of takes this view. If you have a request that differs only in the fragment, FF will only send the first one. I think this
- * is a little unreasonable since it will send urls without a
- * {@code #}
- * that don't differ.
- * <p> This will upset Drum. If the user adds a
- * {@code #}
- *  to a url and we don't tell her then, if she hits return in the address bar, expecting it to refresh,
- * it won't.
- * <ul>
- * <li>
- * <p> FF 57.0.4 (64-bit) sends a request involving a fragment only once in succession
- * </li>
- * <li>
- * <p> Chrome  63.0.3239.132 (Official Build) (64-bit) sends the request each time
- * </li>
- * <li>
- * <p> Safari  11.0.2 (12604.4.7.1.4) sends the request each time
- * </li>
- * </ul>
- * <h2>Percent encoding</h2>
- * <h3>{@code %XX} where each {@code X} is a hex digit</h3>
- * <p> Jetty prevents invalid encodings being sent when they appear in the path
- *
- * <pre>{@code
- * http://%6Cocalhost:8080/ is corrected by both FF and Chrome before sending
+ * It also allows clients to create new URL objects by "setting" various parts of an existing URL.
  *
  *
- * http://localhost:8080/:?://%XX
- * }</pre>
- * <p> is sent through by both
- * <p> I think that, if a browser notices a % encoding in the scheme, host, port or path then it will correct it before sending
- * <p> It appears that percent encoding is done at the byte level where the bytes are assumed to be UTF-8. So the bytes are not necessarily
- * correct UTF-8. Hmm
- * <p> These are some urls that FF accepts and causes a GET to be sent to the server
+ * There are some restrictions.
  *
- * <pre>{@code
- * http://localhost:8080//////
+ * It only supports the HTTP and HTTPS schemes.
+ * It only supports absolute URLs
+ * It is a class that obviously works in the context of Java so
  *
- * http://localhost:8080/:
  *
- * http://localhost:8080/:?###
- * http://localhost:8080/:?://###
- * http://localhost:8080/:?:/
- * http://localhost:8080/:?://
- * }</pre>
- * <p> chrome sends them
+ * We would like to support the What Wg standard but that is too much effort for us to do at the moment.
+ * However, we have taken some inspiration from the What Wg standard.
  *
- * <pre>{@code
- * http://localhost:8080/:?://#
- * http://localhost:8080/T?foo%%######
+ * A valid URL string is a Java string that has a number of rules about what characters are allowed to be in it and the syntax of how its different components are arranged.
  *
- * http://localhost:8080/?#####
- * http://localhost:8080/:?://%
- * http://localhost:8080/:?://%XX
+ * We will describe these in outline below.
  *
- * localhost:8080/:?://%30
+ * The full set of rules is rather complex so we will not attempt to reproduse them all here.
  *
- * http://localhost:8080/%%?foo
- * }</pre>
- * <p> gives Bad Request 400 - handled by Jetty
  *
- * <pre>{@code
- * http://localhost:8080/T?foo%%
- * }</pre>
- * <p> localhost:8080/ab%30/d
- * <p> FF sends this as is but changes the address bar to
- * {@code http://localhost:8080/ab0/d}
- *  so a subsequent
- * {@code GET}
- * will not be exactly the same as before
- * Chrome adjusts it
- * <em>before</em>
- *  it sends it
- * <p> http://localhost:8080/ab%23/d    (%23 is #)
- * This gets sent as is and is never corrected by Chrome.
- * <p> I guess the browsers only correct the % escapes that are not necessary
- * <p> So why have this class?
- * <p> I am sending the URL to the server from the browser. I want to be able to parse this and process it to a certain extent. For example
- * I want to replace the path components to create a link but I don't want to affect any of the other parts
- * <p> I wanted to have
- * <em>control</em>
- *  (as usual) in this messy and confusing area.
- * <h2>Query</h2>
- * <p> The content of the query is not part of any URL spec
- * <p> https://www.w3.org/TR/html401/interact/forms.html
- * <p> Hmm - this suggests tha all unicode code points > U+007E (~) should be encoded
- * <p> Crucially, it does not say how to decode them
- * <p> Let's assume that a query maps to [(String, String)]
- * <p> with the usual separators etc
- * <p> We store the pairs decoded.
- * <p> the first and second part of each pair can be "" and there can be duplicates - Ie we will not regard duplicates as a parsing error
- * <p> You can 'look up' a query element using
- * <p> getQueryStringValueMaybe(String key)
- * <p> this will only return a Just if exactly one of the pairs has key as the first element.
- * <p> It returns the value.
- * <p> When we display the Url, we will go through the query list, decoding them
- * This means that the original string will not necessarily be preserved. I can't
+ * https://url.spec.whatwg.org/#concept-domain
+ *
+ *
+ *
+ *
  *
  */
 public class ImUrl extends ImValuesImpl
 {
 
+    /**
+     * <p> This class parses a URL string into a URL object, and can convert it back to a string.
+     * <p> It also allows clients to create new URL objects by "setting" various parts of an existing URL.
+     * <p> The rules for parsing URLs are pretty damn peculiar.
+     * <p> I started off using the java URL class - but that uses an old RFC:
+     *
+     * <pre>{@code
+     * The syntax of URL is defined by RFC 2396: Uniform Resource Identifiers (URI): Generic Syntax, amended by
+     * RFC 2732: Format for Literal IPv6 Addresses in URLs. The Literal IPv6 address format also supports scope_ids.
+     * }</pre>
+     *
+     * <p> It seems to have bugs and is, of course, not immutable.
+     * <p> I then tried using URI - which is based on a later RFC -
+     * but it also has problems
+     *
+     *
+     * <p> Represents a Uniform Resource Identifier (URI) reference.
+     * Aside from some minor deviations noted below, an instance of this class represents a URI reference as
+     * defined by RFC 2396: Uniform Resource Identifiers (URI): Generic Syntax, amended by RFC 2732: Format for Literal
+     * IPv6 Addresses in URLs.
+     *
+     * <pre>{@code
+     * 2396 is 1998
+     * 2732 is 1999
+     * 3986 is 2005
+     * }</pre>
+     *
+     *
+     *
+     * <p> This documents Java's pain with this issue:
+     * <p> <a href="https://cr.openjdk.java.net/~dfuchs/writeups/updating-uri/">https://cr.openjdk.java.net/~dfuchs/writeups/updating-uri</a>
+     * <p> I need to parse the query string as well - this is not defined in any URL parsing standard.
+     * <p> The rules for what is and is not a valid URL are pretty damn complicated with loads of special cases.
+     *
+     *
+     * <p> According to Wikipedia,
+     * <a href="https://en.wikipedia.org/wiki/URL">https://en.wikipedia.org/wiki/URL</a>,
+     * <p> uniform resource locators were defined in RFC 1738 in 1994 by Tim Berners-Lee
+     *
+     * <p>
+     * <h2>Latest spec</h2>
+     * <p> There appears to be an effort to standardise 3986 (and 3987 - Internationalized Resource Identifiers (IRIs))
+     * <a href="https://url.spec.whatwg.org">https://url.spec.whatwg.org</a>
+     * <p> (Although I find this rather difficult to read)
+     * <p> from that document:
+     *
+     * <blockquote>
+     * <p> Goals
+     *
+     * <p> The URL standard takes the following approach towards making URLs fully interoperable:
+     *
+     * <p> Align RFC 3986 and RFC 3987 with contemporary implementations and obsolete them in the process. (E.g., spaces, other "illegal"
+     * code points, query encoding, equality, canonicalization, are all concepts not entirely shared, or defined.) URL parsing needs
+     * to become as solid as HTML parsing. [RFC3986] [RFC3987]
+     *
+     * <p> Standardize on the term URL. URI and IRI are just confusing. In practice a single algorithm is used for both so keeping them
+     * distinct is not helping anyone. URL also easily wins the search result popularity contest.
+     * </blockquote>
+     *
+     *
+     * <p>
+     * <h2>The Live Viewer</h2>
+     * <p> There is a github repo associated with the spec
+     * <p> https://github.com/whatwg/url
+     *
+     *
+     * <p> It says this:
+     * <blockquote>
+     * <p> Tests can be found in the url/ directory of web-platform-tests/wpt. A dashboard showing the tests running against major browsers can be seen at wpt.fyi.
+     * <p> A complete JavaScript implementation of the standard can be found at jsdom/whatwg-url. This implementation is kept synchronized with the standard and tests.
+     * <p> The Live URL Viewer lets you manually test-parse any URL, comparing your browser's URL parser to that of jsdom/whatwg-url.
+     *
+     *
+     *
+     *
+     *
+     * <p> https://jsdom.github.io/whatwg-url
+     *
+     *
+     *
+     *
+     *
+     * </blockquote>
+     *
+     * <p> However, this viewer appears to show some differences with the spec
+     *
+     *
+     * <h2>So where are we now?</h2>
+     * <p> I am using a library to help me do the parsing - I have decided to keep this class as a wrapper
+     * <p> I don't fully understand the whatwg spec
+     * I don't believe the galimatias library is bug free
+     *
+     * <p>
+     * <h2>So what is a URL exactly?</h2>
+     * <p> A URL string has this form (roughly)
+     *
+     * <pre>{@code
+     * scheme '://' host ':' port '/' path '?' query '#' fragment
+     * }</pre>
+     * <p> So it has six parts
+     * <p> In fact, I am only talking about the main URL types that we care about - the ones with scheme http or https
+     * <p> For other schemes, different rules apply
+     * <p> There are some strange rules about what characters are allowed in the URL string - and what characters are allowed in the URL object
+     * <p> This is the Whatwg spec - section 4.1:
+     *
+     * <pre>{@code
+     * A URL is a universal identifier. To disambiguate from a valid URL string it can also be referred to as a URL record.
+     *
+     * A URL’s scheme is an ASCII string that identifies the type of URL and can be used to dispatch a URL for further processing after parsing. It is initially the empty string.
+     *
+     * A URL’s username is an ASCII string identifying a username. It is initially the empty string.
+     *
+     * A URL’s password is an ASCII string identifying a password. It is initially the empty string.
+     *
+     * A URL’s host is null or a host. It is initially null.
+     *
+     * ...
+     *
+     * A URL’s port is either null or a 16-bit unsigned integer that identifies a networking port. It is initially null.
+     *
+     * A URL’s path is a list of zero or more ASCII strings, usually identifying a location in hierarchical form. It is initially empty.
+     * }</pre>
+     * <p> Hmm
+     * <p> The problem with this is that it is very misleading.
+     * <p> The first thing to note is that these rules apply to the URL record - not the URL string.
+     * <p> While it is literally true that, apart from the port, the URL's parts are ASCII strings, what this doesn't mention is that these
+     * ASCII strings are, for some parts, intended to represent UNICODE strings.
+     * <p> They could have specified an encoding or even left the storage format up to the implementation - but they didn't.
+     * <p> They could also have simply specified that the UNICODE strings should be some encoding or other - but they didn't
+     * <p> Instead they have specified that the characters are stored in UTF8 - which is then "percent encoded"
+     *
+     * <p>
+     * <h3>Questions on the whatwg spec</h3>
+     * <h4>How can fragments contain many {@code #} characters</h4>
+     * <p> a://example.co#######
+     * <p> seems to be ok on the
+     * <a href="https://jsdom.github.io/whatwg-url"  >live URL Viewer</a>
+     *
+     *
+     * <p> 4.3 says
+     * <blockquote>
+     * <p> A URL-fragment string must be zero or more URL units.
+     * <p> The URL units are URL code points and percent-encoded bytes.
+     * <p> Percent-encoded bytes can be used to encode code points that are not URL code points or are excluded from being written.
+     * </blockquote>
+     *
+     *
+     * <p>
+     * <h4>Why do they specify the forbidden host code points?</h4>
+     * <p> There are a set of forbidden characters - but there are many others that are noted as invalid on the live URL viewer
+     * <p> eg FORM FEED
+     * <p> This is OK:
+     *
+     * <pre>{@code
+     * https://fo+Ńńo:8080//foŃo//b(ar/%3F/?wibble%32#fr(ag►
+     * }</pre>
+     * <p> This is not: (
+     * {@code %0C}
+     *  is
+     * {@code formfeed}
+     * )
+     *
+     * <pre>{@code
+     * https://fo+%0CŃńo:8080//foŃo//b(ar/%3F/?wibble%32#fr(ag►
+     * }</pre>
+     *
+     * <p>
+     * <h2>Why doesn't this library just use the java class URI?</h2>
+     * <p> The URI class in Java seems to only refers to 2396:
+     *
+     * <blockquote>
+     * <p> Aside from some minor deviations noted below, an instance of this class represents
+     * a URI reference as defined by RFC 2396: Uniform Resource Identifiers (URI): Generic Syntax,
+     * amended by RFC 2732: Format for Literal IPv6 Addresses in URLs.
+     * </blockquote>
+     *
+     * <p> I tried to use what Jetty gives us - but it is a bit peculiar. It does not tell you what the fragment is for example. I guess that is because fragments
+     * are meant to be browser-side things?
+     * <p> I tried to use URI - but it chokes on URLs that actually get sent from browsers. I don't want to parse a url from a browser only to get an exception
+     * <p> The URI class does not let us access the parts of a query as a map
+     * <p> So we need to process the URLs that we get in real life
+     * <p> So to reach a server the url must have been processed by (eg)
+     * <ul>
+     * <li>
+     * <p> curl
+     * </li>
+     * <li>
+     * <p> wget
+     * </li>
+     * <li>
+     * <p> a browser
+     * </li>
+     * <li>
+     * <p> some javascript code
+     * </li>
+     * <li>
+     * <p> Whatever processes it on the public internet
+     * </li>
+     * <li>
+     * <p> Firewalls, routers, load balancers, reverse proxies, API gateways
+     * </li>
+     * <li>
+     * <p> Some server side code - Jetty, Undertow, Lambda?
+     * </li>
+     * </ul>
+     * <p> These elements will apply their rules about what is a valid URL
+     * <p> I am passing the url - as it is perceived on the browser - to the server
+     * <p> I think this is the best plan as it accurately reflects what we will need to do in order to handle a redirect
+     * <p> If we use the URL on the server - it is possible that it will have been mangled
+     * <p> The URI has this form (roughly)
+     *
+     * <pre>{@code
+     * scheme '://' host ':' port '/' path '?' query '#' fragment
+     * }</pre>
+     * <p> Actually, after the scheme comes the authority
+     *
+     * <pre>{@code
+     * authority   = [ userinfo "@" ] host [ ":" port ]
+     * }</pre>
+     * <p> I am ignoring the userinfo part for now
+     * <p> So we have the concept of the URL string - which is parsed into the URL in-memory representation (object)
+     * <p> So we take the URL string and parse it to get the URL object and we can then write it to get the URL string
+     * <p> It seems that each part of the URL has
+     * <ol>
+     * <li>
+     * <p> a different allowed character set.
+     * </li>
+     * <li>
+     * <p> a different set of characters that need to be encoded to percent escaped form
+     * </li>
+     * </ol>
+     * <p> I don't think it matters if we encode a code point that did not have to be encoded
+     * <p> So, obviously, if we want to have a = character in a query then we must encode it so that it doesn't act as a delimiter
+     *
+     * <p>
+     * <h2>Encoding and decoding</h2>
+     * <p> There are two java classes
+     * URLEncoder and URLDecoder
+     * <p> These are based on {@code application/x-www-form-urlencoded} MIME format
+     * <p> So an encoded string has a character set that is:
+     *
+     * <pre>{@code
+     * [a-z]
+     * [A-Z]
+     * [0-9]
+     * *
+     * .
+     * -
+     * _
+     * }</pre>
+     *
+     * <p> (and % - but this is the character that introduces two octets). An octet is a character [0-9A-F]
+     * <p> If we want to have a % character anywhere we must encode it
+     * encoding and decoding make reference to a character encoding - the idea is tha we encode a unicode code point into a percent
+     * escaped list of characters that you would see if the code point was encoded using that character encoding.
+     * <p> The default is UTF-8
+     * <h2>Where can escaped octets appear ?</h2>
+     * <p> RFC 2396 allows escaped octets to only appear in:
+     * <ul>
+     * <li>
+     * <p> user-info
+     * </li>
+     * <li>
+     * <p> path
+     * </li>
+     * <li>
+     * <p> query
+     * </li>
+     * <li>
+     * <p> fragment
+     * </li>
+     * </ul>
+     * <p> ie not:
+     * <ul>
+     * <li>
+     * <p> scheme
+     * </li>
+     * <li>
+     * <p> host
+     * </li>
+     * <li>
+     * <p> port
+     * </li>
+     * </ul>
+     * <p> I am not sure if this is the case in the whatwg spec. I suppose it is.
+     * <h2>A rough attempt</h2>
+     *
+     * <p>
+     * <h2>Parsing</h2>
+     * <p> Roughly I think what we need to do is to parse the URL into its different parts
+     * store each part in its
+     * <em>decoded</em>
+     *  state
+     * <p> This means that we can't guarantee that the round trip ends up back where we started
+     * <p> In other words
+     * <p> Let s be a valid URL
+     * <p> then
+     * <p> write(parse(s)) != s for some s
+     *
+     * <p>
+     * <h2>Writing</h2>
+     * <p> To access a part
+     * <p> encode each part (not scheme, host or port)
+     * <p> To write a URL
+     * <p> Extract each part in order asn encode it and display it with the necessary delimiters
+     * <p> There are complications/questions:
+     * <p> What is optional and mandatory?
+     * <p> Should I tidy the URL up as I convert it to a string?
+     * eg
+     * www.example.com/ to www.example.com
+     * www.example.com////// to www.example.com
+     * www.example.com? to www.example.com/?
+     * <h2>The allowed characters for the different parts</h2>
+     * <p> Let's start by defining URL code points:
+     * <p> From the Whatwg spec:
+     * <p> The URL code points are:
+     *
+     * <pre>{@code
+     * ASCII alphanumeric,
+     * U+0021 (!),
+     * U+0024 ($),
+     * U+0026 (&amp;),
+     *
+     * U+0027 ('),
+     * U+0028 LEFT PARENTHESIS,
+     * U+0029 RIGHT PARENTHESIS,
+     * U+002A (*),
+     * U+002B (+),
+     * U+002C (,),
+     * U+002D (-),
+     * U+002E (.),
+     * U+002F (/),
+     *
+     * U+003A (:),
+     * U+003B (;),
+     *
+     * U+003D (=),
+     * U+003F (?),
+     *
+     * U+0040 (@),
+     * U+005F (_),
+     * U+007E (~),
+     * and code points in the range U+00A0 to U+10FFFD, inclusive, excluding surrogates and noncharacters.
+     * }</pre>
+     * <p> percent-encoded byte is (as a regex)
+     *
+     * <pre>{@code
+     * [%][A-Z0-9]{2,2}
+     * }</pre>
+     * <p> A URL unit is some URL codePoints and percent-encoded bytes
+     * <p> Each part of the URL string is specified in terms of URL Units - and some parts have further restrictions
+     * <p> For example the port part can only be numeric
+     * <p> However - you may notice that
+     * {@code #}
+     *  is not a code point
+     * <p>
+     * <h2>Scheme - No encoding</h2>
+     * <p> Case insensitive - canonical form is lowercase
+     *
+     * <pre>{@code
+     * [a-z][a-z0-9+.-]
+     * }</pre>
+     * <h2>Host - encoding</h2>
+     * <p> according to https://url.spec.whatwg.org
+     * <blockquote>
+     * <p> A forbidden host code point is U+0000 NULL, U+0009 TAB, U+000A LF, U+000D CR, U+0020 SPACE, U+0023 (#), U+0025 (%), U+002F (/),
+     * U+003A (:), U+003F (?), U+0040 (@), U+005B ([), U+005C (\), or U+005D (]).
+     * </blockquote>
+     *
+     * <p> So - not
+     * {@code null \t \n \r space # % / : ? @ [ \ ]}
+     * <h2>Port - no encoding</h2>
+     * <p> unsigned 16 bit integer (I guess there is an assumption that it can also be null)
+     * <p> If the port is present and the same as the default port then it is meant to be stored as null (4.4 page 24)
+     * <p> The spec does not say anything about leading zeros. The Live URL viewer allows them
+     * <h2>Path - encoding</h2>
+     * <h2>Query - encoding</h2>
+     * <h2>Fragment - encoding</h2>
+     * <p> You could argue that fragments should not be sent to the server at all. They are meant to indicate to the browser what part of the
+     * resulting page to view
+     * <p>
+     * <h2>Browsers</h2>
+     * <p> FF kind of takes this view. If you enter a url that differs only in the fragment in the address bar and hit return,
+     * FF will only send the first one. I think this
+     * is a little unreasonable since it will send all urls <em>without</em> a
+     * {@code #}
+     * even if they don't differ.
+     * <p> This will upset some servers. If the user adds a
+     * {@code #}
+     *  to a url and we don't tell her then, if she hits return in the address bar, expecting it to refresh,
+     * it won't.
+     *
+     * <ul>
+     * <li>
+     * <p> FF 57.0.4 (64-bit) sends a request involving a fragment only once in succession
+     * </li>
+     * <li>
+     * <p> Chrome  63.0.3239.132 (Official Build) (64-bit) sends the request each time
+     * </li>
+     * <li>
+     * <p> Safari  11.0.2 (12604.4.7.1.4) sends the request each time
+     * </li>
+     * </ul>
+     *
+     * <p>
+     * <h2>Percent encoding</h2>
+     * <h3>{@code %XX} where each {@code X} is a hex digit</h3>
+     * <p> Jetty prevents invalid encodings being sent when they appear in the path
+     *
+     * <pre>{@code
+     * http://%6Cocalhost:8080/ is corrected by both FF and Chrome before sending
+     *
+     *
+     * http://localhost:8080/:?://%XX
+     * }</pre>
+     * <p> is sent through by both
+     * <p> I think that, if a browser notices a % encoding in the scheme, host, port or path then it will correct it before sending
+     * <p> It appears that percent encoding is done at the byte level where the bytes are assumed to be UTF-8. So the bytes are not necessarily
+     * correct UTF-8. Hmm
+     * <p> These are some urls that FF accepts and causes a GET to be sent to the server
+     *
+     * <pre>{@code
+     * http://localhost:8080//////
+     *
+     * http://localhost:8080/:
+     *
+     * http://localhost:8080/:?###
+     * http://localhost:8080/:?://###
+     * http://localhost:8080/:?:/
+     * http://localhost:8080/:?://
+     * }</pre>
+     * <p> chrome sends them
+     *
+     * <pre>{@code
+     * http://localhost:8080/:?://#
+     * http://localhost:8080/T?foo%%######
+     *
+     * http://localhost:8080/?#####
+     * http://localhost:8080/:?://%
+     * http://localhost:8080/:?://%XX
+     *
+     * localhost:8080/:?://%30
+     *
+     * http://localhost:8080/%%?foo
+     * }</pre>
+     * <p> gives Bad Request 400 - handled by Jetty
+     *
+     * <pre>{@code
+     * http://localhost:8080/T?foo%%
+     * }</pre>
+     * <p> localhost:8080/ab%30/d
+     * <p> FF sends this as is but changes the address bar to
+     * {@code http://localhost:8080/ab0/d}
+     *  so a subsequent
+     * {@code GET}
+     * will not be exactly the same as before.
+     *
+     * <p>
+     * Chrome adjusts it
+     * <em>before</em>
+     *  it sends it
+     * <p> http://localhost:8080/ab%23/d    (%23 is #)
+     * This gets sent as is and is never corrected by Chrome.
+     *
+     *
+     * <p> I guess the browsers only correct the % escapes that are not necessary
+     * <p> So why have this class?
+     * <p> I am sending the URL to the server from the browser. I want to be able to parse this and process it to a certain extent. For example
+     * I want to replace the path components to create a link but I don't want to affect any of the other parts
+     * <p> I wanted to have
+     * <em>control</em>
+     *  (as usual) in this messy and confusing area.
+     *
+     * <p>
+     * <h2>Query</h2>
+     * <p> The content of the query is not part of any URL spec
+     * <p> https://www.w3.org/TR/html401/interact/forms.html
+     * <p> Hmm - this suggests that all unicode code points > U+007E (~) should be encoded
+     * <p> Crucially, it does not say how to decode them
+     * <p> Let's assume that a query maps to [(String, String)]
+     * <p> with the usual separators etc
+     * <p> We store the pairs decoded.
+     * <p> the first and second part of each pair can be "" and there can be duplicates - Ie we will not regard duplicates as a parsing error
+     * <p> You can 'look up' a query element using
+     * <p> getQueryStringValueMaybe(String key)
+     * <p> this will only return a Just if exactly one of the pairs has key as the first element.
+     * <p> It returns the value.
+     * <p> When we display the Url, we will go through the query list, decoding them
+     *
+     *
+     */
+
+    /**
+     *
+     */
     public final String scheme;
+
+    /**
+     *
+     */
     public final String port;
+
+    /**
+     *
+     */
     public final String host;
+
+    /**
+     *
+     */
     public final ImList<String> pathComponents;
+
+    /**
+     *
+     */
     public final String path;
+
+    /**
+     * The elements of the query part of the URL
+     */
     public final ImList<ImPair<String, String>> queryElements;
+
+    /**
+     *
+     */
     public final String fragment;
 
     private static final Pattern compile = Pattern.compile("^[a-zA-Z]\\w+:\\/\\/");
@@ -509,11 +632,11 @@ public class ImUrl extends ImValuesImpl
      * <p> The empty string will mean that all the fields are null
      *
      */
-    public static ImUrl on(String urlString)
+    public static ImEither<String, ImUrl> on(String urlString)
     {
         /**
          * I think I can drop the external parser and use the URI parser now - but I am not quite sure.
-         * If the tests incluse all the cases that URI failed on before then all is good - but I am not quite
+         * If the tests include all the cases that URI failed on before then all is good - but I am not quite
          * sure that this is the case. I will try to make this change later
          *
          * I will also need to change APIRequest::createUrl
@@ -547,9 +670,8 @@ public class ImUrl extends ImValuesImpl
 
     }
 
-    private static ImUrl on$(String urlString)
+    private static ImEither<String, ImUrl> on$(String urlString)
     {
-
         try
         {
             String scheme;
@@ -563,7 +685,7 @@ public class ImUrl extends ImValuesImpl
 
             scheme = url.scheme();
 
-            host = url.host() == null ? "" : url.host().toHumanString();
+            host = calculateHostString(url.host());
 
             port = isPortDefault(urlString)
                    ? ""
@@ -577,49 +699,20 @@ public class ImUrl extends ImValuesImpl
 
             ImList<String> pathComponents = getPathComponents(path);
 
-            return new ImUrl(scheme, host, port, pathComponents, getQueryStringValues(query), fragment);
-        } catch (GalimatiasParseException e)
+            return ImEither.Right(new ImUrl(scheme, host, port, pathComponents, getQueryStringValues(query), fragment));
+        } catch (IllegalArgumentException | GalimatiasParseException e)
         {
-            throw new ImUrlParseException(e.getMessage());
+            return ImEither.Left(e.getMessage());
         }
 
     }
 
-    //    private static ImUrl on$(String urlString)
-    //    {
-    //
-    //        try
-    //        {
-    //            String scheme;
-    //            String port;
-    //            String host;
-    //            String path;
-    //            String query;
-    //            String fragment;
-    //
-    //            URI uri = new URI(urlString);
-    //
-    //            scheme = uri.getScheme().toLowerCase();
-    //
-    //            host = nullToEmptyString(uri.getHost());
-    //
-    //            port = getPort(uri);
-    //
-    //            path = nullToEmptyString(uri.getPath());
-    //
-    //            query = nullToEmptyString(uri.getRawQuery());
-    //
-    //            fragment = nullToEmptyString(uri.getFragment());
-    //
-    //            ImList<String> pathComponents = getPathComponents(path);
-    //
-    //            return new ImUrl(scheme, host, port, pathComponents, getQueryStringValues(query), fragment);
-    //        } catch (URISyntaxException e)
-    //        {
-    //            throw new UnexpectedChecked(e);
-    //        }
-    //
-    //    }
+    private static String calculateHostString(Host host)
+    {
+        String hostString = host == null ? "" : host.toHumanString();
+
+        return punyEncode(hostString);
+    }
 
     public static boolean isPortDefault(String s)
     {
@@ -705,7 +798,7 @@ public class ImUrl extends ImValuesImpl
                : p;
     }
 
-    public static ImUrl on(Path path)
+    public static ImEither<String, ImUrl> on(Path path)
     {
         return ImUrl.on("file://" + path.toFile().toString());
     }
@@ -847,4 +940,8 @@ public class ImUrl extends ImValuesImpl
         return URLEncoder.encode(s, utf8);
     }
 
+    public static String punyEncode(String s)
+    {
+        return IDN.toASCII(s, IDN.ALLOW_UNASSIGNED);
+    }
 }

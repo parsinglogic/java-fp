@@ -95,4 +95,9 @@ abstract class ImCachingLazyList<B> extends ImLazyList<B>
         }
     }
 
+    protected int calculateSize()
+    {
+        return resolveSize();
+    }
+
 }

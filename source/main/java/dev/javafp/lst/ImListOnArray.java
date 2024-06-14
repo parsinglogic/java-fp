@@ -27,7 +27,15 @@ class ImListOnArray<A> extends ImEagerList<A>
         this.skipCount = skipCount;
     }
 
-    public static <T> ImList<T> join(ImList<ImList<T>> lists)
+    /**
+     * <p> Join
+     * {@code lists}
+     *  where each list is a list on an array
+     * and so we can use
+     * {@code System.arraycopy}
+     *
+     */
+    static <T> ImList<T> joinArrayLists(ImList<ImListOnArray<T>> lists)
     {
 
         int total = 0;
@@ -40,14 +48,14 @@ class ImListOnArray<A> extends ImEagerList<A>
 
         int soFar = 0;
 
-        for (ImList<?> l : lists)
+        for (ImListOnArray<?> l : lists)
         {
-            ImListOnArray a = (ImListOnArray) l;
-            System.arraycopy(a.source, a.skipCount, dest, soFar, l.size());
+            //            ImListOnArray a = (ImListOnArray) l;
+            System.arraycopy(l.source, l.skipCount, dest, soFar, l.size());
             soFar += l.size();
         }
 
-        return (ImList<T>) on(dest);
+        return on(dest).upCast();
     }
 
     /**

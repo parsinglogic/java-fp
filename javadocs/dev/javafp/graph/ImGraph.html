@@ -565,21 +565,27 @@ LABEL&gt;<br><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The field names for this object including fields from superclasses.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPairs(dev.javafp.graph.ImGraph.Dir,KEY)" class="member-name-link">getPairs</a><wbr>(<a href="ImGraph.Dir.html" title="enum class in dev.javafp.graph">ImGraph.Dir</a>&nbsp;dir,
- <a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;key)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getOutArcs()" class="member-name-link">getOutArcs</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The arcs in the direction
+ <code>out</code></div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPairs(dev.javafp.graph.ImGraph.Dir,KEY)" class="member-name-link">getPairs</a><wbr>(<a href="ImGraph.Dir.html" title="enum class in dev.javafp.graph">ImGraph.Dir</a>&nbsp;dir,
+ <a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;key)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Get the arcs in the direction
  <code>dir</code>
   from
  <code>key</code>
   in the form of pairs containing the arc label and the key</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPaths(dev.javafp.graph.ImGraph.Dir,dev.javafp.set.ImSet,KEY)" class="member-name-link">getPaths</a><wbr>(<a href="ImGraph.Dir.html" title="enum class in dev.javafp.graph">ImGraph.Dir</a>&nbsp;dir,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPaths(dev.javafp.graph.ImGraph.Dir,dev.javafp.set.ImSet,KEY)" class="member-name-link">getPaths</a><wbr>(<a href="ImGraph.Dir.html" title="enum class in dev.javafp.graph">ImGraph.Dir</a>&nbsp;dir,
  <a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;&nbsp;labels,
  <a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;key)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Get the paths of the keys that are connected to
  <code>key</code>
   by arcs in the direction
@@ -588,35 +594,32 @@ LABEL&gt;<br><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a
  <code>labels</code>
  The first entry in each path is key</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValue(KEY)" class="member-name-link">getValue</a><wbr>(<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;key)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValue(KEY)" class="member-name-link">getValue</a><wbr>(<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&nbsp;key)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The data value associated with the node with key
  <code>key</code></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValues()" class="member-name-link">getValues</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValues()" class="member-name-link">getValues</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The field values for this object including fields from superclasses.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValuesFromKeys(dev.javafp.lst.ImList)" class="member-name-link">getValuesFromKeys</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&nbsp;keys)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValuesFromKeys(dev.javafp.lst.ImList)" class="member-name-link">getValuesFromKeys</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&nbsp;keys)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The list of data values associated with the nodes whose keys are in
 
- <code>key</code>
+ <code>keys</code>
 
  There might be repeated values in the list.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hasCycle()" class="member-name-link">hasCycle</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block"><code>true</code>
- if any of the nodes in the graph have cycles.</div>
-</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isEmpty()" class="member-name-link">isEmpty</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> <code>true</code>
+  if this is the empty graph</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#leaves()" class="member-name-link">leaves</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -694,7 +697,10 @@ LABEL&gt;<br><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#showAsSets()" class="member-name-link">showAsSets</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> A representation of the graph that shows the graph as a left-right list of its node keys above a top-down list of the pairs of nodes that are
+ connected with the first element being connected via an out arc to the second element of the pair.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImGraph.html" title="class in dev.javafp.graph">ImGraph</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#shrinkToInclusiveClosureOf(dev.javafp.set.ImSet,dev.javafp.lst.ImList)" class="member-name-link">shrinkToInclusiveClosureOf</a><wbr>(<a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;&nbsp;labels,
  <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&nbsp;ks)</code></div>
@@ -975,18 +981,6 @@ LABEL&gt;</span>
 </section>
 </li>
 <li>
-<section class="detail" id="hasCycle()">
-<h3>hasCycle</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">hasCycle</span>()</div>
-<div class="block"><code>true</code>
- if any of the nodes in the graph have cycles.
-
- A cycle is a path from a node to itself that can be traced by following any arc on a node in the
- direction
- <code>Out</code></div>
-</section>
-</li>
-<li>
 <section class="detail" id="show()">
 <h3>show</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span>&nbsp;<span class="element-name">show</span>()</div>
@@ -999,12 +993,54 @@ LABEL&gt;</span>
 <section class="detail" id="showAsSets()">
 <h3>showAsSets</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../box/AbstractTextBox.html" title="class in dev.javafp.box">AbstractTextBox</a></span>&nbsp;<span class="element-name">showAsSets</span>()</div>
+<div class="block"><p> A representation of the graph that shows the graph as a left-right list of its node keys above a top-down list of the pairs of nodes that are
+ connected with the first element being connected via an out arc to the second element of the pair.
+ <p> For example, this graph:
+
+ <pre><code>
+           4
+       ┌─◁─▢─◁─┐
+ 1    2│   │   │5    6
+ ▢──▷──▢   △   ▢──▷──▢
+       │   │   │
+       └─▷─▢─▷─┘
+           3
+ </code></pre>
+ <p> Would be represented like this:
+
+ <pre><code>
+ 1 2 3 4 5 6
+ (1, 2)
+ (2, 3)
+ (3, 4)
+ (3, 5)
+ (4, 2)
+ (5, 4)
+ (5, 6)
+ </code></pre>
+ <p> In this example, the node keys are integers and each arc label is
+ <code>""</code>
+
+ <p> If each arc had a label that was the start node represented as a word then the result would be this:
+
+ <pre><code>
+  1 2 3 4 5 6
+  (1, 2) one
+  (2, 3) two
+  (3, 4) three
+  (3, 5) three
+  (4, 2) four
+  (5, 4) five
+  (5, 6) five
+ </code></pre></div>
 </section>
 </li>
 <li>
 <section class="detail" id="isEmpty()">
 <h3>isEmpty</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEmpty</span>()</div>
+<div class="block"><p> <code>true</code>
+  if this is the empty graph</div>
 </section>
 </li>
 <li>
@@ -1163,6 +1199,14 @@ LABEL&gt;</span>
 </section>
 </li>
 <li>
+<section class="detail" id="getOutArcs()">
+<h3>getOutArcs</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImArc.html" title="class in dev.javafp.graph">ImArc</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>,<wbr><a href="ImGraph.html" title="type parameter in ImGraph">LABEL</a>&gt;&gt;</span>&nbsp;<span class="element-name">getOutArcs</span>()</div>
+<div class="block"><p> The arcs in the direction
+ <code>out</code></div>
+</section>
+</li>
+<li>
 <section class="detail" id="getPaths(dev.javafp.graph.ImGraph.Dir,dev.javafp.set.ImSet,KEY)">
 <h3 id="getPaths(dev.javafp.graph.ImGraph.Dir,dev.javafp.set.ImSet,java.lang.Object)">getPaths</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&gt;</span>&nbsp;<span class="element-name">getPaths</span><wbr><span class="parameters">(<a href="ImGraph.Dir.html" title="enum class in dev.javafp.graph">ImGraph.Dir</a>&nbsp;dir,
@@ -1232,7 +1276,7 @@ LABEL&gt;</span>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">DATA</a>&gt;</span>&nbsp;<span class="element-name">getValuesFromKeys</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImGraph.html" title="type parameter in ImGraph">KEY</a>&gt;&nbsp;keys)</span></div>
 <div class="block">The list of data values associated with the nodes whose keys are in
 
- <code>key</code>
+ <code>keys</code>
 
  There might be repeated values in the list.</div>
 </section>

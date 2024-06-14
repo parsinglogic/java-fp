@@ -827,31 +827,12 @@ loadScripts(document, 'script');</script>
 <h4>Serialized Fields</h4>
 <ul class="block-list">
 <li class="block-list">
+<h5>cachedHashCode</h5>
+<pre>int cachedHashCode</pre>
+</li>
+<li class="block-list">
 <h5>entrySet</h5>
-<pre><a href="dev/javafp/set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="dev/javafp/set/ImMap.Entry.html" title="class in dev.javafp.set">ImMap.Entry</a>&lt;<a href="dev/javafp/set/ImMap.html" title="type parameter in ImMap">K</a>,<wbr><a href="dev/javafp/set/ImMap.html" title="type parameter in ImMap">V</a>&gt;&gt; entrySet</pre>
-</li>
-</ul>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<li>
-<section class="serialized-class-details" id="dev.javafp.set.ImMap.Entry">
-<h3>Class&nbsp;<a href="dev/javafp/set/ImMap.Entry.html" title="class in dev.javafp.set">dev.javafp.set.ImMap.Entry</a></h3>
-<div class="type-signature">class Entry extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a> implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
-<ul class="block-list">
-<li>
-<section class="detail">
-<h4>Serialized Fields</h4>
-<ul class="block-list">
-<li class="block-list">
-<h5>key</h5>
-<pre><a href="dev/javafp/set/ImMap.Entry.html" title="type parameter in ImMap.Entry">KEY</a> key</pre>
-</li>
-<li class="block-list">
-<h5>value</h5>
-<pre><a href="dev/javafp/set/ImMap.Entry.html" title="type parameter in ImMap.Entry">VALUE</a> value</pre>
+<pre><a href="dev/javafp/set/ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;dev.javafp.set.ImMap.Entry&lt;<a href="dev/javafp/set/ImMap.html" title="type parameter in ImMap">K</a>,<wbr><a href="dev/javafp/set/ImMap.html" title="type parameter in ImMap">V</a>&gt;&gt; entrySet</pre>
 </li>
 </ul>
 </section>
@@ -875,12 +856,11 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>size</h5>
 <pre>int size</pre>
-<div class="block"><p> The number of elements in this set</div>
 </li>
 <li class="block-list">
 <h5>sortedSetOfBuckets</h5>
 <pre><a href="dev/javafp/set/ImSortedSet.html" title="class in dev.javafp.set">ImSortedSet</a>&lt;dev.javafp.set.ImSet.Bucket&lt;<a href="dev/javafp/set/ImSet.html" title="type parameter in ImSet">T</a>&gt;&gt; sortedSetOfBuckets</pre>
-<div class="block"><p> The sorted set that contains the buckets</div>
+<div class="block">The sorted set that contains the buckets</div>
 </li>
 </ul>
 </section>
@@ -1003,6 +983,12 @@ loadScripts(document, 'script');</script>
 <section class="serialized-package-container">
 <h2 title="Package">Package&nbsp;<a href="dev/javafp/tuple/package-summary.html">dev.javafp.tuple</a></h2>
 <ul class="block-list">
+<li>
+<section class="serialized-class-details" id="dev.javafp.tuple.ImDuo">
+<h3>Class&nbsp;<a href="dev/javafp/tuple/ImDuo.html" title="class in dev.javafp.tuple">dev.javafp.tuple.ImDuo</a></h3>
+<div class="type-signature">class ImDuo extends <a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="dev/javafp/tuple/ImDuo.html" title="type parameter in ImDuo">A</a>,<wbr><a href="dev/javafp/tuple/ImDuo.html" title="type parameter in ImDuo">A</a>&gt; implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
+</section>
+</li>
 <li>
 <section class="serialized-class-details" id="dev.javafp.tuple.ImPair">
 <h3>Class&nbsp;<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">dev.javafp.tuple.ImPair</a></h3>
@@ -1302,12 +1288,8 @@ loadScripts(document, 'script');</script>
 <h4>Serialized Fields</h4>
 <ul class="block-list">
 <li class="block-list">
-<h5>hashCode</h5>
-<pre>int hashCode</pre>
-</li>
-<li class="block-list">
-<h5>hashed</h5>
-<pre>boolean hashed</pre>
+<h5>cachedHashCode</h5>
+<pre>int cachedHashCode</pre>
 </li>
 </ul>
 </section>

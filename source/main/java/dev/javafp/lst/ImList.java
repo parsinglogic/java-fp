@@ -35,6 +35,7 @@ import dev.javafp.tuple.Pai;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TextUtils;
 
+import java.io.BufferedReader;
 import java.io.Reader;
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -455,7 +456,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      */
     static ImList<String> onReader(Reader reader)
     {
-        return ImListOnReader.on(reader);
+        return ImListOnReader.on(new BufferedReader(reader));
     }
 
     /**
@@ -879,10 +880,10 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * {@code , }
      *  to separate each element and
      * {@code [}
-     *  at the satrt and
+     *  at the start and
      * {@code ]}
      *  at the end.
-     * <p> We are assuming that the string representaion of each element does not contain any newlines
+     * <p> We are assuming that the string representation of each element does not contain any newlines
      *
      * <pre>{@code
      * [1, 2, 3 ] toS() == "[1, 2, 3]"
@@ -2112,7 +2113,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     private static <T> ImList<T> joinLists(ImList<ImList<T>> lists)
     {
         if (allArrayLists(lists))
-            return ImListOnArray.join(lists);
+            return ImListOnArray.joinArrayLists(lists.upCast());
         else
             return ImJoinList.on(lists);
     }
@@ -2966,7 +2967,7 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * We have to iterate over the list, copying it one element at a time, because the list might be lazy
      *
      */
-    default A[] toArray(A[] targetArray)
+    private A[] toArray(A[] targetArray)
     {
         int i = 0;
         for (A thing : this)
@@ -3499,7 +3500,6 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     default ImPair<ImList<A>, ImList<A>> cutIntoTwo(Fn<A, Boolean> pred)
     {
         return this.splitWhile(pred);
-        //        return cutIntoTwo(ImList.on(), pred, this).map(fst -> fst.reverse(), snd -> snd);
     }
 
     private static <A> ImPair<ImList<A>, ImList<A>> cutIntoTwo(ImList<A> first, Fn<A, Boolean> fn, ImList<A> second)

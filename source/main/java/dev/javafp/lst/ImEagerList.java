@@ -28,11 +28,6 @@ abstract class ImEagerList<A> extends ImAbstractList<A>
         return size;
     }
 
-    //    int getSz()
-    //    {
-    //        return size;
-    //    }
-
     @Override
     public int resolveSize()
     {

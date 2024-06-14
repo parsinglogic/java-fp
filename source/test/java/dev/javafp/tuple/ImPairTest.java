@@ -47,12 +47,22 @@ public class ImPairTest
                 boolean expected = eq(p1.fst, p2.fst) && eq(p1.snd, p2.snd);
                 assertEquals(expected, p1.equals(p2));
                 assertEquals(expected, p2.equals(p1));
+
                 if (p1.equals(p2))
                 {
-                    assertEquals(p1.hashCode(), p2.hashCode());
+                    assertEquals("" + p1 + " " + p2, p1.hashCode(), p2.hashCode());
                 }
             }
         }
+    }
+
+    @Test
+    public void testEquals2()
+    {
+        ImPair<Integer, Integer> p1 = ImPair.on(null, 2);
+        ImPair<Integer, Integer> p2 = ImPair.on(null, 2);
+
+        assertEquals("" + p1 + " " + p2, p1.hashCode(), p2.hashCode());
     }
 
     private boolean eq(Integer i1, Integer i2)

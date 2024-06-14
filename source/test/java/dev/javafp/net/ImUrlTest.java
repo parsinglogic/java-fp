@@ -6,11 +6,17 @@ import dev.javafp.set.ImMap;
 import dev.javafp.tuple.ImPair;
 import dev.javafp.tuple.ImTriple;
 import dev.javafp.util.ImEither;
-import dev.javafp.util.TestUtils;
 import org.junit.Test;
 
+import java.net.IDN;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
+import static dev.javafp.util.Say.say;
+import static java.net.IDN.USE_STD3_ASCII_RULES;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -28,7 +34,7 @@ public class ImUrlTest
                 + "&state=a397e4f6-369e-4131-928d-e2ee5147117d_2"
                 + "#%23foo";
 
-        ImUrl url = ImUrl.on(s);
+        ImUrl url = makeUrl(s);
 
         assertEquals("http", url.scheme);
         assertEquals("localhost", url.host);
@@ -101,8 +107,8 @@ public class ImUrlTest
      */
     private void checkRoundTrip(String s)
     {
-        ImUrl u1 = ImUrl.on(s);
-        ImUrl u2 = ImUrl.on("" + u1);
+        ImUrl u1 = makeUrl(s);
+        ImUrl u2 = makeUrl("" + u1);
 
         assertEquals(s, "" + u1);
         assertEquals(u1, u2);
@@ -132,12 +138,12 @@ public class ImUrlTest
 
     private void check(String expected, String urlString)
     {
-        assertEquals(expected, "" + ImUrl.on(urlString));
+        assertEquals(expected, "" + makeUrl(urlString));
     }
 
     private String getParts(String uriString)
     {
-        ImUrl uri = ImUrl.on(uriString);
+        ImUrl uri = makeUrl(uriString);
 
         return String.format("scheme '%s' host '%s' port '%s' path '%s' query '%s' fragment '%s'",
                 uri.scheme,
@@ -166,38 +172,43 @@ public class ImUrlTest
         ImMap<String, String> abMap2 = ImMap.on("a", "b").put("c", "");
 
         //"a=b"       a->b
-        assertEquals(ImList.on("a", "b").toPairs(), ImUrl.on("foo.com?a=b").queryElements);
+        assertEquals(ImList.on("a", "b").toPairs(), makeUrl("foo.com?a=b").queryElements);
 
         //""          ignored
-        assertEquals(ImList.on(), ImUrl.on("foo.com").queryElements);
+        assertEquals(ImList.on(), makeUrl("foo.com").queryElements);
 
-        assertEquals(ImList.on(), ImUrl.on("foo.com?").queryElements);
+        assertEquals(ImList.on(), makeUrl("foo.com?").queryElements);
 
-        assertEquals(ImList.on("a", "b").toPairs(), ImUrl.on("foo.com?a=b&").queryElements);
+        assertEquals(ImList.on("a", "b").toPairs(), makeUrl("foo.com?a=b&").queryElements);
 
         //"a"         ignored
-        assertEquals(ImList.on("a", "b", "c", "").toPairs(), ImUrl.on("foo.com?a=b&c").queryElements);
+        assertEquals(ImList.on("a", "b", "c", "").toPairs(), makeUrl("foo.com?a=b&c").queryElements);
 
         //"="         ignored
-        assertEquals(ImList.on("a", "b").toPairs(), ImUrl.on("foo.com?a=b&=").queryElements);
+        assertEquals(ImList.on("a", "b").toPairs(), makeUrl("foo.com?a=b&=").queryElements);
 
         //"a="        ignored
-        assertEquals(ImList.on("a", "b", "c", "").toPairs(), ImUrl.on("foo.com?a=b&c=").queryElements);
+        assertEquals(ImList.on("a", "b", "c", "").toPairs(), makeUrl("foo.com?a=b&c=").queryElements);
 
         //"=a"        ignored
-        assertEquals(ImList.on("a", "b").toPairs(), ImUrl.on("foo.com?a=b&=c").queryElements);
+        assertEquals(ImList.on("a", "b").toPairs(), makeUrl("foo.com?a=b&=c").queryElements);
 
         //"a=b&c=d    a->b, c->d
-        assertEquals(ImList.on("a", "b", "c", "d").toPairs(), ImUrl.on("foo.com?a=b&c=d").queryElements);
+        assertEquals(ImList.on("a", "b", "c", "d").toPairs(), makeUrl("foo.com?a=b&c=d").queryElements);
 
         //"a==b"      a->=b
-        assertEquals(ImList.on("a", "=b").toPairs(), ImUrl.on("foo.com?a==b").queryElements);
+        assertEquals(ImList.on("a", "=b").toPairs(), makeUrl("foo.com?a==b").queryElements);
+    }
+
+    private static ImUrl makeUrl(String urlString)
+    {
+        return ImUrl.on(urlString).right;
     }
 
     @Test
     public void getQueryValue()
     {
-        ImUrl url = ImUrl.on("foo.com?a=b&c=d");
+        ImUrl url = makeUrl("foo.com?a=b&c=d");
 
         assertEquals(ImEither.Right("b"), url.getQueryStringValueDecoded("a"));
         assertEquals(ImEither.Right("d"), url.getQueryStringValueDecoded("c"));
@@ -208,7 +219,7 @@ public class ImUrlTest
     @Test
     public void withNoQueries()
     {
-        ImUrl url = ImUrl.on("http://foo.com?a=b&c=d");
+        ImUrl url = makeUrl("http://foo.com?a=b&c=d");
 
         assertEquals("http://foo.com?a=b&c=d", "" + url);
         //        String expected = "foo.com";
@@ -218,15 +229,40 @@ public class ImUrlTest
     }
 
     @Test
-    public void testFunnyCharacters()
+    public void testInvalid()
     {
-        ImUrl url = ImUrl.on("https://fo+Ńńo:8080//foŃo//b(ar/%3F/?wibble%32#fr(ag►");
+        ImEither<String, ImUrl> urlEither = ImUrl.on("&^%^%$ih(*&^*&^%$WGH++");
+
+        assertEquals("Invalid host: Domain contains invalid character: %", urlEither.left);
+    }
+
+    @Test
+    public void testNonAsciiCharactersInHostArePunyCoded()
+    {
+        ImUrl url = makeUrl("https://fo+Ńńo:8080//foŃo//b(ar/%3F/?wibble #fr(ag►");
+
+        assertEquals("xn--fo+o-d2aa", url.host);
+
+        say(url.toString());
+        say(url);
+
+        say(URLDecoder.decode("fo%C5%83o, b(ar, %3F", StandardCharsets.UTF_8));
+    }
+
+    @Test
+    public void testPunyCode()
+    {
+        String s = "abc.hdkhk\u200B\u2060";
+
+        say(s, s.length());
+        String puny = IDN.toASCII(s, USE_STD3_ASCII_RULES);
+        say(puny, puny.length());
     }
 
     @Test
     public void withPath()
     {
-        ImUrl url = ImUrl.on("foo.com?a=b&c=d");
+        ImUrl url = makeUrl("foo.com?a=b&c=d");
 
         ImUrl urlWithPath = url.withPath(ImList.on("bish", "bash"));
         assertEquals("http://foo.com/bish/bash?a=b&c=d", "" + urlWithPath);
@@ -235,19 +271,97 @@ public class ImUrlTest
     @Test
     public void errorThrows()
     {
-        TestUtils.assertThrows(() -> ImUrl.on("^%**^%*^*^%"), ImUrlParseException.class, "Invalid host: Domain contains invalid character: %");
+        ImEither<String, ImUrl> urlEither = ImUrl.on("^%**^%*^*^%");
+        assertEquals("Invalid host: Domain contains invalid character: %", urlEither.left);
+    }
+
+    @Test
+    public void testConvertsToPunyCode()
+    {
+        String urlString = "https://www.\u0430\u0440\u0440\u04cf\u0435.com/";
+        ImUrl url = makeUrl(urlString);
+
+        assertEquals("www.xn--80ak6aa92e.com", url.host);
+    }
+
+    @Test
+    public void testConvertsToPunyCode2()
+    {
+        String urlString = "https://www.xn--80ak6aa92e\u0430.com";
+        ImEither<String, ImUrl> e = ImUrl.on(urlString);
+
+        assertEquals("Invalid host: A label starts with \"xn--\" but does not contain valid Punycode.", e.left);
+
     }
 
     @Test
     public void withScheme()
     {
-        ImUrl url = ImUrl.on("https://foo.com?a=b&c=d");
+        ImUrl url = makeUrl("https://foo.com?a=b&c=d");
         String expected = "http://foo.com?a=b&c=d";
 
         assertEquals(expected, "" + url.withScheme("http"));
         assertEquals(url, url.withScheme("https"));
 
-        assertEquals("http://foo:345", "" + ImUrl.on("https://foo:345").withScheme("http"));
+        assertEquals("http://foo:345", "" + makeUrl("https://foo:345").withScheme("http"));
+    }
+
+    @Test
+    public void testUrlWithPunyCode()
+    {
+        ImUrl u1 = makeUrl("https://xn--rksmrgs-5wao1o.josefsson.org");
+
+        ImUrl u2 = makeUrl("https://räksmörgås.josefßon.org");
+
+        assertEquals(u1.host, u2.host);
+    }
+
+    @Test
+    public void testURIWithPunyCode()
+    {
+        try
+        {
+            URI uri = new URI("https://räksmörgås.josefßon.org");
+            //            URI uri = new URI("https://[1::1::1]");
+
+            say(uri.getHost());
+        } catch (URISyntaxException e)
+        {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Test
+    public void testDotted()
+    {
+        ImUrl u1 = makeUrl("http://161.58.228.45:80/index.html");
+
+        say(u1);
+    }
+
+    @Test
+    public void testWithUser()
+    {
+        ImUrl u1 = makeUrl("mail://van@vanemmenis.com");
+
+        say(u1);
+    }
+
+    @Test
+    public void testWithFtp()
+    {
+        ImUrl u1 = makeUrl("ftp://anonymous:my_passwd@ftp.prep.ai.mit.edu/pub/gnu");
+
+        say(u1);
+    }
+
+    @Test
+    public void testWithSemi()
+    {
+        ImUrl u1 = makeUrl("http://www.joes-hardware.com/hammers;sale=false/index.html;graphics=true");
+
+        say(u1);
     }
 
     @Test
@@ -266,8 +380,8 @@ public class ImUrlTest
 
         pairs.foreach(p -> {
 
-                    ImUrl u1 = ImUrl.on(p.fst.toString(""));
-                    ImUrl u2 = ImUrl.on(p.snd.toString(""));
+                    ImUrl u1 = makeUrl(p.fst.toString(""));
+                    ImUrl u2 = makeUrl(p.snd.toString(""));
 
                     ImTriple<String, String, String> t1 = ImTriple.on(u1.scheme, u1.host, u1.port);
                     ImTriple<String, String, String> t2 = ImTriple.on(u2.scheme, u2.host, u2.port);

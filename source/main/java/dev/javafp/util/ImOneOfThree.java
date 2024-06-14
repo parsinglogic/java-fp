@@ -12,9 +12,9 @@ import dev.javafp.lst.ImList;
 import dev.javafp.val.ImValuesImpl;
 
 /**
- * <p> The equivalent of the Haskell Either (well y'know - as far as possible)
+ * <p> A sum type with three options
  */
-public class ImEither<L, R> extends ImValuesImpl
+public class ImOneOfThree<A, B, C> extends ImValuesImpl
 {
     /**
      * <p> The left value (or
@@ -26,67 +26,56 @@ public class ImEither<L, R> extends ImValuesImpl
      * )
      *
      */
-    public final L left;
+    public final Object value;
+    public final ThreeType type;
 
-    /**
-     * <p> The right value (or
-     * {@code null}
-     *  if
-     * {@code isLeft()}
-     *  is
-     * {@code true}
-     * )
-     *
-     */
-    public final R right;
-
-    /**
-     * Does this object have a left value?
-     */
-    public final boolean isLeft;
-
-    private ImEither(L left, R right, boolean isLeft)
+    public enum ThreeType
     {
-        this.left = left;
-        this.right = right;
-        this.isLeft = isLeft;
-
+        A,
+        B,
+        C
     }
 
-    /**
-     * <p> An
-     * {@code ImEither}
-     *  with
-     * {@code left}
-     *  set to
-     * {@code left}
-     *  and
-     * {@code isLeft}
-     *  set to
-     * {@code true}
-     *
-     */
-    public static <L, R> ImEither<L, R> Left(L left)
+    private ImOneOfThree(A a, B b, C c, ThreeType t)
     {
-        return new ImEither(left, null, true);
+        if (t == ThreeType.A)
+            this.value = a;
+        else if (t == ThreeType.B)
+            this.value = b;
+        else
+            this.value = c;
+
+        this.type = t;
     }
 
-    /**
-     * <p> An
-     * {@code ImEither}
-     *  with
-     * {@code right}
-     *  set to
-     * {@code right}
-     *  and
-     * {@code isLeft}
-     *  set to
-     * {@code false}
-     *
-     */
-    public static <L, R> ImEither<L, R> Right(R right)
+    public static <A, B, C> ImOneOfThree<A, B, C> a(A a)
     {
-        return new ImEither(null, right, false);
+        return new ImOneOfThree(a, null, null, ThreeType.A);
+    }
+
+    public static <A, B, C> ImOneOfThree<A, B, C> b(B b)
+    {
+        return new ImOneOfThree(null, b, null, ThreeType.B);
+    }
+
+    public static <A, B, C> ImOneOfThree<A, B, C> c(C c)
+    {
+        return new ImOneOfThree(null, null, c, ThreeType.C);
+    }
+
+    public A a()
+    {
+        return (A) value;
+    }
+
+    public B b()
+    {
+        return (B) value;
+    }
+
+    public C c()
+    {
+        return (C) value;
     }
 
     /**
@@ -96,45 +85,38 @@ public class ImEither<L, R> extends ImValuesImpl
      * {@code f2(right)}
      *
      */
-    public <A> A match(Fn<L, A> f1, Fn<R, A> f2)
+    public <D> D match(Fn<A, D> f1, Fn<B, D> f2, Fn<C, D> f3)
     {
-        return isLeft
-               ? f1.of(left)
-               : f2.of(right);
+        if (type == ThreeType.A)
+            return f1.of(a());
+        else if (type == ThreeType.B)
+            return f2.of(b());
+        else
+            return f3.of(c());
     }
 
     /**
      *
      * The field values for this object including fields from superclasses.
      *
-     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     * See {@link dev.javafp.val.Values} and {@link ImValuesImpl}
      */
     @Override
     public ImList<Object> getValues()
     {
-        return ImList.on(left, right, isLeft);
+        return ImList.on(value, type);
     }
 
     /**
      *
      * The field names for this object including fields from superclasses.
      *
-     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     * See {@link dev.javafp.val.Values} and {@link ImValuesImpl}
      */
     @Override
     public ImList<String> getNames()
     {
-        return ImList.on("left", "right", "isLeft");
-    }
-
-    /**
-     * If this is `right` then apply `fn` to the value in `right` to give an `ImEither`
-     *
-     * if this is `left' then just return left as the left of an `ImEither` with the correct type
-     */
-    public <B> ImEither<L, B> flatMap(Fn<R, ImEither<L, B>> fn)
-    {
-        return match(l -> ImEither.Left(l), r -> fn.of(r));
+        return ImList.on("value", "type");
     }
 
     /**
@@ -143,9 +125,7 @@ public class ImEither<L, R> extends ImValuesImpl
     @Override
     public String toString()
     {
-        return isLeft
-               ? "Left " + left
-               : "Right " + right;
+        return "" + value;
     }
 
 }
