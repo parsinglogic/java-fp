@@ -11,12 +11,12 @@ import dev.javafp.eq.Eq;
 import dev.javafp.ex.FunctionNotAllowedOnEmptyList;
 import dev.javafp.ex.Throw;
 
-class ImListOnString extends ImEagerList<Character> implements Eq
+class ImListOnChars extends ImEagerList<Character> implements Eq
 {
     private final String source;
     private final int skipCount;
 
-    private ImListOnString(String source, int skipCount, int size)
+    private ImListOnChars(String source, int skipCount, int size)
     {
         super(size);
         this.source = source;
@@ -32,7 +32,7 @@ class ImListOnString extends ImEagerList<Character> implements Eq
     {
         return size == 0
                ? ImList.empty()
-               : new ImListOnString(source, skipCount, size);
+               : new ImListOnChars(source, skipCount, size);
     }
 
     @Override
