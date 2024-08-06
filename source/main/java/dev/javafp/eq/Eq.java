@@ -9,7 +9,7 @@ package dev.javafp.eq;
 
 /**
  * A "shortcut" for
- * {@link Equals#isEqual(T, T)}
+ * {@link Equals#isEqual(Object, Object)}
  */
 public interface Eq
 {
@@ -26,6 +26,10 @@ public interface Eq
      */
     public static <T> boolean uals(T one, T two)
     {
+        // Diagnostic for when I moved Characters to codepoints
+        //        boolean x = (one instanceof Character && two instanceof ImCodePoint) || (two instanceof Character && one instanceof ImCodePoint);
+        //
+        //        Throw.Exception.ifTrue(x, "You are trying to compare a Character and a ImCodePoint");
         return Equals.isEqual(one, two);
     }
 }
