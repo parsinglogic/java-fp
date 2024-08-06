@@ -148,6 +148,16 @@ public class Throw
         }
 
         /**
+         * Throw an
+         * {@code InvalidState}
+         * exception with the specified error message
+         */
+        public static <A> A ifYouGetHere(String errorMessage)
+        {
+            throw new InvalidState(errorMessage);
+        }
+
+        /**
          * <p> Throw an exception
          * if the 1-based index with name
          * {@code name}
