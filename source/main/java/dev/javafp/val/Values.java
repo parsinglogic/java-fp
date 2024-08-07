@@ -46,35 +46,9 @@ import dev.javafp.lst.ImList;
  * <p> implement getValues
  * </li>
  * </ol>
- * <p> see Link for a simple class that does this
+ * <p> see {@link dev.javafp.tuple.ImPair} for a simple class that does this
+ *
  * <p> The ImValuesImpl::toString implementation basically gets the object as a ImList of its values and displays it indented.
- *
- * <h3>Example</h3>
- * <p> This is the start of {@link dev.javafp.net.ApiRequest}:
- *
- * <p> <img src="{@docRoot}/dev/doc-files/api-request-start.png"  width=500/>
- *
- * <p> And this is the start of {@link dev.javafp.net.ImUrl}:
- *
- * The
- * {@code toString()}
- * method on
- * {@code ApiRequest }
- * on a typical instance looks like this:
- *
- * <pre>{@code
- * GetRequest: url:             ImUrl: scheme:         http
- *                                     port:           53031
- *                                     host:           localhost
- *                                     pathComponents: [hello]
- *                                     queryElements:  []
- *                                     fragment:
- *             method:          GET
- *             followRedirects: true
- *             requestHeaders:  []
- *             queryParameters: [(bish, bash), (foo, bar)]
- * }</pre>
- *
  *
  */
 public interface Values extends HasTextBox
@@ -84,10 +58,16 @@ public interface Values extends HasTextBox
      *
      * The field values for this object including fields from superclasses.
      *
-     * See {@link Values}
+     * See {@link Values} and {@link dev.javafp.val.ImValuesImpl}
      */
     ImList<Object> getValues();
 
+    /**
+     *
+     * The field names for this object including fields from superclasses.
+     *
+     * See {@link dev.javafp.val.Values} and {@link dev.javafp.val.ImValuesImpl}
+     */
     ImList<String> getNames();
 
     default boolean defaultEquals(Object other)
