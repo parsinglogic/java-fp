@@ -18,7 +18,7 @@ import java.lang.reflect.Array;
  * <p> It creates a ImList - but the component type is the Object version of the primitive.
  * <p> It is mainly lazy
  * <p> The reason for needing this class is essentially the fact that java is so ugly when it comes to handling arrays and arrays
- * of primitives and other collections - eher we have to wrap the primitives in objects.
+ * of primitives and other collections - where we have to wrap the primitives in objects.
  * <p> A list whose source is a
  * <em>primitive</em>
  *  array
@@ -146,11 +146,6 @@ class ImListOnPrimitiveArray<A> extends ImEagerList<A> implements Eq
         return on(source, skipCount + 1, size - 1);
     }
 
-    private A[] toArray()
-    {
-        return copyToObjectArray(size);
-    }
-
     private A[] copyToObjectArray(int newSize)
     {
         Object[] os = new Object[newSize];
@@ -202,8 +197,7 @@ class ImListOnPrimitiveArray<A> extends ImEagerList<A> implements Eq
     }
 
     /**
-     * <p> Create a copy of the array and then reverse it in place
-     * and then create a ImList on that array
+     * <p> Create a copy of the source array as an Object array and then create an {@link ImReverseList} on that.
      *
      */
     public ImList<A> reverse()
