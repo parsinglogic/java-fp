@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 /**
  * <p> An immutable version of
@@ -76,19 +77,6 @@ import java.util.NoSuchElementException;
  * <p> Sometimes it is convenient to be able to add an element to a set even though that set already contains an
  * element that is "equal to it".
  *
- * <p> For example, in this library {@link ImMap} is implemented as a set of {@link ImMap.Entry} objects where an entry has a key and a value.
- * Two {@link ImMap.Entry} objects are equal
- * if their keys are equal. So for any pair of entries
- * {@code e1}
- *  and
- * {@code e2}
- * :
- *
- * <pre>{@code
- * e1.equals(e2) == e1.key.equals(e2.key)
- * }</pre>
- * <p> When we want to replace an entry, we want the new entry with its new value to be inserted in the set, even though
- * there is an existing entry with the same key.
  * <p> To allow this, there are methods {@link #replace} and {@link #add}. The default behaviour when using
  * {@link #add}  is to
  * <em>not</em>
@@ -105,6 +93,7 @@ import java.util.NoSuchElementException;
  * <p> Buckets are sorted on the hash value of their elements.
  * <p> To find an element, we first find the bucket with the matching hash value and then look through the bucket to
  * determine if the element is present.
+ *
  * <p> For sets of elements with reasonable hash functions, the average bucket size will be one.
  * @see ImSortedSet
  *
@@ -173,6 +162,9 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
             return new Bucket<C>(hashCode, (C[]) new Object[] { element });
         }
 
+        /**
+         * Implementation of {@link java.lang.Comparable#compareTo(Object)}
+         */
         public int compareTo(final Bucket<B> other)
         {
             return Integer.compare(hashCode, other.hashCode);
@@ -672,6 +664,38 @@ public class ImSet<T> implements HasTextBox, Iterable<T>, Serializable
             s = s.add(iterator.next());
 
         return s;
+    }
+
+    /**
+     * <p> The set whose elements are obtained by iterating over
+     * {@code stream}
+     *
+     * {@code null}
+     * @see #onAll(Iterable)
+     * @see #onArray(Object...)
+     * @see #on
+     *
+     */
+    public static <T> ImSet<T> onStream(Stream<? extends T> stream)
+    {
+        SetAccumulator<T> z = new SetAccumulator<>();
+
+        stream.forEach(i -> z.add(i));
+
+        return z.set;
+    }
+
+    /**
+     * A small local class to allow us to pretend to be mutable so that we can add to a set in a foreach in a Java Stream
+     */
+    private static class SetAccumulator<A>
+    {
+        ImSet<A> set = ImSet.on();
+
+        private void add(A c)
+        {
+            set = set.add(c);
+        }
     }
 
     /**

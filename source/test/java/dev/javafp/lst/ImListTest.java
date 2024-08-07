@@ -21,6 +21,7 @@ import dev.javafp.util.ServerTextUtils;
 import dev.javafp.util.Sums;
 import dev.javafp.util.TestUtils;
 import dev.javafp.util.Util;
+import dev.javafp.val.ImCodePoint;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -110,12 +111,12 @@ public class ImListTest implements Constants
     @Test
     public void testSplitAtA()
     {
-        ImList<Character> input = ImListOnString.on("abc");
+        ImList<ImCodePoint> input = ImList.onString("abc");
 
         input.heads().foreach(in ->
                 input.foreach(c ->
                         {
-                            ImPair<ImList<Character>, ImList<Character>> p = in.splitBeforeElement(c);
+                            ImPair<ImList<ImCodePoint>, ImList<ImCodePoint>> p = in.splitBeforeElement(c);
 
                             assertEquals("on char " + c, in, p.fst.append(p.snd));
                             assertFalse("fst contains " + c, p.fst.contains(c));
@@ -1609,7 +1610,7 @@ public class ImListTest implements Constants
     }
 
     @Test
-    public void testCutIntoTwoWhenFisrtIsEmpty()
+    public void testCutIntoTwoWhenFirstIsEmpty()
     {
         var is = ImList.on(1, 2, 3, 4, 5);
 
@@ -1636,6 +1637,45 @@ public class ImListTest implements Constants
         var pair = is.cutIntoTwo(i -> true);
 
         assertEquals(pair, ImPair.on(ImList.on(), ImList.on()));
+    }
+
+    @Test
+    public void testCutIntoParts()
+    {
+        var is = ImList.on(1, 2, 3, 4, 5);
+
+        TestUtils.assertToStringEquals("[[1, 2], [3], [4, 5]]", is.cutIntoParts(i -> i <= 2, i -> i == 3));
+        TestUtils.assertToStringEquals("[[1], [2], [3], [4], [5]]", is.cutIntoParts(i -> i == 1, i -> i == 2, i -> i == 3, i -> i == 4));
+        TestUtils.assertToStringEquals("[[], [], [1, 2, 3, 4, 5]]", is.cutIntoParts(i -> i < 0, i -> i < 0));
+
+        var is2 = ImList.on(1, 2, 99);
+        TestUtils.assertToStringEquals("[[1], [2], [], [99]]", is2.cutIntoParts(i -> i == 1, i -> i == 2, i -> i == 3));
+    }
+
+    @Test
+    public void testStartsWith()
+    {
+        var is = ImList.on(1, 2, 3, 4, 5);
+
+        assertTrue(ImList.on().startsWith(ImList.on()));
+        assertTrue(is.startsWith(ImList.on()));
+        assertTrue(is.startsWith(ImList.on(1)));
+        assertTrue(is.startsWith(is));
+        assertTrue(is.startsWith(ImList.on(1, 2)));
+        assertTrue(is.startsWith(ImList.on(1, 2, 3)));
+        assertFalse(is.startsWith(ImList.on(1, 2, 3, 5)));
+        assertFalse(is.startsWith(ImList.on(1, 2, 3, 4, 5, 6)));
+        assertFalse(ImList.<Integer>on().startsWith(is));
+    }
+
+    @Test
+    public void testStartsWithElement()
+    {
+        var is = ImList.on(1, 2, 3, 4, 5);
+
+        assertTrue(is.startsWithElement(1));
+        assertFalse(is.startsWithElement(2));
+        assertFalse(ImList.on().startsWithElement(1));
     }
 
     @Test

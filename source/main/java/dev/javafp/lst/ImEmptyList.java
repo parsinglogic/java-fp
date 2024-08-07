@@ -91,6 +91,10 @@ class ImEmptyList<A> extends ImAbstractList<A>
         return 0;
     }
 
+    /**
+     * <p> The resolved size of the empty list is
+     * {@code 0}
+     */
     @Override
     public int resolveSize()
     {

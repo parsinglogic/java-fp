@@ -34,6 +34,7 @@ import dev.javafp.tuple.ImTriple;
 import dev.javafp.tuple.Pai;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.TextUtils;
+import dev.javafp.val.ImCodePoint;
 
 import java.io.BufferedReader;
 import java.io.Reader;
@@ -117,7 +118,7 @@ import static java.util.Spliterator.SIZED;
  * </li>
  * </ul>
  * <p> For most lists that get created in real programs, {@link ImList#equalsList} and {@link ImList#size} will be fine.
- * <p> In fact {@link ImList#hashCode} doesn't need to go right to the end of the
+ * <p> In fact {@link ImAbstractList#hashCode()} doesn't need to go right to the end of the
  * {@code ImList}
  * . We could stop after 10, say. Let's do that.
  * <p> Most infinite lists will exist only briefly before having {@link ImList#take} or {@link ImList#drop} applied to them.
@@ -369,6 +370,26 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         }
     }
 
+    /**
+     * <p> Calculate the size of this list - in constant memory
+     *
+     * <p> If the list is "large" - ie greater than
+     * {@code START_SHOW}
+     *  then this function starts to output warning messages to the standard
+     * output. It also uses the value
+     * {@code SHOW_INTERVAL}
+     * <p> At the time of writing,
+     * {@code START_SHOW}
+     *  is 20 million and
+     * {@code SHOW_INTERVAL}
+     *  is 10 million.
+     * <p> If the list is not infinite and is larger than
+     * {@code START_SHOW}
+     * , then it will eventually complete (unless any other limiting
+     * factor in the environment prevents it)
+     * <p> I should make these values more settable - Van 2024.
+     *
+     */
     int resolveSize();
 
     /**
@@ -433,16 +454,42 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
 
     /**
      * <p> Create a
-     * {@code ImList}
+     * {@code ImList, l}
      *  from
      * {@code s}
-     *  where each element is a character and
+     *  where each element is a
+     * {@link ImCodePoint}
+     *  and
+     * {@code l.at(i} == s.codePointAt(i-1)}
+     *
+     *  and
      * {@code l.toString("") == s}
      *
      */
-    static ImList<Character> onString(String s)
+    static ImList<ImCodePoint> onString(String s)
     {
-        return ImListOnString.on(s);
+        return ImListOnArray.on(ImCodePoint.getCodePointArray(s));
+    }
+
+    /**
+     * <p> Create a
+     * {@code ImList, l}
+     *  from
+     * {@code s}
+     *  where each element is a
+     * {@link Character}
+     *  and
+     * {@code l.at(i} == s.charAt(i-1)}
+     *  and
+     * {@code l.toString("") == s}
+     *
+     *
+     *
+     *
+     */
+    static ImList<Character> onChars(String s)
+    {
+        return ImListOnChars.on(s);
     }
 
     /**
@@ -1042,17 +1089,25 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     }
 
     /**
+     * <p> This is just:
+     *
+     * <pre>{@code
+     * return getBoxes().take(limit);
+     * }</pre>
+     *
+     */
+    default ImList<AbstractTextBox> getBoxes(int limit)
+    {
+        return getBoxes().take(limit);
+    }
+
+    /**
      * <p> The
      * {@code ImList}
      *  formed by invoking {@link dev.javafp.util.TextUtils#getBoxFrom(java.lang.Object)}) on each element of
      * {@code this}
      *
      */
-    default ImList<AbstractTextBox> getBoxes(int limit)
-    {
-        return map(i -> TextUtils.getBoxFrom(i)).take(limit);
-    }
-
     default ImList<AbstractTextBox> getBoxes()
     {
         return map(i -> TextUtils.getBoxFrom(i));
@@ -1874,6 +1929,8 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
      * {@code ImList}
      *  of successive reduced values from the left:
      *
+     *  <p> Using the convention that {@code x `f` y} means {@code f(x, y)}:
+     *
      * <pre>{@code
      * scanl f z [x1, x2, ...] == [z, z `f` x1, (z `f` x1) `f` x2, ...]
      * }</pre>
@@ -2112,13 +2169,13 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
 
     private static <T> ImList<T> joinLists(ImList<ImList<T>> lists)
     {
-        if (allArrayLists(lists))
+        if (allAreArrayLists(lists))
             return ImListOnArray.joinArrayLists(lists.upCast());
         else
             return ImJoinList.on(lists);
     }
 
-    static <T> boolean allArrayLists(ImList<ImList<T>> lists)
+    private static <T> boolean allAreArrayLists(ImList<ImList<T>> lists)
     {
         for (ImList<?> l : lists)
         {
@@ -3208,6 +3265,33 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     }
 
     /**
+     * <p> {@code true}
+     *  if
+     * {@code this.take(prefix.size()) == prefix}
+     * ,
+     * {@code false}
+     *  otherwise.
+     */
+    default boolean startsWith(ImList<A> prefix)
+    {
+        return prefix.size() <= this.size() && Eq.uals(prefix, this.take(prefix.size()));
+    }
+
+    /**
+     *
+     * <p> {@code true}
+     *  if
+     * {@code this.head() == element}
+     * ,
+     * {@code false}
+     *  otherwise.
+     */
+    default boolean startsWithElement(A element)
+    {
+        return isNotEmpty() && Eq.uals(element, head());
+    }
+
+    /**
      * <p> A
      * {@code ImList}
      *  that has the same elements as
@@ -3502,14 +3586,6 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         return this.splitWhile(pred);
     }
 
-    private static <A> ImPair<ImList<A>, ImList<A>> cutIntoTwo(ImList<A> first, Fn<A, Boolean> fn, ImList<A> second)
-    {
-        if (second.isNotEmpty() && fn.of(second.head()))
-            return cutIntoTwo(first.push(second.head()), fn, second.tail());
-        else
-            return ImPair.on(first, second);
-    }
-
     /**
      * <p> Three
      * {@code ImList}
@@ -3543,6 +3619,47 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
         ImPair<ImList<A>, ImList<A>> two = one.snd.cutIntoTwo(pred);
 
         return ImTriple.on(one.fst, two.fst, two.snd);
+    }
+
+    /**
+     * <p> This is just:
+     *
+     * <pre>{@code
+     * return this.cutIntoParts(ImList.on(preds));
+     * }</pre>
+     *
+     */
+    default ImList<ImList<A>> cutIntoParts(Fn<A, Boolean>... preds)
+    {
+        return this.cutIntoParts(ImList.on(preds));
+    }
+
+    /**
+     *
+     * Cut the list into parts - sublists of `this` such that
+     * the first predicate in `preds` is true for all elements of the first sublist or else it is empty.
+     * the second predicate in `preds` is true for all elements of the second sublist or else it is empty.
+     * and so on.
+     *
+     * The process continues until we reach the end of the predicates.
+     *
+     * Examples (we are using an informal syntax here)
+     *
+     *     [1, 2, 3, 4, 5].cutIntoParts([i == 1, i == 2, i == 3, i == 4]) == [[1], [2], [3], [4], [5]]
+     *     [1, 2].cutIntoParts([i == 1, i == 2, i == 3, i == 4]) == [[1], [2], [], [], []]
+     *     [1, 2, 99].cutIntoParts([i == 1, i == 2, i == 3]) == [[1], [2], [], [99]]
+     *
+     */
+    default ImList<ImList<A>> cutIntoParts(ImList<Fn<A, Boolean>> preds)
+    {
+        if (preds.isEmpty())
+            return ImList.on(this);
+        else
+        {
+            ImPair<ImList<A>, ImList<A>> p = this.cutIntoTwo(preds.head());
+
+            return ImList.cons(p.fst, p.snd.cutIntoParts(preds.tail()));
+        }
     }
 
     /**

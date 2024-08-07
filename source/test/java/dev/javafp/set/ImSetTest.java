@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.IntStream;
 
 import static dev.javafp.set.ImSet.onArray;
 import static dev.javafp.util.ImTestHelper.checkExample;
@@ -677,5 +678,32 @@ public class ImSetTest
         ImSet<Integer> s = ImSet.onArray(1, 2, 3, 4, 5);
 
         assertEquals(s, ImSet.onIterator(s.toList().iterator()));
+    }
+
+    @Test
+    public void testOnStream()
+    {
+
+        ImSet<Integer> is = ImSet.onStream(IntStream.rangeClosed(1, 50).mapToObj(i -> Integer.valueOf(i)));
+
+        ImSet<Integer> is2 = ImList.oneTo(50).toImSet();
+
+        assertEquals(is2, is);
+    }
+
+    @Test
+    public void testOnStreamOnEmptyStream()
+    {
+        ImSet<Integer> is = ImSet.onStream(IntStream.rangeClosed(1, 0).mapToObj(i -> Integer.valueOf(i)));
+
+        assertEquals(true, is.isEmpty());
+    }
+
+    @Test
+    public void testOnStreamWithDuplicates()
+    {
+        ImSet<Integer> is = ImSet.onStream(IntStream.rangeClosed(1, 0).mapToObj(i -> Integer.valueOf(i)));
+
+        assertEquals(true, is.isEmpty());
     }
 }

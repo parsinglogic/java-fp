@@ -39,7 +39,7 @@ import java.util.Iterator;
  * toString
  * iterator
  */
-abstract class ImLazyList<A> extends ImAbstractList<A>
+public abstract class ImLazyList<A> extends ImAbstractList<A>
 {
 
     /**
@@ -139,26 +139,6 @@ abstract class ImLazyList<A> extends ImAbstractList<A>
         throw new InvalidState("This method should not have been called");
     }
 
-    /**
-     * <p> Calculate the size of this list - in constant memory
-     *
-     * <p> If the list is "large" - ie greater than
-     * {@code START_SHOW}
-     *  then this function starts to output warning messages to the standard
-     * output. It also uses the value
-     * {@code SHOW_INTERVAL}
-     * <p> At the time of writing,
-     * {@code START_SHOW}
-     *  is 20 million and
-     * {@code SHOW_INTERVAL}
-     *  is 10 million.
-     * <p> If the list is not infinite and is larger than
-     * {@code START_SHOW}
-     * , then it will eventually complete (unless any other limiting
-     * factor in the environment prevents it)
-     * <p> I should make these values more settable - Van 2024.
-     *
-     */
     @Override
     public int resolveSize()
     {
