@@ -395,11 +395,12 @@ public interface ImList<A> extends Iterable<A>, Serializable, HasTextBox
     /**
      * <p> Convert
      * {@code this}
-     *  to a {@link ImListOnArray}
+     * to a {@link ImListOnArray}
+     * unless it is already an array-based list
      * <p> This means visiting every element.
      * <p> If this is a lazy list, this means causing any side effects and capturing any mutable state into immutable state (eg if reading
      * from a stream or writing something - or any IO).
-     * <p> {@link ImListOnArray} and {@link dev.javafp.lst.ImListOnPrimitiveArray} override this - to do nothing
+     * <p> {@link ImListOnArray}, {@link ImEmptyList} and {@link dev.javafp.lst.ImListOnPrimitiveArray} override this - to do nothing
      *
      */
     default ImList<A> flush()
