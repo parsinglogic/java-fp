@@ -1,9 +1,11 @@
 package dev.javafp.util;
 
+import dev.javafp.eq.Eq;
 import dev.javafp.eq.Equals;
 import dev.javafp.ex.ArgumentShouldNotBeLessThan;
 import dev.javafp.lst.ImList;
 import dev.javafp.set.ImSet;
+import dev.javafp.val.ImCodePoint;
 import org.junit.Test;
 
 import static dev.javafp.util.Say.say;
@@ -14,8 +16,8 @@ import static org.junit.Assert.assertTrue;
 public class TextUtilsTest
 {
 
-    final Character tab = Character.valueOf('\t');
-    final Character space = Character.valueOf(' ');
+    final ImCodePoint tab = ImCodePoint.valueOf('\t');
+    final ImCodePoint space = ImCodePoint.valueOf(' ');
 
     @Test
     public void testArrays()
@@ -81,11 +83,11 @@ public class TextUtilsTest
     @Test
     public void testDetabWithMany()
     {
-        ImList<Character> chars = ImList.onString("\t\t\tabcd");
+        ImList<ImCodePoint> chars = ImList.onString("\t\t\tabcd");
 
-        ImList<ImList<Character>> ps = chars.powerSet().flatMap(is -> is.permutations());
+        ImList<ImList<ImCodePoint>> ps = chars.powerSet().flatMap(is -> is.permutations());
 
-        ImList<ImList<Character>> psSet = ImSet.onAll(ps).toList();
+        ImList<ImList<ImCodePoint>> psSet = ImSet.onAll(ps).toList();
 
         say(psSet.take(10).toString("\n"));
 
@@ -187,7 +189,7 @@ public class TextUtilsTest
      *
      * Otherwise we check that the first `spaceCount` chars of `after` are spaces
      */
-    private void checkTabExpansion(int spaceCount, ImList<Character> before, ImList<Character> after)
+    private void checkTabExpansion(int spaceCount, ImList<ImCodePoint> before, ImList<ImCodePoint> after)
     {
 
         // Get a description of where we are to use in error messages
@@ -202,13 +204,13 @@ public class TextUtilsTest
         }
 
         // Neither list is empty - get the first character
-        Character b = before.head();
-        Character a = after.head();
+        ImCodePoint b = before.head();
+        ImCodePoint a = after.head();
 
-        if (b.equals(tab))
+        if (Eq.uals(b, tab))
         {
             // We should find 'count' spaces at the start of after
-            ImList<Character> ss = after.take(spaceCount);
+            ImList<ImCodePoint> ss = after.take(spaceCount);
 
             // All should be spaces
             assertTrue("expecting " + spaceCount + " spaces" + id, ss.size() == spaceCount && ss.all(i -> i.equals(space)));
@@ -223,14 +225,14 @@ public class TextUtilsTest
 
     }
 
-    ImList<String> formatForDisplay(ImList<Character> cs)
+    ImList<String> formatForDisplay(ImList<ImCodePoint> cs)
     {
         return cs.map(i -> escapeTabChar(i));
     }
 
-    private String escapeTabChar(Character c)
+    private String escapeTabChar(ImCodePoint c)
     {
-        return c.equals(tab)
+        return Eq.uals(c, tab)
                ? "'\\t'"
                : TextUtils.quote(String.valueOf(c), "'");
 
@@ -369,6 +371,16 @@ public class TextUtilsTest
     public void testIsNlAnISOControl()
     {
         assertTrue(Character.isISOControl(Character.valueOf('\n')));
+    }
+
+    @Test
+    public void testStripLeadingZeros()
+    {
+        assertEquals("", TextUtils.stripLeadingZeros(""));
+        assertEquals("a", TextUtils.stripLeadingZeros("a"));
+        assertEquals("0", TextUtils.stripLeadingZeros("0"));
+        assertEquals("0", TextUtils.stripLeadingZeros("0000000000"));
+        assertEquals("12300", TextUtils.stripLeadingZeros("0000000012300"));
     }
 
 }

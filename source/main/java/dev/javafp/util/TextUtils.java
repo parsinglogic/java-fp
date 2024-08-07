@@ -12,10 +12,12 @@ import dev.javafp.box.HasTextBox;
 import dev.javafp.box.LeafTextBox;
 import dev.javafp.box.LeftRightBox;
 import dev.javafp.box.TopDownBox;
+import dev.javafp.eq.Eq;
 import dev.javafp.ex.Throw;
 import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImRange;
 import dev.javafp.tuple.ImPair;
+import dev.javafp.val.ImCodePoint;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -623,4 +625,22 @@ public class TextUtils
         return chunks.toArray(new String[0]);
     }
 
+    public static ImList<ImCodePoint> stripLeadingZeros(ImList<ImCodePoint> cs)
+    {
+        if (cs.isEmpty())
+            return cs;
+        else
+        {
+            ImList<ImCodePoint> xs = cs.dropWhile(c -> Eq.uals(c, ImCodePoint.valueOf('0')));
+
+            return xs.isEmpty()
+                   ? ImList.on(ImCodePoint.valueOf('0'))
+                   : xs;
+        }
+    }
+
+    public static String stripLeadingZeros(String cs)
+    {
+        return stripLeadingZeros(ImList.onString(cs)).toString("");
+    }
 }
