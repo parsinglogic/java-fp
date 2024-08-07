@@ -130,7 +130,7 @@ public class ImCodePoint extends ImValuesImpl implements Comparable<ImCodePoint>
      *  does not represent a defined codepoint or it is a surrogate then throw an exception    */
     public static ImCodePoint on(int codePoint)
     {
-        Throw.Exception.ifTrue(!Character.isDefined(codePoint) || isSurrogate(codePoint), "" + codePoint + " is not a valid code point");
+        Throw.Exception.ifTrue(!Character.isValidCodePoint(codePoint) || isSurrogate(codePoint), toHexString(codePoint) + " is not a valid code point");
         return new ImCodePoint(codePoint);
     }
 
@@ -211,7 +211,12 @@ public class ImCodePoint extends ImValuesImpl implements Comparable<ImCodePoint>
      */
     public String toHexString()
     {
-        return String.format("0x%X", codePoint);
+        return toHexString(codePoint);
+    }
+
+    public static String toHexString(int c)
+    {
+        return String.format("0x%X", c);
     }
 
     @Override
