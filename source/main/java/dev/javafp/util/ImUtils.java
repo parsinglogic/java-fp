@@ -91,7 +91,7 @@ public class ImUtils
         }
     }
 
-    public static String getStackTrace(RuntimeException e)
+    public static String getStackTrace(Exception e)
     {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
