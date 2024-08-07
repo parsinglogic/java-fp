@@ -12,7 +12,7 @@ import dev.javafp.ex.FunctionNotAllowedOnEmptyList;
 import dev.javafp.ex.Throw;
 
 /**
- * <p> A list that is the reverse of its source
+ * <p> A list that is the reverse of its source - which is an array.
  */
 class ImReverseList<A> extends ImEagerList<A> implements Eq
 {
