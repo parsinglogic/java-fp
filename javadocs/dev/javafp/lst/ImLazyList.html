@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>ImLazyList</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="declaration: package: dev.javafp.lst, class: ImLazyList">
+<meta name="generator" content="javadoc/ClassWriterImpl">
+<link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../script-dir/jquery-ui.min.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../jquery-ui.overrides.css" title="Style">
+<script type="text/javascript" src="../../../script.js"></script>
+<script type="text/javascript" src="../../../script-dir/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../../script-dir/jquery-ui.min.js"></script>
+</head>
+<body class="class-declaration-page">
+<script type="text/javascript">var evenRowColor = "even-row-color";
+var oddRowColor = "odd-row-color";
+var tableTab = "table-tab";
+var activeTableTab = "active-table-tab";
+var pathtoroot = "../../../";
+loadScripts(document, 'script');</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+<div class="flex-box">
+<header role="banner" class="flex-header">
+<nav role="navigation">
+<!-- ========= START OF TOP NAVBAR ======= -->
+<div class="top-nav" id="navbar-top">
+<div class="skip-nav"><a href="#skip-navbar-top" title="Skip navigation links">Skip navigation links</a></div>
+<ul id="navbar-top-firstrow" class="nav-list" title="Navigation">
+<li><a href="../../../index.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
+<li class="nav-bar-cell1-rev">Class</li>
+<li><a href="package-tree.html">Tree</a></li>
+<li><a href="../../../deprecated-list.html">Deprecated</a></li>
+<li><a href="../../../index-all.html">Index</a></li>
+<li><a href="../../../help-doc.html#class">Help</a></li>
+</ul>
+</div>
+<div class="sub-nav">
+<div>
+<ul class="sub-nav-list">
+<li>Summary:&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method-summary">Method</a></li>
+</ul>
+<ul class="sub-nav-list">
+<li>Detail:&nbsp;</li>
+<li><a href="#field-detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#method-detail">Method</a></li>
+</ul>
+</div>
+<div class="nav-list-search"><label for="search-input">SEARCH:</label>
+<input type="text" id="search-input" value="search" disabled="disabled">
+<input type="reset" id="reset-button" value="reset" disabled="disabled">
+</div>
+</div>
+<!-- ========= END OF TOP NAVBAR ========= -->
+<span class="skip-nav" id="skip-navbar-top"></span></nav>
+</header>
+<div class="flex-content">
+<main role="main">
+<!-- ======== START OF CLASS DATA ======== -->
+<div class="header">
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">dev.javafp.lst</a></div>
+<h1 title="Class ImLazyList" class="title">Class ImLazyList&lt;A&gt;</h1>
+</div>
+<div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
+<div class="inheritance">dev.javafp.lst.ImLazyList&lt;A&gt;</div>
+</div>
+<section class="class-description" id="class-description">
+<dl class="notes">
+<dt>All Implemented Interfaces:</dt>
+<dd><code><a href="../box/HasTextBox.html" title="interface in dev.javafp.box">HasTextBox</a></code>, <code><a href="ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;A&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;A&gt;</code></dd>
+</dl>
+<hr>
+<div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">ImLazyList&lt;A&gt;</span>
+<span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block"><p>A lazy list. This can, unlike eager lists, be infinite.
+
+ <p> For example, an `ImUnfoldList` starts with a value and the next value is determined by the step function. This list never ends.
+
+
+
+ <p> Generally we use infinite lists to easily determine a pattern for what each element should be and then we take a finite subset of the
+ list to actually work with.
+
+ <p> But what happens if you try to display an infinite list - or try to iterate over one?
+
+ <p> In an earlier version of this library your program would just loop - normally it would end after memory was exhausted.
+
+ <p> Now, you could argue that any program can loop forever, even if it is not trying to process and infinite list. This is true.
+ It's not the end of the world - although it is the end of your running program.
+
+ However, it would be useful if we could do something to help when this happens.
+
+ toString
+ iterator</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../serialized-form.html#dev.javafp.lst.ImLazyList">Serialized Form</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section class="summary">
+<ul class="summary-list">
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field-summary">
+<h2>Field Summary</h2>
+<div class="caption"><span>Fields</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Field</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static final int</code></div>
+<div class="col-second even-row-color"><code><a href="#KNOWN_INFINITE" class="member-name-link">KNOWN_INFINITE</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">The list size is known to be infinite</div>
+</div>
+<div class="col-first odd-row-color"><code>static final int</code></div>
+<div class="col-second odd-row-color"><code><a href="#UNKNOWN_FINITE" class="member-name-link">UNKNOWN_FINITE</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">The list size is not known - but it must be finite</div>
+</div>
+<div class="col-first even-row-color"><code>static final int</code></div>
+<div class="col-second even-row-color"><code><a href="#UNKNOWN_UNKNOWN" class="member-name-link">UNKNOWN_UNKNOWN</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">The list size is not known - it might be finite or infinite</div>
+</div>
+</div>
+<div class="inherited-list">
+<h3 id="fields-inherited-from-class-dev.javafp.lst.ImList">Fields inherited from interface&nbsp;dev.javafp.lst.<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a></h3>
+<code><a href="ImList.html#close">close</a>, <a href="ImList.html#comma">comma</a>, <a href="ImList.html#dash">dash</a>, <a href="ImList.html#empty">empty</a>, <a href="ImList.html#open">open</a></code></div>
+</section>
+</li>
+<!-- ========== METHOD SUMMARY =========== -->
+<li>
+<section class="method-summary" id="method-summary">
+<h2>Method Summary</h2>
+<div id="method-summary-table">
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button></div>
+<div id="method-summary-table.tabpanel" role="tabpanel">
+<div class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Method</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#equals(java.lang.Object)" class="member-name-link">equals</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> <code>true</code>
+  if
+ <code>this</code>
+ equals
+ <code>other</code></div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The (cached) hashcode for this object.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;<a href="ImLazyList.html" title="type parameter in ImLazyList">A</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#iterator()" class="member-name-link">iterator</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> An iterator on the elements of
+ <code>this</code>
+ .</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolveSize()" class="member-name-link">resolveSize</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> Calculate the size of this list - in constant memory</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The number of elements in
+ <code>this</code>
+ .</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">A String representation of this object</div>
+</div>
+</div>
+</div>
+</div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
+<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-dev.javafp.lst.ImList">Methods inherited from interface&nbsp;dev.javafp.lst.<a href="ImList.html" title="interface in dev.javafp.lst">ImList</a></h3>
+<code><a href="ImList.html#all(dev.javafp.func.Fn)">all</a>, <a href="ImList.html#allCombinationsOfSize(int)">allCombinationsOfSize</a>, <a href="ImList.html#allPairs()">allPairs</a>, <a href="ImList.html#any(dev.javafp.func.Fn)">any</a>, <a href="ImList.html#append(dev.javafp.lst.ImList)">append</a>, <a href="ImList.html#appendElement(A)">appendElement</a>, <a href="ImList.html#at(int)">at</a>, <a href="ImList.html#at(int,A)">at</a>, <a href="ImList.html#cartesianProduct()">cartesianProduct</a>, <a href="ImList.html#contains(A)">contains</a>, <a href="ImList.html#contains(dev.javafp.func.Fn)">contains</a>, <a href="ImList.html#containsAll(java.lang.Iterable)">containsAll</a>, <a href="ImList.html#cutIntoParts(dev.javafp.func.Fn...)">cutIntoParts</a>, <a href="ImList.html#cutIntoParts(dev.javafp.lst.ImList)">cutIntoParts</a>, <a href="ImList.html#cutIntoThree(dev.javafp.func.Fn)">cutIntoThree</a>, <a href="ImList.html#cutIntoTwo(dev.javafp.func.Fn)">cutIntoTwo</a>, <a href="ImList.html#drop(int)">drop</a>, <a href="ImList.html#dropWhile(dev.javafp.func.Fn)">dropWhile</a>, <a href="ImList.html#elementsEq(java.util.Iterator,java.util.Iterator)">elementsEq</a>, <a href="ImList.html#equalsList(dev.javafp.lst.ImList)">equalsList</a>, <a href="ImList.html#filter(dev.javafp.func.Fn)">filter</a>, <a href="ImList.html#filterIntoTwo(dev.javafp.func.Fn)">filterIntoTwo</a>, <a href="ImList.html#find(dev.javafp.func.Fn)">find</a>, <a href="ImList.html#findIndex(dev.javafp.func.Fn)">findIndex</a>, <a href="ImList.html#findM(dev.javafp.func.Fn)">findM</a>, <a href="ImList.html#findOrElse(dev.javafp.func.Fn,A)">findOrElse</a>, <a href="ImList.html#flatMap(dev.javafp.func.Fn)">flatMap</a>, <a href="ImList.html#flush()">flush</a>, <a href="ImList.html#foldl(B,dev.javafp.func.Fn2)">foldl</a>, <a href="ImList.html#foldr(dev.javafp.func.Fn2,B)">foldr</a>, <a href="ImList.html#foreach(dev.javafp.func.FnConsumer)">foreach</a>, <a href="ImList.html#generateListsByInjecting(A)">generateListsByInjecting</a>, <a href="ImList.html#getBoxes()">getBoxes</a>, <a href="ImList.html#getBoxes(int)">getBoxes</a>, <a href="ImList.html#getColumn(java.lang.String)">getColumn</a>, <a href="ImList.html#getRow(java.lang.String)">getRow</a>, <a href="ImList.html#getTextBox()">getTextBox</a>, <a href="ImList.html#getTextBoxKI(int)">getTextBoxKI</a>, <a href="ImList.html#getTextBoxUU()">getTextBoxUU</a>, <a href="ImList.html#getTopDownBox()">getTopDownBox</a>, <a href="ImList.html#getZipper()">getZipper</a>, <a href="ImList.html#getZipperOnIndex(int)">getZipperOnIndex</a>, <a href="ImList.html#group(int)">group</a>, <a href="ImList.html#group$(dev.javafp.func.Fn)">group$</a>, <a href="ImList.html#head()">head</a>, <a href="ImList.html#heads()">heads</a>, <a href="ImList.html#intersperse(A)">intersperse</a>, <a href="ImList.html#isEmpty()">isEmpty</a>, <a href="ImList.html#isNotEmpty()">isNotEmpty</a>, <a href="ImList.html#isSubSequence(dev.javafp.lst.ImList)">isSubSequence</a>, <a href="ImList.html#last()">last</a>, <a href="ImList.html#map(dev.javafp.func.Fn)">map</a>, <a href="ImList.html#mapWithIndex(dev.javafp.func.Fn2)">mapWithIndex</a>, <a href="ImList.html#nub()">nub</a>, <a href="ImList.html#nub(dev.javafp.func.Fn2)">nub</a>, <a href="ImList.html#permutations()">permutations</a>, <a href="ImList.html#powerSet()">powerSet</a>, <a href="ImList.html#prepend(A...)">prepend</a>, <a href="ImList.html#prependAll(dev.javafp.lst.ImList)">prependAll</a>, <a href="ImList.html#prependAll(java.util.Collection)">prependAll</a>, <a href="ImList.html#push(A)">push</a>, <a href="ImList.html#put(int,A)">put</a>, <a href="ImList.html#randomPicks()">randomPicks</a>, <a href="ImList.html#remove(A)">remove</a>, <a href="ImList.html#removeAll(dev.javafp.lst.ImList)">removeAll</a>, <a href="ImList.html#removeAt(int)">removeAt</a>, <a href="ImList.html#replace(dev.javafp.func.Fn,A)">replace</a>, <a href="ImList.html#reverse()">reverse</a>, <a href="ImList.html#scanl(B,dev.javafp.func.Fn2)">scanl</a>, <a href="ImList.html#show(dev.javafp.func.Fn,java.lang.String)">show</a>, <a href="ImList.html#shuffle()">shuffle</a>, <a href="ImList.html#sort()">sort</a>, <a href="ImList.html#sort(java.util.Comparator)">sort</a>, <a href="ImList.html#sort(java.util.function.Function)">sort</a>, <a href="ImList.html#splitAfterIndex(int)">splitAfterIndex</a>, <a href="ImList.html#splitBeforeElement(A)">splitBeforeElement</a>, <a href="ImList.html#spliterator()">spliterator</a>, <a href="ImList.html#splitIntoMaxSize(int)">splitIntoMaxSize</a>, <a href="ImList.html#splitIntoParts(int)">splitIntoParts</a>, <a href="ImList.html#splitWhile(dev.javafp.func.Fn)">splitWhile</a>, <a href="ImList.html#splitWhileListIsTrueFor(dev.javafp.func.Fn)">splitWhileListIsTrueFor</a>, <a href="ImList.html#startsWith(dev.javafp.lst.ImList)">startsWith</a>, <a href="ImList.html#startsWithElement(A)">startsWithElement</a>, <a href="ImList.html#stream()">stream</a>, <a href="ImList.html#tail()">tail</a>, <a href="ImList.html#tails()">tails</a>, <a href="ImList.html#take(int)">take</a>, <a href="ImList.html#takeUntil(dev.javafp.func.Fn)">takeUntil</a>, <a href="ImList.html#takeWhile(dev.javafp.func.Fn)">takeWhile</a>, <a href="ImList.html#toArray(java.lang.Class)">toArray</a>, <a href="ImList.html#toImSet()">toImSet</a>, <a href="ImList.html#toList()">toList</a>, <a href="ImList.html#toPairs()">toPairs</a>, <a href="ImList.html#toS()">toS</a>, <a href="ImList.html#toSet()">toSet</a>, <a href="ImList.html#toString(char)">toString</a>, <a href="ImList.html#toString(java.lang.String)">toString</a>, <a href="ImList.html#toStringList()">toStringList</a>, <a href="ImList.html#upCast()">upCast</a>, <a href="ImList.html#withHead(A)">withHead</a>, <a href="ImList.html#zip(dev.javafp.lst.ImList)">zip</a>, <a href="ImList.html#zipWith(dev.javafp.lst.ImList,dev.javafp.func.Fn2)">zipWith</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-java.lang.Iterable">Methods inherited from interface&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a></h3>
+<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html#forEach(java.util.function.Consumer)" title="class or interface in java.lang" class="external-link">forEach</a></code></div>
+</section>
+</li>
+</ul>
+</section>
+<section class="details">
+<ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field-detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="UNKNOWN_FINITE">
+<h3>UNKNOWN_FINITE</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">UNKNOWN_FINITE</span></div>
+<div class="block">The list size is not known - but it must be finite</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../constant-values.html#dev.javafp.lst.ImLazyList.UNKNOWN_FINITE">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="UNKNOWN_UNKNOWN">
+<h3>UNKNOWN_UNKNOWN</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">UNKNOWN_UNKNOWN</span></div>
+<div class="block">The list size is not known - it might be finite or infinite</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../constant-values.html#dev.javafp.lst.ImLazyList.UNKNOWN_UNKNOWN">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="KNOWN_INFINITE">
+<h3>KNOWN_INFINITE</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">KNOWN_INFINITE</span></div>
+<div class="block">The list size is known to be infinite</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="../../../constant-values.html#dev.javafp.lst.ImLazyList.KNOWN_INFINITE">Constant Field Values</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<!-- ============ METHOD DETAIL ========== -->
+<li>
+<section class="method-details" id="method-detail">
+<h2>Method Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="size()">
+<h3>size</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">size</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="ImList.html#size()">ImList</a></code></span></div>
+<div class="block"><p> The number of elements in
+ <code>this</code>
+ .
+ Throws
+ <code>SizeOnInfiniteList</code>
+ if the size is infinite.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="resolveSize()">
+<h3>resolveSize</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">resolveSize</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="ImList.html#resolveSize()">ImList</a></code></span></div>
+<div class="block"><p> Calculate the size of this list - in constant memory
+
+ <p> If the list is "large" - ie greater than
+ <code>START_SHOW</code>
+  then this function starts to output warning messages to the standard
+ output. It also uses the value
+ <code>SHOW_INTERVAL</code>
+ <p> At the time of writing,
+ <code>START_SHOW</code>
+  is 20 million and
+ <code>SHOW_INTERVAL</code>
+  is 10 million.
+ <p> If the list is not infinite and is larger than
+ <code>START_SHOW</code>
+ , then it will eventually complete (unless any other limiting
+ factor in the environment prevents it)
+ <p> I should make these values more settable - Van 2024.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="iterator()">
+<h3>iterator</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;<a href="ImLazyList.html" title="type parameter in ImLazyList">A</a>&gt;</span>&nbsp;<span class="element-name">iterator</span>()</div>
+<div class="block"><p> An iterator on the elements of
+ <code>this</code>
+ .
+
+ <p> If this list is known infinite then throw
+ <code>SizeOnInfiniteList</code></div>
+</section>
+</li>
+<li>
+<section class="detail" id="hashCode()">
+<h3>hashCode</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">hashCode</span>()</div>
+<div class="block">The (cached) hashcode for this object.</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toString()">
+<h3>toString</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">toString</span>()</div>
+<div class="block">A String representation of this object</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="equals(java.lang.Object)">
+<h3>equals</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</span></div>
+<div class="block"><p> <code>true</code>
+  if
+ <code>this</code>
+ equals
+ <code>other</code>
+
+ <p> Equality for lists means that both lists have the same size and the
+ <code>i</code>
+ th element of
+ <code>this</code>
+  equals the
+ <code>i</code>
+ th element of
+ <code>other</code></div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
+</dl>
+</section>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+<!-- ========= END OF CLASS DATA ========= -->
+</main>
+</div>
+</div>
+</body>
+</html>

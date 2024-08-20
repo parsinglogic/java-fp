@@ -83,474 +83,1535 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ImUrl</span>
 <span class="extends-implements">extends <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></span></div>
-<div class="block"><p> This class parses a URL string into a URL ... er ... object, and can convert it back to a string.
- <p> It also allows clients to create new URL objects by setting various parts of the URL.
- <p> The rules for parsing URLs are pretty damn peculiar.
- <p> I started off using the URL class - but that uses an old RFC:
-
- <pre><code>
- The syntax of URL is defined by RFC 2396: Uniform Resource Identifiers (URI): Generic Syntax, amended by
- RFC 2732: Format for Literal IPv6 Addresses in URLs. The Literal IPv6 address format also supports scope_ids.
- </code></pre>
- <p> It seems to have bugs and is, of course, not immutable.
- <p> I then tried using URI - which is based on a later RFC -
- but it also has problems
- <p> Represents a Uniform Resource Identifier (URI) reference.
- Aside from some minor deviations noted below, an instance of this class represents a URI reference as
- defined by RFC 2396: Uniform Resource Identifiers (URI): Generic Syntax, amended by RFC 2732: Format for Literal
- IPv6 Addresses in URLs.
-
- <pre><code>
- 2396 is 1998
- 2732 is 1999
- 3986 is 2005
- </code></pre>
-
-
-
- <p> This documents Java's pain with this issue:
- <p> <a href="https://cr.openjdk.java.net/~dfuchs/writeups/updating-uri/">https://cr.openjdk.java.net/~dfuchs/writeups/updating-uri</a>
- <p> I need to parse the query string as well - this is not defined in any URL parsing standard.
- <p> The rules for what is and is not a valid URL are pretty damn complicated with loads of special cases.
-
-
- <p> According to Wikipedia,
- <a href="https://en.wikipedia.org/wiki/URL">https://en.wikipedia.org/wiki/URL</a>,
- <p> uniform resource locators were defined in RFC 1738 in 1994 by Tim Berners-Lee
-
+<div class="block"><p>
+ This class <strong><em>parses</em></strong> a URL string into an ImUrl object, and can convert it back to a string. You can access the various parts of the URL using fields and it is an immutable object.
+ </p>
  <p>
- <h2>Latest spec</h2>
- <p> There appears to be an effort to standardise 3986 (and 3987 - Internationalized Resource Identifiers (IRIs))
- <a href="https://url.spec.whatwg.org">https://url.spec.whatwg.org</a>
- <p> (Although I find this rather difficult to read)
- <p> from that document:
-
- <blockquote>
- <p> Goals
-
- <p> The URL standard takes the following approach towards making URLs fully interoperable:
-
- <p> Align RFC 3986 and RFC 3987 with contemporary implementations and obsolete them in the process. (E.g., spaces, other "illegal"
- code points, query encoding, equality, canonicalization, are all concepts not entirely shared, or defined.) URL parsing needs
- to become as solid as HTML parsing. [RFC3986] [RFC3987]
-
- <p> Standardize on the term URL. URI and IRI are just confusing. In practice a single algorithm is used for both so keeping them
- distinct is not helping anyone. URL also easily wins the search result popularity contest.
- </blockquote>
+ It also allows clients to create new URL objects by "setting" various parts of an existing URL.
+ </p>
+ <p>
+ Once we have an ImUrl object - the idea is that we can convert it to a Java URL object and then send an HTTP style query to some website using the built-in Java features  - see APIRequest.
+ </p>
+ <h2>Why this class?</h2>
 
 
  <p>
- <h2>The Live Viewer</h2>
- <p> There is a github repo associated with the spec
- <p> https://github.com/whatwg/url
-
-
- <p> It says this:
- <blockquote>
- <p> Tests can be found in the url/ directory of web-platform-tests/wpt. A dashboard showing the tests running against major browsers can be seen at wpt.fyi.
- <p> A complete JavaScript implementation of the standard can be found at jsdom/whatwg-url. This implementation is kept synchronized with the standard and tests.
- <p> The Live URL Viewer lets you manually test-parse any URL, comparing your browser's URL parser to that of jsdom/whatwg-url.
- <p> https://jsdom.github.io/whatwg-url
- </blockquote>
-
- <p> However, this viewer appears to show some differences with the spec
- <h2>So where are we now?</h2>
- <p> I am using a library to help me do the parsing - I have decided to keep this class as a wrapper
- <p> I don't fully understand the whatwg spec
- I don't believe the galimatias library is bug free
-
+ We originally had a URL class that was a thin immutable wrapper around the Java URL class - ie just use the Java URL class to do the parsing of the URL string - but that class only supports a very old version of the relevant standard so we felt we should do more in this area.
+ </p>
  <p>
- <h2>So what is a URL exactly?</h2>
- <p> A URL string has this form (roughly)
-
- <pre><code>
- scheme '://' host ':' port '/' path '?' query '#' fragment
- </code></pre>
- <p> So it has six parts
- <p> In fact, I am only talking about the main URL types that we care about - the ones with scheme http or https
- <p> For other schemes, different rules apply
- <p> There are some strange rules about what characters are allowed in the URL string - and what characters are allowed in the URL object
- <p> This is the Whatwg spec - section 4.1:
-
- <pre><code>
- A URL is a universal identifier. To disambiguate from a valid URL string it can also be referred to as a URL record.
-
- A URL’s scheme is an ASCII string that identifies the type of URL and can be used to dispatch a URL for further processing after parsing. It is initially the empty string.
-
- A URL’s username is an ASCII string identifying a username. It is initially the empty string.
-
- A URL’s password is an ASCII string identifying a password. It is initially the empty string.
-
- A URL’s host is null or a host. It is initially null.
-
- ...
-
- A URL’s port is either null or a 16-bit unsigned integer that identifies a networking port. It is initially null.
-
- A URL’s path is a list of zero or more ASCII strings, usually identifying a location in hierarchical form. It is initially empty.
- </code></pre>
- <p> Hmm
- <p> The problem with this is that it is very misleading.
- <p> The first thing to note is that these rules apply to the URL record - not the URL string.
- <p> While it is literally true that, apart from the port, the URL's parts are ASCII strings, what this doesn't mention is that these
- ASCII strings are, for some parts, intended to represent UNICODE strings.
- <p> They could have specified an encoding or even left the storage format up to the implementation - but they didn't.
- <p> They could also have simply specified that the UNICODE strings should be some encoding or other - but they didn't
- <p> Instead they have specified that the characters are stored in UTF8 - which is then "percent encoded"
-
- <p>
- <h3>Questions on the whatwg spec</h3>
- <h4>How can fragments contain many <code>#</code> characters</h4>
- <p> a://example.co#######
- <p> seems to be ok on the
- <a href="https://jsdom.github.io/whatwg-url">live URL Viewer</a>
+ In particular, it is not able to handle URLs like this:
+ </p>
 
 
- <p> 4.3 says
- <blockquote>
- <p> A URL-fragment string must be zero or more URL units.
- <p> The URL units are URL code points and percent-encoded bytes.
- <p> Percent-encoded bytes can be used to encode code points that are not URL code points or are excluded from being written.
- </blockquote>
+
+ <pre class="prettyprint">     https://räksmörgås.josefsson.org
+ </pre>
 
 
  <p>
- <h4>Why do they specify the forbidden host code points?</h4>
- <p> There are a set of forbidden characters - but there are many others that are noted as invalid on the live URL viewer
- <p> eg FORM FEED
- <p> This is OK:
+ What is meant to happen here is that the URL parser converts this using the IDNA name mapping standard:
+ </p>
+ <p>
+ <a href="https://datatracker.ietf.org/doc/html/rfc5891#section-4.2.3">https://datatracker.ietf.org/doc/html/rfc5891#section-4.2.3</a>
+ </p>
+ <p>
+ to get this:
+ </p>
 
- <pre><code>
- https://fo+Ńńo:8080//foŃo//b(ar/%3F/?wibble%32#fr(ag►
- </code></pre>
- <p> This is not: (
- <code>%0C</code>
-  is
- <code>formfeed</code>
- )
 
- <pre><code>
- https://fo+%0CŃńo:8080//foŃo//b(ar/%3F/?wibble%32#fr(ag►
- </code></pre>
+
+ <pre class="prettyprint">     https://xn--rksmrgs-5wao1o.josefsson.org
+ </pre>
+
 
  <p>
- <h2>Why doesn't this library just use the java class URI?</h2>
- <p> The URI class in Java seems to only refers to 2396:
+ This mapping is specified in
+ </p>
+ <p>
+ <a href="https://datatracker.ietf.org/doc/html/rfc3490">https://datatracker.ietf.org/doc/html/rfc3490</a>
+ </p>
+ <p>
+ I am not sure why this particular mapping was chosen.
+ </p>
+ <p>
+ So we are using the IBM icu4j classes to do the necessary IDNA name mappings.
+ </p>
+ <p>
+ If we supply the above IDNA-mapped  URL to the Java URL class then it will work correctly - it just doesn't know how to do the IDNA mapping on the original unicode string.
+ </p>
+ <h2>Why is parsing URLs so... messy?</h2>
 
- <blockquote>
- <p> Aside from some minor deviations noted below, an instance of this class represents
- a URI reference as defined by RFC 2396: Uniform Resource Identifiers (URI): Generic Syntax,
- amended by RFC 2732: Format for Literal IPv6 Addresses in URLs.
- </blockquote>
 
- <p> I tried to use what Jetty gives us - but it is a bit peculiar. It does not tell you what the fragment is for example. I guess that is because fragments
- are meant to be browser-side things?
- <p> I tried to use URI - but it chokes on URLs that actually get sent from browsers. I don't want to parse a url from a browser only to get an exception
- <p> The URI class does not let us access the parts of a query as a map
- <p> So we need to process the URLs that we get in real life
- <p> So to reach a server the url must have been processed by (eg)
- <ul>
- <li>
- <p> curl
- </li>
- <li>
- <p> wget
- </li>
- <li>
- <p> a browser
- </li>
- <li>
- <p> some javascript code
- </li>
- <li>
- <p> Whatever processes it on the public internet
- </li>
- <li>
- <p> Firewalls, routers, load balancers, reverse proxies, API gateways
- </li>
- <li>
- <p> Some server side code - Jetty, Undertow, Lambda?
- </li>
- </ul>
- <p> These elements will apply their rules about what is a valid URL
- <p> I am passing the url - as it is perceived on the browser - to the server
- <p> I think this is the best plan as it accurately reflects what we will need to do in order to handle a redirect
- <p> If we use the URL on the server - it is possible that it will have been mangled
- <p> The URI has this form (roughly)
+ <p>
+ If you read the WhatWG standard document you might be surprised to find that, apart from defining a few sets of codepoints and explaining some broad concepts, the main meat of the standard is a pseudocode description of how to do the parsing. I suppose you could either regard this as a refreshingly practical way to explain how to implement the standard or an admission that it's so damn complicated that this is the only way to get through it. It certainly makes it difficult to get an overview of what is expected by having to plough through about eight pages of pseudocode.
+ </p>
+ <p>
+ In "Parsing millions of URLs per second" (<a href="https://onlinelibrary.wiley.com/doi/10.1002/spe.3296?af=R">https://onlinelibrary.wiley.com/doi/10.1002/spe.3296?af=R</a>) which discusses a particular implementation of the WhatWG standard (now integrated with Node.js version 20), the authors provide a helpful state-transition diagram to illustrate the parser.
+ </p>
+ <p>
 
- <pre><code>
- scheme '://' host ':' port '/' path '?' query '#' fragment
- </code></pre>
- <p> Actually, after the scheme comes the authority
 
- <pre><code>
- authority   = [ userinfo "@" ] host [ ":" port ]
- </code></pre>
- <p> I am ignoring the userinfo part for now
- <p> So we have the concept of the URL string - which is parsed into the URL in-memory representation (object)
- <p> So we take the URL string and parse it to get the URL object and we can then write it to get the URL string
- <p> It seems that each part of the URL has
+
+
+ <img src="../../../dev/doc-files/url-images-image1.png" width="600">
+
+ </p>
+ <p>
+ <strong><em>The URL parser state machine.</em></strong>
+ </p>
+ <p>
+ Obviously, our old friend "history" has a part to play in why things are so complicated. As we have struggled with our implementation we would identify a few main reasons
+ </p>
  <ol>
- <li>
- <p> a different allowed character set.
- </li>
- <li>
- <p> a different set of characters that need to be encoded to percent escaped form
+
+ <li>The host part is treated very differently from all the other parts
+
+ <li>The file scheme is different from all the other special schemes
+
+ <li>The little-used authority parts (user and password) are very peculiar indeed
+
+ <li>The parsing of "opaque" (ie non-standard) schemes imposes many subtle issues
+
+ <li>The parsing of relative URLs is tricky
  </li>
  </ol>
- <p> I don't think it matters if we encode a code point that did not have to be encoded
- <p> So, obviously, if we want to have a = character in a query then we must encode it so that it doesn't act as a delimiter
+ <p>
+ We have simplified our task by not attempting to implement 4 and 5 above.
+ </p>
+ <h2>The WhatWG standard</h2>
+
 
  <p>
- <h2>Encoding and decoding</h2>
- <p> There are two java classes
- URLEncoder and URLDecoder
- <p> These are based on <code>application/x-www-form-urlencoded</code> MIME format
- <p> So an encoded string has a character set that is:
-
- <pre><code>
- [a-z]
- [A-Z]
- [0-9]
- *
- .
- -
- _
- </code></pre>
-
- <p> (and % - but this is the character that introduces two octets). An octet is a character [0-9A-F]
- <p> If we want to have a % character anywhere we must encode it
- encoding and decoding make reference to a character encoding - the idea is tha we encode a unicode code point into a percent
- escaped list of characters that you would see if the code point was encoded using that character encoding.
- <p> The default is UTF-8
- <h2>Where can escaped octets appear ?</h2>
- <p> RFC 2396 allows escaped octets to only appear in:
+ The relevant standard for parsing URLs and their internal representation  is the WhatWg standard:
+ </p>
+ <p>
+ <a href="https://url.spec.whatwg.org">https://url.spec.whatwg.org</a>
+ </p>
+ <p>
+ This describes itself as a "living standard" - we are using the version that was updated 25-mar-2024.
+ </p>
+ <p>
+ We would like to support the WhatWg standard completely but that is too much effort for us to do at the moment.
+ </p>
+ <p>
+ This has a good overview:
+ </p>
+ <p>
+ <a href="https://onlinelibrary.wiley.com/doi/10.1002/spe.3296?af=R">https://onlinelibrary.wiley.com/doi/10.1002/spe.3296?af=R</a>
+ </p>
+ <p>
+ So there are some restrictions in this implementation:
+ </p>
  <ul>
- <li>
- <p> user-info
- </li>
- <li>
- <p> path
- </li>
- <li>
- <p> query
- </li>
- <li>
- <p> fragment
+
+ <li>It only supports four schemes - http, https, file, ftp  because these are the only ones supported by Java "out of the box"
+
+ <li>It doesn't support the jar scheme yet - even though Java does support it "out of the box"
+
+ <li>It only supports <strong><em>absolute</em></strong> URLs
  </li>
  </ul>
- <p> ie not:
- <ul>
- <li>
- <p> scheme
- </li>
- <li>
- <p> host
- </li>
- <li>
- <p> port
- </li>
- </ul>
- <p> I am not sure if this is the case in the whatwg spec. I suppose it is.
- <h2>A rough attempt</h2>
+ <p>
+ With these restrictions, it does support the WhatWg standard fairly closely.
+ </p>
+ <p>
+ It passes all of the 296 applicable tests from
+ </p>
+ <p>
+ <a href="https://github.com/web-platform-tests">https://github.com/web-platform-tests</a>
+ </p>
+ <h2>Does this mean that this class parses URLs in exactly the same way as browsers do?</h2>
+
 
  <p>
- <h2>Parsing</h2>
- <p> Roughly I think what we need to do is to parse the URL into its different parts
- store each part in its
- <em>decoded</em>
-  state
- <p> This means that we can't guarantee that the round trip ends up back where we started
- <p> In other words
- <p> Let s be a valid URL
- <p> then
- <p> write(parse(s)) != s for some s
+ Alas no. The WhatWg standard is not followed exactly by all browsers. I have tested on Chrome and found many cases where Chrome does something different to the standard. Hey ho.
+ </p>
+ <p>
+ The standard has many cases where it states that some input causes a validation error:
+ </p>
+ <p>
+
+
+
+
+ <img src="../../../dev/doc-files/url-images-image2.png" width="600">
+
+ </p>
+ <p>
+ For the validation errors that don't mean that the parser should terminate, our parser also does not terminate and we currently don't provide any indication that there has been a validation error.
+ </p>
+ <p>
+ WhatWg's pseudocode has used an approach that parses each part in one or two functions with all the variations noted above being handled by flags being passed to each function with plentiful if tests to do different things in different cases. This does not lead to very comprehensible pseudocode.
+ </p>
+ <p>
+ In addition, and we don't want you to think we are just complaining for the sake of it here, the extract below is from the spec - with the pseudocode for the scheme state, it is not obvious how we would easily implement section 2.1.3. It requires us to make a decision based on the credentials (user/password) and the port - but these three items have not been parsed yet - if we are following the pseudocode for the state machine. Tricky.
+ </p>
+ <p>
+
+
+
+
+ <img src="../../../dev/doc-files/url-images-image5.png" width="600">
+
+ </p>
+ <p>
+ From "Parsing millions of URLs per second":
+ </p>
+ <p>
+
+     <em>To illustrate the complexity, our C++ software library implementing the WHATWG URL standard—and little else—has approximately 20,000 lines of code.</em>
+ </p>
+ <p>
+ We can't help wondering - if the standard authors have decided that code is the easiest way to describe the parsing, would it not have been more helpful to use an actual compilable language so that it would be easier to read and test for implementers.
+ </p>
+ <h2>How widely implemented is the WhatWG standard in browsers?</h2>
+
 
  <p>
- <h2>Writing</h2>
- <p> To access a part
- <p> encode each part (not scheme, host or port)
- <p> To write a URL
- <p> Extract each part in order asn encode it and display it with the necessary delimiters
- <p> There are complications/questions:
- <p> What is optional and mandatory?
- <p> Should I tidy the URL up as I convert it to a string?
- eg
- www.example.com/ to www.example.com
- www.example.com////// to www.example.com
- www.example.com? to www.example.com/?
- <h2>The allowed characters for the different parts</h2>
- <p> Let's start by defining URL code points:
- <p> From the Whatwg spec:
- <p> The URL code points are:
-
- <pre><code>
- ASCII alphanumeric,
- U+0021 (!),
- U+0024 ($),
- U+0026 (&amp;amp;),
-
- U+0027 ('),
- U+0028 LEFT PARENTHESIS,
- U+0029 RIGHT PARENTHESIS,
- U+002A (*),
- U+002B (+),
- U+002C (,),
- U+002D (-),
- U+002E (.),
- U+002F (/),
-
- U+003A (:),
- U+003B (;),
-
- U+003D (=),
- U+003F (?),
-
- U+0040 (@),
- U+005F (_),
- U+007E (~),
- and code points in the range U+00A0 to U+10FFFD, inclusive, excluding surrogates and noncharacters.
- </code></pre>
- <p> percent-encoded byte is (as a regex)
-
- <pre><code>
- [%][A-Z0-9]{2,2}
- </code></pre>
- <p> A URL unit is some URL codePoints and percent-encoded bytes
- <p> Each part of the URL string is specified in terms of URL Units - and some parts have further restrictions
- <p> For example the port part can only be numeric
- <p> However - you may notice that
- <code>#</code>
-  is not a code point
+ While we were using the (very useful) website
+ </p>
  <p>
- <h2>Scheme - No encoding</h2>
- <p> Case insensitive - canonical form is lowercase
-
- <pre><code>
- [a-z][a-z0-9+.-]
- </code></pre>
- <h2>Host - encoding</h2>
- <p> according to https://url.spec.whatwg.org
- <blockquote>
- <p> A forbidden host code point is U+0000 NULL, U+0009 TAB, U+000A LF, U+000D CR, U+0020 SPACE, U+0023 (#), U+0025 (%), U+002F (/),
- U+003A (:), U+003F (?), U+0040 (@), U+005B ([), U+005C (\), or U+005D (]).
- </blockquote>
-
- <p> So - not
- <code>null \t \n \r space # % / : ? @ [ \ ]</code>
- <h2>Port - no encoding</h2>
- <p> unsigned 16 bit integer (I guess there is an assumption that it can also be null)
- <p> If the port is present and the same as the default port then it is meant to be stored as null (4.4 page 24)
- <p> The spec does not say anything about leading zeros. The Live URL viewer allows them
- <h2>Path - encoding</h2>
- <h2>Query - encoding</h2>
- <h2>Fragment - encoding</h2>
- <p> You could argue that fragments should not be sent to the server at all. They are meant to indicate to the browser what part of the
- resulting page to view
+ <a href="https://jsdom.github.io/whatwg-url">https://jsdom.github.io/whatwg-url</a>
+ </p>
  <p>
- <h2>Browsers</h2>
- <p> FF kind of takes this view. If you have a request that differs only in the fragment, FF will only send the first one. I think this
- is a little unreasonable since it will send urls without a
- <code>#</code>
- that don't differ.
- <p> This will upset Drum. If the user adds a
- <code>#</code>
-  to a url and we don't tell her then, if she hits return in the address bar, expecting it to refresh,
- it won't.
- <ul>
- <li>
- <p> FF 57.0.4 (64-bit) sends a request involving a fragment only once in succession
+ to better understand the standard (on Chrome on Macos Version 126.0.6478.127) we noticed about 20 different cases where the standard and Chrome disagreed. This is just an ad-hoc observation. We have not tested these cases on other browsers.
+ </p>
+ <h2>The "quick" summary</h2>
+
+
+ <p>
+ The basic idea of a WhatWG URL parser is this:
+ </p>
+ <ol>
+
+ <li>It takes an input in the form of a string in UTF-16 encoding
+
+ <li>It parses it and converts this to an internal format. If there are "fatal" errors then it should refuse to parse it. For non-fatal errors it should still work.
+
+ <li>It can serialise this internal format to a string that contains only ASCII printable characters.
  </li>
- <li>
- <p> Chrome  63.0.3239.132 (Official Build) (64-bit) sends the request each time
- </li>
- <li>
- <p> Safari  11.0.2 (12604.4.7.1.4) sends the request each time
- </li>
- </ul>
- <h2>Percent encoding</h2>
- <h3><code>%XX</code> where each <code>X</code> is a hex digit</h3>
- <p> Jetty prevents invalid encodings being sent when they appear in the path
+ </ol>
+ <p>
+ The spec makes it clear that the string is processed one unicode codepoint at a time. It also usually talks about codepoints rather than characters.
+ </p>
+ <p>
+ We will also talk about codepoints rather than characters.
+ </p>
+ <h2>The parts of a URL</h2>
 
- <pre><code>
- http://%6Cocalhost:8080/ is corrected by both FF and Chrome before sending
-
-
- http://localhost:8080/:?://%XX
- </code></pre>
- <p> is sent through by both
- <p> I think that, if a browser notices a % encoding in the scheme, host, port or path then it will correct it before sending
- <p> It appears that percent encoding is done at the byte level where the bytes are assumed to be UTF-8. So the bytes are not necessarily
- correct UTF-8. Hmm
- <p> These are some urls that FF accepts and causes a GET to be sent to the server
-
- <pre><code>
- http://localhost:8080//////
-
- http://localhost:8080/:
-
- http://localhost:8080/:?###
- http://localhost:8080/:?://###
- http://localhost:8080/:?:/
- http://localhost:8080/:?://
- </code></pre>
- <p> chrome sends them
-
- <pre><code>
- http://localhost:8080/:?://#
- http://localhost:8080/T?foo%%######
-
- http://localhost:8080/?#####
- http://localhost:8080/:?://%
- http://localhost:8080/:?://%XX
-
- localhost:8080/:?://%30
-
- http://localhost:8080/%%?foo
- </code></pre>
- <p> gives Bad Request 400 - handled by Jetty
-
- <pre><code>
- http://localhost:8080/T?foo%%
- </code></pre>
- <p> localhost:8080/ab%30/d
- <p> FF sends this as is but changes the address bar to
- <code>http://localhost:8080/ab0/d</code>
-  so a subsequent
- <code>GET</code>
- will not be exactly the same as before.
 
  <p>
- Chrome adjusts it
- <em>before</em>
-  it sends it
- <p> http://localhost:8080/ab%23/d    (%23 is #)
- This gets sent as is and is never corrected by Chrome.
+ So if we think about a URL input string as being composed of <strong><em>parts</em></strong>, our first idea might be that it is this (well roughly):
+ </p>
+ <p>
 
 
- <p> I guess the browsers only correct the % escapes that are not necessary
- <p> So why have this class?
- <p> I am sending the URL to the server from the browser. I want to be able to parse this and process it to a certain extent. For example
- I want to replace the path components to create a link but I don't want to affect any of the other parts
- <p> I wanted to have
- <em>control</em>
-  (as usual) in this messy and confusing area.
+
+
+ <img src="../../../dev/doc-files/url-images-image7.png" width="600">
+
+ </p>
+ <p>
+ For clarity, I have highlighted the delimiters.
+ </p>
+ <p>
+ In fact there are a few more parts that we normally forget (or never knew about in the first place):
+ </p>
+ <p>
+
+
+
+
+ <img src="../../../dev/doc-files/url-images-image6.png" width="600">
+
+ </p>
+ <p>
+ This means that there are eight parts to a URL. Most of the parts are optional.
+ </p>
+ <p>
+ Just to be difficult, I am going to say that there are actually <strong><em>nine</em></strong> parts to a URL.
+ </p>
+ <p>
+ After the scheme part, delimited by ':' there can be a run of slashes, '/' '\'. For the file scheme the number of slashes is significant - so I am going to promote what most people will tell you is a humble delimiter into a full part. So now, (again - roughly) we have this:
+ </p>
+ <p>
+
+
+
+
+ <img src="../../../dev/doc-files/url-images-image4.png" width="600">
+
+ </p>
+ <p>
+ The scheme-part is required and the host part is required - except for some cases in the file scheme - this depends on the slashes-part in this case.
+ </p>
+ <p>
+ The other parts are optional - the file scheme does not allow a port.
+ </p>
+ <p>
+ If an optional part does not appear in the URL then its default value in the parsed form is considered to be the empty string (sigh - except for the path part, where the default is '/'.
+ </p>
+ <p>
+ If it does appear but is empty because its start delimiter appears but one of its terminating delimiters follows it immediately, then it is also considered to be the empty string. When the URL is serialised it is represented as if it didn't appear.
+ </p>
+ <p>
+ We can split the parts into three distinct types based on how the parser handles non-printable ASCII codepoints and percent encoded triplets
+ </p>
+ <h3>Strict</h3>
+
 
  <p>
- <h2>Query</h2>
- <p> The content of the query is not part of any URL spec
- <p> https://www.w3.org/TR/html401/interact/forms.html
- <p> Hmm - this suggests that all unicode code points > U+007E (~) should be encoded
- <p> Crucially, it does not say how to decode them
- <p> Let's assume that a query maps to [(String, String)]
- <p> with the usual separators etc
- <p> We store the pairs decoded.
- <p> the first and second part of each pair can be "" and there can be duplicates - Ie we will not regard duplicates as a parsing error
- <p> You can 'look up' a query element using
- <p> getQueryStringValueMaybe(String key)
- <p> this will only return a Just if exactly one of the pairs has key as the first element.
- <p> It returns the value.
- <p> When we display the Url, we will go through the query list, decoding them</div>
+ Non-printable ASCII codepoints or percent encoded triplets are not allowed. For these parts we don't talk about the disallowed codepoints in the input - because each part specifies what codepoints are allowed and that is a small set in each case - so considering disallowed codepoints is unnecessary.
+ </p>
+ <p>
+ These parts are:
+ </p>
+ <ol>
+
+ <li>scheme
+
+ <li>slashes
+
+ <li>port
+ </li>
+ </ol>
+ <h3>Non-strict</h3>
+
+
+ <ol>
+
+ <li>Non-printable ASCII codepoints are allowed - they will be converted to percent encoded triplets.
+
+ <li>Percent encoded triplets are allowed - they will be passed through unchanged.
+
+ <li>The '%' codepoint is allowed - even if not part of a valid percent encoded triplet - it is passed through unchanged. This behavior is described in the standard as being a non-fatal validation error (except in the authority part) so ... we regard it as allowed behaviour.
+ </li>
+ </ol>
+ <p>
+ So although the <strong><em>spirit</em></strong> of having percent encoded triplets is that they should be decodable to unicode codepoints,  <strong><em>there is no validation that this is the case</em></strong>. Any percent encoded triplets are simply passed through unchanged - valid or invalid.
+ </p>
+ <p>
+ For these parts we do talk about there being disallowed codepoints in the input. These are normally disallowed because it would confuse the parsing. For example, any codepoint that acts as an end delimiter is normally disallowed (but see passwords!).
+ </p>
+ <p>
+ In order to smuggle them into a part, you can represent them as percent encoded triplets - remember that the parser just passes these through unchanged - and hope that these will be decoded at the server when the URL is used.
+ </p>
+ <p>
+ These parts are:
+ </p>
+ <ol>
+
+ <li>user
+
+ <li>password
+
+ <li>path
+
+ <li>query
+
+ <li>fragment
+ </li>
+ </ol>
+ <h3>Host</h3>
+
+
+ <p>
+ In the host part, non-printable ASCII codepoints <strong><em>are</em></strong> allowed - although not all will be valid. Some codepoints are identified by the standard as being "forbidden" and others will be rejected by the IDNA name mapping/Punycode algorithm.
+ </p>
+ <p>
+ Any percent encoded triplets <strong><em>are</em></strong> decoded to unicode characters - if these triplets represent invalid UTF-8 sequences then this will cause a fatal error.
+ </p>
+ <p>
+ To decode a run of percent encoded triples to unicode characters, the parser converts the triples to octets - each triple defines an octet - and then it treats the run of octets that it has just created as utf-8 encoded bytes and it decodes them to unicode codepoints.
+ </p>
+ <p>
+ So - there might be code points in the input that are non-printable ASCII codepoints and there might be some that were not in the input but were generated by the process of decoding the percent encoded triplets. These are mapped to printable ASCII using the IDNA mapping (AKA punycode).
+ </p>
+ <p>
+ Note that it only decodes the runs of triplets themselves - it does not convert the triplets to bytes and then combine them with neighbouring code points and try to decode these.
+ </p>
+ <p>
+ The only part that this applies to is:
+ </p>
+ <ol>
+
+ <li>host
+ </li>
+ </ol>
+ <p>
+ The idea is that once an input has been parsed, the serialised form of it will be parsable into a URL that will have the same serialised form.
+ </p>
+ <p>
+ If the parsing process detects an error, the standard says that the implementation is encouraged to make the error available somewhere. The standard identifies two types of errors
+ </p>
+ <ol>
+
+ <li>fatal errors that stop the URL being parsed
+
+ <li>non-fatal errors - warnings really - although it does not specify how to make the text of the warning available to the user.
+ </li>
+ </ol>
+ <p>
+ We are all used to typing URLs into browser address bars - although this is a little misleading since, the browser does its best to take what you have typed and give you some sort of result - even if it is not a strictly valid URL.
+ </p>
+ <p>
+ for example you can type
+ </p>
+ <p>
+ google.com
+ </p>
+ <p>
+ into most browsers and you will see the google search page.
+ </p>
+ <p>
+ if you look at what the browser has done you will notice that the url it is actually using is
+ </p>
+ <p>
+ <a href="https://www.google.com/">https://www.google.com/</a>
+ </p>
+ <p>
+ The browser has added the scheme "https" (or maybe "http") and inserted "://" between that and "google.com" and the web site has redirected you to the actual page.
+ </p>
+ <p>
+ In Java, if you try this:
+ </p>
+
+
+
+ <pre class="prettyprint">     new URL("google.com");
+ </pre>
+
+
+ <p>
+ You will get an exception:
+ </p>
+
+
+
+ <pre class="prettyprint">     java.net.MalformedURLException: no protocol: google.com
+ </pre>
+
+
+ <p>
+ You can try going through the URI class - but you will get a similar exception.
+ </p>
+ <p>
+ So, despite what browsers allow, you need to specify the protocol (AKA scheme) at the start of the URL.
+ </p>
+ <p>
+ For the host there are a number of codepoints that are "forbidden". For all the other parts there are codepoints that are not allowed in the input because they would interfere with the parsing
+ </p>
+
+ <table class="table">
+   <tr>
+    <td>
+    </td>
+    <td>optional?
+    </td>
+    <td>type
+    </td>
+    <td>start delimiters
+    </td>
+    <td>end delimiters
+    </td>
+    <td>disallowed input codepoints
+    </td>
+    <td>percent encode sets
+    </td>
+    <td>notes
+    </td>
+   </tr>
+   <tr>
+    <td>scheme
+    </td>
+    <td>no
+    </td>
+    <td>strict
+    </td>
+    <td>start of input
+    </td>
+    <td>':'
+    </td>
+    <td>n/a
+    </td>
+    <td>n/a
+    </td>
+    <td>No percent encoding allowed
+    </td>
+   </tr>
+   <tr>
+    <td>slashes
+    </td>
+    <td>yes
+    </td>
+    <td>strict
+    </td>
+    <td>':'
+    </td>
+    <td>Not really an end delimiter - ends before a character that is not a '/' or '\'
+    </td>
+    <td>n/a
+    </td>
+    <td>n/a
+    </td>
+    <td>No percent encoding allowed. Must be composed of 0 or more slashes
+    </td>
+   </tr>
+   <tr>
+    <td>user
+    </td>
+    <td>yes - except for the file scheme where it is not allowed
+    </td>
+    <td>non-strict
+    </td>
+    <td>'/' '\' ':'
+    </td>
+    <td>':'
+    </td>
+    <td>'/' '\' '?' '#'
+    </td>
+    <td>'/' ':' ';' '=' '@' '[' '\' '\' ']' '^' '|' (and the path encode set)
+    </td>
+    <td>can't contain '/' '\' '?' or '#' so why they appear in the percent encode set - we don't know
+    </td>
+   </tr>
+   <tr>
+    <td>password
+    </td>
+    <td>yes - except for the file scheme where it is not allowed
+    </td>
+    <td>non-strict
+    </td>
+    <td>':'
+    </td>
+    <td>'@'
+    </td>
+    <td>'/' '\' '?' '#'
+    </td>
+    <td>as above
+    </td>
+    <td>as above
+    </td>
+   </tr>
+   <tr>
+    <td>host
+    </td>
+    <td>no - except for the file scheme
+    </td>
+    <td>host
+    </td>
+    <td>'/' '\' ':' '@'
+    </td>
+    <td>'/' '\' ':'  '?' '#' end-of-input
+    </td>
+    <td>'/' '\' '?' '#' ':' '&lt;' '>' '@' '[' ']' '^' '|' (and the c0 controls) and '%' unless it is part of a valid percent encoded triple and that triple is part of a run of triples that can be converted to a valid codepoint ... that is not 'forbidden'
+    </td>
+    <td>n/a - the host part uses IDNA mapping
+    </td>
+    <td>The disallowed input codepoints can't be smuggled into a host by percent encoding them. The standard calls them 'forbidden' codepoints.
+    </td>
+   </tr>
+   <tr>
+    <td>port
+    </td>
+    <td>yes - except for the file scheme where it is not allowed
+    </td>
+    <td>strict
+    </td>
+    <td>':'
+    </td>
+    <td>'/' '\'  '?' '#' end-of-input
+    </td>
+    <td>n/a
+    </td>
+    <td>n/a
+    </td>
+    <td>must be decimal digits
+    </td>
+   </tr>
+   <tr>
+    <td>path
+    </td>
+    <td>yes
+    </td>
+    <td>non-strict
+    </td>
+    <td>'/' '\' ':'
+    </td>
+    <td> '?' '#' end-of-input
+    </td>
+    <td>'?' '#'
+    </td>
+    <td>'?' '`' '{' '}' (and the query encode set)
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td>query
+    </td>
+    <td>yes
+    </td>
+    <td>non-strict
+    </td>
+    <td>'?'
+    </td>
+    <td>'#' end-of-input
+    </td>
+    <td>'#'
+    </td>
+    <td> ' ' '"' '&lt;' '>' '#'
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td>fragment
+    </td>
+    <td>yes
+    </td>
+    <td>non-strict
+    </td>
+    <td>'#'
+    </td>
+    <td>end-of-input
+    </td>
+    <td>none
+    </td>
+    <td> ' ' '"' '&lt;' '>' '`'
+    </td>
+    <td>
+    </td>
+   </tr>
+ </table>
+
+
+ <p>
+ So each of the parts is parsed in its own idiosyncratic way. Some of them are <strong><em>very</em></strong> idiosyncratic - to the point of being slightly bonkers (IMHO).
+ </p>
+ <p>
+ For example, these are valid URLs:
+ </p>
+
+
+
+ <pre class="prettyprint">     http:::@@{♥~?%#
+     http:4294967295
+     http:/\/\/\/\:::::@@@@
+ </pre>
+
+
+ <p>
+ We will describe the parts in more detail::
+ </p>
+ <h2>The scheme part (AKA protocol)</h2>
+
+
+ <p>
+ Because we only allow four schemes, this is fairly simple.
+ </p>
+ <p>
+ You can have http, https, file, ftp - and that's it.
+ </p>
+ <p>
+ You can use upper, lower, mixed case.
+ </p>
+ <p>
+ The parser will convert the scheme to lowercase before serialising.
+ </p>
+ <p>
+ The scheme is right-delimited by ':'.
+ </p>
+ <p>
+ Examples:
+ </p>
+
+
+
+ <pre class="prettyprint">     http:                                scheme = "http"
+     HTTPS:                               scheme = "https"
+     FiLE:                                scheme = "file"
+     fTp:                                 scheme = "ftp"
+ </pre>
+
+
+ <h2>The slashes part</h2>
+
+
+ <p>
+ After the ':' that is the end delimiter for the scheme, there can be 0 or more slashes - back or forward:  '\'  '/'
+ </p>
+ <p>
+ Any slashes after the ':' are ignored (except for the file scheme where they <strong><em>are</em></strong> significant - see below). You could almost consider them a decorative feature!
+ </p>
+ <p>
+ Examples:
+ </p>
+
+
+
+ <pre class="prettyprint">     //
+     /
+     \
+     \\
+     ///////
+     \\\\\\\\\\\
+     \\\///\\\///\\\\\\\///////
+ </pre>
+
+
+ <h2>The authority part (user-name and password)</h2>
+
+
+ <p>
+ Both parts are optional. For the file scheme they are not allowed.
+ </p>
+ <p>
+ The user-name is terminated by ':' and the password is terminated by '@'.
+ </p>
+ <p>
+ Curiously, the password can contain '@' codepoints even though it is also the end-delimiter.  Normally, if you want to smuggle in a codepoint that is an end delimiter you have to percent encode it - but not with the password.
+ </p>
+ <p>
+ This makes it a little tricky to parse correctly, it's true.
+ </p>
+ <p>
+ The authority can't contain '/' '\' '?' '#'.
+ </p>
+ <p>
+ Examples:
+ </p>
+
+
+
+ <pre class="prettyprint">     foo:bar@                   user = "foo", password = "bar"
+     :bar@                      user = "", password = "bar"
+     :@                         user = "", password = ""
+     :::@@@                     user = "", password = "%3A%3A%40%40"
+ </pre>
+
+
+ <h2>The host part</h2>
+
+
+ <p>
+ With schemes http, https and ftp you must specify a host. For the file scheme this is optional.
+ </p>
+ <p>
+ With the file scheme, this depends on how many slashes there are after 'file:'. If the number of slashes is two then you can either have:
+ </p>
+ <ol>
+
+ <li>a host (which can then be followed by a path)
+
+ <li>a windows path (so no host can be specified)
+ </li>
+ </ol>
+ <p>
+ otherwise (not two slashes) you cannot specify a host
+ </p>
+ <p>
+ The host is right-delimited by one of '/' '\' '?' '#' or the end of the input.
+ </p>
+ <p>
+ If you use "localhost" with the file scheme, the standard says that you must record the host as being the empty string - as if you didn't refer to a host at all.
+ </p>
+ <p>
+ Hosts can have three forms:
+ </p>
+ <ol>
+
+ <li>IPv4 address - eg  <strong><code>192.168.0.17</code></strong>
+
+ <li>IPv6 address - eg  <strong><code>[::1:56:42]</code></strong>
+
+ <li>host and domain name - eg <strong><code>foo.bing.bar</code></strong>
+ </li>
+ </ol>
+ <p>
+ Conceptually, the parser tries to parse the IPv4 address and the IPv6 address options first. If these forms are not recognised then it tries host and domain name. This is significant because, when parsing IPv4 or IPv6 addresses, the '%' codepoint is not allowed but with option 3 above, the '%' codepoint is allowed in the input - but see below for the details.
+ </p>
+ <h3>host and domain name</h3>
+
+
+ <p>
+ In the host part, when parsing a host name and a domain name, codepoints are treated very differently to all the other parts. If there are non printable ASCII codepoints in the host part, they will be mapped to printable ASCII codepoints using IDNA name mapping (AKA Punycode encoding).
+ </p>
+ <p>
+ The parser looks at the code points that comprise the host and it regards any runs of percent encoded triplets as representing a UTF-8 encoding of unicode codepoints. It converts the triplets to bytes and decodes them - which will result in new codepoints.
+ </p>
+
+
+
+ <pre class="prettyprint">     percent encoded triplets    -->   UTF-8 byte sequences  -->  codepoints  -->  IDNA/Punycode codepoints
+ </pre>
+
+
+ <p>
+ This means that any percent encoded triplets must map to a valid UTF-8 byte sequence - and you can't have a '%' on its own - a '%' is a forbidden codepoint.
+ </p>
+ <h3>Dots!</h3>
+
+
+ <p>
+ So, the parsing algorithm (as described below) splits the host into a list of labels delimited by dots where the dots could be this character '｡' which is the codepoint <code>0xFF61</code>
+ </p>
+
+
+
+ <pre class="prettyprint">     '｡' (hex codepoint 0xFF61) UTF-8 encodes to bytes 0xEF 0xBD 0xA1 so the percent encoding is %EF%BD%A1
+ </pre>
+
+
+ <p>
+ So
+ </p>
+
+
+
+ <pre class="prettyprint">     a%EF%BD%A1com
+ </pre>
+
+
+ <p>
+ This will parse as:
+ </p>
+
+
+
+ <pre class="prettyprint">     a.com
+ </pre>
+
+
+ <p>
+ A domain name is a list of "labels", separated by "dots". Each label is a list of codepoints that has no dots in it.
+ </p>
+ <p>
+ A dot is one of the following codepoints:
+ </p>
+ <ol>
+
+ <li><strong><code>U+002E ( . ) FULL STOP</code></strong>
+
+ <li><strong><code>U+FF0E ( ．) FULLWIDTH FULL STOP</code></strong>
+
+ <li><strong><code>U+3002 ( 。) IDEOGRAPHIC FULL STOP</code></strong>
+
+ <li><strong><code>U+FF61 ( ｡ ) HALFWIDTH IDEOGRAPHIC FULL STOP</code></strong>
+ </li>
+ </ol>
+ <p>
+ Although the parser accepts these dots as input, it converts each to the printable ASCII (FULL STOP) dot before serialising.
+ </p>
+ <p>
+ As we mentioned before, the host part is the only part where non printable ASCII characters are not percent encoded before serialising. Instead, the parser uses IDNA name mapping. Each label is mapped individually.
+ </p>
+ <h3>IDNA name mapping (Punycode encoding)</h3>
+
+
+ <p>
+ <a href="https://www.rfc-editor.org/info/rfc5894">https://www.rfc-editor.org/info/rfc5894</a>
+ </p>
+ <p>
+ <a href="https://www.unicode.org/reports/tr46/tr46-31.html">https://www.unicode.org/reports/tr46/tr46-31.html</a>
+ </p>
+ <p>
+ It uses the Punycode algorithm and generates something called an A-label.
+ </p>
+ <p>
+ from <a href="https://www.rfc-editor.org/info/rfc5894">https://www.rfc-editor.org/info/rfc5894</a>
+ </p>
+ <p>
+
+
+
+
+ <img src="../../../dev/doc-files/url-images-image3.png" width="600">
+
+ </p>
+ <p>
+ The WhatWG standard has a basic list of forbidden domain codepoints but it is not the case that any other codepoints are valid.
+ </p>
+ <p>
+ The full set of rules about what codepoints are valid in IDNA mapping is beyond the scope of this document.
+ </p>
+ <p>
+ Some are considered invalid and will result in a fatal error. Some are simply removed from the input. This can result in the printable ASCII being empty. This is a fatal error.
+ </p>
+ <p>
+ If a label the input is already Puny encoded - ie it looks like these:
+ </p>
+
+
+
+ <pre class="prettyprint">     xn--blah-blah
+     xn--blah
+ </pre>
+
+
+ <p>
+ then, this is checked for validity and simply passed through. If it is not valid then this is a fatal error.
+ </p>
+ <p>
+ An example that is a real site - albeit created to help explain Punycode encoding is:
+ </p>
+
+
+
+ <pre class="prettyprint">     räksmörgås.josefsson.org          host = "xn--rksmrgs-5wao1o.josefsson.org"
+ </pre>
+
+
+ <p>
+ If you enter either of the above into your web browser address bar, you will go to the same site.
+ </p>
+ <p>
+ Web sites can have names that are emojis but with some restrictions. Some emojis are combinations of two simpler emojis - such as bald man, which is the man emoji combined with the bald emoji. In these cases the emojis will be combined using a zero width joiner codepoint between them. This zero width joiner is not accepted by the IDNA mapping algorithm.
+ </p>
+ <p>
+ Note that composite emojis <strong><em>are</em></strong> allowed in other parts
+ </p>
+ <p>
+ Example of a single emoji for the host part and a composite emoji for the path part:
+ </p>
+ <p>
+
+     😫/👩🏼‍🦰<code>               <strong>host = "<a href="http://xn--qq8h/%F0%9F%98%AB/%F0%9F%91%A9%F0%9F%8F%BC%E2%80%8D%F0%9F%A6%B0">xn--qq8h</a>", path = "<a href="http://xn--qq8h/%F0%9F%98%AB/%F0%9F%91%A9%F0%9F%8F%BC%E2%80%8D%F0%9F%A6%B0">%F0%9F%98%AB/%F0%9F%91%A9%F0%9F%8F%BC%E2%80%8D%F0%9F%A6%B</a>"</strong></code>
+
+ <p>
+ For details of the emojis in this example:
+ </p>
+ <p>
+ <a href="https://emojipedia.org/man">https://emojipedia.org/man</a>
+ </p>
+ <p>
+ <a href="https://emojipedia.org/tired-face">https://emojipedia.org/tired-face</a>
+ </p>
+ <p>
+ <a href="https://emojipedia.org/woman-medium-light-skin-tone-red-hair">https://emojipedia.org/woman-medium-light-skin-tone-red-hair</a>
+ </p>
+ <p>
+ Examples:
+ </p>
+
+ <table class="table">
+   <tr>
+    <td>Input
+    </td>
+    <td>Host
+    </td>
+    <td>Notes
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>аррӏе.com</code></strong>
+    </td>
+    <td><strong><code>/xn--80ak6aa92e.com</code></strong>
+    </td>
+    <td>This is the famous "apple in cyrillic" homograph attack - see
+ <p>
+ <a href="https://www.theregister.com/2017/04/18/homograph_attack_again/">https://www.theregister.com/2017/04/18/homograph_attack_again/</a>
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>xn--rksmrgs-5wao1o.com</code></strong>
+    </td>
+    <td><strong><code>xn--rksmrgs-5wao1o.com</code></strong>
+    </td>
+    <td>If the input is already encoded then there is nothing to do
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>xn--rksmrgs-5wao1ox.com</code></strong>
+    </td>
+    <td>
+    </td>
+    <td>invalid - puny encoding is invalid
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>abc.com </code></strong>
+    </td>
+    <td><strong><code>abc.com</code></strong>
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>a。b｡c    </code></strong>
+    </td>
+    <td><strong><code>a.b.c</code></strong>
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>a..b...c...   </code></strong>
+    </td>
+    <td><strong><code>a..b...c...</code></strong>
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>a.1  </code></strong>
+    </td>
+    <td>
+    </td>
+    <td>invalid - last component is numeric
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>a.1.    </code></strong>
+    </td>
+    <td>
+    </td>
+    <td>invalid - effective last component is numeric
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>a.1..  </code></strong>
+    </td>
+    <td><strong><code>a.1..</code></strong>
+    </td>
+    <td>
+    </td>
+   </tr>
+ </table>
+
+
+
+
+
+ <pre class="prettyprint">
+
+ </pre>
+
+
+ <h3>IPv4 addresses</h3>
+
+
+ <p>
+ These are typically groups(segments) of four decimal numbers, each number &lt;= 255.
+ </p>
+
+
+
+ <pre class="prettyprint">     1.2.3.4
+     192.168.1.0
+ </pre>
+
+
+ <p>
+ but you can also use numbers in octal and hex format
+ </p>
+
+
+
+ <pre class="prettyprint">     1.010.0xF.0
+ </pre>
+
+
+ <p>
+ And those dots? Just like with domain names, they can be any one of four unicode codepoints - see above.
+ </p>
+ <h4>They are just digits</h4>
+
+
+ <p>
+ One way to think about an IPv4 address is that it represents a single integer and that it is expressed as 4 "digits" using base 256.
+ </p>
+ <p>
+ Each "digit" is represented by an integer from 0 to 255
+ </p>
+ <p>
+ So for integers a,b,c,d where each is between 0 and 255, the final number is
+ </p>
+
+
+
+ <pre class="prettyprint">     256^3 * a + 256^2 * b + 256 * c + d
+ </pre>
+
+
+ <p>
+ If the last number, d is greater than 255 then it will try to split it into "digits" and replace d with these new digits.
+ </p>
+ <p>
+ So
+ </p>
+
+
+
+ <pre class="prettyprint">     0.0.256 -> 0.0.1.1
+     http://4294967295
+ </pre>
+
+
+ <p>
+ is a valid IPv4 address and is serialised as:
+ </p>
+
+
+
+ <pre class="prettyprint">     http://255.255.255.255
+ </pre>
+
+
+ <p>
+ If there are fewer than 4 numbers, even after any last number processing, then zeros are added after the previous numbers to pad to 4 numbers
+ </p>
+ <p>
+ If this results in an address with more than 4 segments then this is a fatal error.
+ </p>
+ <p>
+ Examples:
+ </p>
+
+ <table class="table">
+   <tr>
+    <td>Input
+    </td>
+    <td>Host
+    </td>
+    <td>
+ Notes
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>1.2.3.4</code></strong>
+    </td>
+    <td><strong><code>1.2.3.4</code></strong>
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>10。20｡30．40</code></strong>
+    </td>
+    <td><strong><code>10.20.30.40</code></strong>
+    </td>
+    <td>There are no spaces. It's just that some dots are wide.
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>1.2.0x10.010</code></strong>
+    </td>
+    <td><strong><code>1.2.16.8</code></strong>
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>1.10.0x11.000000010</code></strong>
+    </td>
+    <td><strong><code>1.10.17.8</code></strong>
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>0x0001.0xAb.0xff.0xFF</code></strong>
+    </td>
+    <td><strong><code>1.171.255.255</code></strong>
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>1.2.00x10.000000010</code></strong>
+    </td>
+    <td>
+    </td>
+    <td>invalid - hex numbers can't have leading zeros before the 0x
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>0.0.257</code></strong>
+    </td>
+    <td><strong><code>0.0.1.2</code></strong>
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td>
+ <strong><code>1.0.0.257</code></strong>
+    </td>
+    <td>
+    </td>
+    <td>invalid - would expand to 5 segments
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>258</code></strong>
+    </td>
+    <td><strong><code>0.0.1.3</code></strong>
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>0</code></strong>
+    </td>
+    <td><strong><code>0.0.0.0</code></strong>
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>4294967295</code></strong>
+    </td>
+    <td>
+ <strong><code>255.255.255</code></strong>
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td><strong><code>4294967296</code></strong>
+    </td>
+    <td>
+    </td>
+    <td>invalid - address too big
+    </td>
+   </tr>
+ </table>
+
+
+ <h3>IPv6 address</h3>
+
+
+ <p>
+ If the host part starts with '[' then this signals that you are supplying an IPv6 address. The IPv6 address is terminated with a ']' but it also needs a ':', '/' '\' '?' or '#'
+ </p>
+ <p>
+ Eg
+ </p>
+
+
+
+ <pre class="prettyprint">     http://[1:2:3:4:5:6:7:8]
+     http://[1:0::FFFF:0:0:0:01]
+ </pre>
+
+
+ <p>
+ An IPv6 address has 8 segments - there is no strange expanding of digits as in IPv4 - but they make up for that oversight by having a peculiar compression system and an even more peculiar system for embedding IPv4 addresses inside it. Phew!
+ </p>
+ <p>
+ Each segment is a hex number between 0 and FFFF inclusive (with an exception for the last part - see below)
+ </p>
+ <p>
+ You can compress" to remove sequences of 0's by replacing the 0's with an empty part.
+ </p>
+
+
+
+ <pre class="prettyprint">     0:0:0:4:5:6:7:8  -> ::4:5:6:7:8
+ </pre>
+
+
+ <p>
+ An empty part means "fill with enough 0 parts to get up to 8 parts".
+ </p>
+ <p>
+ You can only have one such empty part in the address.
+ </p>
+ <p>
+ In the input, the compression rules are quite permissive. You can replace even a single 0 with an empty part. You don't have to compress the whole run of 0's.
+ </p>
+
+
+
+ <pre class="prettyprint">     1:2:3:0:5:6:7:8  -> 1:2:3::5:6:7:8
+     1:2:3:0:0:0:7:8  -> 1:2:3::0:7:8
+ </pre>
+
+
+ <p>
+ When serialising, the parser is required to convert the address to a "canonical form". It should first expand any compressed parts and then choose the <strong><em>first</em></strong> maximally sized run of 0's and compress it.
+ </p>
+ <p>
+ Examples:
+ </p>
+
+
+
+ <pre class="prettyprint">     [1:2:3:4:5:6:7:8]                 host = "[1:2:3:4:5:6:7:8]"
+     [1:0:0:4:5:0:0:8]                 host = "[1::4:5:0:0:8]"
+     [1:0:0:0:5::8]                    host = "[1::5:0:0:8]"
+     [0:0:0:0:0:0:0:0]                 host = "[::]"
+     [A:B:C:D:E:F::0]                  host = "[a:b:c:d:e:f::]"
+     [FFFF::]                          host = "[ffff::]"
+     [00FF::]                          host = "[ff::]"
+     [0000F::]                         invalid - too many digits
+     [:2::]                            invalid - too many digits
+ </pre>
+
+
+ <h4>Embedded IPv4 addresses</h4>
+
+
+ <p>
+ In the same way that Ipv4 addresses can be thought of as four "digits" base 0x100 (256), IPv6 addresses can be thought of as eight "digits" base 0x10000(<strong>65536)</strong>. You are not allowed to supply digits that are larger than 0xFFFF and have them adjusted but you are allowed to have the last part of the address be an IPv4 address and the parser is required to convert those <strong><em>four</em></strong> digits base 256 to <strong><em>two</em></strong> digits base 0x10000 and replace the IPv4 address with these two digits.
+ </p>
+
+
+
+ <pre class="prettyprint">     [::1.0.0.2] -> [::100:2]
+     [1:2:3:4:5:6:2.0.0.0] -> [1:2:3:4:5:6:200:0]
+ </pre>
+
+
+ <p>
+ If you have more than six components before the embedded IPv4 address then this is a fatal error.
+ </p>
+ <p>
+ And just for grins, there are special rules about the embedded IPv4 address that must be obeyed. You can't just throw in any old address.
+ </p>
+ <ol>
+
+ <li>All the numbers must be base 10.
+
+ <li>No leading zeros.
+
+ <li>Exactly four components - so all must be &lt;=255
+ </li>
+ </ol>
+ <p>
+ Examples:
+ </p>
+
+
+
+ <pre class="prettyprint">     [ffff::127.0.0.1]                 host = "[ffff::7f00:1]"
+     [::255.255.255.255]               host = "[::ffff:ffff]"
+     [ffff::127.0.1]                   invalid - ipv4 parsing is strict - must be 4 segments
+     [::0.0.0.256]                     invalid - ipv4 parsing is strict - must be 4 segments &lt;= 255
+     [ffff::127.0.1.02]                invalid - ipv4 parsing is strict - must be decimal numbers - no leading zeros
+     [ffff::127.0.1.FFFF]              invalid - ipv4 parsing is strict - must be decimal numbers
+ </pre>
+
+
+ <h2>The port part</h2>
+
+
+ <p>
+ The port is left-delimited by a ':' and right-delimited by one of  '/' '\' '?' '#' or the end of the input.
+ </p>
+ <p>
+ It can be the empty string and, if there is no ':', it defaults to the empty string.
+ </p>
+ <p>
+ This has to be in the range 0 to 65535 and is only decimal (no hex or octal) but you can go nuts with leading 0's.
+ </p>
+ <p>
+ Each scheme has a default port number to be used if the port is omitted. If the default port number is specified in the input then it should not appear in the serialised form
+ </p>
+ <p>
+ Examples:
+ </p>
+
+
+
+ <pre class="prettyprint">     10                                        port = "10"
+     0000000000000000000000000000012345        port = "12345"
+     65536                                     invalid - number too big
+ </pre>
+
+
+ <h2>The path part</h2>
+
+
+ <p>
+ A path is right-delimited by one of '?' '#' or the end of the input.
+ </p>
+ <p>
+ All paths are considered to start with a '/'.  This is the default, if no path is specified.
+ </p>
+ <p>
+ Paths are considered to be a sequence of path segments, separated by a slash  ('/' or '\'). When a path is serialised, any '\'s are mapped to  '/'s.
+ </p>
+ <p>
+ Each segment is a list of codepoints.
+ </p>
+ <p>
+ In some ways (but not all), a path looks like a path in a Unix file system.
+ </p>
+ <p>
+ A segment can be empty. In a Unix path, empty segments are tolerated in the command line syntax but disregarded because files in a Unix file system cannot have local names that are "" - but in URLs they are considered to be valid.
+ </p>
+ <p>
+ Parsers are required to normalise a path before serialisation.
+ </p>
+ <h3>Normalisation</h3>
+
+
+ <p>
+ The parser considers segments from left to right.
+ </p>
+ <p>
+ A segment that is "." is removed from the path.
+ </p>
+ <p>
+ A segment that is ".." means that this segment and the previous segment is removed (if there is one). This removal will apply to segments that are empty as well as ones that are not empty.
+ </p>
+ <p>
+ Now, we must separate the discussion of the path into two cases - file scheme and the others.
+ </p>
+ <p>
+ Let's start with the other schemes.
+ </p>
+ <h3>Paths in http, https, ftp schemes</h3>
+
+
+ <p>
+ The path follows the port (or the host if there is no port specified) and its start delimiter is a slash ( '/' or '\'). It continues until a '?' or a '#' or the end of input.
+ </p>
+ <h3>Paths in the file scheme</h3>
+
+
+ <p>
+ First let's describe how the parser attempts to parse a windows drive path:
+ </p>
+ <ol>
+
+ <li>The first codepoint must be an ASCIIi alpha codepoint, upper or lower case
+
+ <li>If there is another codepoint, it must be either ':' or  '|'
+
+ <li> If there is another codepoint, it must be a slash  ('/' or '\').
+
+ <li>If there are further codepoints then these are considered to be part of the path - up to '?' '#' or the end of the input.
+ </li>
+ </ol>
+ <p>
+ No port is allowed in the file scheme.
+ </p>
+ <p>
+ If the path has been parsed as a windows drive path, if there was a '|' after the drive letter, it is mapped to ':'.
+ </p>
+ <p>
+ When parsing a standard path, there are no particular parsing rules. It is allowed to have ':' '|' codepoints but they are not treated as being special and they are not transformed before serialisation.
+ </p>
+ <p>
+ The parser looks at the slashes part and does something different depending on how many slashes there are:
+ </p>
+ <h3>file scheme - zero or one slash</h3>
+
+
+ <p>
+ The parser assumes that <strong><em>there is no host</em></strong> and tries to parse the rest of the input as starting with a windows drive path. This might succeed or fail. If it fails then it will attempt to parse it as a standard path.
+ </p>
+ <p>
+ Examples
+ </p>
+
+
+
+ <pre class="prettyprint">     file:a                         path = "/a"
+     file:a:                        path = "/a:"
+     file:                          path = "/"
+     file::                         path = "/::"
+     file:a:/                       path = "/a:/"
+     file:Z:\                       path = "/Z:/"
+     file:a:/b                      path = "/a:/b"
+     file:a|/b                      path = "/a:/b"
+     file:a|b                       path = "/a|b"     No mapping of | because it is not a windows drive path
+     file:a/b                       path = "/a/b"
+     file:/a                        path = "/a"
+ </pre>
+
+
+ <h3>file scheme - two slashes</h3>
+
+
+ <p>
+ The parser assumes that <strong><em>there might be a host</em></strong>.
+ </p>
+ <p>
+ The parser tries to parse the rest of the input as starting with a windows drive path. If this succeeds then there is no host. If it fails then there must be a host.
+ </p>
+ <p>
+  If this fails, it will try to parse the rest of the input as starting with a host. In this case, after a host is parsed, it will attempt to parse the rest of the input as starting with a standard path.
+ </p>
+ <p>
+ Examples
+ </p>
+
+
+
+ <pre class="prettyprint">     file://a                       host = "a" path = "/'
+     file://                        host = "" path = '/'
+     file://a/b                     host = "a" path = "/b"
+     file://a|/b                    host = "" path = "/a:/b"
+     file://a/b|                    host = "a" path = "/b|"
+ </pre>
+
+
+ <h3>file scheme - three or more slashes</h3>
+
+
+ <p>
+ The parser assumes that <strong><em>there is no host</em></strong> and tries to parse the rest of the input as starting with a standard path.
+ </p>
+ <p>
+ If there are <strong><code>n</code></strong> slashes then there will be <strong><code>n - 2</code></strong> slashes at the start of the path.
+
+ <p>
+ Examples
+ </p>
+
+
+
+ <pre class="prettyprint">     file:///a                       host = "" path = "/'
+     file:///                        host = "" path = '/'
+     file:////                       host = "" path = "//"
+     file://///a|/b                  host = "" path = "///a|/b"
+ </pre>
+
+
+ <h2>The query part (AKA search)</h2>
+
+
+ <p>
+ A query is right-delimited by '#' or the end of the input.
+ </p>
+ <p>
+ Any codepoints that are not printable ASCII are UTF-8 encoded and the resulting bytes are percent encoded.
+ </p>
+ <p>
+ There is an expected syntax for items in a query - essentially this syntax represents them as key-value pairs - but the URL parser does not do any validation on this part.
+ </p>
+ <p>
+ Examples
+ </p>
+
+
+
+ <pre class="prettyprint">     a=b&amp;c=🤪                       query = "a=b&amp;c=%F0%9F%A4%AA"
+     👋😕                           query = "%F0%9F%91%8B%F0%9F%98%95"
+ </pre>
+
+
+ <h2>The fragment part (AKA hash)</h2>
+
+
+ <p>
+ A fragment is right-delimited by the end of the input.
+ </p>
+ <p>
+ In URLs that represent HTML pages, there is an expectation that the fragment contains a string that represents an anchor element on a HTML page - but the URL parser does not do any validation of this.
+ </p>
+ <p>
+ Examples
+ </p>
+
+
+
+ <pre class="prettyprint">     infrastructure                fragment = "infrastructure"
+     👩🏼‍🦰                            fragment = "%F0%9F%91%A9%F0%9F%8F%BC%E2%80%8D%F0%9F%A6%B0"</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -573,25 +1634,49 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#fragment" class="member-name-link">fragment</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">The fragment of this URL - default is ""</div>
+</div>
 <div class="col-first odd-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color"><code><a href="#host" class="member-name-link">host</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">The host of this URL - default is ""</div>
+</div>
 <div class="col-first even-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#path" class="member-name-link">path</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>final <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second odd-row-color"><code><a href="#pathComponents" class="member-name-link">pathComponents</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-second even-row-color"><code><a href="#password" class="member-name-link">password</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">The password of this URL - default is ""</div>
+</div>
+<div class="col-first odd-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#path" class="member-name-link">path</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">The path of this URL - default is "/"</div>
+</div>
 <div class="col-first even-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color"><code><a href="#port" class="member-name-link">port</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>final <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</code></div>
-<div class="col-second odd-row-color"><code><a href="#queryElements" class="member-name-link">queryElements</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">The port of this URL - default is ""</div>
+</div>
+<div class="col-first odd-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#query" class="member-name-link">query</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">The query of this URL - default is ""</div>
+</div>
+<div class="col-first even-row-color"><code>final <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</code></div>
+<div class="col-second even-row-color"><code><a href="#queryPairs" class="member-name-link">queryPairs</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">The query of this URL after parsing into key-value pairs - default is the empty list</div>
+</div>
+<div class="col-first odd-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#scheme" class="member-name-link">scheme</a></code></div>
+<div class="col-last odd-row-color">
+<div class="block">The scheme of this URL</div>
+</div>
 <div class="col-first even-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color"><code><a href="#scheme" class="member-name-link">scheme</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-second even-row-color"><code><a href="#user" class="member-name-link">user</a></code></div>
+<div class="col-last even-row-color">
+<div class="block">The user of this URL - default is ""</div>
+</div>
 </div>
 </section>
 </li>
@@ -606,78 +1691,76 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addQueryElement(java.lang.String,java.lang.String)" class="member-name-link">addQueryElement</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;key,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;value)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#asString()" class="member-name-link">asString</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Serialise the URL as a string</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNames()" class="member-name-link">getNames</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The field names for this object including fields from superclasses.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getQueryString()" class="member-name-link">getQueryString</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getQueryStringValueDecoded(java.lang.String)" class="member-name-link">getQueryStringValueDecoded</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;keyEncoded)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getQueryStringValueDecodedMaybe(java.lang.String)" class="member-name-link">getQueryStringValueDecodedMaybe</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;keyEncoded)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block"> Get the decoded value of a query element given its encoded key.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getQueryStringValues(java.lang.String)" class="member-name-link">getQueryStringValues</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;query)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValues()" class="member-name-link">getValues</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The field values for this object including fields from superclasses.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isPortDefault(java.lang.String)" class="member-name-link">isPortDefault</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;s)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(java.lang.String)" class="member-name-link">on</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;urlString)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Parse
+ <code>urlString</code>
+  as a URL assuming that
+ <code>urlString</code>
+ is valid</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(java.lang.String)" class="member-name-link">on</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;urlString)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">on</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;scheme,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;user,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;password,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;host,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;port,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;path,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;query,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fragment)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> The urlString has this form (roughly)</div>
+<div class="block">Create a url object with the specified parts.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#on(java.nio.file.Path)" class="member-name-link">on</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#sameOrigin(dev.javafp.net.ImUrl,dev.javafp.net.ImUrl)" class="member-name-link">sameOrigin</a><wbr>(<a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a>&nbsp;urlOne,
- <a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a>&nbsp;urlTwo)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">A file URL representing `path`</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../util/ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#parse(java.lang.String)" class="member-name-link">parse</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;input)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> Parse
+ <code>input</code>
+  as a URL or return an error message if the input is invalid.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/URL.html" title="class or interface in java.net" class="external-link">URL</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toJavaUrl()" class="member-name-link">toJavaUrl</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">A String representation of this object</div>
+<div class="block">Create a Java URL from `this` by serialising each part and using</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#withNoQueriesOrFragments()" class="member-name-link">withNoQueriesOrFragments</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">The url that is the same as this except that the query and the fragment part are both set to ""</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#withPath(dev.javafp.lst.ImList)" class="member-name-link">withPath</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;pathComponents)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#withPath(java.lang.String)" class="member-name-link">withPath</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;pathString)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#withPort(int)" class="member-name-link">withPort</a><wbr>(int&nbsp;port)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#withQueryElements(dev.javafp.lst.ImList)" class="member-name-link">withQueryElements</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;&nbsp;queryElements)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#withScheme(java.lang.String)" class="member-name-link">withScheme</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;scheme)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#withQueryPairs(dev.javafp.lst.ImList)" class="member-name-link">withQueryPairs</a><wbr>(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;&nbsp;queryPairs)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block"> The url that is the same as this except that the query is set to the serialised form of
+ <code>queryPairs</code></div>
+</div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-dev.javafp.val.ImValuesImpl">Methods inherited from class&nbsp;dev.javafp.val.<a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></h3>
-<code><a href="../val/ImValuesImpl.html#equals(java.lang.Object)">equals</a>, <a href="../val/ImValuesImpl.html#getTextBox()">getTextBox</a>, <a href="../val/ImValuesImpl.html#hashCode()">hashCode</a></code></div>
+<code><a href="../val/ImValuesImpl.html#equals(java.lang.Object)">equals</a>, <a href="../val/ImValuesImpl.html#getTextBox()">getTextBox</a>, <a href="../val/ImValuesImpl.html#hashCode()">hashCode</a>, <a href="../val/ImValuesImpl.html#toString()">toString</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -699,42 +1782,63 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="scheme">
 <h3>scheme</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">scheme</span></div>
+<div class="block">The scheme of this URL</div>
 </section>
 </li>
 <li>
-<section class="detail" id="port">
-<h3>port</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">port</span></div>
+<section class="detail" id="user">
+<h3>user</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">user</span></div>
+<div class="block">The user of this URL - default is ""</div>
+</section>
+</li>
+<li>
+<section class="detail" id="password">
+<h3>password</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">password</span></div>
+<div class="block">The password of this URL - default is ""</div>
 </section>
 </li>
 <li>
 <section class="detail" id="host">
 <h3>host</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">host</span></div>
+<div class="block">The host of this URL - default is ""</div>
 </section>
 </li>
 <li>
-<section class="detail" id="pathComponents">
-<h3>pathComponents</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">pathComponents</span></div>
+<section class="detail" id="port">
+<h3>port</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">port</span></div>
+<div class="block">The port of this URL - default is ""</div>
 </section>
 </li>
 <li>
 <section class="detail" id="path">
 <h3>path</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">path</span></div>
+<div class="block">The path of this URL - default is "/"</div>
 </section>
 </li>
 <li>
-<section class="detail" id="queryElements">
-<h3>queryElements</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</span>&nbsp;<span class="element-name">queryElements</span></div>
+<section class="detail" id="queryPairs">
+<h3>queryPairs</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</span>&nbsp;<span class="element-name">queryPairs</span></div>
+<div class="block">The query of this URL after parsing into key-value pairs - default is the empty list</div>
+</section>
+</li>
+<li>
+<section class="detail" id="query">
+<h3>query</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">query</span></div>
+<div class="block">The query of this URL - default is ""</div>
 </section>
 </li>
 <li>
 <section class="detail" id="fragment">
 <h3>fragment</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">fragment</span></div>
+<div class="block">The fragment of this URL - default is ""</div>
 </section>
 </li>
 </ul>
@@ -746,93 +1850,92 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="on(java.lang.String)">
+<section class="detail" id="toJavaUrl()">
+<h3>toJavaUrl</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/URL.html" title="class or interface in java.net" class="external-link">URL</a></span>&nbsp;<span class="element-name">toJavaUrl</span>()</div>
+<div class="block">Create a Java URL from `this` by serialising each part and using
+
+ <p>
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/URI.html#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String,int,java.lang.String,java.lang.String,java.lang.String)" title="class or interface in java.net" class="external-link"><code>URI(String, String, String, int, String, String, String)</code></a>  }
+
+ <p>and then
+
+ <p>
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/URI.html#toURL()" title="class or interface in java.net" class="external-link"><code>URI.toURL()</code></a></div>
+</section>
+</li>
+<li>
+<section class="detail" id="asString()">
+<h3>asString</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">asString</span>()</div>
+<div class="block">Serialise the URL as a string</div>
+</section>
+</li>
+<li>
+<section class="detail" id="on(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
 <h3>on</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;urlString)</span></div>
-<div class="block"><p> The urlString has this form (roughly)
- <p> scheme '://' host ':' port '/' path '?' query '#' fragment
- <p> We can think of this as
- <p> scheme ( separator field ) *
- <p> If a separator exists then the value of the field following it will be non null - it could be ""
- if a separator does not exist then the field that is meant to follow it will be null.
- <p> This rule applies to the scheme - but taking into account the '://' that follows it rather than precedes it
- <p> This class regards all strings as valid.
- <p> If there are no separators then we assume that the string represents the host
- <p> The empty string will mean that all the fields are null</div>
-</section>
-</li>
-<li>
-<section class="detail" id="isPortDefault(java.lang.String)">
-<h3>isPortDefault</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isPortDefault</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;s)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getQueryStringValues(java.lang.String)">
-<h3>getQueryStringValues</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;</span>&nbsp;<span class="element-name">getQueryStringValues</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;query)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;scheme,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;user,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;password,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;host,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;port,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;path,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;query,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fragment)</span></div>
+<div class="block">Create a url object with the specified parts.
+
+ Note that we are storing the query twice - once as a string and also as a list of key-value pairs</div>
 </section>
 </li>
 <li>
 <section class="detail" id="on(java.nio.file.Path)">
 <h3>on</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;path)</span></div>
+<div class="block">A file URL representing `path`</div>
 </section>
 </li>
 <li>
-<section class="detail" id="sameOrigin(dev.javafp.net.ImUrl,dev.javafp.net.ImUrl)">
-<h3>sameOrigin</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">sameOrigin</span><wbr><span class="parameters">(<a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a>&nbsp;urlOne,
- <a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a>&nbsp;urlTwo)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="withPath(dev.javafp.lst.ImList)">
-<h3>withPath</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">withPath</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;pathComponents)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="withPath(java.lang.String)">
-<h3>withPath</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">withPath</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;pathString)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="withPort(int)">
-<h3>withPort</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">withPort</span><wbr><span class="parameters">(int&nbsp;port)</span></div>
+<section class="detail" id="on(java.lang.String)">
+<h3>on</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">on</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;urlString)</span></div>
+<div class="block"><p> Parse
+ <code>urlString</code>
+  as a URL assuming that
+ <code>urlString</code>
+ is valid
+ <p> Throw <a href="UrlParseFailed.html" title="class in dev.javafp.net"><code>UrlParseFailed</code></a>  if it is not valid</div>
 </section>
 </li>
 <li>
 <section class="detail" id="withNoQueriesOrFragments()">
 <h3>withNoQueriesOrFragments</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">withNoQueriesOrFragments</span>()</div>
+<div class="block">The url that is the same as this except that the query and the fragment part are both set to ""</div>
 </section>
 </li>
 <li>
-<section class="detail" id="withScheme(java.lang.String)">
-<h3>withScheme</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">withScheme</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;scheme)</span></div>
+<section class="detail" id="withQueryPairs(dev.javafp.lst.ImList)">
+<h3>withQueryPairs</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">withQueryPairs</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;&nbsp;queryPairs)</span></div>
+<div class="block"><p> The url that is the same as this except that the query is set to the serialised form of
+ <code>queryPairs</code></div>
 </section>
 </li>
 <li>
-<section class="detail" id="addQueryElement(java.lang.String,java.lang.String)">
-<h3>addQueryElement</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">addQueryElement</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;key,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;value)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="withQueryElements(dev.javafp.lst.ImList)">
-<h3>withQueryElements</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a></span>&nbsp;<span class="element-name">withQueryElements</span><wbr><span class="parameters">(<a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="../tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt;&nbsp;queryElements)</span></div>
+<section class="detail" id="parse(java.lang.String)">
+<h3>parse</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../util/ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="ImUrl.html" title="class in dev.javafp.net">ImUrl</a>&gt;</span>&nbsp;<span class="element-name">parse</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;input)</span></div>
+<div class="block"><p> Parse
+ <code>input</code>
+  as a URL or return an error message if the input is invalid.
+ <p> See the class comments for a very long description of how the parsing works</div>
 </section>
 </li>
 <li>
 <section class="detail" id="getValues()">
 <h3>getValues</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</span>&nbsp;<span class="element-name">getValues</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../val/Values.html#getValues()">Values</a></code></span></div>
 <div class="block">The field values for this object including fields from superclasses.
 
  See <a href="../val/Values.html" title="interface in dev.javafp.val"><code>Values</code></a> and <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val"><code>ImValuesImpl</code></a></div>
@@ -842,40 +1945,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getNames()">
 <h3>getNames</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">getNames</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../val/Values.html#getNames()">Values</a></code></span></div>
 <div class="block">The field names for this object including fields from superclasses.
 
  See <a href="../val/Values.html" title="interface in dev.javafp.val"><code>Values</code></a> and <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val"><code>ImValuesImpl</code></a></div>
-</section>
-</li>
-<li>
-<section class="detail" id="toString()">
-<h3>toString</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">toString</span>()</div>
-<div class="block">A String representation of this object</div>
-<dl class="notes">
-<dt>Overrides:</dt>
-<dd><code><a href="../val/ImValuesImpl.html#toString()">toString</a></code>&nbsp;in class&nbsp;<code><a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getQueryString()">
-<h3>getQueryString</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getQueryString</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getQueryStringValueDecoded(java.lang.String)">
-<h3>getQueryStringValueDecoded</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../util/ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">getQueryStringValueDecoded</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;keyEncoded)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="getQueryStringValueDecodedMaybe(java.lang.String)">
-<h3>getQueryStringValueDecodedMaybe</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../util/ImMaybe.html" title="class in dev.javafp.util">ImMaybe</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="element-name">getQueryStringValueDecodedMaybe</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;keyEncoded)</span></div>
-<div class="block"><p> Get the decoded value of a query element given its encoded key.
- <p> Only returns a Just if there is exactly one such value</div>
 </section>
 </li>
 </ul>

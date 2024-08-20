@@ -601,6 +601,28 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="serialized-package-container">
 <h2 title="Package">Package&nbsp;<a href="dev/javafp/lst/package-summary.html">dev.javafp.lst</a></h2>
+<ul class="block-list">
+<li>
+<section class="serialized-class-details" id="dev.javafp.lst.ImLazyList">
+<h3>Class&nbsp;<a href="dev/javafp/lst/ImLazyList.html" title="class in dev.javafp.lst">dev.javafp.lst.ImLazyList</a></h3>
+<div class="type-signature">class ImLazyList extends dev.javafp.lst.ImAbstractList&lt;<a href="dev/javafp/lst/ImLazyList.html" title="type parameter in ImLazyList">A</a>&gt; implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>Serialized Fields</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>sz</h5>
+<pre>int sz</pre>
+<div class="block">The size of the list</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+</ul>
 </section>
 </li>
 <li>
@@ -699,41 +721,52 @@ loadScripts(document, 'script');</script>
 <li class="block-list">
 <h5>fragment</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a> fragment</pre>
+<div class="block">The fragment of this URL - default is ""</div>
 </li>
 <li class="block-list">
 <h5>host</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a> host</pre>
+<div class="block">The host of this URL - default is ""</div>
+</li>
+<li class="block-list">
+<h5>password</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a> password</pre>
+<div class="block">The password of this URL - default is ""</div>
 </li>
 <li class="block-list">
 <h5>path</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a> path</pre>
-</li>
-<li class="block-list">
-<h5>pathComponents</h5>
-<pre><a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt; pathComponents</pre>
+<div class="block">The path of this URL - default is "/"</div>
 </li>
 <li class="block-list">
 <h5>port</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a> port</pre>
+<div class="block">The port of this URL - default is ""</div>
 </li>
 <li class="block-list">
-<h5>queryElements</h5>
-<pre><a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt; queryElements</pre>
+<h5>query</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a> query</pre>
+<div class="block">The query of this URL - default is ""</div>
+</li>
+<li class="block-list">
+<h5>queryPairs</h5>
+<pre><a href="dev/javafp/lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="dev/javafp/tuple/ImPair.html" title="class in dev.javafp.tuple">ImPair</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&gt; queryPairs</pre>
+<div class="block">The query of this URL after parsing into key-value pairs - default is the empty list</div>
 </li>
 <li class="block-list">
 <h5>scheme</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a> scheme</pre>
+<div class="block">The scheme of this URL</div>
+</li>
+<li class="block-list">
+<h5>user</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a> user</pre>
+<div class="block">The user of this URL - default is ""</div>
 </li>
 </ul>
 </section>
 </li>
 </ul>
-</section>
-</li>
-<li>
-<section class="serialized-class-details" id="dev.javafp.net.ImUrlParseException">
-<h3>Exception&nbsp;<a href="dev/javafp/net/ImUrlParseException.html" title="class in dev.javafp.net">dev.javafp.net.ImUrlParseException</a></h3>
-<div class="type-signature">class ImUrlParseException extends <a href="dev/javafp/ex/ImException.html" title="class in dev.javafp.ex">ImException</a> implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
 </section>
 </li>
 <li>
@@ -754,6 +787,12 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 </ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="dev.javafp.net.UrlParseFailed">
+<h3>Exception&nbsp;<a href="dev/javafp/net/UrlParseFailed.html" title="class in dev.javafp.net">dev.javafp.net.UrlParseFailed</a></h3>
+<div class="type-signature">class UrlParseFailed extends <a href="dev/javafp/ex/ImException.html" title="class in dev.javafp.ex">ImException</a> implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
 </section>
 </li>
 </ul>
@@ -1201,6 +1240,36 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="serialized-class-details" id="dev.javafp.util.ImOneOfThree">
+<h3>Class&nbsp;<a href="dev/javafp/util/ImOneOfThree.html" title="class in dev.javafp.util">dev.javafp.util.ImOneOfThree</a></h3>
+<div class="type-signature">class ImOneOfThree extends <a href="dev/javafp/val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a> implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>Serialized Fields</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>type</h5>
+<pre><a href="dev/javafp/util/ImOneOfThree.ThreeType.html" title="enum class in dev.javafp.util">ImOneOfThree.ThreeType</a> type</pre>
+</li>
+<li class="block-list">
+<h5>value</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a> value</pre>
+<div class="block"><p> The left value (or
+ <code>null</code>
+  if
+ <code>isLeft()</code>
+  is
+ <code>false</code>
+ )</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
 <section class="serialized-class-details" id="dev.javafp.util.NullCheck">
 <h3>Exception&nbsp;<a href="dev/javafp/util/NullCheck.html" title="class in dev.javafp.util">dev.javafp.util.NullCheck</a></h3>
 <div class="type-signature">class NullCheck extends <a href="dev/javafp/ex/ImException.html" title="class in dev.javafp.ex">ImException</a> implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
@@ -1274,6 +1343,27 @@ loadScripts(document, 'script');</script>
 <section class="serialized-package-container">
 <h2 title="Package">Package&nbsp;<a href="dev/javafp/val/package-summary.html">dev.javafp.val</a></h2>
 <ul class="block-list">
+<li>
+<section class="serialized-class-details" id="dev.javafp.val.ImCodePoint">
+<h3>Class&nbsp;<a href="dev/javafp/val/ImCodePoint.html" title="class in dev.javafp.val">dev.javafp.val.ImCodePoint</a></h3>
+<div class="type-signature">class ImCodePoint extends <a href="dev/javafp/val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a> implements <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></div>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>Serialized Fields</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>codePoint</h5>
+<pre>int codePoint</pre>
+<div class="block"><p> The codePoint as an
+ <code>int</code></div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <li>
 <section class="serialized-class-details" id="dev.javafp.val.ImValuesImpl">
 <h3>Class&nbsp;<a href="dev/javafp/val/ImValuesImpl.html" title="class in dev.javafp.val">dev.javafp.val.ImValuesImpl</a></h3>

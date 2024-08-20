@@ -133,19 +133,6 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <p> Sometimes it is convenient to be able to add an element to a set even though that set already contains an
  element that is "equal to it".
 
- <p> For example, in this library <a href="ImMap.html" title="class in dev.javafp.set"><code>ImMap</code></a> is implemented as a set of <code>ImMap.Entry</code> objects where an entry has a key and a value.
- Two <code>ImMap.Entry</code> objects are equal
- if their keys are equal. So for any pair of entries
- <code>e1</code>
-  and
- <code>e2</code>
- :
-
- <pre><code>
- e1.equals(e2) == e1.key.equals(e2.key)
- </code></pre>
- <p> When we want to replace an entry, we want the new entry with its new value to be inserted in the set, even though
- there is an existing entry with the same key.
  <p> To allow this, there are methods <a href="#replace(T)"><code>replace(T)</code></a> and <a href="#add(T)"><code>add(T)</code></a>. The default behaviour when using
  <a href="#add(T)"><code>add(T)</code></a>  is to
  <em>not</em>
@@ -162,6 +149,7 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <p> Buckets are sorted on the hash value of their elements.
  <p> To find an element, we first find the bucket with the matching hash value and then look through the bucket to
  determine if the element is present.
+
  <p> For sets of elements with reasonable hash functions, the average bucket size will be one.</div>
 <dl class="notes">
 <dt>See Also:</dt>
@@ -469,48 +457,56 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <code>iterator</code>
  .</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#remove(T)" class="member-name-link">remove</a><wbr>(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;elementToRemove)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#onStream(java.util.stream.Stream)" class="member-name-link">onStream</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html" title="class or interface in java.util.stream" class="external-link">Stream</a>&lt;? extends T&gt;&nbsp;stream)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block"> The set whose elements are obtained by iterating over
+ <code>stream</code>
+
+ <code>null</code></div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#remove(T)" class="member-name-link">remove</a><wbr>(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;elementToRemove)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Remove
  <code>elementToRemove</code>
   from the set.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#replace(T)" class="member-name-link">replace</a><wbr>(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;newElement)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#replace(T)" class="member-name-link">replace</a><wbr>(<a href="ImSet.html" title="type parameter in ImSet">T</a>&nbsp;newElement)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Add
  <code>newElement</code>
   to the set.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> The number of elements in
  <code>this</code>
  .</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toList()" class="member-name-link">toList</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toList()" class="member-name-link">toList</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> A list containing the elements of the set</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">A String representation of this object</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#union(java.lang.Iterable)" class="member-name-link">union</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;? extends <a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&nbsp;elements)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;<a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#union(java.lang.Iterable)" class="member-name-link">union</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;? extends <a href="ImSet.html" title="type parameter in ImSet">T</a>&gt;&nbsp;elements)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The union of
  <code>this</code>
  and
  <code>elements</code>.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;U&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;U&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#upCast()" class="member-name-link">upCast</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;U&gt;&nbsp;<a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;U&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#upCast()" class="member-name-link">upCast</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> Allows
  <code>ImSet&lt;U&gt;</code>
   to be cast to
@@ -726,6 +722,26 @@ implements <a href="../box/HasTextBox.html" title="interface in dev.javafp.box">
  <p> @throws NullPointerException if any of the elements in
  <code>iterator</code>
   is
+ <code>null</code></div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="see-list">
+<li><a href="#onAll(java.lang.Iterable)"><code>onAll(Iterable)</code></a></li>
+<li><a href="#onArray(T...)"><code>onArray(Object...)</code></a></li>
+<li><code>on()</code></li>
+</ul>
+</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="onStream(java.util.stream.Stream)">
+<h3>onStream</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="ImSet.html" title="class in dev.javafp.set">ImSet</a>&lt;T&gt;</span>&nbsp;<span class="element-name">onStream</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Stream.html" title="class or interface in java.util.stream" class="external-link">Stream</a>&lt;? extends T&gt;&nbsp;stream)</span></div>
+<div class="block"><p> The set whose elements are obtained by iterating over
+ <code>stream</code>
+
  <code>null</code></div>
 <dl class="notes">
 <dt>See Also:</dt>

@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<title>ImEither</title>
+<title>ImOneOfThree</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="declaration: package: dev.javafp.util, class: ImEither">
+<meta name="description" content="declaration: package: dev.javafp.util, class: ImOneOfThree">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../script-dir/jquery-ui.min.css" title="Style">
@@ -43,7 +43,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
-<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#nested-class-summary">Nested</a>&nbsp;|&nbsp;</li>
 <li><a href="#field-summary">Field</a>&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method-summary">Method</a></li>
@@ -68,11 +68,11 @@ loadScripts(document, 'script');</script>
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">dev.javafp.util</a></div>
-<h1 title="Class ImEither" class="title">Class ImEither&lt;L,<wbr>R&gt;</h1>
+<h1 title="Class ImOneOfThree" class="title">Class ImOneOfThree&lt;A,<wbr>B,<wbr>C&gt;</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance"><a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">dev.javafp.val.ImValuesImpl</a>
-<div class="inheritance">dev.javafp.util.ImEither&lt;L,<wbr>R&gt;</div>
+<div class="inheritance">dev.javafp.util.ImOneOfThree&lt;A,<wbr>B,<wbr>C&gt;</div>
 </div>
 </div>
 <section class="class-description" id="class-description">
@@ -81,20 +81,35 @@ loadScripts(document, 'script');</script>
 <dd><code><a href="../box/HasTextBox.html" title="interface in dev.javafp.box">HasTextBox</a></code>, <code><a href="../val/Values.html" title="interface in dev.javafp.val">Values</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ImEither&lt;L,<wbr>R&gt;</span>
+<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ImOneOfThree&lt;A,<wbr>B,<wbr>C&gt;</span>
 <span class="extends-implements">extends <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val">ImValuesImpl</a></span></div>
-<div class="block"><p> The equivalent of the Haskell Either (well y'know - as far as possible)</div>
+<div class="block"><p> A sum type with three options</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
 <ul class="see-list">
-<li><a href="../../../serialized-form.html#dev.javafp.util.ImEither">Serialized Form</a></li>
+<li><a href="../../../serialized-form.html#dev.javafp.util.ImOneOfThree">Serialized Form</a></li>
 </ul>
 </dd>
 </dl>
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- ======== NESTED CLASS SUMMARY ======== -->
+<li>
+<section class="nested-class-summary" id="nested-class-summary">
+<h2>Nested Class Summary</h2>
+<div class="caption"><span>Nested Classes</span></div>
+<div class="summary-table three-column-summary">
+<div class="table-header col-first">Modifier and Type</div>
+<div class="table-header col-second">Class</div>
+<div class="table-header col-last">Description</div>
+<div class="col-first even-row-color"><code>static enum&nbsp;</code></div>
+<div class="col-second even-row-color"><code><a href="ImOneOfThree.ThreeType.html" class="type-name-link" title="enum class in dev.javafp.util">ImOneOfThree.ThreeType</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+</div>
+</section>
+</li>
 <!-- =========== FIELD SUMMARY =========== -->
 <li>
 <section class="field-summary" id="field-summary">
@@ -104,13 +119,11 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>final boolean</code></div>
-<div class="col-second even-row-color"><code><a href="#isLeft" class="member-name-link">isLeft</a></code></div>
-<div class="col-last even-row-color">
-<div class="block">Does this object have a left value?</div>
-</div>
-<div class="col-first odd-row-color"><code>final <a href="ImEither.html" title="type parameter in ImEither">L</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#left" class="member-name-link">left</a></code></div>
+<div class="col-first even-row-color"><code>final <a href="ImOneOfThree.ThreeType.html" title="enum class in dev.javafp.util">ImOneOfThree.ThreeType</a></code></div>
+<div class="col-second even-row-color"><code><a href="#type" class="member-name-link">type</a></code></div>
+<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-first odd-row-color"><code>final <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></div>
+<div class="col-second odd-row-color"><code><a href="#value" class="member-name-link">value</a></code></div>
 <div class="col-last odd-row-color">
 <div class="block"> The left value (or
  <code>null</code>
@@ -118,17 +131,6 @@ loadScripts(document, 'script');</script>
  <code>isLeft()</code>
   is
  <code>false</code>
- )</div>
-</div>
-<div class="col-first even-row-color"><code>final <a href="ImEither.html" title="type parameter in ImEither">R</a></code></div>
-<div class="col-second even-row-color"><code><a href="#right" class="member-name-link">right</a></code></div>
-<div class="col-last even-row-color">
-<div class="block"> The right value (or
- <code>null</code>
-  if
- <code>isLeft()</code>
-  is
- <code>true</code>
  )</div>
 </div>
 </div>
@@ -145,65 +147,53 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;B&gt;&nbsp;<a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">L</a>,<wbr>B&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#flatMap(dev.javafp.func.Fn)" class="member-name-link">flatMap</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">R</a>,<wbr><a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">L</a>,<wbr>B&gt;&gt;&nbsp;fn)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImOneOfThree.html" title="type parameter in ImOneOfThree">A</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#a()" class="member-name-link">a</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A,<wbr>
+B,<wbr>
+C&gt;&nbsp;<a href="ImOneOfThree.html" title="class in dev.javafp.util">ImOneOfThree</a>&lt;A,<wbr>B,<wbr>C&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#a(A)" class="member-name-link">a</a><wbr>(A&nbsp;a)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImOneOfThree.html" title="type parameter in ImOneOfThree">B</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#b()" class="member-name-link">b</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A,<wbr>
+B,<wbr>
+C&gt;&nbsp;<a href="ImOneOfThree.html" title="class in dev.javafp.util">ImOneOfThree</a>&lt;A,<wbr>B,<wbr>C&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#b(B)" class="member-name-link">b</a><wbr>(B&nbsp;b)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="ImOneOfThree.html" title="type parameter in ImOneOfThree">C</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#c()" class="member-name-link">c</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;A,<wbr>
+B,<wbr>
+C&gt;&nbsp;<a href="ImOneOfThree.html" title="class in dev.javafp.util">ImOneOfThree</a>&lt;A,<wbr>B,<wbr>C&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#c(C)" class="member-name-link">c</a><wbr>(C&nbsp;c)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNames()" class="member-name-link">getNames</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">If this is `right` then apply `fn` to the value in `right` to give an `ImEither`
-
- if this is `left' then just return left as the left of an `ImEither` with the correct type</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getNames()" class="member-name-link">getNames</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The field names for this object including fields from superclasses.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValues()" class="member-name-link">getValues</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../lst/ImList.html" title="interface in dev.javafp.lst">ImList</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getValues()" class="member-name-link">getValues</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">The field values for this object including fields from superclasses.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;L,<wbr>
-R&gt;&nbsp;<a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;L,<wbr>R&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Left(L)" class="member-name-link">Left</a><wbr>(L&nbsp;left)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> An
- <code>ImEither</code>
-  with
- <code>left</code>
-  set to
- <code>left</code>
-  and
- <code>isLeft</code>
-  set to
- <code>true</code></div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;A&gt;&nbsp;A</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#match(dev.javafp.func.Fn,dev.javafp.func.Fn)" class="member-name-link">match</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">L</a>,<wbr>A&gt;&nbsp;f1,
- <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">R</a>,<wbr>A&gt;&nbsp;f2)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>&lt;D&gt;&nbsp;D</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#match(dev.javafp.func.Fn,dev.javafp.func.Fn,dev.javafp.func.Fn)" class="member-name-link">match</a><wbr>(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImOneOfThree.html" title="type parameter in ImOneOfThree">A</a>,<wbr>D&gt;&nbsp;f1,
+ <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImOneOfThree.html" title="type parameter in ImOneOfThree">B</a>,<wbr>D&gt;&nbsp;f2,
+ <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImOneOfThree.html" title="type parameter in ImOneOfThree">C</a>,<wbr>D&gt;&nbsp;f3)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block"> If this.isLeft() then
  <code>f1(left)</code>
   else
  <code>f2(right)</code></div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;L,<wbr>
-R&gt;&nbsp;<a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;L,<wbr>R&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#Right(R)" class="member-name-link">Right</a><wbr>(R&nbsp;right)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block"> An
- <code>ImEither</code>
-  with
- <code>right</code>
-  set to
- <code>right</code>
-  and
- <code>isLeft</code>
-  set to
- <code>false</code></div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">A String representation of this object</div>
 </div>
 </div>
@@ -230,9 +220,9 @@ R&gt;&nbsp;<a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="left">
-<h3>left</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="ImEither.html" title="type parameter in ImEither">L</a></span>&nbsp;<span class="element-name">left</span></div>
+<section class="detail" id="value">
+<h3>value</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span>&nbsp;<span class="element-name">value</span></div>
 <div class="block"><p> The left value (or
  <code>null</code>
   if
@@ -243,23 +233,9 @@ R&gt;&nbsp;<a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>
 </section>
 </li>
 <li>
-<section class="detail" id="right">
-<h3>right</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="ImEither.html" title="type parameter in ImEither">R</a></span>&nbsp;<span class="element-name">right</span></div>
-<div class="block"><p> The right value (or
- <code>null</code>
-  if
- <code>isLeft()</code>
-  is
- <code>true</code>
- )</div>
-</section>
-</li>
-<li>
-<section class="detail" id="isLeft">
-<h3>isLeft</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isLeft</span></div>
-<div class="block">Does this object have a left value?</div>
+<section class="detail" id="type">
+<h3>type</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="ImOneOfThree.ThreeType.html" title="enum class in dev.javafp.util">ImOneOfThree.ThreeType</a></span>&nbsp;<span class="element-name">type</span></div>
 </section>
 </li>
 </ul>
@@ -271,44 +247,53 @@ R&gt;&nbsp;<a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="Left(L)">
-<h3 id="Left(java.lang.Object)">Left</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;L,<wbr>
-R&gt;</span>&nbsp;<span class="return-type"><a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;L,<wbr>R&gt;</span>&nbsp;<span class="element-name">Left</span><wbr><span class="parameters">(L&nbsp;left)</span></div>
-<div class="block"><p> An
- <code>ImEither</code>
-  with
- <code>left</code>
-  set to
- <code>left</code>
-  and
- <code>isLeft</code>
-  set to
- <code>true</code></div>
+<section class="detail" id="a(A)">
+<h3 id="a(java.lang.Object)">a</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A,<wbr>
+B,<wbr>
+C&gt;</span>&nbsp;<span class="return-type"><a href="ImOneOfThree.html" title="class in dev.javafp.util">ImOneOfThree</a>&lt;A,<wbr>B,<wbr>C&gt;</span>&nbsp;<span class="element-name">a</span><wbr><span class="parameters">(A&nbsp;a)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="Right(R)">
-<h3 id="Right(java.lang.Object)">Right</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;L,<wbr>
-R&gt;</span>&nbsp;<span class="return-type"><a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;L,<wbr>R&gt;</span>&nbsp;<span class="element-name">Right</span><wbr><span class="parameters">(R&nbsp;right)</span></div>
-<div class="block"><p> An
- <code>ImEither</code>
-  with
- <code>right</code>
-  set to
- <code>right</code>
-  and
- <code>isLeft</code>
-  set to
- <code>false</code></div>
+<section class="detail" id="b(B)">
+<h3 id="b(java.lang.Object)">b</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A,<wbr>
+B,<wbr>
+C&gt;</span>&nbsp;<span class="return-type"><a href="ImOneOfThree.html" title="class in dev.javafp.util">ImOneOfThree</a>&lt;A,<wbr>B,<wbr>C&gt;</span>&nbsp;<span class="element-name">b</span><wbr><span class="parameters">(B&nbsp;b)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="match(dev.javafp.func.Fn,dev.javafp.func.Fn)">
+<section class="detail" id="c(C)">
+<h3 id="c(java.lang.Object)">c</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;A,<wbr>
+B,<wbr>
+C&gt;</span>&nbsp;<span class="return-type"><a href="ImOneOfThree.html" title="class in dev.javafp.util">ImOneOfThree</a>&lt;A,<wbr>B,<wbr>C&gt;</span>&nbsp;<span class="element-name">c</span><wbr><span class="parameters">(C&nbsp;c)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="a()">
+<h3>a</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImOneOfThree.html" title="type parameter in ImOneOfThree">A</a></span>&nbsp;<span class="element-name">a</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="b()">
+<h3>b</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImOneOfThree.html" title="type parameter in ImOneOfThree">B</a></span>&nbsp;<span class="element-name">b</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="c()">
+<h3>c</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ImOneOfThree.html" title="type parameter in ImOneOfThree">C</a></span>&nbsp;<span class="element-name">c</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="match(dev.javafp.func.Fn,dev.javafp.func.Fn,dev.javafp.func.Fn)">
 <h3>match</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;A&gt;</span>&nbsp;<span class="return-type">A</span>&nbsp;<span class="element-name">match</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">L</a>,<wbr>A&gt;&nbsp;f1,
- <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">R</a>,<wbr>A&gt;&nbsp;f2)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;D&gt;</span>&nbsp;<span class="return-type">D</span>&nbsp;<span class="element-name">match</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImOneOfThree.html" title="type parameter in ImOneOfThree">A</a>,<wbr>D&gt;&nbsp;f1,
+ <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImOneOfThree.html" title="type parameter in ImOneOfThree">B</a>,<wbr>D&gt;&nbsp;f2,
+ <a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImOneOfThree.html" title="type parameter in ImOneOfThree">C</a>,<wbr>D&gt;&nbsp;f3)</span></div>
 <div class="block"><p> If this.isLeft() then
  <code>f1(left)</code>
   else
@@ -331,15 +316,6 @@ R&gt;</span>&nbsp;<span class="return-type"><a href="ImEither.html" title="class
 <div class="block">The field names for this object including fields from superclasses.
 
  See <a href="../val/Values.html" title="interface in dev.javafp.val"><code>Values</code></a> and <a href="../val/ImValuesImpl.html" title="class in dev.javafp.val"><code>ImValuesImpl</code></a></div>
-</section>
-</li>
-<li>
-<section class="detail" id="flatMap(dev.javafp.func.Fn)">
-<h3>flatMap</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;B&gt;</span>&nbsp;<span class="return-type"><a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">L</a>,<wbr>B&gt;</span>&nbsp;<span class="element-name">flatMap</span><wbr><span class="parameters">(<a href="../func/Fn.html" title="interface in dev.javafp.func">Fn</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">R</a>,<wbr><a href="ImEither.html" title="class in dev.javafp.util">ImEither</a>&lt;<a href="ImEither.html" title="type parameter in ImEither">L</a>,<wbr>B&gt;&gt;&nbsp;fn)</span></div>
-<div class="block">If this is `right` then apply `fn` to the value in `right` to give an `ImEither`
-
- if this is `left' then just return left as the left of an `ImEither` with the correct type</div>
 </section>
 </li>
 <li>
