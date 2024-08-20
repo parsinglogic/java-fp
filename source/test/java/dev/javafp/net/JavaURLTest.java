@@ -1,5 +1,6 @@
 package dev.javafp.net;
 
+import dev.javafp.ex.Throw;
 import dev.javafp.ex.UnexpectedChecked;
 import dev.javafp.file.ReaderUtil;
 import dev.javafp.lst.ImList;
@@ -21,6 +22,7 @@ public class JavaURLTest
 {
 
     ImList<String> tryThese = ImList.on(
+
             "https://räksmörgås.josefsson.org",
             "example.com",
             "https://xn--rksmrgs-5wao1o.josefsson.org?foo=💩",
@@ -48,15 +50,36 @@ public class JavaURLTest
     }
 
     @Test
-    public void testAddresses() throws Exception
+    public void testGoogle()
     {
+        try
+        {
+            new URL("google.com");
+            Throw.Exception.ifYouGetHere();
+        } catch (MalformedURLException e)
+        {
 
-        say(InetAddress.getByName("127.1"));
-        //        say(InetAddress.getByName("127.0x1"));
-        say(InetAddress.getByName("[1::8]"));
-        say(InetAddress.getByName("räksmörgås.josefsson.org"));
-        say(InetAddress.getByName("xn--rksmrgs-5wao1o.josefsson.org"));
-        say(InetAddress.getByName("example.org"));
+        }
+
+    }
+
+    @Test
+    public void testSchemes() throws Exception
+    {
+        //        ftp, //   21
+        //                file, //
+        //                http, //  80
+        //                https, // 443
+        //                ws,  //   80
+        //                wss  //
+
+        new URL("http://a.com");
+        new URL("https://a.com");
+        new URL("file://a.com");
+        new URL("ftp://a.com");
+        new URL("jar:file:!/home");
+        //        new URL("ws://a.com");
+        //        new URL("wss://a.com");
     }
 
     private String tryConnecting(String urlString)
@@ -93,6 +116,35 @@ public class JavaURLTest
 
             say("URI", uri);
             say("URI,getHost()", uri.getHost());
+            say("URL", url);
+
+            HttpURLConnection connection = createConnection(url);
+
+            say(getStatus(connection));
+
+            String responseBody = getResponseBody(connection);
+
+            say(responseBody.substring(0, 200));
+
+            return "OK";
+        } catch (Exception e)
+        {
+            String er = "ERROR:" + e.getMessage() == null ? "" : e.getMessage();
+            say(er);
+
+            return er;
+        }
+    }
+
+    private String tryConnectingViaURL(String urlString)
+    {
+        try
+        {
+            say("");
+            say("trying url string", urlString);
+
+            URL url = new URL(urlString);
+
             say("URL", url);
 
             HttpURLConnection connection = createConnection(url);

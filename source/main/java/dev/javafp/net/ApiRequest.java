@@ -16,7 +16,6 @@ import dev.javafp.val.ImValuesImpl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -91,7 +90,7 @@ public class ApiRequest extends ImValuesImpl
         this.requestHeaders = requestHeaders;
 
         // Get the query elements from the url and add the ones passed as an argument
-        this.queryParameters = url.queryElements.append(queryParameters);
+        this.queryParameters = url.queryPairs.append(queryParameters);
     }
 
     /**
@@ -146,9 +145,9 @@ public class ApiRequest extends ImValuesImpl
     /**
      * <p> The url for this request - including any queries
      */
-    public String getUrlIncludingQueries()
+    public ImUrl getUrlIncludingQueries()
     {
-        return "" + url.withQueryElements(queryParameters);
+        return url.withQueryPairs(queryParameters);
     }
 
     protected ApiResponse getApiResponse(HttpURLConnection conn)
@@ -224,17 +223,9 @@ public class ApiRequest extends ImValuesImpl
         }
     }
 
-    protected URL createUrl(String urlString)
+    protected URL createUrl(ImUrl url)
     {
-        try
-        {
-            return new URL(urlString);
-
-        } catch (MalformedURLException e)
-        {
-            throw new UnexpectedChecked(e);
-        }
-
+        return url.toJavaUrl();
     }
 
 }

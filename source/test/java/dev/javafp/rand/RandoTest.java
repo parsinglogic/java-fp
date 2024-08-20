@@ -4,6 +4,7 @@ import dev.javafp.lst.ImList;
 import dev.javafp.lst.ImRange;
 import dev.javafp.set.ImMap;
 import dev.javafp.util.Util;
+import dev.javafp.val.ImCodePoint;
 import org.junit.Test;
 
 import static dev.javafp.util.Say.say;
@@ -18,7 +19,7 @@ public class RandoTest
         RandomString rs = new RandomString("abcdef");
 
         // count the frequencies
-        ImMap<Character, Integer> map = ImList.onString(rs.next(10000)).foldl(ImMap.empty(), (z, c) -> z.updateValue(c, 1, i -> i + 1));
+        ImMap<ImCodePoint, Integer> map = ImList.onString(rs.next(10000)).foldl(ImMap.empty(), (z, c) -> z.updateValue(c, 1, i -> i + 1));
 
         say(map);
 

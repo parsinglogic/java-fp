@@ -37,8 +37,6 @@ import static dev.javafp.val.ImCodePoint.COLON;
 import static dev.javafp.val.ImCodePoint.alpha;
 
 /**
- *
- *
  * <p>
  * This class <strong><em>parses</em></strong> a URL string into an ImUrl object, and can convert it back to a string. You can access the various parts of the URL using fields and it is an immutable object.
  * </p>
@@ -48,7 +46,7 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * <p>
  * Once we have an ImUrl object - the idea is that we can convert it to a Java URL object and then send an HTTP style query to some website using the built-in Java features  - see APIRequest.
  * </p>
- * <h3>Why this class?</h3>
+ * <h2>Why this class?</h2>
  *
  *
  * <p>
@@ -57,7 +55,11 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * <p>
  * In particular, it is not able to handle URLs like this:
  * </p>
- * <h5>https://räksmörgås.josefsson.org</h5>
+ *
+ *
+ *
+ * <pre class="prettyprint">     https://räksmörgås.josefsson.org
+ * </pre>
  *
  *
  * <p>
@@ -69,7 +71,11 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * <p>
  * to get this:
  * </p>
- * <h5>https://xn--rksmrgs-5wao1o.josefsson.org</h5>
+ *
+ *
+ *
+ * <pre class="prettyprint">     https://xn--rksmrgs-5wao1o.josefsson.org
+ * </pre>
  *
  *
  * <p>
@@ -100,8 +106,8 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- *  <p> <img src="{@docRoot}/dev/doc-files/image1.png"  width=600/>
  *
+ * <img src="{@docRoot}/dev/doc-files/url-images-image1.png" width="600" >
  *
  * </p>
  * <p>
@@ -168,7 +174,7 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * <p>
  * <a href="https://github.com/web-platform-tests">https://github.com/web-platform-tests</a>
  * </p>
- * <h3>Does this mean that this class parses URLs in exactly the same way as browsers do?</h3>
+ * <h2>Does this mean that this class parses URLs in exactly the same way as browsers do?</h2>
  *
  *
  * <p>
@@ -181,7 +187,8 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <p> <img src="{@docRoot}/dev/doc-files/image2.png"  width=600/>
+ *
+ * <img src="{@docRoot}/dev/doc-files/url-images-image2.png" width="600" >
  *
  * </p>
  * <p>
@@ -197,7 +204,8 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <p> <img src="{@docRoot}/dev/doc-files/image3.png"  width=600/>
+ *
+ * <img src="{@docRoot}/dev/doc-files/url-images-image5.png" width="600" >
  *
  * </p>
  * <p>
@@ -243,24 +251,34 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * <p>
  * We will also talk about codepoints rather than characters.
  * </p>
- * <h3>The parts of a URL</h3>
+ * <h2>The parts of a URL</h2>
  *
  *
  * <p>
  * So if we think about a URL input string as being composed of <strong><em>parts</em></strong>, our first idea might be that it is this (well roughly):
  * </p>
- * <h5>scheme-part<strong>://</strong>host-part/path-part?query-part</h5>
+ * <p>
  *
  *
+ *
+ *
+ * <img src="{@docRoot}/dev/doc-files/url-images-image7.png" width="600" >
+ *
+ * </p>
  * <p>
  * For clarity, I have highlighted the delimiters.
  * </p>
  * <p>
  * In fact there are a few more parts that we normally forget (or never knew about in the first place):
  * </p>
- * <h5>scheme-part<strong>://</strong>user-info:password@host-part:port/path-part?query-part#fragment-part</h5>
+ * <p>
  *
  *
+ *
+ *
+ * <img src="{@docRoot}/dev/doc-files/url-images-image6.png" width="600" >
+ *
+ * </p>
  * <p>
  * This means that there are eight parts to a URL. Most of the parts are optional.
  * </p>
@@ -270,9 +288,14 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * <p>
  * After the scheme part, delimited by ':' there can be a run of slashes, '/' '\'. For the file scheme the number of slashes is significant - so I am going to promote what most people will tell you is a humble delimiter into a full part. So now, (again - roughly) we have this:
  * </p>
- * <h5>scheme-part<strong>:</strong>slashes-part/user-info:password@host-part:port/path-part?query-part#fragment-part</h5>
+ * <p>
  *
  *
+ *
+ *
+ * <img src="{@docRoot}/dev/doc-files/url-images-image4.png" width="600" >
+ *
+ * </p>
  * <p>
  * The scheme-part is required and the host part is required - except for some cases in the file scheme - this depends on the slashes-part in this case.
  * </p>
@@ -280,15 +303,15 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * The other parts are optional - the file scheme does not allow a port.
  * </p>
  * <p>
- * If an optional part does not appear in the URL then its default value in the parsed form is considered to be the empty string (sigh - except path, where the default is '/'.
+ * If an optional part does not appear in the URL then its default value in the parsed form is considered to be the empty string (sigh - except for the path part, where the default is '/'.
  * </p>
  * <p>
- *  If it does appear but is empty because its start delimiter appears but one of its terminating delimiters follows it immediately, then it is also considered to be the empty string. When the URL is serialised it is represented as if it didn't appear.
+ * If it does appear but is empty because its start delimiter appears but one of its terminating delimiters follows it immediately, then it is also considered to be the empty string. When the URL is serialised it is represented as if it didn't appear.
  * </p>
  * <p>
  * We can split the parts into three distinct types based on how the parser handles non-printable ASCII codepoints and percent encoded triplets
  * </p>
- * <h4>Strict</h4>
+ * <h3>Strict</h3>
  *
  *
  * <p>
@@ -306,7 +329,7 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * <li>port
  * </li>
  * </ol>
- * <h4>Non-strict</h4>
+ * <h3>Non-strict</h3>
  *
  *
  * <ol>
@@ -343,7 +366,7 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * <li>fragment
  * </li>
  * </ol>
- * <h4>Host</h4>
+ * <h3>Host</h3>
  *
  *
  * <p>
@@ -406,7 +429,11 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * <p>
  * In Java, if you try this:
  * </p>
- * <h5>new URL("google.com");</h5>
+ *
+ *
+ *
+ * <pre class="prettyprint">     new URL("google.com");
+ * </pre>
  *
  *
  * <p>
@@ -415,9 +442,8 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
- *     java.net.MalformedURLException: no protocol: google.com
- * }</pre>
+ * <pre class="prettyprint">     java.net.MalformedURLException: no protocol: google.com
+ * </pre>
  *
  *
  * <p>
@@ -430,7 +456,7 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * For the host there are a number of codepoints that are "forbidden". For all the other parts there are codepoints that are not allowed in the input because they would interfere with the parsing
  * </p>
  *
- * <table id="tab">
+ * <table class="table">
  *   <tr>
  *    <td>
  *    </td>
@@ -617,24 +643,22 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * <p>
  * So each of the parts is parsed in its own idiosyncratic way. Some of them are <strong><em>very</em></strong> idiosyncratic - to the point of being slightly bonkers (IMHO).
  * </p>
- *
- *
  * <p>
  * For example, these are valid URLs:
+ * </p>
  *
  *
- * <pre>
- *  http:::@@{♥~?%#
- *  http:4294967295
- *  http:/\/\/\/\:::::@@@@0
+ *
+ * <pre class="prettyprint">     http:::@@{♥~?%#
+ *     http:4294967295
+ *     http:/\/\/\/\:::::@@@@
  * </pre>
  *
  *
- *
- * <h3>The parts of a URL in more detail</h3>
- *
+ * <p>
+ * We will describe the parts in more detail::
  * </p>
- * <h3>scheme (AKA protocol)</h3>
+ * <h2>The scheme part (AKA protocol)</h2>
  *
  *
  * <p>
@@ -658,19 +682,18 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
- *     http:                                scheme = "http"
+ * <pre class="prettyprint">     http:                                scheme = "http"
  *     HTTPS:                               scheme = "https"
  *     FiLE:                                scheme = "file"
  *     fTp:                                 scheme = "ftp"
- * }</pre>
+ * </pre>
  *
  *
- * <h3>slashes</h3>
+ * <h2>The slashes part</h2>
  *
  *
  * <p>
- * After the ':' that is the end delimiter for the scheme, there can be 0 or more slashes - '\'  '/'
+ * After the ':' that is the end delimiter for the scheme, there can be 0 or more slashes - back or forward:  '\'  '/'
  * </p>
  * <p>
  * Any slashes after the ':' are ignored (except for the file scheme where they <strong><em>are</em></strong> significant - see below). You could almost consider them a decorative feature!
@@ -681,18 +704,17 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
- *     //
+ * <pre class="prettyprint">     //
  *     /
  *     \
  *     \\
  *     ///////
  *     \\\\\\\\\\\
  *     \\\///\\\///\\\\\\\///////
- * }</pre>
+ * </pre>
  *
  *
- * <h3>authority (user-name and password)</h3>
+ * <h2>The authority part (user-name and password)</h2>
  *
  *
  * <p>
@@ -716,15 +738,14 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
- *     foo:bar@                   user = "foo", password = "bar"
+ * <pre class="prettyprint">     foo:bar@                   user = "foo", password = "bar"
  *     :bar@                      user = "", password = "bar"
  *     :@                         user = "", password = ""
  *     :::@@@                     user = "", password = "%3A%3A%40%40"
- * }</pre>
+ * </pre>
  *
  *
- * <h3>host</h3>
+ * <h2>The host part</h2>
  *
  *
  * <p>
@@ -754,17 +775,17 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * </p>
  * <ol>
  *
- * <li>IPv4 address - eg  <code>192.168.0.17</code>
+ * <li>IPv4 address - eg  <strong><code>192.168.0.17</code></strong>
  *
- * <li>IPv6 address - eg  <code>[::1:56:42]</code>
+ * <li>IPv6 address - eg  <strong><code>[::1:56:42]</code></strong>
  *
- * <li>host and domain name - eg <code>foo.bing.bar</code>
+ * <li>host and domain name - eg <strong><code>foo.bing.bar</code></strong>
  * </li>
  * </ol>
  * <p>
  * Conceptually, the parser tries to parse the IPv4 address and the IPv6 address options first. If these forms are not recognised then it tries host and domain name. This is significant because, when parsing IPv4 or IPv6 addresses, the '%' codepoint is not allowed but with option 3 above, the '%' codepoint is allowed in the input - but see below for the details.
  * </p>
- * <h4>host and domain name</h4>
+ * <h3>host and domain name</h3>
  *
  *
  * <p>
@@ -776,15 +797,14 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
- *     percent encoded triplets    -->   UTF-8 byte sequences  -->  codepoints  -->  IDNA/Punycode codepoints
- * }</pre>
+ * <pre class="prettyprint">     percent encoded triplets    -->   UTF-8 byte sequences  -->  codepoints  -->  IDNA/Punycode codepoints
+ * </pre>
  *
  *
  * <p>
  * This means that any percent encoded triplets must map to a valid UTF-8 byte sequence - and you can't have a '%' on its own - a '%' is a forbidden codepoint.
  * </p>
- * <h4>Dots!</h4>
+ * <h3>Dots!</h3>
  *
  *
  * <p>
@@ -793,9 +813,8 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
- *     '｡' (hex codepoint 0xFF61) UTF-8 encodes to bytes 0xEF 0xBD 0xA1 so the percent encoding is  %EF%BD%A1
- * }</pre>
+ * <pre class="prettyprint">     '｡' (hex codepoint 0xFF61) UTF-8 encodes to bytes 0xEF 0xBD 0xA1 so the percent encoding is %EF%BD%A1
+ * </pre>
  *
  *
  * <p>
@@ -804,9 +823,8 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
- *     a%EF%BD%A1com
- * }</pre>
+ * <pre class="prettyprint">     a%EF%BD%A1com
+ * </pre>
  *
  *
  * <p>
@@ -815,9 +833,8 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
- *     a.com
- * }</pre>
+ * <pre class="prettyprint">     a.com
+ * </pre>
  *
  *
  * <p>
@@ -828,13 +845,13 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * </p>
  * <ol>
  *
- * <li>U+002E ( . ) FULL STOP
+ * <li><strong><code>U+002E ( . ) FULL STOP</code></strong>
  *
- * <li>U+FF0E ( ．) FULLWIDTH FULL STOP
+ * <li><strong><code>U+FF0E ( ．) FULLWIDTH FULL STOP</code></strong>
  *
- * <li>U+3002 ( 。) IDEOGRAPHIC FULL STOP
+ * <li><strong><code>U+3002 ( 。) IDEOGRAPHIC FULL STOP</code></strong>
  *
- * <li>U+FF61 ( ｡ ) HALFWIDTH IDEOGRAPHIC FULL STOP
+ * <li><strong><code>U+FF61 ( ｡ ) HALFWIDTH IDEOGRAPHIC FULL STOP</code></strong>
  * </li>
  * </ol>
  * <p>
@@ -863,7 +880,7 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <p> <img src="{@docRoot}/dev/doc-files/image4.png"  width=600/>
+ * <img src="{@docRoot}/dev/doc-files/url-images-image3.png" width="600" >
  *
  * </p>
  * <p>
@@ -881,10 +898,9 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
- *     xn--blah-blah
+ * <pre class="prettyprint">     xn--blah-blah
  *     xn--blah
- * }</pre>
+ * </pre>
  *
  *
  * <p>
@@ -896,9 +912,8 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
- *     räksmörgås.josefsson.org          host = "xn--rksmrgs-5wao1o.josefsson.org"
- * }</pre>
+ * <pre class="prettyprint">     räksmörgås.josefsson.org          host = "xn--rksmrgs-5wao1o.josefsson.org"
+ * </pre>
  *
  *
  * <p>
@@ -915,7 +930,7 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * </p>
  * <p>
  *
- *     😫/👩🏼‍🦰<code>               host = "<a href="http://xn--qq8h/%F0%9F%98%AB/%F0%9F%91%A9%F0%9F%8F%BC%E2%80%8D%F0%9F%A6%B0">xn--qq8h</a>", path = "<a href="http://xn--qq8h/%F0%9F%98%AB/%F0%9F%91%A9%F0%9F%8F%BC%E2%80%8D%F0%9F%A6%B0">%F0%9F%98%AB/%F0%9F%91%A9%F0%9F%8F%BC%E2%80%8D%F0%9F%A6%B</a>"</code>
+ *     😫/👩🏼‍🦰<code>               <strong>host = "<a href="http://xn--qq8h/%F0%9F%98%AB/%F0%9F%91%A9%F0%9F%8F%BC%E2%80%8D%F0%9F%A6%B0">xn--qq8h</a>", path = "<a href="http://xn--qq8h/%F0%9F%98%AB/%F0%9F%91%A9%F0%9F%8F%BC%E2%80%8D%F0%9F%A6%B0">%F0%9F%98%AB/%F0%9F%91%A9%F0%9F%8F%BC%E2%80%8D%F0%9F%A6%B</a>"</strong></code>
  *
  * <p>
  * For details of the emojis in this example:
@@ -933,34 +948,112 @@ import static dev.javafp.val.ImCodePoint.alpha;
  * Examples:
  * </p>
  *
+ * <table class="table">
+ *   <tr>
+ *    <td>Input
+ *    </td>
+ *    <td>Host
+ *    </td>
+ *    <td>Notes
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>аррӏе.com</code></strong>
+ *    </td>
+ *    <td><strong><code>/xn--80ak6aa92e.com</code></strong>
+ *    </td>
+ *    <td>This is the famous "apple in cyrillic" homograph attack - see
+ * <p>
+ * <a href="https://www.theregister.com/2017/04/18/homograph_attack_again/">https://www.theregister.com/2017/04/18/homograph_attack_again/</a>
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>xn--rksmrgs-5wao1o.com</code></strong>
+ *    </td>
+ *    <td><strong><code>xn--rksmrgs-5wao1o.com</code></strong>
+ *    </td>
+ *    <td>If the input is already encoded then there is nothing to do
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>xn--rksmrgs-5wao1ox.com</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *    <td>invalid - puny encoding is invalid
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>abc.com </code></strong>
+ *    </td>
+ *    <td><strong><code>abc.com</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>a。b｡c    </code></strong>
+ *    </td>
+ *    <td><strong><code>a.b.c</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>a..b...c...   </code></strong>
+ *    </td>
+ *    <td><strong><code>a..b...c...</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>a.1  </code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *    <td>invalid - last component is numeric
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>a.1.    </code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *    <td>invalid - effective last component is numeric
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>a.1..  </code></strong>
+ *    </td>
+ *    <td><strong><code>a.1..</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *   </tr>
+ * </table>
  *
  *
- * <pre>{@code
- *     аррӏе.com                          host = "/xn--80ak6aa92e.com" This is the famous "apple in cyrillic" homograph attack - see https://www.theregister.com/2017/04/18/homograph_attack_again/
- *     xn--rksmrgs-5wao1o.com            host = "xn--rksmrgs-5wao1o.com"    If the input is already encoded then there is nothing to do
- *     xn--rksmrgs-5wao1ox.com           invalid - puny encoding is invalid
- *     abc.com                           host = "abc.com"
- *     a。b｡c                            host = "a.b.c"
- *     a..b...c...                       host = "a..b...c..."
- *     a.1                               invalid - last component is numeric
- *     a.1.                              invalid - effective last component is numeric
- *     a.1..                             host = "a.1.."
- * }</pre>
  *
  *
- * <h4>IPv4 addresses</h4>
+ *
+ * <pre class="prettyprint">
+ *
+ * </pre>
+ *
+ *
+ * <h3>IPv4 addresses</h3>
  *
  *
  * <p>
- * These are typically groups(segments) of four decimal numbers, each number &lt;=255.
+ * These are typically groups(segments) of four decimal numbers, each number &lt;= 255.
  * </p>
  *
  *
  *
- * <pre>{@code
- *     1.2.3.4
+ * <pre class="prettyprint">     1.2.3.4
  *     192.168.1.0
- * }</pre>
+ * </pre>
  *
  *
  * <p>
@@ -969,9 +1062,8 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
- *     1.010.0xF.0
- * }</pre>
+ * <pre class="prettyprint">     1.010.0xF.0
+ * </pre>
  *
  *
  * <p>
@@ -992,9 +1084,8 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
- *     256^3 * a + 256^2 * b + 256 * c + d
- * }</pre>
+ * <pre class="prettyprint">     256^3 * a + 256^2 * b + 256 * c + d
+ * </pre>
  *
  *
  * <p>
@@ -1006,10 +1097,9 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
-0.0.256 -> 0.0.1.1
+ * <pre class="prettyprint">     0.0.256 -> 0.0.1.1
  *     http://4294967295
- * }</pre>
+ * </pre>
  *
  *
  * <p>
@@ -1018,9 +1108,8 @@ import static dev.javafp.val.ImCodePoint.alpha;
  *
  *
  *
- * <pre>{@code
-http://255.255.255.255
- * }</pre>
+ * <pre class="prettyprint">     http://255.255.255.255
+ * </pre>
  *
  *
  * <p>
@@ -1033,25 +1122,118 @@ http://255.255.255.255
  * Examples:
  * </p>
  *
+ * <table class="table">
+ *   <tr>
+ *    <td>Input
+ *    </td>
+ *    <td>Host
+ *    </td>
+ *    <td>
+ * Notes
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>1.2.3.4</code></strong>
+ *    </td>
+ *    <td><strong><code>1.2.3.4</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>10。20｡30．40</code></strong>
+ *    </td>
+ *    <td><strong><code>10.20.30.40</code></strong>
+ *    </td>
+ *    <td>There are no spaces. It's just that some dots are wide.
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>1.2.0x10.010</code></strong>
+ *    </td>
+ *    <td><strong><code>1.2.16.8</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>1.10.0x11.000000010</code></strong>
+ *    </td>
+ *    <td><strong><code>1.10.17.8</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>0x0001.0xAb.0xff.0xFF</code></strong>
+ *    </td>
+ *    <td><strong><code>1.171.255.255</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>1.2.00x10.000000010</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *    <td>invalid - hex numbers can't have leading zeros before the 0x
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>0.0.257</code></strong>
+ *    </td>
+ *    <td><strong><code>0.0.1.2</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td>
+ * <strong><code>1.0.0.257</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *    <td>invalid - would expand to 5 segments
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>258</code></strong>
+ *    </td>
+ *    <td><strong><code>0.0.1.3</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>0</code></strong>
+ *    </td>
+ *    <td><strong><code>0.0.0.0</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>4294967295</code></strong>
+ *    </td>
+ *    <td>
+ * <strong><code>255.255.255</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *   </tr>
+ *   <tr>
+ *    <td><strong><code>4294967296</code></strong>
+ *    </td>
+ *    <td>
+ *    </td>
+ *    <td>invalid - address too big
+ *    </td>
+ *   </tr>
+ * </table>
  *
  *
- * <pre>{@code
- *     1.2.3.4                           host = "1.2.3.4"
- *     10。20｡30．40                      host = "10.20.30.40"   There are no spaces. It's just that some "dots" are wide.
- *     1.2.0x10.010                      host = "1.2.16.8"
- *     1.10.0x11.000000010               host = "1.10.17.8"
- *     0x0001.0xAb.0xff.0xFF             host = "1.171.255.255"
- *     1.2.00x10.000000010               invalid - hex numbers can't have leading zeros before the 0x
- *     0.0.257                           host = "0.0.1.2"
- *     1.0.0.257                         invalid - would expand to 5 segments
- *     258                               host = "0.0.1.3"
- *     0                                 host = "0.0.0.0"
- *     4294967295                        host = "255.255.255"
- *     4294967296                        invalid - address too big
- * }</pre>
- *
- *
- * <h4>IPv6 address</h4>
+ * <h3>IPv6 address</h3>
  *
  *
  * <p>
@@ -1063,27 +1245,25 @@ http://255.255.255.255
  *
  *
  *
- * <pre>{@code
- *     http://[1:2:3:4:5:6:7:8]
+ * <pre class="prettyprint">     http://[1:2:3:4:5:6:7:8]
  *     http://[1:0::FFFF:0:0:0:01]
- * }</pre>
+ * </pre>
  *
  *
  * <p>
- * An IPv6 address has 8 segments - there is no strange expanding of "digits" as in IPv4 - but they make up for that oversight by having a peculiar compression system and an even more peculiar system for embedding IPv4 addresses inside it. Phew!
+ * An IPv6 address has 8 segments - there is no strange expanding of digits as in IPv4 - but they make up for that oversight by having a peculiar compression system and an even more peculiar system for embedding IPv4 addresses inside it. Phew!
  * </p>
  * <p>
  * Each segment is a hex number between 0 and FFFF inclusive (with an exception for the last part - see below)
  * </p>
  * <p>
- * You can "compress" to remove sequences of 0's by replacing the 0's with an empty part.
+ * You can compress" to remove sequences of 0's by replacing the 0's with an empty part.
  * </p>
  *
  *
  *
- * <pre>{@code
- *     0:0:0:4:5:6:7:8  -> ::4:5:6:7:8
- * }</pre>
+ * <pre class="prettyprint">     0:0:0:4:5:6:7:8  -> ::4:5:6:7:8
+ * </pre>
  *
  *
  * <p>
@@ -1098,10 +1278,9 @@ http://255.255.255.255
  *
  *
  *
- * <pre>{@code
- *     1:2:3:0:5:6:7:8  -> 1:2:3::5:6:7:8
+ * <pre class="prettyprint">     1:2:3:0:5:6:7:8  -> 1:2:3::5:6:7:8
  *     1:2:3:0:0:0:7:8  -> 1:2:3::0:7:8
- * }</pre>
+ * </pre>
  *
  *
  * <p>
@@ -1113,8 +1292,7 @@ http://255.255.255.255
  *
  *
  *
- * <pre>{@code
- *     [1:2:3:4:5:6:7:8]                 host = "[1:2:3:4:5:6:7:8]"
+ * <pre class="prettyprint">     [1:2:3:4:5:6:7:8]                 host = "[1:2:3:4:5:6:7:8]"
  *     [1:0:0:4:5:0:0:8]                 host = "[1::4:5:0:0:8]"
  *     [1:0:0:0:5::8]                    host = "[1::5:0:0:8]"
  *     [0:0:0:0:0:0:0:0]                 host = "[::]"
@@ -1123,7 +1301,7 @@ http://255.255.255.255
  *     [00FF::]                          host = "[ff::]"
  *     [0000F::]                         invalid - too many digits
  *     [:2::]                            invalid - too many digits
- * }</pre>
+ * </pre>
  *
  *
  * <h4>Embedded IPv4 addresses</h4>
@@ -1132,12 +1310,14 @@ http://255.255.255.255
  * <p>
  * In the same way that Ipv4 addresses can be thought of as four "digits" base 0x100 (256), IPv6 addresses can be thought of as eight "digits" base 0x10000(<strong>65536)</strong>. You are not allowed to supply digits that are larger than 0xFFFF and have them adjusted but you are allowed to have the last part of the address be an IPv4 address and the parser is required to convert those <strong><em>four</em></strong> digits base 256 to <strong><em>two</em></strong> digits base 0x10000 and replace the IPv4 address with these two digits.
  * </p>
- * <p>
- * [::1.0.0.2] -> [::100:2]
- * </p>
- * <p>
- * [1:2:3:4:5:6:2.0.0.0] -> [1:2:3:4:5:6:200:0]
- * </p>
+ *
+ *
+ *
+ * <pre class="prettyprint">     [::1.0.0.2] -> [::100:2]
+ *     [1:2:3:4:5:6:2.0.0.0] -> [1:2:3:4:5:6:200:0]
+ * </pre>
+ *
+ *
  * <p>
  * If you have more than six components before the embedded IPv4 address then this is a fatal error.
  * </p>
@@ -1159,17 +1339,16 @@ http://255.255.255.255
  *
  *
  *
- * <pre>{@code
- *     [ffff::127.0.0.1]                 host = "[ffff::7f00:1]"
+ * <pre class="prettyprint">     [ffff::127.0.0.1]                 host = "[ffff::7f00:1]"
  *     [::255.255.255.255]               host = "[::ffff:ffff]"
  *     [ffff::127.0.1]                   invalid - ipv4 parsing is strict - must be 4 segments
  *     [::0.0.0.256]                     invalid - ipv4 parsing is strict - must be 4 segments &lt;= 255
  *     [ffff::127.0.1.02]                invalid - ipv4 parsing is strict - must be decimal numbers - no leading zeros
  *     [ffff::127.0.1.FFFF]              invalid - ipv4 parsing is strict - must be decimal numbers
- * }</pre>
+ * </pre>
  *
  *
- * <h3>port</h3>
+ * <h2>The port part</h2>
  *
  *
  * <p>
@@ -1190,14 +1369,13 @@ http://255.255.255.255
  *
  *
  *
- * <pre>{@code
- *     10                                        port = "10"
+ * <pre class="prettyprint">     10                                        port = "10"
  *     0000000000000000000000000000012345        port = "12345"
  *     65536                                     invalid - number too big
- * }</pre>
+ * </pre>
  *
  *
- * <h3>path</h3>
+ * <h2>The path part</h2>
  *
  *
  * <p>
@@ -1221,7 +1399,7 @@ http://255.255.255.255
  * <p>
  * Parsers are required to normalise a path before serialisation.
  * </p>
- * <h4>Normalisation</h4>
+ * <h3>Normalisation</h3>
  *
  *
  * <p>
@@ -1239,13 +1417,13 @@ http://255.255.255.255
  * <p>
  * Let's start with the other schemes.
  * </p>
- * <h4>Paths in http, https, ftp schemes</h4>
+ * <h3>Paths in http, https, ftp schemes</h3>
  *
  *
  * <p>
  * The path follows the port (or the host if there is no port specified) and its start delimiter is a slash ( '/' or '\'). It continues until a '?' or a '#' or the end of input.
  * </p>
- * <h4>Paths in the file scheme</h4>
+ * <h3>Paths in the file scheme</h3>
  *
  *
  * <p>
@@ -1274,11 +1452,11 @@ http://255.255.255.255
  * <p>
  * The parser looks at the slashes part and does something different depending on how many slashes there are:
  * </p>
- * <h4>file scheme - zero or one slash</h4>
+ * <h3>file scheme - zero or one slash</h3>
  *
  *
  * <p>
- * The parser assumes that there is no host and tries to parse the rest of the input as starting with a windows drive path. This might succeed or fail. If it fails then it will attempt to parse it as a standard path.
+ * The parser assumes that <strong><em>there is no host</em></strong> and tries to parse the rest of the input as starting with a windows drive path. This might succeed or fail. If it fails then it will attempt to parse it as a standard path.
  * </p>
  * <p>
  * Examples
@@ -1286,8 +1464,7 @@ http://255.255.255.255
  *
  *
  *
- * <pre>{@code
- *     file:a                         path = "/a"
+ * <pre class="prettyprint">     file:a                         path = "/a"
  *     file:a:                        path = "/a:"
  *     file:                          path = "/"
  *     file::                         path = "/::"
@@ -1298,14 +1475,14 @@ http://255.255.255.255
  *     file:a|b                       path = "/a|b"     No mapping of | because it is not a windows drive path
  *     file:a/b                       path = "/a/b"
  *     file:/a                        path = "/a"
- * }</pre>
+ * </pre>
  *
  *
- * <h4>file scheme - two slashes</h4>
+ * <h3>file scheme - two slashes</h3>
  *
  *
  * <p>
- * The parser assumes that there might be a host.
+ * The parser assumes that <strong><em>there might be a host</em></strong>.
  * </p>
  * <p>
  * The parser tries to parse the rest of the input as starting with a windows drive path. If this succeeds then there is no host. If it fails then there must be a host.
@@ -1319,39 +1496,37 @@ http://255.255.255.255
  *
  *
  *
- * <pre>{@code
- *     file://a                       host = "a" path = "/'
+ * <pre class="prettyprint">     file://a                       host = "a" path = "/'
  *     file://                        host = "" path = '/'
  *     file://a/b                     host = "a" path = "/b"
  *     file://a|/b                    host = "" path = "/a:/b"
  *     file://a/b|                    host = "a" path = "/b|"
- * }</pre>
+ * </pre>
  *
  *
- * <h4>file scheme - three or more slashes</h4>
+ * <h3>file scheme - three or more slashes</h3>
  *
  *
  * <p>
- * The parser assumes that there is no host and tries to parse the rest of the input as starting with a standard path.
+ * The parser assumes that <strong><em>there is no host</em></strong> and tries to parse the rest of the input as starting with a standard path.
  * </p>
  * <p>
- * If there are n slashes then there will be n - 2 slashes at the start of the path.
- * </p>
+ * If there are <strong><code>n</code></strong> slashes then there will be <strong><code>n - 2</code></strong> slashes at the start of the path.
+ *
  * <p>
  * Examples
  * </p>
  *
  *
  *
- * <pre>{@code
- *     file:///a                       host = "" path = "/'
+ * <pre class="prettyprint">     file:///a                       host = "" path = "/'
  *     file:///                        host = "" path = '/'
  *     file:////                       host = "" path = "//"
  *     file://///a|/b                  host = "" path = "///a|/b"
- * }</pre>
+ * </pre>
  *
  *
- * <h3>query (AKA search)</h3>
+ * <h2>The query part (AKA search)</h2>
  *
  *
  * <p>
@@ -1369,13 +1544,12 @@ http://255.255.255.255
  *
  *
  *
- * <pre>{@code
- *     a=b&c=🤪                       query = "a=b&c=%F0%9F%A4%AA"
+ * <pre class="prettyprint">     a=b&amp;c=🤪                       query = "a=b&amp;c=%F0%9F%A4%AA"
  *     👋😕                           query = "%F0%9F%91%8B%F0%9F%98%95"
- * }</pre>
+ * </pre>
  *
  *
- * <h3>fragment (AKA hash)</h3>
+ * <h2>The fragment part (AKA hash)</h2>
  *
  *
  * <p>
@@ -1390,15 +1564,8 @@ http://255.255.255.255
  *
  *
  *
- * <pre>{@code
- *     infrastructure                fragment = "infrastructure"
+ * <pre class="prettyprint">     infrastructure                fragment = "infrastructure"
  *     👩🏼‍🦰                            fragment = "%F0%9F%91%A9%F0%9F%8F%BC%E2%80%8D%F0%9F%A6%B0"
- * }</pre>
- *
- *
- *
- *
- *
  */
 public class ImUrl extends ImValuesImpl
 {

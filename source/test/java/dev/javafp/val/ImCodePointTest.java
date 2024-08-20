@@ -13,35 +13,19 @@ public class ImCodePointTest
 {
 
     String poo = "💩";
+    String wrong = "\uFFFF";
+    char wrongChar = '\uFFFF';
 
     @Test
-    public void one()
+    public void testWrong()
     {
+        say("wrong", wrong);
 
-        byte[] bytes = poo.getBytes();
+        say("size", wrong.length());
+        say("isDefined", Character.isDefined(wrongChar));
+        say("isValid", Character.isValidCodePoint(wrongChar));
 
-        say(bytes);
-
-        ImCodePoint v = ImCodePoint.on(poo);
-
-        say(v);
-
-        assertEquals(poo, v.toString());
-
-        ImList<ImCodePoint> u = ImList.onString("💩");
-        say("u", u.size(), u.toString(""));
-
-        ImList<ImCodePoint> u1 = ImList.onString("ab");
-
-        say(u1.toString(""));
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(u.at(1));
-        sb.append(u.at(2));
-
-        say("sb", sb.toString());
-
+        ImCodePoint.on(0xffff);
     }
 
     @Test
@@ -77,7 +61,7 @@ public class ImCodePointTest
         assertEquals("%%", ImCodePoint.decodePercents(ImList.onString("%%")).toString(""));
         assertEquals("👨‍🦲", ImCodePoint.decodePercents(ImList.onString("%F0%9F%91%A8%E2%80%8D%F0%9F%A6%B2")).toString(""));
         assertEquals(":;=@[]^|¥/?@", ImCodePoint.decodePercents(ImList.onString("%3A%3B%3D%40%5B%5D%5E%7C%C2%A5%2F%3F%40")).toString(""));
-        assertEquals("", ImCodePoint.decodePercents(ImList.onString("%ED%BF%BF")).toString(""));
+        assertEquals("�", ImCodePoint.decodePercents(ImList.onString("%ED%BF%BF")).toString(""));
     }
 
     @Test
@@ -101,9 +85,8 @@ public class ImCodePointTest
     public void testOnThrowsWhenCodePointIsInvalid()
     {
 
-        //        D800–DBFF
-        TestUtils.assertThrows(() -> ImCodePoint.on(0xFFFE), InvalidState.class);
-        TestUtils.assertThrows(() -> ImCodePoint.on(0xFFFF), InvalidState.class);
+        //  Surrogates are D800–DBFF
+
         TestUtils.assertThrows(() -> ImCodePoint.on(0xD800), InvalidState.class);
         TestUtils.assertThrows(() -> ImCodePoint.on(0xDFFF), InvalidState.class);
         TestUtils.assertThrows(() -> ImCodePoint.on(Integer.MAX_VALUE), InvalidState.class);

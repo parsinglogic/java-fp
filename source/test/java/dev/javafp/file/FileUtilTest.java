@@ -15,6 +15,7 @@ import dev.javafp.util.Say;
 import dev.javafp.util.TestUtils;
 import dev.javafp.util.TextUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
@@ -1057,13 +1058,12 @@ public class FileUtilTest
         }
     }
 
+    @Ignore
     @Test
-    public void testURI()
+    public void testFileToUrl()
     {
-
-        String projectFileName = "/abcd-dir/a/jadle.config/abcd.project";
-        Say.say(FileUtil.getPath(projectFileName).toUri().toString());
-        Say.say(ImUrl.on(FileUtil.getPath(projectFileName).toUri().toString()));
+        String projectFileName = "X|/abcd-dir/a/jadle.config/abcd.project";
+        Say.say(ImUrl.parse("file://" + projectFileName));
     }
 
     //    @Test

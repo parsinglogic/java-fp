@@ -1,7 +1,7 @@
 package dev.javafp.tuple;
 
 /**
- * A pair with elements of the same type
+ * A factory for ImDuo
  */
 public class ImDuo$
 {
