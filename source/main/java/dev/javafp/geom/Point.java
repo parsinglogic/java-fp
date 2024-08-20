@@ -29,6 +29,9 @@ import static java.lang.Math.min;
  * <p> <img src="{@docRoot}/dev/doc-files/point.png"  width=300/>
  *
  * @see Rect
+ *
+ *
+ *
  */
 public class Point extends ImValuesImpl
 {
