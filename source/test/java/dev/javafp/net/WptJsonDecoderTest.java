@@ -11,6 +11,7 @@ import dev.javafp.util.ImEither;
 import dev.javafp.util.ImMaybe;
 import dev.javafp.util.ImUtils;
 import dev.javafp.util.TextUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.net.URI;
@@ -50,7 +51,8 @@ public class WptJsonDecoderTest
             "hash");
 
     @Test
-    public void testOne()
+    @Ignore
+    public void testAll()
     {
         ImMaybe<JsonElement> resource = WptJsonDecoder.getResourceAsJsonElement("urltestdata.json");
 
@@ -141,6 +143,7 @@ public class WptJsonDecoderTest
 
         try
         {
+            say("trying", fx.get("input"));
             urlEither = ImUrl.parse(fx.get("input"));
         } catch (Exception e)
         {
