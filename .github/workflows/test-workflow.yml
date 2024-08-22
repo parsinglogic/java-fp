@@ -5,9 +5,8 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+
+    permissions: write-all
 
     steps:
       - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
