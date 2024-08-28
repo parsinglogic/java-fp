@@ -45,18 +45,18 @@ jobs:
         run: |
           java -cp ${{github.workspace}}/jadle.jar org.drum.jadle.JadleRunner compile java-fp.project
 
-      - name: deploy
-        working-directory: ${{github.workspace}}/jadle.config
-        run: |
-          java -cp ${{github.workspace}}/jadle.jar org.drum.jadle.JadleRunner deploy-to-github -repo https://maven.pkg.github.com/parsinglogic/java-fp  java-fp.project
-        env:
-          MAVEN_USER_NAME: ${{ env.GITHUB_ACTOR }}
-          MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-
-#
 #      - name: deploy
-#        working-directory: ${{github.workspace}}
+#        working-directory: ${{github.workspace}}/jadle.config
 #        run: |
-#          mvn --batch-mode deploy
+#          java -cp ${{github.workspace}}/jadle.jar org.drum.jadle.JadleRunner deploy-to-github -repo https://maven.pkg.github.com/parsinglogic/java-fp  java-fp.project
 #        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          MAVEN_USER_NAME: ${{ env.GITHUB_ACTOR }}
+#          MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: deploy
+        working-directory: ${{github.workspace}}
+        run: |
+          mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
