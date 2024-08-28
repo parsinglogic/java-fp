@@ -7,8 +7,9 @@ jobs:
     runs-on: ubuntu-latest
 
 
-    permissions: write-all
-    permissions: read-all
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
