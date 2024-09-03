@@ -4,9 +4,9 @@
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 >
     <modelVersion>4.0.0</modelVersion>
-    <groupId>group</groupId>
+    <groupId>parsinglogic</groupId>
     <artifactId>java-fp</artifactId>
-    <version>1.54.0</version>
+    <version>0.1.0</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -14,13 +14,6 @@
     </properties>
 
 
-    <distributionManagement>
-      <repository>
-        <id>github</id>
-        <name>GitHub Packages</name>
-        <url>https://maven.pkg.github.com/parsinglogic/java-fp</url>
-      </repository>
-    </distributionManagement>
 
     <build>
         <!-- I need to copy these files to target. I would rather copy everything under resources but I can't find a way to do that -->
